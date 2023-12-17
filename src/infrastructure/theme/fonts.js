@@ -1,7 +1,6 @@
 export const fonts = {
-	body: "Oswald_400Regular",
-	heading: "Lato_400Regular",
-	monospace: "Oswald_400Regular",
+	regular: "Montserrat_400Regular",
+	bold: "Montserrat_700Bold",
 };
 
 export const fontWeights = {

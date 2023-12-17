@@ -26,18 +26,22 @@ const caption = (theme) => `
     font-weight: ${theme.fontWeights.bold};
 `;
 
-const label = (theme) => `
-    font-family: ${theme.fonts.heading};
-    font-size: ${theme.fontSizes.body};
-    font-weight: ${theme.fontWeights.medium};
+const heading = (theme) => `
+    font-family: ${theme.fonts.bold};
+    font-size: ${theme.fontSizes.h5};
+`;
+const subHeading = (theme) => `
+    font-family: ${theme.fonts.regular};
+    font-size: ${theme.fontSizes.title};
 `;
 
 const variants = {
 	body,
-	label,
 	caption,
 	error,
+	heading,
 	hint,
+	subHeading,
 };
 
 export const Text = styled.Text`
