@@ -1,8 +1,8 @@
 export const fonts = {
 	regular: "Montserrat_400Regular",
 	bold: "Montserrat_700Bold",
-	heading: "PlayfairDisplay_400Regular",
-	headingBold: "PlayfairDisplay_700Bold",
+	playfair: "PlayfairDisplay_400Regular",
+	playfairBold: "PlayfairDisplay_700Bold",
 };
 
 export const fontWeights = {
