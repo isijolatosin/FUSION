@@ -1,7 +1,9 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Animated } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Animated, ImageBackground } from "react-native";
+import styled from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { splashImage } from "../../../constants";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
@@ -31,7 +33,7 @@ const FadeInComponent = () => {
 				useNativeDriver: true,
 			}),
 			Animated.timing(offsetAnim, {
-				toValue: 0, // Offset value in pixels
+				toValue: 200, // Offset value in pixels
 				duration: 1000,
 				useNativeDriver: true,
 			}),
@@ -49,14 +51,38 @@ const FadeInComponent = () => {
 	);
 };
 
+const OnboardingSreencContainer = styled(ImageBackground)`
+	flex: 1;
+	justify-content: center;
+`;
+
+const BackgroundImageScreen = ({ route }) => {
+	const { backgroundImage } = route.params;
+	const image = { uri: `${backgroundImage}` };
+
+	return (
+		<OnboardingSreencContainer source={image}>
+			<FadeInComponent />
+		</OnboardingSreencContainer>
+	);
+};
+
 export default function index() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator
 				initialRouteName="Splash"
-				screenOptions={{ headerShown: false }}>
+				screenOptions={{
+					headerShown: false,
+				}}>
 				<Stack.Screen name="Splash" component={FadeOutComponent} />
-				<Stack.Screen name="onBoard" component={FadeInComponent} />
+				<Stack.Screen
+					name="onBoard"
+					component={BackgroundImageScreen}
+					initialParams={{
+						backgroundImage: splashImage,
+					}}
+				/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

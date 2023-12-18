@@ -6,6 +6,11 @@ import {
 	Montserrat_400Regular,
 	Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
+import {
+	useFonts as usePlayfairDisplay,
+	PlayfairDisplay_400Regular,
+	PlayfairDisplay_700Bold,
+} from "@expo-google-fonts/playfair-display";
 
 import { theme } from "./src/infrastructure/theme";
 import SplashScreen from "./src/features/Splash/screen";
@@ -16,8 +21,12 @@ export default function App() {
 		Montserrat_400Regular,
 		Montserrat_700Bold,
 	});
+	const [platfairDisplayLoaded] = usePlayfairDisplay({
+		PlayfairDisplay_400Regular,
+		PlayfairDisplay_700Bold,
+	});
 
-	if (!montserratLoaded) {
+	if (!montserratLoaded || !platfairDisplayLoaded) {
 		return null;
 	}
 
@@ -31,7 +40,7 @@ export default function App() {
 			<ThemeProvider theme={theme}>
 				{userObject["age"] ? <Main /> : <SplashScreen />}
 			</ThemeProvider>
-			<ExpoStatusBar style="auto" />
+			<ExpoStatusBar style={userObject["age"] ? "dark" : "light"} />
 		</Fragment>
 	);
 }

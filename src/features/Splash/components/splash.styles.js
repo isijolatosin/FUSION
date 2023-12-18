@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import styled from "styled-components/native";
 
 const ScreenWrapper = styled(View)`
@@ -13,6 +13,12 @@ const ScreenWrapper = styled(View)`
 	animation: fadeIn 5s;
 `;
 
+const OnboardingBG = styled(ImageBackground)`
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+`;
+
 const OnboardingWrapper = styled(View)`
 	height: 100%;
 	width: 80%;
@@ -20,6 +26,11 @@ const OnboardingWrapper = styled(View)`
 	flex-direction: column;
 	justify-content: center;
 	margin: 0 auto;
+`;
+
+const OnboardingScreenText = styled(Text)`
+	color: ${(props) => props.theme.colors.brand.white};
+	font-size: ${(props) => props.theme.sizes[1]};
 `;
 
 const LogoWrapper = styled(View)`
@@ -39,7 +50,7 @@ const LogoText = styled(Text)`
 `;
 
 const ButtonWrapper = styled(TouchableOpacity)`
-	background-color: ${(props) => props.theme.colors.brand.primary};
+	background-color: ${(props) => props.backgroundColor};
 	width: 100%;
 	padding-top: ${(props) => props.theme.space[3]};
 	padding-bottom: ${(props) => props.theme.space[3]};
@@ -58,6 +69,8 @@ const ButtonText = styled.Text`
 
 export {
 	ScreenWrapper,
+	OnboardingBG,
+	OnboardingScreenText,
 	OnboardingWrapper,
 	LogoWrapper,
 	LogoText,

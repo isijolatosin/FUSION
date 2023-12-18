@@ -5,9 +5,9 @@ import {
 	ButtonText,
 } from "../../features/Splash/components/splash.styles";
 
-export default function Button({ text }) {
+export default function Button({ text, backgroundColor }) {
 	return (
-		<ButtonWrapper>
+		<ButtonWrapper backgroundColor={backgroundColor}>
 			<ButtonText>{text}</ButtonText>
 		</ButtonWrapper>
 	);
