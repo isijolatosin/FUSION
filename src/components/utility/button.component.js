@@ -1,14 +1,23 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import {
 	ButtonWrapper,
 	ButtonText,
 } from "../../features/Splash/components/splash.styles";
 
-export default function Button({ text, backgroundColor }) {
+export default function Button({
+	backgroundColor,
+	borderColor,
+	buttonFunction,
+	text,
+	textColor,
+}) {
 	return (
-		<ButtonWrapper backgroundColor={backgroundColor}>
-			<ButtonText>{text}</ButtonText>
+		<ButtonWrapper
+			onPress={buttonFunction}
+			backgroundColor={backgroundColor}
+			borderColor={borderColor}
+			textColor={textColor}>
+			<ButtonText textColor={textColor}>{text}</ButtonText>
 		</ButtonWrapper>
 	);
 }

@@ -7,6 +7,7 @@ import { splashImage } from "../../../constants";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
+import CreateAccount from "../../Onboarding/components/CreateAccount";
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,7 @@ const FadeOutComponent = ({ navigation }) => {
 
 	return <Splash />;
 };
-const FadeInComponent = () => {
+const FadeInComponent = ({ navigation }) => {
 	const fadeAnim = useRef(new Animated.Value(0)).current;
 	const offsetAnim = useRef(new Animated.Value(500)).current;
 
@@ -46,7 +47,7 @@ const FadeInComponent = () => {
 				opacity: fadeAnim,
 				transform: [{ translateY: offsetAnim }],
 			}}>
-			<Onboarding />
+			<Onboarding navigation={navigation} />
 		</Animated.View>
 	);
 };
@@ -56,13 +57,12 @@ const OnboardingSreencContainer = styled(ImageBackground)`
 	justify-content: center;
 `;
 
-const BackgroundImageScreen = ({ route }) => {
-	const { backgroundImage } = route.params;
-	const image = { uri: `${backgroundImage}` };
+const OnboardingScreen = ({ navigation }) => {
+	const image = { uri: `${splashImage}` };
 
 	return (
 		<OnboardingSreencContainer source={image}>
-			<FadeInComponent />
+			<FadeInComponent navigation={navigation} />
 		</OnboardingSreencContainer>
 	);
 };
@@ -76,11 +76,12 @@ export default function index() {
 					headerShown: false,
 				}}>
 				<Stack.Screen name="Splash" component={FadeOutComponent} />
+				<Stack.Screen name="onBoard" component={OnboardingScreen} />
 				<Stack.Screen
-					name="onBoard"
-					component={BackgroundImageScreen}
-					initialParams={{
-						backgroundImage: splashImage,
+					name="create-account"
+					component={CreateAccount}
+					screenOptions={{
+						headerShown: false,
 					}}
 				/>
 			</Stack.Navigator>

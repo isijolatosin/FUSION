@@ -31,10 +31,11 @@ const OnboardingWrapper = styled(View)`
 const OnboardingScreenText = styled(Text)`
 	color: ${(props) => props.theme.colors.brand.white};
 	font-size: ${(props) => props.theme.sizes[1]};
+	font-family: ${(props) => props.theme.fonts.regular};
 `;
 
 const LogoWrapper = styled(View)`
-	background-color: ${(props) => props.theme.colors.brand.white};
+	background-color: ${(props) => props.theme.colors.brand.orange};
 	width: 200px;
 	height: 200px;
 	display: flex;
@@ -47,6 +48,7 @@ const LogoWrapper = styled(View)`
 const LogoText = styled(Text)`
 	font-size: ${(props) => props.theme.fontSizes.h4};
 	font-family: ${(props) => props.theme.fonts.bold};
+	color: ${(props) => props.theme.colors.ui.quaternary};
 `;
 
 const ButtonWrapper = styled(TouchableOpacity)`
@@ -54,6 +56,7 @@ const ButtonWrapper = styled(TouchableOpacity)`
 	width: 100%;
 	padding-top: ${(props) => props.theme.space[3]};
 	padding-bottom: ${(props) => props.theme.space[3]};
+	border: 1px solid ${(props) => props.borderColor};
 	border-radius: ${(props) => props.theme.space[3]};
 	display: flex;
 	justify-content: center;
@@ -63,7 +66,7 @@ const ButtonWrapper = styled(TouchableOpacity)`
 
 const ButtonText = styled.Text`
 	font-size: ${(props) => props.theme.fontSizes.body};
-	color: ${(props) => props.theme.colors.text.primary};
+	color: ${(props) => props.textColor};
 	font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 

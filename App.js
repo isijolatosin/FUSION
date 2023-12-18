@@ -11,10 +11,14 @@ import {
 	PlayfairDisplay_400Regular,
 	PlayfairDisplay_700Bold,
 } from "@expo-google-fonts/playfair-display";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import { theme } from "./src/infrastructure/theme";
 import SplashScreen from "./src/features/Splash/screen";
 import Main from "./src/features/Main/screen";
+
+const Stack = createStackNavigator();
 
 export default function App() {
 	const [montserratLoaded] = useMontserrat({
@@ -38,7 +42,23 @@ export default function App() {
 	return (
 		<Fragment>
 			<ThemeProvider theme={theme}>
-				{userObject["age"] ? <Main /> : <SplashScreen />}
+				{userObject["age"] ? (
+					<NavigationContainer>
+						<Stack.Navigator>
+							<Stack.Screen
+								name="Main"
+								component={Main}
+								screenOptions={{
+									headerShown: false,
+								}}
+							/>
+						</Stack.Navigator>
+					</NavigationContainer>
+				) : (
+					<>
+						<SplashScreen />
+					</>
+				)}
 			</ThemeProvider>
 			<ExpoStatusBar style={userObject["age"] ? "dark" : "light"} />
 		</Fragment>
