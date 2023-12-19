@@ -8,6 +8,7 @@ import { splashImage } from "../../../constants";
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
 import CreateAccount from "../../Onboarding/components/CreateAccount";
+import BioPage from "../../Onboarding/components/BioPage";
 
 const Stack = createStackNavigator();
 
@@ -82,6 +83,19 @@ export default function index() {
 					component={CreateAccount}
 					screenOptions={{
 						headerShown: false,
+					}}
+					options={{
+						cardStyle: { backgroundColor: "white" },
+					}}
+				/>
+				<Stack.Screen
+					name="bio-page"
+					component={BioPage}
+					screenOptions={{
+						headerShown: false,
+					}}
+					options={{
+						cardStyle: { backgroundColor: "white" },
 					}}
 				/>
 			</Stack.Navigator>

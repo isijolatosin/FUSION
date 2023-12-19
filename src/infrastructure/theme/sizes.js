@@ -18,4 +18,4 @@ export const sizes = [
 	"128px",
 ];
 
-export const iconSizes = [30, 40];
+export const iconSizes = [10, 30, 40];

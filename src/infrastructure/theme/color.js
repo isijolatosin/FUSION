@@ -3,8 +3,9 @@ export const colors = {
 		green: "#16C5AF",
 		orange: "#F16C1D",
 		white: "#FFFFFF",
-		primary: "#BFB9B8",
+		primary: "#D9D9D9",
 		secondary: "#514C4B",
+		lightorange: "#FEF2EB",
 	},
 	ui: {
 		primary: "#262626",
