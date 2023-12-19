@@ -4,4 +4,15 @@ export const lineHeights = {
 };
 export const letterSpacing = ["1px", "2px", "3px", "4px", "5px"];
 
-export const space = ["0px", "4px", "8px", "16px", "32px", "64px"];
+export const space = [
+	"0px",
+	"5px",
+	"10px",
+	"15px",
+	"20px",
+	"25px",
+	"30px",
+	"60px",
+	"80px",
+	"100px",
+];

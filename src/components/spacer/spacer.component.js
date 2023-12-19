@@ -1,9 +1,15 @@
 import styled from "styled-components/native";
 
 const sizeVariant = {
-	small: 1,
-	medium: 2,
-	large: 3,
+	xsmall: 1,
+	small: 2,
+	medium: 3,
+	large: 4,
+	xlarge: 5,
+	xxlarge: 6,
+	xxxlarge: 7,
+	xxxxlarge: 8,
+	xxxxlarge: 9,
 };
 
 const positionVariant = {
@@ -14,7 +20,6 @@ const positionVariant = {
 };
 
 const getVariant = (position, size, theme) => {
-	console.log("theme", theme);
 	const sizeIndex = sizeVariant[size];
 	const property = positionVariant[position];
 	const value = theme.space[sizeIndex];
