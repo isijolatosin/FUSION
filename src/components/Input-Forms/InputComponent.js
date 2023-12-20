@@ -3,7 +3,7 @@ import { Feather } from "@expo/vector-icons";
 
 import { useAppContext } from "../../context/ThemeContext";
 import IconComponent from "../icon-components/IconComponent";
-import { TextInput, TextInputWrapper } from "./input.styles";
+import { TextInput, TextInputWrapper, PlusText } from "./input.styles";
 
 export default function InputComponent({
 	includeIcon,
@@ -11,6 +11,7 @@ export default function InputComponent({
 	setValue,
 	value,
 	width,
+	isCountryCode,
 }) {
 	const [switchIcon, setSwitchIcon] = useState(false);
 	const {
@@ -19,12 +20,14 @@ export default function InputComponent({
 
 	return (
 		<TextInputWrapper width={width}>
+			{isCountryCode && <PlusText>+</PlusText>}
 			<TextInput
 				onChangeText={(text) => setValue(text)}
 				value={value}
 				keyboardType={keyboardType}
 				theme={theme}
 				includeIcon={includeIcon}
+				placeholder={isCountryCode ? "123" : ""}
 			/>
 			{includeIcon && (
 				<IconComponent
