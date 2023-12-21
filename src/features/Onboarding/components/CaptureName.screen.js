@@ -1,0 +1,98 @@
+import React, { useState } from "react";
+import { Keyboard, Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { SpaceArea } from "../../../components/utility/space-area.component";
+import { useAppContext } from "../../../context/ThemeContext";
+import { NavigationBar } from "./onboarding.styles";
+import IconComponent from "../../../components/icon-components/IconComponent";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
+import NextNavigation from "../../../components/Next-navigation";
+import InputComponent from "../../../components/Input-Forms/InputComponent";
+import { nameCaptureInstruction } from "../../../constants";
+
+export default function CaptureName({ navigation }) {
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [pageError, setPageError] = useState(false);
+  const {
+    state: { theme },
+  } = useAppContext();
+
+  return (
+    <SafeArea>
+      <Pressable onPress={Keyboard.dismiss}>
+        <SpaceArea space={theme.space[5]}>
+          <NavigationBar>
+            <IconComponent
+              iconFunction={() => navigation.goBack()}
+              iconName="chevron-back"
+              IconComponent={Ionicons}
+              size={30}
+              color={theme.colors.brand.orange}
+            />
+            <NextNavigation
+              theme={theme}
+              color={theme.colors.brand.orange}
+              nextFunction={() => {
+                if (firstname) {
+                  navigation.navigate("capture-email", {
+                    user: {
+                      firstname: firstname,
+                      lastname: lastname,
+                    },
+                  });
+                } else {
+                  setPageError(true);
+                }
+              }}
+            />
+          </NavigationBar>
+          <Spacer position="top" size="xxxxlarge">
+            <Text variant="headingSlim" width="55%">
+              What's your name?
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={setFirstname}
+              value={firstname}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="First Name"
+            />
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={setLastname}
+              value={lastname}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="Last Name"
+            />
+          </Spacer>
+          <Spacer position="top" size="large">
+            <Text variant="captionlight" width="100%">
+              {nameCaptureInstruction}
+            </Text>
+          </Spacer>
+          {pageError && (
+            <Spacer position="top" size="large">
+              <Text variant="error" width="100%">
+                Error: Please provide your name!
+              </Text>
+            </Spacer>
+          )}
+        </SpaceArea>
+      </Pressable>
+    </SafeArea>
+  );
+}

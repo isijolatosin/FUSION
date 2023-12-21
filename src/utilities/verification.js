@@ -41,9 +41,8 @@ export const confirmVerificationCode = (
     .auth()
     .signInWithCredential(credential)
     .then((res) => {
-      console.log("res message", res);
       setVerificationCode("");
-      navigation.navigate("bio-page", { isNewUser: res.isNewUser });
+      navigation.navigate("capture-name", { isNewUser: res.isNewUser });
 
       dispatch({ type: "SET_USER_PHONE", payload: phonenumberPlusCountryCode });
     })

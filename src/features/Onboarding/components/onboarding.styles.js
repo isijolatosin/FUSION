@@ -25,9 +25,8 @@ const PopupModal = styled.View`
   bottom: 0;
   right: 0;
   z-index: 10;
-  background-color: ${(props) => props.theme.colors.brand.white};
-  opacity: 0.7;
-  height: ${(props) => `${props.height}px`};
+  background-color: "rgba(255,255,255, 0.7)";
+  height: ${(props) => (props.height ? props.height : "100%")};
 `;
 
 const ViewContainer = styled.View`
@@ -35,4 +34,29 @@ const ViewContainer = styled.View`
   width: 100%;
 `;
 
-export { NavigationBar, InputWarraper, PopupModal, ViewContainer };
+const IconAndText = styled.View`
+  flex-direction: row;
+`;
+
+const LocationButtonWrapper = styled.TouchableOpacity`
+  padding-top: ${(props) => props.theme.space[4]};
+  padding-bottom: ${(props) => props.theme.space[4]};
+  border-bottom-width: ${(props) => (props.noBorderBottom ? 0 : "1px")};
+  border-color: ${(props) => props.theme.colors.text.disabled};
+  width: 100%;
+`;
+
+const LocationButtonText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.montserratSemibold};
+  text-align: center;
+`;
+
+export {
+  NavigationBar,
+  InputWarraper,
+  PopupModal,
+  ViewContainer,
+  IconAndText,
+  LocationButtonWrapper,
+  LocationButtonText,
+};

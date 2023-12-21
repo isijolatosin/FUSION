@@ -6,7 +6,6 @@ import { TouchableOpacity } from "react-native";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
-import NextNavigation from "../../../components/Next-navigation";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { SpaceArea } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
@@ -48,11 +47,6 @@ export default function OtpPage({ navigation }) {
               IconComponent={Ionicons}
               size={30}
               color={theme.colors.brand.orange}
-            />
-            <NextNavigation
-              theme={theme}
-              color={theme.colors.brand.orange}
-              nextFunction={() => {}}
             />
           </NavigationBar>
           <Spacer position="top" size="xxxlarge">

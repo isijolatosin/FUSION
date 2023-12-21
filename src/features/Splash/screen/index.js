@@ -7,10 +7,14 @@ import { splashImage } from "../../../constants";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
-import CreateAccount from "../../Onboarding/components/CreateAccount";
-import OtpPage from "../../Onboarding/components/OtpPage";
-import BioPage from "../../Onboarding/components/BioPage";
+import CreateAccount from "../../Onboarding/components/CreateAccount.screen";
+import OtpPage from "../../Onboarding/components/OtpPage.screen";
+import CaptureName from "../../Onboarding/components/CaptureName.screen";
+import CaptureEmail from "../../Onboarding/components/CaptureEmail.screen";
 import { useAppContext } from "../../../context/ThemeContext";
+import CaptureAddress from "../../Onboarding/components/CaptureAddress.screen";
+import CaptureLocation from "../../Onboarding/components/CaptureLocation.screen";
+import YouAreSpecial from "../../Onboarding/components/YouAreSpecial.screen";
 
 const Stack = createStackNavigator();
 
@@ -78,11 +82,11 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="splash" // change back to splash
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Splash" component={FadeOutComponent} />
+        <Stack.Screen name="splash" component={FadeOutComponent} />
         <Stack.Screen name="onBoard" component={OnboardingScreen} />
         <Stack.Screen
           name="create-account"
@@ -105,13 +109,53 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="bio-page"
-          component={BioPage}
+          name="capture-name"
+          component={CaptureName}
           screenOptions={{
             headerShown: false,
           }}
           options={{
             cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-email"
+          component={CaptureEmail}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-address"
+          component={CaptureAddress}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-location"
+          component={CaptureLocation}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="you-are-special"
+          component={YouAreSpecial}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.orange}` },
           }}
         />
       </Stack.Navigator>
