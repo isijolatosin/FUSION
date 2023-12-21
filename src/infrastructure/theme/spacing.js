@@ -17,3 +17,5 @@ export const space = [
   "80px",
   "100px",
 ];
+
+export const spaceNumber = [2, 4, 6, 8, 10];

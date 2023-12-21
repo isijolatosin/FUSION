@@ -74,12 +74,17 @@ export default function CreateAccount({ navigation }) {
                   value={countryCode}
                   width="25%"
                   isCountryCode={true}
+                  isBackgroundColor={true}
+                  placeholder="123"
                 />
                 <InputComponent
                   keyboardType="number-pad"
+                  includeIcon={false}
                   setValue={setPhonenumber}
                   value={phonenumber}
                   width="73%"
+                  isCountryCode={false}
+                  isBackgroundColor={true}
                 />
               </InputWarraper>
             </Spacer>

@@ -5,14 +5,25 @@ const TextInputWrapper = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.brand.lightorange};
-  border-radius: ${(props) => props.theme.space[1]};
+  background-color: ${(props) =>
+    props.isBackgroundColor ? props.theme.colors.brand.lightorange : ""};
+  border-radius: ${(props) =>
+    props.isBackgroundColor ? props.theme.space[1] : 0};
   padding: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) =>
+    props.isBackgroundColor ? props.theme.space[3] : 0};
+  padding-left: ${(props) =>
+    props.isBackgroundColor ? props.theme.space[3] : 0};
   width: ${(props) => props.width};
+  border-bottom-width: ${(props) =>
+    props.isBackgroundColor ? 0 : props.theme.letterSpacing[0]};
+  border-bottom-color: ${(props) =>
+    props.isBackgroundColor ? "" : props.theme.colors.ui.secondary};
 `;
 const TextInput = styled.TextInput`
-  font-size: ${(props) => props.theme.fontSizes.body};
-  font-family: ${(props) => props.theme.fonts.semibold};
+  font-size: ${(props) => props.theme.fontSizes.title};
+  font-family: ${(props) =>
+    props.fontType ? props.fontType : props.theme.fonts.montserratSemibold};
   width: 100%;
 `;
 const CodeInputWrapper = styled.View`
@@ -40,7 +51,7 @@ const OTPInputContainer = styled.Pressable`
 
 const OTPInput = styled.View`
   font-size: ${(props) => props.theme.fontSizes.h4};
-  font-family: ${(props) => props.theme.fonts.semibold};
+  font-family: ${(props) => props.theme.fonts.montserratSemibold};
   border-bottom-width: 1px;
   border-color: ${(props) => props.theme.colors.text.disabled};
   min-width: 12%;
@@ -48,7 +59,7 @@ const OTPInput = styled.View`
 
 const OTPInputText = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h4};
-  font-family: ${(props) => props.theme.fonts.semibold};
+  font-family: ${(props) => props.theme.fonts.montserratSemibold};
   text-align: center;
   color: ${(props) => props.theme.colors.text.primary};
 `;

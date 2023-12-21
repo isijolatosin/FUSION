@@ -12,30 +12,35 @@ const defaultTextStyles = (theme) => `
 const body = (theme) => `
     font-size: ${theme.fontSizes.body};
     letter-spacing: ${theme.letterSpacing[0]};
+    font-family: ${theme.fonts.montserratRegular};
 `;
 
 const hint = (theme) => `
     font-size: ${theme.fontSizes.body};
-    font-family: ${theme.fonts.regular};
+    font-family: ${theme.fonts.montserratRegular};
     color: ${theme.colors.brand.orange};
     `;
 
 const error = (theme) => `
     color: ${theme.colors.text.error};
-    font-family: ${theme.fonts.regular};
+    font-family: ${theme.fonts.montserratRegular};
 `;
 
 const caption = (theme) => `
-    font-family: ${theme.fonts.semibold};
+    font-family: ${theme.fonts.montserratSemibold};
     font-size: ${theme.fontSizes.caption};
 `;
+const captionBig = (theme) => `
+    font-family: ${theme.fonts.montserratSemibold};
+    font-size: ${theme.fontSizes.button};
+`;
 const captionlight = (theme) => `
-    font-family: ${theme.fonts.regular};
+    font-family: ${theme.fonts.montserratRegular};
     font-size: ${theme.fontSizes.caption};
 `;
 
 const heading = (theme) => `
-    font-family: ${theme.fonts.bold};
+    font-family: ${theme.fonts.montserratBold};
     font-size: ${theme.fontSizes.h5};
 `;
 
@@ -45,11 +50,11 @@ const headingSlim = (theme) => `
 `;
 
 const subHeading = (theme) => `
-    font-family: ${theme.fonts.regular};
+    font-family: ${theme.fonts.montserratRegular};
     font-size: ${theme.fontSizes.title};
 `;
 const popupText = (theme) => `
-    font-family: ${theme.fonts.bold};
+    font-family: ${theme.fonts.montserratBold};
     font-size: ${theme.fontSizes.button};
     text-align: center;
     background-color: ${theme.colors.brand.white};
@@ -61,23 +66,24 @@ const popupText = (theme) => `
 `;
 
 const variants = {
-	body,
-	caption,
-	captionlight,
-	error,
-	heading,
-	headingSlim,
-	hint,
-	popupText,
-	subHeading,
+  body,
+  caption,
+  captionlight,
+  captionBig,
+  error,
+  heading,
+  headingSlim,
+  hint,
+  popupText,
+  subHeading,
 };
 
 export const Text = styled.Text`
-	${({ theme }) => defaultTextStyles(theme)}
-	${({ variant, theme }) => variants[variant](theme)}
+  ${({ theme }) => defaultTextStyles(theme)}
+  ${({ variant, theme }) => variants[variant](theme)}
     width: ${(props) => props.width};
 `;
 
 Text.defaultProps = {
-	variant: "body",
+  variant: "body",
 };
