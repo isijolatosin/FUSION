@@ -26,7 +26,7 @@ const PopupModal = styled.View`
   right: 0;
   z-index: 10;
   background-color: "rgba(255,255,255, 0.7)";
-  height: ${(props) => (props.height ? props.height : "100%")};
+  height: ${(props) => (props.height ? props.height + "px" : "100%")};
 `;
 
 const ViewContainer = styled.View`
@@ -51,6 +51,25 @@ const LocationButtonText = styled.Text`
   text-align: center;
 `;
 
+const YouAreSpecialCircleWrapper = styled.View`
+  background-color: ${(props) => props.theme.colors.brand.peach};
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 150px;
+  padding: 30px;
+`;
+
+const YouAreSpecialCircleText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.playfairbold};
+  font-size: ${(props) => props.theme.fontSizes.h4};
+  width: 85%;
+  text-align: left;
+`;
+
 export {
   NavigationBar,
   InputWarraper,
@@ -59,4 +78,6 @@ export {
   IconAndText,
   LocationButtonWrapper,
   LocationButtonText,
+  YouAreSpecialCircleWrapper,
+  YouAreSpecialCircleText,
 };

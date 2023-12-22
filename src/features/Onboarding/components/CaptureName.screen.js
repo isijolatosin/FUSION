@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Keyboard, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { SpaceArea } from "../../../components/utility/space-area.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
 import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
@@ -18,13 +19,16 @@ export default function CaptureName({ navigation }) {
   const [lastname, setLastname] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
-    state: { theme },
+    state: { theme, user },
   } = useAppContext();
+
+  const route = useRoute();
+  const { phonenumber } = route.params || {};
 
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
-        <SpaceArea space={theme.space[5]}>
+        <HorizontalPaddingSpace space={theme.space[5]}>
           <NavigationBar>
             <IconComponent
               iconFunction={() => navigation.goBack()}
@@ -38,10 +42,11 @@ export default function CaptureName({ navigation }) {
               color={theme.colors.brand.orange}
               nextFunction={() => {
                 if (firstname) {
-                  navigation.navigate("capture-email", {
+                  navigation.navigate("capture-email-screen", {
                     user: {
                       firstname: firstname,
                       lastname: lastname,
+                      phonenumber: phonenumber,
                     },
                   });
                 } else {
@@ -91,7 +96,7 @@ export default function CaptureName({ navigation }) {
               </Text>
             </Spacer>
           )}
-        </SpaceArea>
+        </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>
   );

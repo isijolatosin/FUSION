@@ -8,13 +8,14 @@ import { splashImage } from "../../../constants";
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
 import CreateAccount from "../../Onboarding/components/CreateAccount.screen";
-import OtpPage from "../../Onboarding/components/OtpPage.screen";
+import OtpScreen from "../../Onboarding/components/Otp.screen";
 import CaptureName from "../../Onboarding/components/CaptureName.screen";
 import CaptureEmail from "../../Onboarding/components/CaptureEmail.screen";
 import { useAppContext } from "../../../context/ThemeContext";
 import CaptureAddress from "../../Onboarding/components/CaptureAddress.screen";
 import CaptureLocation from "../../Onboarding/components/CaptureLocation.screen";
 import YouAreSpecial from "../../Onboarding/components/YouAreSpecial.screen";
+import CaptureGenderScreen from "../../Onboarding/components/CaptureGender.screen";
 
 const Stack = createStackNavigator();
 
@@ -82,7 +83,7 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="splash" // change back to splash
+        initialRouteName="you-are-special-screen" // change back to splash
         screenOptions={{
           headerShown: false,
         }}>
@@ -99,8 +100,8 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="otp-page"
-          component={OtpPage}
+          name="otp-screen"
+          component={OtpScreen}
           screenOptions={{
             headerShown: false,
           }}
@@ -109,7 +110,7 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="capture-name"
+          name="capture-name-screen"
           component={CaptureName}
           screenOptions={{
             headerShown: false,
@@ -119,7 +120,7 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="capture-email"
+          name="capture-email-screen"
           component={CaptureEmail}
           screenOptions={{
             headerShown: false,
@@ -129,7 +130,7 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="capture-address"
+          name="capture-address-screen"
           component={CaptureAddress}
           screenOptions={{
             headerShown: false,
@@ -139,7 +140,7 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="capture-location"
+          name="capture-location-screen"
           component={CaptureLocation}
           screenOptions={{
             headerShown: false,
@@ -149,13 +150,23 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="you-are-special"
+          name="you-are-special-screen"
           component={YouAreSpecial}
           screenOptions={{
             headerShown: false,
           }}
           options={{
             cardStyle: { backgroundColor: `${theme.colors.brand.orange}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-gender-screen"
+          component={CaptureGenderScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
           }}
         />
       </Stack.Navigator>

@@ -14,19 +14,20 @@ import { confirmVerificationCode } from "../../utilities/verification";
 export default function OTPInputComponent({
   keyboardType,
   width,
+  pinReady,
   setPinReady,
-  code,
-  setCode,
+  verificationCode,
+  setVerificationCode,
   maxlength,
   verificationId,
   navigation,
-  phonenumberPlusCountryCode,
+  phonenumber,
   setVerificationErrorMessage,
 }) {
   const textInputRef = useRef(null);
   const codeDigitsArray = new Array(maxlength).fill(0);
   const {
-    state: { theme },
+    state: { theme, user },
     dispatch,
   } = useAppContext();
 
@@ -36,35 +37,24 @@ export default function OTPInputComponent({
     setInputContainerIsFocused(true);
     textInputRef?.current?.focus();
   }
-  if (code.length === maxlength) {
-    confirmVerificationCode(
-      verificationId,
-      code,
-      setCode,
-      navigation,
-      dispatch,
-      phonenumberPlusCountryCode,
-      setVerificationErrorMessage
-    );
-  }
 
   function handleOnBlur() {
     setInputContainerIsFocused(false);
   }
 
   useEffect(() => {
-    setPinReady(code.length === maxlength);
+    setPinReady(verificationCode.length === maxlength);
 
     return () => setPinReady(false);
-  }, [code]);
+  }, [verificationCode]);
 
   function toCodeDigitInput(_value, index) {
     const emptyInputChar = " ";
-    const digit = code[index] || emptyInputChar;
+    const digit = verificationCode[index] || emptyInputChar;
 
-    const isCurrentDigit = index === code.length;
+    const isCurrentDigit = index === verificationCode.length;
     const isLastDigit = index === maxlength - 1;
-    const isInputMaxed = code.length === maxlength;
+    const isInputMaxed = verificationCode.length === maxlength;
 
     const isDigitFocused = isCurrentDigit || (isLastDigit && isInputMaxed);
 
@@ -78,20 +68,35 @@ export default function OTPInputComponent({
     );
   }
 
+  if (pinReady) {
+    confirmVerificationCode(
+      verificationId,
+      verificationCode,
+      setVerificationCode,
+      navigation,
+      dispatch,
+      phonenumber,
+      setVerificationErrorMessage,
+      user
+    );
+  }
+
   return (
     <CodeInputWrapper>
       <OTPInputContainer onPress={handleOnPress}>
         {codeDigitsArray.map(toCodeDigitInput)}
       </OTPInputContainer>
       <HiddenCodeTextInput
-        onChangeText={setCode}
-        value={code}
+        onChangeText={setVerificationCode}
+        value={verificationCode}
         keyboardType={keyboardType}
         maxLength={maxlength}
         theme={theme}
         width={width}
         ref={textInputRef}
         onBlur={handleOnBlur}
+        returnKeyType="done"
+        textContentType="oneTimeCode"
       />
     </CodeInputWrapper>
   );

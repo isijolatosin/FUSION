@@ -11,7 +11,7 @@ import {
 
 import { firebaseConfig } from "../../../../config";
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { SpaceArea } from "../../../components/utility/space-area.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -24,6 +24,10 @@ import {
   PopupModal,
   ViewContainer,
 } from "./onboarding.styles";
+import {
+  createAccountInstruction,
+  phonenumberCaptionInstruction,
+} from "../../../constants";
 
 export default function CreateAccount({ navigation }) {
   const [isPopup, setPopup] = useState(false);
@@ -50,7 +54,7 @@ export default function CreateAccount({ navigation }) {
       />
       <Pressable onPress={Keyboard.dismiss}>
         <ViewContainer>
-          <SpaceArea space={theme.space[5]}>
+          <HorizontalPaddingSpace space={theme.space[5]}>
             <NavigationBar>
               <IconComponent
                 iconFunction={() => navigation.goBack()}
@@ -89,10 +93,7 @@ export default function CreateAccount({ navigation }) {
               </InputWarraper>
             </Spacer>
             <Spacer position="top" size="small">
-              <Text variant="caption">
-                We never share your details with anyone else. It’s our little
-                secret. What happens if my number changes?
-              </Text>
+              <Text variant="caption">{createAccountInstruction}</Text>
             </Spacer>
             {cellNumber.length > 10 && (
               <Spacer position="top" size="large">
@@ -106,11 +107,9 @@ export default function CreateAccount({ navigation }) {
             )}
             {isPopup && (
               <PopupModal height={height}>
-                <SpaceArea space={theme.space[6]}>
+                <HorizontalPaddingSpace space={theme.space[6]}>
                   <Text style={{ position: "relative" }} variant="popupText">
-                    Please note that your phone number is linked to your account
-                    for security and communication purposes. If you change your
-                    phone number, you would need to create a new account.
+                    {phonenumberCaptionInstruction}
                   </Text>
                   <View style={{ position: "absolute", top: 20, right: 50 }}>
                     <IconComponent
@@ -133,16 +132,17 @@ export default function CreateAccount({ navigation }) {
                               setCountryCode,
                               navigation
                             );
+                            setPopup(false);
                           }}>
                           <Text variant="hint">Request OTP</Text>
                         </TouchableOpacity>
                       </Spacer>
                     )}
                   </View>
-                </SpaceArea>
+                </HorizontalPaddingSpace>
               </PopupModal>
             )}
-          </SpaceArea>
+          </HorizontalPaddingSpace>
         </ViewContainer>
       </Pressable>
     </SafeArea>

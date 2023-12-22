@@ -6,7 +6,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const initialState = {
-    user: null,
+    user: {},
     gender: null,
     dob: null,
     height: null,

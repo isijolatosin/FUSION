@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { SpaceArea } from "../../../components/utility/space-area.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
 import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
@@ -25,7 +25,7 @@ export default function CaptureEmail({ navigation }) {
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
-        <SpaceArea space={theme.space[5]}>
+        <HorizontalPaddingSpace space={theme.space[5]}>
           <NavigationBar>
             <IconComponent
               iconFunction={() => navigation.goBack()}
@@ -40,7 +40,7 @@ export default function CaptureEmail({ navigation }) {
               nextFunction={() => {
                 if (email) {
                   user.email = email;
-                  navigation.navigate("capture-address", { user });
+                  navigation.navigate("capture-address-screen", { user });
                 } else {
                   setPageError(true);
                 }
@@ -71,7 +71,7 @@ export default function CaptureEmail({ navigation }) {
               </Text>
             </Spacer>
           )}
-        </SpaceArea>
+        </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>
   );
