@@ -12,7 +12,7 @@ import {
 import { Entypo } from "@expo/vector-icons";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { SpaceArea } from "../../../components/utility/space-area.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
@@ -43,7 +43,7 @@ export default function CaptureLocation({ navigation }) {
         justifyContent: "center",
       }}>
       <Pressable onPress={Keyboard.dismiss}>
-        <SpaceArea space={theme.space[6]}>
+        <HorizontalPaddingSpace space={theme.space[6]}>
           <Spacer position="top" size="xxxxlarge">
             <IconComponent
               iconFunction={() => {}}
@@ -131,7 +131,7 @@ export default function CaptureLocation({ navigation }) {
               </View>
             </PopupModal>
           )}
-        </SpaceArea>
+        </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>
   );

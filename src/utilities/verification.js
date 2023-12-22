@@ -12,7 +12,7 @@ export const sendVerification = (
     .verifyPhoneNumber(phonenumber, recaptchaVerifier?.current)
     .then((response) => {
       if (response) {
-        navigation.navigate("otp-page", {
+        navigation.navigate("otp-screen", {
           phonenumber,
           response,
         });
@@ -28,8 +28,7 @@ export const confirmVerificationCode = (
   verificationCode,
   setVerificationCode,
   navigation,
-  dispatch,
-  phonenumberPlusCountryCode,
+  phonenumber,
   setVerificationErrorMessage
 ) => {
   const credential = new firebase.auth.PhoneAuthProvider.credential(
@@ -41,12 +40,12 @@ export const confirmVerificationCode = (
     .auth()
     .signInWithCredential(credential)
     .then((res) => {
-      setVerificationCode("");
-      navigation.navigate("capture-name", { isNewUser: res.isNewUser });
-
-      dispatch({ type: "SET_USER_PHONE", payload: phonenumberPlusCountryCode });
+      navigation.navigate("capture-name-screen", { phonenumber });
     })
     .catch((error) => {
       setVerificationErrorMessage(error.message);
+    })
+    .finally(() => {
+      setVerificationCode("");
     });
 };

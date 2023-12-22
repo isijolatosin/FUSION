@@ -83,7 +83,7 @@ export default function App() {
           )}
         </ThemeProvider>
       </AppProvider>
-      <ExpoStatusBar style={userObject["age"] ? "dark" : "light"} />
+      <ExpoStatusBar style="dark" />
     </Fragment>
   );
 }
