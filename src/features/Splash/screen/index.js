@@ -16,6 +16,20 @@ import CaptureAddress from "../../Onboarding/components/CaptureAddress.screen";
 import CaptureLocation from "../../Onboarding/components/CaptureLocation.screen";
 import YouAreSpecial from "../../Onboarding/components/YouAreSpecial.screen";
 import CaptureGenderScreen from "../../Onboarding/components/CaptureGender.screen";
+import CaptureGenderInterestScreen from "../../Onboarding/components/CaptureGenderInterest.screen";
+import CaptureDOBScreen from "../../Onboarding/components/CaptureDOB.screen";
+import CaptureHeightScreen from "../../Onboarding/components/CaptureHeight.screen";
+import CaptureReligiousScreen from "../../Onboarding/components/CaptureReligious.screen";
+import CaptureCountryScreen from "../../Onboarding/components/CaptureCountry.screen";
+import CaptureLookingForScreen from "../../Onboarding/components/CaptureLookingFor.screen";
+import CaptureSelfDescriptionScreen from "../../Onboarding/components/CaptureSelfDescription.screen";
+import CaptureWorkPlaceScreen from "../../Onboarding/components/CaptureWorkPlace.screen";
+import CaptureJobTitleScreen from "../../Onboarding/components/CaptureJobTitle.screen";
+import CaptureInterestsScreen from "../../Onboarding/components/CaptureInterests.screen";
+import CaptureLifestyleHabitsScreen from "../../Onboarding/components/CaptureLifestyleHabits.screen";
+import CapturePhotosScreen from "../../Onboarding/components/CapturePhotos.screen";
+import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.screen";
+import MainScreen from "../../Main/screen";
 
 const Stack = createStackNavigator();
 
@@ -83,7 +97,7 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="you-are-special-screen" // change back to splash
+        initialRouteName="splash" // change back to splash
         screenOptions={{
           headerShown: false,
         }}>
@@ -162,6 +176,146 @@ export default function index() {
         <Stack.Screen
           name="capture-gender-screen"
           component={CaptureGenderScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-interest-screen"
+          component={CaptureGenderInterestScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-dob-screen"
+          component={CaptureDOBScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-height-screen"
+          component={CaptureHeightScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-religious-screen"
+          component={CaptureReligiousScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-country-screen"
+          component={CaptureCountryScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-looking-for-screen"
+          component={CaptureLookingForScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-self-description-screen"
+          component={CaptureSelfDescriptionScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-work-place-screen"
+          component={CaptureWorkPlaceScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-job-title-screen"
+          component={CaptureJobTitleScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-share-interest-screen"
+          component={CaptureInterestsScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-lifestly-habits-screen"
+          component={CaptureLifestyleHabitsScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-photos-screen"
+          component={CapturePhotosScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          }}
+        />
+        <Stack.Screen
+          name="your-profile-is-set"
+          component={YourProfileIsSet}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.orange}` },
+          }}
+        />
+        <Stack.Screen
+          name="main"
+          component={MainScreen}
           screenOptions={{
             headerShown: false,
           }}

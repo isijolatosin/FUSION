@@ -7,6 +7,7 @@ import {
 export default function Button({
   backgroundColor,
   isBorder,
+  isNotBold,
   borderColor,
   buttonFunction,
   text,
@@ -19,7 +20,9 @@ export default function Button({
       isBorder={isBorder}
       borderColor={borderColor}
       textColor={textColor}>
-      <ButtonText textColor={textColor}>{text}</ButtonText>
+      <ButtonText textColor={textColor} isNotBold={isNotBold}>
+        {text}
+      </ButtonText>
     </ButtonWrapper>
   );
 }

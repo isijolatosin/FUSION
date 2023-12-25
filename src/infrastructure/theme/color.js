@@ -7,6 +7,7 @@ export const colors = {
     secondary: "#514C4B",
     lightorange: "#FEF2EB",
     peach: "#FBDCCA",
+    black: "#000000",
   },
   ui: {
     primary: "#262626",

@@ -21,12 +21,12 @@ export default function OtpScreen({ navigation }) {
   const [verificationErrorMessage, setVerificationErrorMessage] =
     useState(null);
   const [pinReady, setPinReady] = useState(false);
-  const MAX_COD_LENGTH = 6;
+  const MAX_CODE_LENGTH = 6;
   const {
     state: { theme },
   } = useAppContext();
   const route = useRoute();
-  const { phonenumber, response } = route.params || {};
+  const { phonenumber, response, isToLogin } = route.params || {};
 
   return (
     <SafeArea>
@@ -60,11 +60,12 @@ export default function OtpScreen({ navigation }) {
               setPinReady={setPinReady}
               verificationCode={verificationCode}
               setVerificationCode={setVerificationCode}
-              maxlength={MAX_COD_LENGTH}
+              maxlength={MAX_CODE_LENGTH}
               verificationId={response}
               navigation={navigation}
               phonenumber={phonenumber}
               setVerificationErrorMessage={setVerificationErrorMessage}
+              isToLogin={isToLogin}
             />
           </Spacer>
           {verificationErrorMessage && (

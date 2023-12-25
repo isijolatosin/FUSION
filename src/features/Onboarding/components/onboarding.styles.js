@@ -12,7 +12,7 @@ const InputWarraper = styled.View`
   flex-direction: row;
   align-items: "center";
   justify-content: "space-between";
-  gap: ${(props) => props.theme.space[2]};
+  gap: ${(props) => (props.gap ? props.gap : props.theme.space[2])};
 `;
 
 const PopupModal = styled.View`
