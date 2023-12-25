@@ -11,8 +11,9 @@ import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import Button from "../../../components/utility/button.component";
 import { Dimensions } from "react-native";
+import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
-export default function CaptureName({ navigation }) {
+export default function CaptureGender({ navigation }) {
   const { height } = Dimensions.get("window");
   const [gender, setGender] = useState("");
   const [pageError, setPageError] = useState(false);
@@ -62,6 +63,7 @@ export default function CaptureName({ navigation }) {
                   ? theme.colors.brand.orange
                   : theme.colors.brand.lightorange
               }
+              isNotBold={true}
               isBorder={false}
               borderColor="transparent"
               buttonFunction={() => setGender("woman")}
@@ -71,7 +73,6 @@ export default function CaptureName({ navigation }) {
                   ? theme.colors.brand.white
                   : theme.colors.text.primary
               }
-              gender={gender}
             />
           </Spacer>
           <Spacer position="top" size="small">
@@ -81,6 +82,7 @@ export default function CaptureName({ navigation }) {
                   ? theme.colors.brand.orange
                   : theme.colors.brand.lightorange
               }
+              isNotBold={true}
               isBorder={false}
               borderColor="transparent"
               buttonFunction={() => setGender("man")}
@@ -99,6 +101,7 @@ export default function CaptureName({ navigation }) {
                   ? theme.colors.brand.orange
                   : theme.colors.brand.lightorange
               }
+              isNotBold={true}
               isBorder={false}
               borderColor="transparent"
               buttonFunction={() => setGender("non-binary")}
@@ -110,13 +113,10 @@ export default function CaptureName({ navigation }) {
               }
             />
           </Spacer>
-          {pageError && (
-            <Spacer position="top" size="large">
-              <Text variant="error" width="100%">
-                Error: Please provide your gender!
-              </Text>
-            </Spacer>
-          )}
+          <OnboardingErrorComponent
+            pageError={pageError}
+            text="Please provide your gender"
+          />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>
     </SafeArea>

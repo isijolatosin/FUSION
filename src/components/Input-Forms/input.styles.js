@@ -6,7 +6,11 @@ const TextInputWrapper = styled.View`
   flex-direction: row;
   align-items: center;
   background-color: ${(props) =>
-    props.isBackgroundColor ? props.theme.colors.brand.lightorange : ""};
+    props.isBackgroundColor
+      ? props.backgroundColor
+        ? props.theme.colors.brand[props.backgroundColor]
+        : props.theme.colors.brand.lightorange
+      : ""};
   border-radius: ${(props) =>
     props.isBackgroundColor ? props.theme.space[1] : 0};
   padding: ${(props) => props.theme.space[3]};
@@ -18,13 +22,20 @@ const TextInputWrapper = styled.View`
   border-bottom-width: ${(props) =>
     props.isBackgroundColor ? 0 : props.theme.letterSpacing[0]};
   border-bottom-color: ${(props) =>
-    props.isBackgroundColor ? "" : props.theme.colors.ui.secondary};
+    props.isBackgroundColor
+      ? ""
+      : props.isBorderColor
+      ? props.isBorderColor
+      : props.theme.colors.ui.secondary};
 `;
 const TextInput = styled.TextInput`
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${(props) =>
+    props.fontSize ? props.fontSize : props.theme.fontSizes.body};
   font-family: ${(props) =>
     props.fontType ? props.fontType : props.theme.fonts.montserratSemibold};
   width: 100%;
+  ${(props) => props.centralize && `text-align: center`};
+  ${(props) => props.fontColor && `color: ${props.fontColor}`};
 `;
 const CodeInputWrapper = styled.View`
   display: flex;
@@ -41,6 +52,7 @@ const HiddenCodeTextInput = styled.TextInput`
 
 const PlusText = styled.Text`
   margin-right: ${(props) => props.theme.space[1]};
+  ${(props) => props.fontColor && `color: ${props.fontColor}`};
 `;
 
 const OTPInputContainer = styled.Pressable`

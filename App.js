@@ -21,12 +21,10 @@ import {
   PlayfairDisplay_600SemiBold,
   PlayfairDisplay_700Bold,
 } from "@expo-google-fonts/playfair-display";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { theme } from "./src/infrastructure/theme";
 import SplashScreen from "./src/features/Splash/screen";
-import Main from "./src/features/Main/screen";
 import { AppProvider } from "./src/context/ThemeContext";
 
 const Stack = createStackNavigator();
@@ -55,32 +53,11 @@ export default function App() {
     return null;
   }
 
-  const userObject = {
-    // name: "tosin",
-    // age: 30,
-  };
-
   return (
     <Fragment>
       <AppProvider>
         <ThemeProvider theme={theme}>
-          {userObject["age"] ? (
-            <NavigationContainer>
-              <Stack.Navigator>
-                <Stack.Screen
-                  name="Main"
-                  component={Main}
-                  screenOptions={{
-                    headerShown: false,
-                  }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          ) : (
-            <>
-              <SplashScreen />
-            </>
-          )}
+          <SplashScreen />
         </ThemeProvider>
       </AppProvider>
       <ExpoStatusBar style="dark" />

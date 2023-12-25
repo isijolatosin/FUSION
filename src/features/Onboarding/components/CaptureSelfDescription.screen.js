@@ -1,0 +1,120 @@
+import React, { useState } from "react";
+import { Keyboard, Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
+
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
+import { useAppContext } from "../../../context/ThemeContext";
+import { NavigationBar } from "./onboarding.styles";
+import IconComponent from "../../../components/icon-components/IconComponent";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { Text } from "../../../components/typography/text.component";
+import NextNavigation from "../../../components/Next-navigation";
+import InputComponent from "../../../components/Input-Forms/InputComponent";
+import OnboardingErrorComponent from "./OnboardingErrorComponent";
+
+export default function CaptureSelfDescription({ navigation }) {
+  const [firstword, setFirstword] = useState("");
+  const [secondword, setSecondword] = useState("");
+  const [thirdword, setThirdword] = useState("");
+  const [pageError, setPageError] = useState(false);
+  const {
+    state: { theme },
+  } = useAppContext();
+
+  const route = useRoute();
+  const { dob, height, religious, country, preference } = route.params || {};
+
+  let checkInput = false;
+  let whatThreeWordsDescribeYou = {};
+  if (firstword && secondword && thirdword) {
+    checkInput = true;
+    whatThreeWordsDescribeYou = {
+      firstword: firstword,
+      secondword: secondword,
+      thirdword: thirdword,
+    };
+  }
+
+  return (
+    <SafeArea>
+      <Pressable onPress={Keyboard.dismiss}>
+        <HorizontalPaddingSpace space={theme.space[5]}>
+          <NavigationBar>
+            <IconComponent
+              iconFunction={() => navigation.goBack()}
+              iconName="chevron-back"
+              IconComponent={Ionicons}
+              size={30}
+              color={theme.colors.brand.orange}
+            />
+            <NextNavigation
+              theme={theme}
+              color={theme.colors.brand.orange}
+              nextFunction={() => {
+                if (checkInput) {
+                  navigation.navigate("capture-work-place-screen", {
+                    dob,
+                    height,
+                    religious,
+                    country,
+                    preference,
+                    whatThreeWordsDescribeYou,
+                  });
+                } else {
+                  setPageError(true);
+                }
+              }}
+            />
+          </NavigationBar>
+          <Spacer position="top" size="xxxxlarge">
+            <Text variant="headingSlim" width="100%">
+              What three words describe you?
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={setFirstword}
+              value={firstword}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="First word"
+            />
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={setSecondword}
+              value={secondword}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="Second word"
+            />
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={setThirdword}
+              value={thirdword}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="Third word"
+            />
+          </Spacer>
+          <OnboardingErrorComponent
+            pageError={pageError}
+            text="Please provide three words that describes you"
+          />
+        </HorizontalPaddingSpace>
+      </Pressable>
+    </SafeArea>
+  );
+}

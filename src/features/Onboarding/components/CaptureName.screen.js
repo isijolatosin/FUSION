@@ -19,7 +19,7 @@ export default function CaptureName({ navigation }) {
   const [lastname, setLastname] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
-    state: { theme, user },
+    state: { theme },
   } = useAppContext();
 
   const route = useRoute();

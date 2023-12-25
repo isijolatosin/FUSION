@@ -23,12 +23,12 @@ export default function OTPInputComponent({
   navigation,
   phonenumber,
   setVerificationErrorMessage,
+  isToLogin,
 }) {
   const textInputRef = useRef(null);
   const codeDigitsArray = new Array(maxlength).fill(0);
   const {
-    state: { theme, user },
-    dispatch,
+    state: { theme },
   } = useAppContext();
 
   const [inputContainerIsFocused, setInputContainerIsFocused] = useState(false);
@@ -74,10 +74,9 @@ export default function OTPInputComponent({
       verificationCode,
       setVerificationCode,
       navigation,
-      dispatch,
       phonenumber,
       setVerificationErrorMessage,
-      user
+      isToLogin ? "main" : "capture-name-screen"
     );
   }
 

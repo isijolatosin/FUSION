@@ -7,12 +7,19 @@ import { TextInput, TextInputWrapper, PlusText } from "./input.styles";
 
 export default function InputComponent({
   includeIcon,
+  centralize,
   keyboardType,
   setValue,
   value,
   width,
   isCountryCode,
+  backgroundColor,
   isBackgroundColor,
+  isBorderColor,
+  fontSize,
+  fontColor,
+  fontType,
+  maxlength,
   placeholder,
 }) {
   const [switchIcon, setSwitchIcon] = useState(false);
@@ -21,8 +28,12 @@ export default function InputComponent({
   } = useAppContext();
 
   return (
-    <TextInputWrapper width={width} isBackgroundColor={isBackgroundColor}>
-      {isCountryCode && <PlusText>+</PlusText>}
+    <TextInputWrapper
+      width={width}
+      backgroundColor={backgroundColor}
+      isBackgroundColor={isBackgroundColor}
+      isBorderColor={isBorderColor}>
+      {isCountryCode && <PlusText fontColor={fontColor}>+</PlusText>}
       <TextInput
         onChangeText={(text) => setValue(text)}
         value={value}
@@ -32,7 +43,12 @@ export default function InputComponent({
         placeholder={placeholder ? placeholder : ""}
         isBorderBottomInput={true}
         placeholderTextColor={theme.colors.text.disabled}
-        fontType={theme.fonts.montserratLightItalic}
+        fontType={fontType ?? theme.fonts.montserratLight}
+        centralize={centralize}
+        fontSize={fontSize}
+        fontColor={fontColor}
+        maxLength={maxlength}
+        backgroundColor="transparent"
       />
       {includeIcon && (
         <IconComponent

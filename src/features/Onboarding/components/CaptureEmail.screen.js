@@ -12,6 +12,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
+import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureEmail({ navigation }) {
   const [email, setEmail] = useState("");
@@ -48,7 +49,7 @@ export default function CaptureEmail({ navigation }) {
             />
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
-            <Text variant="headingSlim" width="55%">
+            <Text variant="headingSlim" width="100%">
               What's your email?
             </Text>
           </Spacer>
@@ -64,13 +65,10 @@ export default function CaptureEmail({ navigation }) {
               placeholder="Enter Email"
             />
           </Spacer>
-          {pageError && (
-            <Spacer position="top" size="large">
-              <Text variant="error" width="100%">
-                Error: Please provide your email!
-              </Text>
-            </Spacer>
-          )}
+          <OnboardingErrorComponent
+            pageError={pageError}
+            text="Please provide your email"
+          />
         </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>

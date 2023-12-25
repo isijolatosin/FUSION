@@ -15,6 +15,16 @@ const body = (theme) => `
     font-family: ${theme.fonts.montserratRegular};
 `;
 
+const bodyBold = (theme) => `
+    font-size: ${theme.fontSizes.button};
+    font-family: ${theme.fonts.montserratSemibold};
+`;
+
+const bodyBoldBold = (theme) => `
+    font-size: ${theme.fontSizes.body};
+    font-family: ${theme.fonts.montserratBold};
+`;
+
 const hint = (theme) => `
     font-size: ${theme.fontSizes.body};
     font-family: ${theme.fonts.montserratRegular};
@@ -34,6 +44,11 @@ const captionBig = (theme) => `
     font-family: ${theme.fonts.montserratSemibold};
     font-size: ${theme.fontSizes.button};
 `;
+const popButton = (theme) => `
+    font-family: ${theme.fonts.montserratRegular};
+    font-size: ${theme.fontSizes.button};
+`;
+
 const captionlight = (theme) => `
     font-family: ${theme.fonts.montserratRegular};
     font-size: ${theme.fontSizes.caption};
@@ -47,6 +62,12 @@ const heading = (theme) => `
 const headingSlim = (theme) => `
     font-family: ${theme.fonts.playfairbold};
     font-size: ${theme.fontSizes.h4};
+`;
+
+const headingWhiteSlim = (theme) => `
+    font-family: ${theme.fonts.playfairbold};
+    font-size: ${theme.fontSizes.h4};
+    color: ${theme.colors.brand.white};
 `;
 
 const subHeading = (theme) => `
@@ -70,12 +91,16 @@ const variants = {
   caption,
   captionlight,
   captionBig,
+  popButton,
   error,
   heading,
   headingSlim,
+  headingWhiteSlim,
   hint,
   popupText,
   subHeading,
+  bodyBold,
+  bodyBoldBold,
 };
 
 export const Text = styled.Text`

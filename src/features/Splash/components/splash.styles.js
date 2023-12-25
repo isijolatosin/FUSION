@@ -69,7 +69,10 @@ const ButtonWrapper = styled(TouchableOpacity)`
 const ButtonText = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.body};
   color: ${(props) => props.textColor};
-  font-weight: ${(props) => props.theme.fontWeights.bold};
+  font-weight: ${(props) =>
+    props.isNotBold
+      ? props.theme.fontWeights.regular
+      : props.theme.fontWeights.bold};
 `;
 
 export {

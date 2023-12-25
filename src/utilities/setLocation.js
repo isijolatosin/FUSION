@@ -1,7 +1,7 @@
 export const openLocationSettings = (Linking, Platform, navigation) => {
   if (Platform.OS === "ios") {
     Linking.openURL("app-settings:")
-      .then((data) => {
+      .then((_data) => {
         navigation.navigate("you-are-special-screen");
       })
       .catch(() => {
@@ -10,7 +10,7 @@ export const openLocationSettings = (Linking, Platform, navigation) => {
   } else {
     // For Android, open the app details settings
     Linking.openSettings()
-      .then((data) => {
+      .then((_data) => {
         navigation.navigate("you-are-special-screen");
       })
       .catch(() => {
