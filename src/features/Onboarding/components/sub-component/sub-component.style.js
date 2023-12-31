@@ -7,8 +7,8 @@ const DropdownSelectionContainer = styled.View`
 const DropdownSelectionWrapper = styled.View`
   background-color: ${(props) =>
     props.isSelectionDisplayInput
-      ? props.theme.colors.brand.orange
-      : props.theme.colors.brand.lightorange};
+      ? props.theme.colors.brand.base
+      : props.theme.colors.brand.highlight};
   align-items: center;
   border-top-right-radius: ${(props) => props.theme.space[4]};
   border-top-left-radius: ${(props) => props.theme.space[4]};
@@ -30,13 +30,13 @@ const DropdownSelectionText = styled.Text`
 `;
 
 const DropdowSelectionLists = styled.View`
-  background-color: ${(props) => props.theme.colors.brand.lightorange};
+  background-color: ${(props) => props.theme.colors.brand.highlight};
   align-items: center;
 `;
 
 const DropdowSelectionItemWrapper = styled.TouchableOpacity`
   border-bottom-color: ${(props) =>
-    props.isBorderBottom ? props.theme.colors.brand.primary : ""};
+    props.isBorderBottom ? props.theme.colors.brand.lines : ""};
   padding-bottom: ${(props) => props.theme.space[4]};
   width: 100%;
   border-bottom-width: ${(props) =>
@@ -52,8 +52,8 @@ const DropdowSelectionItem = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.title};
   color: ${(props) =>
     props.isSelectionDisplayInput
-      ? props.theme.colors.brand.white
-      : props.theme.colors.brand.secondary};
+      ? props.theme.colors.brand.basewhite
+      : props.theme.colors.brand.lines};
 `;
 export {
   DropdownSelectionContainer,

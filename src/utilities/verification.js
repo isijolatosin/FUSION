@@ -42,7 +42,7 @@ export const confirmVerificationCode = (
   firebase
     .auth()
     .signInWithCredential(credential)
-    .then((res) => {
+    .then((_res) => {
       navigation.navigate(`${destination}`, { phonenumber });
     })
     .catch((error) => {

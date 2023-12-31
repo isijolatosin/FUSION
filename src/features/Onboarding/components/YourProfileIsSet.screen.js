@@ -21,14 +21,7 @@ export default function YourProfileIsSet({ navigation }) {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      sendVerification(
-        phonenumber,
-        recaptchaVerifier,
-        () => {},
-        () => {},
-        navigation,
-        true
-      );
+      navigation.navigate("main", { phonenumber });
     }, 3000);
 
     return () => {

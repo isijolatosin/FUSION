@@ -25,7 +25,7 @@ const PopupModal = styled.View`
   bottom: 0;
   right: 0;
   z-index: 10;
-  background-color: "rgba(255,255,255, 0.7)";
+  background-color: "rgba(255, 255, 255, 0.7)";
   height: ${(props) => (props.height ? props.height + "px" : "100%")};
 `;
 
@@ -42,7 +42,7 @@ const LocationButtonWrapper = styled.TouchableOpacity`
   padding-top: ${(props) => props.theme.space[4]};
   padding-bottom: ${(props) => props.theme.space[4]};
   border-bottom-width: ${(props) => (props.noBorderBottom ? 0 : "1px")};
-  border-color: ${(props) => props.theme.colors.text.disabled};
+  border-color: ${(props) => props.theme.colors.brand.lines};
   width: 100%;
 `;
 

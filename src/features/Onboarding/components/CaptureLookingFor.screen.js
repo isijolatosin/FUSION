@@ -34,11 +34,11 @@ export default function CaptureLookingFor({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (preference) {
                 navigation.navigate("capture-self-description-screen", {
@@ -69,8 +69,8 @@ export default function CaptureLookingFor({ navigation }) {
             <Button
               backgroundColor={
                 preference === "Friendship"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -79,8 +79,8 @@ export default function CaptureLookingFor({ navigation }) {
               text="Friendship"
               textColor={
                 preference === "Friendship"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -88,8 +88,8 @@ export default function CaptureLookingFor({ navigation }) {
             <Button
               backgroundColor={
                 preference === "Life Partner"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -98,8 +98,8 @@ export default function CaptureLookingFor({ navigation }) {
               text="Life Partner"
               textColor={
                 preference === "Life Partner"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -107,8 +107,8 @@ export default function CaptureLookingFor({ navigation }) {
             <Button
               backgroundColor={
                 preference === "Casual Dating"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -117,8 +117,8 @@ export default function CaptureLookingFor({ navigation }) {
               text="Casual Dating"
               textColor={
                 preference === "Casual Dating"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -126,8 +126,8 @@ export default function CaptureLookingFor({ navigation }) {
             <Button
               backgroundColor={
                 preference === "Prefer Not to Say"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -136,8 +136,8 @@ export default function CaptureLookingFor({ navigation }) {
               text="Prefer Not to Say"
               textColor={
                 preference === "Prefer Not to Say"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>

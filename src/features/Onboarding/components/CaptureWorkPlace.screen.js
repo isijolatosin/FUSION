@@ -51,11 +51,11 @@ export default function CaptureWorkPlace({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
                 if (workplaceName) {
                   navigation.navigate("capture-job-title-screen", {
@@ -88,6 +88,8 @@ export default function CaptureWorkPlace({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Your work place"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <Spacer position="top" size="xxxxlarge">
@@ -95,7 +97,7 @@ export default function CaptureWorkPlace({ navigation }) {
               title="Visible on your profile"
               checked={isVisibleOnProfile}
               onPress={handleCheckboxToggle}
-              checkedColor={theme.colors.brand.orange}
+              checkedColor={theme.colors.brand.base}
               uncheckedColor={theme.colors.brand.peach}
               titleProps={{
                 style: {

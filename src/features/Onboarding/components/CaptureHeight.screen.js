@@ -36,11 +36,11 @@ export default function CaptureHeight({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (height) {
                 navigation.navigate("capture-religious-screen", {

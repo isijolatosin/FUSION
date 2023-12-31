@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, Platform } from "react-native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { useAppContext } from "../../../context/ThemeContext";
 import { youarespecialmessage } from "../../../constants";
 import {
   YouAreSpecialCircleText,
   YouAreSpecialCircleWrapper,
 } from "./onboarding.styles";
-import NextNavigation from "../../../components/Next-navigation";
-import { Spacer } from "../../../components/spacer/spacer.component";
 
 export default function YouAreSpecial({ navigation }) {
-  const {
-    state: { theme },
-  } = useAppContext();
   const { height } = Dimensions.get("window");
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      navigation.navigate("capture-gender-screen");
+    }, 5000);
+
+    return () => clearImmediate(timeoutId);
+  }, []);
 
   return (
     <SafeArea
@@ -30,14 +32,6 @@ export default function YouAreSpecial({ navigation }) {
           {youarespecialmessage}
         </YouAreSpecialCircleText>
       </YouAreSpecialCircleWrapper>
-      <Spacer position="top" size="xxxlarge">
-        <NextNavigation
-          theme={theme}
-          size={theme.sizes[3]}
-          color={theme.colors.brand.white}
-          nextFunction={() => navigation.navigate("capture-gender-screen")}
-        />
-      </Spacer>
       <YouAreSpecialCircleWrapper
         style={{
           position: "absolute",

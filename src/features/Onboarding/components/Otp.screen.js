@@ -42,7 +42,7 @@ export default function OtpScreen({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
           </NavigationBar>
           <Spacer position="top" size="xxxlarge">

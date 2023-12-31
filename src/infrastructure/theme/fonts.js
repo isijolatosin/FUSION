@@ -1,8 +1,8 @@
 export const fonts = {
   montserratThin: "Montserrat_100Thin",
   montserratThinItalic: "Montserrat_100Thin_Italic",
-  montserratExtraThin: "Montserrat_200ExtraLight",
-  montserratExtraThinItalic: "Montserrat_200ExtraLight_Italic",
+  montserratExtraLight: "Montserrat_200ExtraLight",
+  montserratExtraLightItalic: "Montserrat_200ExtraLight_Italic",
   montserratLight: "Montserrat_300Light",
   montserratLightItalic: "Montserrat_300Light_Italic",
   montserratRegular: "Montserrat_400Regular",
