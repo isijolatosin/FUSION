@@ -42,7 +42,7 @@ export default function InputComponent({
         includeIcon={includeIcon}
         placeholder={placeholder ? placeholder : ""}
         isBorderBottomInput={true}
-        placeholderTextColor={theme.colors.text.disabled}
+        placeholderTextColor={theme.colors.brand.lines}
         fontType={fontType ?? theme.fonts.montserratLight}
         centralize={centralize}
         fontSize={fontSize}

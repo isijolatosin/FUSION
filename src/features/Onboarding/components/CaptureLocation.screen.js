@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -28,13 +28,34 @@ import {
   locationCaptureInstruction,
 } from "../../../constants";
 import { openLocationSettings } from "../../../utilities/setLocation";
+import OnboardingErrorComponent from "./OnboardingErrorComponent";
+import getUserLocation from "../../../utilities/getUserLocation";
 
 export default function CaptureLocation({ navigation }) {
   const {
     state: { theme, user },
+    dispatch,
   } = useAppContext();
   const { height } = Dimensions.get("window");
   const [isLoading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    message: "",
+    code: "",
+  });
+
+  useEffect(() => {
+    const functionCall = async () => {
+      const userLocation = await getUserLocation(setResponseMessage);
+      user.longitude = userLocation.longitude;
+      user.latitude = userLocation.latitude;
+      dispatch({
+        type: "SET_USER",
+        payload: user,
+      });
+    };
+
+    functionCall();
+  }, []);
 
   return (
     <SafeArea
@@ -50,7 +71,7 @@ export default function CaptureLocation({ navigation }) {
               iconName="location-pin"
               IconComponent={Entypo}
               size={80}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               centralize={true}
             />
           </Spacer>
@@ -65,23 +86,29 @@ export default function CaptureLocation({ navigation }) {
             </Text>
           </Spacer>
 
+          <OnboardingErrorComponent
+            pageError={responseMessage.code === "failed"}
+            text="Location Access Denied! Please allow Your-Fusion to access your location"
+          />
+
           <View
             style={{
               height: "45%",
               justifyContent: "flex-end",
             }}>
             {isLoading ? (
-              <ActivityIndicator
-                size="large"
-                color={theme.colors.brand.orange}
-              />
+              <ActivityIndicator size="large" color={theme.colors.brand.base} />
             ) : (
               <Button
-                backgroundColor={theme.colors.brand.orange}
+                backgroundColor={theme.colors.brand.base}
                 isBorder={false}
-                buttonFunction={() => setLoading(true)}
+                buttonFunction={() => {
+                  if (!user.longitude && !user.latitude) return;
+                  if (responseMessage.code === "failed") return;
+                  setLoading(true);
+                }}
                 text="Enable Location"
-                textColor={theme.colors.brand.white}
+                textColor={theme.colors.brand.basewhite}
               />
             )}
           </View>
@@ -90,12 +117,12 @@ export default function CaptureLocation({ navigation }) {
               <View
                 style={{
                   height: "60%",
-                  backgroundColor: "white",
+                  backgroundColor: theme.colors.brand.basewhite,
                   paddingTop: 10,
                   width: "80%",
                   alignItems: "center",
                   elevation: 5,
-                  shadowColor: theme.colors.text.primary,
+                  shadowColor: theme.colors.brand.black,
                   shadowOpacity: 0.3,
                   shadowRadius: "5px",
                 }}>

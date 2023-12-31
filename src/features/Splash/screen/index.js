@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, ImageBackground } from "react-native";
+import { Animated, ImageBackground, Platform } from "react-native";
 import styled from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { splashImage } from "../../../constants";
+import {
+  Ionicons,
+  FontAwesome,
+  Entypo,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
+import { splashImage } from "../../../constants";
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
 import CreateAccount from "../../Onboarding/components/CreateAccount.screen";
@@ -30,14 +37,80 @@ import CaptureLifestyleHabitsScreen from "../../Onboarding/components/CaptureLif
 import CapturePhotosScreen from "../../Onboarding/components/CapturePhotos.screen";
 import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.screen";
 import MainScreen from "../../Main/screen";
+import ProfileScreen from "../../Profile/screen";
+import LikesScreen from "../../Likes/screen";
+import ChatsScreen from "../../Chats/screen";
+import { theme } from "../../../infrastructure/theme";
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={() => ({
+        tabBarStyle: {
+          height: Platform.OS === "ios" ? 100 : 80,
+          paddingHorizontal: 10,
+          paddingTop: 0,
+          backgroundColor: theme.colors.brand.highlight,
+          borderTopWidth: 0,
+        },
+        headerShown: false,
+        tabBarLabel: "",
+        tabBarActiveTintColor: theme.colors.brand.base,
+        tabBarInactiveTintColor: theme.colors.brand.brandFade,
+      })}>
+      <Tab.Screen
+        name="Home"
+        component={MainScreen}
+        options={{
+          cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          tabBarIcon: ({ color }) => (
+            <Entypo name="home" color={color} size={35} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user" color={color} size={35} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Likes"
+        component={LikesScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="cards-heart"
+              color={color}
+              size={35}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatsScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="chatbubble-sharp" color={color} size={35} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 const FadeOutComponent = ({ navigation }) => {
   useEffect(() => {
     const timeOutID = setTimeout(() => {
       navigation.navigate("onBoard");
-    }, 4000);
+    }, 2000);
 
     return () => clearTimeout(timeOutID);
   }, []);
@@ -170,7 +243,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.orange}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base}` },
           }}
         />
         <Stack.Screen
@@ -310,12 +383,12 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.orange}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base}` },
           }}
         />
         <Stack.Screen
           name="main"
-          component={MainScreen}
+          component={TabNavigator}
           screenOptions={{
             headerShown: false,
           }}

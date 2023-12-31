@@ -37,7 +37,7 @@ export default function DropdownSelection({
       <DropdownSelectionWrapper isOpen={isOpen} isSelectionDisplayInput={true}>
         <DropdowSelectionItemWrapper
           isBorderBottom={false}
-          onPress={() => setOpen(true)}>
+          onPress={() => setOpen(!isOpen)}>
           <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
             <DropdowSelectionItem
               style={{ color: theme.colors.brand.peach }}

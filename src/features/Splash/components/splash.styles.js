@@ -29,15 +29,15 @@ const OnboardingWrapper = styled(View)`
 `;
 
 const OnboardingScreenText = styled(Text)`
-  color: ${(props) => props.theme.colors.brand.white};
+  color: ${(props) => props.theme.colors.brand.basewhite};
   font-size: ${(props) => props.theme.sizes[1]};
   font-family: ${(props) => props.theme.fonts.montserratRegular};
 `;
 
 const LogoWrapper = styled(View)`
-  background-color: ${(props) => props.theme.colors.brand.orange};
-  width: 200px;
-  height: 200px;
+  background-color: ${(props) => props.theme.colors.brand.base};
+  width: ${(props) => (props.width ? props.width + "px" : 200 + "px")};
+  height: ${(props) => (props.width ? props.width + "px" : 200 + "px")};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,9 +46,10 @@ const LogoWrapper = styled(View)`
 `;
 
 const LogoText = styled(Text)`
-  font-size: ${(props) => props.theme.fontSizes.h4};
+  font-size: ${(props) =>
+    props.size ? props.theme.fontSizes[props.size] : props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.montserratBold};
-  color: ${(props) => props.theme.colors.ui.quaternary};
+  color: ${(props) => props.theme.colors.brand.basewhite};
 `;
 
 const ButtonWrapper = styled(TouchableOpacity)`

@@ -61,7 +61,7 @@ export default function CreateAccount({ navigation }) {
                 iconName="chevron-back"
                 IconComponent={Ionicons}
                 size={30}
-                color={theme.colors.brand.orange}
+                color={theme.colors.brand.base}
               />
             </NavigationBar>
             <Spacer position="top" size="xxxlarge">
@@ -113,7 +113,7 @@ export default function CreateAccount({ navigation }) {
                   </Text>
                   <View style={{ position: "absolute", top: 20, right: 50 }}>
                     <IconComponent
-                      color={theme.colors.brand.orange}
+                      color={theme.colors.brand.base}
                       iconFunction={() => setPopup(false)}
                       iconName="close"
                       IconComponent={AntDesign}

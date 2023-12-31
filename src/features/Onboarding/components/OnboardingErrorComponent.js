@@ -11,7 +11,7 @@ export default function OnboardingErrorComponent({
     <Fragment>
       {pageError && (
         <Spacer
-          style={{ marginBottom: bottomSpace ? 60 : 0 }}
+          style={{ marginBottom: bottomSpace ? 30 : 0 }}
           position="top"
           size="large">
           <Text variant="error" width="100%">

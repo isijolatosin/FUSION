@@ -43,11 +43,11 @@ export default function CaptureDOB({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
                 if (Object.values(dob).length > 2 || (month && day && year)) {
                   navigation.navigate("capture-height-screen", { dob });
@@ -81,7 +81,7 @@ export default function CaptureDOB({ navigation }) {
                     setValue={setMonth}
                     value={month}
                     isCountryCode={false}
-                    backgroundColor={"lightorange"}
+                    backgroundColor={"highlight"}
                     isBackgroundColor={true}
                     fontType={theme.fonts.montserratRegular}
                     maxlength={2}
@@ -98,7 +98,7 @@ export default function CaptureDOB({ navigation }) {
                     setValue={setDay}
                     value={day}
                     isCountryCode={false}
-                    backgroundColor={"lightorange"}
+                    backgroundColor={"highlight"}
                     isBackgroundColor={true}
                     fontType={theme.fonts.montserratRegular}
                     maxlength={2}
@@ -119,7 +119,7 @@ export default function CaptureDOB({ navigation }) {
                     setValue={setYear}
                     value={year}
                     isCountryCode={false}
-                    backgroundColor={"lightorange"}
+                    backgroundColor={"highlight"}
                     isBackgroundColor={true}
                     fontType={theme.fonts.montserratRegular}
                     maxlength={4}

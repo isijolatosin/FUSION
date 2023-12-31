@@ -1,240 +1,160 @@
-import React, { useEffect, useState } from "react";
-import { Image, ScrollView, View } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import React, { Fragment, useEffect, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 import { collection, getDocs } from "firebase/firestore";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 
-import { theme } from "../../../infrastructure/theme";
-import { SafeArea } from "../../../components/utility/safe-area.component";
-import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import { Text } from "../../../components/typography/text.component";
 import { database } from "../../../../config";
+import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
+import { useAppContext } from "../../../context/ThemeContext";
+import { Spacer } from "../../../components/spacer/spacer.component";
 import { NavigationBar } from "../../Onboarding/components/onboarding.styles";
-import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
+import { Text } from "../../../components/typography/text.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
+import { SafeArea } from "../../../components/utility/safe-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
+import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
+import BrandAvatar from "./sub-component/BrandAvatar";
+import FilterComponent from "./sub-component/FilterComponent";
+import { CloseButton, FilterText, FilterWrapper } from "./main.style";
 
 const Index = () => {
-  const route = useRoute();
-  const { phonenumber } = route.params || {}; // use number to fetch user data from firebase
-  const [data, setData] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
+  const [userFilteredData, setUserFilteredData] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const fetchPost = async (number) => {
-    await getDocs(collection(database, "all-users")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+  const {
+    state: { theme },
+  } = useAppContext();
 
-      const filterdata = newData.filter(
-        // (datum) => datum.phonenumber === phonenumber
-        (datum) => datum.phonenumber === "+14372208744" // change this to number
-      );
-      setData(filterdata[0]);
-    });
+  const fetchUsersData = async (phonenumber) => {
+    if (phonenumber) {
+      await getDocs(collection(database, "all-users")).then((querySnapshot) => {
+        const newData = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+        const returningData = [];
+        newData.filter((data) => {
+          if (data.phonenumber !== phonenumber) returningData.push(data);
+        });
+        setAllUsers(returningData);
+
+        const currentUserData = newData.find(
+          (data) => data.phonenumber === phonenumber
+        );
+        setCurrentUser(currentUserData);
+      });
+    }
   };
 
   useEffect(() => {
-    const phoneFromPhoneStorage = retrieveData("phonenumber");
+    const functionCall = async () => {
+      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+      fetchUsersData(phoneValueFromPhoneMemory);
+    };
 
-    if (phoneFromPhoneStorage) fetchPost(phoneFromPhoneStorage);
+    functionCall();
   }, []);
 
-  let youInThreeWords = [];
+  // if (!allUsers.length) {
+  //   return (
+  //     <SafeArea
+  //       style={{
+  //         backgroundColor: theme.colors.brand.white,
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}>
+  //       <Text variant="loading">Loading...</Text>
+  //     </SafeArea>
+  //   );
+  // }
 
-  if (
-    (data?.whatThreeWordsDescribeYou?.firstword,
-    data?.whatThreeWordsDescribeYou?.secondword,
-    data?.whatThreeWordsDescribeYou?.thirdword)
-  )
-    youInThreeWords = [
-      data?.whatThreeWordsDescribeYou?.firstword,
-      data?.whatThreeWordsDescribeYou?.secondword,
-      data?.whatThreeWordsDescribeYou?.thirdword,
-    ];
+  let currentUsertoSwipe = {};
+  if (allUsers.length > 0) currentUsertoSwipe = allUsers[index];
 
-  function calculateAge(year) {
-    const currentYear = new Date().getFullYear();
+  let currentSwipeIndexIsLessThanAllUsersLength = true;
+  if (index >= allUsers.length - 1)
+    currentSwipeIndexIsLessThanAllUsersLength = false;
 
-    return currentYear - year;
+  function handleFilterClose() {
+    setIsVisible(false);
+  }
+  function handleFilterOpen() {
+    setIsVisible(true);
   }
 
   return (
-    <SafeArea>
-      <HorizontalPaddingSpace space={theme.space[5]}>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.white }}>
+      <HorizontalPaddingSpace
+        style={{ position: "relative" }}
+        space={theme.space[5]}>
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="large">
             <NavigationBar>
-              <Text variant="captionlight"></Text>
-              <Text
-                style={{
-                  backgroundColor: theme.colors.brand.lightorange,
-                  paddingHorizontal: 12,
-                  paddingVertical: 8,
-                }}
-                variant="captionlight">
-                Filter
-              </Text>
+              <BrandAvatar />
+              <Fragment>
+                <TouchableOpacity
+                  style={{
+                    transform: [{ rotateX: "180deg" }],
+                  }}>
+                  <IconComponent
+                    iconFunction={() => index > 0 && setIndex(index - 1)}
+                    iconName="undo-variant"
+                    IconComponent={MaterialCommunityIcons}
+                    size={30}
+                    color={
+                      index > 0
+                        ? theme.colors.brand.brandFade
+                        : theme.colors.brand.highlight
+                    }
+                  />
+                </TouchableOpacity>
+                <FilterWrapper onPress={handleFilterOpen}>
+                  <FilterText variant="popButton">Filter</FilterText>
+                </FilterWrapper>
+              </Fragment>
             </NavigationBar>
           </Spacer>
         </Spacer>
-        <ScrollView style={{ marginBottom: 100 }}>
-          <Image
-            style={{
-              width: "100%",
-              height: 400,
-              resizeMode: "cover",
-              borderRadius: 5,
-            }}
-            source={{
-              uri: `${data.mediaArray?.[0]}`,
-            }}
-          />
-          <View style={{ position: "absolute", top: 40, left: 10 }}>
-            <Text variant="headingWhiteSlim" width="100%">
-              {data?.firstname}, {calculateAge(data?.dob?.year)}
-            </Text>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "100%",
-              paddingRight: 10,
-            }}>
+        <IndividualUserProfileComponent
+          data={currentUsertoSwipe}
+          theme={theme}
+          index={index}
+          setIndex={setIndex}
+          currentSwipeIndexIsLessThanAllUsersLength={
+            currentSwipeIndexIsLessThanAllUsersLength
+          }
+        />
+        <CloseButton
+          style={{
+            elevation: 5,
+            shadowColor: theme.colors.brand.black,
+            shadowOpacity: 0.3,
+            shadowRadius: "10px",
+          }}>
+          <View>
             <IconComponent
-              iconFunction={() => {}}
+              iconFunction={() =>
+                currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1)
+              }
               iconName="close"
-              IconComponent={Ionicons}
-              size={60}
-              color={theme.colors.brand.white}
-            />
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="heart"
-              IconComponent={MaterialCommunityIcons}
-              size={60}
-              color={theme.colors.brand.white}
+              IconComponent={AntDesign}
+              size={35}
+              color={theme.colors.brand.base}
             />
           </View>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              Me in Three Words
-            </Text>
-          </Spacer>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: 8,
-              marginVertical: 5,
-            }}>
-            {youInThreeWords.map((word, idx) => (
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.lightorange,
-                  paddingVertical: 5,
-                  paddingHorizontal: 12,
-                  borderRadius: 50,
-                }}>
-                <Text key={idx} variant="captionlight" width="100%">
-                  {word}
-                </Text>
-              </View>
-            ))}
-          </View>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              My Interests
-            </Text>
-          </Spacer>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: 8,
-              marginVertical: 5,
-              flexWrap: "wrap",
-            }}>
-            {data?.interestsArray?.map((word, idx) => (
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.lightorange,
-                  paddingVertical: 5,
-                  paddingHorizontal: 12,
-                  borderRadius: 50,
-                }}>
-                <Text key={idx} variant="captionlight" width="100%">
-                  {word}
-                </Text>
-              </View>
-            ))}
-          </View>
-          <Spacer style={{ position: "relative" }} position="top" size="large">
-            <Image
-              style={{
-                width: "100%",
-                height: 400,
-                resizeMode: "cover",
-                borderRadius: 5,
-              }}
-              source={{
-                uri: `${data.mediaArray?.[1]}`,
-              }}
-            />
-          </Spacer>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              My Basics
-            </Text>
-          </Spacer>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: 8,
-              marginVertical: 5,
-            }}>
-            {youInThreeWords.map((word, idx) => (
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.lightorange,
-                  paddingVertical: 5,
-                  paddingHorizontal: 12,
-                  borderRadius: 50,
-                }}>
-                <Text key={idx} variant="captionlight" width="100%">
-                  {word}
-                </Text>
-              </View>
-            ))}
-          </View>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              My Location
-            </Text>
-            <Spacer position="top" size="xsmall">
-              <Text variant="captionlight">{data?.address}</Text>
-            </Spacer>
-          </Spacer>
-          <Spacer position="top" size="medium">
-            {data?.mediaArray.splice(2).map((image) => (
-              <Image
-                style={{
-                  width: "100%",
-                  height: 400,
-                  resizeMode: "cover",
-                  borderRadius: 5,
-                }}
-                source={{
-                  uri: `${image}`,
-                }}
-              />
-            ))}
-          </Spacer>
-        </ScrollView>
+        </CloseButton>
+
+        <FilterComponent
+          theme={theme}
+          isVisible={isVisible}
+          onClose={handleFilterClose}
+          allUsers={allUsers}
+          setUserFilteredData={setUserFilteredData}
+        />
       </HorizontalPaddingSpace>
     </SafeArea>
   );

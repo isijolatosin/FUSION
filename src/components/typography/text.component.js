@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 const defaultTextStyles = (theme) => `
   font-family: ${theme.fonts.body};
   font-weight: ${theme.fontWeights.regular};
-  color: ${theme.colors.text.primary};
+  color: ${theme.colors.brand.black};
   flex-wrap: wrap;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -21,18 +21,28 @@ const bodyBold = (theme) => `
 `;
 
 const bodyBoldBold = (theme) => `
-    font-size: ${theme.fontSizes.body};
+    font-size: ${theme.fontSizes.title};
     font-family: ${theme.fonts.montserratBold};
 `;
+
+const loading = (theme, colorType, fontType, fontSize) => `
+    font-size: ${fontSize ? theme.fontSizes[fontSize] : theme.fontSizes.title};
+    font-family: ${
+      fontType ? theme.fonts[fontType] : theme.fonts.montserratRegular
+    };
+    color: ${
+      colorType ? theme.colors.brand[colorType] : theme.colors.brand.base
+    };
+    `;
 
 const hint = (theme) => `
     font-size: ${theme.fontSizes.body};
     font-family: ${theme.fonts.montserratRegular};
-    color: ${theme.colors.brand.orange};
+    color: ${theme.colors.brand.base};
     `;
 
 const error = (theme) => `
-    color: ${theme.colors.text.error};
+    color: ${theme.colors.brand.error};
     font-family: ${theme.fonts.montserratRegular};
 `;
 
@@ -45,7 +55,7 @@ const captionBig = (theme) => `
     font-size: ${theme.fontSizes.button};
 `;
 const popButton = (theme) => `
-    font-family: ${theme.fonts.montserratRegular};
+    font-family: ${theme.fonts.montserratBold};
     font-size: ${theme.fontSizes.button};
 `;
 
@@ -66,21 +76,26 @@ const headingSlim = (theme) => `
 
 const headingWhiteSlim = (theme) => `
     font-family: ${theme.fonts.playfairbold};
-    font-size: ${theme.fontSizes.h4};
-    color: ${theme.colors.brand.white};
+    font-size: ${theme.fontSizes.h2};
+    color: ${theme.colors.brand.basewhite};
 `;
 
-const subHeading = (theme) => `
-    font-family: ${theme.fonts.montserratRegular};
-    font-size: ${theme.fontSizes.title};
+const subHeading = (theme, colorType, fontType, fontSize) => `
+    font-family: ${
+      fontType ? theme.fonts[fontType] : theme.fonts.montserratRegular
+    };
+    font-size: ${fontSize ? theme.fontSizes[fontSize] : theme.fontSizes.title};
+    color: ${
+      colorType ? theme.colors.brand[colorType] : theme.colors.brand.base
+    };
 `;
 const popupText = (theme) => `
     font-family: ${theme.fonts.montserratBold};
     font-size: ${theme.fontSizes.button};
     text-align: center;
-    background-color: ${theme.colors.brand.white};
+    background-color: ${theme.colors.brand.basewhite};
     elevation: 5;
-    shadowColor: ${theme.colors.text.primary};
+    shadowColor: ${theme.colors.brand.black};
     shadowOpacity: 0.3;
     shadowRadius: 5px;
     padding: ${theme.space[8]} ${theme.space[5]};
@@ -101,11 +116,13 @@ const variants = {
   subHeading,
   bodyBold,
   bodyBoldBold,
+  loading,
 };
 
 export const Text = styled.Text`
   ${({ theme }) => defaultTextStyles(theme)}
-  ${({ variant, theme }) => variants[variant](theme)}
+  ${({ variant, theme, colorType, fontType, fontSize }) =>
+    variants[variant](theme, colorType, fontType, fontSize)}
     width: ${(props) => props.width};
 `;
 

@@ -30,15 +30,15 @@ export default function CaptureGenderInterest({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (genderInterest) {
                 user.interest = genderInterest;
-                navigation.navigate("capture-dob-screen", { user });
+                navigation.navigate("capture-dob-screen");
               } else {
                 setPageError(true);
               }
@@ -60,8 +60,8 @@ export default function CaptureGenderInterest({ navigation }) {
             <Button
               backgroundColor={
                 genderInterest === "women"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -70,8 +70,8 @@ export default function CaptureGenderInterest({ navigation }) {
               text="Women"
               textColor={
                 genderInterest === "women"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -79,8 +79,8 @@ export default function CaptureGenderInterest({ navigation }) {
             <Button
               backgroundColor={
                 genderInterest === "men"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -89,8 +89,8 @@ export default function CaptureGenderInterest({ navigation }) {
               text="Men"
               textColor={
                 genderInterest === "men"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -98,8 +98,8 @@ export default function CaptureGenderInterest({ navigation }) {
             <Button
               backgroundColor={
                 genderInterest === "both"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
@@ -108,8 +108,8 @@ export default function CaptureGenderInterest({ navigation }) {
               text="Both"
               textColor={
                 genderInterest === "both"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>

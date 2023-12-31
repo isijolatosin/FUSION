@@ -33,11 +33,11 @@ export default function CaptureEmail({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
                 if (email) {
                   user.email = email;
@@ -56,13 +56,15 @@ export default function CaptureEmail({ navigation }) {
           <Spacer position="top" size="large">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="email-address"
               setValue={setEmail}
               value={email}
               width="100%"
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Enter Email"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <OnboardingErrorComponent

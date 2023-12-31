@@ -35,11 +35,11 @@ export default function CaptureName({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
                 if (firstname) {
                   navigation.navigate("capture-email-screen", {
@@ -70,6 +70,8 @@ export default function CaptureName({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="First Name"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <Spacer position="top" size="large">
@@ -82,6 +84,8 @@ export default function CaptureName({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Last Name"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <Spacer position="top" size="large">

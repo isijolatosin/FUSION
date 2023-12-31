@@ -53,11 +53,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (checkInput) {
                 navigation.navigate("capture-photos-screen", {
@@ -117,8 +117,8 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 style={{
                   backgroundColor:
                     lifestyleHabits.smoke === smoke
-                      ? theme.colors.brand.orange
-                      : theme.colors.brand.lightorange,
+                      ? theme.colors.brand.base
+                      : theme.colors.brand.highlight,
                   paddingHorizontal: 16,
                   paddingVertical: 8,
                   borderRadius: 100,
@@ -127,8 +127,8 @@ export default function CaptureLifestyleHabits({ navigation }) {
                   style={{
                     color:
                       lifestyleHabits.smoke === smoke
-                        ? theme.colors.brand.white
-                        : theme.colors.brand.secondary,
+                        ? theme.colors.brand.basewhite
+                        : theme.colors.brand.black,
                   }}
                   variant="popButton">
                   {smoke}
@@ -166,8 +166,8 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 style={{
                   backgroundColor:
                     lifestyleHabits.drink === drink
-                      ? theme.colors.brand.orange
-                      : theme.colors.brand.lightorange,
+                      ? theme.colors.brand.base
+                      : theme.colors.brand.highlight,
                   paddingHorizontal: 16,
                   paddingVertical: 8,
                   borderRadius: 100,
@@ -176,8 +176,8 @@ export default function CaptureLifestyleHabits({ navigation }) {
                   style={{
                     color:
                       lifestyleHabits.drink === drink
-                        ? theme.colors.brand.white
-                        : theme.colors.brand.secondary,
+                        ? theme.colors.brand.basewhite
+                        : theme.colors.brand.black,
                   }}
                   variant="popButton">
                   {drink}

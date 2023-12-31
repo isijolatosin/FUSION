@@ -14,7 +14,11 @@ import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
 export default function CaptureAddress({ navigation }) {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState({
+    city: "",
+    province: "",
+    street: "",
+  });
   const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
@@ -22,6 +26,19 @@ export default function CaptureAddress({ navigation }) {
   } = useAppContext();
   const route = useRoute();
   const { user } = route.params || {};
+
+  function handleSetAddress(text, key) {
+    setAddress({ ...address, [key]: text });
+  }
+
+  function checkAddress(address) {
+    let isAddressComplete = false;
+
+    if (address.street && address.province && address.city)
+      isAddressComplete = true;
+
+    return isAddressComplete;
+  }
 
   return (
     <SafeArea>
@@ -33,13 +50,13 @@ export default function CaptureAddress({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
-                if (address) {
+                if (checkAddress(address)) {
                   user.address = address;
                   dispatch({
                     type: "SET_USER",
@@ -61,12 +78,42 @@ export default function CaptureAddress({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardTyp="text-pad"
-              setValue={setAddress}
-              value={address}
+              setValue={(text) => handleSetAddress(text, "street")}
+              value={address.street}
               width="100%"
               isCountryCode={false}
               isBackgroundColor={false}
-              placeholder="Address"
+              placeholder="Street"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
+            />
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={(text) => handleSetAddress(text, "city")}
+              value={address.city}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="City"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
+            />
+          </Spacer>
+          <Spacer position="top" size="large">
+            <InputComponent
+              includeIcon={false}
+              keyboardTyp="text-pad"
+              setValue={(text) => handleSetAddress(text, "province")}
+              value={address.province}
+              width="100%"
+              isCountryCode={false}
+              isBackgroundColor={false}
+              placeholder="Province"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           {pageError && (
@@ -78,7 +125,7 @@ export default function CaptureAddress({ navigation }) {
           )}
           <IconAndText
             style={{
-              height: "40%",
+              height: "25%",
               alignItems: "flex-end",
             }}>
             <IconComponent
@@ -86,7 +133,7 @@ export default function CaptureAddress({ navigation }) {
               iconName="eye-off"
               IconComponent={Feather}
               size={15}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <Text
               style={{ marginLeft: theme.spaceNumber[2] }}

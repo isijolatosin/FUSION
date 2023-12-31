@@ -52,11 +52,11 @@ export default function CaptureJobTitle({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
                 if (jobtitleName) {
                   navigation.navigate("capture-share-interest-screen", {
@@ -90,6 +90,8 @@ export default function CaptureJobTitle({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Your job title"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <Spacer position="top" size="xxxxlarge">
@@ -97,7 +99,7 @@ export default function CaptureJobTitle({ navigation }) {
               title="Visible on your profile"
               checked={isVisibleOnProfile}
               onPress={handleCheckboxToggle}
-              checkedColor={theme.colors.brand.orange}
+              checkedColor={theme.colors.brand.base}
               uncheckedColor={theme.colors.brand.peach}
               titleProps={{
                 style: {

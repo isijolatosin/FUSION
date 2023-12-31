@@ -30,11 +30,11 @@ export default function CaptureGender({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (gender) {
                 user.gender = gender;
@@ -60,8 +60,8 @@ export default function CaptureGender({ navigation }) {
             <Button
               backgroundColor={
                 gender === "woman"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isNotBold={true}
               isBorder={false}
@@ -70,8 +70,8 @@ export default function CaptureGender({ navigation }) {
               text="Woman"
               textColor={
                 gender === "woman"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -79,8 +79,8 @@ export default function CaptureGender({ navigation }) {
             <Button
               backgroundColor={
                 gender === "man"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isNotBold={true}
               isBorder={false}
@@ -89,8 +89,8 @@ export default function CaptureGender({ navigation }) {
               text="Man"
               textColor={
                 gender === "man"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>
@@ -98,8 +98,8 @@ export default function CaptureGender({ navigation }) {
             <Button
               backgroundColor={
                 gender === "non-binary"
-                  ? theme.colors.brand.orange
-                  : theme.colors.brand.lightorange
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
               }
               isNotBold={true}
               isBorder={false}
@@ -108,8 +108,8 @@ export default function CaptureGender({ navigation }) {
               text="Non-Binary"
               textColor={
                 gender === "non-binary"
-                  ? theme.colors.brand.white
-                  : theme.colors.text.primary
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
               }
             />
           </Spacer>

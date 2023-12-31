@@ -47,11 +47,11 @@ export default function CaptureSelfDescription({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={30}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
             />
             <NextNavigation
               theme={theme}
-              color={theme.colors.brand.orange}
+              color={theme.colors.brand.base}
               nextFunction={() => {
                 if (checkInput) {
                   navigation.navigate("capture-work-place-screen", {
@@ -83,6 +83,8 @@ export default function CaptureSelfDescription({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="First word"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <Spacer position="top" size="large">
@@ -95,6 +97,8 @@ export default function CaptureSelfDescription({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Second word"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <Spacer position="top" size="large">
@@ -107,6 +111,8 @@ export default function CaptureSelfDescription({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Third word"
+              fontSize={theme.fontSizes.h5}
+              fontType={theme.fonts.montserratLight}
             />
           </Spacer>
           <OnboardingErrorComponent

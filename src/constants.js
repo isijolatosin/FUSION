@@ -1,5 +1,7 @@
+export const locationBackgroundImage =
+  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703740615/fusion/global-communication-background-business-network-design_2_j3fnht.png";
 export const splashImage =
-  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1702919403/fusion/full-shot-smiley-couple-outdoors_3_u1apoe.png";
+  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703726052/fusion/intercultural-friends-sitting-bench-while-hugging_1_kclgy8.png";
 
 export const oboardingSummaryText =
   "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
@@ -22,8 +24,6 @@ export const lifestlyHabitsInstruction =
   "Are they compatible with you? Let’s find out.";
 export const addPhotosInstruction =
   "Your features make you stand out. Add at least 3 of your images and stand out.";
-export const locationBackgroundImage =
-  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703405580/fusion/yi9ecrapidrmjcunz505_ymkh6d.jpg";
 export const heightList = [
   "4 feet",
   "4 feet 1 inch",
@@ -385,6 +385,33 @@ export const interests = [
   "Street Food",
   "Comedy",
   "Aquarium",
+  "Social Media",
+  "Trips",
+  "Investing",
+  "Sci-Fi",
+  "Pilates",
+  "Start Ups",
+  "Board Games",
+  "Stocks",
+  "Vegan",
+  "Volunteering",
+  "Equality",
+  "Gardening",
+  "Plant lover",
+  "Tattoos",
+  "Piercings",
+  "Ferminism",
+  "Thrift",
+  "Self Care",
+  "Mental Health Awareness",
+  "Musicals",
+  "Activism",
+  "Snowboarding",
+  "Self-Development",
+  "Festival",
+  "Running",
+  "Human Rights",
+  "Gospel",
 ];
 export const LifestyleHabits = {
   smoke: ["Not my thing", "Socially", "Frequently", "Sometimes"],

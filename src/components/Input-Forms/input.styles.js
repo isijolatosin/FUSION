@@ -9,7 +9,7 @@ const TextInputWrapper = styled.View`
     props.isBackgroundColor
       ? props.backgroundColor
         ? props.theme.colors.brand[props.backgroundColor]
-        : props.theme.colors.brand.lightorange
+        : props.theme.colors.brand.highlight
       : ""};
   border-radius: ${(props) =>
     props.isBackgroundColor ? props.theme.space[1] : 0};
@@ -26,7 +26,7 @@ const TextInputWrapper = styled.View`
       ? ""
       : props.isBorderColor
       ? props.isBorderColor
-      : props.theme.colors.ui.secondary};
+      : props.theme.colors.brand.lines};
 `;
 const TextInput = styled.TextInput`
   font-size: ${(props) =>
@@ -65,7 +65,7 @@ const OTPInput = styled.View`
   font-size: ${(props) => props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.montserratSemibold};
   border-bottom-width: 1px;
-  border-color: ${(props) => props.theme.colors.text.disabled};
+  border-color: ${(props) => props.theme.colors.brand.lines};
   min-width: 12%;
 `;
 
@@ -73,11 +73,11 @@ const OTPInputText = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.montserratSemibold};
   text-align: center;
-  color: ${(props) => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.brand.black};
 `;
 
 const OTPInputFocused = styled(OTPInput)`
-  background-color: ${(props) => props.theme.colors.brand.lightorange};
+  background-color: ${(props) => props.theme.colors.brand.highlight};
 `;
 
 export {

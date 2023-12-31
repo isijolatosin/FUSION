@@ -51,11 +51,11 @@ export default function CaptureInterests({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (interestsArray.length >= 6) {
                 navigation.navigate("capture-lifestly-habits-screen", {
@@ -75,7 +75,9 @@ export default function CaptureInterests({ navigation }) {
             }}
           />
         </NavigationBar>
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ marginBottom: 60 }}>
           <Spacer position="top" size="large">
             <Text variant="headingSlim" width="100%">
               Share Your Interest
@@ -99,16 +101,17 @@ export default function CaptureInterests({ navigation }) {
                   key={idx}
                   style={{
                     backgroundColor: interestsArray.includes(interest)
-                      ? theme.colors.brand.orange
-                      : theme.colors.brand.lightorange,
-                    padding: 8,
+                      ? theme.colors.brand.base
+                      : theme.colors.brand.highlight,
+                    paddingHorizontal: 16,
+                    paddingVertical: 8,
                     borderRadius: 100,
                   }}>
                   <Text
                     style={{
                       color: interestsArray.includes(interest)
-                        ? theme.colors.brand.white
-                        : theme.colors.brand.secondary,
+                        ? theme.colors.brand.basewhite
+                        : theme.colors.brand.black,
                     }}
                     variant="popButton">
                     {interest}

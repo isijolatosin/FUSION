@@ -37,7 +37,7 @@ export default function PhotoComponent({ photoUrl, setPhotoUrl }) {
         width: 100,
         height: 100,
         borderRadius: 5,
-        backgroundColor: theme.colors.brand.lightorange,
+        backgroundColor: theme.colors.brand.highlight,
         alignItems: "center",
         justifyContent: "center",
       }}>

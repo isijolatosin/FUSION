@@ -16,7 +16,7 @@ import NextNavigation from "../../../components/Next-navigation";
 import { addPhotosInstruction } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import PhotoComponent from "./sub-component/PhotoComponent";
-import firebase, { database } from "../../../../config";
+import { database } from "../../../../config";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 export default function CapturePhotos({ navigation }) {
@@ -37,6 +37,8 @@ export default function CapturePhotos({ navigation }) {
         gender,
         interest,
         lastname,
+        latitude,
+        longitude,
         phonenumber,
       },
     },
@@ -99,7 +101,9 @@ export default function CapturePhotos({ navigation }) {
         interestsArray,
         jobtitle,
         lastname,
+        latitude,
         lifestyleHabits,
+        longitude,
         mediaArray,
         phonenumber,
         preference,
@@ -122,11 +126,11 @@ export default function CapturePhotos({ navigation }) {
             iconName="chevron-back"
             IconComponent={Ionicons}
             size={30}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
           />
           <NextNavigation
             theme={theme}
-            color={theme.colors.brand.orange}
+            color={theme.colors.brand.base}
             nextFunction={() => {
               if (checkMediaArrayLength(mediaArray)) {
                 saveDataToFirebase();
