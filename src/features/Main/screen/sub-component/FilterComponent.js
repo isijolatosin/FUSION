@@ -120,7 +120,7 @@ function DoubleRangeCompoent({
         borderBottomColor: theme.colors.brand.lines,
         borderBottomWidth: 0.3,
         paddingBottom: 25,
-        marginBottom: 20,
+        marginBottom: 10,
         paddingHorizontal: 30,
       }}>
       <RangeCompoentSection>
@@ -208,7 +208,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
 
   return (
     <HorizontalPaddingSpace style={{ marginBottom: 50 }} space={theme.space[5]}>
-      <Spacer position="top" size="large">
+      <Spacer position="top" size="xsmall">
         <Text variant="bodyBoldBold">Who am I interested in?</Text>
       </Spacer>
       {interestArray.map((interest, idx) => (
@@ -348,7 +348,7 @@ export default function FilterComponent({
         </View>
         <Spacer position="top" size="large">
           <Text
-            style={{ textAlign: "center", marginTop: 50 }}
+            style={{ textAlign: "center", marginTop: 30 }}
             variant="heading">
             Preference Settings
           </Text>
