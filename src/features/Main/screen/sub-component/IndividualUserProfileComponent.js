@@ -17,6 +17,12 @@ export default function IndividualUserProfileComponent({
   data,
   theme,
   scrollViewRef,
+  setLikedUser,
+  setIsYouLikedVisible,
+  currentSwipeIndexIsLessThanAllUsersLength,
+  index,
+  setIndex,
+  scrollToTop,
 }) {
   const imageHeight = 450;
 
@@ -29,6 +35,17 @@ export default function IndividualUserProfileComponent({
   }
   if (data?.gender === "woman") {
     iconNamePerGender = "gender-non-binary";
+  }
+
+  function handleYouLikedAUser(data) {
+    const likedUserNameAndPhoto = {
+      name: data?.firstname,
+      photo: data?.mediaArray?.[0],
+    };
+    setLikedUser(likedUserNameAndPhoto);
+    setIsYouLikedVisible(true);
+    currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+    scrollToTop();
   }
 
   return (
@@ -73,7 +90,7 @@ export default function IndividualUserProfileComponent({
           }}>
           <TouchableOpacity>
             <IconComponent
-              iconFunction={() => {}}
+              iconFunction={() => handleYouLikedAUser(data)}
               iconName="heart"
               IconComponent={MaterialCommunityIcons}
               size={60}

@@ -15,13 +15,16 @@ import BrandAvatar from "./sub-component/BrandAvatar";
 import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton, FilterText, FilterWrapper } from "./main.style";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
+import YouLikedComponent from "./sub-component/YouLikedComponent";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const [userFilteredData, setUserFilteredData] = useState([]);
+  const [likedUser, setLikedUser] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const scrollViewRef = useRef(null);
 
@@ -86,6 +89,9 @@ const Index = () => {
       currentSwipeIndexIsLessThanAllUsersLength = false;
   }
 
+  function handleYouLikedClose() {
+    setIsYouLikedVisible(false);
+  }
   function handleFilterClose() {
     setIsVisible(false);
   }
@@ -139,6 +145,14 @@ const Index = () => {
           data={currentUsertoSwipe}
           theme={theme}
           scrollViewRef={scrollViewRef}
+          setLikedUser={setLikedUser}
+          setIsYouLikedVisible={setIsYouLikedVisible}
+          currentSwipeIndexIsLessThanAllUsersLength={
+            currentSwipeIndexIsLessThanAllUsersLength
+          }
+          index={index}
+          setIndex={setIndex}
+          scrollToTop={scrollToTop}
         />
         <CloseButton
           style={{
@@ -161,7 +175,6 @@ const Index = () => {
             />
           </View>
         </CloseButton>
-
         <FilterComponent
           theme={theme}
           isVisible={isVisible}
@@ -170,6 +183,12 @@ const Index = () => {
           currentUser={currentUser}
           setUserFilteredData={setUserFilteredData}
           setIsRetrigger={setIsRetrigger}
+        />
+        <YouLikedComponent
+          theme={theme}
+          isVisible={isYouLikedVisible}
+          onClose={handleYouLikedClose}
+          likedUser={likedUser}
         />
       </HorizontalPaddingSpace>
     </SafeArea>
