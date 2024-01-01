@@ -6,7 +6,6 @@ import IndividualUserProfileComponent from "./sub-component/IndividualUserProfil
 import { useAppContext } from "../../../context/ThemeContext";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { NavigationBar } from "../../Onboarding/components/onboarding.styles";
-import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
@@ -19,6 +18,7 @@ import YouLikedComponent from "./sub-component/YouLikedComponent";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [phone, setPhone] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const [userFilteredData, setUserFilteredData] = useState([]);
   const [likedUser, setLikedUser] = useState([]);
@@ -51,13 +51,29 @@ const Index = () => {
           }
         }
       });
-      setAllUsers(returningData);
+
+      //check if profile has been liked
+      const filteredOffLikedProfiles = [];
+      const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
+
+      if (likedNumberArray.length) {
+        returningData.map((data) => {
+          if (!likedNumberArray.includes(data?.phonenumber)) {
+            filteredOffLikedProfiles.push(data);
+          }
+        });
+      } else {
+        filteredOffLikedProfiles = [...returningData];
+      }
+
+      setAllUsers(filteredOffLikedProfiles);
     }
   };
 
   useEffect(() => {
     const functionCall = async () => {
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+      setPhone(phoneValueFromPhoneMemory);
       fetchUsersData(phoneValueFromPhoneMemory);
     };
 
@@ -146,6 +162,8 @@ const Index = () => {
           </Spacer>
         </Spacer>
         <IndividualUserProfileComponent
+          fetchUsersData={fetchUsersData}
+          phone={phone}
           data={currentUsertoSwipe}
           theme={theme}
           scrollViewRef={scrollViewRef}
@@ -157,6 +175,8 @@ const Index = () => {
           index={index}
           setIndex={setIndex}
           scrollToTop={scrollToTop}
+          currentUser={currentUser}
+          setIsRetrigger={setIsRetrigger}
         />
         <CloseButton
           style={{

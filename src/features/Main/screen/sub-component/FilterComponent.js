@@ -313,7 +313,6 @@ export default function FilterComponent({
         }
       });
 
-      console.log("first", filterWithAgeRange);
       filteredResult2.push(...filterWithAgeRange);
     } else {
       filteredResult2.push(...filteredResult);

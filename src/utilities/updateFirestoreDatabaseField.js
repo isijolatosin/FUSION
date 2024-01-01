@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { database } from "../../config";
+import firebase, { database } from "../../config";
 
 const getAllData = async () => {
   const returnData = [];
@@ -15,6 +15,7 @@ const getAllData = async () => {
   return returnData;
 };
 
+// Function to add elements to a field
 const updateUserValueField = async (
   collectionName,
   documentId,
@@ -38,4 +39,55 @@ const updateUserValueField = async (
   }
 };
 
-export { updateUserValueField, getAllData };
+// Function to add elements to an array field
+const addToArrayField = async (
+  collectionName,
+  documentId,
+  arrayFieldName,
+  newItem,
+  setIsRetrigger
+) => {
+  try {
+    setIsRetrigger(false);
+    const docRef = database.collection(collectionName).doc(documentId);
+
+    // Update the array field using arrayUnion
+    await docRef.update({
+      [arrayFieldName]: firebase.firestore.FieldValue.arrayUnion(newItem),
+    });
+
+    console.log("Array field updated successfully!");
+    setIsRetrigger(true);
+  } catch (error) {
+    console.error("Error updating array field:", error);
+  }
+};
+
+// Function to remove a particular item from the array in Firestore
+const removeItemFromArray = async (
+  collectionName,
+  documentId,
+  fieldName,
+  itemToRemove
+) => {
+  try {
+    // Get a reference to the document
+    const docRef = database.collection(collectionName).doc(documentId);
+
+    // Use the arrayRemove method to remove the specified item
+    await docRef.update({
+      [fieldName]: firebase.firestore.FieldValue.arrayRemove(itemToRemove),
+    });
+
+    console.log("Item removed successfully!");
+  } catch (error) {
+    console.error("Error removing item:", error);
+  }
+};
+
+export {
+  updateUserValueField,
+  getAllData,
+  addToArrayField,
+  removeItemFromArray,
+};

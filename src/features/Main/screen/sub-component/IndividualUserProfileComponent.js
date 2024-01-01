@@ -1,5 +1,11 @@
-import React from "react";
-import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import React, { useCallback, useState } from "react";
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   MaterialCommunityIcons,
   Entypo,
@@ -12,8 +18,12 @@ import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import calculateAge from "../../../../utilities/calculateAge";
+import firebase, { database } from "../../../../../config";
+import { addToArrayField } from "../../../../utilities/updateFirestoreDatabaseField";
 
 export default function IndividualUserProfileComponent({
+  fetchUsersData,
+  phone,
   data,
   theme,
   scrollViewRef,
@@ -23,8 +33,11 @@ export default function IndividualUserProfileComponent({
   index,
   setIndex,
   scrollToTop,
+  currentUser,
+  setIsRetrigger,
 }) {
   const imageHeight = 450;
+  const [refreshing, setRefreshing] = useState(false);
 
   let iconNamePerGender = "";
   if (data?.gender === "woman") {
@@ -37,7 +50,22 @@ export default function IndividualUserProfileComponent({
     iconNamePerGender = "gender-non-binary";
   }
 
-  function handleYouLikedAUser(data) {
+  async function handleYouLikedAUser(data) {
+    // create match intend structure in firebase firestore
+    database.collection("all-likes").add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      likedBy: currentUser?.phonenumber, // the number who liked another profile
+      profileLiked: { ...data }, // profile that was liked
+    });
+
+    await addToArrayField(
+      "all-users",
+      currentUser?.id,
+      "listOfAllLikedNumbers",
+      data?.phonenumber,
+      setIsRetrigger
+    );
+
     const likedUserNameAndPhoto = {
       name: data?.firstname,
       photo: data?.mediaArray?.[0],
@@ -48,8 +76,29 @@ export default function IndividualUserProfileComponent({
     scrollToTop();
   }
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+
+    // Simulate data fetching delay
+    setTimeout(() => {
+      // Update data
+      fetchUsersData(phone);
+
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
   return (
     <ScrollView
+      refreshControl={
+        <RefreshControl
+          tintColor={theme.colors.brand.base}
+          titleColor={theme.colors.brand.base}
+          title="Refreshing..."
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
       ref={scrollViewRef}
       showsVerticalScrollIndicator={false}
       style={{ marginBottom: 100 }}>

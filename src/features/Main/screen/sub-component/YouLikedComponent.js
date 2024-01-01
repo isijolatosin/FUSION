@@ -14,7 +14,6 @@ export default function YouLikedComponent({
   onClose,
   likedUser,
 }) {
-  console.log(likedUser);
   return (
     <Modal
       isVisible={isVisible}
