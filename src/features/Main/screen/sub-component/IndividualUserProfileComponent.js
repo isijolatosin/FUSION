@@ -11,13 +11,14 @@ import {
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
 import IconComponent from "../../../../components/icon-components/IconComponent";
+import calculateAge from "../../../../utilities/calculateAge";
 
-export default function IndividualUserProfileComponent({ data, theme }) {
-  function calculateAge(year) {
-    const currentYear = new Date().getFullYear();
-
-    return currentYear - year;
-  }
+export default function IndividualUserProfileComponent({
+  data,
+  theme,
+  scrollViewRef,
+}) {
+  const imageHeight = 450;
 
   let iconNamePerGender = "";
   if (data?.gender === "woman") {
@@ -32,18 +33,19 @@ export default function IndividualUserProfileComponent({ data, theme }) {
 
   return (
     <ScrollView
+      ref={scrollViewRef}
       showsVerticalScrollIndicator={false}
       style={{ marginBottom: 100 }}>
       <View style={{ position: "relative" }}>
         <Image
           style={{
             width: "100%",
-            height: 400,
+            height: imageHeight,
             resizeMode: "cover",
             borderRadius: 5,
           }}
           source={{
-            uri: `${data.mediaArray?.[0]}`,
+            uri: `${data?.mediaArray?.[0]}`,
           }}
         />
         <View
@@ -158,12 +160,12 @@ export default function IndividualUserProfileComponent({ data, theme }) {
         <Image
           style={{
             width: "100%",
-            height: 400,
+            height: imageHeight,
             resizeMode: "cover",
             borderRadius: 5,
           }}
           source={{
-            uri: `${data.mediaArray?.[1]}`,
+            uri: `${data?.mediaArray?.[1]}`,
           }}
         />
       </Spacer>
@@ -345,23 +347,66 @@ export default function IndividualUserProfileComponent({ data, theme }) {
           {data?.address?.city}, {data?.address?.province}
         </Text>
       </View>
-      <Spacer position="top" size="medium">
-        {data?.mediaArray?.splice(2).map((image, idx) => (
-          <Spacer key={idx} position="top" size="medium">
-            <Image
-              style={{
-                width: "100%",
-                height: 400,
-                resizeMode: "cover",
-                borderRadius: 5,
-              }}
-              source={{
-                uri: `${image}`,
-              }}
-            />
-          </Spacer>
-        ))}
-      </Spacer>
+      {data?.mediaArray?.[2] && (
+        <Spacer position="top" size="medium">
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderRadius: 5,
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[2]}`,
+            }}
+          />
+        </Spacer>
+      )}
+      {data?.mediaArray?.[3] && (
+        <Spacer position="top" size="medium">
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderRadius: 5,
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[3]}`,
+            }}
+          />
+        </Spacer>
+      )}
+      {data?.mediaArray?.[4] && (
+        <Spacer position="top" size="medium">
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderRadius: 5,
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[4]}`,
+            }}
+          />
+        </Spacer>
+      )}
+      {data?.mediaArray?.[5] && (
+        <Spacer position="top" size="medium">
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderRadius: 5,
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[5]}`,
+            }}
+          />
+        </Spacer>
+      )}
     </ScrollView>
   );
 }
