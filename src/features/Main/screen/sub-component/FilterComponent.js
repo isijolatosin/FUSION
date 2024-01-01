@@ -173,7 +173,9 @@ function DoubleRangeCompoent({
 }
 
 function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
-  const [selectedInterest, setSelectedInterest] = useState("");
+  const [selectedInterest, setSelectedInterest] = useState(
+    currentUser?.interest
+  );
   const [clickedIndex, setIndex] = useState(null);
 
   const handleInterestToggle = (id, value) => {
@@ -231,7 +233,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
             {interest.value}
           </Text>
           <CheckBox
-            checked={clickedIndex === idx}
+            checked={selectedInterest === interest.key || clickedIndex === idx}
             onPress={() => handleInterestToggle(idx, interest.key)}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.linesLight}

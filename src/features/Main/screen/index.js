@@ -42,6 +42,10 @@ const Index = () => {
 
       const returningData = newData.filter((data) => {
         if (data.phonenumber !== phonenumber) {
+          if (currentUserData.interest === "both") {
+            return data;
+          }
+
           if (data.gender === currentUserData.interest) {
             return data;
           }
