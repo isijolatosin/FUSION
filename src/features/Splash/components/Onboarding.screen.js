@@ -13,22 +13,18 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  TouchableOpacity,
-  View,
 } from "react-native";
-import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { InputWarraper } from "../../Onboarding/components/onboarding.styles";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
-import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
+import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 export default function Onboarding({ navigation }) {
   const [phonenumber, setPhonenumber] = useState("");
   const [phoneNumberFromPhoneMemory, setPhoneNumberFromPhoneMemory] =
     useState("");
   const [countryCode, setCountryCode] = useState("");
-  const [openModal, setOpenModal] = useState(false);
   const recaptchaVerifier = useRef(null);
 
   useEffect(() => {
@@ -127,6 +123,8 @@ export default function Onboarding({ navigation }) {
                   isBorder={true}
                   borderColor={theme.colors.brand.white}
                   buttonFunction={() => {
+                    storeData("phonenumber", phonenumberPlusCountryCode);
+
                     sendVerification(
                       phonenumberPlusCountryCode,
                       recaptchaVerifier,
@@ -135,7 +133,6 @@ export default function Onboarding({ navigation }) {
                       navigation,
                       true
                     );
-                    setOpenModal(false);
                   }}
                   text="Sign In"
                   textColor={theme.colors.brand.basewhite}

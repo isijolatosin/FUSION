@@ -5,16 +5,16 @@ import RangeSlider from "react-native-range-slider-expo";
 import Modal from "react-native-modal";
 import { AntDesign } from "@expo/vector-icons";
 import { CheckBox } from "react-native-elements";
-import axios from "axios";
-import * as Location from "expo-location";
 
 import { Text } from "../../../../components/typography/text.component";
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { RangeCompoentSection } from "../main.style";
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
-import OnboardingErrorComponent from "../../../Onboarding/components/OnboardingErrorComponent";
-import { getUserLocation } from "../../../../utilities/getUserLocation";
+import filterUsersWithinDistanceRange from "../../../../utilities/filterUsersWithinDistanceRange";
+import calculateAge from "../../../../utilities/calculateAge";
+import Button from "../../../../components/utility/button.component";
+import { updateUserValueField } from "../../../../utilities/updateFirestoreDatabaseField";
 
 function RangeCompoent({
   theme,
@@ -172,7 +172,8 @@ function DoubleRangeCompoent({
   );
 }
 
-function InterestFilterComponent({ theme, setSelectedInterest }) {
+function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
+  const [selectedInterest, setSelectedInterest] = useState("");
   const [clickedIndex, setIndex] = useState(null);
 
   const handleInterestToggle = (id, value) => {
@@ -180,7 +181,30 @@ function InterestFilterComponent({ theme, setSelectedInterest }) {
     setSelectedInterest(value);
   };
 
-  const interestArray = ["men", "women", "both"];
+  const triggerInterestUpdate = async () => {
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "interest",
+      selectedInterest,
+      setIsRetrigger
+    );
+  };
+
+  const interestArray = [
+    {
+      key: "man",
+      value: "men",
+    },
+    {
+      key: "woman",
+      value: "women",
+    },
+    {
+      key: "both",
+      value: "both",
+    },
+  ];
 
   return (
     <HorizontalPaddingSpace style={{ marginBottom: 50 }} space={theme.space[5]}>
@@ -198,17 +222,17 @@ function InterestFilterComponent({ theme, setSelectedInterest }) {
           position="top"
           size="large">
           <Text
-            onPress={() => handleInterestToggle(idx, interest)}
+            onPress={() => handleInterestToggle(idx, interest.key)}
             style={{ textTransform: "capitalize" }}
             variant="loading"
             colorType="black"
             fontType="montserratLight"
             fontSize="body">
-            {interest}
+            {interest.value}
           </Text>
           <CheckBox
             checked={clickedIndex === idx}
-            onPress={() => handleInterestToggle(idx, interest)}
+            onPress={() => handleInterestToggle(idx, interest.key)}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.linesLight}
             size={35}
@@ -223,6 +247,18 @@ function InterestFilterComponent({ theme, setSelectedInterest }) {
           />
         </Spacer>
       ))}
+      <HorizontalPaddingSpace
+        style={{ marginBottom: 20 }}
+        space={theme.space[9]}>
+        <Button
+          backgroundColor="transparent"
+          isBorder={false}
+          borderColor={theme.colors.brand.brandFade}
+          buttonFunction={triggerInterestUpdate}
+          text="Apply Interest"
+          textColor={theme.colors.brand.brandFade}
+        />
+      </HorizontalPaddingSpace>
     </HorizontalPaddingSpace>
   );
 }
@@ -232,31 +268,59 @@ export default function FilterComponent({
   isVisible,
   onClose,
   allUsers,
+  currentUser,
   setUserFilteredData,
+  setIsRetrigger,
 }) {
   const [distanceValue, setDistanceValue] = useState(0);
   const [fromAgeValue, setFromAgeValue] = useState(18);
   const [toAgeValue, setToAgeValue] = useState(30);
-  const [selectedInterest, setSelectedInterest] = useState("");
   const [suggestAgeWithRange, setSuggestAgeWithRange] = useState(false);
   const [suggestDistanceWithRange, setSuggestDistanceWithRange] =
     useState(false);
-  const [location, setLocation] = useState(null);
-  const [locationsInRange, setLocationsInRange] = useState([]);
 
-  //   const fetchPlacesByDistance = async (distanceValue, location) => {
-  //     // Fetch nearby places using the Google Places API
-  //     const apiKey = "AIzaSyAJXYHwxitlyckO82-E9jY7oinAk9crFGs";
-  //     const radius = distanceValue * 1000;
-  //     const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=${radius}&key=${apiKey}`;
-  //
-  //     try {
-  //       const response = await axios.get(apiUrl);
-  //       setLocationsInRange(response.data.results);
-  //     } catch (error) {
-  //       console.error("Error fetching nearby places:", error);
-  //     }
-  //   };
+  const currentUserLocation = {
+    longitude: currentUser?.longitude,
+    latitude: currentUser?.latitude,
+  };
+
+  function triggerFilter() {
+    const filteredResult = [];
+    const filteredResult2 = [];
+
+    // distance
+    if (distanceValue && suggestDistanceWithRange) {
+      filteredResult.push(
+        ...filterUsersWithinDistanceRange(
+          currentUserLocation,
+          allUsers,
+          distanceValue
+        )
+      );
+    } else {
+      filteredResult.push(...allUsers);
+    }
+
+    // age
+    if (filteredResult.length && suggestAgeWithRange) {
+      const filterWithAgeRange = filteredResult.filter((data) => {
+        const age = calculateAge(data?.dob?.year);
+
+        if (fromAgeValue < age && age <= toAgeValue) {
+          return data;
+        }
+      });
+
+      console.log("first", filterWithAgeRange);
+      filteredResult2.push(...filterWithAgeRange);
+    } else {
+      filteredResult2.push(...filteredResult);
+    }
+
+    setUserFilteredData(filteredResult2);
+    setSuggestAgeWithRange(false);
+    setSuggestDistanceWithRange(false);
+  }
 
   return (
     <Modal
@@ -312,9 +376,22 @@ export default function FilterComponent({
             suggest={suggestAgeWithRange}
             setSuggest={setSuggestAgeWithRange}
           />
+          <HorizontalPaddingSpace
+            style={{ marginBottom: 20 }}
+            space={theme.space[9]}>
+            <Button
+              backgroundColor="transparent"
+              isBorder={false}
+              borderColor={theme.colors.brand.brandFade}
+              buttonFunction={triggerFilter}
+              text="Apply Preference"
+              textColor={theme.colors.brand.brandFade}
+            />
+          </HorizontalPaddingSpace>
           <InterestFilterComponent
             theme={theme}
-            setSelectedInterest={setSelectedInterest}
+            currentUser={currentUser}
+            setIsRetrigger={setIsRetrigger}
           />
         </Spacer>
       </ScrollView>

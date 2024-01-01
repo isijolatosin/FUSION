@@ -1,15 +1,22 @@
 import calculateDistance from "./calculateDistance";
 
-const filterUsersWithin20km = (userLocation, users, distanceValue) => {
-  const usersWithin20km = users.filter((user) => {
-    const distance = calculateDistance(userLocation, user.location);
+const filterUsersWithinDistanceRange = (
+  currentUserLocation,
+  allUsers,
+  distanceValue
+) => {
+  const usersWithinDistanceRange = allUsers.filter((user) => {
+    const targetUserLocation = {
+      longitude: user?.longitude,
+      latitude: user?.latitude,
+    };
 
-    const distanceToMeters = distanceValue * 1000;
+    const distance = calculateDistance(currentUserLocation, targetUserLocation);
 
-    return distance <= distanceToMeters;
+    return distance <= distanceValue;
   });
 
-  return usersWithin20km;
+  return usersWithinDistanceRange;
 };
 
-export default filterUsersWithin20km;
+export default filterUsersWithinDistanceRange;

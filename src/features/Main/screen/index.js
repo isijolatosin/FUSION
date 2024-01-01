@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { collection, getDocs } from "firebase/firestore";
-import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 
-import { database } from "../../../../config";
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
 import { useAppContext } from "../../../context/ThemeContext";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -16,6 +14,7 @@ import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import BrandAvatar from "./sub-component/BrandAvatar";
 import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton, FilterText, FilterWrapper } from "./main.style";
+import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -23,6 +22,8 @@ const Index = () => {
   const [userFilteredData, setUserFilteredData] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isRetrigger, setIsRetrigger] = useState(false);
+  const scrollViewRef = useRef(null);
 
   const {
     state: { theme },
@@ -30,23 +31,20 @@ const Index = () => {
 
   const fetchUsersData = async (phonenumber) => {
     if (phonenumber) {
-      await getDocs(collection(database, "all-users")).then((querySnapshot) => {
-        const newData = querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+      const newData = await getAllData();
+      const currentUserData = newData.find(
+        (data) => data.phonenumber === phonenumber
+      );
+      setCurrentUser(currentUserData);
 
-        const returningData = [];
-        newData.filter((data) => {
-          if (data.phonenumber !== phonenumber) returningData.push(data);
-        });
-        setAllUsers(returningData);
-
-        const currentUserData = newData.find(
-          (data) => data.phonenumber === phonenumber
-        );
-        setCurrentUser(currentUserData);
+      const returningData = newData.filter((data) => {
+        if (data.phonenumber !== phonenumber) {
+          if (data.gender === currentUserData.interest) {
+            return data;
+          }
+        }
       });
+      setAllUsers(returningData);
     }
   };
 
@@ -57,27 +55,36 @@ const Index = () => {
     };
 
     functionCall();
-  }, []);
+  }, [isRetrigger]);
 
-  // if (!allUsers.length) {
-  //   return (
-  //     <SafeArea
-  //       style={{
-  //         backgroundColor: theme.colors.brand.white,
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}>
-  //       <Text variant="loading">Loading...</Text>
-  //     </SafeArea>
-  //   );
-  // }
+  if (!allUsers.length) {
+    return (
+      <SafeArea
+        style={{
+          backgroundColor: theme.colors.brand.white,
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
+        <Text variant="loading">Loading...</Text>
+      </SafeArea>
+    );
+  }
 
   let currentUsertoSwipe = {};
-  if (allUsers.length > 0) currentUsertoSwipe = allUsers[index];
+  if (userFilteredData?.length) {
+    currentUsertoSwipe = userFilteredData[index];
+  } else {
+    if (allUsers.length) currentUsertoSwipe = allUsers[index];
+  }
 
   let currentSwipeIndexIsLessThanAllUsersLength = true;
-  if (index >= allUsers.length - 1)
-    currentSwipeIndexIsLessThanAllUsersLength = false;
+  if (userFilteredData?.length) {
+    if (index >= userFilteredData?.length - 1)
+      currentSwipeIndexIsLessThanAllUsersLength = false;
+  } else {
+    if (index >= allUsers.length - 1)
+      currentSwipeIndexIsLessThanAllUsersLength = false;
+  }
 
   function handleFilterClose() {
     setIsVisible(false);
@@ -86,11 +93,17 @@ const Index = () => {
     setIsVisible(true);
   }
 
+  const scrollToTop = () => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    }
+  };
+
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.white }}>
       <HorizontalPaddingSpace
         style={{ position: "relative" }}
-        space={theme.space[5]}>
+        space={theme.space[3]}>
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="large">
             <NavigationBar>
@@ -101,7 +114,10 @@ const Index = () => {
                     transform: [{ rotateX: "180deg" }],
                   }}>
                   <IconComponent
-                    iconFunction={() => index > 0 && setIndex(index - 1)}
+                    iconFunction={() => {
+                      index > 0 && setIndex(index - 1);
+                      scrollToTop();
+                    }}
                     iconName="undo-variant"
                     IconComponent={MaterialCommunityIcons}
                     size={30}
@@ -122,28 +138,26 @@ const Index = () => {
         <IndividualUserProfileComponent
           data={currentUsertoSwipe}
           theme={theme}
-          index={index}
-          setIndex={setIndex}
-          currentSwipeIndexIsLessThanAllUsersLength={
-            currentSwipeIndexIsLessThanAllUsersLength
-          }
+          scrollViewRef={scrollViewRef}
         />
         <CloseButton
           style={{
             elevation: 5,
             shadowColor: theme.colors.brand.black,
-            shadowOpacity: 0.3,
-            shadowRadius: "10px",
+            shadowOpacity: 0.5,
+            shadowRadius: "5px",
           }}>
           <View>
             <IconComponent
-              iconFunction={() =>
-                currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1)
-              }
-              iconName="close"
-              IconComponent={AntDesign}
-              size={35}
-              color={theme.colors.brand.base}
+              iconFunction={() => {
+                currentSwipeIndexIsLessThanAllUsersLength &&
+                  setIndex(index + 1);
+                scrollToTop();
+              }}
+              iconName="close-a"
+              IconComponent={Fontisto}
+              size={30}
+              color={theme.colors.brand.basewhite}
             />
           </View>
         </CloseButton>
@@ -153,7 +167,9 @@ const Index = () => {
           isVisible={isVisible}
           onClose={handleFilterClose}
           allUsers={allUsers}
+          currentUser={currentUser}
           setUserFilteredData={setUserFilteredData}
+          setIsRetrigger={setIsRetrigger}
         />
       </HorizontalPaddingSpace>
     </SafeArea>

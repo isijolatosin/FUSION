@@ -16,9 +16,7 @@ const FilterText = styled.Text`
 const CloseButton = styled.View`
   position: fixed;
   z-index: 10;
-  bottom: 150px;
-  right: 0;
-  background-color: ${(props) => props.theme.colors.brand.white};
+  bottom: 160px;
   width: 60px;
   height: 60px;
   border-radius: 100px;
