@@ -41,6 +41,7 @@ import ProfileScreen from "../../Profile/screen";
 import LikesScreen from "../../Likes/screen";
 import ChatsScreen from "../../Chats/screen";
 import { theme } from "../../../infrastructure/theme";
+import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -108,8 +109,15 @@ const TabNavigator = () => {
 
 const FadeOutComponent = ({ navigation }) => {
   useEffect(() => {
+    const functionCall = async () => {
+      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+
+      return phoneValueFromPhoneMemory;
+    };
+    const phoneValueFromPhoneMemory = functionCall();
+
     const timeOutID = setTimeout(() => {
-      navigation.navigate("onBoard");
+      navigation.navigate(phoneValueFromPhoneMemory ? "main" : "onBoard");
     }, 2000);
 
     return () => clearTimeout(timeOutID);
