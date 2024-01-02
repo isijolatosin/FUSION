@@ -62,3 +62,20 @@ export const pickImageAsync = async () => {
     alert("You did not select any image.");
   }
 };
+
+export const pickImageFromCamera = async () => {
+  let result = await ImagePicker.launchCameraAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+  });
+
+  if (!result.canceled) {
+    const returnUrl = result["assets"][0]["uri"];
+
+    return returnUrl;
+  } else {
+    alert("You did not capture any image.");
+  }
+};

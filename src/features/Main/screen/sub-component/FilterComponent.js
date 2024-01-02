@@ -306,7 +306,11 @@ export default function FilterComponent({
     // age
     if (filteredResult.length && suggestAgeWithRange) {
       const filterWithAgeRange = filteredResult.filter((data) => {
-        const age = calculateAge(data?.dob?.year);
+        const age = calculateAge(
+          data?.dob?.year,
+          data?.dob?.month,
+          data?.dob?.day
+        );
 
         if (fromAgeValue < age && age <= toAgeValue) {
           return data;

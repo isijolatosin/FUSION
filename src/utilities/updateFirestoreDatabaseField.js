@@ -68,18 +68,23 @@ const removeItemFromArray = async (
   collectionName,
   documentId,
   fieldName,
-  itemToRemove
+  itemToRemove,
+  setIsRetrigger
 ) => {
   try {
+    setIsRetrigger(false);
     // Get a reference to the document
     const docRef = database.collection(collectionName).doc(documentId);
 
     // Use the arrayRemove method to remove the specified item
-    await docRef.update({
-      [fieldName]: firebase.firestore.FieldValue.arrayRemove(itemToRemove),
-    });
-
-    console.log("Item removed successfully!");
+    await docRef
+      .update({
+        [fieldName]: firebase.firestore.FieldValue.arrayRemove(itemToRemove),
+      })
+      .then(() => {
+        console.log("Item removed successfully!");
+        setIsRetrigger(true);
+      });
   } catch (error) {
     console.error("Error removing item:", error);
   }

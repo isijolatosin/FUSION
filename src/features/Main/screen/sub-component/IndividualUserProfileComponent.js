@@ -125,7 +125,8 @@ export default function IndividualUserProfileComponent({
             shadowRadius: theme.sizes[0],
           }}>
           <Text variant="headingWhiteSlim" width="100%">
-            {data?.firstname}, {calculateAge(data?.dob?.year)}
+            {data?.firstname},{" "}
+            {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
           </Text>
         </View>
         <View
