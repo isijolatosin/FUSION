@@ -1,47 +1,38 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Image, ActivityIndicator, View } from "react-native";
+import { TouchableOpacity, Image, ActivityIndicator } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../../context/ThemeContext";
-import {
-  pickImageAsync,
-  uploadImageToCloudinary,
-} from "../../../../utilities/pickImageAsync";
+import handlePickImageAsync from "../../../../utilities/handleUploadImage";
 
 export default function PhotoComponent({
+  isUpdatingPhoto,
   dimension,
   photoUrl,
   setPhotoUrl,
   showDeleteIcon,
-  index,
-  setOpenModal,
+  setOpenDeleteModal,
   setDeleteImageItem,
   deleteImageItem,
+  setOpenImageUploadModal,
 }) {
   const {
     state: { theme },
   } = useAppContext();
   const [isLoadingImage, useLoadingImage] = useState(false);
 
-  async function handlePickImageAsync() {
-    useLoadingImage(true);
-
-    const returnUrl = await pickImageAsync();
-
-    if (!returnUrl) return;
-
-    const returnPhotoUrl = await uploadImageToCloudinary(returnUrl);
-
-    if (returnPhotoUrl) {
-      useLoadingImage(false);
-      setPhotoUrl(returnPhotoUrl);
-    }
-  }
-
   return (
     <TouchableOpacity
-      onPress={() => !photoUrl && handlePickImageAsync()}
+      onPress={() => {
+        if (!photoUrl && !isUpdatingPhoto) {
+          handlePickImageAsync(useLoadingImage, setPhotoUrl);
+        }
+
+        if (!photoUrl) {
+          setOpenImageUploadModal(true);
+        }
+      }}
       style={{
         position: "relative",
         width: dimension + "%",
@@ -73,7 +64,7 @@ export default function PhotoComponent({
                 iconFunction={() => {
                   if (deleteImageItem) setDeleteImageItem("");
 
-                  setOpenModal(true);
+                  setOpenDeleteModal(true);
                   setDeleteImageItem(photoUrl);
                 }}
                 iconName="close"
@@ -90,7 +81,15 @@ export default function PhotoComponent({
         <ActivityIndicator size="small" color={theme.colors.brand.orange} />
       ) : (
         <IconComponent
-          iconFunction={handlePickImageAsync}
+          iconFunction={() => {
+            if (!photoUrl && !isUpdatingPhoto) {
+              handlePickImageAsync(useLoadingImage, setPhotoUrl);
+            }
+
+            if (!photoUrl) {
+              setOpenImageUploadModal(true);
+            }
+          }}
           iconName="plus"
           IconComponent={AntDesign}
           size={12}

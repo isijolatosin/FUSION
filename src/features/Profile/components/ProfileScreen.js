@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, View } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -9,25 +10,26 @@ import { Text } from "../../../components/typography/text.component";
 import { useAppContext } from "../../../context/ThemeContext";
 import {
   NavigationBar,
-  PopupModal,
   YouAreSpecialCircleWrapper,
 } from "../../Onboarding/components/onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
-import {
-  getAllData,
-  removeItemFromArray,
-} from "../../../utilities/updateFirestoreDatabaseField";
+import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import calculateAge from "../../../utilities/calculateAge";
 import PhotoComponent from "../../Onboarding/components/sub-component/PhotoComponent";
-import { ButtonAction } from "../../Main/screen/main.style";
+import PopupProfileImageModal from "./PopupProfileImageModal";
+import {
+  handleDeleteImageAsync,
+  handlePickImageAsync,
+} from "../../../utilities/handleUploadImage";
 
 export default function ProfileScreen() {
   const {
     state: { theme },
   } = useAppContext();
   const { height } = Dimensions.get("window");
-  const [openModal, setOpenModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
   const [deleteImageItem, setDeleteImageItem] = useState("");
 
@@ -40,6 +42,17 @@ export default function ProfileScreen() {
   const [photoUrl4, setPhotoUrl4] = useState("");
   const [photoUrl5, setPhotoUrl5] = useState("");
   const [photoUrl6, setPhotoUrl6] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     async function fetchUsersData() {
@@ -78,12 +91,32 @@ export default function ProfileScreen() {
   if (photoUrl5) mediaArray.push(photoUrl5);
   if (photoUrl6) mediaArray.push(photoUrl6);
 
-  async function handleDeleteImageAsync() {
-    await removeItemFromArray(
-      "all-users",
+  function handleDeleteImageAsyncInModal() {
+    handleDeleteImageAsync(
       currentUser?.id,
-      "mediaArray",
-      deleteImageItem
+      deleteImageItem,
+      setTriggerRefresh,
+      setOpenDeleteModal
+    );
+  }
+
+  function handlePickImageAsyncInModal() {
+    handlePickImageAsync(
+      () => {},
+      () => {},
+      setOpenImageUploadModal,
+      currentUser?.id,
+      setTriggerRefresh
+    );
+  }
+  function handleCaptureImageAsyncInModal() {
+    handlePickImageAsync(
+      () => {},
+      () => {},
+      setOpenImageUploadModal,
+      currentUser?.id,
+      setTriggerRefresh,
+      true
     );
   }
 
@@ -137,7 +170,12 @@ export default function ProfileScreen() {
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
-                {currentUser?.firstname}, {calculateAge(currentUser?.dob?.year)}
+                {currentUser?.firstname},{" "}
+                {calculateAge(
+                  currentUser?.dob?.year,
+                  currentUser?.dob?.month,
+                  currentUser?.dob?.day
+                )}
               </Text>
             </Spacer>
           </Spacer>
@@ -172,64 +210,76 @@ export default function ProfileScreen() {
             }}
             space={theme.space[5]}>
             <PhotoComponent
+              isUpdatingPhoto={true}
               dimension={31}
               photoUrl={photoUrl1}
               setPhotoUrl={setPhotoUrl1}
               showDeleteIcon={true}
               index={0}
-              setOpenModal={setOpenModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               setDeleteImageItem={setDeleteImageItem}
               deleteImageItem={deleteImageItem}
+              setOpenImageUploadModal={setOpenImageUploadModal}
             />
             <PhotoComponent
+              isUpdatingPhoto={true}
               dimension={31}
               photoUrl={photoUrl2}
               setPhotoUrl={setPhotoUrl2}
               showDeleteIcon={true}
               index={1}
-              setOpenModal={setOpenModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               setDeleteImageItem={setDeleteImageItem}
               deleteImageItem={deleteImageItem}
+              setOpenImageUploadModal={setOpenImageUploadModal}
             />
             <PhotoComponent
+              isUpdatingPhoto={true}
               dimension={31}
               photoUrl={photoUrl3}
               setPhotoUrl={setPhotoUrl3}
               showDeleteIcon={true}
               index={2}
-              setOpenModal={setOpenModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               setDeleteImageItem={setDeleteImageItem}
               deleteImageItem={deleteImageItem}
+              setOpenImageUploadModal={setOpenImageUploadModal}
             />
             <PhotoComponent
+              isUpdatingPhoto={true}
               dimension={31}
               photoUrl={photoUrl4}
               setPhotoUrl={setPhotoUrl4}
               showDeleteIcon={true}
               index={3}
-              setOpenModal={setOpenModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               setDeleteImageItem={setDeleteImageItem}
               deleteImageItem={deleteImageItem}
+              setOpenImageUploadModal={setOpenImageUploadModal}
             />
             <PhotoComponent
+              isUpdatingPhoto={true}
               dimension={31}
               photoUrl={photoUrl5}
               setPhotoUrl={setPhotoUrl5}
               showDeleteIcon={true}
               index={4}
-              setOpenModal={setOpenModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               setDeleteImageItem={setDeleteImageItem}
               deleteImageItem={deleteImageItem}
+              setOpenImageUploadModal={setOpenImageUploadModal}
             />
             <PhotoComponent
+              isUpdatingPhoto={true}
               dimension={31}
               photoUrl={photoUrl6}
               setPhotoUrl={setPhotoUrl6}
               showDeleteIcon={true}
               index={5}
-              setOpenModal={setOpenModal}
+              setOpenDeleteModal={setOpenDeleteModal}
               setDeleteImageItem={setDeleteImageItem}
               deleteImageItem={deleteImageItem}
+              setOpenImageUploadModal={setOpenImageUploadModal}
             />
           </HorizontalPaddingSpace>
         </Spacer>
@@ -412,54 +462,27 @@ export default function ProfileScreen() {
           </HorizontalPaddingSpace>
         </Spacer>
       </ScrollView>
-      {openModal && (
-        <PopupModal height={height}>
-          <HorizontalPaddingSpace
-            style={{ width: "100%" }}
-            space={theme.space[5]}>
-            <ButtonAction
-              onPress={() => handleDeleteImageAsync()}
-              backgroundColor={theme.colors.brand.highlight}
-              width="100%"
-              paddingTop={theme.spaceNumber[7]}
-              paddingBottom={theme.spaceNumber[7]}
-              alignItems="center"
-              borderTopLeftRadius={theme.spaceNumber[2]}
-              borderTopRightRadius={theme.spaceNumber[2]}
-              borderBottomColor={theme.colors.brand.linesLight}
-              borderBottomWidth={1}>
-              <Text
-                style={{}}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="body">
-                Delete Photo
-              </Text>
-            </ButtonAction>
-            <ButtonAction
-              onPress={() => setOpenModal(false)}
-              backgroundColor={theme.colors.brand.highlight}
-              width="100%"
-              paddingTop={theme.spaceNumber[7]}
-              paddingBottom={theme.spaceNumber[7]}
-              alignItems="center"
-              borderBottomLeftRadius={theme.spaceNumber[2]}
-              borderBottomRightRadius={theme.spaceNumber[2]}>
-              <Text
-                onPress={() => {
-                  setTriggerRefresh(false);
-                  setOpenModal(false);
-                }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="body">
-                Cancel
-              </Text>
-            </ButtonAction>
-          </HorizontalPaddingSpace>
-        </PopupModal>
+      {openDeleteModal && (
+        <PopupProfileImageModal
+          height={height}
+          theme={theme}
+          functionCallTop={handleDeleteImageAsyncInModal}
+          functionCallBottom={setOpenDeleteModal}
+          setTriggerRefresh={setTriggerRefresh}
+          textTop="Delete Photo"
+          textBottom="Cancel"
+        />
+      )}
+      {openImageUploadModal && (
+        <PopupProfileImageModal
+          height={height}
+          theme={theme}
+          functionCallTop={handlePickImageAsyncInModal}
+          functionCallBottom={handleCaptureImageAsyncInModal}
+          setTriggerRefresh={setTriggerRefresh}
+          textTop="Upload Photo"
+          textBottom="Take Photo"
+        />
       )}
     </SafeArea>
   );
