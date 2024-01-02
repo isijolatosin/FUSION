@@ -15,6 +15,7 @@ import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton, FilterText, FilterWrapper } from "./main.style";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
+import { Text } from "../../../components/typography/text.component";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);

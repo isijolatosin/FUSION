@@ -77,7 +77,7 @@ export default function CaptureInterests({ navigation }) {
         </NavigationBar>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ marginBottom: 60 }}>
+          style={{ marginBottom: theme.spaceNumberBy10[5] }}>
           <Spacer position="top" size="large">
             <Text variant="headingSlim" width="100%">
               Share Your Interest
@@ -103,9 +103,9 @@ export default function CaptureInterests({ navigation }) {
                     backgroundColor: interestsArray.includes(interest)
                       ? theme.colors.brand.base
                       : theme.colors.brand.highlight,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                    borderRadius: 100,
+                    paddingHorizontal: theme.spaceNumber[7],
+                    paddingVertical: theme.spaceNumber[3],
+                    borderRadius: theme.spaceNumberBy10[9],
                   }}>
                   <Text
                     style={{

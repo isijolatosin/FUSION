@@ -52,8 +52,8 @@ const TabNavigator = () => {
       screenOptions={() => ({
         tabBarStyle: {
           height: Platform.OS === "ios" ? 100 : 80,
-          paddingHorizontal: 10,
-          paddingTop: 0,
+          paddingHorizontal: theme.spaceNumberBy10[0],
+          paddingTop: theme.spaceNumberBy10[0],
           backgroundColor: theme.colors.brand.highlight,
           borderTopWidth: 0,
         },

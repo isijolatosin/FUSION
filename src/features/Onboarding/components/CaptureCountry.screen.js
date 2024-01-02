@@ -17,7 +17,7 @@ import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureCountry({ navigation }) {
   const [isOpen, setOpen] = useState(false);
-  const { screenHeight } = Dimensions.get("window");
+  const { height } = Dimensions.get("window");
   const [country, setCountry] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
@@ -25,7 +25,7 @@ export default function CaptureCountry({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, height, religious } = route.params || {};
+  const { dob, _height, religious } = route.params || {};
 
   return (
     <SafeArea>
@@ -45,7 +45,7 @@ export default function CaptureCountry({ navigation }) {
               if (country) {
                 navigation.navigate("capture-looking-for-screen", {
                   dob,
-                  height,
+                  _height,
                   religious,
                   country,
                 });
@@ -58,8 +58,8 @@ export default function CaptureCountry({ navigation }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: 100,
-            height: screenHeight,
+            marginTop: theme.spaceNumberBy10[9],
+            height: height,
           }}>
           <Spacer position="top" size="large">
             <Text variant="headingSlim" width="100%">

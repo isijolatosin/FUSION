@@ -117,12 +117,12 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             position: "absolute",
-            top: 70,
-            left: 10,
+            top: theme.spaceNumberBy10[6],
+            left: theme.spaceNumberBy10[0],
             elevation: 5,
             shadowColor: theme.colors.brand.black,
             shadowOpacity: 0.8,
-            shadowRadius: "8px",
+            shadowRadius: theme.sizes[0],
           }}>
           <Text variant="headingWhiteSlim" width="100%">
             {data?.firstname}, {calculateAge(data?.dob?.year)}
@@ -135,7 +135,7 @@ export default function IndividualUserProfileComponent({
             flexDirection: "row",
             justifyContent: "flex-end",
             width: "100%",
-            padding: 10,
+            padding: theme.spaceNumberBy10[0],
           }}>
           <TouchableOpacity>
             <IconComponent
@@ -157,15 +157,15 @@ export default function IndividualUserProfileComponent({
         style={{
           flexDirection: "row",
           width: "100%",
-          gap: 8,
+          gap: theme.spaceNumber[3],
           marginVertical: 5,
         }}>
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text variant="popButton" width="100%">
             {data?.whatThreeWordsDescribeYou?.firstword}
@@ -174,9 +174,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text variant="popButton" width="100%">
             {data?.whatThreeWordsDescribeYou?.secondword}
@@ -185,9 +185,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text variant="popButton" width="100%">
             {data?.whatThreeWordsDescribeYou?.thirdword}
@@ -203,7 +203,7 @@ export default function IndividualUserProfileComponent({
         style={{
           flexDirection: "row",
           width: "100%",
-          gap: 8,
+          gap: theme.spaceNumber[3],
           marginVertical: 5,
           flexWrap: "wrap",
         }}>
@@ -212,9 +212,9 @@ export default function IndividualUserProfileComponent({
             key={idx}
             style={{
               backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              borderRadius: 50,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
             }}>
             <Text key={idx} variant="popButton" width="100%">
               {word}
@@ -251,9 +251,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <View style={{ position: "absolute", top: 8, left: 8 }}>
             <IconComponent
@@ -271,9 +271,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <View style={{ position: "absolute", top: 9, left: 9 }}>
             <IconComponent
@@ -291,9 +291,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <View style={{ position: "absolute", top: 10.5, left: 10 }}>
             <IconComponent
@@ -312,9 +312,9 @@ export default function IndividualUserProfileComponent({
           <View
             style={{
               backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              borderRadius: 50,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
             }}>
             <View style={{ position: "absolute", top: 9, left: 9 }}>
               <IconComponent
@@ -333,9 +333,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <View style={{ position: "absolute", top: 9, left: 9 }}>
             <IconComponent
@@ -353,9 +353,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <View style={{ position: "absolute", top: 9, left: 8 }}>
             <IconComponent
@@ -373,9 +373,9 @@ export default function IndividualUserProfileComponent({
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: 8,
-            paddingHorizontal: 16,
-            borderRadius: 50,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
           }}>
           <View style={{ position: "absolute", top: 7, left: 10 }}>
             <IconComponent
@@ -399,8 +399,8 @@ export default function IndividualUserProfileComponent({
       <View
         style={{
           flexDirection: "row",
-          paddingVertical: 8,
-          borderRadius: 50,
+          paddingVertical: theme.spaceNumber[3],
+          borderRadius: theme.spaceNumberBy10[4],
         }}>
         <IconComponent
           iconFunction={() => {}}

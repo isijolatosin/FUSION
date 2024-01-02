@@ -335,7 +335,7 @@ export default function FilterComponent({
         paddingTop: Platform.OS === "ios" ? 150 : 100,
         position: "relative",
         alignItems: "flex-end",
-        paddingBottom: 10,
+        paddingBottom: theme.spaceNumberBy10[0],
       }}>
       <ScrollView style={{ paddingTop: 0 }}>
         <View style={{ position: "absolute", right: 30, top: 0 }}>

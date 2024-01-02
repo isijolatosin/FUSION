@@ -18,4 +18,6 @@ export const space = [
   "100px",
 ];
 
-export const spaceNumber = [2, 4, 6, 8, 10];
+export const spaceNumber = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+
+export const spaceNumberBy10 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

@@ -23,7 +23,7 @@ export default function YouLikedComponent({
       style={{
         backgroundColor: theme.colors.brand.highlight,
         margin: 0,
-        paddingBottom: 10,
+        paddingBottom: theme.spaceNumberBy10[0],
       }}>
       <HorizontalPaddingSpace
         style={{ width: "100%", alignItems: "center" }}

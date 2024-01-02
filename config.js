@@ -5,6 +5,7 @@ import "firebase/compat/firestore";
 export const firebaseConfig = {
   apiKey: "AIzaSyCjzR0Apd08cMpBdioUNUqteFORqNN68wY",
   authDomain: "your-fusion.firebaseapp.com",
+  databaseURL: "https://your-fusion-default-rtdb.firebaseio.com",
   projectId: "your-fusion",
   storageBucket: "your-fusion.appspot.com",
   messagingSenderId: "929719748628",

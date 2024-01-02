@@ -108,7 +108,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             style={{
               flexDirection: "row",
               flexWrap: "wrap",
-              gap: 12,
+              gap: theme.spaceNumber[5],
             }}>
             {LifestyleHabits.smoke.map((smoke, idx) => (
               <TouchableOpacity
@@ -119,9 +119,9 @@ export default function CaptureLifestyleHabits({ navigation }) {
                     lifestyleHabits.smoke === smoke
                       ? theme.colors.brand.base
                       : theme.colors.brand.highlight,
-                  paddingHorizontal: 16,
-                  paddingVertical: 8,
-                  borderRadius: 100,
+                  paddingHorizontal: theme.spaceNumber[7],
+                  paddingVertical: theme.spaceNumber[3],
+                  borderRadius: theme.spaceNumberBy10[9],
                 }}>
                 <Text
                   style={{
@@ -157,7 +157,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             style={{
               flexDirection: "row",
               flexWrap: "wrap",
-              gap: 12,
+              gap: theme.spaceNumber[5],
             }}>
             {LifestyleHabits.drink.map((drink, idx) => (
               <TouchableOpacity
@@ -168,9 +168,9 @@ export default function CaptureLifestyleHabits({ navigation }) {
                     lifestyleHabits.drink === drink
                       ? theme.colors.brand.base
                       : theme.colors.brand.highlight,
-                  paddingHorizontal: 16,
-                  paddingVertical: 8,
-                  borderRadius: 100,
+                  paddingHorizontal: theme.spaceNumber[7],
+                  paddingVertical: theme.spaceNumber[3],
+                  borderRadius: theme.spaceNumberBy10[9],
                 }}>
                 <Text
                   style={{
