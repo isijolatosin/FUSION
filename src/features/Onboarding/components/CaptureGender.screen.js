@@ -48,7 +48,7 @@ export default function CaptureGender({ navigation }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: 100,
+            marginTop: theme.spaceNumberBy10[9],
             height: height,
           }}>
           <Spacer position="top" size="xxxxlarge">

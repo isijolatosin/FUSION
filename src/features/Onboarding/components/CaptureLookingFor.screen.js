@@ -15,7 +15,7 @@ import Button from "../../../components/utility/button.component";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureLookingFor({ navigation }) {
-  const { screenHeight } = Dimensions.get("window");
+  const { height } = Dimensions.get("window");
   const [preference, setPreference] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
@@ -23,7 +23,7 @@ export default function CaptureLookingFor({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, height, religious, country } = route.params || {};
+  const { dob, _height, religious, country } = route.params || {};
 
   return (
     <SafeArea>
@@ -43,7 +43,7 @@ export default function CaptureLookingFor({ navigation }) {
               if (preference) {
                 navigation.navigate("capture-self-description-screen", {
                   dob,
-                  height,
+                  _height,
                   religious,
                   country,
                   preference,
@@ -57,8 +57,8 @@ export default function CaptureLookingFor({ navigation }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: 100,
-            height: screenHeight,
+            marginTop: theme.spaceNumberBy10[9],
+            height: height,
           }}>
           <Spacer position="top" size="xxxxlarge">
             <Text variant="headingSlim" width="100%">

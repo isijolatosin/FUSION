@@ -17,8 +17,8 @@ import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureHeight({ navigation }) {
   const [isOpen, setOpen] = useState(false);
-  const { screenHeight } = Dimensions.get("window");
-  const [height, setHeight] = useState("");
+  const { height } = Dimensions.get("window");
+  const [_height, setHeight] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
@@ -42,10 +42,10 @@ export default function CaptureHeight({ navigation }) {
             theme={theme}
             color={theme.colors.brand.base}
             nextFunction={() => {
-              if (height) {
+              if (_height) {
                 navigation.navigate("capture-religious-screen", {
                   dob,
-                  height,
+                  _height,
                 });
               } else {
                 setPageError(true);
@@ -56,8 +56,8 @@ export default function CaptureHeight({ navigation }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: 100,
-            height: screenHeight,
+            marginTop: theme.spaceNumberBy10[9],
+            height: height,
           }}>
           <Spacer position="top" size="large">
             <Text variant="headingSlim" width="100%">

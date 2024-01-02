@@ -118,7 +118,7 @@ export default function CaptureLocation({ navigation }) {
                 style={{
                   height: "60%",
                   backgroundColor: theme.colors.brand.basewhite,
-                  paddingTop: 10,
+                  paddingTop: theme.spaceNumberBy10[0],
                   width: "80%",
                   alignItems: "center",
                   elevation: 5,
@@ -130,7 +130,7 @@ export default function CaptureLocation({ navigation }) {
                   style={{
                     textAlign: "center",
                     fontSize: 22,
-                    paddingBottom: 10,
+                    paddingBottom: theme.spaceNumberBy10[0],
                   }}
                   variant="headingSlim"
                   width="80%">

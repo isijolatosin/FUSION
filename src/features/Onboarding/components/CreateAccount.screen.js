@@ -111,7 +111,12 @@ export default function CreateAccount({ navigation }) {
                   <Text style={{ position: "relative" }} variant="popupText">
                     {phonenumberCaptionInstruction}
                   </Text>
-                  <View style={{ position: "absolute", top: 20, right: 50 }}>
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: theme.spaceNumberBy10[1],
+                      right: theme.spaceNumberBy10[4],
+                    }}>
                     <IconComponent
                       color={theme.colors.brand.base}
                       iconFunction={() => setPopup(false)}

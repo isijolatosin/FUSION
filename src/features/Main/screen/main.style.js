@@ -36,10 +36,43 @@ const InterestWrapper = styled.View`
   align-items: center;
 `;
 
+const ButtonAction = styled.TouchableOpacity`
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : props.theme.colors.brand.highlight};
+
+  width: ${(props) => (props.width ? props.width : "100%")};
+  padding-top: ${(props) =>
+    props.paddingTop
+      ? props.paddingTop + "px"
+      : props.theme.spaceNumber[7] + "px"};
+  padding-bottom: ${(props) =>
+    props.paddingBottom
+      ? props.paddingBottom + "px"
+      : props.theme.spaceNumber[7] + "px"};
+  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
+  border-top-left-radius: ${(props) =>
+    props.borderTopLeftRadius && props.borderTopLeftRadius + "px"};
+  border-top-right-radius: ${(props) =>
+    props.borderTopRightRadius && props.borderTopRightRadius + "px"};
+  border-bottom-left-radius: ${(props) =>
+    props.borderBottomLeftRadius && props.borderBottomLeftRadius + "px"};
+  border-bottom-right-radius: ${(props) =>
+    props.borderBottomRightRadius && props.borderBottomRightRadius + "px"};
+  ${(props) =>
+    props.borderBottomWidth &&
+    `border-bottom-width: ${props.borderBottomWidth}px `};
+  ${(props) =>
+    props.borderBottomColor &&
+    `border-bottom-color: ${props.borderBottomColor}`};
+`;
+
 export {
   FilterWrapper,
   FilterText,
   CloseButton,
   RangeCompoentSection,
   InterestWrapper,
+  ButtonAction,
 };

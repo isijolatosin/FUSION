@@ -52,14 +52,17 @@ const LocationButtonText = styled.Text`
 `;
 
 const YouAreSpecialCircleWrapper = styled.View`
-  background-color: ${(props) => props.theme.colors.brand.peach};
-  width: 300px;
-  height: 300px;
+  background-color: ${(props) =>
+    props.color
+      ? props.theme.colors.brand[props.color]
+      : props.theme.colors.brand.peach};
+  width: ${(props) => (props.width ? props.width + "px" : 300 + "px")};
+  height: ${(props) => (props.width ? props.width + "px" : 300 + "px")};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 150px;
+  border-radius: ${(props) => (props.width ? props.width + "px" : 150 + "px")};
   padding: 30px;
 `;
 

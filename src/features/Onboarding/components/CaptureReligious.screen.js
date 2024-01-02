@@ -17,7 +17,7 @@ import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureReligious({ navigation }) {
   const [isOpen, setOpen] = useState(false);
-  const { screenHeight } = Dimensions.get("window");
+  const { height } = Dimensions.get("window");
   const [religious, setReligious] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
@@ -25,7 +25,7 @@ export default function CaptureReligious({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, height } = route.params || {};
+  const { dob, _height } = route.params || {};
 
   return (
     <SafeArea>
@@ -45,7 +45,7 @@ export default function CaptureReligious({ navigation }) {
               if (religious) {
                 navigation.navigate("capture-country-screen", {
                   dob,
-                  height,
+                  _height,
                   religious,
                 });
               } else {
@@ -57,8 +57,8 @@ export default function CaptureReligious({ navigation }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: 100,
-            height: screenHeight,
+            marginTop: theme.spaceNumberBy10[9],
+            height: height,
           }}>
           <Spacer position="top" size="large">
             <Text variant="headingSlim" width="100%">

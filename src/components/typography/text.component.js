@@ -80,7 +80,7 @@ const headingWhiteSlim = (theme) => `
     color: ${theme.colors.brand.basewhite};
 `;
 
-const subHeading = (theme, colorType, fontType, fontSize) => `
+const subHeading = (theme, colorType, fontType, fontSize, transform) => `
     font-family: ${
       fontType ? theme.fonts[fontType] : theme.fonts.montserratRegular
     };
@@ -88,6 +88,8 @@ const subHeading = (theme, colorType, fontType, fontSize) => `
     color: ${
       colorType ? theme.colors.brand[colorType] : theme.colors.brand.base
     };
+    text-transform: ${transform ? transform : "none"};
+    
 `;
 const popupText = (theme) => `
     font-family: ${theme.fonts.montserratBold};
@@ -121,8 +123,8 @@ const variants = {
 
 export const Text = styled.Text`
   ${({ theme }) => defaultTextStyles(theme)}
-  ${({ variant, theme, colorType, fontType, fontSize }) =>
-    variants[variant](theme, colorType, fontType, fontSize)}
+  ${({ variant, theme, colorType, fontType, fontSize, transform }) =>
+    variants[variant](theme, colorType, fontType, fontSize, transform)}
     width: ${(props) => props.width};
 `;
 
