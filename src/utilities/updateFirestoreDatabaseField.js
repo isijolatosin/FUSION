@@ -104,10 +104,31 @@ const removeItemFromArray = async (
   }
 };
 
+const removeDocumentFromAllLikesCollections = (
+  collectionName,
+  documentId,
+  setIsRetrigger
+) => {
+  setIsRetrigger(false);
+  // Get a reference to the document
+  const docRef = database.collection(collectionName).doc(documentId);
+
+  // Use the arrayRemove method to remove the specified item
+  docRef
+    .delete()
+    .then(() => {
+      console.log("Document successfully deleted!");
+    })
+    .catch((error) => {
+      console.error("Error deleting document: ", error);
+    });
+};
+
 export {
   updateUserValueField,
   getAllData,
   getAllLikesData,
   addToArrayField,
   removeItemFromArray,
+  removeDocumentFromAllLikesCollections,
 };

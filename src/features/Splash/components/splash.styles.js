@@ -42,7 +42,7 @@ const LogoText = styled(Text)`
 
 const ButtonWrapper = styled(TouchableOpacity)`
   background-color: ${(props) => props.backgroundColor};
-  width: 100%;
+  width: ${(props) => (props.width ? props.width : "100%")};
   padding-top: ${(props) => props.theme.space[3]};
   padding-bottom: ${(props) => props.theme.space[3]};
   border-width: ${(props) =>

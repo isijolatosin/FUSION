@@ -65,7 +65,7 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: theme.colors.brand.brandFade,
       })}>
       <Tab.Screen
-        name="Home"
+        name="home"
         component={MainScreen}
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
@@ -75,7 +75,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -84,7 +84,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Likes"
+        name="likes"
         component={LikesScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -97,7 +97,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Chat"
+        name="chat"
         component={ChatsScreen}
         options={{
           tabBarIcon: ({ color }) => (

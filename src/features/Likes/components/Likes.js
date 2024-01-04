@@ -20,10 +20,12 @@ const LikesScreen = () => {
     state: { theme },
   } = useAppContext();
   const [yourLikesData, setYourLikesData] = useState([]);
-  const [selectedLikedData, setSelectedLikedData] = useState([]);
+  const [initiatorProfileData, setInitiatorProfileData] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
-  const [likedUser, setLikedUser] = useState([]);
-  const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
+  const [likedUserAndCurrentUserData, setLikedUserAndCurrentUserData] =
+    useState([]);
+  const [showInitiatorProfile, setShowLikeInitiatorProfile] = useState(false);
+  const [isRetrigger, setIsRetrigger] = useState(false);
 
   useEffect(() => {
     async function fetchUsersData() {
@@ -41,12 +43,11 @@ const LikesScreen = () => {
       const likeInitiators = likesData.filter(
         (like) => like?.profileLikedNumber === phoneValueFromPhoneMemory
       );
-
       setYourLikesData(likeInitiators);
     }
 
     fetchUsersData();
-  }, []);
+  }, [isRetrigger]);
 
   return (
     <SafeArea>
@@ -72,8 +73,8 @@ const LikesScreen = () => {
                   key={item?.id}
                   data={item}
                   theme={theme}
-                  setSelectedLikedData={setSelectedLikedData}
-                  setIsYouLikedVisible={setIsYouLikedVisible}
+                  setInitiatorProfileData={setInitiatorProfileData}
+                  setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
                 />
               )}
               style={{ marginBottom: theme.spaceNumberBy50[4] }}
@@ -81,13 +82,16 @@ const LikesScreen = () => {
           </Spacer>
         </Spacer>
       </HorizontalPaddingSpace>
-      {isYouLikedVisible && (
+      {showInitiatorProfile && (
         <LikeInitiatorProfileComponent
-          data={selectedLikedData}
+          data={initiatorProfileData}
           theme={theme}
-          setLikedUser={setLikedUser}
-          setIsYouLikedVisible={setIsYouLikedVisible}
+          likedUserAndCurrentUserData={likedUserAndCurrentUserData}
+          setLikedUserAndCurrentUserData={setLikedUserAndCurrentUserData}
+          setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
+          setInitiatorProfileData={setInitiatorProfileData}
           currentUser={currentUser}
+          setIsRetrigger={setIsRetrigger}
         />
       )}
     </SafeArea>

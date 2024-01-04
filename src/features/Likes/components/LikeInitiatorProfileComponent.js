@@ -7,69 +7,87 @@ import {
   Fontisto,
   FontAwesome5,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import firebase, { database } from "../../../../config";
-import { addToArrayField } from "../../../utilities/updateFirestoreDatabaseField";
+import { removeDocumentFromAllLikesCollections } from "../../../utilities/updateFirestoreDatabaseField";
 import calculateAge from "../../../utilities/calculateAge";
 import { Text } from "../../../components/typography/text.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { CloseButton } from "../../Main/screen/main.style";
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { FlatGrid } from "react-native-super-grid";
+import Button from "../../../components/utility/button.component";
 
 export default function LikeInitiatorProfileComponent({
   data,
   theme,
-  setLikedUser,
-  setIsYouLikedVisible,
+  likedUserAndCurrentUserData,
+  setLikedUserAndCurrentUserData,
+  setShowLikeInitiatorProfile,
+  setInitiatorProfileData,
   currentUser,
   setIsRetrigger,
-  isVisible,
 }) {
+  const navigation = useNavigation();
   const imageHeight = 450;
   const lastTap = useRef(0);
   const [doubleTapWarning, setDoubleTapWarnings] = useState(false);
 
   let iconNamePerGender = "";
-  if (data?.gender === "woman") {
+  if (data?.[0]?.likedBy?.gender === "woman") {
     iconNamePerGender = "gender-female";
   }
-  if (data?.gender === "man") {
+  if (data?.[0]?.likedBy?.gender === "man") {
     iconNamePerGender = "gender-male";
   }
-  if (data?.gender === "woman") {
+  if (data?.[0]?.likedBy?.gender === "woman") {
     iconNamePerGender = "gender-non-binary";
   }
 
-  async function handleYouLikedAUser(profileLikedNumber) {
+  async function handleLikeInitiatorProfile() {
     const now = Date.now();
     const DOUBLE_TAP_DELAY = 300;
     setDoubleTapWarnings(false);
 
     if (now - lastTap.current < DOUBLE_TAP_DELAY) {
       const likedUserNameAndPhoto = {
-        name: data?.firstname,
-        photo: data?.mediaArray?.[0],
+        name: data?.[0]?.likedBy?.firstname,
+        photo: data?.[0]?.likedBy?.mediaArray?.[0],
       };
-      setLikedUser(likedUserNameAndPhoto);
-      setIsYouLikedVisible(true);
+      const currentUserrNameAndPhoto = {
+        name: currentUser?.firstname,
+        photo: currentUser?.mediaArray?.[0],
+      };
+      setLikedUserAndCurrentUserData([
+        likedUserNameAndPhoto,
+        currentUserrNameAndPhoto,
+      ]);
 
-      // create match intend structure in firebase firestore
-      database.collection("all-likes").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        likedBy: {
-          ...currentUser,
-        }, // the number who liked another profile
-        profileLikedNumber: profileLikedNumber, // profile number that was liked
-      });
+      // Create match data
+      const likedByprofile = data?.[0]?.likedBy;
+      const likedProfile = currentUser;
+      database
+        .collection("matches")
+        .add({
+          likedByprofile,
+          likedProfile,
+        })
+        .then(() => {
+          console.log(`MATCH CREATED SUCCESSFULLY`);
+        })
+        .catch((error) => console.log("Error " + error.message));
 
-      await addToArrayField(
-        "all-users",
-        currentUser?.id,
-        "listOfAllLikedNumbers",
-        data?.phonenumber,
+      //Remove current like initiation object from all like array list in database
+      removeDocumentFromAllLikesCollections(
+        "all-likes",
+        data?.[0]?.id,
         setIsRetrigger
       );
+
+      setInitiatorProfileData([]);
     } else {
       setDoubleTapWarnings(true);
     }
@@ -78,160 +96,108 @@ export default function LikeInitiatorProfileComponent({
     lastTap.current = now;
   }
 
+  const currentUserData = likedUserAndCurrentUserData[1];
+  const otherUserData = likedUserAndCurrentUserData[0];
+
+  function handleSaveMatchProfilesToDatabase() {
+    setShowLikeInitiatorProfile(false);
+    navigation.navigate("chat");
+  }
+
   return (
     <Modal
-      isVisible={isVisible}
       animationIn="slideInRight"
       animationOut="slideOutRight"
-      onBackdropPress={() => setIsYouLikedVisible(false)}
       style={{
         backgroundColor: theme.colors.brand.white,
         margin: 0,
-        paddingTop: Platform.OS === "ios" ? 150 : 100,
         position: "relative",
         alignItems: "flex-end",
         paddingBottom: theme.spaceNumberBy10[0],
         position: "relative",
       }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ position: "relative" }}>
-          <Image
-            style={{
-              width: "100%",
-              height: imageHeight,
-              resizeMode: "cover",
-            }}
-            source={{
-              uri: `${data?.mediaArray?.[0]}`,
-            }}
-          />
-          <View
-            style={{
-              position: "absolute",
-              top: theme.spaceNumberBy10[6],
-              left: theme.spaceNumberBy10[0],
-              elevation: 5,
-              shadowColor: theme.colors.brand.black,
-              shadowOpacity: 0.8,
-              shadowRadius: theme.sizes[0],
-            }}>
-            <Text variant="headingWhiteSlim" width="100%">
-              {data?.firstname},{" "}
-              {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
-            </Text>
-          </View>
-          {doubleTapWarning && (
-            <Text
+      {data?.length ? (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{ position: "relative" }}>
+            <Image
+              style={{
+                width: "100%",
+                height: imageHeight,
+                resizeMode: "cover",
+              }}
+              source={{
+                uri: `${data?.[0]?.likedBy?.mediaArray?.[0]}`,
+              }}
+            />
+            <View
               style={{
                 position: "absolute",
-                right: theme.spaceNumber[8],
-                bottom: theme.spaceNumberBy10[6],
-              }}
-              variant="subHeading"
-              colorType="white"
-              fontType="montserratRegular"
-              fontSize="caption">
-              Double tap to like
-            </Text>
-          )}
-          <View
-            style={{
-              position: "absolute",
-              bottom: 0,
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              width: "100%",
-              padding: theme.spaceNumberBy10[0],
-            }}>
-            <TouchableOpacity>
-              <IconComponent
-                iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
-                iconName="heart"
-                IconComponent={MaterialCommunityIcons}
-                size={60}
-                color={theme.colors.brand.basewhite}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <HorizontalPaddingSpace space={theme.space[2]}>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              Me in Three Words
-            </Text>
-          </Spacer>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: theme.spaceNumber[3],
-              marginVertical: 5,
-            }}>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
+                top: theme.spaceNumberBy10[6],
+                left: theme.spaceNumberBy10[0],
+                elevation: 5,
+                shadowColor: theme.colors.brand.black,
+                shadowOpacity: 0.8,
+                shadowRadius: theme.sizes[0],
               }}>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.whatThreeWordsDescribeYou?.firstword}
+              <Text variant="headingWhiteSlim" width="100%">
+                {data?.[0]?.likedBy?.firstname},{" "}
+                {calculateAge(
+                  data?.[0]?.likedBy?.dob?.year,
+                  data?.[0]?.likedBy?.dob?.month,
+                  data?.[0]?.likedBy?.dob?.day
+                )}
               </Text>
             </View>
+            {doubleTapWarning && (
+              <Text
+                style={{
+                  position: "absolute",
+                  right: theme.spaceNumber[8],
+                  bottom: theme.spaceNumberBy10[6],
+                }}
+                variant="subHeading"
+                colorType="white"
+                fontType="montserratRegular"
+                fontSize="caption">
+                Double tap to like
+              </Text>
+            )}
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
+                position: "absolute",
+                bottom: 0,
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                width: "100%",
+                padding: theme.spaceNumberBy10[0],
               }}>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.whatThreeWordsDescribeYou?.secondword}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.whatThreeWordsDescribeYou?.thirdword}
-              </Text>
+              <TouchableOpacity>
+                <IconComponent
+                  iconFunction={() =>
+                    handleLikeInitiatorProfile(data?.[0]?.likedBy?.phonenumber)
+                  }
+                  iconName="heart"
+                  IconComponent={MaterialCommunityIcons}
+                  size={60}
+                  color={theme.colors.brand.basewhite}
+                />
+              </TouchableOpacity>
             </View>
           </View>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              My Interests
-            </Text>
-          </Spacer>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: theme.spaceNumber[3],
-              marginVertical: 5,
-              flexWrap: "wrap",
-            }}>
-            {data?.interestsArray?.map((word, idx) => (
+          <HorizontalPaddingSpace space={theme.space[2]}>
+            <Spacer position="top" size="medium">
+              <Text variant="bodyBoldBold" width="100%">
+                Me in Three Words
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[3],
+                marginVertical: 5,
+              }}>
               <View
-                key={idx}
                 style={{
                   backgroundColor: theme.colors.brand.highlight,
                   paddingVertical: theme.spaceNumber[3],
@@ -239,123 +205,134 @@ export default function LikeInitiatorProfileComponent({
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
                 <Text
-                  key={idx}
                   variant="subHeading"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
                   width="100%">
-                  {word}
+                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.firstword}
                 </Text>
               </View>
-            ))}
-          </View>
-        </HorizontalPaddingSpace>
-        <Spacer style={{ position: "relative" }} position="top" size="large">
-          <Image
-            style={{
-              width: "100%",
-              height: imageHeight,
-              resizeMode: "cover",
-            }}
-            source={{
-              uri: `${data?.mediaArray?.[1]}`,
-            }}
-          />
-        </Spacer>
-        <HorizontalPaddingSpace space={theme.space[2]}>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              My Basics
-            </Text>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.secondword}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.thirdword}
+                </Text>
+              </View>
+            </View>
+            <Spacer position="top" size="medium">
+              <Text variant="bodyBoldBold" width="100%">
+                My Interests
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[3],
+                marginVertical: 5,
+                flexWrap: "wrap",
+              }}>
+              {data?.[0]?.likedBy?.interestsArray?.map((word, idx) => (
+                <View
+                  key={idx}
+                  style={{
+                    backgroundColor: theme.colors.brand.highlight,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[7],
+                    borderRadius: theme.spaceNumberBy10[4],
+                  }}>
+                  <Text
+                    key={idx}
+                    variant="subHeading"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button"
+                    width="100%">
+                    {word}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </HorizontalPaddingSpace>
+          <Spacer style={{ position: "relative" }} position="top" size="large">
+            <Image
+              style={{
+                width: "100%",
+                height: imageHeight,
+                resizeMode: "cover",
+              }}
+              source={{
+                uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
+              }}
+            />
           </Spacer>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: 8,
-              marginVertical: 5,
-              flexWrap: "wrap",
-            }}>
+          <HorizontalPaddingSpace space={theme.space[2]}>
+            <Spacer position="top" size="medium">
+              <Text variant="bodyBoldBold" width="100%">
+                My Basics
+              </Text>
+            </Spacer>
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
+                flexDirection: "row",
+                width: "100%",
+                gap: 8,
+                marginVertical: 5,
+                flexWrap: "wrap",
               }}>
-              <View style={{ position: "absolute", top: 8, left: 8 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName={iconNamePerGender}
-                  IconComponent={MaterialCommunityIcons}
-                  size={15}
-                  color={theme.colors.brand.black}
-                />
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 8, left: 8 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName={iconNamePerGender}
+                    IconComponent={MaterialCommunityIcons}
+                    size={15}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 8 }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.gender}
+                </Text>
               </View>
-              <Text
-                style={{ marginLeft: 8 }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.gender}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View style={{ position: "absolute", top: 9, left: 9 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="flag"
-                  IconComponent={Fontisto}
-                  size={12}
-                  color={theme.colors.brand.black}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 8 }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.country}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View style={{ position: "absolute", top: 10.5, left: 10 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="praying-hands"
-                  IconComponent={FontAwesome5}
-                  size={10}
-                  color={theme.colors.brand.black}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 10 }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.religious}
-              </Text>
-            </View>
-            {data?.jobtitle?.visibleOnProfile && (
               <View
                 style={{
                   backgroundColor: theme.colors.brand.highlight,
@@ -366,8 +343,88 @@ export default function LikeInitiatorProfileComponent({
                 <View style={{ position: "absolute", top: 9, left: 9 }}>
                   <IconComponent
                     iconFunction={() => {}}
-                    iconName="work"
-                    IconComponent={MaterialIcons}
+                    iconName="flag"
+                    IconComponent={Fontisto}
+                    size={12}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 8 }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.country}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="praying-hands"
+                    IconComponent={FontAwesome5}
+                    size={10}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 10 }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.religious}
+                </Text>
+              </View>
+              {data?.[0]?.likedBy?.jobtitle?.visibleOnProfile && (
+                <View
+                  style={{
+                    backgroundColor: theme.colors.brand.highlight,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[7],
+                    borderRadius: theme.spaceNumberBy10[4],
+                  }}>
+                  <View style={{ position: "absolute", top: 9, left: 9 }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName="work"
+                      IconComponent={MaterialIcons}
+                      size={12}
+                      color={theme.colors.brand.black}
+                    />
+                  </View>
+                  <Text
+                    style={{ marginLeft: 10 }}
+                    variant="subHeading"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button"
+                    width="100%">
+                    {data?.[0]?.likedBy?.jobtitle?.job}
+                  </Text>
+                </View>
+              )}
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 9, left: 9 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="human-male-height"
+                    IconComponent={MaterialCommunityIcons}
                     size={12}
                     color={theme.colors.brand.black}
                   />
@@ -379,188 +436,228 @@ export default function LikeInitiatorProfileComponent({
                   fontType="montserratRegular"
                   fontSize="button"
                   width="100%">
-                  {data?.jobtitle?.job}
+                  {data?.[0]?.likedBy?.height
+                    ?.replace("feet", "'")
+                    ?.replace("inch", '"')}
                 </Text>
               </View>
-            )}
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 9, left: 8 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="glass-wine"
+                    IconComponent={MaterialCommunityIcons}
+                    size={15}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 8 }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.lifestyleHabits?.drink}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 7, left: 10 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="cigar"
+                    IconComponent={MaterialCommunityIcons}
+                    size={15}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 15 }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.lifestyleHabits?.smoke}
+                </Text>
+              </View>
+            </View>
+            <Spacer position="top" size="medium">
+              <Text variant="bodyBoldBold" width="100%">
+                My Location
+              </Text>
+            </Spacer>
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
+                flexDirection: "row",
                 paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
                 borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <View style={{ position: "absolute", top: 9, left: 9 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="human-male-height"
-                  IconComponent={MaterialCommunityIcons}
-                  size={12}
-                  color={theme.colors.brand.black}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 10 }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.height?.replace("feet", "'")?.replace("inch", '"')}
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="location-pin"
+                IconComponent={Entypo}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+              <Text style={{ marginLeft: 3 }} variant="popButton">
+                {data?.[0]?.likedBy?.address?.city},{" "}
+                {data?.[0]?.likedBy?.address?.province}
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View style={{ position: "absolute", top: 9, left: 8 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="glass-wine"
-                  IconComponent={MaterialCommunityIcons}
-                  size={15}
-                  color={theme.colors.brand.black}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 8 }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.lifestyleHabits?.drink}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View style={{ position: "absolute", top: 7, left: 10 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="cigar"
-                  IconComponent={MaterialCommunityIcons}
-                  size={15}
-                  color={theme.colors.brand.black}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 15 }}
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.lifestyleHabits?.smoke}
-              </Text>
-            </View>
-          </View>
-          <Spacer position="top" size="medium">
-            <Text variant="bodyBoldBold" width="100%">
-              My Location
+          </HorizontalPaddingSpace>
+          {data?.[0]?.likedBy?.mediaArray?.[2] && (
+            <Spacer position="top" size="xxsmall">
+              <Image
+                style={{
+                  width: "100%",
+                  height: imageHeight,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri: `${data?.[0]?.likedBy?.mediaArray?.[2]}`,
+                }}
+              />
+            </Spacer>
+          )}
+          {data?.[0]?.likedBy?.mediaArray?.[3] && (
+            <Spacer position="top" size="xxsmall">
+              <Image
+                style={{
+                  width: "100%",
+                  height: imageHeight,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri: `${data?.[0]?.likedBy?.mediaArray?.[3]}`,
+                }}
+              />
+            </Spacer>
+          )}
+          {data?.[0]?.likedBy?.mediaArray?.[4] && (
+            <Spacer position="top" size="xxsmall">
+              <Image
+                style={{
+                  width: "100%",
+                  height: imageHeight,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri: `${data?.[0]?.likedBy?.mediaArray?.[4]}`,
+                }}
+              />
+            </Spacer>
+          )}
+          {data?.[0]?.likedBy?.mediaArray?.[5] && (
+            <Spacer position="top" size="xxsmall">
+              <Image
+                style={{
+                  width: "100%",
+                  height: imageHeight,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri: `${data?.[0]?.likedBy?.mediaArray?.[5]}`,
+                }}
+              />
+            </Spacer>
+          )}
+        </ScrollView>
+      ) : (
+        <SafeArea
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+          <Spacer position="top" size="large">
+            <Text
+              variant="subHeading"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h5">
+              You and {otherUserData?.name} are a match
             </Text>
           </Spacer>
+          <View style={{ height: `${theme.spaceNumberBy10[2]}%` }}>
+            <FlatGrid
+              data={[otherUserData, currentUserData]}
+              spacing={theme.spaceNumberBy10[2]}
+              renderItem={({ item }) => (
+                <Image
+                  style={{
+                    height: theme.spaceNumberBy50[3],
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumber[2],
+                  }}
+                  source={{
+                    uri: `${item?.photo}`,
+                  }}
+                />
+              )}
+            />
+          </View>
           <View
             style={{
-              flexDirection: "row",
-              paddingVertical: theme.spaceNumber[3],
-              borderRadius: theme.spaceNumberBy10[4],
+              width: "100%",
+              alignItems: "center",
+              marginTop: theme.spaceNumberBy50[0],
             }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="location-pin"
-              IconComponent={Entypo}
-              size={15}
-              color={theme.colors.brand.black}
+            <Button
+              backgroundColor={theme.colors.brand.base}
+              isBorder={false}
+              borderColor="transparent"
+              buttonFunction={handleSaveMatchProfilesToDatabase}
+              text="Send a Message"
+              textColor={theme.colors.brand.white}
+              width="80%"
             />
-            <Text style={{ marginLeft: 3 }} variant="popButton">
-              {data?.address?.city}, {data?.address?.province}
-            </Text>
+            <Button
+              backgroundColor={theme.colors.brand.lightorange}
+              isBorder={false}
+              borderColor="transparent"
+              buttonFunction={() => setShowLikeInitiatorProfile(false)}
+              text="Later"
+              textColor={theme.colors.brand.black}
+              width="80%"
+            />
           </View>
-        </HorizontalPaddingSpace>
-        {data?.mediaArray?.[2] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: imageHeight,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${data?.mediaArray?.[2]}`,
-              }}
-            />
-          </Spacer>
-        )}
-        {data?.mediaArray?.[3] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: imageHeight,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${data?.mediaArray?.[3]}`,
-              }}
-            />
-          </Spacer>
-        )}
-        {data?.mediaArray?.[4] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: imageHeight,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${data?.mediaArray?.[4]}`,
-              }}
-            />
-          </Spacer>
-        )}
-        {data?.mediaArray?.[5] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: imageHeight,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${data?.mediaArray?.[5]}`,
-              }}
-            />
-          </Spacer>
-        )}
-      </ScrollView>
-      <CloseButton
-        spaceBottom={theme.space[9]}
-        style={{
-          elevation: 5,
-          shadowColor: theme.colors.brand.black,
-          shadowOpacity: 0.5,
-          shadowRadius: "5px",
-          backgroundColor: theme.colors.brand.base,
-          position: "absolute",
-          marginLeft: theme.spaceNumberBy10[1],
-        }}>
-        <IconComponent
-          iconFunction={() => setIsYouLikedVisible(false)}
-          iconName="close-a"
-          IconComponent={Fontisto}
-          size={20}
-          color={theme.colors.brand.white}
-        />
-      </CloseButton>
+        </SafeArea>
+      )}
+      {data?.length ? (
+        <CloseButton
+          spaceBottom={theme.space[9]}
+          style={{
+            elevation: 5,
+            shadowColor: theme.colors.brand.black,
+            shadowOpacity: 0.5,
+            shadowRadius: "5px",
+            backgroundColor: theme.colors.brand.base,
+            position: "absolute",
+            marginLeft: theme.spaceNumberBy10[1],
+          }}>
+          <IconComponent
+            iconFunction={() => setShowLikeInitiatorProfile(false)}
+            iconName="close-a"
+            IconComponent={Fontisto}
+            size={theme.spaceNumberBy10[2]}
+            color={theme.colors.brand.white}
+          />
+        </CloseButton>
+      ) : (
+        <></>
+      )}
     </Modal>
   );
 }

@@ -82,6 +82,14 @@ export default function IndividualUserProfileComponent({
         setIsRetrigger
       );
 
+      await addToArrayField(
+        "all-users",
+        data?.id,
+        "likedMeList",
+        currentUser?.phonenumber,
+        setIsRetrigger
+      );
+
       currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
       scrollToTop();
     } else {
