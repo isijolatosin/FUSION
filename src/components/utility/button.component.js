@@ -12,6 +12,7 @@ export default function Button({
   buttonFunction,
   text,
   textColor,
+  width,
 }) {
   return (
     <ButtonWrapper
@@ -19,7 +20,8 @@ export default function Button({
       backgroundColor={backgroundColor}
       isBorder={isBorder}
       borderColor={borderColor}
-      textColor={textColor}>
+      textColor={textColor}
+      width={width}>
       <ButtonText textColor={textColor} isNotBold={isNotBold}>
         {text}
       </ButtonText>

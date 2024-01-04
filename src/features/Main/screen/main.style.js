@@ -17,8 +17,8 @@ const CloseButton = styled.View`
   position: fixed;
   z-index: 10;
   bottom: ${(props) => (props.spaceBottom ? props.spaceBottom : "160px")};
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 100px;
   align-items: center;
   justify-content: center;

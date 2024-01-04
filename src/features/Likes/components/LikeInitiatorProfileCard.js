@@ -6,8 +6,8 @@ import calculateAge from "../../../utilities/calculateAge";
 export default function LikeInitiatorProfileCard({
   data,
   theme,
-  setSelectedLikedData,
-  setIsYouLikedVisible,
+  setInitiatorProfileData,
+  setShowLikeInitiatorProfile,
 }) {
   const age = calculateAge(
     data?.likedBy?.dob?.year,
@@ -16,13 +16,13 @@ export default function LikeInitiatorProfileCard({
   );
 
   function handleSelectedLikedData(data) {
-    setSelectedLikedData(data);
-    setIsYouLikedVisible(true);
+    setInitiatorProfileData([data]);
+    setShowLikeInitiatorProfile(true);
   }
 
   return (
     <TouchableOpacity
-      onPress={() => handleSelectedLikedData(data?.likedBy)}
+      onPress={() => handleSelectedLikedData(data)}
       style={{
         width: "100%",
         height: theme.spaceNumberBy50[4],

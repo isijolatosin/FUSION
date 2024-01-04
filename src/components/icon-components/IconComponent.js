@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 
 const IconComponentWraper = styled(TouchableOpacity)`
   margin: 0 ${(props) => props.horizontalSpace};
-  ${(props) => props.centralize && `align-items: center`}
+  ${(props) => props.centralize && `align-items: center`};
 `;
 
 export default function IconComponent({

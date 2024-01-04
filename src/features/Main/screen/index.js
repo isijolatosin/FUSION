@@ -57,7 +57,9 @@ const Index = () => {
 
       //check if profile has been liked
       let filteredOffLikedProfiles = [];
+      let filteredOffLikedProfilesStep2 = [];
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
+      const likedMeList = currentUserData?.likedMeList;
 
       if (likedNumberArray?.length) {
         returningData.map((data) => {
@@ -69,7 +71,17 @@ const Index = () => {
         filteredOffLikedProfiles = [...returningData];
       }
 
-      setAllUsers(filteredOffLikedProfiles);
+      if (likedMeList?.length && filteredOffLikedProfiles?.length) {
+        filteredOffLikedProfiles.map((data) => {
+          if (!likedMeList.includes(data?.phonenumber)) {
+            filteredOffLikedProfilesStep2.push(data);
+          }
+        });
+      } else {
+        filteredOffLikedProfilesStep2 = [...filteredOffLikedProfiles];
+      }
+
+      setAllUsers(filteredOffLikedProfilesStep2);
     }
   };
 
@@ -202,19 +214,16 @@ const Index = () => {
             shadowRadius: "5px",
             backgroundColor: theme.colors.brand.base,
           }}>
-          <View>
-            <IconComponent
-              iconFunction={() => {
-                currentSwipeIndexIsLessThanAllUsersLength &&
-                  setIndex(index + 1);
-                scrollToTop();
-              }}
-              iconName="close-a"
-              IconComponent={Fontisto}
-              size={theme.spaceNumberBy10[1]}
-              color={theme.colors.brand.white}
-            />
-          </View>
+          <IconComponent
+            iconFunction={() => {
+              currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+              scrollToTop();
+            }}
+            iconName="close-a"
+            IconComponent={Fontisto}
+            size={23}
+            color={theme.colors.brand.white}
+          />
         </CloseButton>
         <FilterComponent
           theme={theme}
