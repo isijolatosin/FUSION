@@ -1,0 +1,17 @@
+import { getAllData } from "./updateFirestoreDatabaseField";
+
+async function verifyUserInDatabaseBeforeSignin(number) {
+  let isVerified = false;
+
+  const allUserData = await getAllData();
+
+  allUserData.find((data) => {
+    if (data.phonenumber === number) {
+      isVerified = true;
+    }
+  });
+
+  return isVerified;
+}
+
+export default verifyUserInDatabaseBeforeSignin;

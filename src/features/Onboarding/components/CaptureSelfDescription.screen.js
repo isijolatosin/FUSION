@@ -24,7 +24,7 @@ export default function CaptureSelfDescription({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, height, religious, country, preference } = route.params || {};
+  const { dob, _height, religious, country, preference } = route.params || {};
 
   let checkInput = false;
   let whatThreeWordsDescribeYou = {};
@@ -56,7 +56,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 if (checkInput) {
                   navigation.navigate("capture-work-place-screen", {
                     dob,
-                    height,
+                    _height,
                     religious,
                     country,
                     preference,
@@ -83,7 +83,7 @@ export default function CaptureSelfDescription({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="First word"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>
@@ -97,7 +97,7 @@ export default function CaptureSelfDescription({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Second word"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>
@@ -111,7 +111,7 @@ export default function CaptureSelfDescription({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Third word"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>

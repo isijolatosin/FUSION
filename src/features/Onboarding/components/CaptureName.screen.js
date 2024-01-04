@@ -70,7 +70,7 @@ export default function CaptureName({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="First Name"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>
@@ -84,7 +84,7 @@ export default function CaptureName({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Last Name"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>

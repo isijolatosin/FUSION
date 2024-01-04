@@ -84,7 +84,7 @@ export default function CaptureAddress({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Street"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>
@@ -98,7 +98,7 @@ export default function CaptureAddress({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="City"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>
@@ -112,7 +112,7 @@ export default function CaptureAddress({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Province"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>

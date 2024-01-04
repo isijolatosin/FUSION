@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, ImageBackground, Platform } from "react-native";
+import { Animated, Platform } from "react-native";
 import styled from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -42,6 +42,8 @@ import LikesScreen from "../../Likes/screen";
 import ChatsScreen from "../../Chats/screen";
 import { theme } from "../../../infrastructure/theme";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
+import { OnboardingSreencContainer } from "../components/splash.styles";
+import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -109,16 +111,22 @@ const TabNavigator = () => {
 
 const FadeOutComponent = ({ navigation }) => {
   useEffect(() => {
+    let timeOutID = "";
     const functionCall = async () => {
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      return phoneValueFromPhoneMemory;
-    };
-    const phoneValueFromPhoneMemory = functionCall();
+      let verify = false;
+      if (phoneValueFromPhoneMemory) {
+        verify = await verifyUserInDatabaseBeforeSignin(
+          phoneValueFromPhoneMemory
+        );
+      }
 
-    const timeOutID = setTimeout(() => {
-      navigation.navigate(phoneValueFromPhoneMemory ? "main" : "onBoard");
-    }, 2000);
+      timeOutID = setTimeout(() => {
+        navigation.navigate(verify ? "main" : "onBoard");
+      }, 2000);
+    };
+    functionCall();
 
     return () => clearTimeout(timeOutID);
   }, []);
@@ -154,11 +162,6 @@ const FadeInComponent = ({ navigation }) => {
     </Animated.View>
   );
 };
-
-const OnboardingSreencContainer = styled(ImageBackground)`
-  flex: 1;
-  justify-content: center;
-`;
 
 const OnboardingScreen = ({ navigation }) => {
   const image = { uri: `${splashImage}` };

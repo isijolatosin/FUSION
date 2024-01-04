@@ -26,7 +26,7 @@ export default function OtpScreen({ navigation }) {
     state: { theme },
   } = useAppContext();
   const route = useRoute();
-  const { phonenumber, response, isToLogin } = route.params || {};
+  const { phonenumber, response } = route.params || {};
 
   return (
     <SafeArea>
@@ -65,7 +65,6 @@ export default function OtpScreen({ navigation }) {
               navigation={navigation}
               phonenumber={phonenumber}
               setVerificationErrorMessage={setVerificationErrorMessage}
-              isToLogin={isToLogin}
             />
           </Spacer>
           {verificationErrorMessage && (

@@ -73,7 +73,7 @@ export default function CaptureHeight({ navigation }) {
               data={heightList}
               isOpen={isOpen}
               setOpen={setOpen}
-              value={height}
+              value={_height}
               setFunction={setHeight}
               theme={theme}
               isForHeightComponent={true}

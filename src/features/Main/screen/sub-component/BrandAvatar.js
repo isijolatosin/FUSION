@@ -5,9 +5,9 @@ import {
   LogoWrapper,
 } from "../../../Splash/components/splash.styles";
 
-export default function BrandAvatar() {
+export default function BrandAvatar({ noFlex }) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={noFlex ? {} : { flex: 1 }}>
       <LogoWrapper width={50} height={50}>
         <LogoText size="caption">fusion</LogoText>
       </LogoWrapper>

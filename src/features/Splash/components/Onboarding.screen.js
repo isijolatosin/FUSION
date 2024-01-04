@@ -63,83 +63,16 @@ export default function Onboarding({ navigation }) {
             text="Create Account"
             textColor={theme.colors.brand.basewhite}
           />
-
-          {phoneNumberFromPhoneMemory ? (
-            <Button
-              backgroundColor="transparent"
-              isBorder={true}
-              borderColor={theme.colors.brand.white}
-              buttonFunction={() => {
-                sendVerification(
-                  phoneNumberFromPhoneMemory,
-                  recaptchaVerifier,
-                  () => {},
-                  () => {},
-                  navigation,
-                  true
-                );
-              }}
-              text="Sign In"
-              textColor={theme.colors.brand.basewhite}
-            />
-          ) : (
-            <>
-              <Spacer position="bottom" size="xsmall">
-                <Text
-                  style={{ marginTop: 20 }}
-                  variant="subHeading"
-                  fontType="montserratSemibold"
-                  colorType="white"
-                  fontSize="body">
-                  Please provide your phone number
-                </Text>
-              </Spacer>
-              <Spacer position="bottom" size="small">
-                <InputWarraper theme={theme}>
-                  <InputComponent
-                    keyboardType="number-pad"
-                    includeIcon={false}
-                    setValue={setCountryCode}
-                    value={countryCode}
-                    width="25%"
-                    isCountryCode={true}
-                    isBackgroundColor={true}
-                    placeholder="123"
-                  />
-                  <InputComponent
-                    keyboardType="number-pad"
-                    includeIcon={false}
-                    setValue={setPhonenumber}
-                    value={phonenumber}
-                    width="73%"
-                    isCountryCode={false}
-                    isBackgroundColor={true}
-                  />
-                </InputWarraper>
-              </Spacer>
-              {cellNumber.length > 10 && (
-                <Button
-                  backgroundColor="transparent"
-                  isBorder={true}
-                  borderColor={theme.colors.brand.white}
-                  buttonFunction={() => {
-                    storeData("phonenumber", phonenumberPlusCountryCode);
-
-                    sendVerification(
-                      phonenumberPlusCountryCode,
-                      recaptchaVerifier,
-                      setPhonenumber,
-                      setCountryCode,
-                      navigation,
-                      true
-                    );
-                  }}
-                  text="Sign In"
-                  textColor={theme.colors.brand.basewhite}
-                />
-              )}
-            </>
-          )}
+          <Button
+            backgroundColor="transparent"
+            isBorder={true}
+            borderColor={theme.colors.brand.white}
+            buttonFunction={() => {
+              navigation.navigate("create-account");
+            }}
+            text="Sign In"
+            textColor={theme.colors.brand.basewhite}
+          />
           <OnboardingScreenText>{oboardingSummaryText}</OnboardingScreenText>
         </OnboardingWrapper>
       </Pressable>

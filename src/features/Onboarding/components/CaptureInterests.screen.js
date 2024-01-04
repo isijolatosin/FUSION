@@ -23,7 +23,7 @@ export default function CaptureInterests({ navigation }) {
   const route = useRoute();
   const {
     dob,
-    height,
+    _height,
     religious,
     country,
     preference,
@@ -57,10 +57,10 @@ export default function CaptureInterests({ navigation }) {
             theme={theme}
             color={theme.colors.brand.base}
             nextFunction={() => {
-              if (interestsArray.length >= 6) {
+              if (interestsArray.length > 5 && interestsArray.length <= 6) {
                 navigation.navigate("capture-lifestly-habits-screen", {
                   dob,
-                  height,
+                  _height,
                   religious,
                   country,
                   preference,
