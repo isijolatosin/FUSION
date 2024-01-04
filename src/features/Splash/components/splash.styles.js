@@ -1,22 +1,10 @@
 import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import styled from "styled-components/native";
 
-const ScreenWrapper = styled(View)`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-left: ${(props) => props.theme.space[3]};
-  padding-right: ${(props) => props.theme.space[3]};
-  animation: fadeIn 5s;
-`;
-
-const OnboardingBG = styled(ImageBackground)`
+const OnboardingSreencContainer = styled(ImageBackground)`
   flex: 1;
   justify-content: center;
-  align-items: center;
+  position: relative;
 `;
 
 const OnboardingWrapper = styled(View)`
@@ -77,8 +65,7 @@ const ButtonText = styled.Text`
 `;
 
 export {
-  ScreenWrapper,
-  OnboardingBG,
+  OnboardingSreencContainer,
   OnboardingScreenText,
   OnboardingWrapper,
   LogoWrapper,

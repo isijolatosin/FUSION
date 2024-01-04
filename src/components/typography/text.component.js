@@ -92,7 +92,7 @@ const subHeading = (theme, colorType, fontType, fontSize, transform) => `
     
 `;
 const popupText = (theme) => `
-    font-family: ${theme.fonts.montserratBold};
+    font-family: ${theme.fonts.montserratRegular};
     font-size: ${theme.fontSizes.button};
     text-align: center;
     background-color: ${theme.colors.brand.basewhite};

@@ -26,7 +26,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
   const route = useRoute();
   const {
     dob,
-    height,
+    _height,
     religious,
     country,
     preference,
@@ -62,7 +62,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               if (checkInput) {
                 navigation.navigate("capture-photos-screen", {
                   dob,
-                  height,
+                  _height,
                   religious,
                   country,
                   preference,

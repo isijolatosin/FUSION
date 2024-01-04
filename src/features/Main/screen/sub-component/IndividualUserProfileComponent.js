@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   Image,
   RefreshControl,
@@ -37,7 +37,9 @@ export default function IndividualUserProfileComponent({
   setIsRetrigger,
 }) {
   const imageHeight = 450;
+  const lastTap = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
+  const [doubleTapWarning, setDoubleTapWarning] = useState(false);
 
   let iconNamePerGender = "";
   if (data?.gender === "woman") {
@@ -50,30 +52,44 @@ export default function IndividualUserProfileComponent({
     iconNamePerGender = "gender-non-binary";
   }
 
-  async function handleYouLikedAUser(data) {
-    // create match intend structure in firebase firestore
-    database.collection("all-likes").add({
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      likedBy: currentUser?.phonenumber, // the number who liked another profile
-      profileLiked: { ...data }, // profile that was liked
-    });
+  async function handleYouLikedAUser(profileLikedNumber) {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300;
+    setDoubleTapWarning(false);
 
-    await addToArrayField(
-      "all-users",
-      currentUser?.id,
-      "listOfAllLikedNumbers",
-      data?.phonenumber,
-      setIsRetrigger
-    );
+    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
+      const likedUserNameAndPhoto = {
+        name: data?.firstname,
+        photo: data?.mediaArray?.[0],
+      };
+      setLikedUser(likedUserNameAndPhoto);
+      setIsYouLikedVisible(true);
 
-    const likedUserNameAndPhoto = {
-      name: data?.firstname,
-      photo: data?.mediaArray?.[0],
-    };
-    setLikedUser(likedUserNameAndPhoto);
-    setIsYouLikedVisible(true);
-    currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
-    scrollToTop();
+      // create match intend structure in firebase firestore
+      database.collection("all-likes").add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        likedBy: {
+          ...currentUser,
+        }, // the number who liked another profile
+        profileLikedNumber: profileLikedNumber, // profile number that was liked
+      });
+
+      await addToArrayField(
+        "all-users",
+        currentUser?.id,
+        "listOfAllLikedNumbers",
+        data?.phonenumber,
+        setIsRetrigger
+      );
+
+      currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+      scrollToTop();
+    } else {
+      setDoubleTapWarning(true);
+    }
+
+    // Update the lastTap reference
+    lastTap.current = now;
   }
 
   const onRefresh = useCallback(() => {
@@ -129,6 +145,20 @@ export default function IndividualUserProfileComponent({
             {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
           </Text>
         </View>
+        {doubleTapWarning && (
+          <Text
+            style={{
+              position: "absolute",
+              right: theme.spaceNumber[8],
+              bottom: theme.spaceNumberBy10[6],
+            }}
+            variant="subHeading"
+            colorType="white"
+            fontType="montserratRegular"
+            fontSize="caption">
+            Double tap to like
+          </Text>
+        )}
         <View
           style={{
             position: "absolute",
@@ -140,7 +170,7 @@ export default function IndividualUserProfileComponent({
           }}>
           <TouchableOpacity>
             <IconComponent
-              iconFunction={() => handleYouLikedAUser(data)}
+              iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
               iconName="heart"
               IconComponent={MaterialCommunityIcons}
               size={60}
@@ -168,7 +198,12 @@ export default function IndividualUserProfileComponent({
             paddingHorizontal: theme.spaceNumber[7],
             borderRadius: theme.spaceNumberBy10[4],
           }}>
-          <Text variant="popButton" width="100%">
+          <Text
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.whatThreeWordsDescribeYou?.firstword}
           </Text>
         </View>
@@ -179,7 +214,12 @@ export default function IndividualUserProfileComponent({
             paddingHorizontal: theme.spaceNumber[7],
             borderRadius: theme.spaceNumberBy10[4],
           }}>
-          <Text variant="popButton" width="100%">
+          <Text
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.whatThreeWordsDescribeYou?.secondword}
           </Text>
         </View>
@@ -190,7 +230,12 @@ export default function IndividualUserProfileComponent({
             paddingHorizontal: theme.spaceNumber[7],
             borderRadius: theme.spaceNumberBy10[4],
           }}>
-          <Text variant="popButton" width="100%">
+          <Text
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.whatThreeWordsDescribeYou?.thirdword}
           </Text>
         </View>
@@ -217,7 +262,13 @@ export default function IndividualUserProfileComponent({
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
             }}>
-            <Text key={idx} variant="popButton" width="100%">
+            <Text
+              key={idx}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
               {word}
             </Text>
           </View>
@@ -265,7 +316,13 @@ export default function IndividualUserProfileComponent({
               color={theme.colors.brand.black}
             />
           </View>
-          <Text style={{ marginLeft: 8 }} variant="popButton" width="100%">
+          <Text
+            style={{ marginLeft: 8 }}
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.gender}
           </Text>
         </View>
@@ -285,7 +342,13 @@ export default function IndividualUserProfileComponent({
               color={theme.colors.brand.black}
             />
           </View>
-          <Text style={{ marginLeft: 8 }} variant="popButton" width="100%">
+          <Text
+            style={{ marginLeft: 8 }}
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.country}
           </Text>
         </View>
@@ -305,7 +368,13 @@ export default function IndividualUserProfileComponent({
               color={theme.colors.brand.black}
             />
           </View>
-          <Text style={{ marginLeft: 10 }} variant="popButton" width="100%">
+          <Text
+            style={{ marginLeft: 10 }}
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.religious}
           </Text>
         </View>
@@ -326,7 +395,13 @@ export default function IndividualUserProfileComponent({
                 color={theme.colors.brand.black}
               />
             </View>
-            <Text style={{ marginLeft: 10 }} variant="popButton" width="100%">
+            <Text
+              style={{ marginLeft: 10 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
               {data?.jobtitle?.job}
             </Text>
           </View>
@@ -347,7 +422,13 @@ export default function IndividualUserProfileComponent({
               color={theme.colors.brand.black}
             />
           </View>
-          <Text style={{ marginLeft: 10 }} variant="popButton" width="100%">
+          <Text
+            style={{ marginLeft: 10 }}
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.height?.replace("feet", "'")?.replace("inch", '"')}
           </Text>
         </View>
@@ -367,7 +448,13 @@ export default function IndividualUserProfileComponent({
               color={theme.colors.brand.black}
             />
           </View>
-          <Text style={{ marginLeft: 8 }} variant="popButton" width="100%">
+          <Text
+            style={{ marginLeft: 8 }}
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.lifestyleHabits?.drink}
           </Text>
         </View>
@@ -387,7 +474,13 @@ export default function IndividualUserProfileComponent({
               color={theme.colors.brand.black}
             />
           </View>
-          <Text style={{ marginLeft: 15 }} variant="popButton" width="100%">
+          <Text
+            style={{ marginLeft: 15 }}
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
             {data?.lifestyleHabits?.smoke}
           </Text>
         </View>

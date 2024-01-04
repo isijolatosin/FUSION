@@ -63,7 +63,7 @@ export default function CaptureEmail({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Enter Email"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>

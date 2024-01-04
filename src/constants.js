@@ -3,6 +3,9 @@ export const locationBackgroundImage =
 export const splashImage =
   "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703726052/fusion/intercultural-friends-sitting-bench-while-hugging_1_kclgy8.png";
 
+export const homeSplashImage =
+  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1704232712/fusion/full-length-portrait-happy-young-african-man_1_dgagnu.png";
+
 export const oboardingSummaryText =
   "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
 export const nameCaptureInstruction =
@@ -368,7 +371,7 @@ export const interests = [
   "Spa Dates",
   "Politics",
   "Content Creation",
-  "Crosplay",
+  "Cosplay",
   "Working Out",
   "Painting",
   "Skating",

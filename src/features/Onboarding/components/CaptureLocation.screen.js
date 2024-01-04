@@ -43,19 +43,21 @@ export default function CaptureLocation({ navigation }) {
     code: "",
   });
 
-  useEffect(() => {
-    const functionCall = async () => {
-      const userLocation = await getUserLocation(setResponseMessage);
-      user.longitude = userLocation.longitude;
-      user.latitude = userLocation.latitude;
-      dispatch({
-        type: "SET_USER",
-        payload: user,
-      });
-    };
+  const handleLocationCapture = async () => {
+    const userLocation = await getUserLocation(setResponseMessage);
+    user.longitude = userLocation.longitude;
+    user.latitude = userLocation.latitude;
+    dispatch({
+      type: "SET_USER",
+      payload: user,
+    });
 
-    functionCall();
-  }, []);
+    setTimeout(() => {
+      if (user.longitude && user.latitude) {
+        navigation.navigate("you-are-special-screen");
+      }
+    }, 2000);
+  };
 
   return (
     <SafeArea
@@ -103,16 +105,17 @@ export default function CaptureLocation({ navigation }) {
                 backgroundColor={theme.colors.brand.base}
                 isBorder={false}
                 buttonFunction={() => {
-                  if (!user.longitude && !user.latitude) return;
-                  if (responseMessage.code === "failed") return;
+                  // if (!user.longitude && !user.latitude) return;
+                  // if (responseMessage.code === "failed") return;
                   setLoading(true);
+                  handleLocationCapture();
                 }}
                 text="Enable Location"
                 textColor={theme.colors.brand.basewhite}
               />
             )}
           </View>
-          {isLoading && (
+          {/* {isLoading && (
             <PopupModal>
               <View
                 style={{
@@ -157,7 +160,7 @@ export default function CaptureLocation({ navigation }) {
                 </LocationButtonWrapper>
               </View>
             </PopupModal>
-          )}
+          )} */}
         </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>

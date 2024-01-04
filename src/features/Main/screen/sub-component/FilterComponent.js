@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Switch, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RangeSlider from "react-native-range-slider-expo";

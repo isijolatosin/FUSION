@@ -25,7 +25,7 @@ export default function CaptureJobTitle({ navigation }) {
   const route = useRoute();
   const {
     dob,
-    height,
+    _height,
     religious,
     country,
     preference,
@@ -61,7 +61,7 @@ export default function CaptureJobTitle({ navigation }) {
                 if (jobtitleName) {
                   navigation.navigate("capture-share-interest-screen", {
                     dob,
-                    height,
+                    _height,
                     religious,
                     country,
                     preference,
@@ -90,7 +90,7 @@ export default function CaptureJobTitle({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Your job title"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>

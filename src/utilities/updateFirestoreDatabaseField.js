@@ -15,6 +15,20 @@ const getAllData = async () => {
   return returnData;
 };
 
+const getAllLikesData = async () => {
+  const returnData = [];
+  await getDocs(collection(database, "all-likes")).then((querySnapshot) => {
+    const likesData = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    returnData.push(...likesData);
+  });
+
+  return returnData;
+};
+
 // Function to add elements to a field
 const updateUserValueField = async (
   collectionName,
@@ -93,6 +107,7 @@ const removeItemFromArray = async (
 export {
   updateUserValueField,
   getAllData,
+  getAllLikesData,
   addToArrayField,
   removeItemFromArray,
 };

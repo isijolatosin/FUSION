@@ -10,6 +10,7 @@ import {
   OTPInputFocused,
 } from "./input.styles";
 import { confirmVerificationCode } from "../../utilities/verification";
+import verifyUserInDatabaseBeforeSignin from "../../utilities/verifyUserInDatabaseBeforeSignIn";
 
 export default function OTPInputComponent({
   keyboardType,
@@ -23,10 +24,10 @@ export default function OTPInputComponent({
   navigation,
   phonenumber,
   setVerificationErrorMessage,
-  isToLogin,
 }) {
   const textInputRef = useRef(null);
   const codeDigitsArray = new Array(maxlength).fill(0);
+  const [isVerifyInDatabase, setIsVerifiedInDatabase] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
@@ -68,6 +69,19 @@ export default function OTPInputComponent({
     );
   }
 
+  useEffect(() => {
+    const functionCall = async () => {
+      const verify = await verifyUserInDatabaseBeforeSignin(phonenumber);
+      setIsVerifiedInDatabase(verify);
+    };
+    functionCall();
+  }, []);
+
+  let destination = "capture-name-screen";
+  if (isVerifyInDatabase) {
+    destination = "main";
+  }
+
   if (pinReady) {
     confirmVerificationCode(
       verificationId,
@@ -76,7 +90,7 @@ export default function OTPInputComponent({
       navigation,
       phonenumber,
       setVerificationErrorMessage,
-      isToLogin ? "main" : "capture-name-screen"
+      destination
     );
   }
 

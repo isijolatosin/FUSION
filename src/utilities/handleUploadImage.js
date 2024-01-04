@@ -40,6 +40,25 @@ async function handlePickImageAsync(
   }
 }
 
+async function handlePickImageAsyncPhotoScreen(
+  useLoadingImage,
+  setPhotoUrl,
+  currentUserId
+) {
+  useLoadingImage(true);
+
+  const returnUrl = await pickImageAsync();
+
+  if (!returnUrl) return;
+
+  const returnPhotoUrl = await uploadImageToCloudinary(returnUrl);
+
+  if (returnPhotoUrl) {
+    useLoadingImage(false);
+    setPhotoUrl(returnPhotoUrl);
+  }
+}
+
 async function handleDeleteImageAsync(
   currentUserId,
   deleteImageItem,
@@ -57,4 +76,8 @@ async function handleDeleteImageAsync(
   );
 }
 
-export { handlePickImageAsync, handleDeleteImageAsync };
+export {
+  handlePickImageAsync,
+  handlePickImageAsyncPhotoScreen,
+  handleDeleteImageAsync,
+};

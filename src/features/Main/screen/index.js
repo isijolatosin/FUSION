@@ -43,21 +43,23 @@ const Index = () => {
 
       const returningData = newData.filter((data) => {
         if (data.phonenumber !== phonenumber) {
-          if (currentUserData.interest === "both") {
+          if (currentUserData?.interest === "both") {
             return data;
           }
 
-          if (data.gender === currentUserData.interest) {
+          if (data.gender === currentUserData?.interest) {
             return data;
           }
+
+          // return data;
         }
       });
 
       //check if profile has been liked
-      const filteredOffLikedProfiles = [];
+      let filteredOffLikedProfiles = [];
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
 
-      if (likedNumberArray.length) {
+      if (likedNumberArray?.length) {
         returningData.map((data) => {
           if (!likedNumberArray.includes(data?.phonenumber)) {
             filteredOffLikedProfiles.push(data);
@@ -81,19 +83,6 @@ const Index = () => {
     functionCall();
   }, [isRetrigger]);
 
-  if (!allUsers.length) {
-    return (
-      <SafeArea
-        style={{
-          backgroundColor: theme.colors.brand.white,
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <Text variant="loading">Loading...</Text>
-      </SafeArea>
-    );
-  }
-
   let currentUsertoSwipe = {};
   if (userFilteredData?.length) {
     currentUsertoSwipe = userFilteredData[index];
@@ -103,10 +92,10 @@ const Index = () => {
 
   let currentSwipeIndexIsLessThanAllUsersLength = true;
   if (userFilteredData?.length) {
-    if (index >= userFilteredData?.length - 1)
+    if (index >= userFilteredData?.length)
       currentSwipeIndexIsLessThanAllUsersLength = false;
   } else {
-    if (index >= allUsers.length - 1)
+    if (index >= allUsers.length)
       currentSwipeIndexIsLessThanAllUsersLength = false;
   }
 
@@ -125,6 +114,32 @@ const Index = () => {
       scrollViewRef.current.scrollTo({ y: 0, animated: true });
     }
   };
+
+  if (allUsers.length === 0) {
+    return (
+      <SafeArea
+        style={{
+          backgroundColor: theme.colors.brand.white,
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
+        <Text variant="loading">Loading...</Text>
+      </SafeArea>
+    );
+  }
+
+  if (!currentSwipeIndexIsLessThanAllUsersLength) {
+    return (
+      <SafeArea
+        style={{
+          backgroundColor: theme.colors.brand.white,
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
+        <Text variant="loading">That is all for today!</Text>
+      </SafeArea>
+    );
+  }
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.white }}>
@@ -185,6 +200,7 @@ const Index = () => {
             shadowColor: theme.colors.brand.black,
             shadowOpacity: 0.5,
             shadowRadius: "5px",
+            backgroundColor: theme.colors.brand.base,
           }}>
           <View>
             <IconComponent
@@ -195,8 +211,8 @@ const Index = () => {
               }}
               iconName="close-a"
               IconComponent={Fontisto}
-              size={30}
-              color={theme.colors.brand.basewhite}
+              size={theme.spaceNumberBy10[1]}
+              color={theme.colors.brand.white}
             />
           </View>
         </CloseButton>

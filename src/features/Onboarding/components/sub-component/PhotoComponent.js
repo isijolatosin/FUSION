@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../../context/ThemeContext";
-import handlePickImageAsync from "../../../../utilities/handleUploadImage";
+import { handlePickImageAsync } from "../../../../utilities/handleUploadImage";
 
 export default function PhotoComponent({
   isUpdatingPhoto,
@@ -22,15 +22,21 @@ export default function PhotoComponent({
   } = useAppContext();
   const [isLoadingImage, useLoadingImage] = useState(false);
 
+  async function handlePickImageAsyncOnBoarding() {
+    await handlePickImageAsync(useLoadingImage, setPhotoUrl);
+  }
+
   return (
     <TouchableOpacity
       onPress={() => {
         if (!photoUrl && !isUpdatingPhoto) {
-          handlePickImageAsync(useLoadingImage, setPhotoUrl);
+          handlePickImageAsyncOnBoarding();
+          return;
         }
 
-        if (!photoUrl) {
+        if (!photoUrl && isUpdatingPhoto) {
           setOpenImageUploadModal(true);
+          return;
         }
       }}
       style={{
@@ -84,10 +90,11 @@ export default function PhotoComponent({
           iconFunction={() => {
             if (!photoUrl && !isUpdatingPhoto) {
               handlePickImageAsync(useLoadingImage, setPhotoUrl);
+              return;
             }
-
-            if (!photoUrl) {
+            if (!photoUrl && isUpdatingPhoto) {
               setOpenImageUploadModal(true);
+              return;
             }
           }}
           iconName="plus"

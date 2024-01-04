@@ -5,8 +5,7 @@ export const sendVerification = (
   recaptchaVerifier,
   setPhonenumber,
   setCountryCode,
-  navigation,
-  isToLogin
+  navigation
 ) => {
   const phoneProvider = new firebase.auth.PhoneAuthProvider();
   phoneProvider
@@ -16,7 +15,6 @@ export const sendVerification = (
         navigation.navigate("otp-screen", {
           phonenumber,
           response,
-          isToLogin,
         });
 
         setPhonenumber("");

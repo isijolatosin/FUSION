@@ -15,7 +15,7 @@ import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import { addPhotosInstruction } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
-import PhotoComponent from "./sub-component/PhotoComponent";
+import PhotoComponentPhotoScreen from "./sub-component/PhotoComponentPhotoScreen";
 import { database } from "../../../../config";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
@@ -46,7 +46,7 @@ export default function CapturePhotos({ navigation }) {
   const route = useRoute();
   const {
     dob,
-    height,
+    _height,
     religious,
     country,
     preference,
@@ -96,7 +96,7 @@ export default function CapturePhotos({ navigation }) {
         email,
         firstname,
         gender,
-        height,
+        height: _height,
         interest,
         interestsArray,
         jobtitle,
@@ -153,12 +153,36 @@ export default function CapturePhotos({ navigation }) {
         </Spacer>
         <Spacer position="top" size="xxxlarge">
           <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12 }}>
-            <PhotoComponent photoUrl={photoUrl1} setPhotoUrl={setPhotoUrl1} />
-            <PhotoComponent photoUrl={photoUrl2} setPhotoUrl={setPhotoUrl2} />
-            <PhotoComponent photoUrl={photoUrl3} setPhotoUrl={setPhotoUrl3} />
-            <PhotoComponent photoUrl={photoUrl4} setPhotoUrl={setPhotoUrl4} />
-            <PhotoComponent photoUrl={photoUrl5} setPhotoUrl={setPhotoUrl5} />
-            <PhotoComponent photoUrl={photoUrl6} setPhotoUrl={setPhotoUrl6} />
+            <PhotoComponentPhotoScreen
+              photoUrl={photoUrl1}
+              setPhotoUrl={setPhotoUrl1}
+              dimension={31}
+            />
+            <PhotoComponentPhotoScreen
+              photoUrl={photoUrl2}
+              setPhotoUrl={setPhotoUrl2}
+              dimension={31}
+            />
+            <PhotoComponentPhotoScreen
+              photoUrl={photoUrl3}
+              setPhotoUrl={setPhotoUrl3}
+              dimension={31}
+            />
+            <PhotoComponentPhotoScreen
+              photoUrl={photoUrl4}
+              setPhotoUrl={setPhotoUrl4}
+              dimension={31}
+            />
+            <PhotoComponentPhotoScreen
+              photoUrl={photoUrl5}
+              setPhotoUrl={setPhotoUrl5}
+              dimension={31}
+            />
+            <PhotoComponentPhotoScreen
+              photoUrl={photoUrl6}
+              setPhotoUrl={setPhotoUrl6}
+              dimension={31}
+            />
           </View>
         </Spacer>
 

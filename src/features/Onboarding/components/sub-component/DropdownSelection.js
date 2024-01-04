@@ -19,18 +19,18 @@ export default function DropdownSelection({
   theme,
   isForHeightComponent,
 }) {
+  let inputText = isForHeightComponent ? data[0] : "";
+  if (value !== "") inputText = value;
+
   function formatHeightText(height) {
-    const feet = height.split("feet")[0].trim();
+    const feet = height?.split("feet")[0].trim();
     let inch = "";
-    if (height.includes("inch")) {
-      inch = height.split("feet")[1].split("inch")[0].trim();
+    if (height?.includes("inch")) {
+      inch = height?.split("feet")[1]?.split("inch")[0].trim();
     }
 
     return { feet, inch };
   }
-
-  let inputText = isForHeightComponent ? data[0] : "";
-  if (value !== "") inputText = value;
 
   return (
     <DropdownSelectionContainer>

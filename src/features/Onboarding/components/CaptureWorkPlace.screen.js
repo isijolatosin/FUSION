@@ -25,7 +25,7 @@ export default function CaptureWorkPlace({ navigation }) {
   const route = useRoute();
   const {
     dob,
-    height,
+    _height,
     religious,
     country,
     preference,
@@ -60,7 +60,7 @@ export default function CaptureWorkPlace({ navigation }) {
                 if (workplaceName) {
                   navigation.navigate("capture-job-title-screen", {
                     dob,
-                    height,
+                    _height,
                     religious,
                     country,
                     preference,
@@ -88,7 +88,7 @@ export default function CaptureWorkPlace({ navigation }) {
               isCountryCode={false}
               isBackgroundColor={false}
               placeholder="Your work place"
-              fontSize={theme.fontSizes.h5}
+              fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
           </Spacer>

@@ -5,7 +5,7 @@ export const lineHeights = {
 export const letterSpacing = ["1px", "2px", "3px", "4px", "5px"];
 
 export const space = [
-  "0px",
+  "2px",
   "5px",
   "10px",
   "15px",
@@ -21,3 +21,7 @@ export const space = [
 export const spaceNumber = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
 
 export const spaceNumberBy10 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+export const spaceNumberBy50 = [
+  50, 100, 150, 200, 250, 300, 350, 400, 450, 500,
+];
