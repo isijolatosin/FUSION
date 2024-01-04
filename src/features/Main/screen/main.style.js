@@ -68,6 +68,12 @@ const ButtonAction = styled.TouchableOpacity`
     `border-bottom-color: ${props.borderBottomColor}`};
 `;
 
+const AvatarWrapper = styled.TouchableOpacity`
+  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.height}px`};
+  border-radius: ${(props) => `${props.borderRadius}px`};
+`;
+
 export {
   FilterWrapper,
   FilterText,
@@ -75,4 +81,5 @@ export {
   RangeCompoentSection,
   InterestWrapper,
   ButtonAction,
+  AvatarWrapper,
 };

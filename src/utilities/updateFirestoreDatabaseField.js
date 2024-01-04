@@ -15,6 +15,20 @@ const getAllData = async () => {
   return returnData;
 };
 
+const getAllMatchData = async () => {
+  const returnData = [];
+  await getDocs(collection(database, "matches")).then((querySnapshot) => {
+    const newData = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    returnData.push(...newData);
+  });
+
+  return returnData;
+};
+
 const getAllLikesData = async () => {
   const returnData = [];
   await getDocs(collection(database, "all-likes")).then((querySnapshot) => {
@@ -127,6 +141,7 @@ const removeDocumentFromAllLikesCollections = (
 export {
   updateUserValueField,
   getAllData,
+  getAllMatchData,
   getAllLikesData,
   addToArrayField,
   removeItemFromArray,
