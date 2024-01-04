@@ -99,7 +99,7 @@ export default function LikeInitiatorProfileComponent({
   const currentUserData = likedUserAndCurrentUserData[1];
   const otherUserData = likedUserAndCurrentUserData[0];
 
-  function handleSaveMatchProfilesToDatabase() {
+  function routeToChatScreen() {
     setShowLikeInitiatorProfile(false);
     navigation.navigate("chat");
   }
@@ -618,7 +618,7 @@ export default function LikeInitiatorProfileComponent({
               backgroundColor={theme.colors.brand.base}
               isBorder={false}
               borderColor="transparent"
-              buttonFunction={handleSaveMatchProfilesToDatabase}
+              buttonFunction={routeToChatScreen}
               text="Send a Message"
               textColor={theme.colors.brand.white}
               width="80%"

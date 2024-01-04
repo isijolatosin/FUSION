@@ -55,11 +55,10 @@ const Index = () => {
         }
       });
 
-      //check if profile has been liked
+      //check if profile has been liked and filter off
       let filteredOffLikedProfiles = [];
       let filteredOffLikedProfilesStep2 = [];
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
-      const likedMeList = currentUserData?.likedMeList;
 
       if (likedNumberArray?.length) {
         returningData.map((data) => {
@@ -71,6 +70,8 @@ const Index = () => {
         filteredOffLikedProfiles = [...returningData];
       }
 
+      // check if profile has liked me and filter off
+      const likedMeList = currentUserData?.likedMeList;
       if (likedMeList?.length && filteredOffLikedProfiles?.length) {
         filteredOffLikedProfiles.map((data) => {
           if (!likedMeList.includes(data?.phonenumber)) {

@@ -4,14 +4,6 @@ import ChatsScreen from "../components/ChatsScreen";
 
 const ChatStack = createNativeStackNavigator();
 
-const ChatScreen = () => (
-	<ChatStack.Navigator screenOptions={{ headerShown: false }}>
-		<ChatStack.Screen
-			name="ChatScreen"
-			component={ChatsScreen}
-			options={{ tabBarLabel: "ChatScreen" }}
-		/>
-	</ChatStack.Navigator>
-);
+const ChatScreen = () => <ChatsScreen />;
 
 export default ChatScreen;

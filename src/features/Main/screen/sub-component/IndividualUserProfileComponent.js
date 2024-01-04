@@ -74,6 +74,7 @@ export default function IndividualUserProfileComponent({
         profileLikedNumber: profileLikedNumber, // profile number that was liked
       });
 
+      // add liked profile number to list-of-all-liked-numbers in current user profile object
       await addToArrayField(
         "all-users",
         currentUser?.id,
@@ -82,6 +83,7 @@ export default function IndividualUserProfileComponent({
         setIsRetrigger
       );
 
+      // add current user number (like initiator) to liked-me-list in other user profile object
       await addToArrayField(
         "all-users",
         data?.id,
