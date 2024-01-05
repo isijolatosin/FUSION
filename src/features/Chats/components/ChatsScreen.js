@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -12,8 +12,11 @@ import {
   getAllMatchData,
 } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import Avatar from "./Avatar";
+import Avatar from "../../../components/general-component/Avatar";
 import MessagesListItem from "./MessagesListItem";
+import Loading from "../../../components/general-component/Loading";
+import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import { database } from "../../../../config";
 
 const ChatsScreen = () => {
   const navigation = useNavigation();
@@ -21,6 +24,9 @@ const ChatsScreen = () => {
     state: { theme },
   } = useAppContext();
   const [currentUser, setCurrentUser] = useState({});
+  const [id, setMatchId] = useState("");
+  const [triggerReload, setTriggerReload] = useState(false);
+  const [messages, setMessages] = useState([]);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
 
   useEffect(() => {
@@ -39,15 +45,14 @@ const ChatsScreen = () => {
       result.filter((match) => {
         // capture match ID
         const matchId = match?.id;
+        storeData("match-id", matchId);
 
         const bothProfile = [match?.likedByprofile, match?.likedProfile];
 
         const otherWithMatchId = {
           id: matchId,
           match: [
-            bothProfile.find(
-              (profile) => profile?.phonenumber !== currentUser?.phonenumber
-            ),
+            bothProfile.find((profile) => profile?.id !== currentUserData?.id),
           ],
         };
 
@@ -56,13 +61,45 @@ const ChatsScreen = () => {
       setOtherUsers(other);
     }
 
+    async function getMessages() {
+      try {
+        const id = await retrieveData("match-id");
+        setMatchId(id);
+
+        if (id) {
+          const snapshot = await database
+            .collection("match-messages")
+            .doc(id)
+            .collection("messages")
+            .orderBy("timestamp", "asc")
+            .get();
+
+          // Access the documents in the subcollection
+          const data = snapshot.docs.map((doc) => doc.data());
+
+          setMessages(data);
+        }
+      } catch (error) {
+        console.error("Error getting message data:", error);
+      }
+    }
+
     fetchMatches();
-  }, []);
+    getMessages();
+  }, [triggerReload]);
+
+  if (!otherUsers?.length) {
+    return <Loading text="Loading..." />;
+  }
 
   return (
-    <SafeArea>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <Spacer
-        style={{ paddingBottom: theme.spaceNumberBy10[16] }}
+        style={{
+          paddingBottom: theme.spaceNumberBy10[16],
+          backgroundColor: theme.colors.brand.basewhite,
+          flex: 1,
+        }}
         position="top"
         size="xxxxlarge">
         <Spacer position="bottom" size="xxlarge">
@@ -144,7 +181,17 @@ const ChatsScreen = () => {
                   borderBottomWidth: 0.5,
                   borderBottomColor: theme.colors.brand.linesLight,
                 }}>
-                <MessagesListItem data={match} theme={theme} />
+                <MessagesListItem
+                  data={match}
+                  theme={theme}
+                  lastSenderMessage={messages[messages.length - 1]?.message}
+                  lastSenderName={
+                    currentUser?.firstname ===
+                    messages[messages.length - 1]?.firstname
+                      ? "You"
+                      : messages[messages.length - 1]?.firstname
+                  }
+                />
               </TouchableOpacity>
             </Spacer>
           ))}

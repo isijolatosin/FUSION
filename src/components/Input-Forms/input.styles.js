@@ -69,6 +69,76 @@ const OTPInput = styled.View`
   min-width: 12%;
 `;
 
+const TextInputMessageWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+  height: ${(props) => props.height};
+  background-color: ${(props) => props.backgroundColor};
+  padding-left: ${(props) => props.paddingHorizontal};
+  padding-right: ${(props) => props.paddingHorizontal};
+  padding-top: ${(props) => props.paddingTop};
+  padding-bottom: ${(props) => props.paddingBottom};
+  width: 100%;
+`;
+
+const TextMessageWrap = styled.View`
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  flex: 0.75;
+  background-color: ${(props) => props.backgroundColor};
+  padding-left: ${(props) => props.paddingLeft};
+  padding-right: ${(props) => props.paddingRight};
+  padding-top: ${(props) => props.paddingVertical};
+  padding-bottom: ${(props) => props.paddingVertical};
+  border-radius: ${(props) => props.borderRadius};
+`;
+
+const TextInputMessage = styled.TextInput`
+  color: ${(props) => props.fontColor};
+  font-size: ${(props) => props.fontSize};
+  font-family: ${(props) => props.fontType};
+  height: 100%;
+  flex: 1;
+`;
+
+const TextInputMessageIcon = styled.View`
+  flex: 0.25;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: ${(props) => `${props.theme.spaceNumber[5]}px`};
+`;
+
+const MessageContainer = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+  margin-top: ${(props) => `${props.theme.spaceNumberBy10[0]}px`};
+  padding-left: ${(props) => `${props.theme.spaceNumberBy10[2]}px`};
+  padding-right: ${(props) => `${props.theme.spaceNumberBy10[2]}px`};
+  background-color: ${(props) => props.theme.colors.brand.basewhite};
+`;
+
+const MessageBubbleWrap = styled.View`
+  width: 100%;
+  align-items: ${(props) => (props.currentUser ? "flex-end" : "flex-start")};
+`;
+
+const MessageBubble = styled.View`
+  position: relative;
+  background-color: ${(props) => props.theme.colors.brand.lightorange};
+  width: 65%;
+  padding-left: ${(props) => `${props.theme.spaceNumber[7]}px`};
+  padding-right: ${(props) => `${props.theme.spaceNumber[7]}px`};
+  padding-top: ${(props) => `${props.theme.spaceNumber[4]}px`};
+  padding-bottom: ${(props) => `${props.theme.spaceNumber[9]}px`};
+  border-radius: ${(props) => `${props.theme.spaceNumber[4]}px`};
+  ${(props) =>
+    props.currentUser
+      ? "border-bottom-right-radius: 0"
+      : "border-bottom-left-radius: 0"};
+  margin-bottom: ${(props) => `${props.theme.spaceNumber[8]}px`};
+`;
+
 const OTPInputText = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.montserratSemibold};
@@ -90,4 +160,11 @@ export {
   OTPInput,
   OTPInputText,
   OTPInputFocused,
+  TextInputMessageWrapper,
+  TextInputMessage,
+  TextMessageWrap,
+  TextInputMessageIcon,
+  MessageContainer,
+  MessageBubble,
+  MessageBubbleWrap,
 };

@@ -1,7 +1,6 @@
 import { Image } from "react-native";
 import React from "react";
-import { AvatarWrapper } from "../../Main/screen/main.style";
-import { Text } from "../../../components/typography/text.component";
+import { AvatarWrapper } from "../../features/Main/screen/main.style";
 
 export default function Avatar({ data, theme, dimensionIndex, func }) {
   return (

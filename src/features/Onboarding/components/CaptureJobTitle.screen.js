@@ -111,8 +111,8 @@ export default function CaptureJobTitle({ navigation }) {
                 margin: -20,
               }}
               containerStyle={{
-                backgroundColor: theme.colors.brand.white,
-                borderColor: theme.colors.brand.white,
+                backgroundColor: theme.colors.brand.basewhite,
+                borderColor: theme.colors.brand.basewhite,
               }}
             />
           </Spacer>

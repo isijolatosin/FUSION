@@ -76,7 +76,7 @@ export default function PhotoComponent({
                 iconName="close"
                 IconComponent={AntDesign}
                 size={16}
-                color={theme.colors.brand.white}
+                color={theme.colors.brand.basewhite}
               />
             </TouchableOpacity>
           ) : (

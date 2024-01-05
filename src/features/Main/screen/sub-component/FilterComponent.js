@@ -334,7 +334,7 @@ export default function FilterComponent({
       animationOut="slideOutRight"
       onBackdropPress={onClose}
       style={{
-        backgroundColor: theme.colors.brand.white,
+        backgroundColor: theme.colors.brand.basewhite,
         margin: 0,
         paddingTop: Platform.OS === "ios" ? 150 : 100,
         position: "relative",

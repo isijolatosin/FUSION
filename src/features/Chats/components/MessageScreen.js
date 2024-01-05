@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -12,10 +12,17 @@ import { useRoute } from "@react-navigation/native";
 import { NavigationBar } from "../../Onboarding/components/onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../context/ThemeContext";
-import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
-import Avatar from "./Avatar";
+import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
+import MessageInput from "../../../components/Input-Forms/MessageInput";
+import firebase, { database } from "../../../../config";
+import {
+  MessageBubble,
+  MessageBubbleWrap,
+  MessageContainer,
+} from "../../../components/Input-Forms/input.styles";
+import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 
 export default function MessageScreen({ navigation }) {
   const {
@@ -24,12 +31,60 @@ export default function MessageScreen({ navigation }) {
 
   const route = useRoute();
   const { currentUser, match } = route.params || {};
+  const [input, setInput] = useState("");
+  const [matchId, setMatchId] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    async function getMessages() {
+      try {
+        const id = await retrieveData("match-id");
+        setMatchId(id);
+
+        if (id) {
+          const snapshot = await database
+            .collection("match-messages")
+            .doc(id)
+            .collection("messages")
+            .orderBy("timestamp", "asc")
+            .get();
+
+          // Access the documents in the subcollection
+          const data = snapshot.docs.map((doc) => doc.data());
+
+          setMessages(data);
+        }
+      } catch (error) {
+        console.error("Error getting message data:", error);
+      }
+    }
+
+    getMessages();
+  }, [input]);
+
+  const sendMessage = () => {
+    //pushing message to firebase db...
+    database
+      .collection("match-messages")
+      .doc(matchId)
+      .collection("messages")
+      .add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        message: input,
+        id: currentUser?.id,
+        photo: currentUser.mediaArray?.[0],
+        phonenumber: currentUser?.phonenumber,
+        firstname: currentUser.firstname,
+      });
+
+    setInput("");
+  };
 
   return (
-    <SafeArea>
+    <View style={{ flex: 1 }}>
       <HorizontalPaddingSpace
         style={{
-          marginTop: Platform.OS !== "ios" ? 40 : 20,
+          marginTop: Platform.OS !== "ios" ? 60 : 80,
         }}
         space={theme.space[5]}>
         <NavigationBar>
@@ -67,6 +122,45 @@ export default function MessageScreen({ navigation }) {
           />
         </NavigationBar>
       </HorizontalPaddingSpace>
-    </SafeArea>
+      <MessageContainer>
+        {messages.map((item, idx) => (
+          <MessageBubbleWrap
+            key={idx}
+            currentUser={currentUser?.phonenumber === item?.phonenumber}>
+            <MessageBubble
+              currentUser={currentUser?.phonenumber === item?.phonenumber}>
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratSemibold"
+                fontSize="body">
+                {item?.message}
+              </Text>
+              <Text
+                style={{ position: "absolute", bottom: 2, right: 5 }}
+                variant="subHeading"
+                colorType="lines"
+                fontType="montserratRegular"
+                fontSize="xcaption">
+                {new Date(item?.timestamp?.toDate())
+                  .toLocaleString()
+                  .substr(
+                    new Date(item?.timestamp?.toDate())
+                      .toLocaleString()
+                      .indexOf(" "),
+                    new Date(item?.timestamp?.toDate()).toLocaleString().length
+                  )}
+              </Text>
+            </MessageBubble>
+          </MessageBubbleWrap>
+        ))}
+      </MessageContainer>
+      <MessageInput
+        value={input}
+        theme={theme}
+        setInput={setInput}
+        sendMessage={sendMessage}
+      />
+    </View>
   );
 }

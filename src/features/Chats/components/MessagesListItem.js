@@ -1,11 +1,16 @@
 import { View } from "react-native";
 import React from "react";
-import Avatar from "./Avatar";
+import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 
-export default function MessagesListItem({ data, theme }) {
+export default function MessagesListItem({
+  data,
+  theme,
+  lastSenderMessage,
+  lastSenderName,
+}) {
   return (
     <HorizontalPaddingSpace space={theme.space[3]}>
       <View
@@ -29,7 +34,14 @@ export default function MessagesListItem({ data, theme }) {
               colorType="black"
               fontType="montserratBold"
               fontSize="caption">
-              Hey Amelia, how are you?
+              <Text
+                variant="subHeading"
+                colorType="brandTone"
+                fontType="montserratBold"
+                fontSize="caption">
+                {lastSenderName}:{" "}
+              </Text>
+              {lastSenderMessage}
             </Text>
           </Spacer>
         </View>

@@ -121,7 +121,7 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeArea>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <YouAreSpecialCircleWrapper
         style={{
           position: "absolute",
