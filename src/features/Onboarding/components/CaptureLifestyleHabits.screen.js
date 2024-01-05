@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
@@ -111,7 +111,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               gap: theme.spaceNumber[5],
             }}>
             {LifestyleHabits.smoke.map((smoke, idx) => (
-              <TouchableOpacity
+              <Pressable
                 onPress={() => handleLifestyleHabits(smoke, "smoke")}
                 key={idx}
                 style={{
@@ -133,7 +133,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                   variant="popButton">
                   {smoke}
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             ))}
           </View>
         </Spacer>
@@ -160,7 +160,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               gap: theme.spaceNumber[5],
             }}>
             {LifestyleHabits.drink.map((drink, idx) => (
-              <TouchableOpacity
+              <Pressable
                 onPress={() => handleLifestyleHabits(drink, "drink")}
                 key={idx}
                 style={{
@@ -182,7 +182,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                   variant="popButton">
                   {drink}
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             ))}
           </View>
         </Spacer>

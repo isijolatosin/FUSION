@@ -38,7 +38,7 @@ const IconAndText = styled.View`
   flex-direction: row;
 `;
 
-const LocationButtonWrapper = styled.TouchableOpacity`
+const LocationButtonWrapper = styled.Pressable`
   padding-top: ${(props) => props.theme.space[4]};
   padding-bottom: ${(props) => props.theme.space[4]};
   border-bottom-width: ${(props) => (props.noBorderBottom ? 0 : "1px")};

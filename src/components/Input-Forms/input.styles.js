@@ -113,8 +113,8 @@ const MessageContainer = styled.ScrollView`
   flex: 1;
   width: 100%;
   margin-top: ${(props) => `${props.theme.spaceNumberBy10[0]}px`};
-  padding-left: ${(props) => `${props.theme.spaceNumberBy10[2]}px`};
-  padding-right: ${(props) => `${props.theme.spaceNumberBy10[2]}px`};
+  padding-left: ${(props) => `${props.theme.spaceNumberBy10[1]}px`};
+  padding-right: ${(props) => `${props.theme.spaceNumberBy10[1]}px`};
   background-color: ${(props) => props.theme.colors.brand.basewhite};
 `;
 

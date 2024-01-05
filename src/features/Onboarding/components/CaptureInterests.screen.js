@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
@@ -96,7 +96,7 @@ export default function CaptureInterests({ navigation }) {
                 gap: 6,
               }}>
               {interests.map((interest, idx) => (
-                <TouchableOpacity
+                <Pressable
                   onPress={() => handleInterest(interest)}
                   key={idx}
                   style={{
@@ -116,7 +116,7 @@ export default function CaptureInterests({ navigation }) {
                     variant="popButton">
                     {interest}
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               ))}
             </View>
           </Spacer>

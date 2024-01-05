@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Image, ActivityIndicator } from "react-native";
+import { Pressable, Image, ActivityIndicator } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
@@ -21,7 +21,7 @@ export default function PhotoComponentPhotoScreen({
   }
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={handlePickImageAsyncOnBoarding}
       style={{
         position: "relative",
@@ -50,6 +50,6 @@ export default function PhotoComponentPhotoScreen({
           color={theme.colors.brand.orange}
         />
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 }

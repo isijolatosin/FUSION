@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import styled from "styled-components/native";
 
 const NextNavigationText = styled.Text`
@@ -8,7 +8,7 @@ const NextNavigationText = styled.Text`
   ${(props) => props.size && `font-size: ${props.size}`}
 `;
 
-const NextNavigationWrapper = styled(TouchableOpacity)``;
+const NextNavigationWrapper = styled(Pressable)``;
 
 export default function NextNavigation({ theme, size, color, nextFunction }) {
   return (

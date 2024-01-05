@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { Keyboard, Pressable } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -73,7 +72,7 @@ export default function OtpScreen({ navigation }) {
             </Spacer>
           )}
           <Spacer position="top" size="xxlarge">
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
                 navigation.navigate("create-account");
               }}>
@@ -82,7 +81,7 @@ export default function OtpScreen({ navigation }) {
                   ? "Generate new OTP"
                   : "Didn't get code?"}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </Spacer>
         </HorizontalPaddingSpace>
       </Pressable>

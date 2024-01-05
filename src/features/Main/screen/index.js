@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Pressable } from "react-native";
 import { MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
@@ -146,7 +146,7 @@ const Index = () => {
             <NavigationBar>
               <BrandAvatar />
               <Fragment>
-                <TouchableOpacity
+                <Pressable
                   style={{
                     transform: [{ rotateX: "180deg" }],
                   }}>
@@ -164,7 +164,7 @@ const Index = () => {
                         : theme.colors.brand.highlight
                     }
                   />
-                </TouchableOpacity>
+                </Pressable>
                 <FilterWrapper onPress={handleFilterOpen}>
                   <FilterText variant="popButton">Filter</FilterText>
                 </FilterWrapper>

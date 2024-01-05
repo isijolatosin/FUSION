@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Image, ActivityIndicator } from "react-native";
+import { Pressable, Image, ActivityIndicator } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
@@ -27,7 +27,7 @@ export default function PhotoComponent({
   }
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => {
         if (!photoUrl && !isUpdatingPhoto) {
           handlePickImageAsyncOnBoarding();
@@ -57,7 +57,7 @@ export default function PhotoComponent({
             style={{ width: "100%", height: "100%", borderRadius: 5 }}
           />
           {showDeleteIcon ? (
-            <TouchableOpacity
+            <Pressable
               style={{
                 position: "absolute",
                 top: 5,
@@ -78,7 +78,7 @@ export default function PhotoComponent({
                 size={16}
                 color={theme.colors.brand.basewhite}
               />
-            </TouchableOpacity>
+            </Pressable>
           ) : (
             <></>
           )}
@@ -103,6 +103,6 @@ export default function PhotoComponent({
           color={theme.colors.brand.orange}
         />
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 }

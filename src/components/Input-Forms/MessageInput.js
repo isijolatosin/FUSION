@@ -14,7 +14,7 @@ export default function MessageInput({ value, theme, setInput, sendMessage }) {
     <TextInputMessageWrapper
       height={`${theme.spaceNumberBy10[9]}px`}
       backgroundColor={theme.colors.brand.highlight}
-      paddingHorizontal={`${theme.spaceNumberBy10[2]}px`}
+      paddingHorizontal={`${theme.spaceNumberBy10[1]}px`}
       paddingTop={`${theme.spaceNumber[7]}px`}
       paddingBottom={`${theme.spaceNumberBy10[2]}px`}
       isBorderColor={false}>
@@ -31,7 +31,7 @@ export default function MessageInput({ value, theme, setInput, sendMessage }) {
           keyboardAppearance="dark"
           onChangeText={(text) => setInput(text)}
           value={value}
-          keyboardType="default"
+          keyboardType="url"
           theme={theme}
           placeholder="Send a message"
           placeholderTextColor={theme.colors.brand.lines}
