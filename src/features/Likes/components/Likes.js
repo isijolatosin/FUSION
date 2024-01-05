@@ -5,7 +5,7 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
-import BrandAvatar from "../../Main/screen/sub-component/BrandAvatar";
+import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import { useAppContext } from "../../../context/ThemeContext";
 import {
   getAllData,
@@ -50,7 +50,7 @@ const LikesScreen = () => {
   }, [isRetrigger]);
 
   return (
-    <SafeArea>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <HorizontalPaddingSpace space={theme.space[3]}>
         <Spacer position="top" size="large">
           <BrandAvatar noFlex={true} />

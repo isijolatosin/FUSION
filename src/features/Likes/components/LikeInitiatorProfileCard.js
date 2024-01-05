@@ -27,7 +27,7 @@ export default function LikeInitiatorProfileCard({
         width: "100%",
         height: theme.spaceNumberBy50[4],
         position: "relative",
-        backgroundColor: theme.colors.brand.white,
+        backgroundColor: theme.colors.brand.basewhite,
         borderRadius: theme.spaceNumberBy10[1],
       }}>
       <Image

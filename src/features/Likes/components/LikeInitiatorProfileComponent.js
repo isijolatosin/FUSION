@@ -109,7 +109,7 @@ export default function LikeInitiatorProfileComponent({
       animationIn="slideInRight"
       animationOut="slideOutRight"
       style={{
-        backgroundColor: theme.colors.brand.white,
+        backgroundColor: theme.colors.brand.basewhite,
         margin: 0,
         position: "relative",
         alignItems: "flex-end",
@@ -620,7 +620,7 @@ export default function LikeInitiatorProfileComponent({
               borderColor="transparent"
               buttonFunction={routeToChatScreen}
               text="Send a Message"
-              textColor={theme.colors.brand.white}
+              textColor={theme.colors.brand.basewhite}
               width="80%"
             />
             <Button
@@ -652,7 +652,7 @@ export default function LikeInitiatorProfileComponent({
             iconName="close-a"
             IconComponent={Fontisto}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.white}
+            color={theme.colors.brand.basewhite}
           />
         </CloseButton>
       ) : (

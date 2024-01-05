@@ -1,9 +1,8 @@
 export const colors = {
   brand: {
-    white: "#FFF",
     base: "#6F0606",
-    basewhite: "#FFFFDF",
-    highlight: "#EACFD2",
+    basewhite: "#FFFDFD",
+    highlight: "#EFDADD",
     peach: "#FBDCCA",
     lightorange: "#FEF2EB",
     black: "#0A0A0A",

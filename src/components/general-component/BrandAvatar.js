@@ -3,7 +3,7 @@ import React from "react";
 import {
   LogoText,
   LogoWrapper,
-} from "../../../Splash/components/splash.styles";
+} from "../../features/Splash/components/splash.styles";
 
 export default function BrandAvatar({ noFlex }) {
   return (

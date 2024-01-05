@@ -69,7 +69,7 @@ const TabNavigator = () => {
         name="home"
         component={MainScreen}
         options={{
-          cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color }) => (
             <Entypo name="home" color={color} size={35} />
           ),
@@ -195,7 +195,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -205,7 +205,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -215,7 +215,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -225,7 +225,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -235,7 +235,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -245,7 +245,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -265,7 +265,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -275,7 +275,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -285,7 +285,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -295,7 +295,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -305,7 +305,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -315,7 +315,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -325,7 +325,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -335,7 +335,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -345,7 +345,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -355,7 +355,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -365,7 +365,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -375,7 +375,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -385,7 +385,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -405,7 +405,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
         <Stack.Screen
@@ -415,7 +415,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.white}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
       </Stack.Navigator>

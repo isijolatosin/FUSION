@@ -10,12 +10,12 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import BrandAvatar from "./sub-component/BrandAvatar";
+import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton, FilterText, FilterWrapper } from "./main.style";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
-import { Text } from "../../../components/typography/text.component";
+import Loading from "../../../components/general-component/Loading";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -129,33 +129,15 @@ const Index = () => {
   };
 
   if (allUsers.length === 0) {
-    return (
-      <SafeArea
-        style={{
-          backgroundColor: theme.colors.brand.white,
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <Text variant="loading">Loading...</Text>
-      </SafeArea>
-    );
+    return <Loading text="Loading..." />;
   }
 
   if (!currentSwipeIndexIsLessThanAllUsersLength) {
-    return (
-      <SafeArea
-        style={{
-          backgroundColor: theme.colors.brand.white,
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <Text variant="loading">That is all for today!</Text>
-      </SafeArea>
-    );
+    return <Loading text="That's all for today!" />;
   }
 
   return (
-    <SafeArea style={{ backgroundColor: theme.colors.brand.white }}>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <HorizontalPaddingSpace
         style={{ position: "relative" }}
         space={theme.space[3]}>
@@ -223,7 +205,7 @@ const Index = () => {
             iconName="close-a"
             IconComponent={Fontisto}
             size={23}
-            color={theme.colors.brand.white}
+            color={theme.colors.brand.basewhite}
           />
         </CloseButton>
         <FilterComponent

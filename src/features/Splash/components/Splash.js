@@ -2,7 +2,7 @@ import React from "react";
 
 import { OnboardingSreencContainer } from "./splash.styles";
 import { homeSplashImage } from "../../../constants";
-import BrandAvatar from "../../Main/screen/sub-component/BrandAvatar";
+import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import { View } from "react-native";
 
 export default function index() {
