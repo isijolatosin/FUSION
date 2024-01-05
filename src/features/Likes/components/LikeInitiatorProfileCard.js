@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, Pressable } from "react-native";
 import React from "react";
 import { Text } from "../../../components/typography/text.component";
 import calculateAge from "../../../utilities/calculateAge";
@@ -21,7 +21,7 @@ export default function LikeInitiatorProfileCard({
   }
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => handleSelectedLikedData(data)}
       style={{
         width: "100%",
@@ -51,6 +51,6 @@ export default function LikeInitiatorProfileCard({
           {data?.likedBy?.firstname}, {age}
         </Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }

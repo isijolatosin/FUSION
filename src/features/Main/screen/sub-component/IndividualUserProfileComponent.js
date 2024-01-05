@@ -3,7 +3,7 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   View,
 } from "react-native";
 import {
@@ -163,7 +163,7 @@ export default function IndividualUserProfileComponent({
               bottom: theme.spaceNumberBy10[6],
             }}
             variant="subHeading"
-            colorType="white"
+            colorType="basewhite"
             fontType="montserratRegular"
             fontSize="caption">
             Double tap to like
@@ -178,7 +178,7 @@ export default function IndividualUserProfileComponent({
             width: "100%",
             padding: theme.spaceNumberBy10[0],
           }}>
-          <TouchableOpacity>
+          <Pressable>
             <IconComponent
               iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
               iconName="heart"
@@ -186,7 +186,7 @@ export default function IndividualUserProfileComponent({
               size={60}
               color={theme.colors.brand.basewhite}
             />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
       <Spacer position="top" size="medium">

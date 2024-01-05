@@ -1,13 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import {
-  Dimensions,
-  Keyboard,
-  Pressable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, Keyboard, Pressable, View } from "react-native";
 
 import { firebaseConfig } from "../../../../config";
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -97,12 +91,12 @@ export default function CreateAccount({ navigation }) {
             </Spacer>
             {cellNumber.length > 10 && (
               <Spacer position="top" size="large">
-                <TouchableOpacity
+                <Pressable
                   onPress={() => {
                     setPopup(true);
                   }}>
                   <Text variant="hint">Verify Number...</Text>
-                </TouchableOpacity>
+                </Pressable>
               </Spacer>
             )}
             {isPopup && (
@@ -128,7 +122,7 @@ export default function CreateAccount({ navigation }) {
                   <View style={{ position: "absolute", bottom: 18, left: 58 }}>
                     {cellNumber.length > 10 && (
                       <Spacer position="top" size="large">
-                        <TouchableOpacity
+                        <Pressable
                           onPress={() => {
                             sendVerification(
                               phonenumberPlusCountryCode,
@@ -140,7 +134,7 @@ export default function CreateAccount({ navigation }) {
                             setPopup(false);
                           }}>
                           <Text variant="hint">Request OTP</Text>
-                        </TouchableOpacity>
+                        </Pressable>
                       </Spacer>
                     )}
                   </View>

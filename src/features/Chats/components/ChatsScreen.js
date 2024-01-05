@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -101,7 +101,7 @@ const ChatsScreen = () => {
           flex: 1,
         }}
         position="top"
-        size="xxxxlarge">
+        size="xxxlarge">
         <Spacer position="bottom" size="xxlarge">
           <HorizontalPaddingSpace space={theme.space[3]}>
             <Text
@@ -122,7 +122,7 @@ const ChatsScreen = () => {
               position="top"
               size="small">
               {otherUsers?.[0]?.match.map((match) => (
-                <TouchableOpacity
+                <Pressable
                   key={match?.id}
                   style={{
                     alignItems: "center",
@@ -146,7 +146,7 @@ const ChatsScreen = () => {
                     fontSize="button">
                     {match?.firstname}
                   </Text>
-                </TouchableOpacity>
+                </Pressable>
               ))}
             </ScrollView>
           </HorizontalPaddingSpace>
@@ -168,7 +168,7 @@ const ChatsScreen = () => {
           }}>
           {otherUsers[0]?.match.map((match) => (
             <Spacer key={match?.id} position="bottom" size="medium">
-              <TouchableOpacity
+              <Pressable
                 onPress={() =>
                   navigation.navigate("message-screen", {
                     currentUser,
@@ -192,7 +192,7 @@ const ChatsScreen = () => {
                       : messages[messages.length - 1]?.firstname
                   }
                 />
-              </TouchableOpacity>
+              </Pressable>
             </Spacer>
           ))}
         </ScrollView>

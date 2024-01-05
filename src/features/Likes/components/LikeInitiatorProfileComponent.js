@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Image, Modal, ScrollView, TouchableOpacity, View } from "react-native";
+import { Image, Modal, ScrollView, Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
   Entypo,
@@ -156,7 +156,7 @@ export default function LikeInitiatorProfileComponent({
                   bottom: theme.spaceNumberBy10[6],
                 }}
                 variant="subHeading"
-                colorType="white"
+                colorType="basewhite"
                 fontType="montserratRegular"
                 fontSize="caption">
                 Double tap to like
@@ -171,7 +171,7 @@ export default function LikeInitiatorProfileComponent({
                 width: "100%",
                 padding: theme.spaceNumberBy10[0],
               }}>
-              <TouchableOpacity>
+              <Pressable>
                 <IconComponent
                   iconFunction={() =>
                     handleLikeInitiatorProfile(data?.[0]?.likedBy?.phonenumber)
@@ -181,7 +181,7 @@ export default function LikeInitiatorProfileComponent({
                   size={60}
                   color={theme.colors.brand.basewhite}
                 />
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </View>
           <HorizontalPaddingSpace space={theme.space[2]}>

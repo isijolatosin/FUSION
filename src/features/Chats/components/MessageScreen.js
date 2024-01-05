@@ -23,6 +23,12 @@ import {
   MessageContainer,
 } from "../../../components/Input-Forms/input.styles";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
+import {
+  detectPhoneNumber,
+  detectUrl,
+  handleCallPress,
+  handleUrlPress,
+} from "../../../utilities/detectTextType";
 
 export default function MessageScreen({ navigation }) {
   const {
@@ -63,6 +69,17 @@ export default function MessageScreen({ navigation }) {
   }, [input]);
 
   const sendMessage = () => {
+    if (!input?.length) return;
+
+    let textTransform = input;
+    if (
+      detectUrl(input) &&
+      (input.startsWith("www") || input.startsWith("Www"))
+    ) {
+      textTransform = `https://${input.toLowerCase()}`;
+    } else if (detectUrl(input) && input.startsWith("Https://")) {
+      textTransform = input.toLowerCase();
+    }
     //pushing message to firebase db...
     database
       .collection("match-messages")
@@ -70,7 +87,7 @@ export default function MessageScreen({ navigation }) {
       .collection("messages")
       .add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        message: input,
+        message: textTransform,
         id: currentUser?.id,
         photo: currentUser.mediaArray?.[0],
         phonenumber: currentUser?.phonenumber,
@@ -86,7 +103,7 @@ export default function MessageScreen({ navigation }) {
         style={{
           marginTop: Platform.OS !== "ios" ? 60 : 80,
         }}
-        space={theme.space[5]}>
+        space={theme.space[3]}>
         <NavigationBar>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <IconComponent
@@ -129,13 +146,39 @@ export default function MessageScreen({ navigation }) {
             currentUser={currentUser?.phonenumber === item?.phonenumber}>
             <MessageBubble
               currentUser={currentUser?.phonenumber === item?.phonenumber}>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="body">
-                {item?.message}
-              </Text>
+              {detectPhoneNumber(item?.message) ? (
+                <Pressable onPress={() => handleCallPress(item?.message)}>
+                  <Text
+                    variant="subHeading"
+                    colorType={
+                      detectPhoneNumber(item?.message) ? "brandFade" : "black"
+                    }
+                    fontType="montserratSemibold"
+                    fontSize="body">
+                    {item?.message}
+                  </Text>
+                </Pressable>
+              ) : detectUrl(item?.message) ? (
+                <Pressable
+                  onPress={() => handleUrlPress(item?.message.toLowerCase())}>
+                  <Text
+                    variant="subHeading"
+                    colorType={detectUrl(item?.message) ? "error" : "black"}
+                    fontType="montserratSemibold"
+                    fontSize="body">
+                    {item?.message.toLowerCase()}
+                  </Text>
+                </Pressable>
+              ) : (
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratSemibold"
+                  fontSize="body">
+                  {item?.message}
+                </Text>
+              )}
+
               <Text
                 style={{ position: "absolute", bottom: 2, right: 5 }}
                 variant="subHeading"
@@ -155,12 +198,15 @@ export default function MessageScreen({ navigation }) {
           </MessageBubbleWrap>
         ))}
       </MessageContainer>
-      <MessageInput
-        value={input}
-        theme={theme}
-        setInput={setInput}
-        sendMessage={sendMessage}
-      />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <MessageInput
+          value={input}
+          theme={theme}
+          setInput={setInput}
+          sendMessage={sendMessage}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 }

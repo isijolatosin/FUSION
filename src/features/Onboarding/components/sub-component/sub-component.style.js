@@ -34,7 +34,7 @@ const DropdowSelectionLists = styled.View`
   align-items: center;
 `;
 
-const DropdowSelectionItemWrapper = styled.TouchableOpacity`
+const DropdowSelectionItemWrapper = styled.Pressable`
   border-bottom-color: ${(props) =>
     props.isBorderBottom ? props.theme.colors.brand.lines : ""};
   padding-bottom: ${(props) => props.theme.space[4]};

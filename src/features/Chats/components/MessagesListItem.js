@@ -31,7 +31,7 @@ export default function MessagesListItem({
           <Spacer position="top" size="xsmall">
             <Text
               variant="subHeading"
-              colorType="black"
+              colorType="lines"
               fontType="montserratBold"
               fontSize="caption">
               <Text

@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-const FilterWrapper = styled.TouchableOpacity`
+const FilterWrapper = styled.Pressable`
   border-radius: ${(props) => props.theme.space[1]};
   margin-left: ${(props) => props.theme.space[3]};
   background-color: ${(props) => props.theme.colors.brand.highlight};
@@ -36,7 +36,7 @@ const InterestWrapper = styled.View`
   align-items: center;
 `;
 
-const ButtonAction = styled.TouchableOpacity`
+const ButtonAction = styled.Pressable`
   background-color: ${(props) =>
     props.backgroundColor
       ? props.backgroundColor
@@ -68,7 +68,7 @@ const ButtonAction = styled.TouchableOpacity`
     `border-bottom-color: ${props.borderBottomColor}`};
 `;
 
-const AvatarWrapper = styled.TouchableOpacity`
+const AvatarWrapper = styled.Pressable`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.height}px`};
   border-radius: ${(props) => `${props.borderRadius}px`};

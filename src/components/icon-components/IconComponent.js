@@ -1,8 +1,8 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import styled from "styled-components/native";
 
-const IconComponentWraper = styled(TouchableOpacity)`
+const IconComponentWraper = styled(Pressable)`
   margin: 0 ${(props) => props.horizontalSpace};
   ${(props) => props.centralize && `align-items: center`};
 `;
