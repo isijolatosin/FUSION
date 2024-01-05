@@ -15,7 +15,6 @@ function handleCallPress(text) {
 }
 
 function detectUrl(text) {
-  // Regular expression to check if a string is a URL
   const urlRegex = text.match(/^(https:\/\/|www\.)/i);
 
   return urlRegex;
@@ -27,4 +26,30 @@ function handleUrlPress(url) {
   }
 }
 
-export { detectPhoneNumber, handleCallPress, detectUrl, handleUrlPress };
+function detectImageUrl(text) {
+  const imageRegex = /\.(jpeg|jpg|gif|png)$/i;
+  return imageRegex.test(text);
+}
+//
+// function handleImageUrlPress(url) {
+//   if (detectImageUrl(url)) {
+//     Linking.openURL(url);
+//   }
+// }
+
+function shortenText(text, maxLength) {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return text.substring(0, maxLength - 3) + "...";
+}
+
+export {
+  detectPhoneNumber,
+  handleCallPress,
+  detectUrl,
+  handleUrlPress,
+  detectImageUrl,
+  shortenText,
+  //   handleImageUrlPress,
+};
