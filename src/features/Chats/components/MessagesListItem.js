@@ -4,6 +4,7 @@ import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
+import { shortenText } from "../../../utilities/detectTextType";
 
 export default function MessagesListItem({
   data,
@@ -41,7 +42,7 @@ export default function MessagesListItem({
                 fontSize="caption">
                 {lastSenderName}:{" "}
               </Text>
-              {lastSenderMessage}
+              {shortenText(lastSenderMessage, 40)}
             </Text>
           </Spacer>
         </View>

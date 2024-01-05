@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
-  Keyboard,
+  Dimensions,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  TouchableOpacity,
   View,
 } from "react-native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
-import { NavigationBar } from "../../Onboarding/components/onboarding.styles";
+import {
+  NavigationBar,
+  PopupModal,
+} from "../../Onboarding/components/onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../context/ThemeContext";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -24,13 +29,16 @@ import {
 } from "../../../components/Input-Forms/input.styles";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import {
+  detectImageUrl,
   detectPhoneNumber,
   detectUrl,
   handleCallPress,
   handleUrlPress,
 } from "../../../utilities/detectTextType";
+import { CloseButton } from "../../Main/screen/main.style";
 
 export default function MessageScreen({ navigation }) {
+  const { height } = Dimensions.get("window");
   const {
     state: { theme },
   } = useAppContext();
@@ -39,7 +47,9 @@ export default function MessageScreen({ navigation }) {
   const { currentUser, match } = route.params || {};
   const [input, setInput] = useState("");
   const [matchId, setMatchId] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   useEffect(() => {
     async function getMessages() {
@@ -158,17 +168,38 @@ export default function MessageScreen({ navigation }) {
                     {item?.message}
                   </Text>
                 </Pressable>
-              ) : detectUrl(item?.message) ? (
-                <Pressable
-                  onPress={() => handleUrlPress(item?.message.toLowerCase())}>
+              ) : detectUrl(item?.message) && !detectImageUrl(item?.message) ? (
+                <Pressable onPress={() => handleUrlPress(item?.message)}>
                   <Text
                     variant="subHeading"
                     colorType={detectUrl(item?.message) ? "error" : "black"}
                     fontType="montserratSemibold"
                     fontSize="body">
-                    {item?.message.toLowerCase()}
+                    {item?.message}
                   </Text>
                 </Pressable>
+              ) : detectImageUrl(item?.message) ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedImage(item?.message);
+                    setShowImageModal(true);
+                  }}
+                  style={{
+                    width: "100%",
+                    height: theme.spaceNumberBy50[3],
+                  }}>
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumber[4],
+                    }}
+                    source={{
+                      uri: item?.message,
+                    }}
+                  />
+                </TouchableOpacity>
               ) : (
                 <Text
                   variant="subHeading"
@@ -207,6 +238,45 @@ export default function MessageScreen({ navigation }) {
           sendMessage={sendMessage}
         />
       </KeyboardAvoidingView>
+      {showImageModal && (
+        <PopupModal height={height}>
+          <View
+            style={{
+              width: "100%",
+              height: "100%",
+            }}>
+            <Image
+              style={{
+                width: "100%",
+                height: "100%",
+                resizeMode: "cover",
+              }}
+              source={{
+                uri: selectedImage,
+              }}
+            />
+          </View>
+          <CloseButton
+            spaceBottom={theme.space[9]}
+            style={{
+              elevation: 5,
+              shadowColor: theme.colors.brand.black,
+              shadowOpacity: 0.5,
+              shadowRadius: "5px",
+              backgroundColor: theme.colors.brand.basewhite,
+              position: "absolute",
+              marginLeft: theme.spaceNumberBy10[1],
+            }}>
+            <IconComponent
+              iconFunction={() => setShowImageModal(false)}
+              iconName="close-a"
+              IconComponent={Fontisto}
+              size={theme.spaceNumberBy10[2]}
+              color={theme.colors.brand.black}
+            />
+          </CloseButton>
+        </PopupModal>
+      )}
     </View>
   );
 }
