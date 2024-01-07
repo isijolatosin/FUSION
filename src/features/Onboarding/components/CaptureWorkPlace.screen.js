@@ -98,7 +98,7 @@ export default function CaptureWorkPlace({ navigation }) {
               checked={isVisibleOnProfile}
               onPress={handleCheckboxToggle}
               checkedColor={theme.colors.brand.base}
-              uncheckedColor={theme.colors.brand.highlight}
+              uncheckedColor={theme.colors.brand.brandFade}
               titleProps={{
                 style: {
                   fontWeight: "thin",

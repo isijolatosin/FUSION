@@ -128,7 +128,13 @@ export default function CaptureDOB({ navigation }) {
               </InputWarraper>
             </Spacer>
             <Spacer position="top" size="xxxxlarge">
-              <Text variant="captionlight">{dobInstruction}</Text>
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="caption">
+                {dobInstruction}
+              </Text>
             </Spacer>
             <OnboardingErrorComponent
               pageError={pageError}

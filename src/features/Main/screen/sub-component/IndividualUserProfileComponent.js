@@ -151,29 +151,28 @@ export default function IndividualUserProfileComponent({
             {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
           </Text>
         </View>
-        {doubleTapWarning && (
-          <Text
-            style={{
-              position: "absolute",
-              right: theme.spaceNumber[8],
-              bottom: theme.spaceNumberBy10[6],
-            }}
-            variant="subHeading"
-            colorType="basewhite"
-            fontType="montserratRegular"
-            fontSize="caption">
-            Double tap to like
-          </Text>
-        )}
+
         <View
           style={{
             position: "absolute",
             bottom: 0,
             flexDirection: "row",
             justifyContent: "flex-end",
+            alignItems: "center",
             width: "100%",
             padding: theme.spaceNumberBy10[0],
           }}>
+          {doubleTapWarning && (
+            <View>
+              <Text
+                variant="subHeading"
+                colorType="basewhite"
+                fontType="montserratRegular"
+                fontSize="caption">
+                Double tap to like
+              </Text>
+            </View>
+          )}
           <Pressable>
             <IconComponent
               iconFunction={() => handleYouLikedAUser(data?.phonenumber)}

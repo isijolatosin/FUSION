@@ -12,7 +12,8 @@ const InputWarraper = styled.View`
   flex-direction: row;
   align-items: "center";
   justify-content: "space-between";
-  gap: ${(props) => (props.gap ? props.gap : props.theme.space[2])};
+  gap: ${(props) =>
+    props.gap ? props.gap : `${props.theme.spaceNumberBy10[0]}`};
 `;
 
 const PopupModal = styled.View`
@@ -27,7 +28,7 @@ const PopupModal = styled.View`
   z-index: 10;
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : "rgba(255, 255, 255, 0.7)"};
-  height: ${(props) => (props.height ? props.height + "px" : "100%")};
+  height: ${(props) => (props.height ? `${props.height}px` : "100%")};
 `;
 
 const ViewContainer = styled.View`
@@ -57,13 +58,13 @@ const YouAreSpecialCircleWrapper = styled.View`
     props.color
       ? props.theme.colors.brand[props.color]
       : props.theme.colors.brand.highlight};
-  width: ${(props) => (props.width ? props.width + "px" : 300 + "px")};
-  height: ${(props) => (props.width ? props.width + "px" : 300 + "px")};
+  width: ${(props) => (props.width ? props.width + "px" : "300px")};
+  height: ${(props) => (props.width ? `${props.width}px` : "300px")};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: ${(props) => (props.width ? props.width + "px" : 150 + "px")};
+  border-radius: ${(props) => (props.width ? `${props.width}px` : "150px")};
   padding: 30px;
 `;
 

@@ -19,9 +19,10 @@ export default function MessageInput({
 }) {
   return (
     <TextInputMessageWrapper
-      height={`${theme.spaceNumberBy10[9]}px`}
+      height={theme.spaceNumberBy10[9]}
       backgroundColor={theme.colors.brand.highlight}
-      paddingHorizontal={`${theme.spaceNumberBy10[1]}px`}
+      paddingLeft={`${theme.spaceNumberBy10[1]}px`}
+      paddingRight={`${theme.spaceNumberBy10[1]}px`}
       paddingTop={`${theme.spaceNumber[7]}px`}
       paddingBottom={`${theme.spaceNumberBy10[2]}px`}
       isBorderColor={false}>
@@ -29,8 +30,9 @@ export default function MessageInput({
         backgroundColor={theme.colors.brand.basewhite}
         borderRadius={`${theme.spaceNumberBy10[1]}px`}
         paddingLeft={`${theme.spaceNumberBy10[1]}px`}
-        paddingVertical={`${theme.spaceNumber[2]}px`}
-        paddingRight={`${theme.spaceNumberBy10[0]}px`}>
+        paddingRight={`${theme.spaceNumberBy10[0]}px`}
+        paddingTop={`${theme.spaceNumber[2]}px`}
+        paddingBottom={`${theme.spaceNumber[2]}px`}>
         <TextInputMessage
           multiline={true}
           numberOfLines={4}

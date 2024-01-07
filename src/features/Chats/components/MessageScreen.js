@@ -4,8 +4,6 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";

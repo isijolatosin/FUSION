@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
-  Image,
   Keyboard,
-  Linking,
-  Platform,
   Pressable,
   View,
 } from "react-native";
@@ -18,16 +15,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import Button from "../../../components/utility/button.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
-import {
-  LocationButtonText,
-  LocationButtonWrapper,
-  PopupModal,
-} from "./onboarding.styles";
-import {
-  locationBackgroundImage,
-  locationCaptureInstruction,
-} from "../../../constants";
-import { openLocationSettings } from "../../../utilities/setLocation";
+import { locationCaptureInstruction } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import getUserLocation from "../../../utilities/getUserLocation";
 
@@ -62,7 +50,7 @@ export default function CaptureLocation({ navigation }) {
   return (
     <SafeArea
       style={{
-        height: `${height}px`,
+        height: height,
         justifyContent: "center",
       }}>
       <Pressable onPress={Keyboard.dismiss}>

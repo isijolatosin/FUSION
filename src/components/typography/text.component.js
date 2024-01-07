@@ -125,7 +125,7 @@ export const Text = styled.Text`
   ${({ theme }) => defaultTextStyles(theme)}
   ${({ variant, theme, colorType, fontType, fontSize, transform }) =>
     variants[variant](theme, colorType, fontType, fontSize, transform)}
-    width: ${(props) => props.width};
+    width: ${(props) => (props.width ? props.width : "100%")};
 `;
 
 Text.defaultProps = {

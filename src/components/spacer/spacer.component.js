@@ -10,7 +10,7 @@ const sizeVariant = {
   xxlarge: 6,
   xxxlarge: 7,
   xxxxlarge: 8,
-  xxxxlarge: 9,
+  xxxxxlarge: 9,
 };
 
 const positionVariant = {

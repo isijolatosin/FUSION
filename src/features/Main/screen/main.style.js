@@ -77,8 +77,10 @@ const AvatarWrapper = styled.Pressable`
 const IconComponentWraper = styled.Pressable`
   margin-top: 0;
   margin-bottom: 0;
-  margin-left: ${(props) => props.horizontalLeftSpace};
-  margin-right: ${(props) => props.horizontalRightSpace};
+  margin-left: ${(props) =>
+    props.horizontalLeftSpace ? props.horizontalLeftSpace : 0};
+  margin-right: ${(props) =>
+    props.horizontalRightSpace ? props.horizontalRightSpace : 0};
   ${(props) => props.centralize && `align-items: center`};
 `;
 

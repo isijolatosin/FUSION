@@ -153,17 +153,19 @@ export default function ProfileScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <HorizontalPaddingSpace space={theme.space[3]}>
           <Spacer style={{ alignItems: "center" }} position="top" size="medium">
-            <Image
-              style={{
-                width: theme.spaceNumberBy10[9],
-                height: theme.spaceNumberBy10[9],
-                resizeMode: "cover",
-                borderRadius: theme.spaceNumberBy10[9],
-              }}
-              source={{
-                uri: `${currentUser?.mediaArray?.[0]}`,
-              }}
-            />
+            {photoUrl1 && (
+              <Image
+                style={{
+                  width: theme.spaceNumberBy10[9],
+                  height: theme.spaceNumberBy10[9],
+                  resizeMode: "cover",
+                  borderRadius: theme.spaceNumberBy10[9],
+                }}
+                source={{
+                  uri: `${photoUrl1}`,
+                }}
+              />
+            )}
             <Spacer position="top" size="xsmall">
               <Text
                 variant="subHeading"

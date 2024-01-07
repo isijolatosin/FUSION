@@ -100,7 +100,7 @@ export default function CaptureJobTitle({ navigation }) {
               checked={isVisibleOnProfile}
               onPress={handleCheckboxToggle}
               checkedColor={theme.colors.brand.base}
-              uncheckedColor={theme.colors.brand.highlight}
+              uncheckedColor={theme.colors.brand.brandFade}
               titleProps={{
                 style: {
                   fontWeight: "thin",
