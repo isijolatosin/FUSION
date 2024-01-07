@@ -651,7 +651,7 @@ export default function LikeInitiatorProfileComponent({
             iconFunction={() => setShowLikeInitiatorProfile(false)}
             iconName="close-a"
             IconComponent={Fontisto}
-            size={theme.spaceNumberBy10[2]}
+            size={theme.spaceNumberBy10[1]}
             color={theme.colors.brand.basewhite}
           />
         </CloseButton>

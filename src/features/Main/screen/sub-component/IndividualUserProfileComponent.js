@@ -145,10 +145,6 @@ export default function IndividualUserProfileComponent({
             position: "absolute",
             top: theme.spaceNumberBy10[6],
             left: theme.spaceNumberBy10[0],
-            elevation: 5,
-            shadowColor: theme.colors.brand.black,
-            shadowOpacity: 0.8,
-            shadowRadius: theme.sizes[0],
           }}>
           <Text variant="headingWhiteSlim" width="100%">
             {data?.firstname},{" "}

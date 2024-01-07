@@ -8,8 +8,15 @@ import {
   TextInputMessageWrapper,
   TextMessageWrap,
 } from "./input.styles";
+// import { IconComponentWraper } from "../../features/Main/screen/main.style";
 
-export default function MessageInput({ value, theme, setInput, sendMessage }) {
+export default function MessageInput({
+  value,
+  theme,
+  setInput,
+  sendMessage,
+  setOpenImageUploadModal,
+}) {
   return (
     <TextInputMessageWrapper
       height={`${theme.spaceNumberBy10[9]}px`}
@@ -45,27 +52,31 @@ export default function MessageInput({ value, theme, setInput, sendMessage }) {
           IconComponent={MaterialIcons}
           size={25}
           theme={theme}
-          horizontalSpace={theme.space[1]}
+          horizontalLeftSpace={theme.space[1]}
         />
       </TextMessageWrap>
 
       <TextInputMessageIcon>
         <IconComponent
-          iconFunction={() => {}}
+          iconFunction={setOpenImageUploadModal}
           iconName="camera"
           IconComponent={FontAwesome}
           size={30}
           theme={theme}
-          horizontalSpace={theme.space[1]}
+          horizontalLeftSpace={theme.space[1]}
+          horizontalRightSpace={theme.space[0]}
         />
-        <IconComponent
-          iconFunction={() => {}}
-          iconName="microphone"
-          IconComponent={FontAwesome}
-          size={30}
-          theme={theme}
-          horizontalSpace={theme.space[1]}
-        />
+
+        {/* To do done in phase || */}
+
+        {/* <IconComponentWraper
+          onPressIn={startRecording}
+          onPressOut={stopRecording}
+          horizontalLeftSpace={theme.space[2]}
+          horizontalRightSpace={theme.space[2]}
+          >
+          <FontAwesome name="microphone" size={30} />
+        </IconComponentWraper> */}
       </TextInputMessageIcon>
     </TextInputMessageWrapper>
   );

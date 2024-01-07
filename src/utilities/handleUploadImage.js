@@ -14,13 +14,15 @@ async function handlePickImageAsync(
   setOpenImageUploadModal,
   currentUserId,
   setIsRetrigger,
-  isToCapture
+  isToCapture,
+  noAllowEditingForPhotoMessage,
+  sendPhotoMessage
 ) {
   useLoadingImage(true);
 
   const returnUrl = isToCapture
-    ? await pickImageFromCamera()
-    : await pickImageAsync();
+    ? await pickImageFromCamera(noAllowEditingForPhotoMessage)
+    : await pickImageAsync(noAllowEditingForPhotoMessage);
 
   if (!returnUrl) return;
 
@@ -28,15 +30,22 @@ async function handlePickImageAsync(
 
   if (returnPhotoUrl) {
     useLoadingImage(false);
-    setPhotoUrl(returnPhotoUrl);
+
+    if (noAllowEditingForPhotoMessage) {
+      sendPhotoMessage(returnPhotoUrl);
+    } else {
+      setPhotoUrl(returnPhotoUrl);
+    }
+
     setOpenImageUploadModal(false);
-    addToArrayField(
-      "all-users",
-      currentUserId,
-      "mediaArray",
-      returnPhotoUrl,
-      setIsRetrigger
-    );
+    currentUserId &&
+      addToArrayField(
+        "all-users",
+        currentUserId,
+        "mediaArray",
+        returnPhotoUrl,
+        setIsRetrigger
+      );
   }
 }
 
@@ -67,13 +76,14 @@ async function handleDeleteImageAsync(
 ) {
   setOpenDeleteModal(false);
 
-  removeItemFromArray(
-    "all-users",
-    currentUserId,
-    "mediaArray",
-    deleteImageItem,
-    setIsRetrigger
-  );
+  currentUserId &&
+    removeItemFromArray(
+      "all-users",
+      currentUserId,
+      "mediaArray",
+      deleteImageItem,
+      setIsRetrigger
+    );
 }
 
 export {

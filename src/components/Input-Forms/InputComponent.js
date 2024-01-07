@@ -57,7 +57,8 @@ export default function InputComponent({
           IconComponent={Feather}
           size={15}
           theme={theme}
-          horizontalSpace={theme.space[1]}
+          horizontalLeftSpace={theme.space[1]}
+          horizontalRightSpace={theme.space[1]}
         />
       )}
     </TextInputWrapper>

@@ -40,7 +40,7 @@ export default function DropdownSelection({
           onPress={() => setOpen(!isOpen)}>
           <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
             <DropdowSelectionItem
-              style={{ color: theme.colors.brand.peach }}
+              style={{ color: theme.colors.brand.highlight }}
               isSelectionDisplayInput={true}>
               {isForHeightComponent
                 ? formatHeightText(inputText).feet
@@ -50,7 +50,7 @@ export default function DropdownSelection({
               <Text
                 style={{
                   paddingHorizontal: 5,
-                  color: theme.colors.brand.peach,
+                  color: theme.colors.brand.highlight,
                 }}>
                 ft
               </Text>
@@ -59,14 +59,14 @@ export default function DropdownSelection({
           {isForHeightComponent && formatHeightText(inputText).inch && (
             <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
               <DropdowSelectionItem
-                style={{ color: theme.colors.brand.peach }}
+                style={{ color: theme.colors.brand.highlight }}
                 isSelectionDisplayInput={true}>
                 {formatHeightText(inputText).inch}
               </DropdowSelectionItem>
               <Text
                 style={{
                   paddingHorizontal: 5,
-                  color: theme.colors.brand.peach,
+                  color: theme.colors.brand.highlight,
                 }}>
                 in
               </Text>

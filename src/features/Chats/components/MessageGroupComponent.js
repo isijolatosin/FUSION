@@ -1,0 +1,119 @@
+import { View, Pressable, Image, TouchableOpacity } from "react-native";
+import React from "react";
+import {
+  MessageBubble,
+  MessageBubbleWrap,
+} from "../../../components/Input-Forms/input.styles";
+import {
+  detectImageUrl,
+  detectPhoneNumber,
+  detectUrl,
+  handleCallPress,
+  handleUrlPress,
+} from "../../../utilities/detectTextType";
+import { Text } from "../../../components/typography/text.component";
+import { getTime } from "../../../utilities/formatTimestamp";
+
+export default function MessageGroupComponent({
+  theme,
+  dateTitle,
+  data,
+  currentUser,
+  setSelectedImage,
+  setShowImageModal,
+}) {
+  function checkIfdateIsToday(targetDate) {
+    // Get the current date in the same format
+    const currentDate = new Date().toISOString().slice(0, 10);
+
+    // Check if the target date is equal to the current date
+    const isToday = targetDate === currentDate;
+
+    return isToday;
+  }
+  return (
+    <View>
+      <View
+        style={{ alignItems: "center", marginVertical: theme.spaceNumber[7] }}>
+        <Text
+          variant="subHeading"
+          colorType="linesLight"
+          fontType="montserratSemibold"
+          fontSize="caption">
+          {checkIfdateIsToday(dateTitle) ? "Today" : dateTitle}
+        </Text>
+      </View>
+      {data?.map((item, idx) => (
+        <MessageBubbleWrap
+          key={idx}
+          currentUser={currentUser?.phonenumber === item?.phonenumber}>
+          <MessageBubble
+            currentUser={currentUser?.phonenumber === item?.phonenumber}>
+            {detectPhoneNumber(item?.message) ? (
+              <Pressable onPress={() => handleCallPress(item?.message)}>
+                <Text
+                  variant="subHeading"
+                  colorType={
+                    detectPhoneNumber(item?.message) ? "brandFade" : "black"
+                  }
+                  fontType="montserratSemibold"
+                  fontSize="body">
+                  {item?.message}
+                </Text>
+              </Pressable>
+            ) : detectUrl(item?.message) && !detectImageUrl(item?.message) ? (
+              <Pressable onPress={() => handleUrlPress(item?.message)}>
+                <Text
+                  variant="subHeading"
+                  colorType={detectUrl(item?.message) ? "brandFade" : "black"}
+                  fontType="montserratSemibold"
+                  fontSize="body">
+                  {item?.message}
+                </Text>
+              </Pressable>
+            ) : detectImageUrl(item?.message) ? (
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedImage(item?.message);
+                  setShowImageModal(true);
+                }}
+                style={{
+                  width: theme.spaceNumberBy10[12],
+                  height: theme.spaceNumberBy10[12],
+                }}>
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumber[4],
+                  }}
+                  source={{
+                    uri: item?.message,
+                  }}
+                />
+              </TouchableOpacity>
+            ) : (
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratSemibold"
+                fontSize="body">
+                {item?.message}
+              </Text>
+            )}
+
+            <Text
+              style={{ position: "absolute", bottom: 2, right: 5 }}
+              variant="subHeading"
+              colorType="lines"
+              fontType="montserratRegular"
+              fontSize="xcaption">
+              {getTime(item?.timestamp)}
+            </Text>
+          </MessageBubble>
+        </MessageBubbleWrap>
+      ))}
+    </View>
+  );
+}

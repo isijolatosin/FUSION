@@ -85,7 +85,7 @@ const TextMessageWrap = styled.View`
   flex-direction: row;
   align-items: center;
   height: 100%;
-  flex: 0.75;
+  flex: 1;
   background-color: ${(props) => props.backgroundColor};
   padding-left: ${(props) => props.paddingLeft};
   padding-right: ${(props) => props.paddingRight};
@@ -103,7 +103,6 @@ const TextInputMessage = styled.TextInput`
 `;
 
 const TextInputMessageIcon = styled.View`
-  flex: 0.25;
   flex-direction: row;
   justify-content: space-between;
   margin-left: ${(props) => `${props.theme.spaceNumber[5]}px`};
@@ -125,8 +124,8 @@ const MessageBubbleWrap = styled.View`
 
 const MessageBubble = styled.View`
   position: relative;
-  background-color: ${(props) => props.theme.colors.brand.lightorange};
-  width: 65%;
+  background-color: ${(props) => props.theme.colors.brand.highlight};
+  max-width: 65%;
   padding-left: ${(props) => `${props.theme.spaceNumber[7]}px`};
   padding-right: ${(props) => `${props.theme.spaceNumber[7]}px`};
   padding-top: ${(props) => `${props.theme.spaceNumber[4]}px`};

@@ -12,10 +12,16 @@ export default function PopupProfileImageModal({
   setTriggerRefresh,
   textTop,
   textBottom,
+  textCancel,
+  setOpenImageUploadModal,
+  horizontalSpace,
+  backgroundColor,
 }) {
   return (
-    <PopupModal height={height}>
-      <HorizontalPaddingSpace style={{ width: "100%" }} space={theme.space[5]}>
+    <PopupModal backgroundColor={backgroundColor} height={height}>
+      <HorizontalPaddingSpace
+        style={{ width: "100%" }}
+        space={horizontalSpace ?? theme.space[5]}>
         <ButtonAction
           onPress={() => functionCallTop()}
           backgroundColor={theme.colors.brand.highlight}
@@ -37,18 +43,20 @@ export default function PopupProfileImageModal({
           </Text>
         </ButtonAction>
         <ButtonAction
-          onPress={() => functionCallBottom(false)}
+          onPress={() => functionCallBottom()}
           backgroundColor={theme.colors.brand.highlight}
           width="100%"
           paddingTop={theme.spaceNumber[7]}
           paddingBottom={theme.spaceNumber[7]}
           alignItems="center"
-          borderBottomLeftRadius={theme.spaceNumber[2]}
-          borderBottomRightRadius={theme.spaceNumber[2]}>
+          borderBottomLeftRadius={!textCancel && theme.spaceNumber[2]}
+          borderBottomRightRadius={!textCancel && theme.spaceNumber[2]}
+          borderBottomColor={textCancel && theme.colors.brand.linesLight}
+          borderBottomWidth={textCancel && 1}>
           <Text
             onPress={() => {
               setTriggerRefresh(false);
-              functionCallBottom(false);
+              functionCallBottom();
             }}
             variant="subHeading"
             colorType="black"
@@ -57,6 +65,29 @@ export default function PopupProfileImageModal({
             {textBottom}
           </Text>
         </ButtonAction>
+        {textCancel && (
+          <ButtonAction
+            onPress={() => setOpenImageUploadModal(false)}
+            backgroundColor={theme.colors.brand.highlight}
+            width="100%"
+            paddingTop={theme.spaceNumber[7]}
+            paddingBottom={theme.spaceNumber[7]}
+            alignItems="center"
+            borderBottomLeftRadius={theme.spaceNumber[2]}
+            borderBottomRightRadius={theme.spaceNumber[2]}>
+            <Text
+              onPress={() => {
+                setTriggerRefresh(false);
+                functionCallBottom(false);
+              }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratSemibold"
+              fontSize="body">
+              {textCancel}
+            </Text>
+          </ButtonAction>
+        )}
       </HorizontalPaddingSpace>
     </PopupModal>
   );
