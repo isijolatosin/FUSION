@@ -22,7 +22,7 @@ export default function YourProfileIsSet({ navigation }) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       navigation.navigate("main", { phonenumber });
-    }, 3000);
+    }, 2500);
 
     return () => {
       clearTimeout(timeoutId);

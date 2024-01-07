@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ScrollView, Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
@@ -15,6 +15,7 @@ import { interestInstruction, interests } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureInterests({ navigation }) {
+  const scrollViewRef = useRef(null);
   const [interestsArray, setInterests] = useState([]);
   const [pageError, setPageError] = useState(false);
   const {
@@ -71,11 +72,18 @@ export default function CaptureInterests({ navigation }) {
                 });
               } else {
                 setPageError(true);
+                if (scrollViewRef.current) {
+                  scrollViewRef.current.scrollTo({
+                    y: 0,
+                    animated: true,
+                  });
+                }
               }
             }}
           />
         </NavigationBar>
         <ScrollView
+          ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
           style={{ marginBottom: theme.spaceNumberBy10[5] }}>
           <Spacer position="top" size="large">
@@ -88,6 +96,11 @@ export default function CaptureInterests({ navigation }) {
               {interestInstruction}
             </Text>
           </Spacer>
+          <OnboardingErrorComponent
+            pageError={pageError}
+            text="Please share your interests. Minimum of 6 required"
+            bottomSpace={false}
+          />
           <Spacer position="top" size="large">
             <View
               style={{
@@ -113,7 +126,10 @@ export default function CaptureInterests({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                     }}
-                    variant="popButton">
+                    variant="subHeading"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button">
                     {interest}
                   </Text>
                 </Pressable>

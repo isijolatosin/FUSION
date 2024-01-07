@@ -18,7 +18,7 @@ const TextInputWrapper = styled.View`
     props.isBackgroundColor ? props.theme.space[3] : 0};
   padding-left: ${(props) =>
     props.isBackgroundColor ? props.theme.space[3] : 0};
-  width: ${(props) => props.width};
+  width: ${(props) => (props.width ? props.width : "100%")};
   border-bottom-width: ${(props) =>
     props.isBackgroundColor ? 0 : props.theme.letterSpacing[0]};
   border-bottom-color: ${(props) =>
@@ -72,10 +72,10 @@ const OTPInput = styled.View`
 const TextInputMessageWrapper = styled.View`
   flex-direction: row;
   align-items: center;
-  height: ${(props) => props.height};
+  height: ${(props) => (props.height ? `${props.height}px` : "100%")};
   background-color: ${(props) => props.backgroundColor};
-  padding-left: ${(props) => props.paddingHorizontal};
-  padding-right: ${(props) => props.paddingHorizontal};
+  padding-left: ${(props) => props.paddingLeft};
+  padding-right: ${(props) => props.paddingRight};
   padding-top: ${(props) => props.paddingTop};
   padding-bottom: ${(props) => props.paddingBottom};
   width: 100%;
@@ -89,8 +89,8 @@ const TextMessageWrap = styled.View`
   background-color: ${(props) => props.backgroundColor};
   padding-left: ${(props) => props.paddingLeft};
   padding-right: ${(props) => props.paddingRight};
-  padding-top: ${(props) => props.paddingVertical};
-  padding-bottom: ${(props) => props.paddingVertical};
+  padding-top: ${(props) => props.paddingTop};
+  padding-bottom: ${(props) => props.paddingBottom};
   border-radius: ${(props) => props.borderRadius};
 `;
 
@@ -125,11 +125,11 @@ const MessageBubbleWrap = styled.View`
 const MessageBubble = styled.View`
   position: relative;
   background-color: ${(props) => props.theme.colors.brand.highlight};
-  max-width: 65%;
+  max-width: 85%;
   padding-left: ${(props) => `${props.theme.spaceNumber[7]}px`};
   padding-right: ${(props) => `${props.theme.spaceNumber[7]}px`};
-  padding-top: ${(props) => `${props.theme.spaceNumber[4]}px`};
-  padding-bottom: ${(props) => `${props.theme.spaceNumber[9]}px`};
+  padding-top: ${(props) => `${props.theme.spaceNumber[9]}px`};
+  padding-bottom: ${(props) => `${props.theme.spaceNumber[4]}px`};
   border-radius: ${(props) => `${props.theme.spaceNumber[4]}px`};
   ${(props) =>
     props.currentUser

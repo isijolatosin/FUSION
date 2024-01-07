@@ -14,7 +14,7 @@ export default function YouAreSpecial({ navigation }) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       navigation.navigate("capture-gender-screen");
-    }, 5000);
+    }, 2500);
 
     return () => clearImmediate(timeoutId);
   }, []);
@@ -23,7 +23,7 @@ export default function YouAreSpecial({ navigation }) {
     <SafeArea
       style={{
         position: "relative",
-        height: `${height}px`,
+        height: { height },
         justifyContent: "center",
         alignItems: "center",
       }}>

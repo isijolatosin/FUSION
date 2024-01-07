@@ -31,16 +31,35 @@ export default function MessageGroupComponent({
 
     return isToday;
   }
+
+  function changeDateToWordFormat(date) {
+    const dateObject = new Date(date);
+
+    const options = {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      timeZone: "UTC",
+    };
+    const formattedDate = dateObject.toLocaleDateString("en-US", options);
+    return formattedDate;
+  }
+
   return (
     <View>
       <View
-        style={{ alignItems: "center", marginVertical: theme.spaceNumber[7] }}>
+        style={{
+          marginVertical: theme.spaceNumber[7],
+        }}>
         <Text
+          style={{ textAlign: "center" }}
           variant="subHeading"
           colorType="linesLight"
           fontType="montserratSemibold"
           fontSize="caption">
-          {checkIfdateIsToday(dateTitle) ? "Today" : dateTitle}
+          {checkIfdateIsToday(dateTitle)
+            ? "Today"
+            : changeDateToWordFormat(dateTitle)}
         </Text>
       </View>
       {data?.map((item, idx) => (
@@ -104,7 +123,7 @@ export default function MessageGroupComponent({
             )}
 
             <Text
-              style={{ position: "absolute", bottom: 2, right: 5 }}
+              style={{ position: "absolute", top: 5, left: 15 }}
               variant="subHeading"
               colorType="lines"
               fontType="montserratRegular"

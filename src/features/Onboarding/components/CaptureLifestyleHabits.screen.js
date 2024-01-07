@@ -130,7 +130,10 @@ export default function CaptureLifestyleHabits({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                   }}
-                  variant="popButton">
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button">
                   {smoke}
                 </Text>
               </Pressable>
@@ -179,7 +182,10 @@ export default function CaptureLifestyleHabits({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                   }}
-                  variant="popButton">
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button">
                   {drink}
                 </Text>
               </Pressable>
