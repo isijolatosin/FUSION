@@ -25,7 +25,8 @@ const PopupModal = styled.View`
   bottom: 0;
   right: 0;
   z-index: 10;
-  background-color: "rgba(255, 255, 255, 0.7)";
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : "rgba(255, 255, 255, 0.7)"};
   height: ${(props) => (props.height ? props.height + "px" : "100%")};
 `;
 
@@ -55,7 +56,7 @@ const YouAreSpecialCircleWrapper = styled.View`
   background-color: ${(props) =>
     props.color
       ? props.theme.colors.brand[props.color]
-      : props.theme.colors.brand.peach};
+      : props.theme.colors.brand.highlight};
   width: ${(props) => (props.width ? props.width + "px" : 300 + "px")};
   height: ${(props) => (props.width ? props.width + "px" : 300 + "px")};
   display: flex;

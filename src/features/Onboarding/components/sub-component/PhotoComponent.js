@@ -84,7 +84,7 @@ export default function PhotoComponent({
           )}
         </>
       ) : isLoadingImage ? (
-        <ActivityIndicator size="small" color={theme.colors.brand.orange} />
+        <ActivityIndicator size="small" color={theme.colors.brand.brandFade} />
       ) : (
         <IconComponent
           iconFunction={() => {
@@ -100,7 +100,7 @@ export default function PhotoComponent({
           iconName="plus"
           IconComponent={AntDesign}
           size={12}
-          color={theme.colors.brand.orange}
+          color={theme.colors.brand.brandFade}
         />
       )}
     </Pressable>

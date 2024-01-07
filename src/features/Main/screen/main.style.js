@@ -74,6 +74,14 @@ const AvatarWrapper = styled.Pressable`
   border-radius: ${(props) => `${props.borderRadius}px`};
 `;
 
+const IconComponentWraper = styled.Pressable`
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: ${(props) => props.horizontalLeftSpace};
+  margin-right: ${(props) => props.horizontalRightSpace};
+  ${(props) => props.centralize && `align-items: center`};
+`;
+
 export {
   FilterWrapper,
   FilterText,
@@ -82,4 +90,5 @@ export {
   InterestWrapper,
   ButtonAction,
   AvatarWrapper,
+  IconComponentWraper,
 };

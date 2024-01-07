@@ -204,7 +204,7 @@ const Index = () => {
             }}
             iconName="close-a"
             IconComponent={Fontisto}
-            size={23}
+            size={theme.spaceNumberBy10[1]}
             color={theme.colors.brand.basewhite}
           />
         </CloseButton>

@@ -482,6 +482,8 @@ export default function ProfileScreen() {
           setTriggerRefresh={setTriggerRefresh}
           textTop="Upload Photo"
           textBottom="Take Photo"
+          textCancel="Cancel"
+          setOpenImageUploadModal={setOpenImageUploadModal}
         />
       )}
     </SafeArea>

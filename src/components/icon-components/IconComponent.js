@@ -1,14 +1,11 @@
 import React from "react";
 import { Pressable } from "react-native";
 import styled from "styled-components/native";
-
-const IconComponentWraper = styled(Pressable)`
-  margin: 0 ${(props) => props.horizontalSpace};
-  ${(props) => props.centralize && `align-items: center`};
-`;
+import { IconComponentWraper } from "../../features/Main/screen/main.style";
 
 export default function IconComponent({
-  horizontalSpace,
+  horizontalRightSpace,
+  horizontalLeftSpace,
   IconComponent,
   iconFunction,
   iconName,
@@ -18,7 +15,8 @@ export default function IconComponent({
 }) {
   return (
     <IconComponentWraper
-      horizontalSpace={horizontalSpace}
+      horizontalRightSpace={horizontalRightSpace}
+      horizontalLeftSpace={horizontalLeftSpace}
       centralize={centralize}>
       <IconComponent
         name={iconName}

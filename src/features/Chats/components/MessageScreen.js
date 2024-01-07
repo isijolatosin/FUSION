@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -22,23 +22,18 @@ import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
 import MessageInput from "../../../components/Input-Forms/MessageInput";
 import firebase, { database } from "../../../../config";
-import {
-  MessageBubble,
-  MessageBubbleWrap,
-  MessageContainer,
-} from "../../../components/Input-Forms/input.styles";
+import { MessageContainer } from "../../../components/Input-Forms/input.styles";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import {
-  detectImageUrl,
-  detectPhoneNumber,
-  detectUrl,
-  handleCallPress,
-  handleUrlPress,
-} from "../../../utilities/detectTextType";
+import { detectUrl } from "../../../utilities/detectTextType";
 import { CloseButton } from "../../Main/screen/main.style";
+import PopupProfileImageModal from "../../Profile/components/PopupProfileImageModal";
+import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
+import { groupDataByKey } from "../../../utilities/groupDataByKey";
+import MessageGroupComponent from "./MessageGroupComponent";
 
 export default function MessageScreen({ navigation }) {
   const { height } = Dimensions.get("window");
+  const scrollViewRef = useRef(null);
   const {
     state: { theme },
   } = useAppContext();
@@ -48,8 +43,18 @@ export default function MessageScreen({ navigation }) {
   const [input, setInput] = useState("");
   const [matchId, setMatchId] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
+  const [messagesKeys, setMessagesKeys] = useState([]);
   const [showImageModal, setShowImageModal] = useState(false);
+  const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
+
+  // Scroll to bottom when content size changes
+  const onContentSizeChange = () => {
+    scrollViewRef.current.scrollTo({
+      y: height,
+      animated: true,
+    });
+  };
 
   useEffect(() => {
     async function getMessages() {
@@ -68,7 +73,9 @@ export default function MessageScreen({ navigation }) {
           // Access the documents in the subcollection
           const data = snapshot.docs.map((doc) => doc.data());
 
-          setMessages(data);
+          const { groupedDataKeys, groupedData } = groupDataByKey(data);
+          setMessagesKeys(groupedDataKeys);
+          setMessages(groupedData);
         }
       } catch (error) {
         console.error("Error getting message data:", error);
@@ -106,6 +113,48 @@ export default function MessageScreen({ navigation }) {
 
     setInput("");
   };
+  const sendPhotoMessage = (photo) => {
+    //pushing message to firebase db...
+    database
+      .collection("match-messages")
+      .doc(matchId)
+      .collection("messages")
+      .add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        message: photo,
+        id: currentUser?.id,
+        photo: currentUser.mediaArray?.[0],
+        phonenumber: currentUser?.phonenumber,
+        firstname: currentUser.firstname,
+      });
+
+    setInput("");
+  };
+
+  function handlePickImageAsyncInModal() {
+    handlePickImageAsync(
+      () => {},
+      () => {},
+      setOpenImageUploadModal,
+      "",
+      () => {},
+      false,
+      true,
+      sendPhotoMessage
+    );
+  }
+  function handleCaptureImageAsyncInModal() {
+    handlePickImageAsync(
+      () => {},
+      () => {},
+      setOpenImageUploadModal,
+      "",
+      () => {},
+      true,
+      true,
+      sendPhotoMessage
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -149,84 +198,19 @@ export default function MessageScreen({ navigation }) {
           />
         </NavigationBar>
       </HorizontalPaddingSpace>
-      <MessageContainer>
-        {messages.map((item, idx) => (
-          <MessageBubbleWrap
+      <MessageContainer
+        ref={scrollViewRef}
+        onContentSizeChange={onContentSizeChange}>
+        {messagesKeys.map((key, idx) => (
+          <MessageGroupComponent
             key={idx}
-            currentUser={currentUser?.phonenumber === item?.phonenumber}>
-            <MessageBubble
-              currentUser={currentUser?.phonenumber === item?.phonenumber}>
-              {detectPhoneNumber(item?.message) ? (
-                <Pressable onPress={() => handleCallPress(item?.message)}>
-                  <Text
-                    variant="subHeading"
-                    colorType={
-                      detectPhoneNumber(item?.message) ? "brandFade" : "black"
-                    }
-                    fontType="montserratSemibold"
-                    fontSize="body">
-                    {item?.message}
-                  </Text>
-                </Pressable>
-              ) : detectUrl(item?.message) && !detectImageUrl(item?.message) ? (
-                <Pressable onPress={() => handleUrlPress(item?.message)}>
-                  <Text
-                    variant="subHeading"
-                    colorType={detectUrl(item?.message) ? "error" : "black"}
-                    fontType="montserratSemibold"
-                    fontSize="body">
-                    {item?.message}
-                  </Text>
-                </Pressable>
-              ) : detectImageUrl(item?.message) ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    setSelectedImage(item?.message);
-                    setShowImageModal(true);
-                  }}
-                  style={{
-                    width: "100%",
-                    height: theme.spaceNumberBy50[3],
-                  }}>
-                  <Image
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      resizeMode: "cover",
-                      borderRadius: theme.spaceNumber[4],
-                    }}
-                    source={{
-                      uri: item?.message,
-                    }}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <Text
-                  variant="subHeading"
-                  colorType="black"
-                  fontType="montserratSemibold"
-                  fontSize="body">
-                  {item?.message}
-                </Text>
-              )}
-
-              <Text
-                style={{ position: "absolute", bottom: 2, right: 5 }}
-                variant="subHeading"
-                colorType="lines"
-                fontType="montserratRegular"
-                fontSize="xcaption">
-                {new Date(item?.timestamp?.toDate())
-                  .toLocaleString()
-                  .substr(
-                    new Date(item?.timestamp?.toDate())
-                      .toLocaleString()
-                      .indexOf(" "),
-                    new Date(item?.timestamp?.toDate()).toLocaleString().length
-                  )}
-              </Text>
-            </MessageBubble>
-          </MessageBubbleWrap>
+            theme={theme}
+            dateTitle={key}
+            data={messages[key]}
+            currentUser={currentUser}
+            setSelectedImage={setSelectedImage}
+            setShowImageModal={setShowImageModal}
+          />
         ))}
       </MessageContainer>
       <KeyboardAvoidingView
@@ -236,6 +220,7 @@ export default function MessageScreen({ navigation }) {
           theme={theme}
           setInput={setInput}
           sendMessage={sendMessage}
+          setOpenImageUploadModal={setOpenImageUploadModal}
         />
       </KeyboardAvoidingView>
       {showImageModal && (
@@ -243,13 +228,13 @@ export default function MessageScreen({ navigation }) {
           <View
             style={{
               width: "100%",
-              height: "100%",
+              height: "65%",
             }}>
             <Image
               style={{
                 width: "100%",
                 height: "100%",
-                resizeMode: "cover",
+                resizeMode: "contain",
               }}
               source={{
                 uri: selectedImage,
@@ -261,8 +246,8 @@ export default function MessageScreen({ navigation }) {
             style={{
               elevation: 5,
               shadowColor: theme.colors.brand.black,
-              shadowOpacity: 0.5,
-              shadowRadius: "5px",
+              shadowOpacity: 0.2,
+              shadowRadius: "10px",
               backgroundColor: theme.colors.brand.basewhite,
               position: "absolute",
               marginLeft: theme.spaceNumberBy10[1],
@@ -271,11 +256,26 @@ export default function MessageScreen({ navigation }) {
               iconFunction={() => setShowImageModal(false)}
               iconName="close-a"
               IconComponent={Fontisto}
-              size={theme.spaceNumberBy10[2]}
+              size={theme.spaceNumberBy10[1]}
               color={theme.colors.brand.black}
             />
           </CloseButton>
         </PopupModal>
+      )}
+      {openImageUploadModal && (
+        <PopupProfileImageModal
+          height={height}
+          theme={theme}
+          functionCallTop={handlePickImageAsyncInModal}
+          functionCallBottom={handleCaptureImageAsyncInModal}
+          setTriggerRefresh={() => {}}
+          textTop="Upload Photo"
+          textBottom="Take Photo"
+          textCancel="Cancel"
+          setOpenImageUploadModal={setOpenImageUploadModal}
+          horizontalSpace={`${theme.spaceNumberBy10[5]}px`}
+          backgroundColor="rgba(0,0,0,0.9)"
+        />
       )}
     </View>
   );
