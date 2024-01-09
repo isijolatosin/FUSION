@@ -120,6 +120,38 @@ export default function ProfileScreen() {
     );
   }
 
+  function AboutMeListComponent({ title, value }) {
+    return (
+      <HorizontalPaddingSpace
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingTop: theme.spaceNumberBy10[1],
+        }}
+        space={theme.space[5]}>
+        <View>
+          <Text
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratSemibold"
+            fontSize="caption">
+            {title}
+          </Text>
+        </View>
+        <View>
+          <Text
+            variant="subHeading"
+            colorType="black"
+            fontType="montserratSemibold"
+            fontSize="caption"
+            transform="capitalize">
+            {value}
+          </Text>
+        </View>
+      </HorizontalPaddingSpace>
+    );
+  }
+
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <YouAreSpecialCircleWrapper
@@ -301,7 +333,7 @@ export default function ProfileScreen() {
             }}
             space={theme.space[5]}>
             <Text
-              style={{ marginRight: 5 }}
+              style={{ marginRight: 5, flex: 1 }}
               variant="subHeading"
               colorType="black"
               fontType="montserratBold"
@@ -318,150 +350,24 @@ export default function ProfileScreen() {
           </HorizontalPaddingSpace>
         </Spacer>
         <Spacer position="top" size="large">
-          <HorizontalPaddingSpace
-            style={{ paddingTop: 5 }}
-            space={theme.space[5]}>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              position="top"
-              size="">
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
-                My Gender
-              </Text>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption"
-                transform="capitalize">
-                {currentUser?.gender}
-              </Text>
-            </Spacer>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              position="top"
-              size="xlarge">
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
-                Where I work
-              </Text>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption"
-                transform="capitalize">
-                {currentUser?.workplace?.work}
-              </Text>
-            </Spacer>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              position="top"
-              size="xlarge">
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
-                What I do
-              </Text>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption"
-                transform="capitalize">
-                {currentUser?.jobtitle?.job}
-              </Text>
-            </Spacer>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              position="top"
-              size="xlarge">
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
-                My Height
-              </Text>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption"
-                transform="capitalize">
-                {currentUser?.height}
-              </Text>
-            </Spacer>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              position="top"
-              size="xlarge">
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
-                My Country
-              </Text>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption"
-                transform="capitalize">
-                {currentUser?.country}
-              </Text>
-            </Spacer>
-            <Spacer position="top" size="xlarge">
-              <Spacer
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-                position="bottom"
-                size="xlarge">
-                <Text
-                  variant="subHeading"
-                  colorType="black"
-                  fontType="montserratSemibold"
-                  fontSize="caption">
-                  I am interested in
-                </Text>
-                <Text
-                  variant="subHeading"
-                  colorType="black"
-                  fontType="montserratSemibold"
-                  fontSize="caption"
-                  transform="capitalize">
-                  {currentUser?.interest}
-                </Text>
-              </Spacer>
-            </Spacer>
-          </HorizontalPaddingSpace>
+          <AboutMeListComponent title="My Gender" value={currentUser?.gender} />
+          <AboutMeListComponent
+            title="Where I work"
+            value={currentUser?.workplace?.work}
+          />
+          <AboutMeListComponent
+            title="What I do"
+            value={currentUser?.jobtitle?.job}
+          />
+          <AboutMeListComponent title="My Height" value={currentUser?.height} />
+          <AboutMeListComponent
+            title="My Country"
+            value={currentUser?.country}
+          />
+          <AboutMeListComponent
+            title="I am interested in"
+            value={currentUser?.interest}
+          />
         </Spacer>
       </ScrollView>
       {openDeleteModal && (

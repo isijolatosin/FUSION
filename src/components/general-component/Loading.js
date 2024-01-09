@@ -12,11 +12,16 @@ export default function Loading({ text }) {
     <SafeArea
       style={{
         backgroundColor: theme.colors.brand.basewhite,
-        flex: 1,
         justifyContent: "center",
-        alignItems: "center",
       }}>
-      <Text variant="loading">{text}</Text>
+      <Text
+        style={{ textAlign: "center" }}
+        variant="subHeading"
+        colorType="base"
+        fontType="montserratBold"
+        fontSize="title">
+        {text}
+      </Text>
     </SafeArea>
   );
 }

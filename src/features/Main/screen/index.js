@@ -16,6 +16,8 @@ import { CloseButton, FilterText, FilterWrapper } from "./main.style";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
 import Loading from "../../../components/general-component/Loading";
+import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
+import { dailyendofswipescreenmessage } from "../../../constants";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -133,7 +135,13 @@ const Index = () => {
   }
 
   if (!currentSwipeIndexIsLessThanAllUsersLength) {
-    return <Loading text="That's all for today!" />;
+    return (
+      <CustomUseCardWithCTA
+        text={dailyendofswipescreenmessage}
+        buttonText="Change preference"
+        route="profile"
+      />
+    );
   }
 
   return (
@@ -144,7 +152,7 @@ const Index = () => {
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="large">
             <NavigationBar>
-              <BrandAvatar />
+              <BrandAvatar width={80} />
               <Fragment>
                 <Pressable
                   style={{

@@ -53,33 +53,36 @@ const LikesScreen = () => {
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <HorizontalPaddingSpace space={theme.space[3]}>
         <Spacer position="top" size="large">
-          <BrandAvatar noFlex={true} />
+          <Spacer position="bottom" size="xlarge">
+            <HorizontalPaddingSpace space={theme.space[4]}>
+              <BrandAvatar noFlex={true} width={80} />
+            </HorizontalPaddingSpace>
+          </Spacer>
         </Spacer>
         <Spacer style={{ alignItems: "center" }} position="top" size="">
           <Text
+            style={{ textAlign: "center" }}
             variant="subHeading"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4">
             Your Likes
           </Text>
-          <Spacer position="top" size="large">
-            <FlatGrid
-              itemDimension={theme.spaceNumberBy50[2]}
-              data={yourLikesData}
-              spacing={20}
-              renderItem={({ item }) => (
-                <LikeInitiatorProfileCard
-                  key={item?.id}
-                  data={item}
-                  theme={theme}
-                  setInitiatorProfileData={setInitiatorProfileData}
-                  setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
-                />
-              )}
-              style={{ marginBottom: theme.spaceNumberBy50[4] }}
-            />
-          </Spacer>
+          <FlatGrid
+            itemDimension={theme.spaceNumberBy50[2]}
+            data={yourLikesData}
+            spacing={20}
+            renderItem={({ item }) => (
+              <LikeInitiatorProfileCard
+                key={item?.id}
+                data={item}
+                theme={theme}
+                setInitiatorProfileData={setInitiatorProfileData}
+                setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
+              />
+            )}
+            style={{ marginBottom: theme.spaceNumberBy50[4] }}
+          />
         </Spacer>
       </HorizontalPaddingSpace>
       {showInitiatorProfile && (

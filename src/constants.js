@@ -420,3 +420,7 @@ export const LifestyleHabits = {
   smoke: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   drink: ["Not my thing", "Socially", "Frequently", "Sometimes"],
 };
+export const dailyendofswipescreenmessage =
+  "All potential matches based on your preferences have been viewed, yet fresh individuals continue to join daily.";
+export const nomatchmessage =
+  "Currently, there are no matches that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and exciting connections may be just around the corner. Your proactive spirit makes the dating experience worthwhile. Happy connecting!";

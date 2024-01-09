@@ -5,6 +5,7 @@ const NavigationBar = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const InputWarraper = styled.View`

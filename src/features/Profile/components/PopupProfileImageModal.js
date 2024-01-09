@@ -34,7 +34,7 @@ export default function PopupProfileImageModal({
           borderBottomColor={theme.colors.brand.linesLight}
           borderBottomWidth={1}>
           <Text
-            style={{}}
+            style={{ textAlign: "center" }}
             variant="subHeading"
             colorType="black"
             fontType="montserratSemibold"
@@ -58,6 +58,7 @@ export default function PopupProfileImageModal({
               setTriggerRefresh(false);
               functionCallBottom();
             }}
+            style={{ textAlign: "center" }}
             variant="subHeading"
             colorType="black"
             fontType="montserratSemibold"
@@ -78,8 +79,9 @@ export default function PopupProfileImageModal({
             <Text
               onPress={() => {
                 setTriggerRefresh(false);
-                functionCallBottom(false);
+                setOpenImageUploadModal(false);
               }}
+              style={{ textAlign: "center" }}
               variant="subHeading"
               colorType="black"
               fontType="montserratSemibold"
