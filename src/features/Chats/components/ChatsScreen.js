@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Pressable } from "react-native";
+import { ScrollView, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -14,9 +14,10 @@ import {
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import Avatar from "../../../components/general-component/Avatar";
 import MessagesListItem from "./MessagesListItem";
-import Loading from "../../../components/general-component/Loading";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { database } from "../../../../config";
+import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
+import { nomatchmessage } from "../../../constants";
 
 const ChatsScreen = () => {
   const navigation = useNavigation();
@@ -24,10 +25,17 @@ const ChatsScreen = () => {
     state: { theme },
   } = useAppContext();
   const [currentUser, setCurrentUser] = useState({});
-  const [id, setMatchId] = useState("");
   const [triggerReload, setTriggerReload] = useState(false);
   const [messages, setMessages] = useState([]);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
+
+  useEffect(() => {
+    async function getRefesh() {
+      const refreshScreen = await retrieveData("refreshChatScreen");
+      if (refreshScreen) setTriggerReload(refreshScreen);
+    }
+    getRefesh();
+  }, []);
 
   useEffect(() => {
     async function fetchMatches() {
@@ -64,7 +72,6 @@ const ChatsScreen = () => {
     async function getMessages() {
       try {
         const id = await retrieveData("match-id");
-        setMatchId(id);
 
         if (id) {
           const snapshot = await database
@@ -89,7 +96,13 @@ const ChatsScreen = () => {
   }, [triggerReload]);
 
   if (!otherUsers?.length) {
-    return <Loading text="Loading..." />;
+    return (
+      <CustomUseCardWithCTA
+        text={nomatchmessage}
+        buttonText="Back to swipe"
+        route="home"
+      />
+    );
   }
 
   return (
@@ -139,13 +152,15 @@ const ChatsScreen = () => {
                       })
                     }
                   />
-                  <Text
-                    variant="subHeading"
-                    colorType="black"
-                    fontType="montserratSemibold"
-                    fontSize="button">
-                    {match?.firstname}
-                  </Text>
+                  <View>
+                    <Text
+                      variant="subHeading"
+                      colorType="black"
+                      fontType="montserratSemibold"
+                      fontSize="button">
+                      {match?.firstname}
+                    </Text>
+                  </View>
                 </Pressable>
               ))}
             </ScrollView>
@@ -181,17 +196,29 @@ const ChatsScreen = () => {
                   borderBottomWidth: 0.5,
                   borderBottomColor: theme.colors.brand.linesLight,
                 }}>
-                <MessagesListItem
-                  data={match}
-                  theme={theme}
-                  lastSenderMessage={messages[messages.length - 1]?.message}
-                  lastSenderName={
-                    currentUser?.firstname ===
-                    messages[messages.length - 1]?.firstname
-                      ? "You"
-                      : messages[messages.length - 1]?.firstname
-                  }
-                />
+                {messages.length ? (
+                  <MessagesListItem
+                    data={match}
+                    theme={theme}
+                    lastSenderMessage={messages[messages.length - 1]?.message}
+                    lastSenderName={
+                      currentUser?.firstname ===
+                      messages[messages.length - 1]?.firstname
+                        ? "You"
+                        : messages[messages.length - 1]?.firstname
+                    }
+                  />
+                ) : (
+                  <HorizontalPaddingSpace space={theme.space[3]}>
+                    <Text
+                      variant="subHeading"
+                      colorType="brandTone"
+                      fontType="montserratBold"
+                      fontSize="caption">
+                      No Message Yet...
+                    </Text>
+                  </HorizontalPaddingSpace>
+                )}
               </Pressable>
             </Spacer>
           ))}

@@ -9,8 +9,8 @@ export default function index() {
   const image = { uri: `${homeSplashImage}` };
   return (
     <OnboardingSreencContainer source={image}>
-      <View style={{ position: "absolute", top: "57%", left: "35%" }}>
-        <BrandAvatar />
+      <View style={{ position: "absolute", top: "56%", left: "30%" }}>
+        <BrandAvatar noFlex={true} width={70} />
       </View>
     </OnboardingSreencContainer>
   );

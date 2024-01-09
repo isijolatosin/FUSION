@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import firebase, { database } from "../../../../config";
-import { removeDocumentFromAllLikesCollections } from "../../../utilities/updateFirestoreDatabaseField";
+import { removeDocumentFromCollections } from "../../../utilities/updateFirestoreDatabaseField";
 import calculateAge from "../../../utilities/calculateAge";
 import { Text } from "../../../components/typography/text.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
@@ -81,11 +81,7 @@ export default function LikeInitiatorProfileComponent({
         .catch((error) => console.log("Error " + error.message));
 
       //Remove current like initiation object from all like array list in database
-      removeDocumentFromAllLikesCollections(
-        "all-likes",
-        data?.[0]?.id,
-        setIsRetrigger
-      );
+      removeDocumentFromCollections("all-likes", data?.[0]?.id, setIsRetrigger);
 
       setInitiatorProfileData([]);
     } else {

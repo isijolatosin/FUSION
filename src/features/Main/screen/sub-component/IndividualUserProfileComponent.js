@@ -146,7 +146,12 @@ export default function IndividualUserProfileComponent({
             top: theme.spaceNumberBy10[6],
             left: theme.spaceNumberBy10[0],
           }}>
-          <Text variant="headingWhiteSlim" width="100%">
+          <Text
+            variant="subHeading"
+            colorType="basewhite"
+            fontType="playfairbold"
+            fontSize="h2"
+            width="100%">
             {data?.firstname},{" "}
             {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
           </Text>

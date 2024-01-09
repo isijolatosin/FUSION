@@ -28,6 +28,11 @@ import PopupProfileImageModal from "../../Profile/components/PopupProfileImageMo
 import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import { groupDataByKey } from "../../../utilities/groupDataByKey";
 import MessageGroupComponent from "./MessageGroupComponent";
+import {
+  removeDocumentFromCollections,
+  removeItemFromArray,
+} from "../../../utilities/updateFirestoreDatabaseField";
+import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 export default function MessageScreen({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -45,6 +50,7 @@ export default function MessageScreen({ navigation }) {
   const [messagesKeys, setMessagesKeys] = useState([]);
   const [showImageModal, setShowImageModal] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
+  const [openDotActionModal, setOpenDotActionModal] = useState(false);
 
   // Scroll to bottom when content size changes
   const onContentSizeChange = () => {
@@ -62,18 +68,20 @@ export default function MessageScreen({ navigation }) {
 
         if (id) {
           const snapshot = await database
-            .collection("match-messages")
-            .doc(id)
-            .collection("messages")
-            .orderBy("timestamp", "asc")
-            .get();
+            ?.collection("match-messages")
+            ?.doc(id)
+            ?.collection("messages")
+            ?.orderBy("timestamp", "asc")
+            ?.get();
 
           // Access the documents in the subcollection
-          const data = snapshot.docs.map((doc) => doc.data());
+          const data = snapshot?.docs?.map((doc) => doc?.data());
 
-          const { groupedDataKeys, groupedData } = groupDataByKey(data);
-          setMessagesKeys(groupedDataKeys);
-          setMessages(groupedData);
+          if (data?.length) {
+            const { groupedDataKeys, groupedData } = groupDataByKey(data);
+            setMessagesKeys(groupedDataKeys);
+            setMessages(groupedData);
+          }
         }
       } catch (error) {
         console.error("Error getting message data:", error);
@@ -89,11 +97,11 @@ export default function MessageScreen({ navigation }) {
     let textTransform = input;
     if (
       detectUrl(input) &&
-      (input.startsWith("www") || input.startsWith("Www"))
+      (input?.startsWith("www") || input?.startsWith("Www"))
     ) {
-      textTransform = `https://${input.toLowerCase()}`;
-    } else if (detectUrl(input) && input.startsWith("Https://")) {
-      textTransform = input.toLowerCase();
+      textTransform = `https://${input?.toLowerCase()}`;
+    } else if (detectUrl(input) && input?.startsWith("Https://")) {
+      textTransform = input?.toLowerCase();
     }
     //pushing message to firebase db...
     database
@@ -154,6 +162,78 @@ export default function MessageScreen({ navigation }) {
     );
   }
 
+  function handleBlockMatch() {
+    // For current user
+    removeItemFromArray(
+      "all-users",
+      currentUser?.id,
+      "likedMeList",
+      match?.phonenumber,
+      () => {}
+    );
+
+    // for other user
+    removeItemFromArray(
+      "all-users",
+      match?.id,
+      "likedMeList",
+      currentUser?.phonenumber,
+      () => {}
+    );
+
+    // For match object
+    removeDocumentFromCollections("matches", matchId, () => {});
+
+    // clear messages
+    removeDocumentFromCollections("matches-messages", matchId, () => {});
+
+    storeData("refreshChatScreen", true);
+    navigation.navigate("chat");
+  }
+
+  function handleUnmatch() {
+    // For current user
+    removeItemFromArray(
+      "all-users",
+      currentUser?.id,
+      "likedMeList",
+      match?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      currentUser?.id,
+      "listOfAllLikedNumbers",
+      match?.phonenumber,
+      () => {}
+    );
+
+    // for other user
+    removeItemFromArray(
+      "all-users",
+      match?.id,
+      "likedMeList",
+      currentUser?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      match?.id,
+      "listOfAllLikedNumbers",
+      currentUser?.phonenumber,
+      () => {}
+    );
+
+    // For match object
+    removeDocumentFromCollections("matches", matchId, () => {});
+
+    // clear messages
+    removeDocumentFromCollections("matches-messages", matchId, () => {});
+
+    storeData("refreshChatScreen", true);
+    navigation.navigate("chat");
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <HorizontalPaddingSpace
@@ -162,7 +242,7 @@ export default function MessageScreen({ navigation }) {
         }}
         space={theme.space[3]}>
         <NavigationBar>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
             <IconComponent
               iconFunction={() => navigation.goBack()}
               iconName="chevron-back"
@@ -188,7 +268,7 @@ export default function MessageScreen({ navigation }) {
             </View>
           </View>
           <IconComponent
-            iconFunction={() => {}}
+            iconFunction={() => setOpenDotActionModal(true)}
             iconName="dots-vertical"
             IconComponent={MaterialCommunityIcons}
             size={30}
@@ -273,6 +353,21 @@ export default function MessageScreen({ navigation }) {
           setOpenImageUploadModal={setOpenImageUploadModal}
           horizontalSpace={`${theme.spaceNumberBy10[5]}px`}
           backgroundColor="rgba(0,0,0,0.9)"
+        />
+      )}
+      {openDotActionModal && (
+        <PopupProfileImageModal
+          height={height}
+          theme={theme}
+          functionCallTop={handleUnmatch}
+          functionCallBottom={handleBlockMatch}
+          setTriggerRefresh={() => {}}
+          textTop="Unmatch"
+          textBottom="Block"
+          textCancel="Cancel"
+          setOpenImageUploadModal={setOpenDotActionModal}
+          horizontalSpace={`${theme.spaceNumberBy10[5]}px`}
+          backgroundColor="rgba(255,255,255,0.9)"
         />
       )}
     </View>

@@ -118,7 +118,7 @@ const removeItemFromArray = async (
   }
 };
 
-const removeDocumentFromAllLikesCollections = (
+const removeDocumentFromCollections = (
   collectionName,
   documentId,
   setIsRetrigger
@@ -136,6 +136,8 @@ const removeDocumentFromAllLikesCollections = (
     .catch((error) => {
       console.error("Error deleting document: ", error);
     });
+
+  setIsRetrigger(true);
 };
 
 export {
@@ -145,5 +147,5 @@ export {
   getAllLikesData,
   addToArrayField,
   removeItemFromArray,
-  removeDocumentFromAllLikesCollections,
+  removeDocumentFromCollections,
 };

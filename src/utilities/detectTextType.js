@@ -38,10 +38,10 @@ function detectImageUrl(text) {
 // }
 
 function shortenText(text, maxLength) {
-  if (text.length <= maxLength) {
+  if (text?.length <= maxLength) {
     return text;
   }
-  return text.substring(0, maxLength - 3) + "...";
+  return text?.substring(0, maxLength - 3) + "...";
 }
 
 export {
