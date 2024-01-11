@@ -11,7 +11,7 @@ export default function Avatar({ data, theme, dimensionIndex, func }) {
       borderRadius={theme.spaceNumberBy50[1]}>
       <Image
         source={{
-          uri: `${data?.mediaArray?.[0]}`,
+          uri: `${data}`,
         }}
         style={{
           width: "100%",

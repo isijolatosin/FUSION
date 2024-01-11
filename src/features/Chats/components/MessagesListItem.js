@@ -7,8 +7,9 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import { shortenText } from "../../../utilities/detectTextType";
 
 export default function MessagesListItem({
-  data,
+  photo,
   theme,
+  name,
   lastSenderMessage,
   lastSenderName,
 }) {
@@ -20,14 +21,14 @@ export default function MessagesListItem({
           alignItems: "center",
           width: "100%",
         }}>
-        <Avatar data={data} theme={theme} />
+        <Avatar data={photo} theme={theme} />
         <View style={{ marginLeft: theme.spaceNumber[6] }}>
           <Text
             variant="subHeading"
             colorType="black"
             fontType="montserratBold"
             fontSize="body">
-            {data?.firstname}
+            {name}
           </Text>
           <Spacer position="top" size="xsmall">
             <Text

@@ -111,6 +111,10 @@ const TabNavigator = () => {
 };
 
 const FadeOutComponent = ({ navigation }) => {
+  const {
+    state: { theme },
+  } = useAppContext();
+
   useEffect(() => {
     let timeOutID = "";
     const functionCall = async () => {
@@ -182,7 +186,7 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="splash" // change back to splash
+        initialRouteName="capture-work-place-screen" // change back to splash
         screenOptions={{
           headerShown: false,
         }}>

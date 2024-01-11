@@ -118,16 +118,26 @@ const removeItemFromArray = async (
   }
 };
 
-const removeDocumentFromCollections = (
+const removeDocumentFromCollections = async (
   collectionName,
   documentId,
   setIsRetrigger
 ) => {
   setIsRetrigger(false);
-  // Get a reference to the document
-  const docRef = database.collection(collectionName).doc(documentId);
 
-  // Use the arrayRemove method to remove the specified item
+  // Get a reference to the message and delete messages
+  const messageRef = database
+    .collection(collectionName)
+    .doc(documentId)
+    .collection("messages");
+  querySnapshot = await messageRef.get();
+
+  querySnapshot.forEach(async (doc) => {
+    await doc.ref.delete();
+  });
+
+  // Get a reference to the document and delete document
+  const docRef = database.collection(collectionName).doc(documentId);
   docRef
     .delete()
     .then(() => {

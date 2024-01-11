@@ -28,6 +28,7 @@ const TextInputWrapper = styled.View`
       ? props.isBorderColor
       : props.theme.colors.brand.lines};
 `;
+
 const TextInput = styled.TextInput`
   font-size: ${(props) =>
     props.fontSize ? props.fontSize : props.theme.fontSizes.body};
@@ -37,6 +38,7 @@ const TextInput = styled.TextInput`
   ${(props) => props.centralize && `text-align: center`};
   ${(props) => props.fontColor && `color: ${props.fontColor}`};
 `;
+
 const CodeInputWrapper = styled.View`
   display: flex;
   align-items: center;

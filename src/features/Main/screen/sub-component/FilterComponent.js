@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, Switch, View } from "react-native";
+import { Dimensions, ScrollView, Switch, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RangeSlider from "react-native-range-slider-expo";
 import Modal from "react-native-modal";
@@ -42,10 +42,14 @@ function RangeCompoent({
         paddingHorizontal: 30,
       }}>
       <RangeCompoentSection>
-        <Text variant="bodyBoldBold">{text}</Text>
-        <Text variant="loading" colorType="black" fontType="montserratLight">
-          {displayValue}
-        </Text>
+        <View>
+          <Text variant="bodyBoldBold">{text}</Text>
+        </View>
+        <View>
+          <Text variant="loading" colorType="black" fontType="montserratLight">
+            {displayValue}
+          </Text>
+        </View>
       </RangeCompoentSection>
       <RangeCompoentSection>
         {/* {Platform.OS === "ios" ? ( */}
@@ -84,7 +88,9 @@ function RangeCompoent({
         )} */}
       </RangeCompoentSection>
       <RangeCompoentSection>
-        <Text variant="captionBig">{description}</Text>
+        <View>
+          <Text variant="captionBig">{description}</Text>
+        </View>
         <Switch
           trackColor={{
             false: theme.colors.brand.linesLight,
@@ -120,14 +126,18 @@ function DoubleRangeCompoent({
         borderBottomColor: theme.colors.brand.lines,
         borderBottomWidth: 0.3,
         paddingBottom: 25,
-        marginBottom: 10,
-        paddingHorizontal: 30,
+        marginBottom: theme.spaceNumberBy10[0],
+        paddingHorizontal: theme.spaceNumberBy10[2],
       }}>
       <RangeCompoentSection>
-        <Text variant="bodyBoldBold">{text}</Text>
-        <Text variant="loading" colorType="black" fontType="montserratLight">
-          {displayValue}
-        </Text>
+        <View>
+          <Text variant="bodyBoldBold">{text}</Text>
+        </View>
+        <View>
+          <Text variant="loading" colorType="black" fontType="montserratLight">
+            {displayValue}
+          </Text>
+        </View>
       </RangeCompoentSection>
       <RangeCompoentSection>
         <RangeSlider
@@ -148,14 +158,16 @@ function DoubleRangeCompoent({
           initialToValue={30}
           containerStyle={{
             padding: 0,
-            height: 40,
+            height: theme.spaceNumberBy10[3],
             width: "97%",
             marginLeft: 8,
           }}
         />
       </RangeCompoentSection>
       <RangeCompoentSection>
-        <Text variant="captionBig">{description}</Text>
+        <View>
+          <Text variant="captionBig">{description}</Text>
+        </View>
         <Switch
           trackColor={{
             false: theme.colors.brand.linesLight,
@@ -211,7 +223,9 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
   return (
     <HorizontalPaddingSpace style={{ marginBottom: 50 }} space={theme.space[5]}>
       <Spacer position="top" size="xsmall">
-        <Text variant="bodyBoldBold">Who am I interested in?</Text>
+        <View>
+          <Text variant="bodyBoldBold">Who am I interested in?</Text>
+        </View>
       </Spacer>
       {interestArray.map((interest, idx) => (
         <Spacer
@@ -223,15 +237,17 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
           }}
           position="top"
           size="large">
-          <Text
-            onPress={() => handleInterestToggle(idx, interest.key)}
-            style={{ textTransform: "capitalize" }}
-            variant="loading"
-            colorType="black"
-            fontType="montserratLight"
-            fontSize="body">
-            {interest.value}
-          </Text>
+          <View>
+            <Text
+              onPress={() => handleInterestToggle(idx, interest.key)}
+              style={{ textTransform: "capitalize" }}
+              variant="loading"
+              colorType="black"
+              fontType="montserratLight"
+              fontSize="body">
+              {interest.value}
+            </Text>
+          </View>
           <CheckBox
             checked={selectedInterest === interest.key || clickedIndex === idx}
             onPress={() => handleInterestToggle(idx, interest.key)}
@@ -274,6 +290,7 @@ export default function FilterComponent({
   setUserFilteredData,
   setIsRetrigger,
 }) {
+  const { width } = Dimensions.get("window");
   const [distanceValue, setDistanceValue] = useState(0);
   const [fromAgeValue, setFromAgeValue] = useState(18);
   const [toAgeValue, setToAgeValue] = useState(30);
@@ -340,8 +357,9 @@ export default function FilterComponent({
         position: "relative",
         alignItems: "flex-end",
         paddingBottom: theme.spaceNumberBy10[0],
+        width: width,
       }}>
-      <ScrollView style={{ paddingTop: 0 }}>
+      <ScrollView style={{ paddingTop: 0, width: "100%" }}>
         <View style={{ position: "absolute", right: 30, top: 0 }}>
           <IconComponent
             iconFunction={onClose}

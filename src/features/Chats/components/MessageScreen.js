@@ -6,8 +6,8 @@ import {
   Platform,
   View,
 } from "react-native";
-import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
+import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 
 import {
   NavigationBar,
@@ -19,20 +19,22 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
 import MessageInput from "../../../components/Input-Forms/MessageInput";
-import firebase, { database } from "../../../../config";
 import { MessageContainer } from "../../../components/Input-Forms/input.styles";
-import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import { detectUrl } from "../../../utilities/detectTextType";
 import { CloseButton } from "../../Main/screen/main.style";
 import PopupProfileImageModal from "../../Profile/components/PopupProfileImageModal";
-import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
-import { groupDataByKey } from "../../../utilities/groupDataByKey";
 import MessageGroupComponent from "./MessageGroupComponent";
+import { groupDataByKey } from "../../../utilities/groupDataByKey";
+import firebase, { database } from "../../../../config";
+import { detectUrl } from "../../../utilities/detectTextType";
+import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
+import Loading from "../../../components/general-component/Loading";
 import {
+  addToArrayField,
   removeDocumentFromCollections,
   removeItemFromArray,
 } from "../../../utilities/updateFirestoreDatabaseField";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 
 export default function MessageScreen({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -42,13 +44,17 @@ export default function MessageScreen({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { currentUser, match } = route.params || {};
+  const { currentUser, otherUser } = route.params || {};
+
+  const [messagesKeys, setMessagesKeys] = useState([]);
+  const [messagesForMessagesScreen, setMessagesForMessagesScreen] = useState(
+    {}
+  );
   const [input, setInput] = useState("");
   const [matchId, setMatchId] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-  const [messages, setMessages] = useState({});
-  const [messagesKeys, setMessagesKeys] = useState([]);
   const [showImageModal, setShowImageModal] = useState(false);
+  const [triggerReload, setTriggerReload] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [openDotActionModal, setOpenDotActionModal] = useState(false);
 
@@ -63,77 +69,85 @@ export default function MessageScreen({ navigation }) {
   useEffect(() => {
     async function getMessages() {
       try {
-        const id = await retrieveData("match-id");
-        setMatchId(id);
+        const matchId = await retrieveData("match-id");
+        setMatchId(matchId);
 
-        if (id) {
+        if (matchId) {
           const snapshot = await database
-            ?.collection("match-messages")
-            ?.doc(id)
-            ?.collection("messages")
-            ?.orderBy("timestamp", "asc")
-            ?.get();
+            .collection("matches")
+            .doc(matchId)
+            .collection("messages")
+            .orderBy("timestamp", "asc")
+            .get();
 
           // Access the documents in the subcollection
           const data = snapshot?.docs?.map((doc) => doc?.data());
 
-          if (data?.length) {
-            const { groupedDataKeys, groupedData } = groupDataByKey(data);
-            setMessagesKeys(groupedDataKeys);
-            setMessages(groupedData);
-          }
+          const { groupedDataKeys, groupedData } = groupDataByKey(data);
+          setMessagesKeys(groupedDataKeys);
+          setMessagesForMessagesScreen(groupedData);
         }
       } catch (error) {
         console.error("Error getting message data:", error);
       }
     }
 
-    getMessages();
-  }, [input]);
+    const timeoutId = setTimeout(() => {
+      getMessages();
+    }, 1500);
 
-  const sendMessage = () => {
+    return () => clearTimeout(timeoutId);
+  }, [triggerReload, input]);
+
+  const sendMessage = async () => {
+    setTriggerReload(false);
     if (!input?.length) return;
 
-    let textTransform = input;
-    if (
-      detectUrl(input) &&
-      (input?.startsWith("www") || input?.startsWith("Www"))
-    ) {
-      textTransform = `https://${input?.toLowerCase()}`;
-    } else if (detectUrl(input) && input?.startsWith("Https://")) {
-      textTransform = input?.toLowerCase();
-    }
-    //pushing message to firebase db...
-    database
-      .collection("match-messages")
-      .doc(matchId)
-      .collection("messages")
-      .add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        message: textTransform,
-        id: currentUser?.id,
-        photo: currentUser.mediaArray?.[0],
-        phonenumber: currentUser?.phonenumber,
-        firstname: currentUser.firstname,
-      });
+    if (matchId) {
+      let textTransform = input;
+      if (
+        detectUrl(input) &&
+        (input?.startsWith("www") || input?.startsWith("Www"))
+      ) {
+        textTransform = `https://${input?.toLowerCase()}`;
+      } else if (detectUrl(input) && input?.startsWith("Https://")) {
+        textTransform = input?.toLowerCase();
+      }
 
-    setInput("");
+      //pushing message to firebase db...
+      database
+        .collection("matches")
+        .doc(matchId)
+        .collection("messages")
+        .add({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          message: textTransform,
+          id: currentUser?.id,
+          photo: currentUser.mediaArray?.[0],
+          phonenumber: currentUser?.phonenumber,
+          firstname: currentUser.firstname,
+        })
+        .then(() => {
+          console.log(`SENT SUCCESSFULLY`);
+        })
+        .catch((error) => console.log("Error " + error.message));
+
+      setTriggerReload(true);
+      setInput("");
+    }
   };
   const sendPhotoMessage = (photo) => {
     //pushing message to firebase db...
-    database
-      .collection("match-messages")
-      .doc(matchId)
-      .collection("messages")
-      .add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        message: photo,
-        id: currentUser?.id,
-        photo: currentUser.mediaArray?.[0],
-        phonenumber: currentUser?.phonenumber,
-        firstname: currentUser.firstname,
-      });
+    database.collection("matches").doc(matchId).collection("messages").add({
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      message: photo,
+      id: currentUser?.id,
+      photo: currentUser.mediaArray?.[0],
+      phonenumber: currentUser?.phonenumber,
+      firstname: currentUser.firstname,
+    });
 
+    setTriggerReload(true);
     setInput("");
   };
 
@@ -162,63 +176,92 @@ export default function MessageScreen({ navigation }) {
     );
   }
 
-  function handleBlockMatch() {
+  async function handleBlockMatch(matchPhonenumber, otherMatchId) {
     // For current user
     removeItemFromArray(
       "all-users",
       currentUser?.id,
       "likedMeList",
-      match?.phonenumber,
+      matchPhonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      currentUser?.id,
+      "listOfAllLikedNumbers",
+      matchPhonenumber,
       () => {}
     );
 
     // for other user
     removeItemFromArray(
       "all-users",
-      match?.id,
+      otherMatchId,
       "likedMeList",
+      currentUser?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      otherMatchId,
+      "listOfAllLikedNumbers",
+      currentUser?.phonenumber,
+      () => {}
+    );
+
+    // create block list for current user
+    await addToArrayField(
+      "all-users",
+      currentUser?.id,
+      "blockedList",
+      matchPhonenumber,
+      () => {}
+    );
+
+    // create block list for current user
+    await addToArrayField(
+      "all-users",
+      otherMatchId,
+      "blockedMeList",
       currentUser?.phonenumber,
       () => {}
     );
 
     // For match object
     removeDocumentFromCollections("matches", matchId, () => {});
-
-    // clear messages
-    removeDocumentFromCollections("matches-messages", matchId, () => {});
 
     storeData("refreshChatScreen", true);
     navigation.navigate("chat");
   }
 
-  function handleUnmatch() {
+  function handleUnmatch(matchPhonenumber, otherMatchId) {
     // For current user
     removeItemFromArray(
       "all-users",
       currentUser?.id,
       "likedMeList",
-      match?.phonenumber,
+      matchPhonenumber,
       () => {}
     );
     removeItemFromArray(
       "all-users",
       currentUser?.id,
       "listOfAllLikedNumbers",
-      match?.phonenumber,
+      matchPhonenumber,
       () => {}
     );
 
     // for other user
     removeItemFromArray(
       "all-users",
-      match?.id,
+      otherMatchId,
       "likedMeList",
       currentUser?.phonenumber,
       () => {}
     );
     removeItemFromArray(
       "all-users",
-      match?.id,
+      otherMatchId,
       "listOfAllLikedNumbers",
       currentUser?.phonenumber,
       () => {}
@@ -226,9 +269,6 @@ export default function MessageScreen({ navigation }) {
 
     // For match object
     removeDocumentFromCollections("matches", matchId, () => {});
-
-    // clear messages
-    removeDocumentFromCollections("matches-messages", matchId, () => {});
 
     storeData("refreshChatScreen", true);
     navigation.navigate("chat");
@@ -247,7 +287,7 @@ export default function MessageScreen({ navigation }) {
               iconFunction={() => navigation.goBack()}
               iconName="chevron-back"
               IconComponent={Ionicons}
-              size={30}
+              size={theme.spaceNumberBy10[2]}
               color={theme.colors.brand.brandFade}
             />
             <View
@@ -256,14 +296,18 @@ export default function MessageScreen({ navigation }) {
                 alignItems: "center",
                 marginLeft: theme.spaceNumberBy10[1],
               }}>
-              <Avatar data={match} theme={theme} dimensionIndex={4} />
+              <Avatar
+                data={otherUser?.match?.mediaArray[0]}
+                theme={theme}
+                dimensionIndex={theme.spaceNumber[1]}
+              />
               <Text
                 style={{ marginLeft: theme.spaceNumber[3] }}
                 variant="subHeading"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="title">
-                {match?.firstname}
+                {otherUser?.match?.firstname}
               </Text>
             </View>
           </View>
@@ -276,21 +320,25 @@ export default function MessageScreen({ navigation }) {
           />
         </NavigationBar>
       </HorizontalPaddingSpace>
-      <MessageContainer
-        ref={scrollViewRef}
-        onContentSizeChange={onContentSizeChange}>
-        {messagesKeys.map((key, idx) => (
-          <MessageGroupComponent
-            key={idx}
-            theme={theme}
-            dateTitle={key}
-            data={messages[key]}
-            currentUser={currentUser}
-            setSelectedImage={setSelectedImage}
-            setShowImageModal={setShowImageModal}
-          />
-        ))}
-      </MessageContainer>
+      {messagesKeys?.length ? (
+        <MessageContainer
+          ref={scrollViewRef}
+          onContentSizeChange={onContentSizeChange}>
+          {messagesKeys.map((key, idx) => (
+            <MessageGroupComponent
+              key={idx}
+              theme={theme}
+              dateTitle={key}
+              data={messagesForMessagesScreen[key]}
+              currentUser={currentUser}
+              setSelectedImage={setSelectedImage}
+              setShowImageModal={setShowImageModal}
+            />
+          ))}
+        </MessageContainer>
+      ) : (
+        <Loading text="Loading..." size="body" color="linesLight" />
+      )}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <MessageInput
@@ -302,7 +350,7 @@ export default function MessageScreen({ navigation }) {
         />
       </KeyboardAvoidingView>
       {showImageModal && (
-        <PopupModal height={height}>
+        <PopupModal height={height} backgroundColor="rgba(255, 255, 255, 0.9)">
           <View
             style={{
               width: "100%",
@@ -355,19 +403,26 @@ export default function MessageScreen({ navigation }) {
           backgroundColor="rgba(0,0,0,0.9)"
         />
       )}
-      {openDotActionModal && (
+      {openDotActionModal && ( // This is for action in vertical dots
         <PopupProfileImageModal
           height={height}
           theme={theme}
-          functionCallTop={handleUnmatch}
-          functionCallBottom={handleBlockMatch}
+          functionCallTop={() =>
+            handleUnmatch(otherUser?.match?.phonenumber, otherUser?.match?.id)
+          }
+          functionCallBottom={() =>
+            handleBlockMatch(
+              otherUser?.match?.phonenumber,
+              otherUser?.match?.id
+            )
+          }
           setTriggerRefresh={() => {}}
           textTop="Unmatch"
           textBottom="Block"
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenDotActionModal}
           horizontalSpace={`${theme.spaceNumberBy10[5]}px`}
-          backgroundColor="rgba(255,255,255,0.9)"
+          backgroundColor="rgba(255,255,255,0.7)"
         />
       )}
     </View>

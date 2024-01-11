@@ -21,6 +21,7 @@ export default function InputComponent({
   fontType,
   maxlength,
   placeholder,
+  allBorder,
 }) {
   const [switchIcon, setSwitchIcon] = useState(false);
   const {
@@ -32,7 +33,8 @@ export default function InputComponent({
       width={width}
       backgroundColor={backgroundColor}
       isBackgroundColor={isBackgroundColor}
-      isBorderColor={isBorderColor}>
+      isBorderColor={isBorderColor}
+      allBorder={allBorder}>
       {isCountryCode && <PlusText fontColor={fontColor}>+</PlusText>}
       <TextInput
         onChangeText={(text) => setValue(text)}

@@ -3,7 +3,7 @@ import { useAppContext } from "../../context/ThemeContext";
 import { SafeArea } from "../utility/safe-area.component";
 import { Text } from "../typography/text.component";
 
-export default function Loading({ text }) {
+export default function Loading({ text, size, color }) {
   const {
     state: { theme },
   } = useAppContext();
@@ -17,9 +17,9 @@ export default function Loading({ text }) {
       <Text
         style={{ textAlign: "center" }}
         variant="subHeading"
-        colorType="base"
+        colorType={color ?? "base"}
         fontType="montserratBold"
-        fontSize="title">
+        fontSize={size ?? "title"}>
         {text}
       </Text>
     </SafeArea>
