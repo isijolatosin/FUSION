@@ -428,3 +428,9 @@ export const nochatlistsinformation =
   "Welcome to the chats! It looks like you haven't started any chats yet. No worries—your next meaningful connection might just be a swipe away! Take a moment to explore profiles, swipe right, and start a conversation. Your chat list will be buzzing with exciting connections in no time. Happy swiping and happy connecting!";
 export const firstmessagehype =
   "Sending your first message is your chance to spark a meaningful connection. Be genuine, be yourself, and let the conversation flow. Go ahead, hit send, and make that exciting first move! Happy chatting!";
+export const unmatchmessage =
+  "Unmatching Francis would mean you can no longer view their profile or have any future conversations with them.";
+export const deactivateaccounttext =
+  "Temporarily removes your profile on Fusion and your profile is not visible to other users. Your account is not deleted but disabled on the app.";
+export const deleteaccounttext =
+  "Deleting your account removes your profile permanently on Fusion and your information is no longer accessible on the app. ";

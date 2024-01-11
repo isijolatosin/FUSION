@@ -20,7 +20,7 @@ const InputWarraper = styled.View`
 const PopupModal = styled.View`
   position: absolute;
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) => (props.justify ? props.justify : "center")};
   align-items: center;
   top: 0;
   left: 0;

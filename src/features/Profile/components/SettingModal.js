@@ -1,0 +1,462 @@
+import React, { useState } from "react";
+import { View, ScrollView, Switch, Dimensions } from "react-native";
+import Modal from "react-native-modal";
+import { Ionicons, Octicons } from "@expo/vector-icons";
+
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
+import IconComponent from "../../../components/icon-components/IconComponent";
+import { Text } from "../../../components/typography/text.component";
+import { deactivateaccounttext, deleteaccounttext } from "../../../constants";
+
+export default function SettingModal({
+  theme,
+  currentUser,
+  openSettingModal,
+  onClose,
+}) {
+  const { width } = Dimensions.get("window");
+  const [inAppNotification, setInAppNotification] = useState(false);
+  const [emailNotification, setEmailNotification] = useState(false);
+  const [deactivateAccount, setDeactivateAccount] = useState(false);
+  const [deleteAccount, setDeleteAccount] = useState(false);
+  return (
+    <Modal
+      isVisible={openSettingModal}
+      animationIn="slideInRight"
+      animationOut="slideOutRight"
+      onBackdropPress={onClose}
+      style={{
+        backgroundColor: theme.colors.brand.basewhite,
+        margin: 0,
+        position: "relative",
+        width: width,
+      }}>
+      <Spacer
+        style={{ paddingTop: theme.spaceNumberBy10[2] }}
+        position="top"
+        size="xxxxlarge">
+        <HorizontalPaddingSpace
+          style={{
+            position: "relative",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+          space={theme.space[5]}>
+          <IconComponent
+            iconFunction={onClose}
+            iconName="chevron-back"
+            IconComponent={Ionicons}
+            size={theme.spaceNumberBy10[2]}
+            color={theme.colors.brand.brandFade}
+            horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
+          />
+          <Text
+            style={{
+              textAlign: "center",
+              marginLeft: -theme.spaceNumberBy10[1],
+            }}
+            variant="subHeading"
+            colorType="black"
+            fontType="playfairbold"
+            fontSize="h4">
+            Settings
+          </Text>
+        </HorizontalPaddingSpace>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            space={theme.space[5]}>
+            <Spacer position="top" size="xxlarge">
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Account Settings
+              </Text>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+            }}
+            space={theme.space[5]}>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              position="top"
+              size="medium">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  Phone Number
+                </Text>
+              </View>
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  {currentUser?.phonenumber}
+                </Text>
+              </View>
+            </Spacer>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              position="top"
+              size="medium">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  Email Address
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{ textTransform: "lowercase" }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  {currentUser?.email}
+                </Text>
+              </View>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            space={theme.space[5]}>
+            <Spacer position="top" size="xxlarge">
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Notification Settings
+              </Text>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+            }}
+            space={theme.space[5]}>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              position="top"
+              size="small">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  In-App Notification
+                </Text>
+              </View>
+              <Switch
+                trackColor={{
+                  false: theme.colors.brand.linesLight,
+                  true: theme.colors.brand.base,
+                }}
+                thumbColor={
+                  inAppNotification
+                    ? theme.colors.brand.highlight
+                    : theme.colors.brand.lines
+                }
+                onValueChange={setInAppNotification}
+                value={inAppNotification}
+              />
+            </Spacer>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              position="top"
+              size="small">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  Email Notification
+                </Text>
+              </View>
+              <Switch
+                trackColor={{
+                  false: theme.colors.brand.linesLight,
+                  true: theme.colors.brand.base,
+                }}
+                thumbColor={
+                  emailNotification
+                    ? theme.colors.brand.highlight
+                    : theme.colors.brand.lines
+                }
+                onValueChange={setEmailNotification}
+                value={emailNotification}
+              />
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            space={theme.space[5]}>
+            <Spacer position="top" size="xxlarge">
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Profile Settings
+              </Text>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+            }}
+            space={theme.space[5]}>
+            <Spacer position="top" size="small">
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                <View>
+                  <Text
+                    variant="subHeading"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="caption">
+                    Deactivate Account
+                  </Text>
+                </View>
+                <Switch
+                  trackColor={{
+                    false: theme.colors.brand.linesLight,
+                    true: theme.colors.brand.base,
+                  }}
+                  thumbColor={
+                    deactivateAccount
+                      ? theme.colors.brand.highlight
+                      : theme.colors.brand.lines
+                  }
+                  onValueChange={setDeactivateAccount}
+                  value={deactivateAccount}
+                />
+              </View>
+              <Spacer position="top" size="small">
+                <Text
+                  variant="subHeading"
+                  colorType="lines"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  {deactivateaccounttext}
+                </Text>
+              </Spacer>
+            </Spacer>
+            <Spacer position="top" size="small">
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                <View>
+                  <Text
+                    variant="subHeading"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="caption">
+                    Delete Account
+                  </Text>
+                </View>
+                <Switch
+                  trackColor={{
+                    false: theme.colors.brand.linesLight,
+                    true: theme.colors.brand.base,
+                  }}
+                  thumbColor={
+                    deleteAccount
+                      ? theme.colors.brand.highlight
+                      : theme.colors.brand.lines
+                  }
+                  onValueChange={setDeleteAccount}
+                  value={deleteAccount}
+                />
+              </View>
+              <Spacer position="top" size="small">
+                <Text
+                  variant="subHeading"
+                  colorType="lines"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  {deleteaccounttext}
+                </Text>
+              </Spacer>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            space={theme.space[5]}>
+            <Spacer position="top" size="xxxlarge">
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Help Center
+              </Text>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+            }}
+            space={theme.space[5]}>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              position="top"
+              size="medium">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  Contact Us
+                </Text>
+              </View>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="chevron-right"
+                IconComponent={Octicons}
+                size={theme.spaceNumberBy10[1]}
+                color={theme.colors.brand.brandFade}
+              />
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            space={theme.space[5]}>
+            <Spacer position="top" size="xxxlarge">
+              <Text
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Legal
+              </Text>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              paddingBottom: theme.spaceNumberBy50[1],
+            }}
+            space={theme.space[5]}>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              position="top"
+              size="medium">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  Privacy Policy
+                </Text>
+              </View>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="chevron-right"
+                IconComponent={Octicons}
+                size={theme.spaceNumberBy10[1]}
+                color={theme.colors.brand.brandFade}
+              />
+            </Spacer>
+            <Spacer
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              position="top"
+              size="medium">
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="caption">
+                  Terms of Service
+                </Text>
+              </View>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="chevron-right"
+                IconComponent={Octicons}
+                size={theme.spaceNumberBy10[1]}
+                color={theme.colors.brand.brandFade}
+              />
+            </Spacer>
+          </HorizontalPaddingSpace>
+        </ScrollView>
+      </Spacer>
+    </Modal>
+  );
+}

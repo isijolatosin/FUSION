@@ -87,8 +87,15 @@ const Index = () => {
         filteredOffLikedProfilesStep2 = [...filteredOffLikedProfiles];
       }
 
-      const blockedMeList = currentUserData?.blockedMeList;
-      const blockedList = currentUserData?.blockedList;
+      const blockedMeList = [];
+      currentUserData?.blockedMeList?.map((list) => {
+        blockedMeList.push(list?.phonenumber);
+      });
+
+      const blockedList = [];
+      currentUserData?.blockedList?.map((list) => {
+        blockedList.push(list?.phonenumber);
+      });
 
       if (blockedMeList?.length) {
         filteredOffLikedProfilesStep2.map((data) => {

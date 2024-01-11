@@ -186,7 +186,7 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="capture-work-place-screen" // change back to splash
+        initialRouteName="splash" // change back to splash
         screenOptions={{
           headerShown: false,
         }}>

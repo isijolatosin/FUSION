@@ -21,7 +21,7 @@ import { Text } from "../../../components/typography/text.component";
 import MessageInput from "../../../components/Input-Forms/MessageInput";
 import { MessageContainer } from "../../../components/Input-Forms/input.styles";
 import { CloseButton } from "../../Main/screen/main.style";
-import PopupProfileImageModal from "../../Profile/components/PopupProfileImageModal";
+import GeneralPopupModal from "../../Profile/components/GeneralPopupModal";
 import MessageGroupComponent from "./MessageGroupComponent";
 import { groupDataByKey } from "../../../utilities/groupDataByKey";
 import firebase, { database } from "../../../../config";
@@ -176,7 +176,7 @@ export default function MessageScreen({ navigation }) {
     );
   }
 
-  async function handleBlockMatch(matchPhonenumber, otherMatchId) {
+  async function handleBlockMatch(matchPhonenumber, otherMatchId, text) {
     // For current user
     removeItemFromArray(
       "all-users",
@@ -210,20 +210,28 @@ export default function MessageScreen({ navigation }) {
     );
 
     // create block list for current user
+    const currentUserReason = {
+      reason: text,
+      phonenumber: matchPhonenumber,
+    };
     await addToArrayField(
       "all-users",
       currentUser?.id,
       "blockedList",
-      matchPhonenumber,
+      currentUserReason,
       () => {}
     );
 
-    // create block list for current user
+    // create block list for other user
+    const otherUserReason = {
+      reason: text,
+      phonenumber: currentUser?.phonenumber,
+    };
     await addToArrayField(
       "all-users",
       otherMatchId,
       "blockedMeList",
-      currentUser?.phonenumber,
+      otherUserReason,
       () => {}
     );
 
@@ -389,7 +397,7 @@ export default function MessageScreen({ navigation }) {
         </PopupModal>
       )}
       {openImageUploadModal && (
-        <PopupProfileImageModal
+        <GeneralPopupModal
           height={height}
           theme={theme}
           functionCallTop={handlePickImageAsyncInModal}
@@ -404,24 +412,21 @@ export default function MessageScreen({ navigation }) {
         />
       )}
       {openDotActionModal && ( // This is for action in vertical dots
-        <PopupProfileImageModal
+        <GeneralPopupModal
           height={height}
           theme={theme}
           functionCallTop={() =>
             handleUnmatch(otherUser?.match?.phonenumber, otherUser?.match?.id)
           }
-          functionCallBottom={() =>
-            handleBlockMatch(
-              otherUser?.match?.phonenumber,
-              otherUser?.match?.id
-            )
-          }
+          functionCallBottom={handleBlockMatch}
+          otherUserMatchId={otherUser?.match?.id}
+          otherUserMatchPhonenumber={otherUser?.match?.phonenumber}
           setTriggerRefresh={() => {}}
           textTop="Unmatch"
           textBottom="Block"
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenDotActionModal}
-          horizontalSpace={`${theme.spaceNumberBy10[5]}px`}
+          horizontalSpace={`${theme.spaceNumberBy10[3]}px`}
           backgroundColor="rgba(255,255,255,0.7)"
         />
       )}
