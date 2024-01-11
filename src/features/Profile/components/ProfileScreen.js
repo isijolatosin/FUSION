@@ -17,11 +17,12 @@ import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import calculateAge from "../../../utilities/calculateAge";
 import PhotoComponent from "../../Onboarding/components/sub-component/PhotoComponent";
-import PopupProfileImageModal from "./PopupProfileImageModal";
+import GeneralPopupModal from "./GeneralPopupModal";
 import {
   handleDeleteImageAsync,
   handlePickImageAsync,
 } from "../../../utilities/handleUploadImage";
+import SettingModal from "./SettingModal";
 
 export default function ProfileScreen() {
   const {
@@ -29,6 +30,7 @@ export default function ProfileScreen() {
   } = useAppContext();
   const { height } = Dimensions.get("window");
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openSettingModal, setSettingModal] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [triggerRefresh, setTriggerRefresh] = useState(false);
   const [deleteImageItem, setDeleteImageItem] = useState("");
@@ -152,6 +154,13 @@ export default function ProfileScreen() {
     );
   }
 
+  function handleCloseSettingModal() {
+    setSettingModal(false);
+  }
+  function handleOpenSettingModal() {
+    setSettingModal(true);
+  }
+
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <YouAreSpecialCircleWrapper
@@ -174,7 +183,7 @@ export default function ProfileScreen() {
             width: "100%",
           }}>
           <IconComponent
-            iconFunction={() => {}}
+            iconFunction={handleOpenSettingModal}
             iconName="settings-sharp"
             IconComponent={Ionicons}
             size={25}
@@ -371,7 +380,7 @@ export default function ProfileScreen() {
         </Spacer>
       </ScrollView>
       {openDeleteModal && (
-        <PopupProfileImageModal
+        <GeneralPopupModal
           height={height}
           theme={theme}
           functionCallTop={handleDeleteImageAsyncInModal}
@@ -382,7 +391,7 @@ export default function ProfileScreen() {
         />
       )}
       {openImageUploadModal && (
-        <PopupProfileImageModal
+        <GeneralPopupModal
           height={height}
           theme={theme}
           functionCallTop={handlePickImageAsyncInModal}
@@ -394,6 +403,12 @@ export default function ProfileScreen() {
           setOpenImageUploadModal={setOpenImageUploadModal}
         />
       )}
+      <SettingModal
+        theme={theme}
+        currentUser={currentUser}
+        openSettingModal={openSettingModal}
+        onClose={handleCloseSettingModal}
+      />
     </SafeArea>
   );
 }

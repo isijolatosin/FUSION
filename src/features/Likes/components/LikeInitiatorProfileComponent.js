@@ -110,7 +110,6 @@ export default function LikeInitiatorProfileComponent({
         position: "relative",
         alignItems: "flex-end",
         paddingBottom: theme.spaceNumberBy10[0],
-        position: "relative",
       }}>
       {data?.length ? (
         <ScrollView showsVerticalScrollIndicator={false}>

@@ -6,11 +6,13 @@ import {
 
 export default function Button({
   backgroundColor,
+  borderRadius,
   isBorder,
   isNotBold,
   borderColor,
   buttonFunction,
   text,
+  fontType,
   textColor,
   width,
 }) {
@@ -18,11 +20,15 @@ export default function Button({
     <ButtonWrapper
       onPress={buttonFunction}
       backgroundColor={backgroundColor}
+      borderRadius={borderRadius}
       isBorder={isBorder}
       borderColor={borderColor}
       textColor={textColor}
       width={width}>
-      <ButtonText textColor={textColor} isNotBold={isNotBold}>
+      <ButtonText
+        fontType={fontType}
+        textColor={textColor}
+        isNotBold={isNotBold}>
         {text}
       </ButtonText>
     </ButtonWrapper>

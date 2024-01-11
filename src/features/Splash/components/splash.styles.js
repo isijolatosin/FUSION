@@ -48,7 +48,8 @@ const ButtonWrapper = styled(Pressable)`
   border-width: ${(props) =>
     !props.isBorder ? "0px" : props.theme.letterSpacing[0]};
   border-color: ${(props) => props.borderColor};
-  border-radius: ${(props) => props.theme.space[3]};
+  border-radius: ${(props) =>
+    props.borderRadius ? props.borderRadius : props.theme.space[3]};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,6 +57,8 @@ const ButtonWrapper = styled(Pressable)`
 `;
 
 const ButtonText = styled.Text`
+  font-family: ${(props) =>
+    props.fontType ? props.fontType : props.theme.fonts.montserratRegular};
   font-size: ${(props) => props.theme.fontSizes.body};
   color: ${(props) => props.textColor};
   font-weight: ${(props) =>
