@@ -384,7 +384,7 @@ export default function ProfileScreen() {
           height={height}
           theme={theme}
           functionCallTop={handleDeleteImageAsyncInModal}
-          functionCallBottom={setOpenDeleteModal}
+          functionCallBottom={() => setOpenDeleteModal(false)}
           setTriggerRefresh={setTriggerRefresh}
           textTop="Delete Photo"
           textBottom="Cancel"

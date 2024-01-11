@@ -35,6 +35,7 @@ import {
 } from "../../../utilities/updateFirestoreDatabaseField";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
+import MessageDotsPopupModal from "./MessageDotsPopupModal";
 
 export default function MessageScreen({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -412,7 +413,7 @@ export default function MessageScreen({ navigation }) {
         />
       )}
       {openDotActionModal && ( // This is for action in vertical dots
-        <GeneralPopupModal
+        <MessageDotsPopupModal
           height={height}
           theme={theme}
           functionCallTop={() =>
