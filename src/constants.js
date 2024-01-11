@@ -4,7 +4,7 @@ export const splashImage =
   "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703726052/fusion/intercultural-friends-sitting-bench-while-hugging_1_kclgy8.png";
 
 export const homeSplashImage =
-  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1704232712/fusion/full-length-portrait-happy-young-african-man_1_dgagnu.png";
+  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1704926359/fusion/full-length-portrait-happy-young-african-man_2_mzvuxq.png";
 
 export const oboardingSummaryText =
   "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
@@ -424,3 +424,7 @@ export const dailyendofswipescreenmessage =
   "All potential matches based on your preferences have been viewed, yet fresh individuals continue to join daily.";
 export const nomatchmessage =
   "Currently, there are no matches that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and exciting connections may be just around the corner. Your proactive spirit makes the dating experience worthwhile. Happy connecting!";
+export const nochatlistsinformation =
+  "Welcome to the chats! It looks like you haven't started any chats yet. No worries—your next meaningful connection might just be a swipe away! Take a moment to explore profiles, swipe right, and start a conversation. Your chat list will be buzzing with exciting connections in no time. Happy swiping and happy connecting!";
+export const firstmessagehype =
+  "Sending your first message is your chance to spark a meaningful connection. Be genuine, be yourself, and let the conversation flow. Go ahead, hit send, and make that exciting first move! Happy chatting!";

@@ -40,7 +40,7 @@ export default function MessageInput({
           keyboardAppearance="dark"
           onChangeText={(text) => setInput(text)}
           value={value}
-          keyboardType="url"
+          keyboardType="default"
           theme={theme}
           placeholder="Send a message"
           placeholderTextColor={theme.colors.brand.lines}

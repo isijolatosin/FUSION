@@ -1,6 +1,4 @@
 import React from "react";
-import { Pressable } from "react-native";
-import styled from "styled-components/native";
 import { IconComponentWraper } from "../../features/Main/screen/main.style";
 
 export default function IconComponent({

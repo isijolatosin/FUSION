@@ -81,7 +81,7 @@ export default function CaptureWorkPlace({ navigation }) {
           <Spacer position="top" size="xxxlarge">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="default"
               setValue={setWorkplace}
               value={workplaceName}
               width="100%"

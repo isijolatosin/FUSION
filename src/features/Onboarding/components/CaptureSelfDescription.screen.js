@@ -76,7 +76,7 @@ export default function CaptureSelfDescription({ navigation }) {
           <Spacer position="top" size="large">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="default"
               setValue={setFirstword}
               value={firstword}
               width="100%"
@@ -90,7 +90,7 @@ export default function CaptureSelfDescription({ navigation }) {
           <Spacer position="top" size="large">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="default"
               setValue={setSecondword}
               value={secondword}
               width="100%"
@@ -104,7 +104,7 @@ export default function CaptureSelfDescription({ navigation }) {
           <Spacer position="top" size="large">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="default"
               setValue={setThirdword}
               value={thirdword}
               width="100%"

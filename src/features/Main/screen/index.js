@@ -18,6 +18,7 @@ import YouLikedComponent from "./sub-component/YouLikedComponent";
 import Loading from "../../../components/general-component/Loading";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 import { dailyendofswipescreenmessage } from "../../../constants";
+import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -60,11 +61,13 @@ const Index = () => {
       //check if profile has been liked and filter off
       let filteredOffLikedProfiles = [];
       let filteredOffLikedProfilesStep2 = [];
+      let filteredOffLikedProfilesStep3 = [];
+      let filteredOffLikedProfilesStep4 = [];
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
 
       if (likedNumberArray?.length) {
         returningData.map((data) => {
-          if (!likedNumberArray.includes(data?.phonenumber)) {
+          if (!likedNumberArray?.includes(data?.phonenumber)) {
             filteredOffLikedProfiles.push(data);
           }
         });
@@ -76,7 +79,7 @@ const Index = () => {
       const likedMeList = currentUserData?.likedMeList;
       if (likedMeList?.length && filteredOffLikedProfiles?.length) {
         filteredOffLikedProfiles.map((data) => {
-          if (!likedMeList.includes(data?.phonenumber)) {
+          if (!likedMeList?.includes(data?.phonenumber)) {
             filteredOffLikedProfilesStep2.push(data);
           }
         });
@@ -84,12 +87,38 @@ const Index = () => {
         filteredOffLikedProfilesStep2 = [...filteredOffLikedProfiles];
       }
 
-      setAllUsers(filteredOffLikedProfilesStep2);
+      const blockedMeList = currentUserData?.blockedMeList;
+      const blockedList = currentUserData?.blockedList;
+
+      if (blockedMeList?.length) {
+        filteredOffLikedProfilesStep2.map((data) => {
+          if (!blockedMeList?.includes(data?.phonenumber)) {
+            filteredOffLikedProfilesStep3.push(data);
+          }
+        });
+      } else {
+        filteredOffLikedProfilesStep3 = [...filteredOffLikedProfilesStep2];
+      }
+
+      if (blockedList?.length) {
+        filteredOffLikedProfilesStep3.map((data) => {
+          if (!blockedList?.includes(data?.phonenumber)) {
+            filteredOffLikedProfilesStep4.push(data);
+          }
+        });
+      } else {
+        filteredOffLikedProfilesStep4 = [...filteredOffLikedProfilesStep3];
+      }
+
+      setAllUsers(filteredOffLikedProfilesStep4);
     }
   };
 
   useEffect(() => {
     const functionCall = async () => {
+      await clearDataByKey("match-id");
+      await clearDataByKey("refreshChatScreen");
+
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
       setPhone(phoneValueFromPhoneMemory);
       fetchUsersData(phoneValueFromPhoneMemory);
