@@ -130,7 +130,7 @@ const removeDocumentFromCollections = async (
     .collection(collectionName)
     .doc(documentId)
     .collection("messages");
-  querySnapshot = await messageRef.get();
+  const querySnapshot = await messageRef.get();
 
   querySnapshot.forEach(async (doc) => {
     await doc.ref.delete();

@@ -1,6 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Pressable } from "react-native";
-import { MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
+import React, { useEffect, useRef, useState } from "react";
+import { Pressable, View } from "react-native";
+import {
+  MaterialCommunityIcons,
+  Fontisto,
+  FontAwesome,
+} from "@expo/vector-icons";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
 import { useAppContext } from "../../../context/ThemeContext";
@@ -10,15 +14,15 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import FilterComponent from "./sub-component/FilterComponent";
-import { CloseButton, FilterText, FilterWrapper } from "./main.style";
+import { CloseButton } from "./main.style";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
 import Loading from "../../../components/general-component/Loading";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 import { dailyendofswipescreenmessage } from "../../../constants";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
+import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -184,12 +188,12 @@ const Index = () => {
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <HorizontalPaddingSpace
         style={{ position: "relative" }}
-        space={theme.space[3]}>
+        space={theme.space[4]}>
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="large">
             <NavigationBar>
-              <BrandAvatar width={80} />
-              <Fragment>
+              <BrandAvatarO />
+              <View style={{ flexDirection: "row", justifyContent: "center" }}>
                 <Pressable
                   style={{
                     transform: [{ rotateX: "180deg" }],
@@ -201,7 +205,7 @@ const Index = () => {
                     }}
                     iconName="undo-variant"
                     IconComponent={MaterialCommunityIcons}
-                    size={30}
+                    size={25}
                     color={
                       index > 0
                         ? theme.colors.brand.brandFade
@@ -209,10 +213,24 @@ const Index = () => {
                     }
                   />
                 </Pressable>
-                <FilterWrapper onPress={handleFilterOpen}>
-                  <FilterText variant="popButton">Filter</FilterText>
-                </FilterWrapper>
-              </Fragment>
+                <Pressable
+                  style={{
+                    marginLeft: theme.spaceNumber[7],
+                    marginRight: theme.spaceNumber[1],
+                  }}>
+                  <IconComponent
+                    iconFunction={handleFilterOpen}
+                    iconName="sliders"
+                    IconComponent={FontAwesome}
+                    size={25}
+                    color={
+                      index > 0
+                        ? theme.colors.brand.brandFade
+                        : theme.colors.brand.brandFade
+                    }
+                  />
+                </Pressable>
+              </View>
             </NavigationBar>
           </Spacer>
         </Spacer>
@@ -234,6 +252,7 @@ const Index = () => {
           setIsRetrigger={setIsRetrigger}
         />
         <CloseButton
+          spaceBottom="125px"
           style={{
             elevation: 5,
             shadowColor: theme.colors.brand.black,

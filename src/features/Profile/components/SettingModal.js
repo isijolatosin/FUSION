@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import { View, ScrollView, Switch, Dimensions } from "react-native";
+import {
+  View,
+  ScrollView,
+  Switch,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import Modal from "react-native-modal";
 import { Ionicons, Octicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Text } from "../../../components/typography/text.component";
 import { deactivateaccounttext, deleteaccounttext } from "../../../constants";
+import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
+import { database } from "../../../../config";
+import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 
 export default function SettingModal({
   theme,
@@ -15,11 +25,67 @@ export default function SettingModal({
   openSettingModal,
   onClose,
 }) {
+  const navigation = useNavigation();
   const { width } = Dimensions.get("window");
   const [inAppNotification, setInAppNotification] = useState(false);
   const [emailNotification, setEmailNotification] = useState(false);
   const [deactivateAccount, setDeactivateAccount] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
+  const userId = currentUser?.id;
+
+  async function handleDeleteUserProfile(val) {
+    if (val) {
+      // delete from all users
+      database
+        .collection("all-users")
+        .doc(userId)
+        .delete()
+        .then(() => {
+          console.log("User successfully deleted!");
+        })
+        .catch((_error) => {
+          console.error("Error deleting user with Id: ", userId);
+        });
+
+      //delete from all likes
+      const allLikesRef = database.collection("all-likes");
+      const querySnapshot = await allLikesRef.get();
+      querySnapshot.forEach(async (doc) => {
+        const docData = doc.data();
+        const likedBy = docData?.likedBy;
+        const profileLikedNumber = docData?.profileLikedNumber;
+
+        if (profileLikedNumber === currentUser?.phonenumber) {
+          await doc.ref.delete();
+        }
+        if (likedBy?.phonenumber === currentUser?.phonenumber) {
+          await doc.ref.delete();
+        }
+      });
+
+      await clearDataByKey("match-id");
+      await clearDataByKey("phonenumber");
+      await clearDataByKey("refreshChatScreen");
+
+      setTimeout(() => {
+        onClose();
+        navigation.navigate("onBoard");
+      }, 500);
+
+      return () => clearTimeout(userTimeoutId);
+    }
+  }
+
+  async function handleSignOut() {
+    await clearDataByKey("phonenumber");
+    setTimeout(() => {
+      onClose();
+      navigation.navigate("onBoard");
+    }, 500);
+
+    return () => clearTimeout(userTimeoutId);
+  }
+
   return (
     <Modal
       isVisible={openSettingModal}
@@ -191,7 +257,16 @@ export default function SettingModal({
                     ? theme.colors.brand.highlight
                     : theme.colors.brand.lines
                 }
-                onValueChange={setInAppNotification}
+                onValueChange={async (val) => {
+                  setInAppNotification(val);
+                  await updateUserValueField(
+                    "all-users",
+                    userId,
+                    "inAppNotification",
+                    val,
+                    () => {}
+                  );
+                }}
                 value={inAppNotification}
               />
             </Spacer>
@@ -222,7 +297,16 @@ export default function SettingModal({
                     ? theme.colors.brand.highlight
                     : theme.colors.brand.lines
                 }
-                onValueChange={setEmailNotification}
+                onValueChange={async (val) => {
+                  setEmailNotification(val);
+                  await updateUserValueField(
+                    "all-users",
+                    userId,
+                    "emailNotification",
+                    val,
+                    () => {}
+                  );
+                }}
                 value={emailNotification}
               />
             </Spacer>
@@ -276,7 +360,16 @@ export default function SettingModal({
                       ? theme.colors.brand.highlight
                       : theme.colors.brand.lines
                   }
-                  onValueChange={setDeactivateAccount}
+                  onValueChange={async (val) => {
+                    setDeactivateAccount(val);
+                    await updateUserValueField(
+                      "all-users",
+                      userId,
+                      "deactivateAccount",
+                      val,
+                      () => {}
+                    );
+                  }}
                   value={deactivateAccount}
                 />
               </View>
@@ -316,7 +409,10 @@ export default function SettingModal({
                       ? theme.colors.brand.highlight
                       : theme.colors.brand.lines
                   }
-                  onValueChange={setDeleteAccount}
+                  onValueChange={(val) => {
+                    setDeleteAccount(val);
+                    handleDeleteUserProfile(val);
+                  }}
                   value={deleteAccount}
                 />
               </View>
@@ -401,7 +497,7 @@ export default function SettingModal({
           <HorizontalPaddingSpace
             style={{
               position: "relative",
-              paddingBottom: theme.spaceNumberBy50[1],
+              paddingBottom: theme.spaceNumberBy10[2],
             }}
             space={theme.space[5]}>
             <Spacer
@@ -455,6 +551,24 @@ export default function SettingModal({
               />
             </Spacer>
           </HorizontalPaddingSpace>
+          <TouchableOpacity
+            onPress={handleSignOut}
+            style={{
+              paddingBottom: theme.spaceNumberBy50[1],
+            }}>
+            <Text
+              style={{
+                textAlign: "center",
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumberBy10[1],
+              }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="body">
+              Log Out
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </Spacer>
     </Modal>

@@ -434,3 +434,5 @@ export const deactivateaccounttext =
   "Temporarily removes your profile on Fusion and your profile is not visible to other users. Your account is not deleted but disabled on the app.";
 export const deleteaccounttext =
   "Deleting your account removes your profile permanently on Fusion and your information is no longer accessible on the app. ";
+export const nolikesyetmessage =
+  "Looks like you haven't received any likes yet. Don't worry, the right connections are just a swipe away! Keep exploring and making meaningful connections.";
