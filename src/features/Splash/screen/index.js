@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Platform } from "react-native";
-import styled from "styled-components/native";
+import { Animated } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
+  Entypo,
   Ionicons,
   FontAwesome,
-  Entypo,
+  FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
@@ -52,9 +52,10 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="home"
       screenOptions={() => ({
         tabBarStyle: {
-          height: Platform.OS === "ios" ? 100 : 80,
+          height: 80,
           paddingHorizontal: theme.spaceNumberBy10[0],
           paddingTop: theme.spaceNumberBy10[0],
           backgroundColor: theme.colors.brand.highlight,
@@ -66,21 +67,12 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: theme.colors.brand.brandFade,
       })}>
       <Tab.Screen
-        name="home"
+        name="interest"
         component={MainScreen}
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" color={color} size={35} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={35} />
+            <FontAwesome5 name="infinity" color={color} size={30} />
           ),
         }}
       />
@@ -92,8 +84,18 @@ const TabNavigator = () => {
             <MaterialCommunityIcons
               name="cards-heart"
               color={color}
-              size={35}
+              size={30}
             />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="home"
+        component={MainScreen}
+        options={{
+          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          tabBarIcon: ({ color }) => (
+            <Entypo name="home" color={color} size={30} />
           ),
         }}
       />
@@ -102,7 +104,16 @@ const TabNavigator = () => {
         component={ChatsScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-sharp" color={color} size={35} />
+            <Ionicons name="chatbubble-sharp" color={color} size={28} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user" color={color} size={30} />
           ),
         }}
       />

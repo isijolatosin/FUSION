@@ -5,7 +5,7 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
-import BrandAvatar from "../../../components/general-component/BrandAvatar";
+import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import { useAppContext } from "../../../context/ThemeContext";
 import {
   getAllData,
@@ -14,6 +14,7 @@ import {
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import LikeInitiatorProfileCard from "./LikeInitiatorProfileCard";
 import LikeInitiatorProfileComponent from "./LikeInitiatorProfileComponent";
+import { nolikesyetmessage } from "../../../constants";
 
 const LikesScreen = () => {
   const {
@@ -55,7 +56,7 @@ const LikesScreen = () => {
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="xlarge">
             <HorizontalPaddingSpace space={theme.space[4]}>
-              <BrandAvatar noFlex={true} width={80} />
+              <BrandAvatarO noFlex={true} width={theme.spaceNumberBy50[3]} />
             </HorizontalPaddingSpace>
           </Spacer>
         </Spacer>
@@ -68,21 +69,40 @@ const LikesScreen = () => {
             fontSize="h4">
             Your Likes
           </Text>
-          <FlatGrid
-            itemDimension={theme.spaceNumberBy50[2]}
-            data={yourLikesData}
-            spacing={20}
-            renderItem={({ item }) => (
-              <LikeInitiatorProfileCard
-                key={item?.id}
-                data={item}
-                theme={theme}
-                setInitiatorProfileData={setInitiatorProfileData}
-                setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
-              />
-            )}
-            style={{ marginBottom: theme.spaceNumberBy50[4] }}
-          />
+          {yourLikesData.length ? (
+            <FlatGrid
+              itemDimension={theme.spaceNumberBy50[2]}
+              data={yourLikesData}
+              spacing={theme.spaceNumberBy10[1]}
+              renderItem={({ item }) => (
+                <LikeInitiatorProfileCard
+                  key={item?.id}
+                  data={item}
+                  theme={theme}
+                  setInitiatorProfileData={setInitiatorProfileData}
+                  setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
+                />
+              )}
+              style={{ marginBottom: theme.spaceNumberBy50[4] }}
+            />
+          ) : (
+            <HorizontalPaddingSpace
+              space={theme.space[3]}
+              style={{ width: "100%" }}>
+              <Spacer position="top" size="large">
+                <Text
+                  style={{
+                    textAlign: "center",
+                  }}
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="body">
+                  {nolikesyetmessage}
+                </Text>
+              </Spacer>
+            </HorizontalPaddingSpace>
+          )}
         </Spacer>
       </HorizontalPaddingSpace>
       {showInitiatorProfile && (

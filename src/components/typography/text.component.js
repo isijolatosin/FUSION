@@ -93,13 +93,13 @@ const subHeading = (theme, colorType, fontType, fontSize, transform) => `
 `;
 const popupText = (theme) => `
     font-family: ${theme.fonts.montserratRegular};
-    font-size: ${theme.fontSizes.button};
+    font-size: ${theme.fontSizes.caption};
     text-align: center;
     background-color: ${theme.colors.brand.basewhite};
     elevation: 5;
     shadowColor: ${theme.colors.brand.black};
-    shadowOpacity: 0.3;
-    shadowRadius: 5px;
+    shadowOpacity: 0.1;
+    shadowRadius: 10px;
     padding: ${theme.space[8]} ${theme.space[5]};
 `;
 

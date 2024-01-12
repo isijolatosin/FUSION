@@ -1,6 +1,5 @@
 import { Image, View } from "react-native";
 import React from "react";
-import {} from "../../features/Splash/components/splash.styles";
 
 export default function BrandAvatar({ noFlex, width }) {
   return (

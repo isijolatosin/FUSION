@@ -14,7 +14,7 @@ const InputWarraper = styled.View`
   align-items: "center";
   justify-content: "space-between";
   gap: ${(props) =>
-    props.gap ? props.gap : `${props.theme.spaceNumberBy10[0]}`};
+    props.gap ? props.gap : `${props.theme.spaceNumberBy10[0]}px`};
 `;
 
 const PopupModal = styled.View`

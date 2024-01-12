@@ -11,6 +11,7 @@ import {
 } from "./input.styles";
 import { confirmVerificationCode } from "../../utilities/verification";
 import verifyUserInDatabaseBeforeSignin from "../../utilities/verifyUserInDatabaseBeforeSignIn";
+import { storeData } from "../../utilities/storeDataInPhoneMemory";
 
 export default function OTPInputComponent({
   keyboardType,
@@ -79,6 +80,7 @@ export default function OTPInputComponent({
 
   let destination = "capture-name-screen";
   if (isVerifyInDatabase) {
+    storeData("phonenumber", phonenumber);
     destination = "main";
   }
 

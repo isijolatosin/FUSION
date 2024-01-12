@@ -59,17 +59,17 @@ export default function CaptureGenderInterest({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                genderInterest === "women"
+                genderInterest === "woman"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => setGenderInterest("women")}
+              buttonFunction={() => setGenderInterest("woman")}
               text="Women"
               textColor={
-                genderInterest === "women"
+                genderInterest === "woman"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -78,17 +78,17 @@ export default function CaptureGenderInterest({ navigation }) {
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                genderInterest === "men"
+                genderInterest === "man"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => setGenderInterest("men")}
+              buttonFunction={() => setGenderInterest("man")}
               text="Men"
               textColor={
-                genderInterest === "men"
+                genderInterest === "man"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }

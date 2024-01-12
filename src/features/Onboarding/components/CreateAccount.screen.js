@@ -101,14 +101,19 @@ export default function CreateAccount({ navigation }) {
             )}
             {isPopup && (
               <PopupModal height={height}>
-                <HorizontalPaddingSpace space={theme.space[6]}>
-                  <Text style={{ position: "relative" }} variant="popupText">
+                <HorizontalPaddingSpace
+                  space={theme.space[7]}
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                  }}>
+                  <Text variant="popupText">
                     {phonenumberCaptionInstruction}
                   </Text>
                   <View
                     style={{
                       position: "absolute",
-                      top: theme.spaceNumberBy10[1],
+                      top: theme.spaceNumberBy10[0],
                       right: theme.spaceNumberBy10[4],
                     }}>
                     <IconComponent
@@ -116,7 +121,7 @@ export default function CreateAccount({ navigation }) {
                       iconFunction={() => setPopup(false)}
                       iconName="close"
                       IconComponent={AntDesign}
-                      size={25}
+                      size={theme.spaceNumberBy10[1]}
                     />
                   </View>
                   <View style={{ position: "absolute", bottom: 18, left: 58 }}>

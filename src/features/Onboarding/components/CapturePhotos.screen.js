@@ -156,32 +156,32 @@ export default function CapturePhotos({ navigation }) {
             <PhotoComponentPhotoScreen
               photoUrl={photoUrl1}
               setPhotoUrl={setPhotoUrl1}
-              dimension={31}
+              dimension={theme.spaceNumberBy10[2]}
             />
             <PhotoComponentPhotoScreen
               photoUrl={photoUrl2}
               setPhotoUrl={setPhotoUrl2}
-              dimension={31}
+              dimension={theme.spaceNumberBy10[2]}
             />
             <PhotoComponentPhotoScreen
               photoUrl={photoUrl3}
               setPhotoUrl={setPhotoUrl3}
-              dimension={31}
+              dimension={theme.spaceNumberBy10[2]}
             />
             <PhotoComponentPhotoScreen
               photoUrl={photoUrl4}
               setPhotoUrl={setPhotoUrl4}
-              dimension={31}
+              dimension={theme.spaceNumberBy10[2]}
             />
             <PhotoComponentPhotoScreen
               photoUrl={photoUrl5}
               setPhotoUrl={setPhotoUrl5}
-              dimension={31}
+              dimension={theme.spaceNumberBy10[2]}
             />
             <PhotoComponentPhotoScreen
               photoUrl={photoUrl6}
               setPhotoUrl={setPhotoUrl6}
-              dimension={31}
+              dimension={theme.spaceNumberBy10[2]}
             />
           </View>
         </Spacer>
