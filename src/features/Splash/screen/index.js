@@ -58,7 +58,7 @@ const TabNavigator = () => {
           height: theme.spaceNumberBy10[8],
           paddingHorizontal: theme.spaceNumberBy10[0],
           paddingTop: theme.spaceNumberBy10[0],
-          backgroundColor: theme.colors.brand.basewhite,
+          backgroundColor: theme.colors.brand.highlight,
           borderTopWidth: 1,
         },
         headerShown: false,
@@ -97,6 +97,7 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <Entypo name="home" color={color} size={30} />
           ),
+          gestureEnabled: false,
         }}
       />
       <Tab.Screen
