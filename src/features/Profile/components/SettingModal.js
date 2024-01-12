@@ -554,7 +554,7 @@ export default function SettingModal({
           <TouchableOpacity
             onPress={handleSignOut}
             style={{
-              paddingBottom: theme.spaceNumberBy50[1],
+              marginBottom: theme.spaceNumberBy50[1],
             }}>
             <Text
               style={{

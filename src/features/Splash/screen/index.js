@@ -55,11 +55,11 @@ const TabNavigator = () => {
       initialRouteName="home"
       screenOptions={() => ({
         tabBarStyle: {
-          height: 80,
+          height: theme.spaceNumberBy10[8],
           paddingHorizontal: theme.spaceNumberBy10[0],
           paddingTop: theme.spaceNumberBy10[0],
-          backgroundColor: theme.colors.brand.highlight,
-          borderTopWidth: 0,
+          backgroundColor: theme.colors.brand.basewhite,
+          borderTopWidth: 1,
         },
         headerShown: false,
         tabBarLabel: "",

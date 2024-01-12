@@ -127,7 +127,7 @@ export default function IndividualUserProfileComponent({
       }
       ref={scrollViewRef}
       showsVerticalScrollIndicator={false}
-      style={{ marginBottom: 100 }}>
+      style={{ marginBottom: theme.spaceNumberBy10[5] }}>
       <View style={{ position: "relative" }}>
         <Image
           style={{
