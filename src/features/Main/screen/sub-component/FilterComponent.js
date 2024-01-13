@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Dimensions, ScrollView, Switch, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RangeSlider from "react-native-range-slider-expo";
-import Modal from "react-native-modal";
 import { AntDesign } from "@expo/vector-icons";
 import { CheckBox } from "react-native-elements";
 
@@ -15,6 +14,7 @@ import filterUsersWithinDistanceRange from "../../../../utilities/filterUsersWit
 import calculateAge from "../../../../utilities/calculateAge";
 import Button from "../../../../components/utility/button.component";
 import { updateUserValueField } from "../../../../utilities/updateFirestoreDatabaseField";
+import AnimatedModal from "../../../../components/general-component/AnimatedModal";
 
 function RangeCompoent({
   theme,
@@ -345,20 +345,14 @@ export default function FilterComponent({
   }
 
   return (
-    <Modal
+    <AnimatedModal
+      isAlignItems={true}
+      isPaddingBottom={true}
+      isPaddingTop={true}
       isVisible={isVisible}
-      animationIn="slideInRight"
-      animationOut="slideOutRight"
-      onBackdropPress={onClose}
-      style={{
-        backgroundColor: theme.colors.brand.basewhite,
-        margin: 0,
-        paddingTop: Platform.OS === "ios" ? 150 : 100,
-        position: "relative",
-        alignItems: "flex-end",
-        paddingBottom: theme.spaceNumberBy10[0],
-        width: width,
-      }}>
+      onClose={onClose}
+      theme={theme}
+      width={width}>
       <ScrollView style={{ paddingTop: 0, width: "100%" }}>
         <View style={{ position: "absolute", right: 30, top: 0 }}>
           <IconComponent
@@ -418,6 +412,6 @@ export default function FilterComponent({
           />
         </Spacer>
       </ScrollView>
-    </Modal>
+    </AnimatedModal>
   );
 }

@@ -15,6 +15,7 @@ import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import LikeInitiatorProfileCard from "./LikeInitiatorProfileCard";
 import LikeInitiatorProfileComponent from "./LikeInitiatorProfileComponent";
 import { nolikesyetmessage } from "../../../constants";
+import BrandAvatar from "../../../components/general-component/BrandAvatar";
 
 const LikesScreen = () => {
   const {
@@ -97,9 +98,12 @@ const LikesScreen = () => {
                   variant="subHeading"
                   colorType="black"
                   fontType="montserratRegular"
-                  fontSize="body">
+                  fontSize="button">
                   {nolikesyetmessage}
                 </Text>
+                <Spacer position="top" size="xxxxlarge">
+                  <BrandAvatar />
+                </Spacer>
               </Spacer>
             </HorizontalPaddingSpace>
           )}

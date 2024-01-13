@@ -6,7 +6,6 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import Modal from "react-native-modal";
 import { Ionicons, Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,6 +17,8 @@ import { deactivateaccounttext, deleteaccounttext } from "../../../constants";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import { database } from "../../../../config";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
+import AnimatedModal from "../../../components/general-component/AnimatedModal";
+import ContactModal from "./ContactModal";
 
 export default function SettingModal({
   theme,
@@ -27,10 +28,14 @@ export default function SettingModal({
 }) {
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
+  const [openContactModal, setOpenContactModal] = useState(false);
   const [inAppNotification, setInAppNotification] = useState(false);
   const [emailNotification, setEmailNotification] = useState(false);
   const [deactivateAccount, setDeactivateAccount] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
+  const [messageSentNote, setMessageSentNote] = useState(false);
+  const [selectedHelp, setSelectedHelp] = useState("");
+  const [selectedHelpValue, setSelectedHelpValue] = useState("");
   const userId = currentUser?.id;
 
   async function handleDeleteUserProfile(val) {
@@ -86,18 +91,19 @@ export default function SettingModal({
     return () => clearTimeout(userTimeoutId);
   }
 
+  function onCloseContactModal() {
+    setOpenContactModal(false);
+    setSelectedHelp("");
+    setSelectedHelpValue("");
+    setMessageSentNote(false);
+  }
+
   return (
-    <Modal
+    <AnimatedModal
       isVisible={openSettingModal}
-      animationIn="slideInRight"
-      animationOut="slideOutRight"
-      onBackdropPress={onClose}
-      style={{
-        backgroundColor: theme.colors.brand.basewhite,
-        margin: 0,
-        position: "relative",
-        width: width,
-      }}>
+      onClose={onClose}
+      theme={theme}
+      width={width}>
       <Spacer
         style={{ paddingTop: theme.spaceNumberBy10[2] }}
         position="top"
@@ -458,7 +464,7 @@ export default function SettingModal({
               }}
               position="top"
               size="medium">
-              <View>
+              <View style={{ flex: 0.8 }}>
                 <Text
                   variant="subHeading"
                   colorType="black"
@@ -467,13 +473,17 @@ export default function SettingModal({
                   Contact Us
                 </Text>
               </View>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="chevron-right"
-                IconComponent={Octicons}
-                size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
-              />
+              <TouchableOpacity
+                style={{ flex: 0.2, alignItems: "flex-end" }}
+                onPress={() => setOpenContactModal(true)}>
+                <IconComponent
+                  iconFunction={() => setOpenContactModal(true)}
+                  iconName="chevron-right"
+                  IconComponent={Octicons}
+                  size={theme.spaceNumberBy10[1]}
+                  color={theme.colors.brand.brandFade}
+                />
+              </TouchableOpacity>
             </Spacer>
           </HorizontalPaddingSpace>
           <HorizontalPaddingSpace
@@ -508,7 +518,7 @@ export default function SettingModal({
               }}
               position="top"
               size="medium">
-              <View>
+              <View style={{ flex: 0.8 }}>
                 <Text
                   variant="subHeading"
                   colorType="black"
@@ -517,13 +527,15 @@ export default function SettingModal({
                   Privacy Policy
                 </Text>
               </View>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="chevron-right"
-                IconComponent={Octicons}
-                size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
-              />
+              <TouchableOpacity style={{ flex: 0.2, alignItems: "flex-end" }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="chevron-right"
+                  IconComponent={Octicons}
+                  size={theme.spaceNumberBy10[1]}
+                  color={theme.colors.brand.brandFade}
+                />
+              </TouchableOpacity>
             </Spacer>
             <Spacer
               style={{
@@ -533,7 +545,7 @@ export default function SettingModal({
               }}
               position="top"
               size="medium">
-              <View>
+              <View style={{ flex: 0.8 }}>
                 <Text
                   variant="subHeading"
                   colorType="black"
@@ -542,13 +554,15 @@ export default function SettingModal({
                   Terms of Service
                 </Text>
               </View>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="chevron-right"
-                IconComponent={Octicons}
-                size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
-              />
+              <TouchableOpacity style={{ flex: 0.2, alignItems: "flex-end" }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="chevron-right"
+                  IconComponent={Octicons}
+                  size={theme.spaceNumberBy10[1]}
+                  color={theme.colors.brand.brandFade}
+                />
+              </TouchableOpacity>
             </Spacer>
           </HorizontalPaddingSpace>
           <TouchableOpacity
@@ -571,6 +585,19 @@ export default function SettingModal({
           </TouchableOpacity>
         </ScrollView>
       </Spacer>
-    </Modal>
+      <ContactModal
+        currentUser={currentUser}
+        messageSentNote={messageSentNote}
+        openContactModal={openContactModal}
+        onCloseContactModal={onCloseContactModal}
+        selectedHelp={selectedHelp}
+        selectedHelpValue={selectedHelpValue}
+        setMessageSentNote={setMessageSentNote}
+        setSelectedHelp={setSelectedHelp}
+        setSelectedHelpValue={setSelectedHelpValue}
+        theme={theme}
+        width={width}
+      />
+    </AnimatedModal>
   );
 }
