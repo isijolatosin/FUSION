@@ -62,6 +62,7 @@ const TabNavigator = () => {
           borderTopWidth: 1,
         },
         headerShown: false,
+        gestureEnabled: false,
         tabBarLabel: "",
         tabBarActiveTintColor: theme.colors.brand.base,
         tabBarInactiveTintColor: theme.colors.brand.brandFade,
@@ -74,6 +75,7 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="infinity" color={color} size={30} />
           ),
+          gestureEnabled: false,
         }}
       />
       <Tab.Screen
@@ -87,6 +89,7 @@ const TabNavigator = () => {
               size={30}
             />
           ),
+          gestureEnabled: false,
         }}
       />
       <Tab.Screen
@@ -107,6 +110,7 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <Ionicons name="chatbubble-sharp" color={color} size={28} />
           ),
+          gestureEnabled: false,
         }}
       />
       <Tab.Screen
@@ -116,6 +120,7 @@ const TabNavigator = () => {
           tabBarIcon: ({ color }) => (
             <FontAwesome name="user" color={color} size={30} />
           ),
+          gestureEnabled: false,
         }}
       />
     </Tab.Navigator>
