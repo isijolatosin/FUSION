@@ -24,7 +24,8 @@ export default function CaptureSelfDescription({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious, country, preference } = route.params || {};
+  const { dob, _height, religious, country, sexualOrientation, preference } =
+    route.params || {};
 
   let checkInput = false;
   let whatThreeWordsDescribeYou = {};
@@ -59,6 +60,7 @@ export default function CaptureSelfDescription({ navigation }) {
                     _height,
                     religious,
                     country,
+                    sexualOrientation,
                     preference,
                     whatThreeWordsDescribeYou,
                   });

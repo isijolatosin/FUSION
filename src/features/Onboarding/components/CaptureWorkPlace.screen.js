@@ -28,6 +28,7 @@ export default function CaptureWorkPlace({ navigation }) {
     _height,
     religious,
     country,
+    sexualOrientation,
     preference,
     whatThreeWordsDescribeYou,
   } = route.params || {};
@@ -63,6 +64,7 @@ export default function CaptureWorkPlace({ navigation }) {
                     _height,
                     religious,
                     country,
+                    sexualOrientation,
                     preference,
                     whatThreeWordsDescribeYou,
                     workplace,

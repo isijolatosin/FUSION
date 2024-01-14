@@ -23,7 +23,8 @@ export default function CaptureLookingFor({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious, country } = route.params || {};
+  const { dob, _height, religious, country, sexualOrientation } =
+    route.params || {};
 
   return (
     <SafeArea>
@@ -46,6 +47,7 @@ export default function CaptureLookingFor({ navigation }) {
                   _height,
                   religious,
                   country,
+                  sexualOrientation,
                   preference,
                 });
               } else {

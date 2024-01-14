@@ -49,6 +49,7 @@ export default function CapturePhotos({ navigation }) {
     _height,
     religious,
     country,
+    sexualOrientation,
     preference,
     whatThreeWordsDescribeYou,
     workplace,
@@ -108,6 +109,7 @@ export default function CapturePhotos({ navigation }) {
         phonenumber,
         preference,
         religious,
+        sexualOrientation,
         whatThreeWordsDescribeYou,
         workplace,
       })

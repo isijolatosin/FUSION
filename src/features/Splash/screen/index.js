@@ -40,6 +40,7 @@ import MainScreen from "../../Main/screen";
 import ProfileScreen from "../../Profile/screen";
 import LikesScreen from "../../Likes/screen";
 import ChatsScreen from "../../Chats/screen";
+import CaptureSexualOrientation from "../../Onboarding/components/CaptureSexualOrientation.screen";
 import { theme } from "../../../infrastructure/theme";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import { OnboardingSreencContainer } from "../components/splash.styles";
@@ -332,6 +333,16 @@ export default function index() {
         <Stack.Screen
           name="capture-country-screen"
           component={CaptureCountryScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-sexual-orientation-screen"
+          component={CaptureSexualOrientation}
           screenOptions={{
             headerShown: false,
           }}
