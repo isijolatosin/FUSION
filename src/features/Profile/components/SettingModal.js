@@ -417,7 +417,7 @@ export default function SettingModal({
                   }
                   onValueChange={(val) => {
                     setDeleteAccount(val);
-                    handleDeleteUserProfile(val);
+                    // handleDeleteUserProfile(val); open when app is ready to deploy
                   }}
                   value={deleteAccount}
                 />
@@ -566,7 +566,7 @@ export default function SettingModal({
             </Spacer>
           </HorizontalPaddingSpace>
           <TouchableOpacity
-            onPress={handleSignOut}
+            // onPress={handleSignOut} open when app is ready to deploy
             style={{
               marginBottom: theme.spaceNumberBy50[1],
             }}>

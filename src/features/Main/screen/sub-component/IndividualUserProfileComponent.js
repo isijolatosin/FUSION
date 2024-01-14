@@ -12,6 +12,7 @@ import {
   MaterialIcons,
   Fontisto,
   FontAwesome5,
+  Feather,
 } from "@expo/vector-icons";
 
 import { Spacer } from "../../../../components/spacer/spacer.component";
@@ -129,6 +130,375 @@ export default function IndividualUserProfileComponent({
       showsVerticalScrollIndicator={false}
       style={{ marginBottom: theme.spaceNumberBy10[5] }}>
       <View style={{ position: "relative" }}>
+        <View style={{ position: "relative" }}>
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderRadius: 5,
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[0]}`,
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              top: theme.spaceNumberBy10[6],
+              left: theme.spaceNumberBy10[0],
+            }}>
+            <Text
+              variant="subHeading"
+              colorType="basewhite"
+              fontType="playfairbold"
+              fontSize="h2"
+              width="100%">
+              {data?.firstname},{" "}
+              {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
+            </Text>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: theme.spaceNumber[0],
+              left: theme.spaceNumber[0],
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              width: "100%",
+              padding: theme.spaceNumberBy10[0],
+            }}>
+            {doubleTapWarning && (
+              <View>
+                <Text
+                  variant="subHeading"
+                  colorType="basewhite"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  Double tap to like
+                </Text>
+              </View>
+            )}
+            <Pressable>
+              <IconComponent
+                iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
+                iconName="heart"
+                IconComponent={MaterialCommunityIcons}
+                size={60}
+                color={theme.colors.brand.basewhite}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <Spacer position="top" size="medium">
+          <Text variant="bodyBoldBold" width="100%">
+            My Basics
+          </Text>
+        </Spacer>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            gap: 8,
+            marginVertical: 5,
+            flexWrap: "wrap",
+          }}>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 8, left: 8 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName={iconNamePerGender}
+                IconComponent={MaterialCommunityIcons}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.gender}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View
+              style={{
+                position: "absolute",
+                top: 10,
+                left: 9,
+                transform: [{ rotateZ: "145deg" }],
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="magnet"
+                IconComponent={Entypo}
+                size={12}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.sexualOrientation}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 9, left: 9 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="flag"
+                IconComponent={Fontisto}
+                size={12}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.country}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="praying-hands"
+                IconComponent={FontAwesome5}
+                size={10}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 10 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.religious}
+            </Text>
+          </View>
+          {data?.jobtitle?.visibleOnProfile && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 11, left: 9 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="work"
+                  IconComponent={MaterialIcons}
+                  size={12}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 10 }}
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {data?.jobtitle?.job}
+              </Text>
+            </View>
+          )}
+          {data?.workplace?.visibleOnProfile && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 11, left: 9 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="home-work"
+                  IconComponent={MaterialIcons}
+                  size={12}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 10 }}
+                variant="subHeading"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {data?.workplace?.work}
+              </Text>
+            </View>
+          )}
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 9, left: 9 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="human-male-height"
+                IconComponent={MaterialCommunityIcons}
+                size={12}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 10 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.height?.replace("feet", "'")?.replace("inch", '"')}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 9, left: 8 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="glass-wine"
+                IconComponent={MaterialCommunityIcons}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.lifestyleHabits?.drink}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 7, left: 10 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="cigar"
+                IconComponent={MaterialCommunityIcons}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 15 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.lifestyleHabits?.smoke}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 9, left: 10 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="search"
+                IconComponent={Feather}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 15 }}
+              variant="subHeading"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.preference}
+            </Text>
+          </View>
+        </View>
+        <Spacer position="top" size="medium">
+          <Text variant="bodyBoldBold" width="100%">
+            My Location
+          </Text>
+        </Spacer>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: theme.spaceNumber[3],
+            borderRadius: theme.spaceNumberBy10[4],
+          }}>
+          <IconComponent
+            iconFunction={() => {}}
+            iconName="location-pin"
+            IconComponent={Entypo}
+            size={15}
+            color={theme.colors.brand.black}
+          />
+          <Text style={{ marginLeft: 3 }} variant="popButton">
+            {data?.address?.city}, {data?.address?.province}
+          </Text>
+        </View>
+      </View>
+      <Spacer style={{ position: "relative" }} position="top" size="large">
         <Image
           style={{
             width: "100%",
@@ -137,58 +507,10 @@ export default function IndividualUserProfileComponent({
             borderRadius: 5,
           }}
           source={{
-            uri: `${data?.mediaArray?.[0]}`,
+            uri: `${data?.mediaArray?.[1]}`,
           }}
         />
-        <View
-          style={{
-            position: "absolute",
-            top: theme.spaceNumberBy10[6],
-            left: theme.spaceNumberBy10[0],
-          }}>
-          <Text
-            variant="subHeading"
-            colorType="basewhite"
-            fontType="playfairbold"
-            fontSize="h2"
-            width="100%">
-            {data?.firstname},{" "}
-            {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            width: "100%",
-            padding: theme.spaceNumberBy10[0],
-          }}>
-          {doubleTapWarning && (
-            <View>
-              <Text
-                variant="subHeading"
-                colorType="basewhite"
-                fontType="montserratRegular"
-                fontSize="caption">
-                Double tap to like
-              </Text>
-            </View>
-          )}
-          <Pressable>
-            <IconComponent
-              iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
-              iconName="heart"
-              IconComponent={MaterialCommunityIcons}
-              size={60}
-              color={theme.colors.brand.basewhite}
-            />
-          </Pressable>
-        </View>
-      </View>
+      </Spacer>
       <Spacer position="top" size="medium">
         <Text variant="bodyBoldBold" width="100%">
           Me in Three Words
@@ -284,239 +606,7 @@ export default function IndividualUserProfileComponent({
           </View>
         ))}
       </View>
-      <Spacer style={{ position: "relative" }} position="top" size="large">
-        <Image
-          style={{
-            width: "100%",
-            height: imageHeight,
-            resizeMode: "cover",
-            borderRadius: 5,
-          }}
-          source={{
-            uri: `${data?.mediaArray?.[1]}`,
-          }}
-        />
-      </Spacer>
-      <Spacer position="top" size="medium">
-        <Text variant="bodyBoldBold" width="100%">
-          My Basics
-        </Text>
-      </Spacer>
-      <View
-        style={{
-          flexDirection: "row",
-          width: "100%",
-          gap: 8,
-          marginVertical: 5,
-          flexWrap: "wrap",
-        }}>
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View style={{ position: "absolute", top: 8, left: 8 }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName={iconNamePerGender}
-              IconComponent={MaterialCommunityIcons}
-              size={15}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 8 }}
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.gender}
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View style={{ position: "absolute", top: 9, left: 9 }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="flag"
-              IconComponent={Fontisto}
-              size={12}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 8 }}
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.country}
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View style={{ position: "absolute", top: 10.5, left: 10 }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="praying-hands"
-              IconComponent={FontAwesome5}
-              size={10}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 10 }}
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.religious}
-          </Text>
-        </View>
-        {data?.jobtitle?.visibleOnProfile && (
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 9 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="work"
-                IconComponent={MaterialIcons}
-                size={12}
-                color={theme.colors.brand.black}
-              />
-            </View>
-            <Text
-              style={{ marginLeft: 10 }}
-              variant="subHeading"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {data?.jobtitle?.job}
-            </Text>
-          </View>
-        )}
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View style={{ position: "absolute", top: 9, left: 9 }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="human-male-height"
-              IconComponent={MaterialCommunityIcons}
-              size={12}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 10 }}
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.height?.replace("feet", "'")?.replace("inch", '"')}
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View style={{ position: "absolute", top: 9, left: 8 }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="glass-wine"
-              IconComponent={MaterialCommunityIcons}
-              size={15}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 8 }}
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.lifestyleHabits?.drink}
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View style={{ position: "absolute", top: 7, left: 10 }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="cigar"
-              IconComponent={MaterialCommunityIcons}
-              size={15}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 15 }}
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.lifestyleHabits?.smoke}
-          </Text>
-        </View>
-      </View>
-      <Spacer position="top" size="medium">
-        <Text variant="bodyBoldBold" width="100%">
-          My Location
-        </Text>
-      </Spacer>
-      <View
-        style={{
-          flexDirection: "row",
-          paddingVertical: theme.spaceNumber[3],
-          borderRadius: theme.spaceNumberBy10[4],
-        }}>
-        <IconComponent
-          iconFunction={() => {}}
-          iconName="location-pin"
-          IconComponent={Entypo}
-          size={15}
-          color={theme.colors.brand.black}
-        />
-        <Text style={{ marginLeft: 3 }} variant="popButton">
-          {data?.address?.city}, {data?.address?.province}
-        </Text>
-      </View>
+
       {data?.mediaArray?.[2] && (
         <Spacer position="top" size="medium">
           <Image

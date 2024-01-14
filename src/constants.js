@@ -75,6 +75,18 @@ export const religions = [
   "Atheist",
   "Others",
 ];
+export const sexualOrientationList = [
+  "Straight",
+  "Gay",
+  "Lesbian",
+  "Bisexual",
+  "Pansexual",
+  "Asexual",
+  "Demisexual",
+  "Queer",
+  "Polysexual",
+  "Androphilia and Gynephilia",
+];
 export const countryList = [
   "Afghanistan",
   "Åland Islands",

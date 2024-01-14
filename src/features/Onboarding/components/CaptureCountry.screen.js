@@ -43,7 +43,7 @@ export default function CaptureCountry({ navigation }) {
             color={theme.colors.brand.base}
             nextFunction={() => {
               if (country) {
-                navigation.navigate("capture-looking-for-screen", {
+                navigation.navigate("capture-sexual-orientation-screen", {
                   dob,
                   _height,
                   religious,

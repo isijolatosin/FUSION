@@ -76,7 +76,9 @@ export default function DropdownSelection({
       </DropdownSelectionWrapper>
       {isOpen && (
         <Spacer position="top" size="xsmall">
-          <ScrollView style={{ height: 350 }}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ height: 350 }}>
             <DropdowSelectionLists>
               {data.map((datum, idx) => (
                 <DropdowSelectionItemWrapper
