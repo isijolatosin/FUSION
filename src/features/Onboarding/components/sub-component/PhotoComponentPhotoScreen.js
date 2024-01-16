@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Pressable, Image, ActivityIndicator } from "react-native";
+import { Pressable, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../../context/ThemeContext";
 import { handlePickImageAsyncPhotoScreen } from "../../../../utilities/handleUploadImage";
+import Spinner from "../../../../components/general-component/Spinner";
 
 export default function PhotoComponentPhotoScreen({
   photoUrl,
@@ -40,7 +41,7 @@ export default function PhotoComponentPhotoScreen({
           style={{ width: "100%", height: "100%", borderRadius: 5 }}
         />
       ) : isLoadingImage ? (
-        <ActivityIndicator size="small" color={theme.colors.brand.orange} />
+        <Spinner size="small" color={theme.colors.brand.orange} />
       ) : (
         <IconComponent
           iconFunction={handlePickImageAsyncOnBoarding}

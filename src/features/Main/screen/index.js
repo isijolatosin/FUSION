@@ -42,7 +42,7 @@ const Index = () => {
 
   const fetchUsersData = async (phonenumber) => {
     if (phonenumber) {
-      const newData = await getAllData();
+      const newData = await getAllData("all-users");
       const currentUserData = newData.find(
         (data) => data.phonenumber === phonenumber
       );
@@ -192,7 +192,7 @@ const Index = () => {
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="large">
             <NavigationBar>
-              <BrandAvatarO />
+              <BrandAvatarO currentUser={currentUser} />
               <View style={{ flexDirection: "row", justifyContent: "center" }}>
                 <Pressable
                   style={{

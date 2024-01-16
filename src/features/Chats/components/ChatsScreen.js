@@ -7,10 +7,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import {
-  getAllData,
-  getAllMatchData,
-} from "../../../utilities/updateFirestoreDatabaseField";
+import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import Avatar from "../../../components/general-component/Avatar";
 import MessagesListItem from "./MessagesListItem";
@@ -53,10 +50,10 @@ const ChatsScreen = () => {
 
   useEffect(() => {
     async function fetchMatches() {
-      const result = await getAllMatchData();
+      const result = await getAllData("matches");
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData();
+      const newData = await getAllData("all-users");
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory
       );

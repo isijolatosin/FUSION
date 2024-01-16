@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  ActivityIndicator,
-  Dimensions,
-  Keyboard,
-  Pressable,
-  View,
-} from "react-native";
+import { Dimensions, Keyboard, Pressable, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -18,6 +12,7 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { locationCaptureInstruction } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import getUserLocation from "../../../utilities/getUserLocation";
+import Spinner from "../../../components/general-component/Spinner";
 
 export default function CaptureLocation({ navigation }) {
   const {
@@ -87,7 +82,7 @@ export default function CaptureLocation({ navigation }) {
               justifyContent: "flex-end",
             }}>
             {isLoading ? (
-              <ActivityIndicator size="large" color={theme.colors.brand.base} />
+              <Spinner size="large" color={theme.colors.brand.base} />
             ) : (
               <Button
                 backgroundColor={theme.colors.brand.base}

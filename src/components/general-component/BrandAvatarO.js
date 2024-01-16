@@ -1,9 +1,15 @@
-import { Image, View } from "react-native";
 import React from "react";
+import { Image, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function BrandAvatarO({ noFlex, width }) {
+export default function BrandAvatarO({ noFlex, width, currentUser }) {
+  const navigation = useNavigation();
   return (
-    <View
+    <Pressable
+      onPress={() => {
+        if (currentUser?.role === process.env.EXPO_PUBLIC_ROLE)
+          navigation.navigate("support");
+      }}
       style={
         noFlex
           ? { width: width }
@@ -13,6 +19,6 @@ export default function BrandAvatarO({ noFlex, width }) {
         source={require("../../../assets/fusion_O.png")}
         style={{ width: "10%", resizeMode: "contain" }}
       />
-    </View>
+    </Pressable>
   );
 }

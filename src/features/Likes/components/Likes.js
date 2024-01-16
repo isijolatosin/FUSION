@@ -7,10 +7,7 @@ import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import { useAppContext } from "../../../context/ThemeContext";
-import {
-  getAllData,
-  getAllLikesData,
-} from "../../../utilities/updateFirestoreDatabaseField";
+import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import LikeInitiatorProfileCard from "./LikeInitiatorProfileCard";
 import LikeInitiatorProfileComponent from "./LikeInitiatorProfileComponent";
@@ -33,14 +30,14 @@ const LikesScreen = () => {
     async function fetchUsersData() {
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData();
+      const newData = await getAllData("all-users");
 
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory
       );
       setCurrentUser(currentUserData);
 
-      const likesData = await getAllLikesData();
+      const likesData = await getAllData("all-likes");
 
       const likeInitiators = likesData.filter(
         (like) => like?.profileLikedNumber === phoneValueFromPhoneMemory

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, Image, ActivityIndicator } from "react-native";
+import { Pressable, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
@@ -84,7 +84,7 @@ export default function PhotoComponent({
           )}
         </>
       ) : isLoadingImage ? (
-        <ActivityIndicator size="small" color={theme.colors.brand.brandFade} />
+        <Spinner size="small" color={theme.colors.brand.brandFade} />
       ) : (
         <IconComponent
           iconFunction={() => {

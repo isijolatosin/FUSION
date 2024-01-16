@@ -60,7 +60,7 @@ export default function ProfileScreen() {
     async function fetchUsersData() {
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData();
+      const newData = await getAllData("all-users");
 
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory

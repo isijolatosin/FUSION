@@ -4,10 +4,10 @@
     "slug": "FUSION",
     "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/app-welcome.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/app-welcome.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,12 +17,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/app-welcome.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/app-welcome.png"
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       [

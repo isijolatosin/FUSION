@@ -46,6 +46,7 @@ import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import { OnboardingSreencContainer } from "../components/splash.styles";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 import MessageScreen from "../../Chats/components/MessageScreen";
+import SupportScreen from "../../Support";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -443,6 +444,16 @@ export default function index() {
         <Stack.Screen
           name="message-screen"
           component={MessageScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          }}
+        />
+        <Stack.Screen
+          name="support"
+          component={SupportScreen}
           screenOptions={{
             headerShown: false,
           }}
