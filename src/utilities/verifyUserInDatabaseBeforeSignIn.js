@@ -3,7 +3,7 @@ import { getAllData } from "./updateFirestoreDatabaseField";
 async function verifyUserInDatabaseBeforeSignin(number) {
   let isVerified = false;
 
-  const allUserData = await getAllData();
+  const allUserData = await getAllData("all-users");
 
   allUserData.find((data) => {
     if (data.phonenumber === number) {

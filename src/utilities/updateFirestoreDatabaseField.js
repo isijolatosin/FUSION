@@ -1,43 +1,15 @@
 import { collection, getDocs } from "firebase/firestore";
 import firebase, { database } from "../../config";
 
-const getAllData = async () => {
+const getAllData = async (collectionName) => {
   const returnData = [];
-  await getDocs(collection(database, "all-users")).then((querySnapshot) => {
+  await getDocs(collection(database, collectionName)).then((querySnapshot) => {
     const newData = querySnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
 
     returnData.push(...newData);
-  });
-
-  return returnData;
-};
-
-const getAllMatchData = async () => {
-  const returnData = [];
-  await getDocs(collection(database, "matches")).then((querySnapshot) => {
-    const newData = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    returnData.push(...newData);
-  });
-
-  return returnData;
-};
-
-const getAllLikesData = async () => {
-  const returnData = [];
-  await getDocs(collection(database, "all-likes")).then((querySnapshot) => {
-    const likesData = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    returnData.push(...likesData);
   });
 
   return returnData;
@@ -153,8 +125,6 @@ const removeDocumentFromCollections = async (
 export {
   updateUserValueField,
   getAllData,
-  getAllMatchData,
-  getAllLikesData,
   addToArrayField,
   removeItemFromArray,
   removeDocumentFromCollections,

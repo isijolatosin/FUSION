@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -15,6 +15,8 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import Button from "../../../components/utility/button.component";
 import TextAreaComponent from "./TextAreaComponent";
+import firebase, { database } from "../../../../config";
+import Spinner from "../../../components/general-component/Spinner";
 
 export default function ContactModal({
   currentUser,
@@ -29,6 +31,30 @@ export default function ContactModal({
   theme,
   width,
 }) {
+  const [isSendingMessage, setSendingMessage] = useState(false);
+  function handleSendMessage(selectedHelp, selectedHelpValue) {
+    setSendingMessage(true);
+    if (!selectedHelpValue) return;
+
+    database.collection("general-support").add({
+      email: currentUser?.email,
+      firstname: currentUser?.firstname,
+      lastname: currentUser?.lastname ?? "",
+      message: selectedHelpValue,
+      phonenumber: currentUser?.phonenumber,
+      photo: currentUser?.mediaArray[0],
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      topic: selectedHelp,
+    });
+
+    setSelectedHelpValue("");
+    const contactTimeoutId = setTimeout(() => {
+      setMessageSentNote(true);
+      setSendingMessage(false);
+    }, 2000);
+
+    return () => clearImmediate(contactTimeoutId);
+  }
   return (
     <AnimatedModal
       isVisible={openContactModal}
@@ -151,22 +177,44 @@ export default function ContactModal({
                   setValue={setSelectedHelpValue}
                 />
                 <Spacer position="top" size="xxxlarge">
-                  <Button
-                    backgroundColor={theme.colors.brand.highlight}
-                    borderRadius={`${theme.spaceNumber[8]}px`}
-                    isBorder={false}
-                    isNotBold={false}
-                    buttonFunction={() => {
-                      setMessageSentNote(true);
-                      const subject = `${selectedHelp} from ${currentUser?.firstname} - Phone-No: ${currentUser?.phonenumber}`;
-                      const message = `${selectedHelpValue} - ${currentUser?.email} `;
-                      // To decide how to send email
-                    }}
-                    text="Send"
-                    fontType={theme.fonts.montserratBold}
-                    textColor={theme.colors.brand.black}
-                    width="100%"
-                  />
+                  {isSendingMessage ? (
+                    <View
+                      style={{
+                        backgroundColor: theme.colors.brand.highlight,
+                        width: "100%",
+                        borderRadius: theme.spaceNumber[8],
+                        paddingTop: theme.spaceNumber[7],
+                        paddingBottom: theme.spaceNumber[7],
+                      }}>
+                      <Spinner size="small" color={theme.colors.brand.base} />
+                    </View>
+                  ) : (
+                    <Button
+                      backgroundColor={
+                        selectedHelpValue
+                          ? theme.colors.brand.highlight
+                          : theme.colors.brand.linesFaint
+                      }
+                      borderRadius={`${theme.spaceNumber[8]}px`}
+                      isBorder={false}
+                      isNotBold={false}
+                      buttonFunction={() =>
+                        handleSendMessage(selectedHelp, selectedHelpValue)
+                      }
+                      text="Send"
+                      fontType={
+                        selectedHelpValue
+                          ? theme.fonts.montserratBold
+                          : theme.fonts.montserratLight
+                      }
+                      textColor={
+                        selectedHelpValue
+                          ? theme.colors.brand.black
+                          : theme.colors.brand.linesLight
+                      }
+                      width="100%"
+                    />
+                  )}
                 </Spacer>
                 {messageSentNote && (
                   <Spacer position="top" size="large">
