@@ -83,6 +83,8 @@ export default function SettingModal({
 
   async function handleSignOut() {
     await clearDataByKey("phonenumber");
+    await clearDataByKey("match-id");
+    await clearDataByKey("refreshChatScreen");
     setTimeout(() => {
       onClose();
       navigation.navigate("onBoard");
@@ -566,7 +568,7 @@ export default function SettingModal({
             </Spacer>
           </HorizontalPaddingSpace>
           <TouchableOpacity
-            // onPress={handleSignOut} open when app is ready to deploy
+            // onPress={handleSignOut} // open when app is ready to deploy
             style={{
               marginBottom: theme.spaceNumberBy50[1],
             }}>

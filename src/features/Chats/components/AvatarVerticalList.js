@@ -14,14 +14,12 @@ export default function AvatarVerticalList({ theme }) {
           opacity: 0.4,
           borderBottomWidth: 1,
           borderBottomColor: theme.colors.brand.linesLight,
-          paddingBottom: theme.spaceNumber[5],
-          marginBottom: theme.spaceNumber[7],
+          paddingBottom: theme.spaceNumber[7],
+          marginBottom: theme.spaceNumber[8],
         }}>
-        <HorizontalPaddingSpace
-          space={theme.space[3]}
-          style={{ marginTop: -10 }}>
+        <HorizontalPaddingSpace space={theme.space[3]} style={{ marginTop: 0 }}>
           <ReactNativeAvatar.Image
-            size={theme.spaceNumberBy10[5]}
+            size={theme.spaceNumberBy10[3]}
             source={require("../../../../assets/avatar_female.png")}
           />
         </HorizontalPaddingSpace>
@@ -40,7 +38,7 @@ export default function AvatarVerticalList({ theme }) {
           space={theme.space[3]}
           style={{ marginTop: -10 }}>
           <ReactNativeAvatar.Image
-            size={theme.spaceNumberBy10[5]}
+            size={theme.spaceNumberBy10[3]}
             source={require("../../../../assets/avatar.jpeg")}
           />
         </HorizontalPaddingSpace>
@@ -59,7 +57,7 @@ export default function AvatarVerticalList({ theme }) {
           space={theme.space[3]}
           style={{ marginTop: -10 }}>
           <ReactNativeAvatar.Image
-            size={theme.spaceNumberBy10[5]}
+            size={theme.spaceNumberBy10[3]}
             source={require("../../../../assets/avatar_female.png")}
           />
         </HorizontalPaddingSpace>
@@ -78,7 +76,7 @@ export default function AvatarVerticalList({ theme }) {
           space={theme.space[3]}
           style={{ marginTop: -10 }}>
           <ReactNativeAvatar.Image
-            size={theme.spaceNumberBy10[5]}
+            size={theme.spaceNumberBy10[3]}
             source={require("../../../../assets/avatar.jpeg")}
           />
         </HorizontalPaddingSpace>

@@ -21,7 +21,11 @@ export default function MessagesListItem({
           alignItems: "center",
           width: "100%",
         }}>
-        <Avatar data={photo} theme={theme} />
+        <Avatar
+          data={photo}
+          theme={theme}
+          dimensionIndex={theme.spaceNumber[1]}
+        />
         <View style={{ marginLeft: theme.spaceNumber[6] }}>
           <Text
             variant="subHeading"

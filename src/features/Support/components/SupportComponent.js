@@ -37,7 +37,11 @@ export default function SupportComponent({ data, theme, width }) {
           borderBottomColor: theme.colors.brand.linesLighter,
           paddingBottom: theme.spaceNumberBy10[1],
         }}>
-        <Avatar dimensionIndex={4} data={data?.photo} theme={theme} />
+        <Avatar
+          dimensionIndex={theme.spaceNumber[1]}
+          data={data?.photo}
+          theme={theme}
+        />
         <View
           style={{
             marginLeft: theme.spaceNumber[5],
