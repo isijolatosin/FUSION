@@ -28,7 +28,7 @@ export default function MessagesListItem({
         />
         <View style={{ marginLeft: theme.spaceNumber[6] }}>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratBold"
             fontSize="body">
@@ -36,12 +36,12 @@ export default function MessagesListItem({
           </Text>
           <Spacer position="top" size="xsmall">
             <Text
-              variant="subHeading"
+              variant="title"
               colorType="lines"
               fontType="montserratBold"
               fontSize="caption">
               <Text
-                variant="subHeading"
+                variant="title"
                 colorType="brandTone"
                 fontType="montserratBold"
                 fontSize="caption">

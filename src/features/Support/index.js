@@ -45,7 +45,7 @@ export default function Index({ navigation }) {
         <Spacer position="top" size="">
           <Text
             style={{ textAlign: "center" }}
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4"

@@ -49,7 +49,7 @@ export default function SupportComponent({ data, theme, width }) {
             position: "relative",
           }}>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="base"
             fontType="montserratSemibold"
             fontSize="body"
@@ -58,7 +58,7 @@ export default function SupportComponent({ data, theme, width }) {
           </Text>
           <View style={{ width: "85%" }}>
             <Text
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratLight"
               fontSize="caption"
@@ -73,7 +73,7 @@ export default function SupportComponent({ data, theme, width }) {
               right: theme.spaceNumberBy10[5],
             }}>
             <Text
-              variant="subHeading"
+              variant="title"
               colorType="lines"
               fontType="montserratLight"
               fontSize="xcaption"

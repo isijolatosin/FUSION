@@ -149,8 +149,8 @@ export default function IndividualUserProfileComponent({
               left: theme.spaceNumberBy10[0],
             }}>
             <Text
-              variant="subHeading"
-              colorType="basewhite"
+              variant="title"
+              colorType="brandTone"
               fontType="playfairbold"
               fontSize="h2"
               width="100%">
@@ -172,7 +172,7 @@ export default function IndividualUserProfileComponent({
             {doubleTapWarning && (
               <View>
                 <Text
-                  variant="subHeading"
+                  variant="title"
                   colorType="basewhite"
                   fontType="montserratRegular"
                   fontSize="caption">
@@ -192,7 +192,12 @@ export default function IndividualUserProfileComponent({
           </View>
         </View>
         <Spacer position="top" size="medium">
-          <Text variant="bodyBoldBold" width="100%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="title"
+            width="100%">
             My Basics
           </Text>
         </Spacer>
@@ -222,7 +227,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -254,7 +259,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -280,7 +285,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -306,7 +311,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 10 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -333,7 +338,7 @@ export default function IndividualUserProfileComponent({
               </View>
               <Text
                 style={{ marginLeft: 10 }}
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"
@@ -361,7 +366,7 @@ export default function IndividualUserProfileComponent({
               </View>
               <Text
                 style={{ marginLeft: 10 }}
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"
@@ -388,7 +393,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 10 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -414,7 +419,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -440,7 +445,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 15 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -466,7 +471,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 15 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -476,7 +481,12 @@ export default function IndividualUserProfileComponent({
           </View>
         </View>
         <Spacer position="top" size="medium">
-          <Text variant="bodyBoldBold" width="100%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="title"
+            width="100%">
             My Location
           </Text>
         </Spacer>
@@ -493,7 +503,12 @@ export default function IndividualUserProfileComponent({
             size={15}
             color={theme.colors.brand.black}
           />
-          <Text style={{ marginLeft: 3 }} variant="popButton">
+          <Text
+            style={{ marginLeft: 3 }}
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="button">
             {data?.address?.city}, {data?.address?.province}
           </Text>
         </View>
@@ -512,7 +527,12 @@ export default function IndividualUserProfileComponent({
         />
       </Spacer>
       <Spacer position="top" size="medium">
-        <Text variant="bodyBoldBold" width="100%">
+        <Text
+          variant="title"
+          colorType="black"
+          fontType="montserratBold"
+          fontSize="title"
+          width="100%">
           Me in Three Words
         </Text>
       </Spacer>
@@ -531,7 +551,7 @@ export default function IndividualUserProfileComponent({
             borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratRegular"
             fontSize="button"
@@ -547,7 +567,7 @@ export default function IndividualUserProfileComponent({
             borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratRegular"
             fontSize="button"
@@ -563,7 +583,7 @@ export default function IndividualUserProfileComponent({
             borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratRegular"
             fontSize="button"
@@ -573,7 +593,12 @@ export default function IndividualUserProfileComponent({
         </View>
       </View>
       <Spacer position="top" size="medium">
-        <Text variant="bodyBoldBold" width="100%">
+        <Text
+          variant="title"
+          colorType="black"
+          fontType="montserratBold"
+          fontSize="title"
+          width="100%">
           My Interests
         </Text>
       </Spacer>
@@ -596,7 +621,7 @@ export default function IndividualUserProfileComponent({
             }}>
             <Text
               key={idx}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"

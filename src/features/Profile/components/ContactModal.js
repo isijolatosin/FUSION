@@ -75,7 +75,7 @@ export default function ContactModal({
             <Spacer position="top" size="xxlarge">
               <Text
                 style={{ textAlign: "center" }}
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="playfairbold"
                 fontSize="h3">
@@ -83,7 +83,7 @@ export default function ContactModal({
               </Text>
               <Text
                 style={{ textAlign: "center" }}
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="playfairbold"
                 fontSize="h3">
@@ -154,7 +154,7 @@ export default function ContactModal({
               <Spacer position="top" size="xxlarge">
                 <Text
                   style={{ textAlign: "center" }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="playfairbold"
                   fontSize="h3">
@@ -162,7 +162,7 @@ export default function ContactModal({
                 </Text>
                 <Text
                   style={{ textAlign: "center" }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="playfairbold"
                   fontSize="h3">
@@ -220,7 +220,7 @@ export default function ContactModal({
                   <Spacer position="top" size="large">
                     <Text
                       style={{ textAlign: "center" }}
-                      variant="subHeading"
+                      variant="title"
                       colorType="base"
                       fontType="montserratRegular"
                       fontSize="caption">

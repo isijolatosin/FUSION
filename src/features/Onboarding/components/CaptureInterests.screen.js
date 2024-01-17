@@ -89,12 +89,22 @@ export default function CaptureInterests({ navigation }) {
           showsVerticalScrollIndicator={false}
           style={{ marginBottom: theme.spaceNumberBy10[5] }}>
           <Spacer position="top" size="large">
-            <Text variant="headingSlim" width="100%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="100%">
               Share Your Interest
             </Text>
           </Spacer>
           <Spacer position="top" size="xsmall">
-            <Text variant="captionlight" width="95%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption"
+              width="95%">
               {interestInstruction}
             </Text>
           </Spacer>
@@ -128,7 +138,7 @@ export default function CaptureInterests({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                     }}
-                    variant="subHeading"
+                    variant="title"
                     colorType="black"
                     fontType="montserratRegular"
                     fontSize="button">

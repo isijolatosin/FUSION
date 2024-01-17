@@ -133,7 +133,7 @@ export default function ProfileScreen() {
         space={theme.space[5]}>
         <View>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="caption">
@@ -142,7 +142,7 @@ export default function ProfileScreen() {
         </View>
         <View>
           <Text
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="caption"
@@ -209,7 +209,7 @@ export default function ProfileScreen() {
             )}
             <Spacer position="top" size="xsmall">
               <Text
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -235,7 +235,7 @@ export default function ProfileScreen() {
             style={{ paddingTop: 5 }}
             space={theme.space[5]}>
             <Text
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratBold"
               fontSize="body">
@@ -343,7 +343,7 @@ export default function ProfileScreen() {
             space={theme.space[5]}>
             <Text
               style={{ marginRight: 5, flex: 1 }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratBold"
               fontSize="body">

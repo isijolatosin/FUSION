@@ -134,7 +134,12 @@ export default function LikeInitiatorProfileComponent({
                 shadowOpacity: 0.8,
                 shadowRadius: theme.sizes[0],
               }}>
-              <Text variant="headingWhiteSlim" width="100%">
+              <Text
+                variant="title"
+                colorType="brandTone"
+                fontType="playfairbold"
+                fontSize="h2"
+                width="100%">
                 {data?.[0]?.likedBy?.firstname},{" "}
                 {calculateAge(
                   data?.[0]?.likedBy?.dob?.year,
@@ -150,7 +155,7 @@ export default function LikeInitiatorProfileComponent({
                   right: theme.spaceNumber[8],
                   bottom: theme.spaceNumberBy10[6],
                 }}
-                variant="subHeading"
+                variant="title"
                 colorType="basewhite"
                 fontType="montserratRegular"
                 fontSize="caption">
@@ -181,7 +186,12 @@ export default function LikeInitiatorProfileComponent({
           </View>
           <HorizontalPaddingSpace space={theme.space[2]}>
             <Spacer position="top" size="medium">
-              <Text variant="bodyBoldBold" width="100%">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
                 My Basics
               </Text>
             </Spacer>
@@ -211,7 +221,7 @@ export default function LikeInitiatorProfileComponent({
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -237,7 +247,7 @@ export default function LikeInitiatorProfileComponent({
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -263,7 +273,7 @@ export default function LikeInitiatorProfileComponent({
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -290,7 +300,7 @@ export default function LikeInitiatorProfileComponent({
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
-                    variant="subHeading"
+                    variant="title"
                     colorType="black"
                     fontType="montserratRegular"
                     fontSize="button"
@@ -317,7 +327,7 @@ export default function LikeInitiatorProfileComponent({
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -345,7 +355,7 @@ export default function LikeInitiatorProfileComponent({
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -371,7 +381,7 @@ export default function LikeInitiatorProfileComponent({
                 </View>
                 <Text
                   style={{ marginLeft: 15 }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -381,7 +391,12 @@ export default function LikeInitiatorProfileComponent({
               </View>
             </View>
             <Spacer position="top" size="medium">
-              <Text variant="bodyBoldBold" width="100%">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
                 My Location
               </Text>
             </Spacer>
@@ -398,7 +413,12 @@ export default function LikeInitiatorProfileComponent({
                 size={15}
                 color={theme.colors.brand.black}
               />
-              <Text style={{ marginLeft: 3 }} variant="popButton">
+              <Text
+                style={{ marginLeft: 3 }}
+                variant="title"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="button">
                 {data?.[0]?.likedBy?.address?.city},{" "}
                 {data?.[0]?.likedBy?.address?.province}
               </Text>
@@ -419,7 +439,12 @@ export default function LikeInitiatorProfileComponent({
           </Spacer>
           <HorizontalPaddingSpace space={theme.space[2]}>
             <Spacer position="top" size="medium">
-              <Text variant="bodyBoldBold" width="100%">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
                 Me in Three Words
               </Text>
             </Spacer>
@@ -438,7 +463,7 @@ export default function LikeInitiatorProfileComponent({
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
                 <Text
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -454,7 +479,7 @@ export default function LikeInitiatorProfileComponent({
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
                 <Text
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -470,7 +495,7 @@ export default function LikeInitiatorProfileComponent({
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
                 <Text
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
@@ -480,7 +505,12 @@ export default function LikeInitiatorProfileComponent({
               </View>
             </View>
             <Spacer position="top" size="medium">
-              <Text variant="bodyBoldBold" width="100%">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
                 My Interests
               </Text>
             </Spacer>
@@ -503,7 +533,7 @@ export default function LikeInitiatorProfileComponent({
                   }}>
                   <Text
                     key={idx}
-                    variant="subHeading"
+                    variant="title"
                     colorType="black"
                     fontType="montserratRegular"
                     fontSize="button"
@@ -579,7 +609,7 @@ export default function LikeInitiatorProfileComponent({
           }}>
           <Spacer position="top" size="large">
             <Text
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="playfairbold"
               fontSize="h5">

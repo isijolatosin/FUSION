@@ -56,7 +56,12 @@ export default function CaptureName({ navigation }) {
             />
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
-            <Text variant="headingSlim" width="55%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="55%">
               What's your name?
             </Text>
           </Spacer>
@@ -89,13 +94,22 @@ export default function CaptureName({ navigation }) {
             />
           </Spacer>
           <Spacer position="top" size="large">
-            <Text variant="captionlight" width="100%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption"
+              width="100%">
               {nameCaptureInstruction}
             </Text>
           </Spacer>
           {pageError && (
             <Spacer position="top" size="large">
-              <Text variant="error" width="100%">
+              <Text
+                variant="title"
+                colorType="error"
+                fontType="montserratRegular"
+                width="100%">
                 Error: Please provide your name!
               </Text>
             </Spacer>
