@@ -59,7 +59,7 @@ export default function MessageGroupComponent({
         }}>
         <Text
           style={{ textAlign: "center" }}
-          variant="title"
+          variant="custom"
           colorType="linesLight"
           fontType="montserratSemibold"
           fontSize="caption">
@@ -77,7 +77,7 @@ export default function MessageGroupComponent({
             {detectPhoneNumber(item?.message) ? (
               <Pressable onPress={() => handleCallPress(item?.message)}>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType={
                     detectPhoneNumber(item?.message) ? "brandFade" : "black"
                   }
@@ -89,7 +89,7 @@ export default function MessageGroupComponent({
             ) : detectUrl(item?.message) && !detectImageUrl(item?.message) ? (
               <Pressable onPress={() => handleUrlPress(item?.message)}>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType={detectUrl(item?.message) ? "brandFade" : "black"}
                   fontType="montserratSemibold"
                   fontSize="body">
@@ -120,7 +120,7 @@ export default function MessageGroupComponent({
               </TouchableOpacity>
             ) : (
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratSemibold"
                 fontSize="body">
@@ -130,7 +130,7 @@ export default function MessageGroupComponent({
 
             <Text
               style={{ position: "absolute", top: 5, left: 15 }}
-              variant="title"
+              variant="custom"
               colorType="lines"
               fontType="montserratRegular"
               fontSize="xcaption">

@@ -13,7 +13,7 @@ export default function index() {
       <View style={{ position: "absolute", bottom: "6%", left: "10%" }}>
         <View style={{ width: "60%" }}>
           <Text
-            variant="title"
+            variant="custom"
             colorType="basewhite"
             fontType="playfairbold"
             fontSize="h4">

@@ -57,7 +57,7 @@ export default function CaptureName({ navigation }) {
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4"
@@ -95,7 +95,7 @@ export default function CaptureName({ navigation }) {
           </Spacer>
           <Spacer position="top" size="large">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="caption"
@@ -106,7 +106,7 @@ export default function CaptureName({ navigation }) {
           {pageError && (
             <Spacer position="top" size="large">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="error"
                 fontType="montserratRegular"
                 width="100%">

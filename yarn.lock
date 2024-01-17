@@ -4716,10 +4716,10 @@ expo-location@16.1.0:
   resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-16.1.0.tgz#251a465790d6622f828fd18f0edb2a73b9664b72"
   integrity sha512-/jfRyYrXb9vjr8HoYmVHnzEqnw+0jaoRbHsxj6ePPAbevXmvXZqYHFRtfZtQ+q32SB4X6kUAXu28eBcLS+tqaA==
 
-expo-mail-composer@^12.5.0:
-  version "12.5.0"
-  resolved "https://registry.yarnpkg.com/expo-mail-composer/-/expo-mail-composer-12.5.0.tgz#2ca15726277992566611cec8a035067432ba00d5"
-  integrity sha512-RWFeyAmfDZ4GQsdPxDIe7XoUrjk/J+kGWmR/evU1jYb/LgC+p3xHYSCbSClgBju3cNKh+e8CXKRVXjJnvuRVwg==
+expo-mail-composer@12.3.0:
+  version "12.3.0"
+  resolved "https://registry.yarnpkg.com/expo-mail-composer/-/expo-mail-composer-12.3.0.tgz#c6850da035a16b53f5a5774d8859c48c59bb454f"
+  integrity sha512-eJN/Phr8DSjXImUMu1WTZpgLq55NkpQsGBwZrshNXfE4rmeCDYu7Yam0axUFNeWANpI64B0rKX7tfYb60SisCQ==
   dependencies:
     query-string "^6.2.0"
 

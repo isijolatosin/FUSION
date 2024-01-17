@@ -44,7 +44,7 @@ function RangeCompoent({
       <RangeCompoentSection>
         <View>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title">
@@ -95,7 +95,13 @@ function RangeCompoent({
       </RangeCompoentSection>
       <RangeCompoentSection>
         <View>
-          <Text variant="captionBig">{description}</Text>
+          <Text
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button">
+            {description}
+          </Text>
         </View>
         <Switch
           trackColor={{
@@ -138,7 +144,7 @@ function DoubleRangeCompoent({
       <RangeCompoentSection>
         <View>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title">
@@ -178,7 +184,13 @@ function DoubleRangeCompoent({
       </RangeCompoentSection>
       <RangeCompoentSection>
         <View>
-          <Text variant="captionBig">{description}</Text>
+          <Text
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button">
+            {description}
+          </Text>
         </View>
         <Switch
           trackColor={{
@@ -237,7 +249,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
       <Spacer position="top" size="xsmall">
         <View>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title">
@@ -370,7 +382,8 @@ export default function FilterComponent({
       isVisible={isVisible}
       onClose={onClose}
       theme={theme}
-      width={width}>
+      width={width}
+      isTransparent={true}>
       <ScrollView style={{ paddingTop: 0, width: "100%" }}>
         <View style={{ position: "absolute", right: 30, top: 0 }}>
           <IconComponent
@@ -384,7 +397,7 @@ export default function FilterComponent({
         <Spacer position="top" size="large">
           <Text
             style={{ textAlign: "center", marginTop: 30 }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="h5">

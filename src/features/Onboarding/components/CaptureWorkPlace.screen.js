@@ -77,7 +77,7 @@ export default function CaptureWorkPlace({ navigation }) {
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4"

@@ -23,6 +23,7 @@ import {
   handlePickImageAsync,
 } from "../../../utilities/handleUploadImage";
 import SettingModal from "./SettingModal";
+import AnimatedModal from "../../../components/general-component/AnimatedModal";
 
 export default function ProfileScreen() {
   const {
@@ -133,7 +134,7 @@ export default function ProfileScreen() {
         space={theme.space[5]}>
         <View>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="caption">
@@ -142,7 +143,7 @@ export default function ProfileScreen() {
         </View>
         <View>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="caption"
@@ -209,7 +210,7 @@ export default function ProfileScreen() {
             )}
             <Spacer position="top" size="xsmall">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -235,7 +236,7 @@ export default function ProfileScreen() {
             style={{ paddingTop: 5 }}
             space={theme.space[5]}>
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratBold"
               fontSize="body">
@@ -343,7 +344,7 @@ export default function ProfileScreen() {
             space={theme.space[5]}>
             <Text
               style={{ marginRight: 5, flex: 1 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratBold"
               fontSize="body">
@@ -379,7 +380,12 @@ export default function ProfileScreen() {
           />
         </Spacer>
       </ScrollView>
-      {openDeleteModal && (
+      <AnimatedModal
+        isVisible={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        theme={theme}
+        width={width}
+        isTransparent={true}>
         <GeneralPopupModal
           height={height}
           theme={theme}
@@ -389,8 +395,13 @@ export default function ProfileScreen() {
           textTop="Delete Photo"
           textBottom="Cancel"
         />
-      )}
-      {openImageUploadModal && (
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={openImageUploadModal}
+        onClose={() => setOpenImageUploadModal(false)}
+        theme={theme}
+        width={width}
+        isTransparent={true}>
         <GeneralPopupModal
           height={height}
           theme={theme}
@@ -402,7 +413,7 @@ export default function ProfileScreen() {
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenImageUploadModal}
         />
-      )}
+      </AnimatedModal>
       <SettingModal
         theme={theme}
         currentUser={currentUser}

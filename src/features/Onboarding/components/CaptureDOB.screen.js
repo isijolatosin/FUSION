@@ -65,7 +65,7 @@ export default function CaptureDOB({ navigation }) {
             }}>
             <Spacer position="top" size="xxxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="playfairbold"
                 fontSize="h4"
@@ -78,7 +78,7 @@ export default function CaptureDOB({ navigation }) {
                 <View style={{ width: "20%", alignItems: "center" }}>
                   <Spacer position="bottom" size="xsmall">
                     <Text
-                      variant="title"
+                      variant="custom"
                       colorType="error"
                       fontType="montserratSemibold"
                       fontSize="caption">
@@ -101,7 +101,7 @@ export default function CaptureDOB({ navigation }) {
                 <View style={{ width: "20%", alignItems: "center" }}>
                   <Spacer position="bottom" size="xsmall">
                     <Text
-                      variant="title"
+                      variant="custom"
                       colorType="error"
                       fontType="montserratSemibold"
                       fontSize="caption">
@@ -128,7 +128,7 @@ export default function CaptureDOB({ navigation }) {
                   }}>
                   <Spacer position="bottom" size="xsmall">
                     <Text
-                      variant="title"
+                      variant="custom"
                       colorType="error"
                       fontType="montserratSemibold"
                       fontSize="caption">
@@ -152,7 +152,7 @@ export default function CaptureDOB({ navigation }) {
             </Spacer>
             <Spacer position="top" size="xxxxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="caption">

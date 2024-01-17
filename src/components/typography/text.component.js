@@ -19,7 +19,7 @@ const loading = (theme, colorType, fontType, fontSize) => `
     };
     `;
 
-const title = (
+const custom = (
   theme,
   colorType,
   fontType,
@@ -51,7 +51,7 @@ const popupText = (theme) => `
 
 const variants = {
   popupText,
-  title,
+  custom,
   loading,
 };
 
@@ -78,5 +78,5 @@ export const Text = styled.Text`
 `;
 
 Text.defaultProps = {
-  variant: "body",
+  variant: "defaultTextStyles",
 };

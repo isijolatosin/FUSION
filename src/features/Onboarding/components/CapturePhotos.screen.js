@@ -145,7 +145,7 @@ export default function CapturePhotos({ navigation }) {
         </NavigationBar>
         <Spacer position="top" size="large">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4"
@@ -155,7 +155,7 @@ export default function CapturePhotos({ navigation }) {
         </Spacer>
         <Spacer position="top" size="xsmall">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratRegular"
             fontSize="caption"

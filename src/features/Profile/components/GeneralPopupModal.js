@@ -5,11 +5,6 @@ import { PopupModal } from "../../Onboarding/components/onboarding.styles";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { ButtonAction } from "../../Main/screen/main.style";
 import { Text } from "../../../components/typography/text.component";
-import { unmatchmessage } from "../../../constants";
-import { TouchableOpacity, View } from "react-native";
-import Button from "../../../components/utility/button.component";
-import { Spacer } from "../../../components/spacer/spacer.component";
-import IconComponent from "../../../components/icon-components/IconComponent";
 
 export default function GeneralPopupModal({
   height,
@@ -22,10 +17,9 @@ export default function GeneralPopupModal({
   textCancel,
   setOpenImageUploadModal,
   horizontalSpace,
-  backgroundColor,
 }) {
   return (
-    <PopupModal backgroundColor={backgroundColor} height={height}>
+    <PopupModal height={height}>
       <HorizontalPaddingSpace
         style={{ width: "100%" }}
         space={horizontalSpace ? horizontalSpace : theme.space[5]}>
@@ -45,7 +39,7 @@ export default function GeneralPopupModal({
           borderBottomWidth={1}>
           <Text
             style={{ textAlign: "center" }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="body">
@@ -68,7 +62,7 @@ export default function GeneralPopupModal({
           borderBottomWidth={textCancel && 1}>
           <Text
             style={{ textAlign: "center" }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="body">
@@ -88,7 +82,7 @@ export default function GeneralPopupModal({
             <Text
               onPress={() => setOpenImageUploadModal(false)}
               style={{ textAlign: "center" }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratSemibold"
               fontSize="body">
