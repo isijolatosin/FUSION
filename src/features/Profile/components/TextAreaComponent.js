@@ -24,7 +24,7 @@ export default function TextAreaComponent({
         }}>
         <Text
           style={{ textTransform: "capitalize" }}
-          variant="subHeading"
+          variant="title"
           colorType="black"
           fontType="montserratSemibold"
           fontSize="body">

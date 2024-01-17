@@ -29,10 +29,7 @@ export default function YouLikedComponent({
         style={{ width: "100%", alignItems: "center" }}
         space={theme.space[7]}>
         <Spacer position="top" size="large">
-          <Text
-            variant="subHeading"
-            colorType="black"
-            fontType="montserratSemibold">
+          <Text variant="title" colorType="black" fontType="montserratSemibold">
             You liked {likedUser?.name}.
           </Text>
         </Spacer>

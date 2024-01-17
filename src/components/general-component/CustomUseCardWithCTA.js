@@ -29,7 +29,7 @@ export default function CustomUseCardWithCTA({ text, buttonText, route }) {
         </Spacer>
         <Text
           style={{ textAlign: "center" }}
-          variant="subHeading"
+          variant="title"
           colorType="black"
           fontType="montserratRegular"
           fontSize="caption">

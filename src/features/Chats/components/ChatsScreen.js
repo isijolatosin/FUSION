@@ -178,10 +178,7 @@ const ChatsScreen = () => {
         {checkData(otherUsers) && (
           <Spacer position="bottom" size="xxlarge">
             <HorizontalPaddingSpace space={theme.space[3]}>
-              <Text
-                variant="subHeading"
-                colorType="black"
-                fontType="montserratBold">
+              <Text variant="title" colorType="black" fontType="montserratBold">
                 New Matches
               </Text>
             </HorizontalPaddingSpace>
@@ -216,7 +213,7 @@ const ChatsScreen = () => {
                           />
                           <View>
                             <Text
-                              variant="subHeading"
+                              variant="title"
                               colorType="black"
                               fontType="montserratSemibold"
                               fontSize="button">
@@ -235,10 +232,7 @@ const ChatsScreen = () => {
         )}
         <Spacer position="bottom" size="small">
           <HorizontalPaddingSpace space={theme.space[3]}>
-            <Text
-              variant="subHeading"
-              colorType="black"
-              fontType="montserratBold">
+            <Text variant="title" colorType="black" fontType="montserratBold">
               Messages
             </Text>
           </HorizontalPaddingSpace>
@@ -291,7 +285,7 @@ const ChatsScreen = () => {
                   ) : (
                     <HorizontalPaddingSpace space={theme.space[3]}>
                       <Text
-                        variant="subHeading"
+                        variant="title"
                         colorType="black"
                         fontType="montserratRegular"
                         fontSize="caption">
@@ -314,7 +308,7 @@ const ChatsScreen = () => {
             style={{ width: "100%" }}>
             <Spacer position="bottom" size="xxxxlarge">
               <Text
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="caption">

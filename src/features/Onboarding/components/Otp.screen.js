@@ -45,8 +45,18 @@ export default function OtpScreen({ navigation }) {
             />
           </NavigationBar>
           <Spacer position="top" size="xxxlarge">
-            <Text variant="headingSlim">Enter your verification code</Text>
-            <Text variant="caption">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4">
+              Enter your verification code
+            </Text>
+            <Text
+              variant="title"
+              colorType="error"
+              fontType="montserratSemibold"
+              fontSize="caption">
               sent to {phonenumber ? phonenumber : "your phone"}
             </Text>
           </Spacer>
@@ -68,7 +78,12 @@ export default function OtpScreen({ navigation }) {
           </Spacer>
           {verificationErrorMessage && (
             <Spacer position="top" size="large">
-              <Text variant="error">Error: Please regenerate OTP</Text>
+              <Text
+                variant="title"
+                colorType="error"
+                fontType="montserratRegular">
+                Error: Please regenerate OTP
+              </Text>
             </Spacer>
           )}
           <Spacer position="top" size="xxlarge">
@@ -76,7 +91,11 @@ export default function OtpScreen({ navigation }) {
               onPress={() => {
                 navigation.navigate("create-account");
               }}>
-              <Text variant="captionlight">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="caption">
                 {verificationErrorMessage
                   ? "Generate new OTP"
                   : "Didn't get code?"}

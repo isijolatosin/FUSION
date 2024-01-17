@@ -318,7 +318,7 @@ export default function MessageScreen({ navigation }) {
               />
               <Text
                 style={{ marginLeft: theme.spaceNumber[3] }}
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="title">

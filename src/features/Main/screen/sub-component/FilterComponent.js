@@ -43,7 +43,13 @@ function RangeCompoent({
       }}>
       <RangeCompoentSection>
         <View>
-          <Text variant="bodyBoldBold">{text}</Text>
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="title">
+            {text}
+          </Text>
         </View>
         <View>
           <Text variant="loading" colorType="black" fontType="montserratLight">
@@ -131,7 +137,13 @@ function DoubleRangeCompoent({
       }}>
       <RangeCompoentSection>
         <View>
-          <Text variant="bodyBoldBold">{text}</Text>
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="title">
+            {text}
+          </Text>
         </View>
         <View>
           <Text variant="loading" colorType="black" fontType="montserratLight">
@@ -224,7 +236,13 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
     <HorizontalPaddingSpace style={{ marginBottom: 50 }} space={theme.space[5]}>
       <Spacer position="top" size="xsmall">
         <View>
-          <Text variant="bodyBoldBold">Who am I interested in?</Text>
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="title">
+            Who am I interested in?
+          </Text>
         </View>
       </Spacer>
       {interestArray.map((interest, idx) => (
@@ -366,7 +384,10 @@ export default function FilterComponent({
         <Spacer position="top" size="large">
           <Text
             style={{ textAlign: "center", marginTop: 30 }}
-            variant="heading">
+            variant="title"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="h5">
             Preference Settings
           </Text>
         </Spacer>

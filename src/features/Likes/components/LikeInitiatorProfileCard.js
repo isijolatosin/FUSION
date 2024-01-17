@@ -44,7 +44,7 @@ export default function LikeInitiatorProfileCard({
       />
       <View style={{ position: "absolute", padding: theme.spaceNumber[4] }}>
         <Text
-          variant="subHeading"
+          variant="title"
           colorType="black"
           fontType="montserratBold"
           fontSize="body">

@@ -45,7 +45,7 @@ export default function GeneralPopupModal({
           borderBottomWidth={1}>
           <Text
             style={{ textAlign: "center" }}
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="body">
@@ -68,7 +68,7 @@ export default function GeneralPopupModal({
           borderBottomWidth={textCancel && 1}>
           <Text
             style={{ textAlign: "center" }}
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="body">
@@ -88,7 +88,7 @@ export default function GeneralPopupModal({
             <Text
               onPress={() => setOpenImageUploadModal(false)}
               style={{ textAlign: "center" }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratSemibold"
               fontSize="body">

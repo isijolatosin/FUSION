@@ -70,7 +70,12 @@ export default function CaptureAddress({ navigation }) {
             />
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
-            <Text variant="headingSlim" width="65%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="65%">
               Where do you stay?
             </Text>
           </Spacer>
@@ -118,7 +123,10 @@ export default function CaptureAddress({ navigation }) {
           </Spacer>
           {pageError && (
             <Spacer position="top" size="large">
-              <Text variant="error" width="100%">
+              <Text
+                variant="title"
+                colorType="error"
+                fontType="montserratRegular">
                 Error: Please provide your address!
               </Text>
             </Spacer>
@@ -137,7 +145,10 @@ export default function CaptureAddress({ navigation }) {
             />
             <Text
               style={{ marginLeft: theme.spaceNumber[2] }}
-              variant="caption"
+              variant="title"
+              colorType="error"
+              fontType="montserratSemibold"
+              fontSize="caption"
               width="100%">
               Hidden on your profile
             </Text>

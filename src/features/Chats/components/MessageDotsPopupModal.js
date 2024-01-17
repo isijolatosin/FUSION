@@ -48,7 +48,7 @@ export default function MessageDotsPopupModal({
             paddingTop: theme.spaceNumberBy10[1],
             paddingBottom: theme.spaceNumberBy10[1],
           }}
-          variant="subHeading"
+          variant="title"
           colorType="black"
           fontType="montserratRegular"
           fontSize="body">
@@ -67,7 +67,7 @@ export default function MessageDotsPopupModal({
           <Spacer position="bottom" size="medium">
             <Text
               style={{ textAlign: "center" }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4">
@@ -94,7 +94,7 @@ export default function MessageDotsPopupModal({
                 marginBottom: theme.spaceNumberBy10[3],
                 textAlign: "center",
               }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="caption">
@@ -146,7 +146,7 @@ export default function MessageDotsPopupModal({
         <Spacer position="bottom" size="medium">
           <Text
             style={{ textAlign: "center" }}
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4">
@@ -175,7 +175,7 @@ export default function MessageDotsPopupModal({
                 paddingHorizontal: theme.spaceNumberBy10[2],
                 paddingBottom: theme.spaceNumberBy10[1],
               }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="body">
@@ -207,7 +207,7 @@ export default function MessageDotsPopupModal({
                 paddingTop: theme.spaceNumberBy10[1],
                 paddingBottom: theme.spaceNumberBy10[1],
               }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratRegular"
               fontSize="body">
@@ -256,7 +256,7 @@ export default function MessageDotsPopupModal({
           borderBottomWidth={1}>
           <Text
             style={{ textAlign: "center" }}
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="body">
@@ -279,7 +279,7 @@ export default function MessageDotsPopupModal({
               setShowBlockModal(true);
             }}
             style={{ textAlign: "center" }}
-            variant="subHeading"
+            variant="title"
             colorType="black"
             fontType="montserratSemibold"
             fontSize="body">
@@ -299,7 +299,7 @@ export default function MessageDotsPopupModal({
             <Text
               onPress={() => setOpenImageUploadModal(false)}
               style={{ textAlign: "center" }}
-              variant="subHeading"
+              variant="title"
               colorType="black"
               fontType="montserratSemibold"
               fontSize="body">

@@ -61,12 +61,22 @@ export default function CaptureLocation({ navigation }) {
             />
           </Spacer>
           <Spacer position="top" size="large">
-            <Text variant="headingSlim" width="100%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="100%">
               Enable your location services
             </Text>
           </Spacer>
           <Spacer position="top" size="large">
-            <Text variant="caption" width="100%">
+            <Text
+              variant="title"
+              colorType="error"
+              fontType="montserratSemibold"
+              fontSize="caption"
+              width="100%">
               {locationCaptureInstruction}
             </Text>
           </Spacer>
@@ -118,7 +128,10 @@ export default function CaptureLocation({ navigation }) {
                     fontSize: 22,
                     paddingBottom: theme.spaceNumberBy10[0],
                   }}
-                  variant="headingSlim"
+                  variant="title"
+                  colorType="black"
+                  fontType="playfairbold"
+                  fontSize="h4"
                   width="80%">
                   Allow "Fusion" use your location.
                 </Text>

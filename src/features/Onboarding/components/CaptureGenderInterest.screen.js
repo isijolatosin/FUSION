@@ -52,7 +52,12 @@ export default function CaptureGenderInterest({ navigation }) {
             height: height,
           }}>
           <Spacer position="top" size="xxxxlarge">
-            <Text variant="headingSlim" width="100%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="100%">
               Who are you interested in?
             </Text>
           </Spacer>

@@ -144,12 +144,22 @@ export default function CapturePhotos({ navigation }) {
           />
         </NavigationBar>
         <Spacer position="top" size="large">
-          <Text variant="headingSlim" width="100%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="playfairbold"
+            fontSize="h4"
+            width="100%">
             Add your photos
           </Text>
         </Spacer>
         <Spacer position="top" size="xsmall">
-          <Text variant="captionlight" width="95%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="caption"
+            width="95%">
             {addPhotosInstruction}
           </Text>
         </Spacer>

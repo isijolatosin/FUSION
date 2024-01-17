@@ -14,7 +14,9 @@ export default function OnboardingErrorComponent({
           style={{ marginBottom: bottomSpace ? 30 : 0 }}
           position="top"
           size="large">
-          <Text variant="error">Error: {text}</Text>
+          <Text variant="title" colorType="error" fontType="montserratRegular">
+            Error: {text}
+          </Text>
         </Spacer>
       )}
     </Fragment>

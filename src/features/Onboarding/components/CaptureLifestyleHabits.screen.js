@@ -81,12 +81,22 @@ export default function CaptureLifestyleHabits({ navigation }) {
           />
         </NavigationBar>
         <Spacer position="top" size="large">
-          <Text variant="headingSlim" width="100%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="playfairbold"
+            fontSize="h4"
+            width="100%">
             What are your lifestyle habits?
           </Text>
         </Spacer>
         <Spacer position="top" size="xsmall">
-          <Text variant="captionlight" width="95%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="caption"
+            width="95%">
             {lifestlyHabitsInstruction}
           </Text>
         </Spacer>
@@ -101,7 +111,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
             size={25}
             color={theme.colors.brand.black}
           />
-          <Text variant="bodyBold" width="95%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratSemibold"
+            width="95%">
             How often do you smoke?
           </Text>
         </Spacer>
@@ -132,7 +146,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                   }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button">
@@ -153,7 +167,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
             size={25}
             color={theme.colors.brand.black}
           />
-          <Text variant="bodyBold" width="95%">
+          <Text
+            variant="title"
+            colorType="black"
+            fontType="montserratSemibold"
+            width="95%">
             How often do you drink?
           </Text>
         </Spacer>
@@ -184,7 +202,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                   }}
-                  variant="subHeading"
+                  variant="title"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button">

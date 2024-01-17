@@ -59,7 +59,12 @@ export default function CreateAccount({ navigation }) {
               />
             </NavigationBar>
             <Spacer position="top" size="xxxlarge">
-              <Text variant="headingSlim" width="50%">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="playfairbold"
+                fontSize="h4"
+                width="50%">
                 What's your number?
               </Text>
             </Spacer>
@@ -87,7 +92,13 @@ export default function CreateAccount({ navigation }) {
               </InputWarraper>
             </Spacer>
             <Spacer position="top" size="small">
-              <Text variant="caption">{createAccountInstruction}</Text>
+              <Text
+                variant="title"
+                colorType="error"
+                fontType="montserratSemibold"
+                fontSize="caption">
+                {createAccountInstruction}
+              </Text>
             </Spacer>
             {cellNumber.length > 10 && (
               <Spacer position="top" size="large">
@@ -95,7 +106,13 @@ export default function CreateAccount({ navigation }) {
                   onPress={() => {
                     setPopup(true);
                   }}>
-                  <Text variant="hint">Verify Number...</Text>
+                  <Text
+                    variant="title"
+                    colorType="base"
+                    fontType="montserratRegular"
+                    fontSize="body">
+                    Verify Number...
+                  </Text>
                 </Pressable>
               </Spacer>
             )}
@@ -138,7 +155,13 @@ export default function CreateAccount({ navigation }) {
                             );
                             setPopup(false);
                           }}>
-                          <Text variant="hint">Request OTP</Text>
+                          <Text
+                            variant="title"
+                            colorType="base"
+                            fontType="montserratRegular"
+                            fontSize="body">
+                            Request OTP
+                          </Text>
                         </Pressable>
                       </Spacer>
                     )}

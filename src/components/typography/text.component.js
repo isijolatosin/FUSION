@@ -9,22 +9,6 @@ const defaultTextStyles = (theme) => `
   margin-bottom: 0px;
 `;
 
-const body = (theme) => `
-    font-size: ${theme.fontSizes.body};
-    letter-spacing: ${theme.letterSpacing[0]};
-    font-family: ${theme.fonts.montserratRegular};
-`;
-
-const bodyBold = (theme) => `
-    font-size: ${theme.fontSizes.button};
-    font-family: ${theme.fonts.montserratSemibold};
-`;
-
-const bodyBoldBold = (theme) => `
-    font-size: ${theme.fontSizes.title};
-    font-family: ${theme.fonts.montserratBold};
-`;
-
 const loading = (theme, colorType, fontType, fontSize) => `
     font-size: ${fontSize ? theme.fontSizes[fontSize] : theme.fontSizes.title};
     font-family: ${
@@ -35,52 +19,14 @@ const loading = (theme, colorType, fontType, fontSize) => `
     };
     `;
 
-const hint = (theme) => `
-    font-size: ${theme.fontSizes.body};
-    font-family: ${theme.fonts.montserratRegular};
-    color: ${theme.colors.brand.base};
-    `;
-
-const error = (theme) => `
-    color: ${theme.colors.brand.error};
-    font-family: ${theme.fonts.montserratRegular};
-`;
-
-const caption = (theme) => `
-    font-family: ${theme.fonts.montserratSemibold};
-    font-size: ${theme.fontSizes.caption};
-`;
-const captionBig = (theme) => `
-    font-family: ${theme.fonts.montserratSemibold};
-    font-size: ${theme.fontSizes.button};
-`;
-const popButton = (theme) => `
-    font-family: ${theme.fonts.montserratBold};
-    font-size: ${theme.fontSizes.button};
-`;
-
-const captionlight = (theme) => `
-    font-family: ${theme.fonts.montserratRegular};
-    font-size: ${theme.fontSizes.caption};
-`;
-
-const heading = (theme) => `
-    font-family: ${theme.fonts.montserratBold};
-    font-size: ${theme.fontSizes.h5};
-`;
-
-const headingSlim = (theme) => `
-    font-family: ${theme.fonts.playfairbold};
-    font-size: ${theme.fontSizes.h4};
-`;
-
-const headingWhiteSlim = (theme) => `
-    font-family: ${theme.fonts.playfairbold};
-    font-size: ${theme.fontSizes.h2};
-    color: ${theme.colors.brand.basewhite};
-`;
-
-const subHeading = (theme, colorType, fontType, fontSize, transform) => `
+const title = (
+  theme,
+  colorType,
+  fontType,
+  fontSize,
+  textAlignment,
+  transform
+) => `
     font-family: ${
       fontType ? theme.fonts[fontType] : theme.fonts.montserratRegular
     };
@@ -89,7 +35,7 @@ const subHeading = (theme, colorType, fontType, fontSize, transform) => `
       colorType ? theme.colors.brand[colorType] : theme.colors.brand.base
     };
     text-transform: ${transform ? transform : "none"};
-    
+    text-align: ${textAlignment ? textAlignment : "left"};
 `;
 const popupText = (theme) => `
     font-family: ${theme.fonts.montserratRegular};
@@ -104,27 +50,30 @@ const popupText = (theme) => `
 `;
 
 const variants = {
-  body,
-  caption,
-  captionlight,
-  captionBig,
-  popButton,
-  error,
-  heading,
-  headingSlim,
-  headingWhiteSlim,
-  hint,
   popupText,
-  subHeading,
-  bodyBold,
-  bodyBoldBold,
+  title,
   loading,
 };
 
 export const Text = styled.Text`
   ${({ theme }) => defaultTextStyles(theme)}
-  ${({ variant, theme, colorType, fontType, fontSize, transform }) =>
-    variants[variant](theme, colorType, fontType, fontSize, transform)}
+  ${({
+    variant,
+    theme,
+    colorType,
+    fontType,
+    fontSize,
+    textAlignment,
+    transform,
+  }) =>
+    variants[variant](
+      theme,
+      colorType,
+      fontType,
+      fontSize,
+      textAlignment,
+      transform
+    )}
     width: ${(props) => (props.width ? props.width : "100%")};
 `;
 

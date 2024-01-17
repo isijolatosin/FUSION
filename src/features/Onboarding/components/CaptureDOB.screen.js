@@ -64,7 +64,12 @@ export default function CaptureDOB({ navigation }) {
               height: height,
             }}>
             <Spacer position="top" size="xxxlarge">
-              <Text variant="headingSlim" width="100%">
+              <Text
+                variant="title"
+                colorType="black"
+                fontType="playfairbold"
+                fontSize="h4"
+                width="100%">
                 We would love to know your birth date?
               </Text>
             </Spacer>
@@ -72,7 +77,13 @@ export default function CaptureDOB({ navigation }) {
               <InputWarraper theme={theme} gap={theme.space[5]}>
                 <View style={{ width: "20%", alignItems: "center" }}>
                   <Spacer position="bottom" size="xsmall">
-                    <Text variant="caption">Month</Text>
+                    <Text
+                      variant="title"
+                      colorType="error"
+                      fontType="montserratSemibold"
+                      fontSize="caption">
+                      Month
+                    </Text>
                   </Spacer>
                   <InputComponent
                     centralize={true}
@@ -89,7 +100,13 @@ export default function CaptureDOB({ navigation }) {
                 </View>
                 <View style={{ width: "20%", alignItems: "center" }}>
                   <Spacer position="bottom" size="xsmall">
-                    <Text variant="caption">Day</Text>
+                    <Text
+                      variant="title"
+                      colorType="error"
+                      fontType="montserratSemibold"
+                      fontSize="caption">
+                      Day
+                    </Text>
                   </Spacer>
                   <InputComponent
                     centralize={true}
@@ -110,7 +127,13 @@ export default function CaptureDOB({ navigation }) {
                     alignItems: "center",
                   }}>
                   <Spacer position="bottom" size="xsmall">
-                    <Text variant="caption">Year</Text>
+                    <Text
+                      variant="title"
+                      colorType="error"
+                      fontType="montserratSemibold"
+                      fontSize="caption">
+                      Year
+                    </Text>
                   </Spacer>
                   <InputComponent
                     centralize={true}
@@ -129,7 +152,7 @@ export default function CaptureDOB({ navigation }) {
             </Spacer>
             <Spacer position="top" size="xxxxlarge">
               <Text
-                variant="subHeading"
+                variant="title"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="caption">

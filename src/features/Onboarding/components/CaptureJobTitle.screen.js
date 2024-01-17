@@ -78,7 +78,12 @@ export default function CaptureJobTitle({ navigation }) {
             />
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
-            <Text variant="headingSlim" width="100%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="100%">
               What's your job title?
             </Text>
           </Spacer>

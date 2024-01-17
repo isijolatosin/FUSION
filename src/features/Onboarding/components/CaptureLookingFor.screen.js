@@ -63,7 +63,12 @@ export default function CaptureLookingFor({ navigation }) {
             height: height,
           }}>
           <Spacer position="top" size="xxxxlarge">
-            <Text variant="headingSlim" width="100%">
+            <Text
+              variant="title"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h4"
+              width="100%">
               What are you looking for?
             </Text>
           </Spacer>
