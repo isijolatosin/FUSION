@@ -9,7 +9,7 @@ import {
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-import firebase, { database } from "../../../../config";
+import { database } from "../../../../config";
 import { removeDocumentFromCollections } from "../../../utilities/updateFirestoreDatabaseField";
 import calculateAge from "../../../utilities/calculateAge";
 import { Text } from "../../../components/typography/text.component";
@@ -179,115 +179,6 @@ export default function LikeInitiatorProfileComponent({
               </Pressable>
             </View>
           </View>
-          <HorizontalPaddingSpace space={theme.space[2]}>
-            <Spacer position="top" size="medium">
-              <Text variant="bodyBoldBold" width="100%">
-                Me in Three Words
-              </Text>
-            </Spacer>
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                gap: theme.spaceNumber[3],
-                marginVertical: 5,
-              }}>
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.highlight,
-                  paddingVertical: theme.spaceNumber[3],
-                  paddingHorizontal: theme.spaceNumber[7],
-                  borderRadius: theme.spaceNumberBy10[4],
-                }}>
-                <Text
-                  variant="subHeading"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button"
-                  width="100%">
-                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.firstword}
-                </Text>
-              </View>
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.highlight,
-                  paddingVertical: theme.spaceNumber[3],
-                  paddingHorizontal: theme.spaceNumber[7],
-                  borderRadius: theme.spaceNumberBy10[4],
-                }}>
-                <Text
-                  variant="subHeading"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button"
-                  width="100%">
-                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.secondword}
-                </Text>
-              </View>
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.highlight,
-                  paddingVertical: theme.spaceNumber[3],
-                  paddingHorizontal: theme.spaceNumber[7],
-                  borderRadius: theme.spaceNumberBy10[4],
-                }}>
-                <Text
-                  variant="subHeading"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button"
-                  width="100%">
-                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.thirdword}
-                </Text>
-              </View>
-            </View>
-            <Spacer position="top" size="medium">
-              <Text variant="bodyBoldBold" width="100%">
-                My Interests
-              </Text>
-            </Spacer>
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                gap: theme.spaceNumber[3],
-                marginVertical: 5,
-                flexWrap: "wrap",
-              }}>
-              {data?.[0]?.likedBy?.interestsArray?.map((word, idx) => (
-                <View
-                  key={idx}
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    key={idx}
-                    variant="subHeading"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
-                    {word}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </HorizontalPaddingSpace>
-          <Spacer style={{ position: "relative" }} position="top" size="large">
-            <Image
-              style={{
-                width: "100%",
-                height: imageHeight,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
-              }}
-            />
-          </Spacer>
           <HorizontalPaddingSpace space={theme.space[2]}>
             <Spacer position="top" size="medium">
               <Text variant="bodyBoldBold" width="100%">
@@ -511,6 +402,116 @@ export default function LikeInitiatorProfileComponent({
                 {data?.[0]?.likedBy?.address?.city},{" "}
                 {data?.[0]?.likedBy?.address?.province}
               </Text>
+            </View>
+          </HorizontalPaddingSpace>
+
+          <Spacer style={{ position: "relative" }} position="top" size="large">
+            <Image
+              style={{
+                width: "100%",
+                height: imageHeight,
+                resizeMode: "cover",
+              }}
+              source={{
+                uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
+              }}
+            />
+          </Spacer>
+          <HorizontalPaddingSpace space={theme.space[2]}>
+            <Spacer position="top" size="medium">
+              <Text variant="bodyBoldBold" width="100%">
+                Me in Three Words
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[3],
+                marginVertical: 5,
+              }}>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.firstword}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.secondword}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="subHeading"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.thirdword}
+                </Text>
+              </View>
+            </View>
+            <Spacer position="top" size="medium">
+              <Text variant="bodyBoldBold" width="100%">
+                My Interests
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[3],
+                marginVertical: 5,
+                flexWrap: "wrap",
+              }}>
+              {data?.[0]?.likedBy?.interestsArray?.map((word, idx) => (
+                <View
+                  key={idx}
+                  style={{
+                    backgroundColor: theme.colors.brand.highlight,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[7],
+                    borderRadius: theme.spaceNumberBy10[4],
+                  }}>
+                  <Text
+                    key={idx}
+                    variant="subHeading"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button"
+                    width="100%">
+                    {word}
+                  </Text>
+                </View>
+              ))}
             </View>
           </HorizontalPaddingSpace>
           {data?.[0]?.likedBy?.mediaArray?.[2] && (

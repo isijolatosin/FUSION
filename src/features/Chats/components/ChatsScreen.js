@@ -50,34 +50,41 @@ const ChatsScreen = () => {
 
   useEffect(() => {
     async function fetchMatches() {
-      const result = await getAllData("matches");
+      // get all macthes
+      const allMatchesResult = await getAllData("matches");
+
+      // get phone number from memory
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
+      // get all users
       const newData = await getAllData("all-users");
+
+      // get current user
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory
       );
       setCurrentUser(currentUserData);
 
       const otherWithMatchIdArray = [];
-      if (result?.length) {
-        result?.map(async (res) => {
-          const match_id = res?.id;
+      if (allMatchesResult?.length) {
+        // get all matches for current user
+        allMatchesResult?.find(async (res) => {
+          const current_Match_id = res?.id; // current match id
 
+          // get matches messages
           const snapshot = await database
             .collection("matches")
-            .doc(match_id)
+            .doc(current_Match_id)
             .collection("messages")
             .orderBy("timestamp", "asc")
             .get();
 
           const data = snapshot?.docs?.map((doc) => doc?.data());
 
-          const bothProfile = [res?.likedByprofile, res?.likedProfile];
-
+          // create return object
           const otherWithMatchId = {
-            id: match_id,
-            match: bothProfile.find(
+            id: current_Match_id,
+            match: [res?.likedByprofile, res?.likedProfile].find(
               (profile) => profile?.id !== currentUserData?.id
             ),
             messages: data,
@@ -142,7 +149,7 @@ const ChatsScreen = () => {
   function checkData(data) {
     const truthy = [];
     data?.map((dt) => {
-      dt?.messages.length ? truthy.push(false) : truthy.push(true);
+      dt?.messages?.length ? truthy.push(false) : truthy.push(true);
     });
 
     return truthy?.some((truthy) => truthy === true);
@@ -191,7 +198,7 @@ const ChatsScreen = () => {
                 {otherUsers?.length ? (
                   otherUsers?.map(
                     (otherUser) =>
-                      !otherUser?.messages.length && (
+                      !otherUser?.messages?.length && (
                         <Pressable
                           key={otherUser?.id}
                           style={{
@@ -260,7 +267,7 @@ const ChatsScreen = () => {
                   style={{
                     width: "100%",
                     paddingBottom: theme.spaceNumber[7],
-                    borderBottomWidth: 0.5,
+                    borderBottomWidth: 1,
                     borderBottomColor: theme.colors.brand.linesLight,
                   }}>
                   {otherUser?.messages?.length ? (

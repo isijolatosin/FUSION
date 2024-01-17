@@ -10,8 +10,20 @@ import {
   Platform,
   Pressable,
 } from "react-native";
+import { useEffect } from "react";
+import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 
 export default function Onboarding({ navigation }) {
+  useEffect(() => {
+    async function clearMemory() {
+      await clearDataByKey("match-id");
+      await clearDataByKey("phonenumber");
+      await clearDataByKey("refreshChatScreen");
+    }
+
+    clearMemory();
+  }, []);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}>

@@ -36,9 +36,12 @@ import {
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import MessageDotsPopupModal from "./MessageDotsPopupModal";
+import AnimatedModal from "../../../components/general-component/AnimatedModal";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
 
 export default function MessageScreen({ navigation }) {
-  const { height } = Dimensions.get("window");
+  const { width, height } = Dimensions.get("window");
   const scrollViewRef = useRef(null);
   const {
     state: { theme },
@@ -55,6 +58,7 @@ export default function MessageScreen({ navigation }) {
   const [matchId, setMatchId] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
   const [showImageModal, setShowImageModal] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const [triggerReload, setTriggerReload] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [openDotActionModal, setOpenDotActionModal] = useState(false);
@@ -73,6 +77,7 @@ export default function MessageScreen({ navigation }) {
         const matchId = await retrieveData("match-id");
         setMatchId(matchId);
 
+        // get message for current match id
         if (matchId) {
           const snapshot = await database
             .collection("matches")
@@ -309,6 +314,7 @@ export default function MessageScreen({ navigation }) {
                 data={otherUser?.match?.mediaArray[0]}
                 theme={theme}
                 dimensionIndex={theme.spaceNumber[1]}
+                func={() => setShowProfile(true)}
               />
               <Text
                 style={{ marginLeft: theme.spaceNumber[3] }}
@@ -431,6 +437,18 @@ export default function MessageScreen({ navigation }) {
           backgroundColor="rgba(255,255,255,0.7)"
         />
       )}
+      <AnimatedModal
+        isVisible={showProfile}
+        onClose={() => setShowProfile(false)}
+        theme={theme}
+        width={width}>
+        <ProfileViewModal
+          otherUser={otherUser?.match}
+          theme={theme}
+          setShowProfile={setShowProfile}
+          width={width}
+        />
+      </AnimatedModal>
     </View>
   );
 }
