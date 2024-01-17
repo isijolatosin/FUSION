@@ -90,7 +90,7 @@ export default function CaptureInterests({ navigation }) {
           style={{ marginBottom: theme.spaceNumberBy10[5] }}>
           <Spacer position="top" size="large">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4"
@@ -100,7 +100,7 @@ export default function CaptureInterests({ navigation }) {
           </Spacer>
           <Spacer position="top" size="xsmall">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="caption"
@@ -138,7 +138,7 @@ export default function CaptureInterests({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                     }}
-                    variant="title"
+                    variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
                     fontSize="button">

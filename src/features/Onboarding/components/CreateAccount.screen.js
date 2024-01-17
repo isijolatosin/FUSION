@@ -60,7 +60,7 @@ export default function CreateAccount({ navigation }) {
             </NavigationBar>
             <Spacer position="top" size="xxxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="playfairbold"
                 fontSize="h4"
@@ -93,7 +93,7 @@ export default function CreateAccount({ navigation }) {
             </Spacer>
             <Spacer position="top" size="small">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="error"
                 fontType="montserratSemibold"
                 fontSize="caption">
@@ -107,7 +107,7 @@ export default function CreateAccount({ navigation }) {
                     setPopup(true);
                   }}>
                   <Text
-                    variant="title"
+                    variant="custom"
                     colorType="base"
                     fontType="montserratRegular"
                     fontSize="body">
@@ -156,7 +156,7 @@ export default function CreateAccount({ navigation }) {
                             setPopup(false);
                           }}>
                           <Text
-                            variant="title"
+                            variant="custom"
                             colorType="base"
                             fontType="montserratRegular"
                             fontSize="body">

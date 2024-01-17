@@ -137,6 +137,7 @@ export default function IndividualUserProfileComponent({
               height: imageHeight,
               resizeMode: "cover",
               borderRadius: 5,
+              borderBottomRightRadius: theme.spaceNumberBy10[16],
             }}
             source={{
               uri: `${data?.mediaArray?.[0]}`,
@@ -149,8 +150,13 @@ export default function IndividualUserProfileComponent({
               left: theme.spaceNumberBy10[0],
             }}>
             <Text
-              variant="title"
-              colorType="brandTone"
+              style={{
+                textShadowColor: theme.colors.brand.black,
+                textShadowOffset: { width: 2, height: 2 },
+                textShadowRadius: 7,
+              }}
+              variant="custom"
+              colorType="basewhite"
               fontType="playfairbold"
               fontSize="h2"
               width="100%">
@@ -161,22 +167,26 @@ export default function IndividualUserProfileComponent({
           <View
             style={{
               position: "absolute",
-              bottom: theme.spaceNumber[0],
-              left: theme.spaceNumber[0],
+              bottom: -theme.spaceNumber[2],
+              left: theme.spaceNumber[5],
               flexDirection: "row",
               justifyContent: "flex-end",
-              alignItems: "center",
+              alignItems: "flex-end",
               width: "100%",
               padding: theme.spaceNumberBy10[0],
             }}>
             {doubleTapWarning && (
-              <View>
+              <View
+                style={{
+                  marginRight: -theme.spaceNumberBy10[4],
+                  marginBottom: -theme.spaceNumber[3],
+                }}>
                 <Text
-                  variant="title"
-                  colorType="basewhite"
+                  variant="custom"
+                  colorType="black"
                   fontType="montserratRegular"
                   fontSize="caption">
-                  Double tap to like
+                  Double tap
                 </Text>
               </View>
             )}
@@ -186,14 +196,14 @@ export default function IndividualUserProfileComponent({
                 iconName="heart"
                 IconComponent={MaterialCommunityIcons}
                 size={60}
-                color={theme.colors.brand.basewhite}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           </View>
         </View>
         <Spacer position="top" size="medium">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title"
@@ -227,7 +237,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -259,7 +269,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -285,7 +295,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -311,7 +321,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 10 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -338,7 +348,7 @@ export default function IndividualUserProfileComponent({
               </View>
               <Text
                 style={{ marginLeft: 10 }}
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"
@@ -366,7 +376,7 @@ export default function IndividualUserProfileComponent({
               </View>
               <Text
                 style={{ marginLeft: 10 }}
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"
@@ -393,7 +403,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 10 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -419,7 +429,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -445,7 +455,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 15 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -471,7 +481,7 @@ export default function IndividualUserProfileComponent({
             </View>
             <Text
               style={{ marginLeft: 15 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -482,7 +492,7 @@ export default function IndividualUserProfileComponent({
         </View>
         <Spacer position="top" size="medium">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title"
@@ -505,7 +515,7 @@ export default function IndividualUserProfileComponent({
           />
           <Text
             style={{ marginLeft: 3 }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="button">
@@ -528,7 +538,7 @@ export default function IndividualUserProfileComponent({
       </Spacer>
       <Spacer position="top" size="medium">
         <Text
-          variant="title"
+          variant="custom"
           colorType="black"
           fontType="montserratBold"
           fontSize="title"
@@ -551,7 +561,7 @@ export default function IndividualUserProfileComponent({
             borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratRegular"
             fontSize="button"
@@ -567,7 +577,7 @@ export default function IndividualUserProfileComponent({
             borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratRegular"
             fontSize="button"
@@ -583,7 +593,7 @@ export default function IndividualUserProfileComponent({
             borderRadius: theme.spaceNumberBy10[4],
           }}>
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratRegular"
             fontSize="button"
@@ -594,7 +604,7 @@ export default function IndividualUserProfileComponent({
       </View>
       <Spacer position="top" size="medium">
         <Text
-          variant="title"
+          variant="custom"
           colorType="black"
           fontType="montserratBold"
           fontSize="title"
@@ -621,7 +631,7 @@ export default function IndividualUserProfileComponent({
             }}>
             <Text
               key={idx}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"

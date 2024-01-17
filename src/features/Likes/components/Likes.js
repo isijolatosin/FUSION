@@ -61,7 +61,7 @@ const LikesScreen = () => {
         <Spacer style={{ alignItems: "center" }} position="top" size="">
           <Text
             style={{ textAlign: "center" }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4">
@@ -92,7 +92,7 @@ const LikesScreen = () => {
                   style={{
                     textAlign: "center",
                   }}
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button">

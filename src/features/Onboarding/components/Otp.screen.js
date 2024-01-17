@@ -46,14 +46,14 @@ export default function OtpScreen({ navigation }) {
           </NavigationBar>
           <Spacer position="top" size="xxxlarge">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4">
               Enter your verification code
             </Text>
             <Text
-              variant="title"
+              variant="custom"
               colorType="error"
               fontType="montserratSemibold"
               fontSize="caption">
@@ -79,7 +79,7 @@ export default function OtpScreen({ navigation }) {
           {verificationErrorMessage && (
             <Spacer position="top" size="large">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="error"
                 fontType="montserratRegular">
                 Error: Please regenerate OTP
@@ -92,7 +92,7 @@ export default function OtpScreen({ navigation }) {
                 navigation.navigate("create-account");
               }}>
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="caption">

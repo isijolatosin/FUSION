@@ -56,8 +56,13 @@ export default function ProfileViewModal({
           }}>
           <View>
             <Text
-              variant="title"
-              colorType="brandTone"
+              style={{
+                textShadowColor: theme.colors.brand.black,
+                textShadowOffset: { width: 2, height: 2 },
+                textShadowRadius: 7,
+              }}
+              variant="custom"
+              colorType="basewhite"
               fontType="playfairbold"
               fontSize="h2"
               width="100%">
@@ -92,7 +97,7 @@ export default function ProfileViewModal({
       <HorizontalPaddingSpace space={theme.space[2]}>
         <Spacer position="top" size="medium">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title"
@@ -126,7 +131,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -158,7 +163,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -184,7 +189,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -210,7 +215,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 10 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -237,7 +242,7 @@ export default function ProfileViewModal({
               </View>
               <Text
                 style={{ marginLeft: 10 }}
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"
@@ -265,7 +270,7 @@ export default function ProfileViewModal({
               </View>
               <Text
                 style={{ marginLeft: 10 }}
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"
@@ -292,7 +297,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 10 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -318,7 +323,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 8 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -344,7 +349,7 @@ export default function ProfileViewModal({
             </View>
             <Text
               style={{ marginLeft: 15 }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -355,7 +360,7 @@ export default function ProfileViewModal({
         </View>
         <Spacer position="top" size="medium">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title"
@@ -378,7 +383,7 @@ export default function ProfileViewModal({
           />
           <Text
             style={{ marginLeft: 3 }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="button">
@@ -401,7 +406,7 @@ export default function ProfileViewModal({
       <HorizontalPaddingSpace space={theme.space[2]}>
         <Spacer position="top" size="medium">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title"
@@ -424,7 +429,7 @@ export default function ProfileViewModal({
               borderRadius: theme.spaceNumberBy10[4],
             }}>
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -440,7 +445,7 @@ export default function ProfileViewModal({
               borderRadius: theme.spaceNumberBy10[4],
             }}>
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -456,7 +461,7 @@ export default function ProfileViewModal({
               borderRadius: theme.spaceNumberBy10[4],
             }}>
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
@@ -467,7 +472,7 @@ export default function ProfileViewModal({
         </View>
         <Spacer position="top" size="medium">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratBold"
             fontSize="title"
@@ -494,7 +499,7 @@ export default function ProfileViewModal({
               }}>
               <Text
                 key={idx}
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="button"

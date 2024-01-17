@@ -62,7 +62,7 @@ export default function CaptureReligious({ navigation }) {
           }}>
           <Spacer position="top" size="large">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4"

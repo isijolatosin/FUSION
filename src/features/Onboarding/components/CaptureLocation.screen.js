@@ -62,7 +62,7 @@ export default function CaptureLocation({ navigation }) {
           </Spacer>
           <Spacer position="top" size="large">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4"
@@ -72,7 +72,7 @@ export default function CaptureLocation({ navigation }) {
           </Spacer>
           <Spacer position="top" size="large">
             <Text
-              variant="title"
+              variant="custom"
               colorType="error"
               fontType="montserratSemibold"
               fontSize="caption"
@@ -128,7 +128,7 @@ export default function CaptureLocation({ navigation }) {
                     fontSize: 22,
                     paddingBottom: theme.spaceNumberBy10[0],
                   }}
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="playfairbold"
                   fontSize="h4"

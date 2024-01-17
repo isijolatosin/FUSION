@@ -318,7 +318,7 @@ export default function MessageScreen({ navigation }) {
               />
               <Text
                 style={{ marginLeft: theme.spaceNumber[3] }}
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="title">
@@ -403,7 +403,12 @@ export default function MessageScreen({ navigation }) {
           </CloseButton>
         </PopupModal>
       )}
-      {openImageUploadModal && (
+      <AnimatedModal
+        isVisible={openImageUploadModal}
+        onClose={() => setOpenImageUploadModal(false)}
+        theme={theme}
+        width={width}
+        isTransparent={true}>
         <GeneralPopupModal
           height={height}
           theme={theme}
@@ -415,10 +420,15 @@ export default function MessageScreen({ navigation }) {
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenImageUploadModal}
           horizontalSpace={`${theme.spaceNumberBy10[5]}px`}
-          backgroundColor="rgba(0,0,0,0.9)"
         />
-      )}
-      {openDotActionModal && ( // This is for action in vertical dots
+      </AnimatedModal>
+      {/* This is for action in vertical dots */}
+      <AnimatedModal
+        isVisible={openDotActionModal}
+        onClose={() => setOpenDotActionModal(false)}
+        theme={theme}
+        width={width}
+        isTransparent={true}>
         <MessageDotsPopupModal
           height={height}
           theme={theme}
@@ -434,9 +444,8 @@ export default function MessageScreen({ navigation }) {
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenDotActionModal}
           horizontalSpace={`${theme.spaceNumberBy10[3]}px`}
-          backgroundColor="rgba(255,255,255,0.7)"
         />
-      )}
+      </AnimatedModal>
       <AnimatedModal
         isVisible={showProfile}
         onClose={() => setShowProfile(false)}

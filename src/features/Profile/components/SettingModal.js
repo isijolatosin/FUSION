@@ -130,7 +130,7 @@ export default function SettingModal({
               textAlign: "center",
               marginLeft: -theme.spaceNumberBy10[1],
             }}
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4">
@@ -148,7 +148,7 @@ export default function SettingModal({
             space={theme.space[5]}>
             <Spacer position="top" size="xxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -170,7 +170,7 @@ export default function SettingModal({
               size="medium">
               <View>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -179,7 +179,7 @@ export default function SettingModal({
               </View>
               <View>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="caption">
@@ -196,7 +196,7 @@ export default function SettingModal({
               size="medium">
               <View>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -206,7 +206,7 @@ export default function SettingModal({
               <View>
                 <Text
                   style={{ textTransform: "lowercase" }}
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="caption">
@@ -225,7 +225,7 @@ export default function SettingModal({
             space={theme.space[5]}>
             <Spacer position="top" size="xxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -248,7 +248,7 @@ export default function SettingModal({
               size="small">
               <View>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -288,7 +288,7 @@ export default function SettingModal({
               size="small">
               <View>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -329,7 +329,7 @@ export default function SettingModal({
             space={theme.space[5]}>
             <Spacer position="top" size="xxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -351,7 +351,7 @@ export default function SettingModal({
                 }}>
                 <View>
                   <Text
-                    variant="title"
+                    variant="custom"
                     colorType="black"
                     fontType="montserratBold"
                     fontSize="caption">
@@ -383,7 +383,7 @@ export default function SettingModal({
               </View>
               <Spacer position="top" size="small">
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="lines"
                   fontType="montserratRegular"
                   fontSize="caption">
@@ -400,7 +400,7 @@ export default function SettingModal({
                 }}>
                 <View>
                   <Text
-                    variant="title"
+                    variant="custom"
                     colorType="black"
                     fontType="montserratBold"
                     fontSize="caption">
@@ -426,7 +426,7 @@ export default function SettingModal({
               </View>
               <Spacer position="top" size="small">
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="lines"
                   fontType="montserratRegular"
                   fontSize="caption">
@@ -445,7 +445,7 @@ export default function SettingModal({
             space={theme.space[5]}>
             <Spacer position="top" size="xxxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -468,7 +468,7 @@ export default function SettingModal({
               size="medium">
               <View style={{ flex: 0.8 }}>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -498,7 +498,7 @@ export default function SettingModal({
             space={theme.space[5]}>
             <Spacer position="top" size="xxxlarge">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
@@ -522,7 +522,7 @@ export default function SettingModal({
               size="medium">
               <View style={{ flex: 0.8 }}>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -549,7 +549,7 @@ export default function SettingModal({
               size="medium">
               <View style={{ flex: 0.8 }}>
                 <Text
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
@@ -578,7 +578,7 @@ export default function SettingModal({
                 backgroundColor: theme.colors.brand.highlight,
                 paddingVertical: theme.spaceNumberBy10[1],
               }}
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="montserratBold"
               fontSize="body">

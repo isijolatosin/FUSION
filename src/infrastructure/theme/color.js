@@ -10,6 +10,7 @@ export const colors = {
     linesLight: "rgba(117, 117, 117, 0.5)",
     linesLighter: "rgba(117, 117, 117, 0.2)",
     linesFaint: "rgba(117, 117, 117, 0.05)",
+    basewhitelight: "rgba(255,253,253, 0.9)",
     error: "#D0421B",
   },
 };

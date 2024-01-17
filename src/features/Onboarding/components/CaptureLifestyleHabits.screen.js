@@ -82,7 +82,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
         </NavigationBar>
         <Spacer position="top" size="large">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="playfairbold"
             fontSize="h4"
@@ -92,7 +92,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
         </Spacer>
         <Spacer position="top" size="xsmall">
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratRegular"
             fontSize="caption"
@@ -112,7 +112,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             color={theme.colors.brand.black}
           />
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratSemibold"
             width="95%">
@@ -146,7 +146,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                   }}
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button">
@@ -168,7 +168,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             color={theme.colors.brand.black}
           />
           <Text
-            variant="title"
+            variant="custom"
             colorType="black"
             fontType="montserratSemibold"
             width="95%">
@@ -202,7 +202,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                         ? theme.colors.brand.basewhite
                         : theme.colors.brand.black,
                   }}
-                  variant="title"
+                  variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button">

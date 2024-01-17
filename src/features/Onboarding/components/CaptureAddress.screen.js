@@ -71,7 +71,7 @@ export default function CaptureAddress({ navigation }) {
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
             <Text
-              variant="title"
+              variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h4"
@@ -124,7 +124,7 @@ export default function CaptureAddress({ navigation }) {
           {pageError && (
             <Spacer position="top" size="large">
               <Text
-                variant="title"
+                variant="custom"
                 colorType="error"
                 fontType="montserratRegular">
                 Error: Please provide your address!
@@ -145,7 +145,7 @@ export default function CaptureAddress({ navigation }) {
             />
             <Text
               style={{ marginLeft: theme.spaceNumber[2] }}
-              variant="title"
+              variant="custom"
               colorType="error"
               fontType="montserratSemibold"
               fontSize="caption"

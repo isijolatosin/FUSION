@@ -16,7 +16,7 @@ export default function Loading({ text, size, color }) {
       }}>
       <Text
         style={{ textAlign: "center" }}
-        variant="title"
+        variant="custom"
         colorType={color ?? "base"}
         fontType="montserratBold"
         fontSize={size ?? "title"}>
