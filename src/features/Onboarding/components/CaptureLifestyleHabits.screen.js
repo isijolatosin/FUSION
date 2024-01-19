@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Pressable, View } from "react-native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -16,7 +20,9 @@ import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureLifestyleHabits({ navigation }) {
   const [lifestyleHabits, setLifestyleHabits] = useState({
+    gym: "",
     smoke: "",
+    cannabis: "",
     drink: "",
   });
   const [pageError, setPageError] = useState(false);
@@ -38,12 +44,18 @@ export default function CaptureLifestyleHabits({ navigation }) {
   } = route.params || {};
 
   function handleLifestyleHabits(habt, id) {
-    setLifestyleHabits({ ...lifestyleHabits, ...lifestyleHabits, [id]: habt });
+    setLifestyleHabits({ ...lifestyleHabits, [id]: habt });
   }
 
   let checkInput = false;
 
-  if (lifestyleHabits.smoke && lifestyleHabits.drink) checkInput = true;
+  if (
+    lifestyleHabits.smoke &&
+    lifestyleHabits.drink &&
+    lifestyleHabits.gym &&
+    lifestyleHabits.cannabis
+  )
+    checkInput = true;
 
   return (
     <SafeArea>
@@ -101,7 +113,64 @@ export default function CaptureLifestyleHabits({ navigation }) {
           </Text>
         </Spacer>
         <Spacer
-          style={{ flexDirection: "row", alignItems: "flex-end" }}
+          style={{ flexDirection: "row", alignItems: "center" }}
+          position="top"
+          size="xlarge">
+          <IconComponent
+            iconFunction={() => {}}
+            iconName="dumbbell"
+            IconComponent={FontAwesome5}
+            size={20}
+            color={theme.colors.brand.black}
+          />
+          <Text
+            style={{ marginLeft: theme.spaceNumber[5] }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratSemibold"
+            width="95%">
+            How frequently do you hit the gym ?
+          </Text>
+        </Spacer>
+        <Spacer position="top" size="small">
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: theme.spaceNumber[5],
+            }}>
+            {LifestyleHabits.gym.map((gym, idx) => (
+              <Pressable
+                onPress={() => handleLifestyleHabits(gym, "gym")}
+                key={idx}
+                style={{
+                  backgroundColor:
+                    lifestyleHabits.gym === gym
+                      ? theme.colors.brand.base
+                      : theme.colors.brand.highlight,
+                  paddingHorizontal: theme.spaceNumber[7],
+                  paddingVertical: theme.spaceNumber[3],
+                  borderRadius: theme.spaceNumberBy10[9],
+                }}>
+                <Text
+                  style={{
+                    color:
+                      lifestyleHabits.gym === gym
+                        ? theme.colors.brand.basewhite
+                        : theme.colors.brand.black,
+                  }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button">
+                  {gym}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </Spacer>
+        <Spacer
+          style={{ flexDirection: "row", alignItems: "center" }}
           position="top"
           size="xlarge">
           <IconComponent
@@ -112,6 +181,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             color={theme.colors.brand.black}
           />
           <Text
+            style={{ marginLeft: theme.spaceNumber[5] }}
             variant="custom"
             colorType="black"
             fontType="montserratSemibold"
@@ -157,7 +227,64 @@ export default function CaptureLifestyleHabits({ navigation }) {
           </View>
         </Spacer>
         <Spacer
-          style={{ flexDirection: "row", alignItems: "flex-end" }}
+          style={{ flexDirection: "row", alignItems: "center" }}
+          position="top"
+          size="xlarge">
+          <IconComponent
+            iconFunction={() => {}}
+            iconName="cannabis"
+            IconComponent={FontAwesome5}
+            size={25}
+            color={theme.colors.brand.black}
+          />
+          <Text
+            style={{ marginLeft: theme.spaceNumber[5] }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratSemibold"
+            width="95%">
+            How often do you engage in 420-friendly activities ?
+          </Text>
+        </Spacer>
+        <Spacer position="top" size="small">
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: theme.spaceNumber[5],
+            }}>
+            {LifestyleHabits.cannabis.map((cannabis, idx) => (
+              <Pressable
+                onPress={() => handleLifestyleHabits(cannabis, "cannabis")}
+                key={idx}
+                style={{
+                  backgroundColor:
+                    lifestyleHabits.cannabis === cannabis
+                      ? theme.colors.brand.base
+                      : theme.colors.brand.highlight,
+                  paddingHorizontal: theme.spaceNumber[7],
+                  paddingVertical: theme.spaceNumber[3],
+                  borderRadius: theme.spaceNumberBy10[9],
+                }}>
+                <Text
+                  style={{
+                    color:
+                      lifestyleHabits.cannabis === cannabis
+                        ? theme.colors.brand.basewhite
+                        : theme.colors.brand.black,
+                  }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button">
+                  {cannabis}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </Spacer>
+        <Spacer
+          style={{ flexDirection: "row", alignItems: "center" }}
           position="top"
           size="xlarge">
           <IconComponent
@@ -168,6 +295,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             color={theme.colors.brand.black}
           />
           <Text
+            style={{ marginLeft: theme.spaceNumber[5] }}
             variant="custom"
             colorType="black"
             fontType="montserratSemibold"

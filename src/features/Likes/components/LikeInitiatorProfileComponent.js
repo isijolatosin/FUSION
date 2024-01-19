@@ -20,6 +20,7 @@ import { CloseButton } from "../../Main/screen/main.style";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { FlatGrid } from "react-native-super-grid";
 import Button from "../../../components/utility/button.component";
+import { getZodiacSign } from "../../../utilities/generateZodiac";
 
 export default function LikeInitiatorProfileComponent({
   data,
@@ -100,6 +101,11 @@ export default function LikeInitiatorProfileComponent({
     navigation.navigate("chat");
   }
 
+  const zodiacSign = getZodiacSign(
+    +data?.[0]?.likedBy?.dob?.day,
+    +data?.[0]?.likedBy?.dob?.month
+  );
+
   return (
     <Modal
       animationIn="slideInRight"
@@ -164,7 +170,7 @@ export default function LikeInitiatorProfileComponent({
                 colorType="basewhite"
                 fontType="montserratRegular"
                 fontSize="caption">
-                Double tap
+                double tap
               </Text>
             )}
             <View
@@ -232,6 +238,69 @@ export default function LikeInitiatorProfileComponent({
                   fontSize="button"
                   width="100%">
                   {data?.[0]?.likedBy?.gender}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 9,
+                  }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
+                    IconComponent={MaterialCommunityIcons}
+                    size={15}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: theme.spaceNumber[5] }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {zodiacSign}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 9,
+                    transform: [{ rotateZ: "145deg" }],
+                  }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="magnet"
+                    IconComponent={Entypo}
+                    size={12}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 8 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.sexualOrientation}
                 </Text>
               </View>
               <View
@@ -349,6 +418,68 @@ export default function LikeInitiatorProfileComponent({
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
+                <View
+                  style={{
+                    position: "absolute",
+                    top: theme.spaceNumber[5],
+                    left: 8,
+                  }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="dumbbell"
+                    IconComponent={FontAwesome5}
+                    size={10}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 8 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.lifestyleHabits?.gym}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View
+                  style={{
+                    position: "absolute",
+                    top: theme.spaceNumber[4],
+                    left: 8,
+                  }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="cannabis"
+                    IconComponent={FontAwesome5}
+                    size={17}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 10 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.lifestyleHabits?.cannabis}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
                 <View style={{ position: "absolute", top: 9, left: 8 }}>
                   <IconComponent
                     iconFunction={() => {}}
@@ -392,6 +523,32 @@ export default function LikeInitiatorProfileComponent({
                   fontSize="button"
                   width="100%">
                   {data?.[0]?.likedBy?.lifestyleHabits?.smoke}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 9, left: 10 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="search"
+                    IconComponent={Feather}
+                    size={15}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 15 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.preference}
                 </Text>
               </View>
             </View>

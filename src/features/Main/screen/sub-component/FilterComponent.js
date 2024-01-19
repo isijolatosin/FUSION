@@ -15,6 +15,7 @@ import calculateAge from "../../../../utilities/calculateAge";
 import Button from "../../../../components/utility/button.component";
 import { updateUserValueField } from "../../../../utilities/updateFirestoreDatabaseField";
 import AnimatedModal from "../../../../components/general-component/AnimatedModal";
+import { storeData } from "../../../../utilities/storeDataInPhoneMemory";
 
 function RangeCompoent({
   theme,
@@ -25,6 +26,8 @@ function RangeCompoent({
   initialValue,
   suggest,
   setSuggest,
+  triggerDistanceFilter,
+  setIsRetrigger,
 }) {
   const handleValueChange = (newValue) => {
     setSelectedValue(newValue);
@@ -111,7 +114,11 @@ function RangeCompoent({
           thumbColor={
             suggest ? theme.colors.brand.highlight : theme.colors.brand.lines
           }
-          onValueChange={setSuggest}
+          onValueChange={(val) => {
+            triggerDistanceFilter();
+            setIsRetrigger(true);
+            setSuggest(val);
+          }}
           value={suggest}
         />
       </RangeCompoentSection>
@@ -129,6 +136,8 @@ function DoubleRangeCompoent({
   setSuggest,
   setFromAgeValue,
   setToAgeValue,
+  triggerAgeFilter,
+  setIsRetrigger,
 }) {
   let displayValue = `${fromAgeValue} - ${toAgeValue}`;
 
@@ -172,8 +181,8 @@ function DoubleRangeCompoent({
           showValueLabels={false}
           fromValueOnChange={(value) => setFromAgeValue(value)}
           toValueOnChange={(value) => setToAgeValue(value)}
-          initialFromValue={18}
-          initialToValue={30}
+          initialFromValue={fromAgeValue}
+          initialToValue={toAgeValue}
           containerStyle={{
             padding: 0,
             height: theme.spaceNumberBy10[3],
@@ -200,7 +209,11 @@ function DoubleRangeCompoent({
           thumbColor={
             suggest ? theme.colors.brand.highlight : theme.colors.brand.lines
           }
-          onValueChange={setSuggest}
+          onValueChange={(val) => {
+            triggerAgeFilter();
+            setIsRetrigger(true);
+            setSuggest(val);
+          }}
           value={suggest}
         />
       </RangeCompoentSection>
@@ -303,7 +316,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
           isBorder={false}
           borderColor={theme.colors.brand.brandFade}
           buttonFunction={triggerInterestUpdate}
-          text="Apply Interest"
+          text="Update Interest"
           textColor={theme.colors.brand.brandFade}
         />
       </HorizontalPaddingSpace>
@@ -312,18 +325,22 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
 }
 
 export default function FilterComponent({
-  theme,
-  isVisible,
-  onClose,
   allUsers,
   currentUser,
-  setUserFilteredData,
+  distanceValue,
+  fromAgeValue,
+  isVisible,
+  onClose,
+  setDistanceValue,
+  setFromAgeValue,
   setIsRetrigger,
+  setToAgeValue,
+  setUserFilteredData,
+  toAgeValue,
+  theme,
+  triggerAgeFilter,
 }) {
   const { width } = Dimensions.get("window");
-  const [distanceValue, setDistanceValue] = useState(0);
-  const [fromAgeValue, setFromAgeValue] = useState(18);
-  const [toAgeValue, setToAgeValue] = useState(30);
   const [suggestAgeWithRange, setSuggestAgeWithRange] = useState(false);
   const [suggestDistanceWithRange, setSuggestDistanceWithRange] =
     useState(false);
@@ -333,45 +350,37 @@ export default function FilterComponent({
     latitude: currentUser?.latitude,
   };
 
-  function triggerFilter() {
-    const filteredResult = [];
-    const filteredResult2 = [];
-
-    // distance
-    if (distanceValue && suggestDistanceWithRange) {
-      filteredResult.push(
-        ...filterUsersWithinDistanceRange(
-          currentUserLocation,
-          allUsers,
-          distanceValue
-        )
-      );
-    } else {
-      filteredResult.push(...allUsers);
-    }
+  function triggerAgeFilter() {
+    if (fromAgeValue) storeData("fromAgeValue", fromAgeValue);
+    if (toAgeValue) storeData("toAgeValue", toAgeValue);
 
     // age
-    if (filteredResult.length && suggestAgeWithRange) {
-      const filterWithAgeRange = filteredResult.filter((data) => {
-        const age = calculateAge(
-          data?.dob?.year,
-          data?.dob?.month,
-          data?.dob?.day
-        );
+    const filterWithAgeRange = allUsers.filter((data) => {
+      const currentUserAge = calculateAge(
+        data?.dob?.year,
+        data?.dob?.month,
+        data?.dob?.day
+      );
 
-        if (fromAgeValue < age && age <= toAgeValue) {
-          return data;
-        }
-      });
+      if (+fromAgeValue <= +currentUserAge && +currentUserAge <= +toAgeValue) {
+        return data;
+      }
+    });
 
-      filteredResult2.push(...filterWithAgeRange);
-    } else {
-      filteredResult2.push(...filteredResult);
-    }
+    setUserFilteredData(filterWithAgeRange);
+  }
 
-    setUserFilteredData(filteredResult2);
-    setSuggestAgeWithRange(false);
-    setSuggestDistanceWithRange(false);
+  function triggerDistanceFilter() {
+    storeData("distanceValue", distanceValue);
+
+    // distance
+    setUserFilteredData(
+      ...filterUsersWithinDistanceRange(
+        currentUserLocation,
+        allUsers,
+        distanceValue
+      )
+    );
   }
 
   return (
@@ -380,14 +389,22 @@ export default function FilterComponent({
       isPaddingBottom={true}
       isPaddingTop={true}
       isVisible={isVisible}
-      onClose={onClose}
+      onClose={() => {
+        setSuggestAgeWithRange(false);
+        setSuggestDistanceWithRange(false);
+        onClose();
+      }}
       theme={theme}
       width={width}
       isTransparent={true}>
       <ScrollView style={{ paddingTop: 0, width: "100%" }}>
         <View style={{ position: "absolute", right: 30, top: 0 }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              setSuggestAgeWithRange(false);
+              setSuggestDistanceWithRange(false);
+              onClose();
+            }}
             iconName="close"
             IconComponent={AntDesign}
             size={25}
@@ -415,6 +432,8 @@ export default function FilterComponent({
             initialValue={0}
             suggest={suggestDistanceWithRange}
             setSuggest={setSuggestDistanceWithRange}
+            triggerDistanceFilter={triggerDistanceFilter}
+            setIsRetrigger={setIsRetrigger}
           />
           <DoubleRangeCompoent
             theme={theme}
@@ -426,24 +445,16 @@ export default function FilterComponent({
             toAgeValue={toAgeValue}
             suggest={suggestAgeWithRange}
             setSuggest={setSuggestAgeWithRange}
-          />
-          <HorizontalPaddingSpace
-            style={{ marginBottom: 20 }}
-            space={theme.space[9]}>
-            <Button
-              backgroundColor="transparent"
-              isBorder={false}
-              borderColor={theme.colors.brand.brandFade}
-              buttonFunction={triggerFilter}
-              text="Apply Preference"
-              textColor={theme.colors.brand.brandFade}
-            />
-          </HorizontalPaddingSpace>
-          <InterestFilterComponent
-            theme={theme}
-            currentUser={currentUser}
+            triggerAgeFilter={triggerAgeFilter}
             setIsRetrigger={setIsRetrigger}
           />
+          <Spacer position="top" size="xxlarge">
+            <InterestFilterComponent
+              theme={theme}
+              currentUser={currentUser}
+              setIsRetrigger={setIsRetrigger}
+            />
+          </Spacer>
         </Spacer>
       </ScrollView>
     </AnimatedModal>

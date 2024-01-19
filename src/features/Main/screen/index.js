@@ -23,6 +23,8 @@ import CustomUseCardWithCTA from "../../../components/general-component/CustomUs
 import { dailyendofswipescreenmessage } from "../../../constants";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
+import calculateAge from "../../../utilities/calculateAge";
+import filterUsersWithinDistanceRange from "../../../utilities/filterUsersWithinDistanceRange";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -35,6 +37,9 @@ const Index = () => {
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const scrollViewRef = useRef(null);
+  const [fromAgeValue, setFromAgeValue] = useState(0);
+  const [toAgeValue, setToAgeValue] = useState(0);
+  const [distanceValue, setDistanceValue] = useState(0);
 
   const {
     state: { theme },
@@ -121,7 +126,62 @@ const Index = () => {
         filteredOffLikedProfilesStep4 = [...filteredOffLikedProfilesStep3];
       }
 
-      setAllUsers(filteredOffLikedProfilesStep4);
+      // prefilter
+      const fromAgeVal = await retrieveData("fromAgeValue");
+      const toAgeVal = await retrieveData("toAgeValue");
+      const distanceVal = await retrieveData("distanceValue");
+
+      if (fromAgeVal) {
+        setFromAgeValue(fromAgeVal);
+      } else {
+        setFromAgeValue(18);
+      }
+      if (toAgeVal) {
+        setToAgeValue(toAgeVal);
+      } else {
+        setToAgeValue(30);
+      }
+      if (distanceVal) {
+        setDistanceValue(distanceVal);
+      } else {
+        setDistanceValue(0);
+      }
+
+      const currentUserLocation = {
+        longitude: currentUser?.longitude,
+        latitude: currentUser?.latitude,
+      };
+
+      const filterResult = [];
+      if (distanceVal > 0) {
+        filterResult.push(
+          ...filterUsersWithinDistanceRange(
+            currentUserLocation,
+            filteredOffLikedProfilesStep4,
+            distanceValue
+          )
+        );
+      } else {
+        filterResult.push(...filteredOffLikedProfilesStep4);
+      }
+
+      if (fromAgeVal && toAgeVal) {
+        const filterWithAgeRange = filterResult.filter((data) => {
+          const currentUserAge = calculateAge(
+            data?.dob?.year,
+            data?.dob?.month,
+            data?.dob?.day
+          );
+
+          if (+fromAgeVal <= +currentUserAge && +currentUserAge <= +toAgeVal) {
+            return data;
+          }
+        });
+
+        setAllUsers(filterWithAgeRange);
+      } else {
+        setAllUsers(filterResult);
+      }
     }
   };
 
@@ -272,13 +332,19 @@ const Index = () => {
           />
         </CloseButton>
         <FilterComponent
-          theme={theme}
-          isVisible={isVisible}
-          onClose={handleFilterClose}
           allUsers={allUsers}
           currentUser={currentUser}
-          setUserFilteredData={setUserFilteredData}
+          distanceValue={distanceValue}
+          fromAgeValue={fromAgeValue}
+          isVisible={isVisible}
+          onClose={handleFilterClose}
+          setDistanceValue={setDistanceValue}
+          setFromAgeValue={setFromAgeValue}
           setIsRetrigger={setIsRetrigger}
+          setToAgeValue={setToAgeValue}
+          setUserFilteredData={setUserFilteredData}
+          toAgeValue={toAgeValue}
+          theme={theme}
         />
         <YouLikedComponent
           theme={theme}

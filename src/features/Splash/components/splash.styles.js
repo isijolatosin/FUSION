@@ -43,8 +43,8 @@ const LogoText = styled(Text)`
 const ButtonWrapper = styled(Pressable)`
   background-color: ${(props) => props.backgroundColor};
   width: ${(props) => (props.width ? props.width : "100%")};
-  padding-top: ${(props) => `${props.theme.spaceNumber[7]}px`};
-  padding-bottom: ${(props) => `${props.theme.spaceNumber[7]}px`};
+  padding-top: ${(props) => `${props.theme.spaceNumber[9]}px`};
+  padding-bottom: ${(props) => `${props.theme.spaceNumber[9]}px`};
   border-width: ${(props) =>
     !props.isBorder ? "0px" : props.theme.letterSpacing[0]};
   border-color: ${(props) => props.borderColor};

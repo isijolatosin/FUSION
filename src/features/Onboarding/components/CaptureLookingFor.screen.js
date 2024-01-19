@@ -132,6 +132,25 @@ export default function CaptureLookingFor({ navigation }) {
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
+                preference === "Don't know yet"
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
+              }
+              isBorder={false}
+              isNotBold={true}
+              borderColor="transparent"
+              buttonFunction={() => setPreference("Don't know yet")}
+              text="Don't know yet"
+              textColor={
+                preference === "Don't know yet"
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
+              }
+            />
+          </Spacer>
+          <Spacer position="top" size="small">
+            <Button
+              backgroundColor={
                 preference === "Prefer Not to Say"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight

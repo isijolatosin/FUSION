@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dimensions, Keyboard, Pressable, View } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -53,14 +53,16 @@ export default function CaptureLocation({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <IconComponent
               iconFunction={() => {}}
-              iconName="location-pin"
-              IconComponent={Entypo}
-              size={80}
+              iconName="map-marked-alt"
+              IconComponent={FontAwesome5}
+              // iconName="location-pin"
+              // IconComponent={Entypo}
+              size={70}
               color={theme.colors.brand.base}
               centralize={true}
             />
           </Spacer>
-          <Spacer position="top" size="large">
+          <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
               colorType="black"
@@ -70,10 +72,10 @@ export default function CaptureLocation({ navigation }) {
               Enable your location services
             </Text>
           </Spacer>
-          <Spacer position="top" size="large">
+          <Spacer position="top" size="medium">
             <Text
               variant="custom"
-              colorType="error"
+              colorType="black"
               fontType="montserratSemibold"
               fontSize="caption"
               width="100%">
@@ -95,8 +97,8 @@ export default function CaptureLocation({ navigation }) {
               <Spinner size="large" color={theme.colors.brand.base} />
             ) : (
               <Button
+                fontType={theme.fonts.montserratBold}
                 backgroundColor={theme.colors.brand.base}
-                isBorder={false}
                 buttonFunction={() => {
                   // if (!user.longitude && !user.latitude) return;
                   // if (responseMessage.code === "failed") return;

@@ -6,6 +6,7 @@ import {
   MaterialIcons,
   Fontisto,
   FontAwesome5,
+  Feather,
 } from "@expo/vector-icons";
 
 import { Text } from "../typography/text.component";
@@ -13,6 +14,7 @@ import IconComponent from "../icon-components/IconComponent";
 import { HorizontalPaddingSpace } from "../utility/space-area.component";
 import { Spacer } from "../spacer/spacer.component";
 import calculateAge from "../../utilities/calculateAge";
+import { getZodiacSign } from "../../utilities/generateZodiac";
 
 export default function ProfileViewModal({
   otherUser,
@@ -30,6 +32,11 @@ export default function ProfileViewModal({
   if (otherUser?.gender === "woman") {
     iconNamePerGender = "gender-non-binary";
   }
+
+  const zodiacSign = getZodiacSign(
+    +otherUser?.dob?.day,
+    +otherUser?.dob?.month
+  );
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ width: width }}>
@@ -139,6 +146,38 @@ export default function ProfileViewModal({
               {otherUser?.gender}
             </Text>
           </View>
+
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View
+              style={{
+                position: "absolute",
+                top: theme.spaceNumber[4],
+                left: 9,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
+                IconComponent={MaterialCommunityIcons}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: theme.spaceNumber[5] }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {zodiacSign}
+            </Text>
+          </View>
           <View
             style={{
               backgroundColor: theme.colors.brand.highlight,
@@ -231,7 +270,12 @@ export default function ProfileViewModal({
                 paddingHorizontal: theme.spaceNumber[7],
                 borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <View style={{ position: "absolute", top: 9, left: 9 }}>
+              <View
+                style={{
+                  position: "absolute",
+                  top: theme.spaceNumber[5],
+                  left: 9,
+                }}>
                 <IconComponent
                   iconFunction={() => {}}
                   iconName="work"
@@ -312,6 +356,68 @@ export default function ProfileViewModal({
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
             }}>
+            <View
+              style={{
+                position: "absolute",
+                top: theme.spaceNumber[5],
+                left: 8,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="dumbbell"
+                IconComponent={FontAwesome5}
+                size={10}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {otherUser?.lifestyleHabits?.gym}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View
+              style={{
+                position: "absolute",
+                top: theme.spaceNumber[4],
+                left: 8,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="cannabis"
+                IconComponent={FontAwesome5}
+                size={13}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 10 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {otherUser?.lifestyleHabits?.cannabis}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
             <View style={{ position: "absolute", top: 9, left: 8 }}>
               <IconComponent
                 iconFunction={() => {}}
@@ -355,6 +461,32 @@ export default function ProfileViewModal({
               fontSize="button"
               width="100%">
               {otherUser?.lifestyleHabits?.smoke}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View style={{ position: "absolute", top: 9, left: 10 }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="search"
+                IconComponent={Feather}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 15 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {otherUser?.preference}
             </Text>
           </View>
         </View>
