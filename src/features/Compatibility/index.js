@@ -15,51 +15,9 @@ import CompatibleComponent from "./components/CompatibleComponent";
 import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
 import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
 import BrandAvatar from "../../components/general-component/BrandAvatar";
+import Loading from "../../components/general-component/Loading";
 
-export default function Index() {
-  const { width, height } = Dimensions.get("window");
-  const [usersWithSimilarInterestsData, setUsersWithSimilarInterestsData] =
-    useState([]);
-  const {
-    state: { theme },
-  } = useAppContext();
-
-  function hasMatchingElements(array1, array2) {
-    const commonElements = array1.filter((element) => array2.includes(element));
-
-    return commonElements.length >= 3;
-  }
-
-  useEffect(() => {
-    async function asyncFunctionCall() {
-      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
-
-      const newData = await getAllData("all-users");
-
-      // get current user
-      const currentUserData = newData.find(
-        (data) => data.phonenumber === phoneValueFromPhoneMemory
-      );
-      const currentUserInteresstArray = currentUserData?.interestsArray;
-
-      // find users with similar interests
-      const usersWithSimilarInterests = newData?.filter((user) => {
-        if (user?.phonenumber !== phoneValueFromPhoneMemory) {
-          const userInterestsArray = user.interestsArray;
-
-          if (
-            hasMatchingElements(currentUserInteresstArray, userInterestsArray)
-          )
-            return user;
-        }
-      });
-
-      setUsersWithSimilarInterestsData(usersWithSimilarInterests);
-    }
-
-    asyncFunctionCall();
-  }, []);
-
+function ScreenWrapper({ children, theme, width }) {
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <Spacer position="top" size="large">
@@ -89,25 +47,73 @@ export default function Index() {
           </Text>
         </HorizontalPaddingSpace>
       </Spacer>
-      {usersWithSimilarInterestsData?.length ? (
-        <Spacer
-          position="top"
-          size="small"
-          style={{ paddingBottom: theme.spaceNumberBy10[8] }}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {usersWithSimilarInterestsData?.map(
-              (signleUserWithSimilarInterest, idx) => (
-                <CompatibleComponent
-                  key={idx}
-                  data={signleUserWithSimilarInterest}
-                  width={width}
-                  theme={theme}
-                />
-              )
-            )}
-          </ScrollView>
-        </Spacer>
-      ) : (
+      {children}
+    </SafeArea>
+  );
+}
+
+export default function Index() {
+  const { width, height } = Dimensions.get("window");
+  const [isLoading, setIsLoading] = useState(false);
+  const [usersWithSimilarInterestsData, setUsersWithSimilarInterestsData] =
+    useState([]);
+  const {
+    state: { theme },
+  } = useAppContext();
+
+  function hasMatchingElements(array1, array2) {
+    const commonElements = array1.filter((element) => array2.includes(element));
+
+    return commonElements.length >= 3;
+  }
+
+  useEffect(() => {
+    async function asyncFunctionCall() {
+      setIsLoading(true);
+      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+
+      const newData = await getAllData("all-users");
+
+      // get current user
+      const currentUserData = newData.find(
+        (data) => data.phonenumber === phoneValueFromPhoneMemory
+      );
+      const currentUserInteresstArray = currentUserData?.interestsArray;
+
+      // find users with similar interests
+      const usersWithSimilarInterests = newData?.filter((user) => {
+        if (user?.phonenumber !== phoneValueFromPhoneMemory) {
+          const userInterestsArray = user.interestsArray;
+
+          if (
+            hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+          )
+            return user;
+        }
+      });
+
+      const usersWithSimilarInterestsId = setTimeout(() => {
+        setIsLoading(false);
+        setUsersWithSimilarInterestsData(usersWithSimilarInterests);
+      }, 2000);
+
+      return () => clearTimeout(usersWithSimilarInterestsId);
+    }
+
+    asyncFunctionCall();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <ScreenWrapper theme={theme} width={width}>
+        <Loading text="Loading..." />
+      </ScreenWrapper>
+    );
+  }
+
+  if (usersWithSimilarInterestsData.length === 0 && !isLoading) {
+    return (
+      <ScreenWrapper theme={theme} width={width}>
         <HorizontalPaddingSpace space={theme.space[8]}>
           <Spacer position="top" size="xxxxlarge">
             <Text
@@ -125,7 +131,29 @@ export default function Index() {
             </Spacer>
           </Spacer>
         </HorizontalPaddingSpace>
-      )}
-    </SafeArea>
+      </ScreenWrapper>
+    );
+  }
+
+  return (
+    <ScreenWrapper theme={theme} width={width}>
+      <Spacer
+        position="top"
+        size="small"
+        style={{ paddingBottom: theme.spaceNumberBy10[8] }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {usersWithSimilarInterestsData?.map(
+            (signleUserWithSimilarInterest, idx) => (
+              <CompatibleComponent
+                key={idx}
+                data={signleUserWithSimilarInterest}
+                width={width}
+                theme={theme}
+              />
+            )
+          )}
+        </ScrollView>
+      </Spacer>
+    </ScreenWrapper>
   );
 }
