@@ -7,7 +7,6 @@ import {
   Entypo,
   Ionicons,
   FontAwesome,
-  FontAwesome5,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
@@ -47,6 +46,7 @@ import { OnboardingSreencContainer } from "../components/splash.styles";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 import MessageScreen from "../../Chats/components/MessageScreen";
 import SupportScreen from "../../Support";
+import CompatibilityScreen from "../../Compatibility";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -57,9 +57,10 @@ const TabNavigator = () => {
       initialRouteName="home"
       screenOptions={() => ({
         tabBarStyle: {
-          height: theme.spaceNumberBy10[8],
-          paddingHorizontal: theme.spaceNumberBy10[0],
+          height: theme.spaceNumberBy10[7],
+          paddingHorizontal: theme.spaceNumber[0],
           paddingTop: theme.spaceNumberBy10[0],
+          paddingBottom: theme.spaceNumberBy10[0],
           backgroundColor: theme.colors.brand.highlight,
           borderTopWidth: 1,
         },
@@ -70,12 +71,12 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: theme.colors.brand.brandFade,
       })}>
       <Tab.Screen
-        name="interest"
+        name="home"
         component={MainScreen}
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="infinity" color={color} size={30} />
+            <Entypo name="home" color={color} size={25} />
           ),
           gestureEnabled: false,
         }}
@@ -88,19 +89,28 @@ const TabNavigator = () => {
             <MaterialCommunityIcons
               name="cards-heart"
               color={color}
-              size={30}
+              size={25}
             />
           ),
           gestureEnabled: false,
         }}
       />
       <Tab.Screen
-        name="home"
-        component={MainScreen}
+        name="compatibility"
+        component={CompatibilityScreen}
         options={{
-          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          tabBarLabel: "Compatibility",
+          tabBarLabelStyle: {
+            position: "absolute",
+            bottom: theme.spaceNumber[6],
+            fontFamily: theme.fonts.montserratBold,
+          },
+          cardStyle: {
+            backgroundColor: `${theme.colors.brand.basewhite}`,
+          },
+          tabBarIconStyle: { marginBottom: theme.spaceNumberBy10[1] },
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" color={color} size={30} />
+            <Ionicons name="ios-people" color={color} size={35} />
           ),
           gestureEnabled: false,
         }}
@@ -110,7 +120,7 @@ const TabNavigator = () => {
         component={ChatsScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-sharp" color={color} size={28} />
+            <Ionicons name="chatbubble-sharp" color={color} size={25} />
           ),
           gestureEnabled: false,
         }}
@@ -120,7 +130,7 @@ const TabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={30} />
+            <FontAwesome name="user" color={color} size={23} />
           ),
           gestureEnabled: false,
         }}

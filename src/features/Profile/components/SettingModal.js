@@ -115,6 +115,7 @@ export default function SettingModal({
             position: "relative",
             flexDirection: "row",
             alignItems: "center",
+            width: width,
           }}
           space={theme.space[5]}>
           <IconComponent
@@ -128,7 +129,7 @@ export default function SettingModal({
           <Text
             style={{
               textAlign: "center",
-              marginLeft: -theme.spaceNumberBy10[1],
+              width: "90%",
             }}
             variant="custom"
             colorType="black"

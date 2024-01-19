@@ -359,7 +359,10 @@ export default function ProfileScreen() {
             />
           </HorizontalPaddingSpace>
         </Spacer>
-        <Spacer position="top" size="large">
+        <Spacer
+          position="top"
+          size="large"
+          style={{ paddingBottom: theme.spaceNumberBy10[1] }}>
           <AboutMeListComponent title="My Gender" value={currentUser?.gender} />
           <AboutMeListComponent
             title="Where I work"

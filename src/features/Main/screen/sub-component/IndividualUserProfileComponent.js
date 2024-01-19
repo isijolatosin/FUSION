@@ -21,6 +21,7 @@ import IconComponent from "../../../../components/icon-components/IconComponent"
 import calculateAge from "../../../../utilities/calculateAge";
 import firebase, { database } from "../../../../../config";
 import { addToArrayField } from "../../../../utilities/updateFirestoreDatabaseField";
+import { getZodiacSign } from "../../../../utilities/generateZodiac";
 
 export default function IndividualUserProfileComponent({
   fetchUsersData,
@@ -115,6 +116,8 @@ export default function IndividualUserProfileComponent({
     }, 1000);
   }, []);
 
+  const zodiacSign = getZodiacSign(+data?.dob?.day, +data?.dob?.month);
+
   return (
     <ScrollView
       refreshControl={
@@ -130,14 +133,17 @@ export default function IndividualUserProfileComponent({
       showsVerticalScrollIndicator={false}
       style={{ marginBottom: theme.spaceNumberBy10[5] }}>
       <View style={{ position: "relative" }}>
-        <View style={{ position: "relative" }}>
+        <View
+          style={{
+            position: "relative",
+          }}>
           <Image
             style={{
               width: "100%",
               height: imageHeight,
               resizeMode: "cover",
               borderRadius: 5,
-              borderBottomRightRadius: theme.spaceNumberBy10[16],
+              borderBottomRightRadius: theme.spaceNumberBy10[15],
             }}
             source={{
               uri: `${data?.mediaArray?.[0]}`,
@@ -168,7 +174,7 @@ export default function IndividualUserProfileComponent({
             style={{
               position: "absolute",
               bottom: -theme.spaceNumber[2],
-              left: theme.spaceNumber[5],
+              left: theme.spaceNumber[0],
               flexDirection: "row",
               justifyContent: "flex-end",
               alignItems: "flex-end",
@@ -186,7 +192,7 @@ export default function IndividualUserProfileComponent({
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="caption">
-                  Double tap
+                  double tap
                 </Text>
               </View>
             )}
@@ -195,7 +201,7 @@ export default function IndividualUserProfileComponent({
                 iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
                 iconName="heart"
                 IconComponent={MaterialCommunityIcons}
-                size={60}
+                size={50}
                 color={theme.colors.brand.base}
               />
             </Pressable>
@@ -243,6 +249,37 @@ export default function IndividualUserProfileComponent({
               fontSize="button"
               width="100%">
               {data?.gender}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View
+              style={{
+                position: "absolute",
+                top: 10,
+                left: 9,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
+                IconComponent={MaterialCommunityIcons}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: theme.spaceNumber[5] }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {zodiacSign}
             </Text>
           </View>
           <View
@@ -409,6 +446,68 @@ export default function IndividualUserProfileComponent({
               fontSize="button"
               width="100%">
               {data?.height?.replace("feet", "'")?.replace("inch", '"')}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View
+              style={{
+                position: "absolute",
+                top: theme.spaceNumber[5],
+                left: 8,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="dumbbell"
+                IconComponent={FontAwesome5}
+                size={10}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.lifestyleHabits?.gym}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <View
+              style={{
+                position: "absolute",
+                top: theme.spaceNumber[4],
+                left: 8,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="cannabis"
+                IconComponent={FontAwesome5}
+                size={13}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 10 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.lifestyleHabits?.cannabis}
             </Text>
           </View>
           <View
@@ -649,7 +748,8 @@ export default function IndividualUserProfileComponent({
               width: "100%",
               height: imageHeight,
               resizeMode: "cover",
-              borderRadius: 5,
+              borderTopRightRadius: 5,
+              borderTopLeftRadius: theme.spaceNumberBy10[10],
             }}
             source={{
               uri: `${data?.mediaArray?.[2]}`,
@@ -658,13 +758,14 @@ export default function IndividualUserProfileComponent({
         </Spacer>
       )}
       {data?.mediaArray?.[3] && (
-        <Spacer position="top" size="medium">
+        <Spacer position="top" size="">
           <Image
             style={{
               width: "100%",
               height: imageHeight,
               resizeMode: "cover",
-              borderRadius: 5,
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: theme.spaceNumberBy10[10],
             }}
             source={{
               uri: `${data?.mediaArray?.[3]}`,
@@ -679,7 +780,8 @@ export default function IndividualUserProfileComponent({
               width: "100%",
               height: imageHeight,
               resizeMode: "cover",
-              borderRadius: 5,
+              borderTopRightRadius: 5,
+              borderTopLeftRadius: theme.spaceNumberBy10[10],
             }}
             source={{
               uri: `${data?.mediaArray?.[4]}`,
@@ -688,13 +790,14 @@ export default function IndividualUserProfileComponent({
         </Spacer>
       )}
       {data?.mediaArray?.[5] && (
-        <Spacer position="top" size="medium">
+        <Spacer position="top" size="">
           <Image
             style={{
               width: "100%",
               height: imageHeight,
               resizeMode: "cover",
-              borderRadius: 5,
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: theme.spaceNumberBy10[10],
             }}
             source={{
               uri: `${data?.mediaArray?.[5]}`,

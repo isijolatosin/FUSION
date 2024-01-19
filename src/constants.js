@@ -429,8 +429,17 @@ export const interests = [
   "Gospel",
 ];
 export const LifestyleHabits = {
+  gym: [
+    "Not my thing",
+    "Occasionally",
+    "Frequently",
+    "Sometimes",
+    "Every day",
+    "Seasonally",
+  ],
   smoke: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   drink: ["Not my thing", "Socially", "Frequently", "Sometimes"],
+  cannabis: ["Not my thing", "Socially", "Frequently", "Sometimes"],
 };
 export const dailyendofswipescreenmessage =
   "All potential matches based on your preferences have been viewed, yet fresh individuals continue to join daily.";
@@ -448,3 +457,7 @@ export const deleteaccounttext =
   "Deleting your account removes your profile permanently on Fusion and your information is no longer accessible on the app. ";
 export const nolikesyetmessage =
   "Looks like you haven't received any likes yet. Don't worry, the right connections are just a swipe away! Keep exploring and making meaningful connections.";
+export const compatibleText =
+  "Like polls attract on this end. We have selected matches with similar interest for you.";
+export const noSimilarInterestyetmessage =
+  "While we're growing, it seems we don't have many users with similar interests right now. Don't be discouraged—new members join daily! In the meantime, consider exploring diverse profiles. Your perfect match might be just around the corner.";
