@@ -96,6 +96,7 @@ const Index = () => {
         filteredOffLikedProfilesStep2 = [...filteredOffLikedProfiles];
       }
 
+      // check if profile has been blocked or blocked by me and filter off
       const blockedMeList = [];
       currentUserData?.blockedMeList?.map((list) => {
         blockedMeList.push(list?.phonenumber);
@@ -253,7 +254,11 @@ const Index = () => {
           <Spacer position="bottom" size="large">
             <NavigationBar>
               <BrandAvatarO currentUser={currentUser} />
-              <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}>
                 <Pressable
                   style={{
                     transform: [{ rotateX: "180deg" }],
@@ -312,6 +317,10 @@ const Index = () => {
           setIsRetrigger={setIsRetrigger}
         />
         <CloseButton
+          onPress={() => {
+            currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+            scrollToTop();
+          }}
           spaceBottom="125px"
           style={{
             elevation: 5,

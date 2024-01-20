@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -50,12 +51,10 @@ const LikesScreen = () => {
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-      <HorizontalPaddingSpace space={theme.space[3]}>
+      <HorizontalPaddingSpace space={theme.space[4]}>
         <Spacer position="top" size="large">
           <Spacer position="bottom" size="xlarge">
-            <HorizontalPaddingSpace space={theme.space[4]}>
-              <BrandAvatarO noFlex={true} width={theme.spaceNumberBy50[3]} />
-            </HorizontalPaddingSpace>
+            <BrandAvatarO />
           </Spacer>
         </Spacer>
         <Spacer style={{ alignItems: "center" }} position="top" size="">
@@ -84,9 +83,7 @@ const LikesScreen = () => {
               style={{ marginBottom: theme.spaceNumberBy50[4] }}
             />
           ) : (
-            <HorizontalPaddingSpace
-              space={theme.space[3]}
-              style={{ width: "100%" }}>
+            <View style={{ width: "100%" }}>
               <Spacer position="top" size="large">
                 <Text
                   style={{
@@ -102,7 +99,7 @@ const LikesScreen = () => {
                   <BrandAvatar />
                 </Spacer>
               </Spacer>
-            </HorizontalPaddingSpace>
+            </View>
           )}
         </Spacer>
       </HorizontalPaddingSpace>

@@ -93,7 +93,7 @@ export default function CaptureInterests({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               Share Your Interest
             </Text>

@@ -82,7 +82,7 @@ export default function CaptureJobTitle({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               What's your job title?
             </Text>

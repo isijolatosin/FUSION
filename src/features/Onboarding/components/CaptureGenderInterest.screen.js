@@ -56,7 +56,7 @@ export default function CaptureGenderInterest({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               Who are you interested in?
             </Text>

@@ -68,7 +68,7 @@ export default function CaptureDOB({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="playfairbold"
-                fontSize="h4"
+                fontSize="h3"
                 width="100%">
                 We would love to know your birth date?
               </Text>

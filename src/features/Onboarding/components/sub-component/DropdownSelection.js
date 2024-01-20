@@ -1,4 +1,6 @@
 import React from "react";
+import { ScrollView, View, Text } from "react-native";
+
 import {
   DropdowSelectionLists,
   DropdownSelectionWrapper,
@@ -7,8 +9,7 @@ import {
   DropdowSelectionItemWrapper,
 } from "./sub-component.style";
 import { Spacer } from "../../../../components/spacer/spacer.component";
-import { ScrollView, View } from "react-native";
-import { Text } from "react-native";
+import { Text as TypoText } from "../../../../components/typography/text.component";
 
 export default function DropdownSelection({
   data,
@@ -19,7 +20,8 @@ export default function DropdownSelection({
   theme,
   isForHeightComponent,
 }) {
-  let inputText = isForHeightComponent ? data[0] : "";
+  let inputText = "Choose an option";
+  // let inputText = isForHeightComponent ? data[0] : "";
   if (value !== "") inputText = value;
 
   function formatHeightText(height) {
@@ -38,15 +40,28 @@ export default function DropdownSelection({
         <DropdowSelectionItemWrapper
           isBorderBottom={false}
           onPress={() => setOpen(!isOpen)}>
-          <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-end",
+            }}>
             <DropdowSelectionItem
-              style={{ color: theme.colors.brand.highlight }}
+              style={{
+                color: theme.colors.brand.highlight,
+                alignItems: "center",
+              }}
               isSelectionDisplayInput={true}>
-              {isForHeightComponent
-                ? formatHeightText(inputText).feet
-                : inputText}
+              <TypoText
+                variant="custom"
+                colorType="basewhite"
+                fontType="montserratSemibold"
+                fontSize="title">
+                {isForHeightComponent
+                  ? formatHeightText(inputText).feet
+                  : inputText}
+              </TypoText>
             </DropdowSelectionItem>
-            {isForHeightComponent && (
+            {isForHeightComponent && inputText !== "Choose an option" && (
               <Text
                 style={{
                   paddingHorizontal: 5,

@@ -148,7 +148,7 @@ export default function CapturePhotos({ navigation }) {
             variant="custom"
             colorType="black"
             fontType="playfairbold"
-            fontSize="h4"
+            fontSize="h3"
             width="100%">
             Add your photos
           </Text>

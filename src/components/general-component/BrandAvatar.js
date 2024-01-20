@@ -17,15 +17,15 @@ export default function BrandAvatar({ noFlex, width }) {
         <View
           style={{
             position: "absolute",
-            left: noFlex ? "100%" : "70.5%",
-            top: noFlex ? -theme.spaceNumber[0] : -theme.spaceNumberBy10[0],
+            left: noFlex ? "100%" : "69%",
+            top: noFlex ? -theme.spaceNumber[0] : -theme.spaceNumber[1],
             borderWidth: 1,
             borderRadius: theme.spaceNumberBy50[1],
             borderColor: noFlex
               ? theme.colors.brand.black
               : theme.colors.brand.linesLight,
-            width: noFlex ? theme.spaceNumber[5] : theme.spaceNumber[6],
-            height: noFlex ? theme.spaceNumber[5] : theme.spaceNumber[6],
+            width: noFlex ? theme.spaceNumber[5] : theme.spaceNumber[5],
+            height: noFlex ? theme.spaceNumber[5] : theme.spaceNumber[5],
             justifyContent: "center",
             alignItems: "center",
           }}>

@@ -75,7 +75,7 @@ export default function CaptureSelfDescription({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               What three words describe you?
             </Text>

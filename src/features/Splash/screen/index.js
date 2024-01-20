@@ -130,7 +130,7 @@ const TabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={23} />
+            <FontAwesome name="user" color={color} size={25} />
           ),
           gestureEnabled: false,
         }}

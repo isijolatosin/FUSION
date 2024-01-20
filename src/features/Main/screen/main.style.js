@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-const CloseButton = styled.View`
+const CloseButton = styled.Pressable`
   position: fixed;
   z-index: 10;
   bottom: ${(props) => (props.spaceBottom ? props.spaceBottom : "160px")};

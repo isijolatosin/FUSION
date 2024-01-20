@@ -1,23 +1,23 @@
 import React from "react";
 import { Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useAppContext } from "../../context/ThemeContext";
 
-export default function BrandAvatarO({ noFlex, width, currentUser }) {
+export default function BrandAvatarO({ noFlex, currentUser }) {
   const navigation = useNavigation();
+  const {
+    state: { theme },
+  } = useAppContext();
+
   return (
     <Pressable
       onPress={() => {
         if (currentUser?.role === process.env.EXPO_PUBLIC_ROLE)
           navigation.navigate("support");
-      }}
-      style={
-        noFlex
-          ? { width: width }
-          : { flex: 1, justifyContent: "flex-start", width: width }
-      }>
+      }}>
       <Image
         source={require("../../../assets/fusion_O.png")}
-        style={{ width: "10%", resizeMode: "contain" }}
+        style={{ resizeMode: "contain" }}
       />
     </Pressable>
   );

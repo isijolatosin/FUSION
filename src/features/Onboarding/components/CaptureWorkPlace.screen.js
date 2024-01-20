@@ -80,7 +80,7 @@ export default function CaptureWorkPlace({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               Where do you work?
             </Text>
