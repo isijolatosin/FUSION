@@ -60,7 +60,7 @@ export default function CaptureName({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="55%">
               What's your name?
             </Text>

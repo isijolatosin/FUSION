@@ -74,7 +74,7 @@ export default function CaptureAddress({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="65%">
               Where do you stay?
             </Text>

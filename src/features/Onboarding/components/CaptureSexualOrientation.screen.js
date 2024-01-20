@@ -67,7 +67,7 @@ export default function CaptureSexualOrientation({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               What is your Sexual Orientation?
             </Text>

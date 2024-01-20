@@ -143,7 +143,7 @@ export default function IndividualUserProfileComponent({
               height: imageHeight,
               resizeMode: "cover",
               borderRadius: 5,
-              borderBottomRightRadius: theme.spaceNumberBy10[15],
+              borderBottomRightRadius: theme.spaceNumberBy50[3],
             }}
             source={{
               uri: `${data?.mediaArray?.[0]}`,

@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, Pressable, ScrollView, View } from "react-native";
-import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import React, { useEffect, useRef, useState } from "react";
+import { Dimensions, ScrollView } from "react-native";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
 import { Spacer } from "../../components/spacer/spacer.component";
-import { NavigationBar } from "../Onboarding/components/onboarding.styles";
-import IconComponent from "../../components/icon-components/IconComponent";
 import { useAppContext } from "../../context/ThemeContext";
 import BrandAvatarO from "../../components/general-component/BrandAvatarO";
 import { Text } from "../../components/typography/text.component";
@@ -16,6 +13,7 @@ import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
 import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
 import BrandAvatar from "../../components/general-component/BrandAvatar";
 import Loading from "../../components/general-component/Loading";
+import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
 
 function ScreenWrapper({ children, theme, width }) {
   return (
@@ -29,14 +27,16 @@ function ScreenWrapper({ children, theme, width }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{ width: width, alignItems: "center" }}>
-          <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="playfairbold"
-            fontSize="h4">
-            Compatible
-          </Text>
+          <Spacer position="bottom" size="xsmall">
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h3">
+              Compatible
+            </Text>
+          </Spacer>
           <Text
             style={{ textAlign: "center" }}
             variant="custom"
@@ -53,8 +53,13 @@ function ScreenWrapper({ children, theme, width }) {
 }
 
 export default function Index() {
-  const { width, height } = Dimensions.get("window");
+  const scrollViewRef = useRef(null);
+  const { width } = Dimensions.get("window");
   const [isLoading, setIsLoading] = useState(false);
+  const [likedUser, setLikedUser] = useState([]);
+  const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
+  const [currentUser, setCurrentUser] = useState([]);
+  const [isRetrigger, setIsRetrigger] = useState(false);
   const [usersWithSimilarInterestsData, setUsersWithSimilarInterestsData] =
     useState([]);
   const {
@@ -78,24 +83,68 @@ export default function Index() {
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory
       );
+      setCurrentUser(currentUserData);
       const currentUserInteresstArray = currentUserData?.interestsArray;
 
       // find users with similar interests
-      const usersWithSimilarInterests = newData?.filter((user) => {
+      const usersWithSimilarInterests = [];
+      newData?.filter((user) => {
         if (user?.phonenumber !== phoneValueFromPhoneMemory) {
-          const userInterestsArray = user.interestsArray;
-
           if (
-            hasMatchingElements(currentUserInteresstArray, userInterestsArray)
-          )
-            return user;
+            user?.gender === currentUserData.interest ||
+            currentUserData.interest === "both"
+          ) {
+            const stackingArray = [];
+            const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
+            const likedMeList = currentUserData?.likedMeList;
+            const blockedMeList = currentUserData?.blockedMeList;
+            const blockedList = currentUserData?.blockedList;
+
+            // check if profile has been liked or liked me and filter off
+            if (
+              likedNumberArray?.length &&
+              !likedNumberArray?.includes(user?.phonenumber) &&
+              likedMeList?.length &&
+              !likedMeList?.includes(user?.phonenumber)
+            ) {
+              const userInterestsArray = user.interestsArray;
+
+              if (
+                hasMatchingElements(
+                  currentUserInteresstArray,
+                  userInterestsArray
+                )
+              )
+                stackingArray.push(user);
+            }
+
+            // check if profile has been blocked or blocked by me and filter off
+            if (
+              blockedMeList?.length &&
+              !blockedMeList?.includes(user?.phonenumber) &&
+              blockedList?.length &&
+              !blockedList?.includes(user?.phonenumber)
+            ) {
+              const userInterestsArray = user.interestsArray;
+
+              if (
+                hasMatchingElements(
+                  currentUserInteresstArray,
+                  userInterestsArray
+                )
+              )
+                stackingArray.push(user);
+            }
+
+            usersWithSimilarInterests.push(...stackingArray);
+          }
         }
       });
 
       const usersWithSimilarInterestsId = setTimeout(() => {
         setIsLoading(false);
         setUsersWithSimilarInterestsData(usersWithSimilarInterests);
-      }, 2000);
+      }, 500);
 
       return () => clearTimeout(usersWithSimilarInterestsId);
     }
@@ -135,13 +184,19 @@ export default function Index() {
     );
   }
 
+  const scrollToTop = () => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    }
+  };
+
   return (
     <ScreenWrapper theme={theme} width={width}>
       <Spacer
         position="top"
         size="small"
         style={{ paddingBottom: theme.spaceNumberBy10[8] }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
           {usersWithSimilarInterestsData?.map(
             (signleUserWithSimilarInterest, idx) => (
               <CompatibleComponent
@@ -149,10 +204,21 @@ export default function Index() {
                 data={signleUserWithSimilarInterest}
                 width={width}
                 theme={theme}
+                setLikedUser={setLikedUser}
+                setIsYouLikedVisible={setIsYouLikedVisible}
+                currentUser={currentUser}
+                setIsRetrigger={setIsRetrigger}
+                scrollToTop={scrollToTop}
               />
             )
           )}
         </ScrollView>
+        <YouLikedComponent
+          theme={theme}
+          isVisible={isYouLikedVisible}
+          onClose={() => setIsYouLikedVisible(false)}
+          likedUser={likedUser}
+        />
       </Spacer>
     </ScreenWrapper>
   );

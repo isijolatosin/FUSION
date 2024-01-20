@@ -63,7 +63,7 @@ export default function CreateAccount({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="playfairbold"
-                fontSize="h4"
+                fontSize="h3"
                 width="50%">
                 What's your number?
               </Text>

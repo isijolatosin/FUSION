@@ -1,5 +1,5 @@
-import { View, ImageBackground } from "react-native";
-import React from "react";
+import { View, ImageBackground, Pressable } from "react-native";
+import React, { useRef, useState } from "react";
 import styled from "styled-components/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -7,6 +7,8 @@ import { Text } from "../../../components/typography/text.component";
 import calculateAge from "../../../utilities/calculateAge";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
+import firebase, { database } from "../../../../config";
+import { addToArrayField } from "../../../utilities/updateFirestoreDatabaseField";
 
 const CompatibleContainer = styled(ImageBackground)`
   flex: 1;
@@ -14,8 +16,69 @@ const CompatibleContainer = styled(ImageBackground)`
   position: relative;
 `;
 
-export default function CompatibleComponent({ data, width, theme }) {
+export default function CompatibleComponent({
+  data,
+  width,
+  theme,
+  setLikedUser,
+  setIsYouLikedVisible,
+  currentUser,
+  setIsRetrigger,
+  scrollToTop,
+}) {
   const image = { uri: `${data?.mediaArray[0]}` };
+  const lastTap = useRef(0);
+  const [doubleTapWarning, setDoubleTapWarning] = useState(false);
+
+  async function handleYouLikedAUser(profileLikedNumber) {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300;
+    setDoubleTapWarning(false);
+
+    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
+      const likedUserNameAndPhoto = {
+        name: data?.firstname,
+        photo: data?.mediaArray?.[0],
+      };
+      setLikedUser(likedUserNameAndPhoto);
+      setIsYouLikedVisible(true);
+
+      // create match intend structure in firebase firestore
+      database.collection("all-likes").add({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        likedBy: {
+          ...currentUser,
+        }, // the number who liked another profile
+        profileLikedNumber: profileLikedNumber, // profile number that was liked
+      });
+
+      // add liked profile number to list-of-all-liked-numbers in current user profile object
+      await addToArrayField(
+        "all-users",
+        currentUser?.id,
+        "listOfAllLikedNumbers",
+        data?.phonenumber,
+        setIsRetrigger
+      );
+
+      // add current user number (like initiator) to liked-me-list in other user profile object
+      await addToArrayField(
+        "all-users",
+        data?.id,
+        "likedMeList",
+        currentUser?.phonenumber,
+        setIsRetrigger
+      );
+
+      // currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+      scrollToTop();
+    } else {
+      setDoubleTapWarning(true);
+    }
+
+    // Update the lastTap reference
+    lastTap.current = now;
+  }
 
   return (
     <View
@@ -44,7 +107,7 @@ export default function CompatibleComponent({ data, width, theme }) {
                   backgroundColor: "transparent",
                   elevation: 5,
                   shadowColor: theme.colors.brand.basewhite,
-                  shadowOpacity: 0.5,
+                  shadowOpacity: 1,
                   shadowRadius: theme.spaceNumber[2],
                 }}
                 variant="custom"
@@ -60,17 +123,53 @@ export default function CompatibleComponent({ data, width, theme }) {
                 )}
               </Text>
             </View>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="heart"
-              IconComponent={MaterialCommunityIcons}
-              size={50}
-              color={theme.colors.brand.base}
-            />
+            <View
+              style={{
+                position: "absolute",
+                bottom: -theme.spaceNumber[2],
+                left: theme.spaceNumber[0],
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                width: "100%",
+                padding: theme.spaceNumberBy10[0],
+              }}>
+              {doubleTapWarning && (
+                <View
+                  style={{
+                    marginRight: -theme.spaceNumberBy10[4],
+                    marginBottom: -theme.spaceNumber[3],
+                  }}>
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="caption">
+                    double tap
+                  </Text>
+                </View>
+              )}
+              <Pressable>
+                <IconComponent
+                  iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
+                  iconName="heart"
+                  IconComponent={MaterialCommunityIcons}
+                  size={50}
+                  color={theme.colors.brand.base}
+                />
+              </Pressable>
+            </View>
           </View>
           <View>
             <Spacer position="bottom" size="small">
               <Text
+                style={{
+                  backgroundColor: "transparent",
+                  elevation: 5,
+                  shadowColor: theme.colors.brand.basewhite,
+                  shadowOpacity: 1,
+                  shadowRadius: theme.spaceNumber[2],
+                }}
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"

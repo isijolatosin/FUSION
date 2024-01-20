@@ -49,7 +49,7 @@ export default function OtpScreen({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4">
+              fontSize="h3">
               Enter your verification code
             </Text>
             <Text

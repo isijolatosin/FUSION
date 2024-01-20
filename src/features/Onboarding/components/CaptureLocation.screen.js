@@ -67,7 +67,7 @@ export default function CaptureLocation({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               Enable your location services
             </Text>

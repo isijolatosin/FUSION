@@ -53,7 +53,7 @@ export default function CaptureEmail({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="playfairbold"
-              fontSize="h4"
+              fontSize="h3"
               width="100%">
               What's your email?
             </Text>

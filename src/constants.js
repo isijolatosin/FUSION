@@ -69,23 +69,26 @@ export const heightList = [
   "7 feet 2 inch",
 ];
 export const religions = [
+  "Atheist",
+  "Buddhist",
   "Christian",
+  "Hindus",
+  "Jew",
   "Muslim",
   "Traditional",
-  "Atheist",
   "Others",
 ];
 export const sexualOrientationList = [
-  "Straight",
+  "Androphilia and Gynephilia",
+  "Asexual",
+  "Bisexual",
+  "Demisexual",
   "Gay",
   "Lesbian",
-  "Bisexual",
   "Pansexual",
-  "Asexual",
-  "Demisexual",
-  "Queer",
   "Polysexual",
-  "Androphilia and Gynephilia",
+  "Queer",
+  "Straight",
 ];
 export const countryList = [
   "Afghanistan",
@@ -429,14 +432,7 @@ export const interests = [
   "Gospel",
 ];
 export const LifestyleHabits = {
-  gym: [
-    "Not my thing",
-    "Occasionally",
-    "Frequently",
-    "Sometimes",
-    "Every day",
-    "Seasonally",
-  ],
+  gym: ["Active", "Not my thing", "Seasonally", "Sometimes"],
   smoke: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   drink: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   cannabis: ["Not my thing", "Socially", "Frequently", "Sometimes"],
