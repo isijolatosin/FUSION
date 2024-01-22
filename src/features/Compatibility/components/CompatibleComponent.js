@@ -25,6 +25,8 @@ export default function CompatibleComponent({
   currentUser,
   setIsRetrigger,
   scrollToTop,
+  setIsSelectedUserToView,
+  setSelectedUserToView,
 }) {
   const image = { uri: `${data?.mediaArray[0]}` };
   const lastTap = useRef(0);
@@ -81,7 +83,11 @@ export default function CompatibleComponent({
   }
 
   return (
-    <View
+    <Pressable
+      onPress={() => {
+        setSelectedUserToView(data);
+        setIsSelectedUserToView(true);
+      }}
       style={{
         width: width,
         height: theme.spaceNumberBy50[10],
@@ -101,32 +107,25 @@ export default function CompatibleComponent({
               justifyContent: "space-between",
               alignItems: "center",
             }}>
-            <View>
-              <Text
-                style={{
-                  backgroundColor: "transparent",
-                  elevation: 5,
-                  shadowColor: theme.colors.brand.basewhite,
-                  shadowOpacity: 1,
-                  shadowRadius: theme.spaceNumber[2],
-                }}
-                variant="custom"
-                colorType="black"
-                fontType="montserratBold"
-                fontSize="h5"
-                width="100%">
-                {data?.firstname},{" "}
-                {calculateAge(
-                  data?.dob?.year,
-                  data?.dob?.month,
-                  data?.dob?.day
-                )}
-              </Text>
-            </View>
+            <Text
+              style={{
+                backgroundColor: "transparent",
+                elevation: 5,
+                shadowColor: theme.colors.brand.basewhite,
+                shadowOpacity: 1,
+                shadowRadius: theme.spaceNumber[2],
+              }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="h5"
+              width="100%">
+              {data?.firstname},{" "}
+              {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
+            </Text>
             <View
               style={{
                 position: "absolute",
-                bottom: -theme.spaceNumber[2],
                 left: theme.spaceNumber[0],
                 flexDirection: "row",
                 justifyContent: "flex-end",
@@ -210,6 +209,6 @@ export default function CompatibleComponent({
           </View>
         </View>
       </CompatibleContainer>
-    </View>
+    </Pressable>
   );
 }
