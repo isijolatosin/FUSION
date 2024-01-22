@@ -44,7 +44,7 @@ export default function ProfileViewModal({
         <Image
           style={{
             width: "100%",
-            height: 450,
+            height: 700,
             resizeMode: "cover",
           }}
           source={{
@@ -120,148 +120,158 @@ export default function ProfileViewModal({
             marginVertical: 5,
             flexWrap: "wrap",
           }}>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 8, left: 8 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName={iconNamePerGender}
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
+          {otherUser?.gender && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 8, left: 8 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName={iconNamePerGender}
+                  IconComponent={MaterialCommunityIcons}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.gender}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.gender}
-            </Text>
-          </View>
+          )}
 
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
+          {zodiacSign && (
             <View
               style={{
-                position: "absolute",
-                top: theme.spaceNumber[4],
-                left: 9,
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
+              <View
+                style={{
+                  position: "absolute",
+                  top: theme.spaceNumber[4],
+                  left: 9,
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
+                  IconComponent={MaterialCommunityIcons}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: theme.spaceNumber[5] }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {zodiacSign}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: theme.spaceNumber[5] }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {zodiacSign}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
+          )}
+          {otherUser?.sexualOrientation && (
             <View
               style={{
-                position: "absolute",
-                top: 10,
-                left: 9,
-                transform: [{ rotateZ: "145deg" }],
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="magnet"
-                IconComponent={Entypo}
-                size={12}
-                color={theme.colors.brand.black}
-              />
+              <View
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 9,
+                  transform: [{ rotateZ: "145deg" }],
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="magnet"
+                  IconComponent={Entypo}
+                  size={12}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.sexualOrientation}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.sexualOrientation}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 9 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="flag"
-                IconComponent={Fontisto}
-                size={12}
-                color={theme.colors.brand.black}
-              />
+          )}
+          {otherUser?.country && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="flag"
+                  IconComponent={Fontisto}
+                  size={12}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.country}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.country}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 10.5, left: 10 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="praying-hands"
-                IconComponent={FontAwesome5}
-                size={10}
-                color={theme.colors.brand.black}
-              />
+          )}
+          {otherUser?.religious && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="praying-hands"
+                  IconComponent={FontAwesome5}
+                  size={10}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 10 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.religious}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 10 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.religious}
-            </Text>
-          </View>
+          )}
           {otherUser?.jobtitle?.visibleOnProfile && (
             <View
               style={{
@@ -323,172 +333,184 @@ export default function ProfileViewModal({
               </Text>
             </View>
           )}
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 9 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="human-male-height"
-                IconComponent={MaterialCommunityIcons}
-                size={12}
-                color={theme.colors.brand.black}
-              />
-            </View>
-            <Text
-              style={{ marginLeft: 10 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.height?.replace("feet", "'")?.replace("inch", '"')}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
+          {otherUser?.height && (
             <View
               style={{
-                position: "absolute",
-                top: theme.spaceNumber[5],
-                left: 8,
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="dumbbell"
-                IconComponent={FontAwesome5}
-                size={10}
-                color={theme.colors.brand.black}
-              />
+              <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="human-male-height"
+                  IconComponent={MaterialCommunityIcons}
+                  size={12}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 10 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.height?.replace("feet", "'")?.replace("inch", '"')}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.lifestyleHabits?.gym}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
+          )}
+          {otherUser?.lifestyleHabits?.gym && (
             <View
               style={{
-                position: "absolute",
-                top: theme.spaceNumber[4],
-                left: 8,
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="cannabis"
-                IconComponent={FontAwesome5}
-                size={13}
-                color={theme.colors.brand.black}
-              />
+              <View
+                style={{
+                  position: "absolute",
+                  top: theme.spaceNumber[5],
+                  left: 8,
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="dumbbell"
+                  IconComponent={FontAwesome5}
+                  size={10}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.lifestyleHabits?.gym}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 10 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.lifestyleHabits?.cannabis}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 8 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="glass-wine"
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
+          )}
+          {otherUser?.lifestyleHabits?.cannabis && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View
+                style={{
+                  position: "absolute",
+                  top: theme.spaceNumber[4],
+                  left: 8,
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="cannabis"
+                  IconComponent={FontAwesome5}
+                  size={13}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 10 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.lifestyleHabits?.cannabis}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.lifestyleHabits?.drink}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 7, left: 10 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="cigar"
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
+          )}
+          {otherUser?.lifestyleHabits?.drink && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 9, left: 8 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="glass-wine"
+                  IconComponent={MaterialCommunityIcons}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.lifestyleHabits?.drink}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 15 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.lifestyleHabits?.smoke}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 10 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="search"
-                IconComponent={Feather}
-                size={15}
-                color={theme.colors.brand.black}
-              />
+          )}
+          {otherUser?.lifestyleHabits?.smoke && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 7, left: 10 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="cigar"
+                  IconComponent={MaterialCommunityIcons}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 15 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.lifestyleHabits?.smoke}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 15 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.preference}
-            </Text>
-          </View>
+          )}
+          {otherUser?.preference && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 9, left: 10 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="search"
+                  IconComponent={Feather}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 15 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.preference}
+              </Text>
+            </View>
+          )}
         </View>
         <Spacer position="top" size="medium">
           <Text
@@ -500,34 +522,36 @@ export default function ProfileViewModal({
             My Location
           </Text>
         </Spacer>
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: theme.spaceNumber[3],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <IconComponent
-            iconFunction={() => {}}
-            iconName="location-pin"
-            IconComponent={Entypo}
-            size={15}
-            color={theme.colors.brand.black}
-          />
-          <Text
-            style={{ marginLeft: 3 }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="button">
-            {otherUser?.address?.city}, {otherUser?.address?.province}
-          </Text>
-        </View>
+        {otherUser?.address?.city && otherUser?.address?.province && (
+          <View
+            style={{
+              flexDirection: "row",
+              paddingVertical: theme.spaceNumber[3],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="location-pin"
+              IconComponent={Entypo}
+              size={15}
+              color={theme.colors.brand.black}
+            />
+            <Text
+              style={{ marginLeft: 3 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="button">
+              {otherUser?.address?.city}, {otherUser?.address?.province}
+            </Text>
+          </View>
+        )}
       </HorizontalPaddingSpace>
       <Spacer style={{ position: "relative" }} position="top" size="large">
         <Image
           style={{
             // width: "100%",
-            height: 450,
+            height: 600,
             resizeMode: "cover",
           }}
           source={{
@@ -546,62 +570,64 @@ export default function ProfileViewModal({
             Me in Three Words
           </Text>
         </Spacer>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-            gap: theme.spaceNumber[3],
-            marginVertical: 5,
-          }}>
+        {Object.keys(otherUser?.whatThreeWordsDescribeYou).length && (
           <View
             style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
+              flexDirection: "row",
+              width: "100%",
+              gap: theme.spaceNumber[3],
+              marginVertical: 5,
             }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.whatThreeWordsDescribeYou?.firstword}
-            </Text>
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.whatThreeWordsDescribeYou?.firstword}
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.whatThreeWordsDescribeYou?.secondword}
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {otherUser?.whatThreeWordsDescribeYou?.thirdword}
+              </Text>
+            </View>
           </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.whatThreeWordsDescribeYou?.secondword}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {otherUser?.whatThreeWordsDescribeYou?.thirdword}
-            </Text>
-          </View>
-        </View>
+        )}
         <Spacer position="top" size="medium">
           <Text
             variant="custom"
@@ -612,42 +638,44 @@ export default function ProfileViewModal({
             My Interests
           </Text>
         </Spacer>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-            gap: theme.spaceNumber[3],
-            marginVertical: 5,
-            flexWrap: "wrap",
-          }}>
-          {otherUser?.interestsArray?.map((word, idx) => (
-            <View
-              key={idx}
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <Text
+        {otherUser?.interestsArray?.length && (
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              gap: theme.spaceNumber[3],
+              marginVertical: 5,
+              flexWrap: "wrap",
+            }}>
+            {otherUser?.interestsArray?.map((word, idx) => (
+              <View
                 key={idx}
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {word}
-              </Text>
-            </View>
-          ))}
-        </View>
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  key={idx}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {word}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
       </HorizontalPaddingSpace>
       {otherUser?.mediaArray?.[2] && (
         <Spacer position="top" size="xxsmall">
           <Image
             style={{
               width: "100%",
-              height: 450,
+              height: 600,
               resizeMode: "cover",
             }}
             source={{
@@ -661,7 +689,7 @@ export default function ProfileViewModal({
           <Image
             style={{
               width: "100%",
-              height: 450,
+              height: 600,
               resizeMode: "cover",
             }}
             source={{
@@ -675,7 +703,7 @@ export default function ProfileViewModal({
           <Image
             style={{
               width: "100%",
-              height: 450,
+              height: 600,
               resizeMode: "cover",
             }}
             source={{
@@ -689,7 +717,7 @@ export default function ProfileViewModal({
           <Image
             style={{
               width: "100%",
-              height: 450,
+              height: 600,
               resizeMode: "cover",
             }}
             source={{

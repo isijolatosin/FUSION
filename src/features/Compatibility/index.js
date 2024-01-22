@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, ScrollView } from "react-native";
+import { Dimensions, ScrollView, View } from "react-native";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
@@ -14,6 +14,8 @@ import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
 import BrandAvatar from "../../components/general-component/BrandAvatar";
 import Loading from "../../components/general-component/Loading";
 import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
+import AnimatedModal from "../../components/general-component/AnimatedModal";
+import ProfileViewModal from "../../components/general-component/ProfileViewModal";
 
 function ScreenWrapper({ children, theme, width }) {
   return (
@@ -23,7 +25,7 @@ function ScreenWrapper({ children, theme, width }) {
           <BrandAvatarO />
         </HorizontalPaddingSpace>
       </Spacer>
-      <Spacer position="top" size="large">
+      <Spacer position="top" size="xsmall">
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{ width: width, alignItems: "center" }}>
@@ -59,6 +61,8 @@ export default function Index() {
   const [likedUser, setLikedUser] = useState([]);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState([]);
+  const [selectedUserToView, setSelectedUserToView] = useState({});
+  const [isSelectedUserToView, setIsSelectedUserToView] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const [usersWithSimilarInterestsData, setUsersWithSimilarInterestsData] =
     useState([]);
@@ -89,6 +93,7 @@ export default function Index() {
       // find users with similar interests
       const usersWithSimilarInterests = [];
       newData?.filter((user) => {
+        const userInterestsArray = user.interestsArray;
         if (user?.phonenumber !== phoneValueFromPhoneMemory) {
           if (
             user?.gender === currentUserData.interest ||
@@ -107,8 +112,6 @@ export default function Index() {
               likedMeList?.length &&
               !likedMeList?.includes(user?.phonenumber)
             ) {
-              const userInterestsArray = user.interestsArray;
-
               if (
                 hasMatchingElements(
                   currentUserInteresstArray,
@@ -136,7 +139,17 @@ export default function Index() {
                 stackingArray.push(user);
             }
 
-            usersWithSimilarInterests.push(...stackingArray);
+            if (stackingArray?.length) {
+              usersWithSimilarInterests.push(...stackingArray);
+            } else {
+              if (
+                hasMatchingElements(
+                  currentUserInteresstArray,
+                  userInterestsArray
+                )
+              )
+                usersWithSimilarInterests.push(user);
+            }
           }
         }
       });
@@ -150,7 +163,7 @@ export default function Index() {
     }
 
     asyncFunctionCall();
-  }, []);
+  }, [isRetrigger]);
 
   if (isLoading) {
     return (
@@ -191,35 +204,51 @@ export default function Index() {
   };
 
   return (
-    <ScreenWrapper theme={theme} width={width}>
-      <Spacer
-        position="top"
-        size="small"
-        style={{ paddingBottom: theme.spaceNumberBy10[8] }}>
-        <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
-          {usersWithSimilarInterestsData?.map(
-            (signleUserWithSimilarInterest, idx) => (
-              <CompatibleComponent
-                key={idx}
-                data={signleUserWithSimilarInterest}
-                width={width}
-                theme={theme}
-                setLikedUser={setLikedUser}
-                setIsYouLikedVisible={setIsYouLikedVisible}
-                currentUser={currentUser}
-                setIsRetrigger={setIsRetrigger}
-                scrollToTop={scrollToTop}
-              />
-            )
-          )}
-        </ScrollView>
-        <YouLikedComponent
+    <View style={{ flex: 1 }}>
+      <ScreenWrapper theme={theme} width={width}>
+        <Spacer
+          position="top"
+          size="small"
+          style={{ paddingBottom: theme.spaceNumberBy10[10] }}>
+          <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
+            {usersWithSimilarInterestsData?.map(
+              (signleUserWithSimilarInterest, idx) => (
+                <CompatibleComponent
+                  key={idx}
+                  data={signleUserWithSimilarInterest}
+                  width={width}
+                  theme={theme}
+                  setLikedUser={setLikedUser}
+                  setIsYouLikedVisible={setIsYouLikedVisible}
+                  currentUser={currentUser}
+                  setIsRetrigger={setIsRetrigger}
+                  scrollToTop={scrollToTop}
+                  setIsSelectedUserToView={setIsSelectedUserToView}
+                  setSelectedUserToView={setSelectedUserToView}
+                />
+              )
+            )}
+          </ScrollView>
+          <YouLikedComponent
+            theme={theme}
+            isVisible={isYouLikedVisible}
+            onClose={() => setIsYouLikedVisible(false)}
+            likedUser={likedUser}
+          />
+        </Spacer>
+      </ScreenWrapper>
+      <AnimatedModal
+        isVisible={isSelectedUserToView}
+        onClose={() => setIsSelectedUserToView(false)}
+        theme={theme}
+        width={width}>
+        <ProfileViewModal
+          otherUser={selectedUserToView}
           theme={theme}
-          isVisible={isYouLikedVisible}
-          onClose={() => setIsYouLikedVisible(false)}
-          likedUser={likedUser}
+          setShowProfile={setIsSelectedUserToView}
+          width={width}
         />
-      </Spacer>
-    </ScreenWrapper>
+      </AnimatedModal>
+    </View>
   );
 }

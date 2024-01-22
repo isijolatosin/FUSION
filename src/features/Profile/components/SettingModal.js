@@ -71,6 +71,7 @@ export default function SettingModal({
       await clearDataByKey("match-id");
       await clearDataByKey("phonenumber");
       await clearDataByKey("refreshChatScreen");
+      await clearDataByKey("swipe-index");
 
       setTimeout(() => {
         onClose();
@@ -85,6 +86,7 @@ export default function SettingModal({
     await clearDataByKey("phonenumber");
     await clearDataByKey("match-id");
     await clearDataByKey("refreshChatScreen");
+    await clearDataByKey("swipe-index");
     setTimeout(() => {
       onClose();
       navigation.navigate("onBoard");

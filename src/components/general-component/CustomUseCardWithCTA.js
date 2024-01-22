@@ -8,8 +8,16 @@ import { HorizontalPaddingSpace } from "../utility/space-area.component";
 import Button from "../utility/button.component";
 import BrandAvatar from "./BrandAvatar";
 import { Spacer } from "../spacer/spacer.component";
+import { storeData } from "../../utilities/storeDataInPhoneMemory";
 
-export default function CustomUseCardWithCTA({ text, buttonText, route }) {
+export default function CustomUseCardWithCTA({
+  text,
+  buttonText,
+  buttonSecondText,
+  route,
+  showSecondButton,
+  setIndex,
+}) {
   const navigation = useNavigation();
   const {
     state: { theme },
@@ -45,6 +53,27 @@ export default function CustomUseCardWithCTA({ text, buttonText, route }) {
           width="80%"
         />
       </HorizontalPaddingSpace>
+      <Spacer position="top" size="small">
+        <HorizontalPaddingSpace
+          style={{ alignItems: "center" }}
+          space={theme.space[5]}>
+          {showSecondButton && (
+            <Button
+              backgroundColor={theme.colors.brand.basewhite}
+              isBorder={true}
+              borderColor={theme.colors.brand.base}
+              borderRadius={theme.space[3]}
+              buttonFunction={() => {
+                setIndex(0);
+                storeData("swipe-index", 0);
+              }}
+              text={buttonSecondText}
+              textColor={theme.colors.brand.base}
+              width="80%"
+            />
+          )}
+        </HorizontalPaddingSpace>
+      </Spacer>
     </SafeArea>
   );
 }

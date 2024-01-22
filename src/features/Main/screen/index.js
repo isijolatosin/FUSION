@@ -25,6 +25,7 @@ import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import calculateAge from "../../../utilities/calculateAge";
 import filterUsersWithinDistanceRange from "../../../utilities/filterUsersWithinDistanceRange";
+import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 const Index = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -191,6 +192,14 @@ const Index = () => {
       await clearDataByKey("match-id");
       await clearDataByKey("refreshChatScreen");
 
+      const indexFromPhoneMemory = await retrieveData("swipe-index");
+
+      if (!indexFromPhoneMemory) {
+        storeData("swipe-index", index);
+      } else {
+        setIndex(indexFromPhoneMemory);
+      }
+
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
       setPhone(phoneValueFromPhoneMemory);
       fetchUsersData(phoneValueFromPhoneMemory);
@@ -235,12 +244,18 @@ const Index = () => {
     return <Loading text="Loading..." />;
   }
 
-  if (!currentSwipeIndexIsLessThanAllUsersLength) {
+  if (
+    index === allUsers.length ||
+    (userFilteredData?.length && index === userFilteredData?.length)
+  ) {
     return (
       <CustomUseCardWithCTA
         text={dailyendofswipescreenmessage}
         buttonText="Change preference"
+        buttonSecondText="Go through skipped profiles"
         route="profile"
+        showSecondButton={true}
+        setIndex={setIndex}
       />
     );
   }
@@ -331,6 +346,7 @@ const Index = () => {
           }}>
           <IconComponent
             iconFunction={() => {
+              storeData("swipe-index", index + 1);
               currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
               scrollToTop();
             }}
