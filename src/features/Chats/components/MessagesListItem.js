@@ -20,6 +20,9 @@ export default function MessagesListItem({
           flexDirection: "row",
           alignItems: "center",
           width: "100%",
+          paddingBottom: theme.spaceNumber[7],
+          borderBottomWidth: 1,
+          borderBottomColor: theme.colors.brand.linesLight,
         }}>
         <Avatar
           data={photo}

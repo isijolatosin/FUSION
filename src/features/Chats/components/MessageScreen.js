@@ -37,7 +37,6 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import MessageDotsPopupModal from "./MessageDotsPopupModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
-import { Spacer } from "../../../components/spacer/spacer.component";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
 
 export default function MessageScreen({ navigation }) {
@@ -129,9 +128,9 @@ export default function MessageScreen({ navigation }) {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           message: textTransform,
           id: currentUser?.id,
-          photo: currentUser.mediaArray?.[0],
+          photo: currentUser?.mediaArray?.[0],
           phonenumber: currentUser?.phonenumber,
-          firstname: currentUser.firstname,
+          firstname: currentUser?.firstname,
         })
         .then(() => {
           console.log(`SENT SUCCESSFULLY`);

@@ -9,7 +9,6 @@ import {
   YouAreSpecialCircleText,
   YouAreSpecialCircleWrapper,
 } from "./onboarding.styles";
-import { sendVerification } from "../../../utilities/verification";
 import { firebaseConfig } from "../../../../config";
 
 export default function YourProfileIsSet({ navigation }) {

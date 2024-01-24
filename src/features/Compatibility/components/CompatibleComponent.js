@@ -2,6 +2,7 @@ import { View, ImageBackground, Pressable } from "react-native";
 import React, { useRef, useState } from "react";
 import styled from "styled-components/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 import { Text } from "../../../components/typography/text.component";
 import calculateAge from "../../../utilities/calculateAge";
@@ -93,6 +94,17 @@ export default function CompatibleComponent({
         height: theme.spaceNumberBy50[10],
       }}>
       <CompatibleContainer source={image}>
+        <LinearGradient
+          colors={["transparent", theme.colors.brand.basewhite]}
+          style={{
+            height: theme.spaceNumberBy50[5],
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            opacity: 1,
+          }}
+        />
         <View
           style={{
             flex: 1,
@@ -107,22 +119,6 @@ export default function CompatibleComponent({
               justifyContent: "space-between",
               alignItems: "center",
             }}>
-            <Text
-              style={{
-                backgroundColor: "transparent",
-                elevation: 5,
-                shadowColor: theme.colors.brand.basewhite,
-                shadowOpacity: 1,
-                shadowRadius: theme.spaceNumber[2],
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="h5"
-              width="100%">
-              {data?.firstname},{" "}
-              {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
-            </Text>
             <View
               style={{
                 position: "absolute",
@@ -162,17 +158,25 @@ export default function CompatibleComponent({
           <View>
             <Spacer position="bottom" size="small">
               <Text
-                style={{
-                  backgroundColor: "transparent",
-                  elevation: 5,
-                  shadowColor: theme.colors.brand.basewhite,
-                  shadowOpacity: 1,
-                  shadowRadius: theme.spaceNumber[2],
-                }}
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
-                fontSize="h5">
+                fontSize="h5"
+                width="100%">
+                {data?.firstname},{" "}
+                {calculateAge(
+                  data?.dob?.year,
+                  data?.dob?.month,
+                  data?.dob?.day
+                )}
+              </Text>
+            </Spacer>
+            <Spacer position="bottom" size="small">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title">
                 My Interest
               </Text>
             </Spacer>
