@@ -38,3 +38,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# ignore index.html files
+coverage/**/*

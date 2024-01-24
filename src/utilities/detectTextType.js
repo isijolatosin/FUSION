@@ -15,7 +15,7 @@ function handleCallPress(text) {
 }
 
 function detectUrl(text) {
-  const urlRegex = text.match(/^(https:\/\/|www\.)/i);
+  const urlRegex = text?.match(/^(https:\/\/|www\.)/i);
 
   return urlRegex;
 }

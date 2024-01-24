@@ -2,7 +2,8 @@ export const colors = {
   brand: {
     base: "#6F0606",
     basewhite: "#FFFDFD",
-    highlight: "#FEF2EB",
+    highlight: "#FCEDEF",
+    // highlight: "#FEF2EB",
     black: "#0A0A0A",
     brandFade: "rgba(111, 6, 6, 0.50)",
     brandTone: "rgba(111, 6, 6, 0.60)",

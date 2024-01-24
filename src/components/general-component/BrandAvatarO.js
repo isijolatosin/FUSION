@@ -1,13 +1,9 @@
 import React from "react";
 import { Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useAppContext } from "../../context/ThemeContext";
 
-export default function BrandAvatarO({ noFlex, currentUser }) {
+export default function BrandAvatarO({ currentUser }) {
   const navigation = useNavigation();
-  const {
-    state: { theme },
-  } = useAppContext();
 
   return (
     <Pressable

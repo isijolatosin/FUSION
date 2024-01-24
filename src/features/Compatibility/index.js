@@ -29,14 +29,14 @@ function ScreenWrapper({ children, theme, width }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{ width: width, alignItems: "center" }}>
-          <Spacer position="bottom" size="xsmall">
+          <Spacer position="bottom" size="small">
             <Text
               style={{ textAlign: "center" }}
               variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h3">
-              Compatible
+              Similar Interest
             </Text>
           </Spacer>
           <Text
@@ -93,11 +93,11 @@ export default function Index() {
       // find users with similar interests
       const usersWithSimilarInterests = [];
       newData?.filter((user) => {
-        const userInterestsArray = user.interestsArray;
+        const userInterestsArray = user?.interestsArray;
         if (user?.phonenumber !== phoneValueFromPhoneMemory) {
           if (
-            user?.gender === currentUserData.interest ||
-            currentUserData.interest === "both"
+            user?.gender === currentUserData?.interest ||
+            currentUserData?.interest === "both"
           ) {
             const stackingArray = [];
             const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
@@ -128,7 +128,7 @@ export default function Index() {
               blockedList?.length &&
               !blockedList?.includes(user?.phonenumber)
             ) {
-              const userInterestsArray = user.interestsArray;
+              const userInterestsArray = user?.interestsArray;
 
               if (
                 hasMatchingElements(
@@ -141,15 +141,16 @@ export default function Index() {
 
             if (stackingArray?.length) {
               usersWithSimilarInterests.push(...stackingArray);
-            } else {
-              if (
-                hasMatchingElements(
-                  currentUserInteresstArray,
-                  userInterestsArray
-                )
-              )
-                usersWithSimilarInterests.push(user);
             }
+            // else {
+            //   if (
+            //     hasMatchingElements(
+            //       currentUserInteresstArray,
+            //       userInterestsArray
+            //     )
+            //   )
+            //     usersWithSimilarInterests.push(user);
+            // }
           }
         }
       });

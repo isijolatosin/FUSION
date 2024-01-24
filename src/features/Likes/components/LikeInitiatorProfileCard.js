@@ -1,5 +1,7 @@
-import { View, Image, Pressable } from "react-native";
 import React from "react";
+import { View, Image, Pressable } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+
 import { Text } from "../../../components/typography/text.component";
 import calculateAge from "../../../utilities/calculateAge";
 
@@ -36,13 +38,28 @@ export default function LikeInitiatorProfileCard({
           height: "100%",
           resizeMode: "cover",
           borderRadius: theme.spaceNumberBy10[1],
-          opacity: 0.7,
         }}
         source={{
           uri: `${data?.likedBy?.mediaArray?.[0]}`,
         }}
       />
-      <View style={{ position: "absolute", padding: theme.spaceNumber[4] }}>
+      <LinearGradient
+        colors={["transparent", theme.colors.brand.basewhite]}
+        style={{
+          height: theme.spaceNumberBy50[1],
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          opacity: 0.8,
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          padding: theme.spaceNumber[4],
+        }}>
         <Text
           variant="custom"
           colorType="black"

@@ -6,6 +6,7 @@ import {
   MaterialIcons,
   Fontisto,
   FontAwesome5,
+  Feather,
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 

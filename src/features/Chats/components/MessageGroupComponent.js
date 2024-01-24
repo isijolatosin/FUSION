@@ -119,13 +119,15 @@ export default function MessageGroupComponent({
                 />
               </TouchableOpacity>
             ) : (
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="body">
-                {item?.message}
-              </Text>
+              <View>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratSemibold"
+                  fontSize="body">
+                  {item?.message}
+                </Text>
+              </View>
             )}
 
             <Text
