@@ -16,7 +16,8 @@ async function handlePickImageAsync(
   setIsRetrigger,
   isToCapture,
   noAllowEditingForPhotoMessage,
-  sendPhotoMessage
+  sendPhotoMessage,
+  isReturn
 ) {
   useLoadingImage(true);
 
@@ -47,6 +48,8 @@ async function handlePickImageAsync(
         setIsRetrigger
       );
   }
+
+  if (isReturn) return returnPhotoUrl;
 }
 
 async function handlePickImageAsyncPhotoScreen(

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dimensions, Image, ScrollView, View } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -57,33 +58,38 @@ export default function ProfileScreen() {
     })();
   }, []);
 
-  useEffect(() => {
-    async function fetchUsersData() {
-      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+  async function fetchUsersData() {
+    const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData("all-users");
+    const newData = await getAllData("all-users");
 
-      const currentUserData = newData.find(
-        (data) => data.phonenumber === phoneValueFromPhoneMemory
-      );
+    const currentUserData = newData.find(
+      (data) => data.phonenumber === phoneValueFromPhoneMemory
+    );
 
-      currentUserData?.mediaArray[0] &&
-        setPhotoUrl1(currentUserData?.mediaArray[0]);
-      currentUserData?.mediaArray[1] &&
-        setPhotoUrl2(currentUserData?.mediaArray[1]);
-      currentUserData?.mediaArray[2] &&
-        setPhotoUrl3(currentUserData?.mediaArray[2]);
-      currentUserData?.mediaArray[3] &&
-        setPhotoUrl4(currentUserData?.mediaArray[3]);
-      currentUserData?.mediaArray[4] &&
-        setPhotoUrl5(currentUserData?.mediaArray[4]);
-      currentUserData?.mediaArray[5] &&
-        setPhotoUrl6(currentUserData?.mediaArray[5]);
-      serCurrentUser(currentUserData);
-    }
+    currentUserData?.mediaArray[0] &&
+      setPhotoUrl1(currentUserData?.mediaArray[0]);
+    currentUserData?.mediaArray[1] &&
+      setPhotoUrl2(currentUserData?.mediaArray[1]);
+    currentUserData?.mediaArray[2] &&
+      setPhotoUrl3(currentUserData?.mediaArray[2]);
+    currentUserData?.mediaArray[3] &&
+      setPhotoUrl4(currentUserData?.mediaArray[3]);
+    currentUserData?.mediaArray[4] &&
+      setPhotoUrl5(currentUserData?.mediaArray[4]);
+    currentUserData?.mediaArray[5] &&
+      setPhotoUrl6(currentUserData?.mediaArray[5]);
+    serCurrentUser(currentUserData);
+  }
 
-    fetchUsersData();
-  }, [triggerRefresh]);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchUsersData();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
   const mediaArray = [];
 
@@ -123,7 +129,48 @@ export default function ProfileScreen() {
     );
   }
 
-  function AboutMeListComponent({ title, value }) {
+  function AboutMeListComponent({ title, value, isList }) {
+    if (isList) {
+      return (
+        <Fragment>
+          <HorizontalPaddingSpace
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingTop: theme.spaceNumberBy10[1],
+            }}
+            space={theme.space[5]}>
+            <View>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratSemibold"
+                fontSize="caption">
+                {title}
+              </Text>
+            </View>
+            <View>
+              {value?.map((val, idx) => (
+                <Text
+                  style={{
+                    textAlign: "right",
+                    marginBottom: theme.spaceNumberBy10[0],
+                  }}
+                  key={idx}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratSemibold"
+                  fontSize="caption"
+                  transform="capitalize">
+                  {val}
+                </Text>
+              ))}
+            </View>
+          </HorizontalPaddingSpace>
+        </Fragment>
+      );
+    }
+
     return (
       <HorizontalPaddingSpace
         style={{
@@ -163,7 +210,10 @@ export default function ProfileScreen() {
   }
 
   return (
-    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+    <SafeArea
+      style={{
+        backgroundColor: theme.colors.brand.basewhite,
+      }}>
       <YouAreSpecialCircleWrapper
         style={{
           position: "absolute",
@@ -192,7 +242,7 @@ export default function ProfileScreen() {
           />
         </View>
       </NavigationBar>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{ height: "100%" }}>
         <HorizontalPaddingSpace space={theme.space[3]}>
           <Spacer style={{ alignItems: "center" }} position="top" size="medium">
             {photoUrl1 && (
@@ -359,10 +409,13 @@ export default function ProfileScreen() {
             />
           </HorizontalPaddingSpace>
         </Spacer>
-        <Spacer
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           position="top"
           size="large"
-          style={{ paddingBottom: theme.spaceNumberBy10[1] }}>
+          style={{
+            marginBottom: theme.spaceNumberBy10[5],
+          }}>
           <AboutMeListComponent title="My Gender" value={currentUser?.gender} />
           <AboutMeListComponent
             title="Where I work"
@@ -381,8 +434,21 @@ export default function ProfileScreen() {
             title="I am interested in"
             value={currentUser?.interest}
           />
-        </Spacer>
-      </ScrollView>
+          <AboutMeListComponent
+            title="I smoke"
+            value={currentUser?.lifestyleHabits?.smoke}
+          />
+          <AboutMeListComponent
+            title="I drink"
+            value={currentUser?.lifestyleHabits?.drink}
+          />
+          <AboutMeListComponent
+            title="I enjoy"
+            value={currentUser?.interestsArray}
+            isList={true}
+          />
+        </ScrollView>
+      </View>
       <AnimatedModal
         isVisible={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}

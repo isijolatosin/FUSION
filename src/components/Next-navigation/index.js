@@ -10,11 +10,17 @@ const NextNavigationText = styled.Text`
 
 const NextNavigationWrapper = styled(Pressable)``;
 
-export default function NextNavigation({ theme, size, color, nextFunction }) {
+export default function NextNavigation({
+  theme,
+  size,
+  color,
+  nextFunction,
+  text,
+}) {
   return (
     <NextNavigationWrapper onPress={nextFunction}>
       <NextNavigationText theme={theme} size={size} color={color}>
-        Next
+        {text ? text : "Next"}
       </NextNavigationText>
     </NextNavigationWrapper>
   );

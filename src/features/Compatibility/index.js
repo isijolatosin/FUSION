@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
@@ -76,95 +77,130 @@ export default function Index() {
     return commonElements.length >= 3;
   }
 
-  useEffect(() => {
-    async function asyncFunctionCall() {
-      setIsLoading(true);
-      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+  async function asyncFunctionCall() {
+    setIsLoading(true);
+    const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData("all-users");
+    const newData = await getAllData("all-users");
+    const allMatchesResult = await getAllData("matches");
 
-      // get current user
-      const currentUserData = newData.find(
-        (data) => data.phonenumber === phoneValueFromPhoneMemory
-      );
-      setCurrentUser(currentUserData);
-      const currentUserInteresstArray = currentUserData?.interestsArray;
+    // get current user
+    const currentUserData = newData.find(
+      (data) => data.phonenumber === phoneValueFromPhoneMemory
+    );
+    setCurrentUser(currentUserData);
+    const currentUserInteresstArray = currentUserData?.interestsArray;
 
-      // find users with similar interests
-      const usersWithSimilarInterests = [];
-      newData?.filter((user) => {
-        const userInterestsArray = user?.interestsArray;
-        if (user?.phonenumber !== phoneValueFromPhoneMemory) {
-          if (
-            user?.gender === currentUserData?.interest ||
-            currentUserData?.interest === "both"
-          ) {
-            const stackingArray = [];
-            const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
-            const likedMeList = currentUserData?.likedMeList;
-            const blockedMeList = currentUserData?.blockedMeList;
-            const blockedList = currentUserData?.blockedList;
+    const onlyCurrentUserOtherMatchesNumber = [];
+    for (let i = 0; i < allMatchesResult.length; i++) {
+      if (
+        allMatchesResult[i]?.likedByprofile?.phonenumber ===
+        phoneValueFromPhoneMemory
+      ) {
+        onlyCurrentUserOtherMatchesNumber.push(
+          allMatchesResult[i]?.likedProfile?.phonenumber
+        );
+      }
 
-            // check if profile has been liked or liked me and filter off
-            if (
-              likedNumberArray?.length &&
-              !likedNumberArray?.includes(user?.phonenumber) &&
-              likedMeList?.length &&
-              !likedMeList?.includes(user?.phonenumber)
-            ) {
-              if (
-                hasMatchingElements(
-                  currentUserInteresstArray,
-                  userInterestsArray
-                )
-              )
-                stackingArray.push(user);
-            }
-
-            // check if profile has been blocked or blocked by me and filter off
-            if (
-              blockedMeList?.length &&
-              !blockedMeList?.includes(user?.phonenumber) &&
-              blockedList?.length &&
-              !blockedList?.includes(user?.phonenumber)
-            ) {
-              const userInterestsArray = user?.interestsArray;
-
-              if (
-                hasMatchingElements(
-                  currentUserInteresstArray,
-                  userInterestsArray
-                )
-              )
-                stackingArray.push(user);
-            }
-
-            if (stackingArray?.length) {
-              usersWithSimilarInterests.push(...stackingArray);
-            }
-            // else {
-            //   if (
-            //     hasMatchingElements(
-            //       currentUserInteresstArray,
-            //       userInterestsArray
-            //     )
-            //   )
-            //     usersWithSimilarInterests.push(user);
-            // }
-          }
-        }
-      });
-
-      const usersWithSimilarInterestsId = setTimeout(() => {
-        setIsLoading(false);
-        setUsersWithSimilarInterestsData(usersWithSimilarInterests);
-      }, 500);
-
-      return () => clearTimeout(usersWithSimilarInterestsId);
+      if (
+        allMatchesResult[i]?.likedProfile?.phonenumber ===
+        phoneValueFromPhoneMemory
+      ) {
+        onlyCurrentUserOtherMatchesNumber.push(
+          allMatchesResult[i]?.likedByprofile?.phonenumber
+        );
+      }
     }
 
-    asyncFunctionCall();
-  }, [isRetrigger]);
+    // find users with similar interests
+    const usersWithSimilarInterests = [];
+    newData?.filter((user) => {
+      const userInterestsArray = user?.interestsArray;
+      if (user?.phonenumber !== phoneValueFromPhoneMemory) {
+        if (
+          user?.gender === currentUserData?.interest ||
+          currentUserData?.interest === "both"
+        ) {
+          //check match array
+          if (onlyCurrentUserOtherMatchesNumber?.includes(user?.phonenumber))
+            return;
+
+          const stackingArray = [];
+          const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
+          const likedMeList = currentUserData?.likedMeList;
+          const blockedMeList = currentUserData?.blockedMeList;
+          const blockedList = currentUserData?.blockedList;
+
+          // check if profile has been liked or liked me and filter off
+          if (
+            (likedNumberArray?.length &&
+              !likedNumberArray?.includes(user?.phonenumber)) ||
+            (likedMeList?.length && !likedMeList?.includes(user?.phonenumber))
+          ) {
+            if (
+              hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+            )
+              stackingArray.push(user);
+          }
+
+          // check if profile has been blocked or blocked by me and filter off
+          if (
+            (blockedMeList?.length &&
+              !blockedMeList?.includes(user?.phonenumber)) ||
+            (blockedList?.length && !blockedList?.includes(user?.phonenumber))
+          ) {
+            const userInterestsArray = user?.interestsArray;
+
+            if (
+              hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+            )
+              stackingArray.push(user);
+          }
+
+          if (
+            !blockedMeList &&
+            !blockedList &&
+            !likedNumberArray &&
+            !likedMeList
+          ) {
+            if (
+              hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+            )
+              stackingArray.push(user);
+          }
+
+          if (stackingArray?.length) {
+            usersWithSimilarInterests.push(...stackingArray);
+          }
+          // else {
+          //   if (
+          //     hasMatchingElements(
+          //       currentUserInteresstArray,
+          //       userInterestsArray
+          //     )
+          //   )
+          //     usersWithSimilarInterests.push(user);
+          // }
+        }
+      }
+    });
+
+    const usersWithSimilarInterestsId = setTimeout(() => {
+      setIsLoading(false);
+      setUsersWithSimilarInterestsData(usersWithSimilarInterests);
+    }, 500);
+
+    return () => clearTimeout(usersWithSimilarInterestsId);
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      asyncFunctionCall();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
   if (isLoading) {
     return (

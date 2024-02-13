@@ -6,6 +6,7 @@ export default function OnboardingErrorComponent({
   pageError,
   text,
   bottomSpace,
+  size,
 }) {
   return (
     <Fragment>
@@ -14,7 +15,11 @@ export default function OnboardingErrorComponent({
           style={{ marginBottom: bottomSpace ? 30 : 0 }}
           position="top"
           size="large">
-          <Text variant="custom" colorType="error" fontType="montserratRegular">
+          <Text
+            variant="custom"
+            colorType="error"
+            fontType="montserratRegular"
+            fontSize={size}>
             Error: {text}
           </Text>
         </Spacer>

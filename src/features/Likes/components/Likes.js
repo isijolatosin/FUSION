@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -27,27 +28,32 @@ const LikesScreen = () => {
   const [showInitiatorProfile, setShowLikeInitiatorProfile] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
 
-  useEffect(() => {
-    async function fetchUsersData() {
-      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+  async function fetchUsersData() {
+    const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData("all-users");
+    const newData = await getAllData("all-users");
 
-      const currentUserData = newData.find(
-        (data) => data.phonenumber === phoneValueFromPhoneMemory
-      );
-      setCurrentUser(currentUserData);
+    const currentUserData = newData.find(
+      (data) => data.phonenumber === phoneValueFromPhoneMemory
+    );
+    setCurrentUser(currentUserData);
 
-      const likesData = await getAllData("all-likes");
+    const likesData = await getAllData("all-likes");
 
-      const likeInitiators = likesData.filter(
-        (like) => like?.profileLikedNumber === phoneValueFromPhoneMemory
-      );
-      setYourLikesData(likeInitiators);
-    }
+    const likeInitiators = likesData.filter(
+      (like) => like?.profileLikedNumber === phoneValueFromPhoneMemory
+    );
+    setYourLikesData(likeInitiators);
+  }
 
-    fetchUsersData();
-  }, [isRetrigger]);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchUsersData();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
@@ -96,7 +102,7 @@ const LikesScreen = () => {
                   {nolikesyetmessage}
                 </Text>
                 <Spacer position="top" size="xxxxlarge">
-                  <BrandAvatar />
+                  <BrandAvatar isLike={true} />
                 </Spacer>
               </Spacer>
             </View>

@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
   Fontisto,
   FontAwesome,
 } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
 import { useAppContext } from "../../../context/ThemeContext";
@@ -27,7 +28,7 @@ import calculateAge from "../../../utilities/calculateAge";
 import filterUsersWithinDistanceRange from "../../../utilities/filterUsersWithinDistanceRange";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
-const Index = () => {
+const Index = ({ navigation }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [phone, setPhone] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
@@ -41,6 +42,12 @@ const Index = () => {
   const [fromAgeValue, setFromAgeValue] = useState(0);
   const [toAgeValue, setToAgeValue] = useState(0);
   const [distanceValue, setDistanceValue] = useState(0);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      gestureEnabled: true,
+    });
+  }, [navigation]);
 
   const {
     state: { theme },
@@ -187,26 +194,31 @@ const Index = () => {
     }
   };
 
-  useEffect(() => {
-    const functionCall = async () => {
-      await clearDataByKey("match-id");
-      await clearDataByKey("refreshChatScreen");
+  const functionCall = async () => {
+    await clearDataByKey("match-id");
+    await clearDataByKey("refreshChatScreen");
 
-      const indexFromPhoneMemory = await retrieveData("swipe-index");
+    const indexFromPhoneMemory = await retrieveData("swipe-index");
 
-      if (!indexFromPhoneMemory) {
-        storeData("swipe-index", index);
-      } else {
-        setIndex(indexFromPhoneMemory);
-      }
+    if (!indexFromPhoneMemory) {
+      storeData("swipe-index", index);
+    } else {
+      setIndex(indexFromPhoneMemory);
+    }
 
-      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
-      setPhone(phoneValueFromPhoneMemory);
-      fetchUsersData(phoneValueFromPhoneMemory);
-    };
+    const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+    setPhone(phoneValueFromPhoneMemory);
+    fetchUsersData(phoneValueFromPhoneMemory);
+  };
 
-    functionCall();
-  }, [isRetrigger]);
+  useFocusEffect(
+    React.useCallback(() => {
+      functionCall();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
   let currentUsertoSwipe = {};
   if (userFilteredData?.length) {
