@@ -1,7 +1,13 @@
 import React from "react";
 
-import { OnboardingSreencContainer } from "./splash.styles";
-import { homeSplashImage } from "../../../constants";
+import {
+  OnboardingScreenText,
+  OnboardingSreencContainer,
+} from "./splash.styles";
+import {
+  homeSplashImage,
+  splashOboardingSummaryText,
+} from "../../../constants";
 import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import { View } from "react-native";
 import { Text } from "../../../components/typography/text.component";
@@ -20,6 +26,11 @@ export default function index() {
             fontSize="h4">
             An African community specially made for you.
           </Text>
+          <Spacer position="top" size="small">
+            <OnboardingScreenText>
+              {splashOboardingSummaryText}
+            </OnboardingScreenText>
+          </Spacer>
         </View>
         <Spacer position="top" size="xsmall">
           <BrandAvatar noFlex={true} width={70} />

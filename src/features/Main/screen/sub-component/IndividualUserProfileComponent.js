@@ -152,8 +152,8 @@ export default function IndividualUserProfileComponent({
           <View
             style={{
               position: "absolute",
-              top: theme.spaceNumberBy10[6],
-              left: theme.spaceNumberBy10[0],
+              bottom: theme.spaceNumber[5],
+              left: theme.spaceNumber[5],
             }}>
             <Text
               style={{

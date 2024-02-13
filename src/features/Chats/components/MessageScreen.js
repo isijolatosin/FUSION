@@ -99,7 +99,7 @@ export default function MessageScreen({ navigation }) {
 
     const timeoutId = setTimeout(() => {
       getMessages();
-    }, 1500);
+    }, 200);
 
     return () => clearTimeout(timeoutId);
   }, [triggerReload, input]);
@@ -125,12 +125,13 @@ export default function MessageScreen({ navigation }) {
         .doc(matchId)
         .collection("messages")
         .add({
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          message: textTransform,
-          id: currentUser?.id,
-          photo: currentUser?.mediaArray?.[0],
-          phonenumber: currentUser?.phonenumber,
           firstname: currentUser?.firstname,
+          matchId: matchId,
+          message: textTransform,
+          photo: currentUser?.mediaArray?.[0],
+          recieverphonenumber: otherUser?.match?.phonenumber,
+          senderphonenumber: currentUser?.phonenumber,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
           console.log(`SENT SUCCESSFULLY`);
@@ -144,12 +145,13 @@ export default function MessageScreen({ navigation }) {
   const sendPhotoMessage = (photo) => {
     //pushing message to firebase db...
     database.collection("matches").doc(matchId).collection("messages").add({
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      message: photo,
-      id: currentUser?.id,
-      photo: currentUser.mediaArray?.[0],
-      phonenumber: currentUser?.phonenumber,
       firstname: currentUser.firstname,
+      matchId: matchId,
+      message: photo,
+      photo: currentUser.mediaArray?.[0],
+      recieverphonenumber: otherUser?.match?.phonenumber,
+      senderphonenumber: currentUser?.phonenumber,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     setTriggerReload(true);

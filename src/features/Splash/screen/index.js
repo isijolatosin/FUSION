@@ -34,6 +34,7 @@ import CaptureJobTitleScreen from "../../Onboarding/components/CaptureJobTitle.s
 import CaptureInterestsScreen from "../../Onboarding/components/CaptureInterests.screen";
 import CaptureLifestyleHabitsScreen from "../../Onboarding/components/CaptureLifestyleHabits.screen";
 import CapturePhotosScreen from "../../Onboarding/components/CapturePhotos.screen";
+// import CaptureFacialVerificationScreen from "../../Onboarding/components/CaptureFacialVerification.screen";
 import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.screen";
 import MainScreen from "../../Main/screen";
 import ProfileScreen from "../../Profile/screen";
@@ -76,7 +77,7 @@ const TabNavigator = () => {
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" color={color} size={25} />
+            <Entypo name="home" color={color} size={35} />
           ),
           gestureEnabled: false,
         }}
@@ -89,28 +90,28 @@ const TabNavigator = () => {
             <MaterialCommunityIcons
               name="cards-heart"
               color={color}
-              size={25}
+              size={35}
             />
           ),
           gestureEnabled: false,
         }}
       />
       <Tab.Screen
-        name="compatibility"
+        name="similar-interest"
         component={CompatibilityScreen}
         options={{
-          tabBarLabel: "Compatibility",
-          tabBarLabelStyle: {
-            position: "absolute",
-            bottom: theme.spaceNumber[6],
-            fontFamily: theme.fonts.montserratBold,
-          },
+          // tabBarLabel: "Compatibility",
+          // tabBarLabelStyle: {
+          //   position: "absolute",
+          //   bottom: theme.spaceNumber[6],
+          //   fontFamily: theme.fonts.montserratBold,
+          // },
           cardStyle: {
             backgroundColor: `${theme.colors.brand.basewhite}`,
           },
-          tabBarIconStyle: { marginBottom: theme.spaceNumberBy10[1] },
+          // tabBarIconStyle: { marginBottom: theme.spaceNumberBy10[1] },
           tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-people" color={color} size={35} />
+            <Ionicons name="ios-people" color={color} size={40} />
           ),
           gestureEnabled: false,
         }}
@@ -120,7 +121,7 @@ const TabNavigator = () => {
         component={ChatsScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-sharp" color={color} size={25} />
+            <Ionicons name="chatbubble-sharp" color={color} size={30} />
           ),
           gestureEnabled: false,
         }}
@@ -130,7 +131,7 @@ const TabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={25} />
+            <FontAwesome name="user" color={color} size={35} />
           ),
           gestureEnabled: false,
         }}
@@ -158,7 +159,7 @@ const FadeOutComponent = ({ navigation }) => {
 
       timeOutID = setTimeout(() => {
         navigation.navigate(verify ? "main" : "onBoard");
-      }, 2000);
+      }, 5000);
     };
     functionCall();
 
@@ -431,6 +432,16 @@ export default function index() {
             cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           }}
         />
+        {/* <Stack.Screen
+          name="capture-facial-verification-screen"
+          component={CaptureFacialVerificationScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          }}
+        /> */}
         <Stack.Screen
           name="your-profile-is-set"
           component={YourProfileIsSet}
@@ -449,6 +460,11 @@ export default function index() {
           }}
           options={{
             cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            gestureEnabled: true,
+            gestureDirection: "horizontal",
+            gestureResponseDistance: {
+              horizontal: 135,
+            },
           }}
         />
         <Stack.Screen

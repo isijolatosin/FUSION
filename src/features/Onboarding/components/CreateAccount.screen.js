@@ -94,8 +94,8 @@ export default function CreateAccount({ navigation }) {
             <Spacer position="top" size="small">
               <Text
                 variant="custom"
-                colorType="error"
-                fontType="montserratSemibold"
+                colorType="black"
+                fontType="montserratRegular"
                 fontSize="caption">
                 {createAccountInstruction}
               </Text>

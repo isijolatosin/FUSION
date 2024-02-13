@@ -48,9 +48,9 @@ export default function MessagesListItem({
                 colorType="brandTone"
                 fontType="montserratBold"
                 fontSize="caption">
-                {lastSenderName}:{" "}
+                {lastSenderName ? lastSenderName : ""}:{" "}
               </Text>
-              {shortenText(lastSenderMessage, 40)}
+              {lastSenderMessage ? shortenText(lastSenderMessage, 40) : ""}
             </Text>
           </Spacer>
         </View>

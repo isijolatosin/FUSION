@@ -19,7 +19,7 @@ const OnboardingWrapper = styled(View)`
 const OnboardingScreenText = styled(Text)`
   color: ${(props) => props.theme.colors.brand.basewhite};
   font-size: ${(props) => props.theme.sizes[1]};
-  font-family: ${(props) => props.theme.fonts.montserratRegular};
+  font-family: ${(props) => props.theme.fonts.montserratSemibold};
 `;
 
 const LogoWrapper = styled(View)`

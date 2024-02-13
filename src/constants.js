@@ -6,8 +6,10 @@ export const splashImage =
 export const homeSplashImage =
   "https://res.cloudinary.com/dhdccvkyt/image/upload/v1704926359/fusion/full-length-portrait-happy-young-african-man_2_mzvuxq.png";
 
-export const oboardingSummaryText =
+export const splashOboardingSummaryText =
   "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
+export const oboardingSummaryText =
+  "By creating an account or signing in, you agree to our Terms of Service. Learn how we process your data in our Privacy Policy.";
 export const nameCaptureInstruction =
   "Your last name would not be displaced on your profile and no changes can be made to your names.";
 export const locationCaptureInstruction =
@@ -457,3 +459,5 @@ export const compatibleText =
   "Like polls attract on this end. We have selected matches with similar interest for you.";
 export const noSimilarInterestyetmessage =
   "While we're growing, it seems we don't have many users with similar interests right now. Don't be discouraged—new members join daily! In the meantime, consider exploring diverse profiles. Your perfect match might be just around the corner.";
+export const facialVerificationText =
+  "No room for catfishing here! Taking this additional step makes your profile verified.";

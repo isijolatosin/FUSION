@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -33,82 +34,88 @@ const ChatsScreen = () => {
   } = useAppContext();
   const [input, setInput] = useState("");
   const [currentUser, setCurrentUser] = useState({});
-  const [selectedChatMatchId, setSelectedChatMatchId] = useState("");
+  const [selectedChatMatchPhonenumber, setSelectedChatMatchPhonenumber] =
+    useState("");
   const [showCard, setShowCard] = useState(false);
   const [newMessageInput, setNewMessageInput] = useState(false);
   const [triggerReload, setTriggerReload] = useState(false);
+  const [selectedMatch, setSelectedMatch] = useState({});
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
 
-  useEffect(() => {
-    async function getRefreshTrigger() {
-      const refreshChatScreen = await retrieveData("refreshChatScreen");
-      setIsRefreshChatScreen(refreshChatScreen);
-    }
-    getRefreshTrigger();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchMatches();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
-  useEffect(() => {
-    async function fetchMatches() {
-      // get all macthes
+  async function fetchMatches() {
+    try {
       const allMatchesResult = await getAllData("matches");
-
-      // get phone number from memory
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
-
-      // get all users
       const newData = await getAllData("all-users");
 
-      // get current user
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory
       );
+
       setCurrentUser(currentUserData);
 
-      const otherWithMatchIdArray = [];
-      if (allMatchesResult?.length) {
-        // get all matches for current user
-        allMatchesResult?.find(async (res) => {
-          const current_Match_id = res?.id; // current match id
+      const otherWithMatchIdArray = await Promise.all(
+        allMatchesResult.map(async (res) => {
+          if (
+            res?.likedByprofile?.phonenumber === phoneValueFromPhoneMemory ||
+            res?.likedProfile?.phonenumber === phoneValueFromPhoneMemory
+          ) {
+            const current_Match_id = res?.id;
 
-          // get matches messages
-          const snapshot = await database
-            .collection("matches")
-            .doc(current_Match_id)
-            .collection("messages")
-            .orderBy("timestamp", "asc")
-            .get();
+            // get match messages
+            const messagesCollection = database
+              .collection("matches")
+              .doc(current_Match_id)
+              .collection("messages")
+              .orderBy("timestamp", "asc");
 
-          const data = snapshot?.docs?.map((doc) => doc?.data());
+            const snapshot = await messagesCollection.get();
+            const results = snapshot.docs.map((doc) => doc.data());
 
-          // create return object
-          const otherWithMatchId = {
-            id: current_Match_id,
-            match: [res?.likedByprofile, res?.likedProfile].find(
-              (profile) => profile?.id !== currentUserData?.id
-            ),
-            messages: data,
-          };
+            const matchingResults = results.filter(
+              (result) => result.matchId === res?.id
+            );
 
-          otherWithMatchIdArray.push(otherWithMatchId);
-        });
+            const matchdataAndMessagesList = {
+              id: current_Match_id,
+              match: [res?.likedByprofile, res?.likedProfile].find(
+                (profile) => profile?.id !== currentUserData?.id
+              ),
+              messages: matchingResults,
+            };
+
+            return matchdataAndMessagesList;
+          }
+          return null;
+        })
+      );
+
+      const validMatches = otherWithMatchIdArray.filter(
+        (match) => match !== null
+      );
+
+      if (validMatches.length > 0) {
+        setOtherUsers(validMatches);
       } else {
         const timeID = setTimeout(() => {
           setShowCard(true);
         }, 2000);
-
         return () => clearTimeout(timeID);
       }
-
-      const timeoutID = setTimeout(() => {
-        setOtherUsers(otherWithMatchIdArray);
-      }, 1000);
-
-      return () => clearTimeout(timeoutID);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
     }
-
-    fetchMatches();
-  }, [triggerReload, isRefreshChatScreen]);
+  }
 
   function handleStartMessaging() {
     setTriggerReload(false);
@@ -123,18 +130,19 @@ const ChatsScreen = () => {
     } else if (detectUrl(input) && input?.startsWith("Https://")) {
       textTransform = input?.toLowerCase();
     }
-    //pushing message to firebase db...
+    //pushing message to firebase db
     database
       .collection("matches")
-      .doc(selectedChatMatchId)
+      .doc(selectedMatch?.id)
       .collection("messages")
       .add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        message: textTransform,
-        id: currentUser?.id,
-        photo: currentUser.mediaArray?.[0],
-        phonenumber: currentUser?.phonenumber,
         firstname: currentUser.firstname,
+        matchId: selectedMatch?.id,
+        message: textTransform,
+        photo: currentUser.mediaArray?.[0],
+        recieverphonenumber: selectedChatMatchPhonenumber,
+        senderphonenumber: currentUser?.phonenumber,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
         console.log(`FIRST CONVERSATION SENT SUCCESSFULLY`);
@@ -144,15 +152,6 @@ const ChatsScreen = () => {
     setTriggerReload(!triggerReload);
     setInput("");
     setNewMessageInput(false);
-  }
-
-  function checkData(data) {
-    const truthy = [];
-    data?.map((dt) => {
-      dt?.messages?.length ? truthy.push(false) : truthy.push(true);
-    });
-
-    return truthy?.some((truthy) => truthy === true);
   }
 
   if (showCard) {
@@ -165,6 +164,28 @@ const ChatsScreen = () => {
     );
   }
 
+  function checkIfMessageListsAreEmpty() {
+    let isEmpty = [];
+    otherUsers.map((otherUser) => {
+      if (otherUser?.messages?.length) {
+        isEmpty.push(true);
+      } else {
+        isEmpty.push(false);
+      }
+    });
+
+    return isEmpty?.some((truthy) => truthy === true);
+  }
+
+  function checkIfMessagingHasStarted() {
+    const truthy = [];
+    otherUsers?.map((dt) => {
+      dt?.messages?.length ? truthy.push(false) : truthy.push(true);
+    });
+
+    return truthy?.some((truthy) => truthy === true);
+  }
+
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <Spacer
@@ -175,7 +196,7 @@ const ChatsScreen = () => {
         }}
         position="top"
         size="xxxlarge">
-        {checkData(otherUsers) && (
+        {checkIfMessagingHasStarted() && (
           <Spacer position="bottom" size="xxlarge">
             <HorizontalPaddingSpace space={theme.space[3]}>
               <Text
@@ -195,39 +216,35 @@ const ChatsScreen = () => {
                 }}
                 position="top"
                 size="small">
-                {otherUsers?.length ? (
-                  otherUsers?.map(
-                    (otherUser) =>
-                      !otherUser?.messages?.length && (
-                        <Pressable
-                          key={otherUser?.id}
-                          style={{
-                            alignItems: "center",
-                            marginRight: theme.spaceNumber[5],
-                            marginTop: theme.spaceNumber[5],
-                          }}>
-                          <Avatar
-                            data={otherUser?.match?.mediaArray[0]}
-                            theme={theme}
-                            func={() => {
-                              setSelectedChatMatchId(otherUser?.id);
-                              setNewMessageInput(true);
-                            }}
-                          />
-                          <View>
-                            <Text
-                              variant="custom"
-                              colorType="black"
-                              fontType="montserratSemibold"
-                              fontSize="button">
-                              {otherUser?.match?.firstname}
-                            </Text>
-                          </View>
-                        </Pressable>
-                      )
-                  )
-                ) : (
-                  <AvatarList theme={theme} />
+                {otherUsers?.map(
+                  (otherUser) =>
+                    !otherUser?.messages?.length && (
+                      <Pressable
+                        key={otherUser?.id}
+                        style={{
+                          alignItems: "center",
+                          marginRight: theme.spaceNumber[5],
+                          marginTop: theme.spaceNumber[5],
+                        }}>
+                        <Avatar
+                          data={otherUser?.match?.mediaArray[0]}
+                          theme={theme}
+                          func={() => {
+                            setSelectedMatch(otherUser);
+                            setNewMessageInput(true);
+                          }}
+                        />
+                        <View>
+                          <Text
+                            variant="custom"
+                            colorType="black"
+                            fontType="montserratSemibold"
+                            fontSize="button">
+                            {otherUser?.match?.firstname}
+                          </Text>
+                        </View>
+                      </Pressable>
+                    )
                 )}
               </ScrollView>
             </HorizontalPaddingSpace>
@@ -240,69 +257,75 @@ const ChatsScreen = () => {
             </Text>
           </HorizontalPaddingSpace>
         </Spacer>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{
-            paddingTop: theme.spaceNumber[6],
-          }}>
-          {otherUsers?.length ? (
-            otherUsers?.map((otherUser) => (
-              <Spacer
-                key={otherUser?.match?.id}
-                position="bottom"
-                size="medium">
-                <Pressable
-                  onPress={() => {
-                    const matchId = otherUser?.id;
-                    storeData("match-id", matchId);
+        {checkIfMessageListsAreEmpty() ? (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              paddingTop: theme.spaceNumber[6],
+            }}>
+            {otherUsers?.map(
+              (otherUser) =>
+                otherUser?.messages?.length > 0 && (
+                  <Spacer
+                    key={otherUser?.match?.id}
+                    position="bottom"
+                    size="medium">
+                    <Pressable
+                      onPress={() => {
+                        const matchId = otherUser?.id;
+                        storeData("match-id", matchId);
 
-                    navigation.navigate("message-screen", {
-                      currentUser,
-                      otherUser,
-                    });
-                  }}
-                  style={{
-                    width: "100%",
-                    paddingBottom: theme.spaceNumber[7],
-                    borderBottomWidth: 1,
-                    borderBottomColor: theme.colors.brand.linesLight,
-                  }}>
-                  {otherUser?.messages?.length ? (
-                    <MessagesListItem
-                      photo={otherUser?.match?.mediaArray[0]}
-                      theme={theme}
-                      name={otherUser?.match?.firstname}
-                      lastSenderMessage={
-                        otherUser?.messages[otherUser?.messages?.length - 1]
-                          ?.message
-                      }
-                      lastSenderName={
-                        currentUser?.firstname ===
-                        otherUser?.messages[otherUser?.messages?.length - 1]
-                          ?.firstname
-                          ? "You"
-                          : otherUser?.messages[otherUser?.messages.length - 1]
-                              ?.firstname
-                      }
-                    />
-                  ) : (
-                    <HorizontalPaddingSpace space={theme.space[3]}>
-                      <Text
-                        variant="custom"
-                        colorType="black"
-                        fontType="montserratRegular"
-                        fontSize="caption">
-                        {nochatlistsinformation}
-                      </Text>
-                    </HorizontalPaddingSpace>
-                  )}
-                </Pressable>
-              </Spacer>
-            ))
-          ) : (
-            <AvatarVerticalList theme={theme} />
-          )}
-        </ScrollView>
+                        navigation.navigate("message-screen", {
+                          currentUser,
+                          otherUser,
+                        });
+                      }}>
+                      <MessagesListItem
+                        photo={otherUser?.match?.mediaArray[0]}
+                        theme={theme}
+                        name={otherUser?.match?.firstname}
+                        lastSenderMessage={
+                          otherUser?.messages?.[otherUser?.messages?.length - 1]
+                            ?.message
+                        }
+                        lastSenderName={
+                          otherUser?.messages?.[otherUser?.messages?.length - 1]
+                            ?.firstname === currentUser.firstname
+                            ? "You"
+                            : otherUser?.messages?.[
+                                otherUser?.messages?.length - 1
+                              ]?.firstname
+                        }
+                      />
+                    </Pressable>
+                  </Spacer>
+                )
+            )}
+          </ScrollView>
+        ) : (
+          <Spacer
+            style={{
+              paddingBottom: theme.spaceNumberBy10[16],
+              backgroundColor: theme.colors.brand.basewhite,
+              flex: 1,
+            }}
+            position="top"
+            size="small">
+            <AvatarVerticalList
+              theme={theme}
+              interest={currentUser?.interest}
+            />
+            <HorizontalPaddingSpace space={theme.space[3]}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratSemibold"
+                fontSize="caption">
+                {nochatlistsinformation}
+              </Text>
+            </HorizontalPaddingSpace>
+          </Spacer>
+        )}
       </Spacer>
       {newMessageInput && (
         <PopupModal backgroundColor="rgba(255, 255, 255, 0.9)">
@@ -328,7 +351,7 @@ const ChatsScreen = () => {
               }}>
               <InputComponent
                 includeIcon={false}
-                keyboardType="url"
+                keyboardType="default"
                 setValue={setInput}
                 value={input}
                 width="100%"

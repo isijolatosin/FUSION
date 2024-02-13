@@ -71,9 +71,9 @@ export default function MessageGroupComponent({
       {data?.map((item, idx) => (
         <MessageBubbleWrap
           key={idx}
-          currentUser={currentUser?.phonenumber === item?.phonenumber}>
+          currentUser={currentUser?.phonenumber === item?.senderphonenumber}>
           <MessageBubble
-            currentUser={currentUser?.phonenumber === item?.phonenumber}>
+            currentUser={currentUser?.phonenumber === item?.senderphonenumber}>
             {detectPhoneNumber(item?.message) ? (
               <Pressable onPress={() => handleCallPress(item?.message)}>
                 <Text

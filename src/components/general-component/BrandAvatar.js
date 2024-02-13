@@ -3,7 +3,7 @@ import React from "react";
 import { Text } from "../typography/text.component";
 import { useAppContext } from "../../context/ThemeContext";
 
-export default function BrandAvatar({ noFlex, width }) {
+export default function BrandAvatar({ noFlex, width, isLike }) {
   const {
     state: { theme },
   } = useAppContext();
@@ -17,7 +17,7 @@ export default function BrandAvatar({ noFlex, width }) {
         <View
           style={{
             position: "absolute",
-            left: noFlex ? "100%" : "74%",
+            left: noFlex ? "100%" : isLike ? "69%" : "74%",
             top: noFlex ? -theme.spaceNumber[0] : -theme.spaceNumber[1],
             borderWidth: 1,
             borderRadius: theme.spaceNumberBy50[1],
