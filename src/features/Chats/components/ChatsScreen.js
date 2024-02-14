@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -41,15 +41,6 @@ const ChatsScreen = () => {
   const [selectedMatch, setSelectedMatch] = useState({});
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
-
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchMatches();
-      return () => {
-        // Cleanup function if needed
-      };
-    }, [])
-  );
 
   async function fetchMatches() {
     try {
@@ -116,6 +107,25 @@ const ChatsScreen = () => {
     }
   }
 
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchMatches();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
+
+  useEffect(() => {
+    fetchMatches();
+
+    const resetTrigger = setTimeout(() => {
+      setIsRefreshChatScreen(false);
+    }, 1000);
+
+    return () => clearTimeout(resetTrigger);
+  }, [isRefreshChatScreen]);
+
   function handleStartMessaging() {
     if (!input?.length) return;
 
@@ -149,6 +159,7 @@ const ChatsScreen = () => {
 
     setInput("");
     setNewMessageInput(false);
+    setIsRefreshChatScreen(true);
   }
 
   if (showCard) {
