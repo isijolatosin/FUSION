@@ -571,7 +571,7 @@ export default function SettingModal({
             </Spacer>
           </HorizontalPaddingSpace>
           <TouchableOpacity
-            // onPress={handleSignOut} // open when app is ready to deploy
+            onPress={handleSignOut} // open when app is ready to deploy
             style={{
               marginBottom: theme.spaceNumberBy50[1],
             }}>
