@@ -38,7 +38,6 @@ const ChatsScreen = () => {
     useState("");
   const [showCard, setShowCard] = useState(false);
   const [newMessageInput, setNewMessageInput] = useState(false);
-  const [triggerReload, setTriggerReload] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState({});
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
@@ -118,7 +117,6 @@ const ChatsScreen = () => {
   }
 
   function handleStartMessaging() {
-    setTriggerReload(false);
     if (!input?.length) return;
 
     let textTransform = input;
@@ -149,7 +147,6 @@ const ChatsScreen = () => {
       })
       .catch((error) => console.log("Error " + error.message));
 
-    setTriggerReload(!triggerReload);
     setInput("");
     setNewMessageInput(false);
   }

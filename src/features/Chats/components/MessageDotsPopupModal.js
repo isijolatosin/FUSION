@@ -18,7 +18,6 @@ export default function MessageDotsPopupModal({
   functionCallBottom,
   otherUserMatchId,
   otherUserMatchPhonenumber,
-  setTriggerRefresh,
   textTop,
   textBottom,
   textCancel,
@@ -33,7 +32,6 @@ export default function MessageDotsPopupModal({
     return (
       <TouchableOpacity
         onPress={() => {
-          setTriggerRefresh(true);
           functionCallBottom(otherUserMatchPhonenumber, otherUserMatchId, text);
         }}
         style={{
@@ -103,7 +101,6 @@ export default function MessageDotsPopupModal({
             <Button
               buttonFunction={() => {
                 functionCallTop();
-                setTriggerRefresh(true);
               }}
               backgroundColor={theme.colors.brand.base}
               borderRadius={theme.space[5]}
@@ -187,7 +184,6 @@ export default function MessageDotsPopupModal({
           <BlockOptionComponent text="Scam" />
           <TouchableOpacity
             onPress={() => {
-              setTriggerRefresh(true);
               functionCallBottom(
                 otherUserMatchPhonenumber,
                 otherUserMatchId,

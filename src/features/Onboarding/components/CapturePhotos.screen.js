@@ -16,7 +16,7 @@ import NextNavigation from "../../../components/Next-navigation";
 import { addPhotosInstruction } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import PhotoComponentPhotoScreen from "./sub-component/PhotoComponentPhotoScreen";
-import { database } from "../../../../config";
+import firebase, { database } from "../../../../config";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 export default function CapturePhotos({ navigation }) {
@@ -112,6 +112,7 @@ export default function CapturePhotos({ navigation }) {
         sexualOrientation,
         whatThreeWordsDescribeYou,
         workplace,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
         console.log(`USER ADDED SUCCESSFULLY`);

@@ -159,7 +159,7 @@ const FadeOutComponent = ({ navigation }) => {
 
       timeOutID = setTimeout(() => {
         navigation.navigate(verify ? "main" : "onBoard");
-      }, 5000);
+      }, 4000);
     };
     functionCall();
 

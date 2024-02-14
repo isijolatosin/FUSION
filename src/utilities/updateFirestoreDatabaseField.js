@@ -20,11 +20,9 @@ const updateUserValueField = async (
   collectionName,
   documentId,
   fieldName,
-  newValue,
-  setIsRetrigger
+  newValue
 ) => {
   try {
-    setIsRetrigger(false);
     const docRef = database.collection(collectionName).doc(documentId);
 
     // Update the specified field in the document
@@ -33,7 +31,6 @@ const updateUserValueField = async (
     });
 
     console.log("Field updated successfully!");
-    setIsRetrigger(true);
   } catch (error) {
     console.error("Error updating field:", error);
   }
@@ -44,11 +41,9 @@ const addToArrayField = async (
   collectionName,
   documentId,
   arrayFieldName,
-  newItem,
-  setIsRetrigger
+  newItem
 ) => {
   try {
-    setIsRetrigger(false);
     const docRef = database.collection(collectionName).doc(documentId);
 
     // Update the array field using arrayUnion
@@ -57,7 +52,6 @@ const addToArrayField = async (
     });
 
     console.log("Array field updated successfully!");
-    setIsRetrigger(true);
   } catch (error) {
     console.error("Error updating array field:", error);
   }
@@ -68,11 +62,9 @@ const removeItemFromArray = async (
   collectionName,
   documentId,
   fieldName,
-  itemToRemove,
-  setIsRetrigger
+  itemToRemove
 ) => {
   try {
-    setIsRetrigger(false);
     // Get a reference to the document
     const docRef = database.collection(collectionName).doc(documentId);
 
@@ -83,20 +75,13 @@ const removeItemFromArray = async (
       })
       .then(() => {
         console.log("Item removed successfully!");
-        setIsRetrigger(true);
       });
   } catch (error) {
     console.error("Error removing item:", error);
   }
 };
 
-const removeDocumentFromCollections = async (
-  collectionName,
-  documentId,
-  setIsRetrigger
-) => {
-  setIsRetrigger(false);
-
+const removeDocumentFromCollections = async (collectionName, documentId) => {
   // Get a reference to the message and delete messages
   const messageRef = database
     .collection(collectionName)
@@ -118,8 +103,6 @@ const removeDocumentFromCollections = async (
     .catch((error) => {
       console.error("Error deleting document: ", error);
     });
-
-  setIsRetrigger(true);
 };
 
 export {

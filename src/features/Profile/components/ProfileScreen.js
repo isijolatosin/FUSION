@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, View } from "react-native";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Dimensions, Image, Pressable, ScrollView, View } from "react-native";
+import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -25,16 +25,35 @@ import {
 } from "../../../utilities/handleUploadImage";
 import SettingModal from "./SettingModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
+import UpdateModal from "./UpdateModal";
+import GenderUpdateModal from "./GenderUpdateModal";
+import WorkUpdateModal from "./WorkUpdateModal";
+import JobUpdateModal from "./JobUpdateModal";
+import HeightUpdateModal from "./HeightUpdateModal";
+import CountryUpdateModal from "./CountryUpdateModal";
+import InterestUpdateModal from "./InterestUpdateModal";
+import SmokeUpdateModal from "./SmokingUpdateModal";
+import DrinkUpdateModal from "./DrinkingUpdateModal";
+import GymUpdateModal from "./GymUpdateModal";
+import CannabisUpdateModal from "./CannabisUpdateModal";
+import PreferenceUpdateModal from "./PreferenceUpdateModal";
+import SexualOrientationUpdateModal from "./SexualOrientationUpdateModal";
+import ReligionUpdateModal from "./ReligionUpdateModal";
+import InterestsUpdateModal from "./InterestsUpdateModal";
 
 export default function ProfileScreen() {
   const {
     state: { theme },
   } = useAppContext();
   const { height } = Dimensions.get("window");
+  const [isTrigger, setIsTrigger] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSettingModal, setSettingModal] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
-  const [triggerRefresh, setTriggerRefresh] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState({
+    type: "",
+    isOpen: false,
+  });
   const [deleteImageItem, setDeleteImageItem] = useState("");
 
   const { width } = Dimensions.get("window");
@@ -91,6 +110,16 @@ export default function ProfileScreen() {
     }, [])
   );
 
+  useEffect(() => {
+    fetchUsersData();
+
+    const resetTrigger = setTimeout(() => {
+      setIsTrigger(false);
+    }, 1000);
+
+    return () => clearTimeout(resetTrigger);
+  }, [isTrigger]);
+
   const mediaArray = [];
 
   if (photoUrl1) mediaArray.push(photoUrl1);
@@ -104,7 +133,6 @@ export default function ProfileScreen() {
     handleDeleteImageAsync(
       currentUser?.id,
       deleteImageItem,
-      setTriggerRefresh,
       setOpenDeleteModal
     );
   }
@@ -114,8 +142,7 @@ export default function ProfileScreen() {
       () => {},
       () => {},
       setOpenImageUploadModal,
-      currentUser?.id,
-      setTriggerRefresh
+      currentUser?.id
     );
   }
   function handleCaptureImageAsyncInModal() {
@@ -124,80 +151,127 @@ export default function ProfileScreen() {
       () => {},
       setOpenImageUploadModal,
       currentUser?.id,
-      setTriggerRefresh,
       true
     );
   }
 
-  function AboutMeListComponent({ title, value, isList }) {
+  function AboutMeListComponent({ pressFunction, title, value, isList }) {
     if (isList) {
       return (
-        <Fragment>
+        <View>
           <HorizontalPaddingSpace
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingTop: theme.spaceNumberBy10[1],
+              marginTop: theme.spaceNumberBy10[5],
+              backgroundColor: theme.colors.brand.linesFaint,
+              paddingVertical: theme.spaceNumber[3],
             }}
             space={theme.space[5]}>
             <View>
               <Text
                 variant="custom"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
+                colorType="linesLight"
+                fontType="montserratBold"
+                fontSize="body">
                 {title}
               </Text>
             </View>
-            <View>
-              {value?.map((val, idx) => (
-                <Text
-                  style={{
-                    textAlign: "right",
-                    marginBottom: theme.spaceNumberBy10[0],
-                  }}
-                  key={idx}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratSemibold"
-                  fontSize="caption"
-                  transform="capitalize">
-                  {val}
-                </Text>
-              ))}
-            </View>
           </HorizontalPaddingSpace>
-        </Fragment>
+          <Spacer
+            position="top"
+            size="xsmall"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}>
+            <HorizontalPaddingSpace space={theme.space[5]}>
+              {value?.map((val, idx) => (
+                <Pressable
+                  onPress={() =>
+                    setOpenUpdateModal({ type: val, isOpen: true })
+                  }
+                  key={idx}
+                  style={{
+                    position: "relative",
+                    marginVertical: theme.spaceNumber[5],
+                    flexDirection: "row",
+                    paddingBottom: theme.spaceNumber[2],
+                    borderBottomWidth: 0.5,
+                    borderBottomColor: theme.colors.brand.linesLighter,
+                  }}>
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratSemibold"
+                    fontSize="button"
+                    transform="capitalize">
+                    {val}
+                  </Text>
+                  <View
+                    style={{
+                      position: "absolute",
+                      right: 0,
+                      marginRight: -theme.spaceNumber[2],
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName="keyboard-arrow-right"
+                      IconComponent={MaterialIcons}
+                      size={20}
+                      color={theme.colors.brand.linesLight}
+                    />
+                  </View>
+                </Pressable>
+              ))}
+            </HorizontalPaddingSpace>
+          </Spacer>
+        </View>
       );
     }
 
     return (
-      <HorizontalPaddingSpace
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingTop: theme.spaceNumberBy10[1],
-        }}
-        space={theme.space[5]}>
-        <View>
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            fontSize="caption">
-            {title}
-          </Text>
-        </View>
-        <View>
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            fontSize="caption"
-            transform="capitalize">
-            {value}
-          </Text>
-        </View>
+      <HorizontalPaddingSpace space={theme.space[5]}>
+        <Pressable
+          onPress={pressFunction}
+          style={{
+            borderBottomWidth: 0.5,
+            borderBottomColor: theme.colors.brand.linesLighter,
+            paddingVertical: theme.spaceNumberBy10[0],
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            position: "relative",
+          }}>
+          <View>
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="button">
+              {title}
+            </Text>
+            <Text
+              variant="custom"
+              colorType="linesLight"
+              fontType="montserratRegular"
+              fontSize="button"
+              transform="capitalize">
+              {value}
+            </Text>
+          </View>
+          <View
+            style={{
+              marginRight: -theme.spaceNumber[2],
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="keyboard-arrow-right"
+              IconComponent={MaterialIcons}
+              size={20}
+              color={theme.colors.brand.linesLight}
+            />
+          </View>
+        </Pressable>
       </HorizontalPaddingSpace>
     );
   }
@@ -207,6 +281,320 @@ export default function ProfileScreen() {
   }
   function handleOpenSettingModal() {
     setSettingModal(true);
+  }
+
+  function sortRender() {
+    switch (openUpdateModal.type) {
+      case "gender":
+        return (
+          <GenderUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              setIsTrigger(true);
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+      case "work":
+        return (
+          <WorkUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "job":
+        return (
+          <JobUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "height":
+        return (
+          <HeightUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "country":
+        return (
+          <CountryUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "interest":
+        return (
+          <InterestUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "smoking":
+        return (
+          <SmokeUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "drinking":
+        return (
+          <DrinkUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "gym":
+        return (
+          <GymUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "cannabis":
+        return (
+          <CannabisUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "preference":
+        return (
+          <PreferenceUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "sexualOrientation":
+        return (
+          <SexualOrientationUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "religious":
+        return (
+          <ReligionUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  ...openUpdateModal,
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case currentUser?.interestsArray?.[0]:
+        return (
+          <InterestsUpdateModal
+            interestValue={currentUser?.interestsArray?.[0]}
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+      case currentUser?.interestsArray?.[1]:
+        return (
+          <InterestsUpdateModal
+            interestValue={currentUser?.interestsArray?.[1]}
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+      case currentUser?.interestsArray?.[2]:
+        return (
+          <InterestsUpdateModal
+            interestValue={currentUser?.interestsArray?.[2]}
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+      case currentUser?.interestsArray?.[3]:
+        return (
+          <InterestsUpdateModal
+            interestValue={currentUser?.interestsArray?.[3]}
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+      case currentUser?.interestsArray?.[4]:
+        return (
+          <InterestsUpdateModal
+            interestValue={currentUser?.interestsArray?.[4]}
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+      case currentUser?.interestsArray?.[5]:
+        return (
+          <InterestsUpdateModal
+            interestValue={currentUser?.interestsArray?.[5]}
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setOpenUpdateModal({
+                ...openUpdateModal,
+                isOpen: false,
+              });
+            }}
+          />
+        );
+
+      default:
+        break;
+    }
   }
 
   return (
@@ -244,7 +632,13 @@ export default function ProfileScreen() {
       </NavigationBar>
       <View style={{ height: "100%" }}>
         <HorizontalPaddingSpace space={theme.space[3]}>
-          <Spacer style={{ alignItems: "center" }} position="top" size="medium">
+          <Spacer
+            style={{
+              alignItems: "center",
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            position="top"
+            size="xxxsmall">
             {photoUrl1 && (
               <Image
                 style={{
@@ -274,141 +668,7 @@ export default function ProfileScreen() {
             </Spacer>
           </Spacer>
         </HorizontalPaddingSpace>
-        <Spacer
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: theme.colors.brand.lines,
-            paddingBottom: theme.spaceNumber[5],
-          }}
-          position="top"
-          size="large">
-          <HorizontalPaddingSpace
-            style={{ paddingTop: 5 }}
-            space={theme.space[5]}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="body">
-              Uploaded Photos
-            </Text>
-          </HorizontalPaddingSpace>
-        </Spacer>
-        <Spacer position="top" size="large">
-          <HorizontalPaddingSpace
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: theme.spaceNumberBy10[0],
-              justifyContent: "center",
-            }}
-            space={theme.space[5]}>
-            <PhotoComponent
-              isUpdatingPhoto={true}
-              dimension={31}
-              photoUrl={photoUrl1}
-              setPhotoUrl={setPhotoUrl1}
-              showDeleteIcon={true}
-              index={0}
-              setOpenDeleteModal={setOpenDeleteModal}
-              setDeleteImageItem={setDeleteImageItem}
-              deleteImageItem={deleteImageItem}
-              setOpenImageUploadModal={setOpenImageUploadModal}
-            />
-            <PhotoComponent
-              isUpdatingPhoto={true}
-              dimension={31}
-              photoUrl={photoUrl2}
-              setPhotoUrl={setPhotoUrl2}
-              showDeleteIcon={true}
-              index={1}
-              setOpenDeleteModal={setOpenDeleteModal}
-              setDeleteImageItem={setDeleteImageItem}
-              deleteImageItem={deleteImageItem}
-              setOpenImageUploadModal={setOpenImageUploadModal}
-            />
-            <PhotoComponent
-              isUpdatingPhoto={true}
-              dimension={31}
-              photoUrl={photoUrl3}
-              setPhotoUrl={setPhotoUrl3}
-              showDeleteIcon={true}
-              index={2}
-              setOpenDeleteModal={setOpenDeleteModal}
-              setDeleteImageItem={setDeleteImageItem}
-              deleteImageItem={deleteImageItem}
-              setOpenImageUploadModal={setOpenImageUploadModal}
-            />
-            <PhotoComponent
-              isUpdatingPhoto={true}
-              dimension={31}
-              photoUrl={photoUrl4}
-              setPhotoUrl={setPhotoUrl4}
-              showDeleteIcon={true}
-              index={3}
-              setOpenDeleteModal={setOpenDeleteModal}
-              setDeleteImageItem={setDeleteImageItem}
-              deleteImageItem={deleteImageItem}
-              setOpenImageUploadModal={setOpenImageUploadModal}
-            />
-            <PhotoComponent
-              isUpdatingPhoto={true}
-              dimension={31}
-              photoUrl={photoUrl5}
-              setPhotoUrl={setPhotoUrl5}
-              showDeleteIcon={true}
-              index={4}
-              setOpenDeleteModal={setOpenDeleteModal}
-              setDeleteImageItem={setDeleteImageItem}
-              deleteImageItem={deleteImageItem}
-              setOpenImageUploadModal={setOpenImageUploadModal}
-            />
-            <PhotoComponent
-              isUpdatingPhoto={true}
-              dimension={31}
-              photoUrl={photoUrl6}
-              setPhotoUrl={setPhotoUrl6}
-              showDeleteIcon={true}
-              index={5}
-              setOpenDeleteModal={setOpenDeleteModal}
-              setDeleteImageItem={setDeleteImageItem}
-              deleteImageItem={deleteImageItem}
-              setOpenImageUploadModal={setOpenImageUploadModal}
-            />
-          </HorizontalPaddingSpace>
-        </Spacer>
-        <Spacer
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: theme.colors.brand.lines,
-            paddingBottom: theme.spaceNumber[5],
-          }}
-          position="top"
-          size="large">
-          <HorizontalPaddingSpace
-            style={{
-              paddingTop: 5,
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-            space={theme.space[5]}>
-            <Text
-              style={{ marginRight: 5, flex: 1 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="body">
-              About Me
-            </Text>
-            <IconComponent
-              iconFunction={() => {}} // TODO: Edit the about me list
-              iconName="edit"
-              IconComponent={AntDesign}
-              size={15}
-              color={theme.colors.brand.black}
-            />
-          </HorizontalPaddingSpace>
-        </Spacer>
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           position="top"
@@ -416,34 +676,261 @@ export default function ProfileScreen() {
           style={{
             marginBottom: theme.spaceNumberBy10[5],
           }}>
-          <AboutMeListComponent title="My Gender" value={currentUser?.gender} />
+          <Spacer
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: theme.colors.brand.lines,
+              paddingBottom: theme.spaceNumber[1],
+            }}
+            position="top"
+            size="large">
+            <HorizontalPaddingSpace
+              style={{ paddingTop: 5 }}
+              space={theme.space[5]}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Uploaded Photos
+              </Text>
+            </HorizontalPaddingSpace>
+          </Spacer>
+          <Spacer position="top" size="large">
+            <HorizontalPaddingSpace
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumberBy10[0],
+                justifyContent: "center",
+              }}
+              space={theme.space[5]}>
+              <PhotoComponent
+                isUpdatingPhoto={true}
+                dimension={31}
+                photoUrl={photoUrl1}
+                setPhotoUrl={setPhotoUrl1}
+                showDeleteIcon={true}
+                index={0}
+                setOpenDeleteModal={setOpenDeleteModal}
+                setDeleteImageItem={setDeleteImageItem}
+                deleteImageItem={deleteImageItem}
+                setOpenImageUploadModal={setOpenImageUploadModal}
+              />
+              <PhotoComponent
+                isUpdatingPhoto={true}
+                dimension={31}
+                photoUrl={photoUrl2}
+                setPhotoUrl={setPhotoUrl2}
+                showDeleteIcon={true}
+                index={1}
+                setOpenDeleteModal={setOpenDeleteModal}
+                setDeleteImageItem={setDeleteImageItem}
+                deleteImageItem={deleteImageItem}
+                setOpenImageUploadModal={setOpenImageUploadModal}
+              />
+              <PhotoComponent
+                isUpdatingPhoto={true}
+                dimension={31}
+                photoUrl={photoUrl3}
+                setPhotoUrl={setPhotoUrl3}
+                showDeleteIcon={true}
+                index={2}
+                setOpenDeleteModal={setOpenDeleteModal}
+                setDeleteImageItem={setDeleteImageItem}
+                deleteImageItem={deleteImageItem}
+                setOpenImageUploadModal={setOpenImageUploadModal}
+              />
+              <PhotoComponent
+                isUpdatingPhoto={true}
+                dimension={31}
+                photoUrl={photoUrl4}
+                setPhotoUrl={setPhotoUrl4}
+                showDeleteIcon={true}
+                index={3}
+                setOpenDeleteModal={setOpenDeleteModal}
+                setDeleteImageItem={setDeleteImageItem}
+                deleteImageItem={deleteImageItem}
+                setOpenImageUploadModal={setOpenImageUploadModal}
+              />
+              <PhotoComponent
+                isUpdatingPhoto={true}
+                dimension={31}
+                photoUrl={photoUrl5}
+                setPhotoUrl={setPhotoUrl5}
+                showDeleteIcon={true}
+                index={4}
+                setOpenDeleteModal={setOpenDeleteModal}
+                setDeleteImageItem={setDeleteImageItem}
+                deleteImageItem={deleteImageItem}
+                setOpenImageUploadModal={setOpenImageUploadModal}
+              />
+              <PhotoComponent
+                isUpdatingPhoto={true}
+                dimension={31}
+                photoUrl={photoUrl6}
+                setPhotoUrl={setPhotoUrl6}
+                showDeleteIcon={true}
+                index={5}
+                setOpenDeleteModal={setOpenDeleteModal}
+                setDeleteImageItem={setDeleteImageItem}
+                deleteImageItem={deleteImageItem}
+                setOpenImageUploadModal={setOpenImageUploadModal}
+              />
+            </HorizontalPaddingSpace>
+          </Spacer>
+          <Spacer
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumber[3],
+              marginBottom: theme.spaceNumber[3],
+            }}
+            position="top"
+            size="xxxlarge">
+            <HorizontalPaddingSpace
+              style={{
+                paddingTop: 5,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+              space={theme.space[5]}>
+              <View>
+                <Text
+                  style={{ marginRight: 5 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="body">
+                  About Me
+                </Text>
+              </View>
+              <IconComponent
+                iconFunction={() => {}} // TODO: Edit the about me list
+                iconName="edit"
+                IconComponent={AntDesign}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+            </HorizontalPaddingSpace>
+          </Spacer>
           <AboutMeListComponent
-            title="Where I work"
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "gender", isOpen: true })
+            }
+            title="Gender"
+            value={currentUser?.gender}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "work", isOpen: true })
+            }
+            title="Work"
             value={currentUser?.workplace?.work}
           />
           <AboutMeListComponent
-            title="What I do"
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "job", isOpen: true })
+            }
+            title="Job Title"
             value={currentUser?.jobtitle?.job}
           />
-          <AboutMeListComponent title="My Height" value={currentUser?.height} />
           <AboutMeListComponent
-            title="My Country"
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "height", isOpen: true })
+            }
+            title="Height"
+            value={currentUser?.height}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "country", isOpen: true })
+            }
+            title="Country"
             value={currentUser?.country}
           />
           <AboutMeListComponent
-            title="I am interested in"
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "interest", isOpen: true })
+            }
+            title="Interested in"
             value={currentUser?.interest}
           />
           <AboutMeListComponent
-            title="I smoke"
-            value={currentUser?.lifestyleHabits?.smoke}
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "gym", isOpen: true })
+            }
+            title="Gym"
+            value={currentUser?.lifestyleHabits?.gym}
           />
           <AboutMeListComponent
-            title="I drink"
-            value={currentUser?.lifestyleHabits?.drink}
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "preference", isOpen: true })
+            }
+            title="Preference"
+            value={currentUser?.preference}
           />
           <AboutMeListComponent
-            title="I enjoy"
+            pressFunction={() =>
+              setOpenUpdateModal({
+                type: "sexualOrientation",
+                isOpen: true,
+              })
+            }
+            title="Sexual Orientation"
+            value={currentUser?.sexualOrientation}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({
+                type: "religious",
+                isOpen: true,
+              })
+            }
+            title="Religious Beliefs"
+            value={currentUser?.religious}
+          />
+          <Spacer position="top" size="xxxxlarge">
+            <HorizontalPaddingSpace
+              space={theme.space[5]}
+              style={{
+                marginBottom: theme.spaceNumberBy10[0],
+                backgroundColor: theme.colors.brand.linesFaint,
+                paddingVertical: theme.spaceNumber[3],
+              }}>
+              <Text
+                variant="custom"
+                colorType="linesLight"
+                fontType="montserratBold"
+                fontSize="body">
+                My Vices
+              </Text>
+            </HorizontalPaddingSpace>
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "smoking", isOpen: true })
+              }
+              title="Smoking"
+              value={currentUser?.lifestyleHabits?.smoke}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "drinking", isOpen: true })
+              }
+              title="Drinking"
+              value={currentUser?.lifestyleHabits?.drink}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "cannabis", isOpen: true })
+              }
+              title="Cannabis"
+              value={currentUser?.lifestyleHabits?.cannabis}
+            />
+          </Spacer>
+          <AboutMeListComponent
+            title="I Enjoy"
+            subTitle=""
             value={currentUser?.interestsArray}
             isList={true}
           />
@@ -460,7 +947,6 @@ export default function ProfileScreen() {
           theme={theme}
           functionCallTop={handleDeleteImageAsyncInModal}
           functionCallBottom={() => setOpenDeleteModal(false)}
-          setTriggerRefresh={setTriggerRefresh}
           textTop="Delete Photo"
           textBottom="Cancel"
         />
@@ -476,7 +962,6 @@ export default function ProfileScreen() {
           theme={theme}
           functionCallTop={handlePickImageAsyncInModal}
           functionCallBottom={handleCaptureImageAsyncInModal}
-          setTriggerRefresh={setTriggerRefresh}
           textTop="Upload Photo"
           textBottom="Take Photo"
           textCancel="Cancel"
@@ -489,6 +974,18 @@ export default function ProfileScreen() {
         openSettingModal={openSettingModal}
         onClose={handleCloseSettingModal}
       />
+      <AnimatedModal
+        isVisible={openUpdateModal.isOpen}
+        onClose={() => {
+          setOpenUpdateModal({ ...openUpdateModal, isOpen: false });
+        }}
+        theme={theme}
+        width={width}
+        isTransparent={false}>
+        <UpdateModal height={height} theme={theme}>
+          {sortRender()}
+        </UpdateModal>
+      </AnimatedModal>
     </SafeArea>
   );
 }

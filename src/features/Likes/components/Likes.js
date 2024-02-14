@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { useFocusEffect } from "@react-navigation/native";
@@ -54,6 +54,16 @@ const LikesScreen = () => {
       };
     }, [])
   );
+
+  useEffect(() => {
+    fetchUsersData();
+
+    const resetTrigger = setTimeout(() => {
+      setIsRetrigger(false);
+    }, 1000);
+
+    return () => clearTimeout(resetTrigger);
+  }, [isRetrigger]);
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>

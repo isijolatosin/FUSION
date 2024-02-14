@@ -434,7 +434,7 @@ export const interests = [
   "Gospel",
 ];
 export const LifestyleHabits = {
-  gym: ["Active", "Not my thing", "Seasonally", "Sometimes"],
+  gym: ["Active", "Not my thing", "Seasonal", "Sometimes"],
   smoke: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   drink: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   cannabis: ["Not my thing", "Socially", "Frequently", "Sometimes"],
