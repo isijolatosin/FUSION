@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Fontisto } from "@expo/vector-icons";
+import React from "react";
 
 import { PopupModal } from "../../Onboarding/components/onboarding.styles";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -11,7 +10,6 @@ export default function GeneralPopupModal({
   theme,
   functionCallTop,
   functionCallBottom,
-  setTriggerRefresh,
   textTop,
   textBottom,
   textCancel,
@@ -26,7 +24,6 @@ export default function GeneralPopupModal({
         <ButtonAction
           onPress={() => {
             functionCallTop();
-            setTriggerRefresh(true);
           }}
           backgroundColor={theme.colors.brand.highlight}
           width="100%"
@@ -48,7 +45,6 @@ export default function GeneralPopupModal({
         </ButtonAction>
         <ButtonAction
           onPress={() => {
-            setTriggerRefresh(true);
             functionCallBottom();
           }}
           backgroundColor={theme.colors.brand.highlight}

@@ -11,7 +11,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import { database } from "../../../../config";
-import { removeDocumentFromCollections } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  removeDocumentFromCollections,
+  removeItemFromArray,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import calculateAge from "../../../utilities/calculateAge";
 import { Text } from "../../../components/typography/text.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
@@ -92,6 +95,51 @@ export default function LikeInitiatorProfileComponent({
 
     // Update the lastTap reference
     lastTap.current = now;
+  }
+
+  function handleDeclineLike() {
+    const likeId = data?.[0]?.id;
+    const docRef = database.collection("all-likes").doc(likeId);
+    docRef
+      .delete()
+      .then(() => {
+        console.log("Like successfully deleted!");
+      })
+      .catch((error) => {
+        console.error("Error deleting like: ", error);
+      });
+
+    removeItemFromArray(
+      "all-users",
+      data?.[0]?.likedBy?.id,
+      "listOfAllLikedNumbers",
+      currentUser?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      currentUser?.id,
+      "listOfAllLikedNumbers",
+      data?.[0]?.likedBy?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      currentUser?.id,
+      "likedMeList",
+      data?.[0]?.likedBy?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
+      data?.[0]?.likedBy?.id,
+      "likedMeList",
+      currentUser?.phonenumber,
+      () => {}
+    );
+
+    setIsRetrigger(true);
+    setShowLikeInitiatorProfile(false);
   }
 
   const currentUserData = likedUserAndCurrentUserData[1];
@@ -837,7 +885,7 @@ export default function LikeInitiatorProfileComponent({
             marginLeft: theme.spaceNumberBy10[1],
           }}>
           <IconComponent
-            iconFunction={() => setShowLikeInitiatorProfile(false)}
+            iconFunction={handleDeclineLike}
             iconName="close-a"
             IconComponent={Fontisto}
             size={theme.spaceNumberBy10[1]}

@@ -99,7 +99,7 @@ export default function MessageScreen({ navigation }) {
 
     const timeoutId = setTimeout(() => {
       getMessages();
-    }, 200);
+    }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [triggerReload, input]);
@@ -164,7 +164,6 @@ export default function MessageScreen({ navigation }) {
       () => {},
       setOpenImageUploadModal,
       "",
-      () => {},
       false,
       true,
       sendPhotoMessage
@@ -176,7 +175,6 @@ export default function MessageScreen({ navigation }) {
       () => {},
       setOpenImageUploadModal,
       "",
-      () => {},
       true,
       true,
       sendPhotoMessage

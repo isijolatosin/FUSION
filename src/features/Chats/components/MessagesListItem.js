@@ -17,6 +17,7 @@ export default function MessagesListItem({
     <HorizontalPaddingSpace space={theme.space[3]}>
       <View
         style={{
+          position: "relative",
           flexDirection: "row",
           alignItems: "center",
           width: "100%",
@@ -33,23 +34,18 @@ export default function MessagesListItem({
           <Text
             variant="custom"
             colorType="black"
-            fontType="montserratBold"
+            fontType="montserratExtrabold"
             fontSize="body">
             {name}
           </Text>
           <Spacer position="top" size="xsmall">
             <Text
               variant="custom"
-              colorType="lines"
-              fontType="montserratBold"
-              fontSize="caption">
-              <Text
-                variant="custom"
-                colorType="brandTone"
-                fontType="montserratBold"
-                fontSize="caption">
-                {lastSenderName ? lastSenderName : ""}:{" "}
-              </Text>
+              colorType={lastSenderName === name ? "black" : "lines"}
+              fontType={
+                lastSenderName === name ? "montserratBold" : "montserratLight"
+              }
+              fontSize="button">
               {lastSenderMessage ? shortenText(lastSenderMessage, 40) : ""}
             </Text>
           </Spacer>

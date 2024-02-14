@@ -15,7 +15,7 @@ const TextInputWrapper = styled.View`
     props.isBackgroundColor ? props.theme.space[1] : 0};
   padding: ${(props) => props.theme.space[3]};
   padding-bottom: ${(props) =>
-    props.isBackgroundColor ? props.theme.space[3] : 0};
+    props.isBackgroundColor ? props.theme.space[3] : props.theme.space[2]};
   padding-left: ${(props) =>
     props.isBackgroundColor ? props.theme.space[3] : 0};
   width: ${(props) => (props.width ? props.width : "100%")};
