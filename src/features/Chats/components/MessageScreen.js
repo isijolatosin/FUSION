@@ -30,6 +30,7 @@ import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import Loading from "../../../components/general-component/Loading";
 import {
   addToArrayField,
+  getAllData,
   removeDocumentFromCollections,
   removeItemFromArray,
 } from "../../../utilities/updateFirestoreDatabaseField";
@@ -38,6 +39,7 @@ import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import MessageDotsPopupModal from "./MessageDotsPopupModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
+import getAddress from "../../../utilities/getAddress";
 
 export default function MessageScreen({ navigation }) {
   const { width, height } = Dimensions.get("window");
@@ -61,6 +63,8 @@ export default function MessageScreen({ navigation }) {
   const [triggerReload, setTriggerReload] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [openDotActionModal, setOpenDotActionModal] = useState(false);
+  const [addressFromLatLong, setAddressFromLatLong] = useState({});
+  const [otherUserDataObject, setOtherUserData] = useState({});
 
   // Scroll to bottom when content size changes
   const onContentSizeChange = () => {
@@ -75,6 +79,19 @@ export default function MessageScreen({ navigation }) {
       try {
         const matchId = await retrieveData("match-id");
         setMatchId(matchId);
+        //get other user
+        const allUsers = await getAllData("all-users");
+        const otherUserNumber = otherUser?.match?.phonenumber;
+        const otherUserData = allUsers.find(
+          (data) => data.phonenumber === otherUserNumber
+        );
+        setOtherUserData(otherUserData);
+
+        const _address = await getAddress(
+          +otherUserData?.latitude,
+          +otherUserData?.longitude
+        );
+        setAddressFromLatLong(_address);
 
         // get message for current match id
         if (matchId) {
@@ -310,7 +327,7 @@ export default function MessageScreen({ navigation }) {
                 marginLeft: theme.spaceNumberBy10[1],
               }}>
               <Avatar
-                data={otherUser?.match?.mediaArray[0]}
+                data={otherUserDataObject?.mediaArray?.[0]}
                 theme={theme}
                 dimensionIndex={theme.spaceNumber[1]}
                 func={() => setShowProfile(true)}
@@ -321,7 +338,7 @@ export default function MessageScreen({ navigation }) {
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="title">
-                {otherUser?.match?.firstname}
+                {otherUserDataObject?.firstname}
               </Text>
             </View>
           </View>
@@ -451,10 +468,11 @@ export default function MessageScreen({ navigation }) {
         theme={theme}
         width={width}>
         <ProfileViewModal
-          otherUser={otherUser?.match}
+          otherUser={otherUserDataObject}
           theme={theme}
           setShowProfile={setShowProfile}
           width={width}
+          addressFromLatLong={addressFromLatLong}
         />
       </AnimatedModal>
     </View>

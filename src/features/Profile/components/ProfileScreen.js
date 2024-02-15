@@ -1040,6 +1040,7 @@ export default function ProfileScreen() {
           theme={theme}
           setShowProfile={setShowProfile}
           width={width}
+          addressFromLatLong={addressFromLatLong}
         />
       </AnimatedModal>
     </SafeArea>
