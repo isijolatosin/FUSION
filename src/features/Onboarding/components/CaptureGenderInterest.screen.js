@@ -121,6 +121,7 @@ export default function CaptureGenderInterest({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your interest"
+            size="caption"
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

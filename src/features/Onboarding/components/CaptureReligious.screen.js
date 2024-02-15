@@ -73,6 +73,7 @@ export default function CaptureReligious({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your religious beliefs"
+            size="caption"
           />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection

@@ -58,25 +58,44 @@ export default function CaptureAddress({ navigation }) {
               nextFunction={() => {
                 if (checkAddress(address)) {
                   user.address = address;
-                  dispatch({
-                    type: "SET_USER",
-                    payload: user,
-                  });
-                  navigation.navigate("capture-location-screen");
                 } else {
-                  setPageError(true);
+                  user.address = {
+                    city: "",
+                    province: "",
+                    street: "",
+                  };
                 }
+                dispatch({
+                  type: "SET_USER",
+                  payload: user,
+                });
+                navigation.navigate("capture-location-screen");
               }}
             />
           </NavigationBar>
           <Spacer position="top" size="xxxxlarge">
             <Text
+              style={{ position: "relative" }}
               variant="custom"
               colorType="black"
               fontType="playfairbold"
               fontSize="h3"
               width="65%">
               Where do you stay?
+            </Text>
+            <Text
+              style={{
+                position: "absolute",
+                bottom: theme.spaceNumber[1],
+                right: theme.spaceNumberBy10[5],
+              }}
+              variant="custom"
+              colorType="linesLight"
+              fontType="playfairbold"
+              fontSize="h5"
+              width="65%">
+              {" "}
+              (optional)
             </Text>
           </Spacer>
           <Spacer position="top" size="large">

@@ -343,6 +343,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
         <OnboardingErrorComponent
           pageError={pageError}
           text="Please share your lifestyle habits"
+          size="caption"
         />
       </HorizontalPaddingSpace>
     </SafeArea>

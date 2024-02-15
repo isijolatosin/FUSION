@@ -162,6 +162,7 @@ export default function CaptureDOB({ navigation }) {
             <OnboardingErrorComponent
               pageError={pageError}
               text="Please provide your date of birth"
+              size="caption"
             />
           </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>

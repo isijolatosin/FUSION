@@ -20,7 +20,8 @@ const updateUserValueField = async (
   collectionName,
   documentId,
   fieldName,
-  newValue
+  newValue,
+  setIsRetrigger
 ) => {
   try {
     const docRef = database.collection(collectionName).doc(documentId);
@@ -29,6 +30,7 @@ const updateUserValueField = async (
     await docRef.update({
       [fieldName]: newValue,
     });
+    setIsRetrigger(true);
 
     console.log("Field updated successfully!");
   } catch (error) {

@@ -7,7 +7,6 @@ import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import IconComponent from "../../../components/icon-components/IconComponent";
-import Button from "../../../components/utility/button.component";
 import DropdownSelection from "../../Onboarding/components/sub-component/DropdownSelection";
 import { religions } from "../../../constants";
 

@@ -75,6 +75,7 @@ export default function CaptureSexualOrientation({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your sexual orientation"
+            size="caption"
           />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection

@@ -124,6 +124,7 @@ export default function CaptureWorkPlace({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your work place"
+            size="caption"
           />
         </HorizontalPaddingSpace>
       </Pressable>

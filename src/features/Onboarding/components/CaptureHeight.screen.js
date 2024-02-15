@@ -72,6 +72,7 @@ export default function CaptureHeight({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your interest"
+            size="caption"
           />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection

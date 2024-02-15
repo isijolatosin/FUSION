@@ -58,11 +58,11 @@ const LikesScreen = () => {
   useEffect(() => {
     fetchUsersData();
 
-    const resetTrigger = setTimeout(() => {
+    const resetLikeTrigger = setTimeout(() => {
       setIsRetrigger(false);
     }, 1000);
 
-    return () => clearTimeout(resetTrigger);
+    return () => clearTimeout(resetLikeTrigger);
   }, [isRetrigger]);
 
   return (

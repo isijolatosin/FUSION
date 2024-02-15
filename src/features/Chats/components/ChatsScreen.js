@@ -119,11 +119,11 @@ const ChatsScreen = () => {
   useEffect(() => {
     fetchMatches();
 
-    const resetTrigger = setTimeout(() => {
+    const resetChatTrigger = setTimeout(() => {
       setIsRefreshChatScreen(false);
     }, 1000);
 
-    return () => clearTimeout(resetTrigger);
+    return () => clearTimeout(resetChatTrigger);
   }, [isRefreshChatScreen]);
 
   function handleStartMessaging() {
