@@ -10,7 +10,7 @@ import {
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-import { database } from "../../../../config";
+import firebase, { database } from "../../../../config";
 import {
   removeDocumentFromCollections,
   removeItemFromArray,
@@ -72,13 +72,20 @@ export default function LikeInitiatorProfileComponent({
       ]);
 
       // Create match data
-      const likedByprofile = data?.[0]?.likedBy;
-      const likedProfile = currentUser;
+      const likedByprofile = {
+        id: data?.[0]?.likedBy?.id,
+        phonenumber: data?.[0]?.likedBy?.phonenumber,
+      };
+      const likedProfile = {
+        id: currentUser?.id,
+        phonenumber: currentUser?.phonenumber,
+      };
       database
         .collection("matches")
         .add({
           likedByprofile,
           likedProfile,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
           console.log(`MATCH CREATED SUCCESSFULLY`);
@@ -118,6 +125,13 @@ export default function LikeInitiatorProfileComponent({
     );
     removeItemFromArray(
       "all-users",
+      data?.[0]?.likedBy?.id,
+      "likedMeList",
+      currentUser?.phonenumber,
+      () => {}
+    );
+    removeItemFromArray(
+      "all-users",
       currentUser?.id,
       "listOfAllLikedNumbers",
       data?.[0]?.likedBy?.phonenumber,
@@ -128,13 +142,6 @@ export default function LikeInitiatorProfileComponent({
       currentUser?.id,
       "likedMeList",
       data?.[0]?.likedBy?.phonenumber,
-      () => {}
-    );
-    removeItemFromArray(
-      "all-users",
-      data?.[0]?.likedBy?.id,
-      "likedMeList",
-      currentUser?.phonenumber,
       () => {}
     );
 

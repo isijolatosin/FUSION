@@ -1,6 +1,7 @@
-import { Dimensions, ScrollView } from "react-native";
+import { Dimensions, ScrollView, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { useAppContext } from "../../context/ThemeContext";
@@ -13,20 +14,38 @@ import { NavigationBar } from "../Onboarding/components/onboarding.styles";
 import IconComponent from "../../components/icon-components/IconComponent";
 
 export default function Index({ navigation }) {
-  const { width } = Dimensions.get("window");
+  const { width, height } = Dimensions.get("window");
   const {
     state: { theme },
   } = useAppContext();
   const [supportList, setSupportList] = useState([]);
+  const [isRetrigger, setIsRetrigger] = useState(false);
+  const [showGeneralMessage, setShowGeneralMessage] = useState({
+    type: "",
+    isOpen: false,
+  });
+
+  async function getSupportList() {
+    const generalList = await getAllData("general-support");
+    setSupportList(generalList);
+  }
+  useFocusEffect(
+    React.useCallback(() => {
+      getSupportList();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
   useEffect(() => {
-    async function supportList() {
-      const generalList = await getAllData("general-support");
-      setSupportList(generalList);
-    }
+    getSupportList();
+    const resetFilterTrigger = setTimeout(() => {
+      setIsRetrigger(false);
+    }, 2000);
 
-    supportList();
-  }, []);
+    return () => clearTimeout(resetFilterTrigger);
+  }, [isRetrigger]);
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
@@ -62,7 +81,25 @@ export default function Index({ navigation }) {
             marginTop: theme.spaceNumberBy10[3],
           }}>
           {supportList?.map((support, idx) => (
-            <SupportComponent key={idx} data={support} theme={theme} />
+            <View
+              key={idx}
+              style={{
+                position: "relative",
+                borderBottomWidth: 1,
+                borderBottomColor: theme.colors.brand.linesLighter,
+                paddingVertical: theme.spaceNumberBy10[0],
+                height: theme.spaceNumberBy10[6],
+              }}>
+              <SupportComponent
+                data={support}
+                theme={theme}
+                width={width}
+                height={height}
+                setShowGeneralMessage={setShowGeneralMessage}
+                showGeneralMessage={showGeneralMessage}
+                setIsRetrigger={setIsRetrigger}
+              />
+            </View>
           ))}
         </ScrollView>
       ) : (
