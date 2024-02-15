@@ -101,19 +101,36 @@ export default function CreateAccount({ navigation }) {
               </Text>
             </Spacer>
             {cellNumber.length > 10 && (
-              <Spacer position="top" size="large">
-                <Pressable
-                  onPress={() => {
-                    setPopup(true);
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="base"
-                    fontType="montserratRegular"
-                    fontSize="body">
-                    Verify Number...
-                  </Text>
-                </Pressable>
+              <Spacer
+                position="top"
+                size="xxxxlarge"
+                style={{
+                  // flexDirection: "row",
+                  alignItems: "center",
+                }}>
+                <Spacer position="top" size="xxxxlarge">
+                  <Pressable
+                    style={{
+                      paddingVertical: theme.spaceNumber[1],
+                      paddingHorizontal: theme.spaceNumber[4],
+                      borderRadius: theme.spaceNumber[1],
+                      borderStyle: "dashed",
+                      borderWidth: 1,
+                      borderColor: theme.colors.brand.lines,
+                    }}
+                    onPress={() => {
+                      setPopup(true);
+                    }}>
+                    <Text
+                      style={{ textAlign: "center" }}
+                      variant="custom"
+                      colorType="lines"
+                      fontType="montserratBold"
+                      fontSize="body">
+                      Click to Verify Number
+                    </Text>
+                  </Pressable>
+                </Spacer>
               </Spacer>
             )}
             {isPopup && (
@@ -123,6 +140,7 @@ export default function CreateAccount({ navigation }) {
                   style={{
                     position: "relative",
                     width: "100%",
+                    marginTop: -theme.spaceNumberBy50[2],
                   }}>
                   <Text variant="popupText">
                     {phonenumberCaptionInstruction}
