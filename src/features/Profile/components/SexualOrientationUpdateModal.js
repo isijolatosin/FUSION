@@ -59,7 +59,7 @@ export default function SexualOrientationUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Preference
+          Sexual Orientation
         </Text>
       </View>
       <HorizontalPaddingSpace space={theme.space[3]}>

@@ -62,7 +62,7 @@ export default function JobUpdateModal({ theme, currentUser, onClose }) {
             colorType="black"
             fontType="montserratBold"
             fontSize="title">
-            Work
+            Job Title
           </Text>
         </View>
         <Spacer position="top" size="xxxlarge">

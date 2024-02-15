@@ -53,7 +53,7 @@ export default function InterestUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Interest
+          Interest In
         </Text>
       </View>
       <HorizontalPaddingSpace space={theme.space[3]}>

@@ -56,7 +56,7 @@ export default function ReligionUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Preference
+          Religious Beliefs
         </Text>
       </View>
       <HorizontalPaddingSpace space={theme.space[3]}>
