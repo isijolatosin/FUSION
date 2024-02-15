@@ -191,29 +191,21 @@ export default function ProfileScreen() {
               </Text>
             </View>
           </HorizontalPaddingSpace>
-          <Spacer
-            position="top"
-            size="xsmall"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}>
-            <HorizontalPaddingSpace space={theme.space[5]}>
-              {value?.map((val, idx) => (
-                <Pressable
-                  onPress={() =>
-                    setOpenUpdateModal({ type: val, isOpen: true })
-                  }
-                  key={idx}
-                  style={{
-                    position: "relative",
-                    marginVertical: theme.spaceNumber[5],
-                    flexDirection: "row",
-                    paddingBottom: theme.spaceNumber[2],
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: theme.colors.brand.linesLighter,
-                  }}>
+          <HorizontalPaddingSpace space={theme.space[5]}>
+            {value?.map((val, idx) => (
+              <Pressable
+                onPress={() => setOpenUpdateModal({ type: val, isOpen: true })}
+                key={idx}
+                style={{
+                  borderBottomWidth: 0.5,
+                  borderBottomColor: theme.colors.brand.linesLighter,
+                  paddingVertical: theme.spaceNumber[6],
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  position: "relative",
+                }}>
+                <View>
                   <Text
                     variant="custom"
                     colorType="black"
@@ -222,24 +214,22 @@ export default function ProfileScreen() {
                     transform="capitalize">
                     {val}
                   </Text>
-                  <View
-                    style={{
-                      position: "absolute",
-                      right: 0,
-                      marginRight: -theme.spaceNumber[2],
-                    }}>
-                    <IconComponent
-                      iconFunction={() => {}}
-                      iconName="keyboard-arrow-right"
-                      IconComponent={MaterialIcons}
-                      size={20}
-                      color={theme.colors.brand.linesLight}
-                    />
-                  </View>
-                </Pressable>
-              ))}
-            </HorizontalPaddingSpace>
-          </Spacer>
+                </View>
+                <View
+                  style={{
+                    marginRight: -theme.spaceNumber[2],
+                  }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="keyboard-arrow-right"
+                    IconComponent={MaterialIcons}
+                    size={20}
+                    color={theme.colors.brand.linesLight}
+                  />
+                </View>
+              </Pressable>
+            ))}
+          </HorizontalPaddingSpace>
         </View>
       );
     }
@@ -308,7 +298,7 @@ export default function ProfileScreen() {
             onClose={() => {
               setIsTrigger(true);
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -323,7 +313,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -339,7 +329,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -356,7 +346,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -373,7 +363,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -390,7 +380,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -407,7 +397,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -424,7 +414,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -441,7 +431,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -458,7 +448,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -475,7 +465,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -492,7 +482,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -509,7 +499,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -526,7 +516,7 @@ export default function ProfileScreen() {
               {
                 setIsTrigger(true);
                 setOpenUpdateModal({
-                  ...openUpdateModal,
+                  type: "",
                   isOpen: false,
                 });
               }
@@ -542,7 +532,7 @@ export default function ProfileScreen() {
             currentUser={currentUser}
             onClose={() => {
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -557,7 +547,7 @@ export default function ProfileScreen() {
             currentUser={currentUser}
             onClose={() => {
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -572,7 +562,7 @@ export default function ProfileScreen() {
             currentUser={currentUser}
             onClose={() => {
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -587,7 +577,7 @@ export default function ProfileScreen() {
             currentUser={currentUser}
             onClose={() => {
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -602,7 +592,7 @@ export default function ProfileScreen() {
             currentUser={currentUser}
             onClose={() => {
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -617,7 +607,7 @@ export default function ProfileScreen() {
             currentUser={currentUser}
             onClose={() => {
               setOpenUpdateModal({
-                ...openUpdateModal,
+                type: "",
                 isOpen: false,
               });
             }}
@@ -1021,7 +1011,7 @@ export default function ProfileScreen() {
       <AnimatedModal
         isVisible={openUpdateModal.isOpen}
         onClose={() => {
-          setOpenUpdateModal({ ...openUpdateModal, isOpen: false });
+          setOpenUpdateModal({ type: "", isOpen: false });
         }}
         theme={theme}
         width={width}

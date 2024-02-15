@@ -88,11 +88,7 @@ const ChatsScreen = () => {
 
             const matchdataAndMessagesList = {
               id: current_Match_id,
-              photoandname: {
-                photo: otherUserData?.mediaArray?.[0],
-                firstname: otherUserData?.firstname,
-              },
-              match: matchMate,
+              match: otherUserData,
               messages: matchingResults,
             };
 
@@ -247,10 +243,7 @@ const ChatsScreen = () => {
                           marginTop: theme.spaceNumber[5],
                         }}>
                         <Avatar
-                          data={
-                            otherUser?.match?.photo ??
-                            otherUser?.match?.mediaArray[0]
-                          }
+                          data={otherUser?.match?.mediaArray[0]}
                           theme={theme}
                           func={() => {
                             setSelectedMatch(otherUser);
@@ -263,8 +256,7 @@ const ChatsScreen = () => {
                             colorType="black"
                             fontType="montserratSemibold"
                             fontSize="button">
-                            {otherUser?.match?.firstname ??
-                              otherUser?.match?.firstname}
+                            {otherUser?.match?.firstname}
                           </Text>
                         </View>
                       </Pressable>
@@ -305,27 +297,18 @@ const ChatsScreen = () => {
                         });
                       }}>
                       <MessagesListItem
-                        photo={
-                          otherUser?.photoandname?.photo ??
-                          otherUser?.match?.mediaArray[0]
-                        }
+                        photo={otherUser?.match?.mediaArray[0]}
                         theme={theme}
-                        name={
-                          otherUser?.photoandname?.firstname ??
-                          otherUser?.match?.firstname
-                        }
+                        name={otherUser?.match?.firstname}
                         lastSenderMessage={
                           otherUser?.messages?.[otherUser?.messages?.length - 1]
                             ?.message
                         }
                         lastSenderName={
                           otherUser?.messages?.[otherUser?.messages?.length - 1]
-                            ?.firstname === currentUser.firstname ||
-                          otherUser?.photoandname?.firstname ===
-                            currentUser.firstname
+                            ?.firstname === currentUser.firstname
                             ? "You"
-                            : otherUser?.photoandname?.firstname ??
-                              otherUser?.messages?.[
+                            : otherUser?.messages?.[
                                 otherUser?.messages?.length - 1
                               ]?.firstname
                         }

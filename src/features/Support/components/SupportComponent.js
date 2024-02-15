@@ -1,88 +1,126 @@
 import { TouchableOpacity, View } from "react-native";
-import React from "react";
-import * as MailComposer from "expo-mail-composer";
+import React, { useState } from "react";
 
 import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
 import { getDate, getTime } from "../../../utilities/formatTimestamp";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { shortenText } from "../../../utilities/detectTextType";
+import AnimatedModal from "../../../components/general-component/AnimatedModal";
+import UpdateModal from "../../Profile/components/UpdateModal";
+import GeneralSupportModal from "./GeneralSupportModal";
 
-export default function SupportComponent({ data, theme, width }) {
-  async function handleResponse(data) {
-    try {
-      const isAvailable = await MailComposer.isAvailableAsync();
+export default function SupportComponent({
+  data,
+  theme,
+  width,
+  height,
+  setIsRetrigger,
+}) {
+  const [showGeneralMessage, setShowGeneralMessage] = useState({
+    type: "",
+    isOpen: false,
+  });
 
-      if (isAvailable) {
-        await MailComposer.composeAsync({
-          recipients: [`${data?.email}`],
-          subject: "Hello from Fusion!",
-          body: "",
-        });
-      } else {
-        console.log("Email is not available on this device.");
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-    }
-  }
   return (
-    <HorizontalPaddingSpace space={theme.space[4]} style={{ width: width }}>
+    <View>
       <TouchableOpacity
-        onPress={() => handleResponse(data)}
-        style={{
-          flexDirection: "row",
-          marginBottom: theme.spaceNumberBy10[1],
-          borderBottomWidth: 1,
-          borderBottomColor: theme.colors.brand.linesLighter,
-          paddingBottom: theme.spaceNumberBy10[1],
-        }}>
-        <Avatar
-          dimensionIndex={theme.spaceNumber[1]}
-          data={data?.photo}
-          theme={theme}
-        />
-        <View
+        onPress={() =>
+          setShowGeneralMessage({ type: data?.topic, isOpen: true })
+        }>
+        <HorizontalPaddingSpace
+          space={theme.space[4]}
           style={{
-            marginLeft: theme.spaceNumber[5],
-            width: "100%",
-            position: "relative",
+            flexDirection: "row",
+            width: width,
+            paddingBottom: theme.spaceNumberBy10[0],
           }}>
-          <Text
-            variant="custom"
-            colorType="base"
-            fontType="montserratSemibold"
-            fontSize="body"
-            width="100%">
-            {data?.firstname} {data?.lastname} - {data?.email}
-          </Text>
-          <View style={{ width: "85%" }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratLight"
-              fontSize="caption"
-              width="100%">
-              {shortenText(data?.message, 80)}
-            </Text>
-          </View>
+          <Avatar
+            dimensionIndex={theme.spaceNumber[1]}
+            data={data?.photo}
+            theme={theme}
+          />
           <View
             style={{
-              position: "absolute",
-              bottom: -theme.spaceNumber[6],
-              right: theme.spaceNumberBy10[5],
+              marginLeft: theme.spaceNumber[5],
+              width: "100%",
+              position: "relative",
             }}>
             <Text
               variant="custom"
-              colorType="lines"
-              fontType="montserratLight"
-              fontSize="xcaption"
+              colorType="base"
+              fontType="montserratSemibold"
+              fontSize="body"
               width="100%">
-              {getDate(data?.timestamp)} - {getTime(data?.timestamp)}
+              {data?.firstname}
             </Text>
+            <View style={{ width: "85%" }}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratLight"
+                fontSize="caption"
+                width="100%">
+                {shortenText(data?.message, 80)}
+              </Text>
+            </View>
+            <View
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: theme.spaceNumberBy10[5],
+              }}>
+              <Text
+                variant="custom"
+                colorType="lines"
+                fontType="montserratLight"
+                fontSize="xcaption"
+                width="100%">
+                {getDate(data?.timestamp)} - {getTime(data?.timestamp)}
+              </Text>
+            </View>
           </View>
-        </View>
+        </HorizontalPaddingSpace>
+        {data?.responded && (
+          <View
+            style={{
+              position: "absolute",
+              width: "100%",
+              zIndex: 10,
+              height: theme.spaceNumberBy10[6],
+              backgroundColor: theme.colors.brand.basewhitelighter,
+            }}
+          />
+        )}
       </TouchableOpacity>
-    </HorizontalPaddingSpace>
+
+      <AnimatedModal
+        isVisible={showGeneralMessage?.isOpen}
+        onClose={() =>
+          setShowGeneralMessage({
+            type: "",
+            isOpen: false,
+          })
+        }
+        theme={theme}
+        width={width}>
+        <UpdateModal height={height} theme={theme}>
+          <GeneralSupportModal
+            theme={theme}
+            height={height}
+            data={data}
+            onClose={() => {
+              {
+                setShowGeneralMessage({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            setIsRetrigger={setIsRetrigger}
+          />
+        </UpdateModal>
+      </AnimatedModal>
+    </View>
   );
 }
