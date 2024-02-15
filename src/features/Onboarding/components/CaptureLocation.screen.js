@@ -86,6 +86,7 @@ export default function CaptureLocation({ navigation }) {
           <OnboardingErrorComponent
             pageError={responseMessage.code === "failed"}
             text="Location Access Denied! Please allow Your-Fusion to access your location"
+            size="caption"
           />
 
           <View

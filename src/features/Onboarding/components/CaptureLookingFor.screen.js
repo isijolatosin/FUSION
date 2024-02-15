@@ -170,6 +170,7 @@ export default function CaptureLookingFor({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide what you are looking for"
+            size="caption"
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

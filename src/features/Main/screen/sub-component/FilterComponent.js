@@ -227,19 +227,19 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
   );
   const [clickedIndex, setIndex] = useState(null);
 
-  const handleInterestToggle = (id, value) => {
-    setIndex(id);
-    setSelectedInterest(value);
-  };
-
-  const triggerInterestUpdate = async () => {
+  const triggerInterestUpdate = async (value) => {
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "interest",
-      selectedInterest,
+      value,
       setIsRetrigger
     );
+  };
+  const handleInterestToggle = async (id, value) => {
+    setIndex(id);
+    setSelectedInterest(value);
+    triggerInterestUpdate(value);
   };
 
   const interestArray = [
@@ -308,18 +308,6 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
           />
         </Spacer>
       ))}
-      <HorizontalPaddingSpace
-        style={{ marginBottom: 20 }}
-        space={theme.space[9]}>
-        <Button
-          backgroundColor="transparent"
-          isBorder={false}
-          borderColor={theme.colors.brand.brandFade}
-          buttonFunction={triggerInterestUpdate}
-          text="Update Interest"
-          textColor={theme.colors.brand.brandFade}
-        />
-      </HorizontalPaddingSpace>
     </HorizontalPaddingSpace>
   );
 }

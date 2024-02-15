@@ -121,6 +121,7 @@ export default function CaptureGender({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your gender"
+            size="caption"
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

@@ -125,6 +125,7 @@ export default function CaptureSelfDescription({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide three words that describes you"
+            size="caption"
           />
         </HorizontalPaddingSpace>
       </Pressable>

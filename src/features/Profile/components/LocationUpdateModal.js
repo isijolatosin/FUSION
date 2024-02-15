@@ -1,0 +1,153 @@
+import { useState } from "react";
+import { Keyboard, Pressable, View } from "react-native";
+import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
+import { Text } from "../../../components/typography/text.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
+import IconComponent from "../../../components/icon-components/IconComponent";
+import { locationCaptureInstruction } from "../../../constants";
+import Button from "../../../components/utility/button.component";
+import getUserLocation from "../../../utilities/getUserLocation";
+import Spinner from "../../../components/general-component/Spinner";
+import OnboardingErrorComponent from "../../Onboarding/components/OnboardingErrorComponent";
+
+export default function LocationUpdateModal({
+  theme,
+  height,
+  currentUser,
+  onClose,
+}) {
+  const [isLoading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState({
+    message: "",
+    code: "",
+  });
+
+  async function updateReligious(latitude, longitude) {
+    if (!latitude && !longitude) return;
+
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "latitude",
+      latitude,
+      () => {}
+    );
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "longitude",
+      longitude,
+      () => {}
+    );
+
+    const loadingTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(loadingTimeout);
+  }
+
+  const handleLocationCapture = async () => {
+    const userLocation = await getUserLocation(setResponseMessage);
+
+    const longitude = userLocation.longitude;
+    const latitude = userLocation.latitude;
+
+    updateReligious(latitude, longitude);
+  };
+
+  return (
+    <View style={{ height: height }}>
+      <View
+        style={{
+          flexDirection: "row",
+          borderBottomWidth: 0.5,
+          borderBottomColor: theme.colors.brand.linesLighter,
+          paddingBottom: theme.spaceNumber[5],
+        }}>
+        <IconComponent
+          iconFunction={onClose}
+          iconName="keyboard-arrow-left"
+          IconComponent={MaterialIcons}
+          size={theme.spaceNumberBy10[2]}
+          color={theme.colors.brand.brandFade}
+          horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
+        />
+        <Text
+          style={{ textAlign: "center", width: "90%" }}
+          variant="custom"
+          colorType="black"
+          fontType="montserratBold"
+          fontSize="title">
+          Location
+        </Text>
+      </View>
+      <HorizontalPaddingSpace space={theme.space[3]}>
+        <Spacer position="top" size="xxxlarge">
+          <Pressable onPress={Keyboard.dismiss}>
+            <HorizontalPaddingSpace space={theme.space[6]}>
+              <Spacer position="top" size="xxxxlarge">
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="map-marked-alt"
+                  IconComponent={FontAwesome5}
+                  size={70}
+                  color={theme.colors.brand.base}
+                  centralize={true}
+                />
+              </Spacer>
+              <Spacer position="top" size="xxxxlarge">
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="playfairbold"
+                  fontSize="h3"
+                  width="100%">
+                  Enable your location services
+                </Text>
+              </Spacer>
+              <Spacer position="top" size="medium">
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratSemibold"
+                  fontSize="caption"
+                  width="100%">
+                  {locationCaptureInstruction}
+                </Text>
+              </Spacer>
+              <OnboardingErrorComponent
+                pageError={responseMessage.code === "failed"}
+                text="Location Access Denied! Please allow Your-Fusion to access your location"
+                size="caption"
+              />
+              <View
+                style={{
+                  height: "45%",
+                  justifyContent: "flex-end",
+                }}>
+                {isLoading ? (
+                  <Spinner size="large" color={theme.colors.brand.base} />
+                ) : (
+                  <Button
+                    fontType={theme.fonts.montserratBold}
+                    backgroundColor={theme.colors.brand.base}
+                    buttonFunction={() => {
+                      setLoading(true);
+                      handleLocationCapture();
+                    }}
+                    text="Enable Location"
+                    textColor={theme.colors.brand.basewhite}
+                  />
+                )}
+              </View>
+            </HorizontalPaddingSpace>
+          </Pressable>
+        </Spacer>
+      </HorizontalPaddingSpace>
+    </View>
+  );
+}

@@ -74,6 +74,7 @@ export default function CaptureCountry({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your country"
+            size="caption"
           />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection

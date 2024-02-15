@@ -126,6 +126,7 @@ export default function CaptureJobTitle({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your job title"
+            size="caption"
           />
         </HorizontalPaddingSpace>
       </Pressable>

@@ -112,6 +112,7 @@ export default function CaptureInterests({ navigation }) {
             pageError={pageError}
             text="Please share your interests. Minimum of 6 required"
             bottomSpace={false}
+            size="caption"
           />
           <Spacer position="top" size="large">
             <View
@@ -152,6 +153,7 @@ export default function CaptureInterests({ navigation }) {
             pageError={pageError}
             text="Please share your interests. Minimum of 6 required"
             bottomSpace={true}
+            size="caption"
           />
         </ScrollView>
       </HorizontalPaddingSpace>

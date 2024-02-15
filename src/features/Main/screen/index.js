@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -219,6 +219,15 @@ const Index = ({ navigation }) => {
       };
     }, [])
   );
+
+  useEffect(() => {
+    functionCall();
+    const resetFilterTrigger = setTimeout(() => {
+      setIsRetrigger(false);
+    }, 2000);
+
+    return () => clearTimeout(resetFilterTrigger);
+  }, [isRetrigger]);
 
   let currentUsertoSwipe = {};
   if (userFilteredData?.length) {

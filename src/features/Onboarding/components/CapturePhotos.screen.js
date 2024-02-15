@@ -202,6 +202,7 @@ export default function CapturePhotos({ navigation }) {
         <OnboardingErrorComponent
           pageError={pageError}
           text="Please your photos. Minimum of 3 required"
+          size="caption"
         />
       </HorizontalPaddingSpace>
     </SafeArea>
