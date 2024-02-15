@@ -1,4 +1,4 @@
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import React from "react";
 import { AvatarWrapper } from "../../features/Main/screen/main.style";
 
@@ -9,16 +9,27 @@ export default function Avatar({ data, theme, dimensionIndex, func }) {
       width={theme.spaceNumberBy10[dimensionIndex ?? 5]}
       height={theme.spaceNumberBy10[dimensionIndex ?? 5]}
       borderRadius={theme.spaceNumberBy50[1]}>
-      <Image
-        source={{
-          uri: `${data}`,
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: theme.spaceNumberBy50[1],
-        }}
-      />
+      {data ? (
+        <Image
+          source={{
+            uri: `${data}`,
+          }}
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: theme.spaceNumberBy50[1],
+          }}
+        />
+      ) : (
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: theme.colors.brand.linesLighter,
+            borderRadius: theme.spaceNumberBy50[1],
+          }}
+        />
+      )}
     </AvatarWrapper>
   );
 }

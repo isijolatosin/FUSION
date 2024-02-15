@@ -21,6 +21,7 @@ export default function ProfileViewModal({
   theme,
   setShowProfile,
   width,
+  addressFromLatLong,
 }) {
   let iconNamePerGender = "";
   if (otherUser?.gender === "woman") {
@@ -522,7 +523,7 @@ export default function ProfileViewModal({
             My Location
           </Text>
         </Spacer>
-        {otherUser?.address?.city && otherUser?.address?.province && (
+        {addressFromLatLong?.city && addressFromLatLong?.region && (
           <View
             style={{
               flexDirection: "row",
@@ -542,7 +543,7 @@ export default function ProfileViewModal({
               colorType="black"
               fontType="montserratBold"
               fontSize="button">
-              {otherUser?.address?.city}, {otherUser?.address?.province}
+              {addressFromLatLong?.city}, {addressFromLatLong?.region}
             </Text>
           </View>
         )}
@@ -570,7 +571,7 @@ export default function ProfileViewModal({
             Me in Three Words
           </Text>
         </Spacer>
-        {Object.keys(otherUser?.whatThreeWordsDescribeYou).length && (
+        {Object.keys(otherUser?.whatThreeWordsDescribeYou)?.length && (
           <View
             style={{
               flexDirection: "row",
