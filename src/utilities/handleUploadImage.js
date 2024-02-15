@@ -5,7 +5,7 @@ import {
 } from "./pickImageAsync";
 import {
   addToArrayField,
-  removeItemFromArray,
+  updateUserValueField,
 } from "./updateFirestoreDatabaseField";
 
 async function handlePickImageAsync(
@@ -16,7 +16,8 @@ async function handlePickImageAsync(
   isToCapture,
   noAllowEditingForPhotoMessage,
   sendPhotoMessage,
-  isReturn
+  isReturn,
+  setIsTrigger
 ) {
   useLoadingImage(true);
 
@@ -38,10 +39,10 @@ async function handlePickImageAsync(
     }
 
     setOpenImageUploadModal(false);
+    setIsTrigger(true);
     currentUserId &&
       addToArrayField("all-users", currentUserId, "mediaArray", returnPhotoUrl);
   }
-
   if (isReturn) return returnPhotoUrl;
 }
 
@@ -61,19 +62,27 @@ async function handlePickImageAsyncPhotoScreen(useLoadingImage, setPhotoUrl) {
 }
 
 async function handleDeleteImageAsync(
-  currentUserId,
+  currentUser,
   deleteImageItem,
-  setOpenDeleteModal
+  setIsTrigger
 ) {
-  setOpenDeleteModal(false);
+  const deletedImageItemIndex = currentUser?.mediaArray.findIndex(
+    (el) => el === deleteImageItem
+  );
 
-  currentUserId &&
-    removeItemFromArray(
-      "all-users",
-      currentUserId,
-      "mediaArray",
-      deleteImageItem
-    );
+  const returnUrl = await pickImageAsync();
+  if (!returnUrl) return;
+  const returnPhotoUrl = await uploadImageToCloudinary(returnUrl);
+
+  currentUser?.mediaArray.splice(deletedImageItemIndex, 1, returnPhotoUrl);
+  setIsTrigger(true);
+
+  await updateUserValueField(
+    "all-users",
+    currentUser?.id,
+    "mediaArray",
+    currentUser?.mediaArray
+  );
 }
 
 export {

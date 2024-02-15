@@ -40,6 +40,7 @@ import PreferenceUpdateModal from "./PreferenceUpdateModal";
 import SexualOrientationUpdateModal from "./SexualOrientationUpdateModal";
 import ReligionUpdateModal from "./ReligionUpdateModal";
 import InterestsUpdateModal from "./InterestsUpdateModal";
+import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
 
 export default function ProfileScreen() {
   const {
@@ -47,6 +48,7 @@ export default function ProfileScreen() {
   } = useAppContext();
   const { height } = Dimensions.get("window");
   const [isTrigger, setIsTrigger] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSettingModal, setSettingModal] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
@@ -115,7 +117,7 @@ export default function ProfileScreen() {
 
     const resetTrigger = setTimeout(() => {
       setIsTrigger(false);
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(resetTrigger);
   }, [isTrigger]);
@@ -129,12 +131,8 @@ export default function ProfileScreen() {
   if (photoUrl5) mediaArray.push(photoUrl5);
   if (photoUrl6) mediaArray.push(photoUrl6);
 
-  function handleDeleteImageAsyncInModal() {
-    handleDeleteImageAsync(
-      currentUser?.id,
-      deleteImageItem,
-      setOpenDeleteModal
-    );
+  async function handleDeleteImageAsyncInModal() {
+    handleDeleteImageAsync(currentUser, deleteImageItem, setIsTrigger);
   }
 
   function handlePickImageAsyncInModal() {
@@ -142,7 +140,12 @@ export default function ProfileScreen() {
       () => {},
       () => {},
       setOpenImageUploadModal,
-      currentUser?.id
+      currentUser?.id,
+      false,
+      false,
+      () => {},
+      false,
+      setIsTrigger
     );
   }
   function handleCaptureImageAsyncInModal() {
@@ -151,7 +154,11 @@ export default function ProfileScreen() {
       () => {},
       setOpenImageUploadModal,
       currentUser?.id,
-      true
+      true,
+      false,
+      () => {},
+      false,
+      setIsTrigger
     );
   }
 
@@ -640,17 +647,19 @@ export default function ProfileScreen() {
             position="top"
             size="xxxsmall">
             {photoUrl1 && (
-              <Image
-                style={{
-                  width: theme.spaceNumberBy10[9],
-                  height: theme.spaceNumberBy10[9],
-                  resizeMode: "cover",
-                  borderRadius: theme.spaceNumberBy10[9],
-                }}
-                source={{
-                  uri: `${photoUrl1}`,
-                }}
-              />
+              <Pressable onPress={() => setShowProfile(true)}>
+                <Image
+                  style={{
+                    width: theme.spaceNumberBy10[9],
+                    height: theme.spaceNumberBy10[9],
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumberBy10[9],
+                  }}
+                  source={{
+                    uri: `${photoUrl1}`,
+                  }}
+                />
+              </Pressable>
             )}
             <Spacer position="top" size="xsmall">
               <Text
@@ -947,7 +956,7 @@ export default function ProfileScreen() {
           theme={theme}
           functionCallTop={handleDeleteImageAsyncInModal}
           functionCallBottom={() => setOpenDeleteModal(false)}
-          textTop="Delete Photo"
+          textTop="Replace Photo"
           textBottom="Cancel"
         />
       </AnimatedModal>
@@ -985,6 +994,18 @@ export default function ProfileScreen() {
         <UpdateModal height={height} theme={theme}>
           {sortRender()}
         </UpdateModal>
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={showProfile}
+        onClose={() => setShowProfile(false)}
+        theme={theme}
+        width={width}>
+        <ProfileViewModal
+          otherUser={currentUser}
+          theme={theme}
+          setShowProfile={setShowProfile}
+          width={width}
+        />
       </AnimatedModal>
     </SafeArea>
   );
