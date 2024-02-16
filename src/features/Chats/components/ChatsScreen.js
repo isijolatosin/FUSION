@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  getAllData,
+  updateUserValueField,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import Avatar from "../../../components/general-component/Avatar";
 import MessagesListItem from "./MessagesListItem";
@@ -23,9 +29,52 @@ import { PopupModal } from "../../Onboarding/components/onboarding.styles";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import Button from "../../../components/utility/button.component";
 import { detectUrl } from "../../../utilities/detectTextType";
-import AvatarList from "./AvatarList";
 import AvatarVerticalList from "./AvatarVerticalList";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+
+// SETTING UP NOTIFICATION
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === "android") {
+    Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+    token = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig.extra.eas.projectId,
+    });
+    // console.log("token", token);
+  } else {
+    alert("Must use physical device for Push Notifications");
+  }
+
+  return token;
+}
 
 const ChatsScreen = () => {
   const navigation = useNavigation();
@@ -42,6 +91,16 @@ const ChatsScreen = () => {
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
 
+  async function pushTokenToUserObject(val) {
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "notificationToken",
+      val,
+      () => {}
+    );
+  }
+
   async function fetchMatches() {
     try {
       const allMatchesResult = await getAllData("matches");
@@ -53,6 +112,15 @@ const ChatsScreen = () => {
       );
 
       setCurrentUser(currentUserData);
+
+      if (currentUserData?.NotificationToken) {
+        registerForPushNotificationsAsync()
+          .then((token) => {
+            if (currentUser?.notificationToken === token?.data) return;
+            pushTokenToUserObject(token?.data);
+          })
+          .catch((error) => console.log(error));
+      }
 
       const otherWithMatchIdArray = await Promise.all(
         allMatchesResult.map(async (res) => {

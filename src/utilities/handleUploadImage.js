@@ -74,15 +74,18 @@ async function handleDeleteImageAsync(
   if (!returnUrl) return;
   const returnPhotoUrl = await uploadImageToCloudinary(returnUrl);
 
-  currentUser?.mediaArray.splice(deletedImageItemIndex, 1, returnPhotoUrl);
-  setIsTrigger(true);
+  if (returnPhotoUrl) {
+    currentUser?.mediaArray.splice(deletedImageItemIndex, 1, returnPhotoUrl);
 
-  await updateUserValueField(
-    "all-users",
-    currentUser?.id,
-    "mediaArray",
-    currentUser?.mediaArray
-  );
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "mediaArray",
+      currentUser?.mediaArray,
+      () => {}
+    );
+    setIsTrigger(true);
+  }
 }
 
 export {
