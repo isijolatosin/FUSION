@@ -29,7 +29,9 @@ export default function SettingModal({
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
   const [openContactModal, setOpenContactModal] = useState(false);
-  const [inAppNotification, setInAppNotification] = useState(false);
+  const [inAppNotification, setInAppNotification] = useState(
+    currentUser?.inAppNotification ?? false
+  );
   const [emailNotification, setEmailNotification] = useState(false);
   const [deactivateAccount, setDeactivateAccount] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);

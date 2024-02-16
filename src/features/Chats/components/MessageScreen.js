@@ -68,10 +68,13 @@ export default function MessageScreen({ navigation }) {
 
   // Scroll to bottom when content size changes
   const onContentSizeChange = () => {
-    scrollViewRef.current.scrollTo({
-      y: height,
+    scrollViewRef.current.scrollToEnd({
       animated: true,
     });
+    // scrollViewRef.current.scrollTo({
+    //   y: height,
+    //   animated: true,
+    // });
   };
 
   useEffect(() => {
@@ -116,10 +119,32 @@ export default function MessageScreen({ navigation }) {
 
     const timeoutId = setTimeout(() => {
       getMessages();
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timeoutId);
   }, [triggerReload, input]);
+
+  const sendNotification = async () => {
+    if (!otherUserDataObject?.inAppNotification) return;
+    // notification message
+    const message = {
+      to: otherUser?.match?.notificationToken,
+      sound: "default",
+      title: `${otherUser?.match?.firstname}`,
+      body: "Notification",
+    };
+
+    await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        host: "exp.host",
+        accept: "application/json",
+        "accept-encoding": "gzip, deflate",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
+  };
 
   const sendMessage = async () => {
     setTriggerReload(false);
@@ -151,6 +176,7 @@ export default function MessageScreen({ navigation }) {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
+          sendNotification();
           console.log(`SENT SUCCESSFULLY`);
         })
         .catch((error) => console.log("Error " + error.message));

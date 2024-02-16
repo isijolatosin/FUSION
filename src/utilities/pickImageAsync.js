@@ -18,6 +18,26 @@ export const uploadImageToCloudinary = async (imagePath) => {
   }
 
   try {
+    //     if (oldUrl) {
+    //       //destroy old image
+    //       const publicId = oldUrl.split("/").pop().split(".")[0];
+    //
+    //       const result = await fetch(
+    //         "https://api.cloudinary.com/v1_1/dhdccvkyt/image/destroy",
+    //         {
+    //           method: "POST",
+    //           headers: {
+    //             "Content-Type": "application/json",
+    //           },
+    //           body: JSON.stringify({
+    //             public_id: publicId,
+    //             api_key: "888914778648642",
+    //             api_secret: "R1N12-ebyWt24Y-1qWN-KsSqge8",
+    //           }),
+    //         }
+    //       );
+    //     }
+
     const compressedImageUri = await compressImage(imagePath);
     const formData = new FormData();
     formData.append("file", {
