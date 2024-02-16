@@ -2,6 +2,7 @@
   "expo": {
     "name": "fusion",
     "slug": "fusion-app",
+    "description": "Your fusion app is a social application for african community",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
