@@ -113,14 +113,12 @@ const ChatsScreen = () => {
 
       setCurrentUser(currentUserData);
 
-      if (currentUserData?.NotificationToken) {
-        registerForPushNotificationsAsync()
-          .then((token) => {
-            if (currentUser?.notificationToken === token?.data) return;
-            pushTokenToUserObject(token?.data);
-          })
-          .catch((error) => console.log(error));
-      }
+      registerForPushNotificationsAsync()
+        .then((token) => {
+          if (currentUser?.notificationToken === token?.data) return;
+          pushTokenToUserObject(token?.data);
+        })
+        .catch((error) => console.log(error));
 
       const otherWithMatchIdArray = await Promise.all(
         allMatchesResult.map(async (res) => {
