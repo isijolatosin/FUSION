@@ -69,7 +69,7 @@ export default function MessageInput({
           horizontalRightSpace={theme.space[0]}
         />
 
-        {/* To do done in phase || */}
+        {/* To do done in phase 2 */}
 
         {/* <IconComponentWraper
           onPressIn={startRecording}

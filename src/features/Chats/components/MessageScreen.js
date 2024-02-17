@@ -49,7 +49,7 @@ export default function MessageScreen({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { currentUser, otherUser } = route.params || {};
+  const { currentUser, otherUserPhonenumber } = route.params || {};
 
   const [messagesKeys, setMessagesKeys] = useState([]);
   const [messagesForMessagesScreen, setMessagesForMessagesScreen] = useState(
@@ -84,9 +84,8 @@ export default function MessageScreen({ navigation }) {
         setMatchId(matchId);
         //get other user
         const allUsers = await getAllData("all-users");
-        const otherUserNumber = otherUser?.match?.phonenumber;
         const otherUserData = allUsers.find(
-          (data) => data.phonenumber === otherUserNumber
+          (data) => data.phonenumber === otherUserPhonenumber
         );
         setOtherUserData(otherUserData);
 
@@ -119,18 +118,20 @@ export default function MessageScreen({ navigation }) {
 
     const timeoutId = setTimeout(() => {
       getMessages();
-    }, 2000);
+    }, 800);
 
     return () => clearTimeout(timeoutId);
   }, [triggerReload, input]);
 
   const sendNotification = async () => {
+    // check if user opt for in app notification
     if (!otherUserDataObject?.inAppNotification) return;
+
     // notification message
     const message = {
-      to: otherUser?.match?.notificationToken,
+      to: otherUserDataObject?.notificationToken,
       sound: "default",
-      title: `${otherUser?.match?.firstname}`,
+      title: `${otherUserDataObject?.firstname}`,
       body: "Notification",
     };
 
@@ -171,7 +172,7 @@ export default function MessageScreen({ navigation }) {
           matchId: matchId,
           message: textTransform,
           photo: currentUser?.mediaArray?.[0],
-          recieverphonenumber: otherUser?.match?.phonenumber,
+          recieverphonenumber: otherUserDataObject?.phonenumber,
           senderphonenumber: currentUser?.phonenumber,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
@@ -192,7 +193,7 @@ export default function MessageScreen({ navigation }) {
       matchId: matchId,
       message: photo,
       photo: currentUser.mediaArray?.[0],
-      recieverphonenumber: otherUser?.match?.phonenumber,
+      recieverphonenumber: otherUserDataObject?.phonenumber,
       senderphonenumber: currentUser?.phonenumber,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
@@ -209,7 +210,9 @@ export default function MessageScreen({ navigation }) {
       "",
       false,
       true,
-      sendPhotoMessage
+      sendPhotoMessage,
+      false,
+      () => {}
     );
   }
   function handleCaptureImageAsyncInModal() {
@@ -220,7 +223,9 @@ export default function MessageScreen({ navigation }) {
       "",
       true,
       true,
-      sendPhotoMessage
+      sendPhotoMessage,
+      false,
+      () => {}
     );
   }
 
@@ -475,11 +480,14 @@ export default function MessageScreen({ navigation }) {
           height={height}
           theme={theme}
           functionCallTop={() =>
-            handleUnmatch(otherUser?.match?.phonenumber, otherUser?.match?.id)
+            handleUnmatch(
+              otherUserDataObject?.phonenumber,
+              otherUserDataObject?.id
+            )
           }
           functionCallBottom={handleBlockMatch}
-          otherUserMatchId={otherUser?.match?.id}
-          otherUserMatchPhonenumber={otherUser?.match?.phonenumber}
+          otherUserMatchId={otherUserDataObject?.id}
+          otherUserMatchPhonenumber={otherUserDataObject?.phonenumber}
           setTriggerRefresh={() => {}}
           textTop="Unmatch"
           textBottom="Block"
