@@ -131,7 +131,7 @@ export default function MessageScreen({ navigation }) {
     const message = {
       to: otherUserDataObject?.notificationToken,
       sound: "default",
-      title: `${otherUserDataObject?.firstname}`,
+      title: `${currentUser?.firstname}`,
       body: "Notification",
     };
 
