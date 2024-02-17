@@ -32,9 +32,9 @@ const updateUserValueField = async (
     });
     setIsRetrigger(true);
 
-    console.log("Field updated successfully!");
+    console.log(`${fieldName} Field updated successfully!`);
   } catch (error) {
-    console.error("Error updating field:", error);
+    console.error(`Error updating ${fieldName} field:`, error);
   }
 };
 
@@ -53,9 +53,9 @@ const addToArrayField = async (
       [arrayFieldName]: firebase.firestore.FieldValue.arrayUnion(newItem),
     });
 
-    console.log("Array field updated successfully!");
+    console.log(`${arrayFieldName} field updated successfully!`);
   } catch (error) {
-    console.error("Error updating array field:", error);
+    console.error(`Error updating ${arrayFieldName} field: `, error);
   }
 };
 
@@ -76,10 +76,10 @@ const removeItemFromArray = async (
         [fieldName]: firebase.firestore.FieldValue.arrayRemove(itemToRemove),
       })
       .then(() => {
-        console.log("Item removed successfully!");
+        console.log(`Item - ${fieldName} removed successfully!`);
       });
   } catch (error) {
-    console.error("Error removing item:", error);
+    console.error(`Error removing item - ${fieldName}: `, error);
   }
 };
 
@@ -100,10 +100,10 @@ const removeDocumentFromCollections = async (collectionName, documentId) => {
   docRef
     .delete()
     .then(() => {
-      console.log("Document successfully deleted!");
+      console.log(`Document ID - ${documentId} successfully deleted!`);
     })
     .catch((error) => {
-      console.error("Error deleting document: ", error);
+      console.error(`Error deleting document ID - ${documentId}: `, error);
     });
 };
 

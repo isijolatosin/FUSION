@@ -25,14 +25,11 @@ export default function SettingModal({
   currentUser,
   openSettingModal,
   onClose,
+  setIsTrigger,
 }) {
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
   const [openContactModal, setOpenContactModal] = useState(false);
-  const [inAppNotification, setInAppNotification] = useState(
-    currentUser?.inAppNotification ?? false
-  );
-  const [emailNotification, setEmailNotification] = useState(false);
   const [deactivateAccount, setDeactivateAccount] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [messageSentNote, setMessageSentNote] = useState(false);
@@ -75,12 +72,19 @@ export default function SettingModal({
       await clearDataByKey("refreshChatScreen");
       await clearDataByKey("swipe-index");
 
-      setTimeout(() => {
+      const userProfileDeleteTimeoutId = setTimeout(() => {
         onClose();
         navigation.navigate("onBoard");
       }, 500);
 
-      return () => clearTimeout(userTimeoutId);
+      const userProfileDeleteNavigateTimeoutId = setTimeout(() => {
+        onClose();
+      }, 1000);
+
+      return () => {
+        clearTimeout(userProfileDeleteTimeoutId);
+        clearTimeout(userProfileDeleteNavigateTimeoutId);
+      };
     }
   }
 
@@ -89,12 +93,19 @@ export default function SettingModal({
     await clearDataByKey("match-id");
     await clearDataByKey("refreshChatScreen");
     await clearDataByKey("swipe-index");
-    setTimeout(() => {
-      onClose();
+
+    const userSignOutTimeoutId = setTimeout(() => {
       navigation.navigate("onBoard");
     }, 500);
 
-    return () => clearTimeout(userTimeoutId);
+    const userNavigateTimeoutId2 = setTimeout(() => {
+      onClose();
+    }, 1000);
+
+    return () => {
+      clearTimeout(userSignOutTimeoutId);
+      clearTimeout(userNavigateTimeoutId2);
+    };
   }
 
   function onCloseContactModal() {
@@ -266,21 +277,20 @@ export default function SettingModal({
                   true: theme.colors.brand.base,
                 }}
                 thumbColor={
-                  inAppNotification
+                  currentUser?.inAppNotification
                     ? theme.colors.brand.highlight
                     : theme.colors.brand.lines
                 }
                 onValueChange={async (val) => {
-                  setInAppNotification(val);
                   await updateUserValueField(
                     "all-users",
                     userId,
                     "inAppNotification",
                     val,
-                    () => {}
+                    setIsTrigger
                   );
                 }}
-                value={inAppNotification}
+                value={currentUser?.inAppNotification}
               />
             </Spacer>
             <Spacer
@@ -306,21 +316,20 @@ export default function SettingModal({
                   true: theme.colors.brand.base,
                 }}
                 thumbColor={
-                  emailNotification
+                  currentUser?.emailNotification
                     ? theme.colors.brand.highlight
                     : theme.colors.brand.lines
                 }
                 onValueChange={async (val) => {
-                  setEmailNotification(val);
                   await updateUserValueField(
                     "all-users",
                     userId,
                     "emailNotification",
                     val,
-                    () => {}
+                    setIsTrigger
                   );
                 }}
-                value={emailNotification}
+                value={currentUser?.emailNotification}
               />
             </Spacer>
           </HorizontalPaddingSpace>
@@ -424,7 +433,7 @@ export default function SettingModal({
                   }
                   onValueChange={(val) => {
                     setDeleteAccount(val);
-                    // handleDeleteUserProfile(val); open when app is ready to deploy
+                    handleDeleteUserProfile(val);
                   }}
                   value={deleteAccount}
                 />
