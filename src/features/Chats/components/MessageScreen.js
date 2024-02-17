@@ -177,8 +177,9 @@ export default function MessageScreen({ navigation }) {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
+          // call in-app notification function
           sendNotification();
-          console.log(`SENT SUCCESSFULLY`);
+          console.log(`MESSAGE SENT SUCCESSFULLY`);
         })
         .catch((error) => console.log("Error " + error.message));
 

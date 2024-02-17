@@ -9,12 +9,19 @@ import { Text } from "../../../components/typography/text.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import { useAppContext } from "../../../context/ThemeContext";
-import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  getAllData,
+  updateUserValueField,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import LikeInitiatorProfileCard from "./LikeInitiatorProfileCard";
 import LikeInitiatorProfileComponent from "./LikeInitiatorProfileComponent";
-import { nolikesyetmessage } from "../../../constants";
+import {
+  activateAccountForLikeScreen,
+  nolikesyetmessage,
+} from "../../../constants";
 import BrandAvatar from "../../../components/general-component/BrandAvatar";
+import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 
 const LikesScreen = () => {
   const {
@@ -64,6 +71,56 @@ const LikesScreen = () => {
 
     return () => clearTimeout(resetLikeTrigger);
   }, [isRetrigger]);
+
+  if (currentUser?.deactivate) {
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+        <HorizontalPaddingSpace space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="xlarge">
+              <BrandAvatarO />
+            </Spacer>
+          </Spacer>
+          <Text
+            style={{ textAlign: "center" }}
+            variant="custom"
+            colorType="black"
+            fontType="playfairbold"
+            fontSize="h4">
+            Your Likes
+          </Text>
+          <Spacer position="top" size="large">
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button">
+              {nolikesyetmessage}
+            </Text>
+          </Spacer>
+        </HorizontalPaddingSpace>
+        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
+          <CustomUseCardWithCTA
+            text={activateAccountForLikeScreen}
+            buttonText="Activate profile"
+            cardFunction={async () => {
+              await updateUserValueField(
+                "all-users",
+                currentUser?.id,
+                "deactivate",
+                false,
+                setIsRetrigger
+              );
+            }}
+            gapSize="xxsmall"
+          />
+        </Spacer>
+      </SafeArea>
+    );
+  }
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>

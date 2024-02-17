@@ -17,11 +17,17 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton } from "./main.style";
-import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  getAllData,
+  updateUserValueField,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
 import Loading from "../../../components/general-component/Loading";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
-import { dailyendofswipescreenmessage } from "../../../constants";
+import {
+  activateAccountForMainScreen,
+  dailyendofswipescreenmessage,
+} from "../../../constants";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import calculateAge from "../../../utilities/calculateAge";
@@ -75,6 +81,13 @@ const Index = ({ navigation }) => {
         }
       });
 
+      // check if profile is deactivated and remove
+      const filterOffDeactivatedProfile = returningData.filter((profile) => {
+        if (profile?.deactivate) return;
+
+        return profile;
+      });
+
       //check if profile has been liked and filter off
       let filteredOffLikedProfiles = [];
       let filteredOffLikedProfilesStep2 = [];
@@ -83,13 +96,13 @@ const Index = ({ navigation }) => {
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
 
       if (likedNumberArray?.length) {
-        returningData.map((data) => {
+        filterOffDeactivatedProfile.map((data) => {
           if (!likedNumberArray?.includes(data?.phonenumber)) {
             filteredOffLikedProfiles.push(data);
           }
         });
       } else {
-        filteredOffLikedProfiles = [...returningData];
+        filteredOffLikedProfiles = [...filterOffDeactivatedProfile];
       }
 
       // check if profile has liked me and filter off
@@ -274,10 +287,40 @@ const Index = ({ navigation }) => {
         text={dailyendofswipescreenmessage}
         buttonText="Change preference"
         buttonSecondText="Go through skipped profiles"
-        route="profile"
+        cardFunction={() => navigation.navigate("profile")}
         showSecondButton={true}
         setIndex={setIndex}
       />
+    );
+  }
+
+  if (currentUser?.deactivate) {
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+        <HorizontalPaddingSpace space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <BrandAvatarO currentUser={currentUser} />
+          </Spacer>
+        </HorizontalPaddingSpace>
+        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
+          {currentUser?.deactivate && (
+            <CustomUseCardWithCTA
+              text={activateAccountForMainScreen}
+              buttonText="Activate profile"
+              cardFunction={async () => {
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "deactivate",
+                  false,
+                  setIsRetrigger
+                );
+              }}
+              gapSize="xxsmall"
+            />
+          )}
+        </Spacer>
+      </SafeArea>
     );
   }
 

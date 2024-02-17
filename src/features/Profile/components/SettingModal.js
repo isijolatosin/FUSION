@@ -14,7 +14,10 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Text } from "../../../components/typography/text.component";
 import { deactivateaccounttext, deleteaccounttext } from "../../../constants";
-import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  removeItemFromArray,
+  updateUserValueField,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import { database } from "../../../../config";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
@@ -30,7 +33,6 @@ export default function SettingModal({
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
   const [openContactModal, setOpenContactModal] = useState(false);
-  const [deactivateAccount, setDeactivateAccount] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [messageSentNote, setMessageSentNote] = useState(false);
   const [selectedHelp, setSelectedHelp] = useState("");
@@ -51,6 +53,41 @@ export default function SettingModal({
           console.error("Error deleting user with Id: ", userId);
         });
 
+      //delete from all liked me list and list of all liked numbers array
+      const allUsersRef = database.collection("all-users");
+      const allUsersQuerySnapshot = await allUsersRef.get();
+      allUsersQuerySnapshot.forEach((doc) => {
+        const currentIterationUserData = doc.data();
+        const currentIterationUserId = doc.id;
+
+        if (
+          currentIterationUserData?.likedMeList?.includes(
+            currentUser?.phonenumber
+          )
+        ) {
+          removeItemFromArray(
+            "all-users",
+            currentIterationUserId,
+            "likedMeList",
+            currentUser?.phonenumber,
+            () => {}
+          );
+        }
+        if (
+          currentIterationUserData?.listOfAllLikedNumbers?.includes(
+            currentUser?.phonenumber
+          )
+        ) {
+          removeItemFromArray(
+            "all-users",
+            currentIterationUserId,
+            "listOfAllLikedNumbers",
+            currentUser?.phonenumber,
+            () => {}
+          );
+        }
+      });
+
       //delete from all likes
       const allLikesRef = database.collection("all-likes");
       const querySnapshot = await allLikesRef.get();
@@ -67,13 +104,54 @@ export default function SettingModal({
         }
       });
 
+      // delete from matches
+      const allMatches = database.collection("matches");
+      const matchQuerySnapshot = await allMatches.get();
+      matchQuerySnapshot.forEach(async (doc) => {
+        const currentIterationMatchData = doc.data();
+
+        if (
+          currentIterationMatchData?.likedByprofile?.phonenumber ===
+          currentUser?.phonenumber
+        ) {
+          await doc.ref.delete();
+
+          // Get a reference to the message and delete messages
+          const messageRef = database
+            .collection("matches")
+            .doc(doc?.id)
+            .collection("messages");
+          const querySnapshot = await messageRef.get();
+
+          querySnapshot.forEach(async (doc) => {
+            await doc.ref.delete();
+          });
+        }
+        if (
+          currentIterationMatchData?.likedProfile?.phonenumber ===
+          currentUser?.phonenumber
+        ) {
+          await doc.ref.delete();
+
+          // Get a reference to the message and delete messages
+          const messageRef = database
+            .collection("matches")
+            .doc(doc?.id)
+            .collection("messages");
+          const querySnapshot = await messageRef.get();
+
+          querySnapshot.forEach(async (doc) => {
+            await doc.ref.delete();
+          });
+        }
+      });
+
       await clearDataByKey("match-id");
       await clearDataByKey("phonenumber");
       await clearDataByKey("refreshChatScreen");
       await clearDataByKey("swipe-index");
 
       const userProfileDeleteTimeoutId = setTimeout(() => {
-        onClose();
         navigation.navigate("onBoard");
       }, 500);
 
@@ -293,7 +371,7 @@ export default function SettingModal({
                 value={currentUser?.inAppNotification}
               />
             </Spacer>
-            <Spacer
+            {/* <Spacer
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -307,7 +385,7 @@ export default function SettingModal({
                   colorType="black"
                   fontType="montserratBold"
                   fontSize="caption">
-                  Email Notification
+                  SMS Notification
                 </Text>
               </View>
               <Switch
@@ -316,7 +394,7 @@ export default function SettingModal({
                   true: theme.colors.brand.base,
                 }}
                 thumbColor={
-                  currentUser?.emailNotification
+                  currentUser?.smsNotification
                     ? theme.colors.brand.highlight
                     : theme.colors.brand.lines
                 }
@@ -324,14 +402,14 @@ export default function SettingModal({
                   await updateUserValueField(
                     "all-users",
                     userId,
-                    "emailNotification",
+                    "smsNotification",
                     val,
                     setIsTrigger
                   );
                 }}
-                value={currentUser?.emailNotification}
+                value={currentUser?.smsNotification}
               />
-            </Spacer>
+            </Spacer> */}
           </HorizontalPaddingSpace>
           <HorizontalPaddingSpace
             style={{
@@ -378,21 +456,20 @@ export default function SettingModal({
                     true: theme.colors.brand.base,
                   }}
                   thumbColor={
-                    deactivateAccount
+                    currentUser?.deactivate
                       ? theme.colors.brand.highlight
                       : theme.colors.brand.lines
                   }
                   onValueChange={async (val) => {
-                    setDeactivateAccount(val);
                     await updateUserValueField(
                       "all-users",
                       userId,
-                      "deactivateAccount",
+                      "deactivate",
                       val,
-                      () => {}
+                      setIsTrigger
                     );
                   }}
-                  value={deactivateAccount}
+                  value={currentUser?.deactivate}
                 />
               </View>
               <Spacer position="top" size="small">

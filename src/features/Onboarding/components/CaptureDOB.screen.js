@@ -79,7 +79,7 @@ export default function CaptureDOB({ navigation }) {
                   <Spacer position="bottom" size="xsmall">
                     <Text
                       variant="custom"
-                      colorType="error"
+                      colorType="base"
                       fontType="montserratSemibold"
                       fontSize="caption">
                       Month
@@ -102,7 +102,7 @@ export default function CaptureDOB({ navigation }) {
                   <Spacer position="bottom" size="xsmall">
                     <Text
                       variant="custom"
-                      colorType="error"
+                      colorType="base"
                       fontType="montserratSemibold"
                       fontSize="caption">
                       Day
@@ -129,7 +129,7 @@ export default function CaptureDOB({ navigation }) {
                   <Spacer position="bottom" size="xsmall">
                     <Text
                       variant="custom"
-                      colorType="error"
+                      colorType="base"
                       fontType="montserratSemibold"
                       fontSize="caption">
                       Year

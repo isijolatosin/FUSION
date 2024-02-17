@@ -93,10 +93,10 @@ const ChatsScreen = () => {
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
 
-  async function pushTokenToUserObject(val) {
+  async function pushTokenToUserObject(val, id) {
     await updateUserValueField(
       "all-users",
-      currentUser?.id,
+      id,
       "notificationToken",
       val,
       () => {}
@@ -117,14 +117,14 @@ const ChatsScreen = () => {
 
       registerForPushNotificationsAsync()
         .then((token) => {
-          if (
-            currentUser?.notificationToken &&
-            currentUser?.notificationToken === token?.data
-          )
-            return;
-          pushTokenToUserObject(token);
+          if (currentUserData?.notificationToken) return;
+          pushTokenToUserObject(token, currentUserData?.id);
         })
-        .catch((error) => console.log(error));
+        .catch((error) =>
+          console.log(
+            `Error from Register For Push NotificationsAsync : ${error.message}`
+          )
+        );
 
       const otherWithMatchIdArray = await Promise.all(
         allMatchesResult.map(async (res) => {
@@ -247,7 +247,7 @@ const ChatsScreen = () => {
       <CustomUseCardWithCTA
         text={nomatchmessage}
         buttonText="Back to swipe"
-        route="home"
+        cardFunction={() => navigation.navigate("home")}
       />
     );
   }
