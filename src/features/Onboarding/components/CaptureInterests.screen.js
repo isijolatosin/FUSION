@@ -110,7 +110,7 @@ export default function CaptureInterests({ navigation }) {
           </Spacer>
           <OnboardingErrorComponent
             pageError={pageError}
-            text="Please share your interests. Minimum of 6 required"
+            text="Please share your interests. 6 interests required"
             bottomSpace={false}
             size="caption"
           />
@@ -121,7 +121,7 @@ export default function CaptureInterests({ navigation }) {
                 flexWrap: "wrap",
                 gap: 6,
               }}>
-              {interests.map((interest, idx) => (
+              {interests.sort().map((interest, idx) => (
                 <Pressable
                   onPress={() => handleInterest(interest)}
                   key={idx}

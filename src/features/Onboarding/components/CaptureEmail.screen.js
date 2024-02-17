@@ -37,9 +37,7 @@ export default function CaptureEmail({ navigation }) {
               theme={theme}
               color={theme.colors.brand.base}
               nextFunction={() => {
-                if (email) {
-                  user.email = email;
-                }
+                user.email = email ? email : "";
                 navigation.navigate("capture-address-screen", { user });
               }}
             />

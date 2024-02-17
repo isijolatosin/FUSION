@@ -14,7 +14,8 @@ export default function CustomUseCardWithCTA({
   text,
   buttonText,
   buttonSecondText,
-  route,
+  cardFunction,
+  gapSize,
   showSecondButton,
   setIndex,
 }) {
@@ -32,7 +33,7 @@ export default function CustomUseCardWithCTA({
       <HorizontalPaddingSpace
         style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}
         space={theme.space[5]}>
-        <Spacer position="bottom" size="large">
+        <Spacer position="bottom" size={gapSize ? gapSize : "large"}>
           <BrandAvatar noFlex={true} width={150} />
         </Spacer>
         <Text
@@ -47,7 +48,7 @@ export default function CustomUseCardWithCTA({
           backgroundColor={theme.colors.brand.base}
           isBorder={false}
           borderColor="transparent"
-          buttonFunction={() => navigation.navigate(route)}
+          buttonFunction={cardFunction}
           text={buttonText}
           textColor={theme.colors.brand.basewhite}
           width="80%"

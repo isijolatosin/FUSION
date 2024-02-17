@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -8,19 +8,28 @@ import { Spacer } from "../../components/spacer/spacer.component";
 import { useAppContext } from "../../context/ThemeContext";
 import BrandAvatarO from "../../components/general-component/BrandAvatarO";
 import { Text } from "../../components/typography/text.component";
-import { compatibleText, noSimilarInterestyetmessage } from "../../constants";
+import {
+  activateAccountForSimilarScreen,
+  compatibleText,
+  noSimilarInterestyetmessage,
+} from "../../constants";
 import CompatibleComponent from "./components/CompatibleComponent";
 import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
-import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
+import {
+  getAllData,
+  updateUserValueField,
+} from "../../utilities/updateFirestoreDatabaseField";
 import BrandAvatar from "../../components/general-component/BrandAvatar";
 import Loading from "../../components/general-component/Loading";
 import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
+import CustomUseCardWithCTA from "../../components/general-component/CustomUseCardWithCTA";
 
 function ScreenWrapper({ children, theme, width }) {
   return (
-    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+    <SafeArea
+      style={{ backgroundColor: theme.colors.brand.basewhite, flex: 1 }}>
       <Spacer position="top" size="large">
         <HorizontalPaddingSpace space={theme.space[3]}>
           <BrandAvatarO />
@@ -202,6 +211,15 @@ export default function Index() {
     }, [])
   );
 
+  useEffect(() => {
+    asyncFunctionCall();
+    const compatibleSubscriptionId = setTimeout(() => {
+      setIsRetrigger(false);
+    }, 1000);
+
+    return () => clearTimeout(compatibleSubscriptionId);
+  }, [isRetrigger]);
+
   if (isLoading) {
     return (
       <ScreenWrapper theme={theme} width={width}>
@@ -225,11 +243,31 @@ export default function Index() {
               fontSize="caption">
               {noSimilarInterestyetmessage}
             </Text>
-            <Spacer position="top" size="xxxxlarge">
-              <BrandAvatar />
-            </Spacer>
+            {!currentUser?.deactivate && (
+              <Spacer position="top" size="xxxxlarge">
+                <BrandAvatar />
+              </Spacer>
+            )}
           </Spacer>
         </HorizontalPaddingSpace>
+        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
+          {currentUser?.deactivate && (
+            <CustomUseCardWithCTA
+              text={activateAccountForSimilarScreen}
+              buttonText="Activate profile"
+              cardFunction={async () => {
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "deactivate",
+                  false,
+                  setIsRetrigger
+                );
+              }}
+              gapSize="xxsmall"
+            />
+          )}
+        </Spacer>
       </ScreenWrapper>
     );
   }

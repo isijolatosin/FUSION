@@ -165,7 +165,7 @@ export default function CaptureAddress({ navigation }) {
             <Text
               style={{ marginLeft: theme.spaceNumber[2] }}
               variant="custom"
-              colorType="error"
+              colorType="base"
               fontType="montserratSemibold"
               fontSize="caption"
               width="100%">

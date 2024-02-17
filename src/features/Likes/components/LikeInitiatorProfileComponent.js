@@ -1,5 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Image, Modal, ScrollView, Pressable, View } from "react-native";
+import {
+  Image,
+  Modal,
+  ScrollView,
+  Pressable,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import {
   MaterialCommunityIcons,
   Entypo,
@@ -195,7 +202,27 @@ export default function LikeInitiatorProfileComponent({
                 shadowColor: theme.colors.brand.black,
                 shadowOpacity: 0.8,
                 shadowRadius: theme.sizes[0],
+                flexDirection: "row",
+                alignItems: "center",
               }}>
+              <TouchableOpacity
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: theme.spaceNumberBy10[3],
+                  height: theme.spaceNumberBy10[3],
+                  marginRight: theme.spaceNumberBy10[0],
+                  marginLeft: -theme.spaceNumberBy10[0],
+                }}>
+                <IconComponent
+                  iconFunction={() => setShowLikeInitiatorProfile(false)}
+                  iconName="keyboard-arrow-left"
+                  IconComponent={MaterialIcons}
+                  size={45}
+                  color={theme.colors.brand.base}
+                />
+              </TouchableOpacity>
               <Text
                 style={{
                   textShadowColor: theme.colors.brand.black,
@@ -215,20 +242,6 @@ export default function LikeInitiatorProfileComponent({
                 )}
               </Text>
             </View>
-            {doubleTapWarning && (
-              <Text
-                style={{
-                  position: "absolute",
-                  right: theme.spaceNumber[8],
-                  bottom: theme.spaceNumberBy10[6],
-                }}
-                variant="custom"
-                colorType="basewhite"
-                fontType="montserratRegular"
-                fontSize="caption">
-                double tap
-              </Text>
-            )}
             <View
               style={{
                 position: "absolute",
@@ -238,6 +251,20 @@ export default function LikeInitiatorProfileComponent({
                 width: "100%",
                 padding: theme.spaceNumberBy10[0],
               }}>
+              {doubleTapWarning && (
+                <Text
+                  style={{
+                    position: "absolute",
+                    left: theme.spaceNumberBy50[5] + theme.spaceNumberBy10[1],
+                    bottom: theme.spaceNumberBy10[6],
+                  }}
+                  variant="custom"
+                  colorType="basewhite"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  double tap
+                </Text>
+              )}
               <Pressable>
                 <IconComponent
                   iconFunction={() =>
@@ -871,7 +898,14 @@ export default function LikeInitiatorProfileComponent({
               backgroundColor={theme.colors.brand.lightorange}
               isBorder={false}
               borderColor="transparent"
-              buttonFunction={() => setShowLikeInitiatorProfile(false)}
+              buttonFunction={() => {
+                setIsRetrigger(true);
+                const likeInitiatorProfileId = setTimeout(() => {
+                  setShowLikeInitiatorProfile(false);
+                }, 500);
+
+                return () => clearTimeout(likeInitiatorProfileId);
+              }}
               text="Later"
               textColor={theme.colors.brand.black}
               width="80%"

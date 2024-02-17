@@ -450,7 +450,7 @@ export const firstmessagehype =
 export const unmatchmessage =
   "Unmatching Francis would mean you can no longer view their profile or have any future conversations with them.";
 export const deactivateaccounttext =
-  "Temporarily removes your profile on Fusion and your profile is not visible to other users. Your account is not deleted but disabled on the app.";
+  "Deactivating your account on Fusion temporarily suspends your profile from being shown to new users. Your account is not deleted but disabled on the app, you can still chat with your current matches.";
 export const deleteaccounttext =
   "Deleting your account removes your profile permanently on Fusion and your information is no longer accessible on the app. ";
 export const nolikesyetmessage =
@@ -461,3 +461,9 @@ export const noSimilarInterestyetmessage =
   "While we're growing, it seems we don't have many users with similar interests right now. Don't be discouraged—new members join daily! In the meantime, consider exploring diverse profiles. Your perfect match might be just around the corner.";
 export const facialVerificationText =
   "No room for catfishing here! Taking this additional step makes your profile verified.";
+export const activateAccountForSimilarScreen =
+  "You've deactivated your profile from being shown to new people. Activate to view your similar interests.";
+export const activateAccountForLikeScreen =
+  "You've deactivated your profile from being shown to new people. Activate your profile to continnue sending and receiving likes";
+export const activateAccountForMainScreen =
+  "You've deactivated your profile from being shown to new people. Activate your profile to keep exploring new opportunities";
