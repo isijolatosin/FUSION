@@ -1007,6 +1007,7 @@ export default function ProfileScreen() {
         currentUser={currentUser}
         openSettingModal={openSettingModal}
         onClose={handleCloseSettingModal}
+        setIsTrigger={setIsTrigger}
       />
       <AnimatedModal
         isVisible={openUpdateModal.isOpen}
