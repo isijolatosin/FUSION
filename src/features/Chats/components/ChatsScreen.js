@@ -45,7 +45,7 @@ async function registerForPushNotificationsAsync() {
   let token;
 
   if (Platform.OS === "android") {
-    Notifications.setNotificationChannelAsync("default", {
+    await Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
@@ -65,9 +65,11 @@ async function registerForPushNotificationsAsync() {
       alert("Failed to get push token for push notification!");
       return;
     }
-    token = await Notifications.getExpoPushTokenAsync({
-      projectId: Constants.expoConfig.extra.eas.projectId,
-    });
+    token = (
+      await Notifications.getExpoPushTokenAsync({
+        projectId: Constants.expoConfig.extra.eas.projectId,
+      })
+    ).data;
     // console.log("token", token);
   } else {
     alert("Must use physical device for Push Notifications");
@@ -115,8 +117,12 @@ const ChatsScreen = () => {
 
       registerForPushNotificationsAsync()
         .then((token) => {
-          if (currentUser?.notificationToken === token?.data) return;
-          pushTokenToUserObject(token?.data);
+          if (
+            currentUser?.notificationToken &&
+            currentUser?.notificationToken === token?.data
+          )
+            return;
+          pushTokenToUserObject(token);
         })
         .catch((error) => console.log(error));
 
@@ -356,10 +362,12 @@ const ChatsScreen = () => {
                       onPress={() => {
                         const matchId = otherUser?.id;
                         storeData("match-id", matchId);
+                        const otherUserPhonenumber =
+                          otherUser?.match?.phonenumber;
 
                         navigation.navigate("message-screen", {
                           currentUser,
-                          otherUser,
+                          otherUserPhonenumber,
                         });
                       }}>
                       <MessagesListItem
