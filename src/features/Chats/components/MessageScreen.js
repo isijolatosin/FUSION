@@ -63,7 +63,6 @@ export default function MessageScreen({ navigation }) {
   const [triggerReload, setTriggerReload] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [openDotActionModal, setOpenDotActionModal] = useState(false);
-  const [addressFromLatLong, setAddressFromLatLong] = useState({});
   const [otherUserDataObject, setOtherUserData] = useState({});
 
   // Scroll to bottom when content size changes
@@ -88,12 +87,6 @@ export default function MessageScreen({ navigation }) {
           (data) => data.phonenumber === otherUserPhonenumber
         );
         setOtherUserData(otherUserData);
-
-        const _address = await getAddress(
-          +otherUserData?.latitude,
-          +otherUserData?.longitude
-        );
-        setAddressFromLatLong(_address);
 
         // get message for current match id
         if (matchId) {
@@ -507,7 +500,6 @@ export default function MessageScreen({ navigation }) {
           theme={theme}
           setShowProfile={setShowProfile}
           width={width}
-          addressFromLatLong={addressFromLatLong}
         />
       </AnimatedModal>
     </View>

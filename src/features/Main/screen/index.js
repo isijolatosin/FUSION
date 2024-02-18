@@ -81,12 +81,24 @@ const Index = ({ navigation }) => {
         }
       });
 
-      // check if profile is deactivated and remove
-      const filterOffDeactivatedProfile = returningData.filter((profile) => {
-        if (profile?.deactivate) return;
+      // check if profile is in the same country with current user and if not, filter off
+      const filterOffByCountryProfiles = [];
+      for (let i = 0; i < returningData.length; i++) {
+        if (
+          returningData[i]?.locationcountry === currentUserData?.locationcountry
+        ) {
+          filterOffByCountryProfiles.push(returningData[i]);
+        }
+      }
 
-        return profile;
-      });
+      // check if profile is deactivated and remove
+      const filterOffDeactivatedProfile = filterOffByCountryProfiles.filter(
+        (profile) => {
+          if (profile?.deactivate) return;
+
+          return profile;
+        }
+      );
 
       //check if profile has been liked and filter off
       let filteredOffLikedProfiles = [];

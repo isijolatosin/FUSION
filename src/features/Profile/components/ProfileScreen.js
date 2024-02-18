@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, Image, Pressable, ScrollView, View } from "react-native";
 import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -41,7 +41,6 @@ import SexualOrientationUpdateModal from "./SexualOrientationUpdateModal";
 import ReligionUpdateModal from "./ReligionUpdateModal";
 import InterestsUpdateModal from "./InterestsUpdateModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
-import getAddress from "../../../utilities/getAddress";
 import LocationUpdateModal from "./LocationUpdateModal";
 
 export default function ProfileScreen() {
@@ -62,7 +61,6 @@ export default function ProfileScreen() {
 
   const { width } = Dimensions.get("window");
   const [currentUser, setCurrentUser] = useState([]);
-  const [addressFromLatLong, setAddressFromLatLong] = useState({});
 
   const [photoUrl1, setPhotoUrl1] = useState("");
   const [photoUrl2, setPhotoUrl2] = useState("");
@@ -104,11 +102,6 @@ export default function ProfileScreen() {
     currentUserData?.mediaArray[5] &&
       setPhotoUrl6(currentUserData?.mediaArray[5]);
     setCurrentUser(currentUserData);
-
-    // get current user physical address
-    setAddressFromLatLong(
-      await getAddress(currentUserData?.latitude, currentUserData?.longitude)
-    );
   }
 
   useFocusEffect(
@@ -922,7 +915,7 @@ export default function ProfileScreen() {
               })
             }
             title="Location"
-            value={`${addressFromLatLong?.city}, ${addressFromLatLong?.region}`}
+            value={currentUser?.location}
           />
           <Spacer position="top" size="xxxxlarge">
             <HorizontalPaddingSpace
@@ -1031,7 +1024,6 @@ export default function ProfileScreen() {
           theme={theme}
           setShowProfile={setShowProfile}
           width={width}
-          addressFromLatLong={addressFromLatLong}
         />
       </AnimatedModal>
     </SafeArea>

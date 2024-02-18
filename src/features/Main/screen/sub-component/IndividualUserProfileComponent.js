@@ -618,7 +618,7 @@ export default function IndividualUserProfileComponent({
             colorType="black"
             fontType="montserratBold"
             fontSize="button">
-            {data?.address?.city}, {data?.address?.province}
+            {data?.location}
           </Text>
         </View>
       </View>
