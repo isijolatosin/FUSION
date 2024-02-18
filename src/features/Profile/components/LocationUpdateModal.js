@@ -12,6 +12,7 @@ import Button from "../../../components/utility/button.component";
 import getUserLocation from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
 import OnboardingErrorComponent from "../../Onboarding/components/OnboardingErrorComponent";
+import getAddress from "../../../utilities/getAddress";
 
 export default function LocationUpdateModal({
   theme,
@@ -25,7 +26,12 @@ export default function LocationUpdateModal({
     code: "",
   });
 
-  async function updateReligious(latitude, longitude) {
+  async function updateReligious(
+    latitude,
+    longitude,
+    location,
+    locationcountry
+  ) {
     if (!latitude && !longitude) return;
 
     await updateUserValueField(
@@ -42,6 +48,20 @@ export default function LocationUpdateModal({
       longitude,
       () => {}
     );
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "location",
+      location,
+      () => {}
+    );
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "locationcountry",
+      locationcountry,
+      () => {}
+    );
 
     const loadingTimeout = setTimeout(() => {
       setLoading(false);
@@ -52,11 +72,17 @@ export default function LocationUpdateModal({
 
   const handleLocationCapture = async () => {
     const userLocation = await getUserLocation(setResponseMessage);
+    const locationObject = await getAddress(
+      userLocation.latitude,
+      userLocation.longitude
+    );
+    const location = `${locationObject?.city}, ${locationObject?.region}`;
+    const locationcountry = locationObject?.country;
 
     const longitude = userLocation.longitude;
     const latitude = userLocation.latitude;
 
-    updateReligious(latitude, longitude);
+    updateReligious(latitude, longitude, location, locationcountry);
   };
 
   return (

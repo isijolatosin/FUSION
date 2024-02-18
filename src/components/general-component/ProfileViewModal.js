@@ -21,7 +21,6 @@ export default function ProfileViewModal({
   theme,
   setShowProfile,
   width,
-  addressFromLatLong,
 }) {
   let iconNamePerGender = "";
   if (otherUser?.gender === "woman") {
@@ -523,30 +522,28 @@ export default function ProfileViewModal({
             My Location
           </Text>
         </Spacer>
-        {addressFromLatLong?.city && addressFromLatLong?.region && (
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: theme.spaceNumber[3],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="location-pin"
-              IconComponent={Entypo}
-              size={15}
-              color={theme.colors.brand.black}
-            />
-            <Text
-              style={{ marginLeft: 3 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="button">
-              {addressFromLatLong?.city}, {addressFromLatLong?.region}
-            </Text>
-          </View>
-        )}
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: theme.spaceNumber[3],
+            borderRadius: theme.spaceNumberBy10[4],
+          }}>
+          <IconComponent
+            iconFunction={() => {}}
+            iconName="location-pin"
+            IconComponent={Entypo}
+            size={15}
+            color={theme.colors.brand.black}
+          />
+          <Text
+            style={{ marginLeft: 3 }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratBold"
+            fontSize="button">
+            {otherUser?.location}
+          </Text>
+        </View>
       </HorizontalPaddingSpace>
       <Spacer style={{ position: "relative" }} position="top" size="large">
         <Image

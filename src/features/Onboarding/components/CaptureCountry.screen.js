@@ -68,7 +68,7 @@ export default function CaptureCountry({ navigation }) {
               fontType="playfairbold"
               fontSize="h3"
               width="100%">
-              What country are you from?
+              What is your nationality?
             </Text>
           </Spacer>
           <OnboardingErrorComponent

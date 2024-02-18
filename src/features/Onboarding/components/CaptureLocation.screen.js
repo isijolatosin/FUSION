@@ -13,6 +13,7 @@ import { locationCaptureInstruction } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import getUserLocation from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
+import getAddress from "../../../utilities/getAddress";
 
 export default function CaptureLocation({ navigation }) {
   const {
@@ -28,8 +29,15 @@ export default function CaptureLocation({ navigation }) {
 
   const handleLocationCapture = async () => {
     const userLocation = await getUserLocation(setResponseMessage);
+    const locationObject = await getAddress(
+      userLocation.latitude,
+      userLocation.longitude
+    );
     user.longitude = userLocation.longitude;
     user.latitude = userLocation.latitude;
+    user.location = `${locationObject?.city}, ${locationObject?.region}`;
+    user.locationcountry = locationObject?.country;
+
     dispatch({
       type: "SET_USER",
       payload: user,
