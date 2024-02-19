@@ -19,6 +19,7 @@ import LikeInitiatorProfileComponent from "./LikeInitiatorProfileComponent";
 import {
   activateAccountForLikeScreen,
   nolikesyetmessage,
+  unpauseAccountForLikeScreen,
 } from "../../../constants";
 import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
@@ -111,6 +112,55 @@ const LikesScreen = () => {
                 "all-users",
                 currentUser?.id,
                 "deactivate",
+                false,
+                setIsRetrigger
+              );
+            }}
+            gapSize="xxsmall"
+          />
+        </Spacer>
+      </SafeArea>
+    );
+  }
+  if (currentUser?.pause) {
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+        <HorizontalPaddingSpace space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="xlarge">
+              <BrandAvatarO />
+            </Spacer>
+          </Spacer>
+          <Text
+            style={{ textAlign: "center" }}
+            variant="custom"
+            colorType="black"
+            fontType="playfairbold"
+            fontSize="h4">
+            Your Likes
+          </Text>
+          <Spacer position="top" size="large">
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {nolikesyetmessage}
+            </Text>
+          </Spacer>
+        </HorizontalPaddingSpace>
+        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
+          <CustomUseCardWithCTA
+            text={unpauseAccountForLikeScreen}
+            buttonText="Unpause profile"
+            cardFunction={async () => {
+              await updateUserValueField(
+                "all-users",
+                currentUser?.id,
+                "pause",
                 false,
                 setIsRetrigger
               );

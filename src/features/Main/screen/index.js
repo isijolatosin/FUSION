@@ -22,12 +22,13 @@ import {
   updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
-import Loading from "../../../components/general-component/Loading";
+// import Loading from "../../../components/general-component/Loading";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 import {
-  activateAccountForMainScreen,
+  unpauseAccountForMainScreen,
   dailyendofswipescreenmessage,
   noDataFromYourCountrymessage,
+  activateAccountForMainScreen,
 } from "../../../constants";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
@@ -95,10 +96,19 @@ const Index = ({ navigation }) => {
         }
       }
 
-      // check if profile is deactivated and remove
-      const filterOffDeactivatedProfile = filterOffByCountryProfiles.filter(
+      // check if profile is paused and remove
+      const filterOffDeactivateProfile = filterOffByCountryProfiles.filter(
         (profile) => {
           if (profile?.deactivate) return;
+
+          return profile;
+        }
+      );
+
+      // check if profile is paused and remove
+      const filterOffPausedProfile = filterOffDeactivateProfile.filter(
+        (profile) => {
+          if (profile?.pause) return;
 
           return profile;
         }
@@ -112,13 +122,13 @@ const Index = ({ navigation }) => {
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
 
       if (likedNumberArray?.length) {
-        filterOffDeactivatedProfile.map((data) => {
+        filterOffPausedProfile.map((data) => {
           if (!likedNumberArray?.includes(data?.phonenumber)) {
             filteredOffLikedProfiles.push(data);
           }
         });
       } else {
-        filteredOffLikedProfiles = [...filterOffDeactivatedProfile];
+        filteredOffLikedProfiles = [...filterOffPausedProfile];
       }
 
       // check if profile has liked me and filter off
@@ -290,6 +300,93 @@ const Index = ({ navigation }) => {
     }
   };
 
+  if (currentUser?.deactivate) {
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.highlight }}>
+        <HorizontalPaddingSpace space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="xlarge">
+              <BrandAvatarO />
+            </Spacer>
+          </Spacer>
+          <Spacer style={{ alignItems: "center" }} position="top" size="">
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="linesLight"
+              fontType="playfairbold"
+              fontSize="h4">
+              Profile Deactivated
+            </Text>
+          </Spacer>
+          <Spacer style={{ alignItems: "center" }} position="top" size="large">
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {activateAccountForMainScreen}
+            </Text>
+          </Spacer>
+          <Spacer
+            style={{ alignItems: "center" }}
+            position="top"
+            size="xxxxlarge">
+            <Button
+              backgroundColor="transparent"
+              borderRadius={theme.space[3]}
+              isBorder={true}
+              borderColor={theme.colors.brand.base}
+              buttonFunction={async () => {
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "deactivate",
+                  false,
+                  setIsRetrigger
+                );
+              }}
+              text="Activate profile"
+              textColor={theme.colors.brand.base}
+              width="80%"
+            />
+          </Spacer>
+        </HorizontalPaddingSpace>
+      </SafeArea>
+    );
+  }
+
+  if (currentUser?.pause) {
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+        <HorizontalPaddingSpace space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <BrandAvatarO currentUser={currentUser} />
+          </Spacer>
+        </HorizontalPaddingSpace>
+        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
+          {currentUser?.pause && (
+            <CustomUseCardWithCTA
+              text={unpauseAccountForMainScreen}
+              buttonText="Activate profile"
+              cardFunction={async () => {
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "pause",
+                  false,
+                  setIsRetrigger
+                );
+              }}
+              gapSize="xxsmall"
+            />
+          )}
+        </Spacer>
+      </SafeArea>
+    );
+  }
+
   if (allUsers.length === 0) {
     return (
       <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
@@ -350,36 +447,6 @@ const Index = ({ navigation }) => {
         showSecondButton={true}
         setIndex={setIndex}
       />
-    );
-  }
-
-  if (currentUser?.deactivate) {
-    return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-        <HorizontalPaddingSpace space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <BrandAvatarO currentUser={currentUser} />
-          </Spacer>
-        </HorizontalPaddingSpace>
-        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          {currentUser?.deactivate && (
-            <CustomUseCardWithCTA
-              text={activateAccountForMainScreen}
-              buttonText="Activate profile"
-              cardFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "deactivate",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              gapSize="xxsmall"
-            />
-          )}
-        </Spacer>
-      </SafeArea>
     );
   }
 

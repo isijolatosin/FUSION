@@ -450,9 +450,11 @@ export const firstmessagehype =
 export const unmatchmessage =
   "Unmatching Francis would mean you can no longer view their profile or have any future conversations with them.";
 export const deactivateaccounttext =
-  "Deactivating your account on Fusion temporarily suspends your profile from being shown to new users. Your account is not deleted but disabled on the app, you can still chat with your current matches.";
+  "Deactivating your profile on Fusion temporarily removes your profile on Fusion. Your profile is not visible to other users. Your profile is not deleted but disabled on the app.";
+export const pauseaccounttext =
+  "Pausing your profile on Fusion temporarily suspends your profile from being shown to new users. Your profile is not deleted but disabled on the app, you can still chat with your current matches.";
 export const deleteaccounttext =
-  "Deleting your account removes your profile permanently on Fusion and your information is no longer accessible on the app. ";
+  "Deleting your profile removes it permanently on Fusion and your information is no longer accessible on the app. ";
 export const nolikesyetmessage =
   "Looks like you haven't received any likes yet. Don't worry, the right connections are just a swipe away! Keep exploring and making meaningful connections.";
 export const compatibleText =
@@ -463,9 +465,15 @@ export const noDataFromYourCountrymessage =
   "Sorry, we couldn't find any users matching your preferences in your profile settings. Consider adjusting your profile settings to broaden your search and discover more potential matches.";
 export const facialVerificationText =
   "No room for catfishing here! Taking this additional step makes your profile verified.";
+export const unpauseAccountForSimilarScreen =
+  "You've paused your profile from being shown to new people. Unpause to view your similar interests.";
 export const activateAccountForSimilarScreen =
-  "You've deactivated your profile from being shown to new people. Activate to view your similar interests.";
+  "You've deactivated your profile from being shown to other users. Activate to view your similar interests.";
+export const unpauseAccountForLikeScreen =
+  "You've paused your profile from being shown to new people. Unpause your profile to continnue sending and receiving likes";
 export const activateAccountForLikeScreen =
-  "You've deactivated your profile from being shown to new people. Activate your profile to continnue sending and receiving likes";
+  "You've deactivated your profile from being shown to other users. Activate your profile to continnue sending and receiving likes";
+export const unpauseAccountForMainScreen =
+  "You've paused your profile from being shown to new people. Activate your profile to keep exploring new opportunities";
 export const activateAccountForMainScreen =
-  "You've deactivated your profile from being shown to new people. Activate your profile to keep exploring new opportunities";
+  "Your profile has been set to deactivate. If you wish to regain access, please activate your profile.";
