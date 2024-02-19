@@ -23,7 +23,6 @@ export default function MessageDotsPopupModal({
   textCancel,
   setOpenImageUploadModal,
   horizontalSpace,
-  backgroundColor,
 }) {
   const [showUnmatchCard, setShowUnmatchCard] = useState(false);
   const [showBlockModal, setShowBlockModal] = useState(false);
@@ -232,75 +231,73 @@ export default function MessageDotsPopupModal({
   }
 
   return (
-    <PopupModal backgroundColor={backgroundColor} height={height}>
-      <HorizontalPaddingSpace
-        style={{ width: "100%" }}
-        space={horizontalSpace ? horizontalSpace : theme.space[5]}>
+    <HorizontalPaddingSpace
+      style={{ width: "100%" }}
+      space={horizontalSpace ? horizontalSpace : theme.space[5]}>
+      <ButtonAction
+        onPress={() => setShowUnmatchCard(true)}
+        backgroundColor={theme.colors.brand.highlight}
+        width="100%"
+        paddingTop={theme.spaceNumber[7]}
+        paddingBottom={theme.spaceNumber[7]}
+        alignItems="center"
+        borderTopLeftRadius={theme.spaceNumber[2]}
+        borderTopRightRadius={theme.spaceNumber[2]}
+        borderBottomColor={theme.colors.brand.linesLight}
+        borderBottomWidth={1}>
+        <Text
+          style={{ textAlign: "center" }}
+          variant="custom"
+          colorType="black"
+          fontType="montserratSemibold"
+          fontSize="body">
+          {textTop}
+        </Text>
+      </ButtonAction>
+      <ButtonAction
+        onPress={() => setShowBlockModal(true)}
+        backgroundColor={theme.colors.brand.highlight}
+        width="100%"
+        paddingTop={theme.spaceNumber[7]}
+        paddingBottom={theme.spaceNumber[7]}
+        alignItems="center"
+        borderBottomLeftRadius={!textCancel && theme.spaceNumber[2]}
+        borderBottomRightRadius={!textCancel && theme.spaceNumber[2]}
+        borderBottomColor={textCancel && theme.colors.brand.linesLight}
+        borderBottomWidth={textCancel && 1}>
+        <Text
+          onPress={() => {
+            setShowBlockModal(true);
+          }}
+          style={{ textAlign: "center" }}
+          variant="custom"
+          colorType="black"
+          fontType="montserratSemibold"
+          fontSize="body">
+          {textBottom}
+        </Text>
+      </ButtonAction>
+      {textCancel && (
         <ButtonAction
-          onPress={() => setShowUnmatchCard(true)}
+          onPress={() => setOpenImageUploadModal(false)}
           backgroundColor={theme.colors.brand.highlight}
           width="100%"
           paddingTop={theme.spaceNumber[7]}
           paddingBottom={theme.spaceNumber[7]}
           alignItems="center"
-          borderTopLeftRadius={theme.spaceNumber[2]}
-          borderTopRightRadius={theme.spaceNumber[2]}
-          borderBottomColor={theme.colors.brand.linesLight}
-          borderBottomWidth={1}>
+          borderBottomLeftRadius={theme.spaceNumber[2]}
+          borderBottomRightRadius={theme.spaceNumber[2]}>
           <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            fontSize="body">
-            {textTop}
-          </Text>
-        </ButtonAction>
-        <ButtonAction
-          onPress={() => setShowBlockModal(true)}
-          backgroundColor={theme.colors.brand.highlight}
-          width="100%"
-          paddingTop={theme.spaceNumber[7]}
-          paddingBottom={theme.spaceNumber[7]}
-          alignItems="center"
-          borderBottomLeftRadius={!textCancel && theme.spaceNumber[2]}
-          borderBottomRightRadius={!textCancel && theme.spaceNumber[2]}
-          borderBottomColor={textCancel && theme.colors.brand.linesLight}
-          borderBottomWidth={textCancel && 1}>
-          <Text
-            onPress={() => {
-              setShowBlockModal(true);
-            }}
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            fontSize="body">
-            {textBottom}
-          </Text>
-        </ButtonAction>
-        {textCancel && (
-          <ButtonAction
             onPress={() => setOpenImageUploadModal(false)}
-            backgroundColor={theme.colors.brand.highlight}
-            width="100%"
-            paddingTop={theme.spaceNumber[7]}
-            paddingBottom={theme.spaceNumber[7]}
-            alignItems="center"
-            borderBottomLeftRadius={theme.spaceNumber[2]}
-            borderBottomRightRadius={theme.spaceNumber[2]}>
-            <Text
-              onPress={() => setOpenImageUploadModal(false)}
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratSemibold"
-              fontSize="body">
-              {textCancel}
-            </Text>
-          </ButtonAction>
-        )}
-      </HorizontalPaddingSpace>
-    </PopupModal>
+            style={{ textAlign: "center" }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratSemibold"
+            fontSize="body">
+            {textCancel}
+          </Text>
+        </ButtonAction>
+      )}
+    </HorizontalPaddingSpace>
   );
 }

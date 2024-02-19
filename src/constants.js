@@ -459,6 +459,8 @@ export const compatibleText =
   "Like polls attract on this end. We have selected matches with similar interest for you.";
 export const noSimilarInterestyetmessage =
   "While we're growing, it seems we don't have many users with similar interests right now. Don't be discouraged—new members join daily! In the meantime, consider exploring diverse profiles. Your perfect match might be just around the corner.";
+export const noDataFromYourCountrymessage =
+  "Sorry, we couldn't find any users matching your preferences in your profile settings. Consider adjusting your profile settings to broaden your search and discover more potential matches.";
 export const facialVerificationText =
   "No room for catfishing here! Taking this additional step makes your profile verified.";
 export const activateAccountForSimilarScreen =

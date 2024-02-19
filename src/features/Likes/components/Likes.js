@@ -97,7 +97,7 @@ const LikesScreen = () => {
               variant="custom"
               colorType="black"
               fontType="montserratRegular"
-              fontSize="button">
+              fontSize="caption">
               {nolikesyetmessage}
             </Text>
           </Spacer>
@@ -165,7 +165,7 @@ const LikesScreen = () => {
                   variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
-                  fontSize="button">
+                  fontSize="caption">
                   {nolikesyetmessage}
                 </Text>
                 <Spacer position="top" size="xxxxlarge">
