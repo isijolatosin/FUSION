@@ -21,6 +21,7 @@ import MessagesListItem from "./MessagesListItem";
 import firebase, { database } from "../../../../config";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 import {
+  activateAccountForMainScreen,
   firstmessagehype,
   nochatlistsinformation,
   nomatchmessage,
@@ -31,6 +32,7 @@ import Button from "../../../components/utility/button.component";
 import { detectUrl } from "../../../utilities/detectTextType";
 import AvatarVerticalList from "./AvatarVerticalList";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -272,6 +274,63 @@ const ChatsScreen = () => {
     });
 
     return truthy?.some((truthy) => truthy === true);
+  }
+
+  if (currentUser?.deactivate) {
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.highlight }}>
+        <HorizontalPaddingSpace space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="xlarge">
+              <BrandAvatarO />
+            </Spacer>
+          </Spacer>
+          <Spacer style={{ alignItems: "center" }} position="top" size="">
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="linesLight"
+              fontType="playfairbold"
+              fontSize="h4">
+              Account Deactivated
+            </Text>
+          </Spacer>
+          <Spacer style={{ alignItems: "center" }} position="top" size="large">
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {activateAccountForMainScreen}
+            </Text>
+          </Spacer>
+          <Spacer
+            style={{ alignItems: "center" }}
+            position="top"
+            size="xxxxlarge">
+            <Button
+              backgroundColor="transparent"
+              borderRadius={theme.space[3]}
+              isBorder={true}
+              borderColor={theme.colors.brand.base}
+              buttonFunction={async () => {
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "deactivate",
+                  false,
+                  setIsRefreshChatScreen
+                );
+              }}
+              text="Activate profile"
+              textColor={theme.colors.brand.base}
+              width="80%"
+            />
+          </Spacer>
+        </HorizontalPaddingSpace>
+      </SafeArea>
+    );
   }
 
   return (

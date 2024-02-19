@@ -13,7 +13,11 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Text } from "../../../components/typography/text.component";
-import { deactivateaccounttext, deleteaccounttext } from "../../../constants";
+import {
+  pauseaccounttext,
+  deleteaccounttext,
+  deactivateaccounttext,
+} from "../../../constants";
 import {
   removeItemFromArray,
   updateUserValueField,
@@ -447,6 +451,54 @@ export default function SettingModal({
                     colorType="black"
                     fontType="montserratBold"
                     fontSize="caption">
+                    Pause Account
+                  </Text>
+                </View>
+                <Switch
+                  trackColor={{
+                    false: theme.colors.brand.linesLight,
+                    true: theme.colors.brand.base,
+                  }}
+                  thumbColor={
+                    currentUser?.pause
+                      ? theme.colors.brand.highlight
+                      : theme.colors.brand.lines
+                  }
+                  onValueChange={async (val) => {
+                    await updateUserValueField(
+                      "all-users",
+                      userId,
+                      "pause",
+                      val,
+                      setIsTrigger
+                    );
+                  }}
+                  value={currentUser?.pause}
+                />
+              </View>
+              <Spacer position="top" size="small">
+                <Text
+                  variant="custom"
+                  colorType="lines"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  {pauseaccounttext}
+                </Text>
+              </Spacer>
+            </Spacer>
+            <Spacer position="top" size="small">
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="caption">
                     Deactivate Account
                   </Text>
                 </View>
@@ -468,6 +520,12 @@ export default function SettingModal({
                       val,
                       setIsTrigger
                     );
+                    navigation.navigate("home");
+                    const deativateTimeoutID = setTimeout(() => {
+                      onClose();
+                    }, 500);
+
+                    return () => clearTimeout(deativateTimeoutID);
                   }}
                   value={currentUser?.deactivate}
                 />

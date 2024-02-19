@@ -12,6 +12,7 @@ import {
   activateAccountForSimilarScreen,
   compatibleText,
   noSimilarInterestyetmessage,
+  unpauseAccountForSimilarScreen,
 } from "../../constants";
 import CompatibleComponent from "./components/CompatibleComponent";
 import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
@@ -243,7 +244,7 @@ export default function Index() {
               fontSize="caption">
               {noSimilarInterestyetmessage}
             </Text>
-            {!currentUser?.deactivate && (
+            {!currentUser?.pause && !currentUser?.deactivate && (
               <Spacer position="top" size="xxxxlarge">
                 <BrandAvatar />
               </Spacer>
@@ -251,6 +252,22 @@ export default function Index() {
           </Spacer>
         </HorizontalPaddingSpace>
         <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
+          {currentUser?.pause && (
+            <CustomUseCardWithCTA
+              text={unpauseAccountForSimilarScreen}
+              buttonText="Unpause profile"
+              cardFunction={async () => {
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "pause",
+                  false,
+                  setIsRetrigger
+                );
+              }}
+              gapSize="xxsmall"
+            />
+          )}
           {currentUser?.deactivate && (
             <CustomUseCardWithCTA
               text={activateAccountForSimilarScreen}
