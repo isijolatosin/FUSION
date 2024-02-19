@@ -369,7 +369,7 @@ const Index = ({ navigation }) => {
           {currentUser?.pause && (
             <CustomUseCardWithCTA
               text={unpauseAccountForMainScreen}
-              buttonText="Activate profile"
+              buttonText="Unpause profile"
               cardFunction={async () => {
                 await updateUserValueField(
                   "all-users",

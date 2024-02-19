@@ -60,11 +60,11 @@ export default function PhotoComponent({
             <Pressable
               style={{
                 position: "absolute",
-                top: -theme.spaceNumber[0],
-                right: -theme.spaceNumber[0],
-                backgroundColor: theme.colors.brand.base,
+                top: theme.spaceNumber[0],
+                right: theme.spaceNumber[0],
+                backgroundColor: theme.colors.brand.basewhite,
                 borderRadius: theme.spaceNumberBy10[9],
-                padding: theme.spaceNumber[1],
+                padding: theme.spaceNumber[0],
               }}>
               <IconComponent
                 iconFunction={() => {
@@ -76,7 +76,7 @@ export default function PhotoComponent({
                 iconName="close"
                 IconComponent={AntDesign}
                 size={15}
-                color={theme.colors.brand.basewhite}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           ) : (
