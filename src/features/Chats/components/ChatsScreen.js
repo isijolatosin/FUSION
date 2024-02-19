@@ -292,7 +292,7 @@ const ChatsScreen = () => {
               colorType="linesLight"
               fontType="playfairbold"
               fontSize="h4">
-              Account Deactivated
+              Profile Deactivated
             </Text>
           </Spacer>
           <Spacer style={{ alignItems: "center" }} position="top" size="large">
