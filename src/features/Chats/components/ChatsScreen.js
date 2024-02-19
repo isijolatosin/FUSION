@@ -179,7 +179,7 @@ const ChatsScreen = () => {
       } else {
         const timeID = setTimeout(() => {
           setShowCard(true);
-        }, 2000);
+        }, 3000);
         return () => clearTimeout(timeID);
       }
     } catch (error) {

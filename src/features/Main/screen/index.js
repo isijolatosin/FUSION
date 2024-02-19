@@ -27,12 +27,16 @@ import CustomUseCardWithCTA from "../../../components/general-component/CustomUs
 import {
   activateAccountForMainScreen,
   dailyendofswipescreenmessage,
+  noDataFromYourCountrymessage,
 } from "../../../constants";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import calculateAge from "../../../utilities/calculateAge";
 import filterUsersWithinDistanceRange from "../../../utilities/filterUsersWithinDistanceRange";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import BrandAvatar from "../../../components/general-component/BrandAvatar";
+import { Text } from "../../../components/typography/text.component";
+import Button from "../../../components/utility/button.component";
 
 const Index = ({ navigation }) => {
   const [allUsers, setAllUsers] = useState([]);
@@ -287,7 +291,50 @@ const Index = ({ navigation }) => {
   };
 
   if (allUsers.length === 0) {
-    return <Loading text="Loading..." />;
+    return (
+      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+        <HorizontalPaddingSpace
+          style={{ position: "relative" }}
+          space={theme.space[4]}>
+          <Spacer position="top" size="large">
+            <NavigationBar>
+              <BrandAvatarO currentUser={currentUser} />
+            </NavigationBar>
+          </Spacer>
+          <Spacer position="top" size="xxxxlarge">
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {noDataFromYourCountrymessage}
+            </Text>
+            <Spacer position="top" size="xxxxlarge">
+              <Spacer position="bottom" size="xxlarge">
+                <BrandAvatar />
+              </Spacer>
+            </Spacer>
+            <Spacer
+              position="top"
+              size="xxxxlarge"
+              style={{ alignItems: "center" }}>
+              <Button
+                backgroundColor={theme.colors.brand.base}
+                borderRadius={theme.space[3]}
+                buttonFunction={() => navigation.navigate("profile")}
+                text="Change preference"
+                textColor={theme.colors.brand.basewhite}
+                width="80%"
+              />
+            </Spacer>
+          </Spacer>
+        </HorizontalPaddingSpace>
+      </SafeArea>
+    );
+    // return <Loading text="Loading..." />;
   }
 
   if (

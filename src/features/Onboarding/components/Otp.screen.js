@@ -80,8 +80,9 @@ export default function OtpScreen({ navigation }) {
             <Spacer position="top" size="large">
               <Text
                 variant="custom"
-                colorType="error"
-                fontType="montserratRegular">
+                colorType="base"
+                fontType="montserratRegular"
+                fontSize="caption">
                 Error: Please regenerate OTP
               </Text>
             </Spacer>

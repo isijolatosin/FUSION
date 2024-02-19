@@ -60,7 +60,7 @@ export default function MessageInput({
 
       <TextInputMessageIcon>
         <IconComponent
-          iconFunction={setOpenImageUploadModal}
+          iconFunction={() => setOpenImageUploadModal(true)}
           iconName="camera"
           IconComponent={FontAwesome}
           size={30}
