@@ -5,8 +5,9 @@ import {
   Switch,
   Dimensions,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
-import { Ionicons, Octicons } from "@expo/vector-icons";
+import { Ionicons, Octicons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -26,6 +27,7 @@ import { database } from "../../../../config";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ContactModal from "./ContactModal";
+import EmailUpdateModal from "./EmailUpdateModal";
 
 export default function SettingModal({
   theme,
@@ -37,6 +39,7 @@ export default function SettingModal({
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
   const [openContactModal, setOpenContactModal] = useState(false);
+  const [openEmailUpdateModal, setOpenEmailUpdateModal] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [messageSentNote, setMessageSentNote] = useState(false);
   const [selectedHelp, setSelectedHelp] = useState("");
@@ -292,15 +295,26 @@ export default function SettingModal({
               }}
               position="top"
               size="medium">
-              <View>
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="caption">
-                  Email Address
-                </Text>
-              </View>
+              <Pressable
+                onPress={() => setOpenEmailUpdateModal(true)}
+                style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{ marginRight: theme.spaceNumber[2] }}>
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="caption">
+                    Email Address
+                  </Text>
+                </View>
+                <IconComponent
+                  iconFunction={() => setOpenEmailUpdateModal(true)}
+                  iconName="edit"
+                  IconComponent={AntDesign}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </Pressable>
               <View>
                 <Text
                   style={{ textTransform: "lowercase" }}
@@ -607,34 +621,47 @@ export default function SettingModal({
               position: "relative",
             }}
             space={theme.space[5]}>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-              position="top"
-              size="medium">
-              <View style={{ flex: 0.8 }}>
+            <Spacer position="top" size="medium">
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                <View style={{ flex: 0.8 }}>
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="caption">
+                    Contact Us
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={{ flex: 0.2, alignItems: "flex-end" }}
+                  onPress={() =>
+                    currentUser?.email && setOpenContactModal(true)
+                  }>
+                  <IconComponent
+                    iconFunction={() =>
+                      currentUser?.email && setOpenContactModal(true)
+                    }
+                    iconName="chevron-right"
+                    IconComponent={Octicons}
+                    size={theme.spaceNumberBy10[1]}
+                    color={theme.colors.brand.brandFade}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ marginTop: theme.spaceNumber[3] }}>
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
+                  colorType="lines"
+                  fontType="montserratRegular"
                   fontSize="caption">
-                  Contact Us
+                  Please verify that your email is registered with us.
                 </Text>
               </View>
-              <TouchableOpacity
-                style={{ flex: 0.2, alignItems: "flex-end" }}
-                onPress={() => setOpenContactModal(true)}>
-                <IconComponent
-                  iconFunction={() => setOpenContactModal(true)}
-                  iconName="chevron-right"
-                  IconComponent={Octicons}
-                  size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.brandFade}
-                />
-              </TouchableOpacity>
             </Spacer>
           </HorizontalPaddingSpace>
           <HorizontalPaddingSpace
@@ -749,6 +776,25 @@ export default function SettingModal({
         theme={theme}
         width={width}
       />
+      <AnimatedModal
+        isVisible={openEmailUpdateModal}
+        onClose={() => {
+          setIsTrigger(true);
+          setOpenEmailUpdateModal(false);
+        }}
+        theme={theme}
+        width={width}>
+        <EmailUpdateModal
+          theme={theme}
+          currentUser={currentUser}
+          onClose={() => {
+            {
+              setIsTrigger(true);
+              setOpenEmailUpdateModal(false);
+            }
+          }}
+        />
+      </AnimatedModal>
     </AnimatedModal>
   );
 }
