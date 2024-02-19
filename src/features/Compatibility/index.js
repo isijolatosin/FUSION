@@ -252,7 +252,7 @@ export default function Index() {
           </Spacer>
         </HorizontalPaddingSpace>
         <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          {currentUser?.pause && (
+          {!currentUser?.deactivate && currentUser?.pause && (
             <CustomUseCardWithCTA
               text={unpauseAccountForSimilarScreen}
               buttonText="Unpause profile"
