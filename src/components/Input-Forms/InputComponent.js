@@ -22,6 +22,8 @@ export default function InputComponent({
   maxlength,
   placeholder,
   allBorder,
+  multiline,
+  numberOfLines,
 }) {
   const [switchIcon, setSwitchIcon] = useState(false);
   const {
@@ -51,6 +53,8 @@ export default function InputComponent({
         fontColor={fontColor}
         maxLength={maxlength}
         backgroundColor="transparent"
+        multiline={multiline}
+        numberOfLines={numberOfLines}
       />
       {includeIcon && (
         <IconComponent

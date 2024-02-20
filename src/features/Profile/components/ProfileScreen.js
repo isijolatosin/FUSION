@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, Pressable, ScrollView, View } from "react-native";
-import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  MaterialIcons,
+  Entypo,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -42,6 +49,14 @@ import ReligionUpdateModal from "./ReligionUpdateModal";
 import InterestsUpdateModal from "./InterestsUpdateModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
 import LocationUpdateModal from "./LocationUpdateModal";
+import FacebookUpdateModal from "./FacebookUpdateModal";
+import InstagramUpdateModal from "./InstagramUpdateModal";
+import TikTokUpdateModal from "./TikTokUpdateModal";
+import SharePlayListUpdateModal from "./SharePlayListUpdateModal";
+import BioUpdateModal from "./BioUpdateModal";
+import truncateSentence from "../../../utilities/truncateSentence";
+import ZodiacUpdateModal from "./ZodiacUpdateModal";
+import TribeUpdateModal from "./TribeUpdateModal";
 
 export default function ProfileScreen() {
   const {
@@ -163,6 +178,21 @@ export default function ProfileScreen() {
     );
   }
 
+  function checkValForSocials(val) {
+    switch (val) {
+      case "instagram":
+        return true;
+      case "facebook":
+        return true;
+      case "tiktok":
+        return true;
+      case "playlist":
+        return true;
+      default:
+        break;
+    }
+  }
+
   function AboutMeListComponent({ pressFunction, title, value, isList }) {
     if (isList) {
       return (
@@ -198,15 +228,44 @@ export default function ProfileScreen() {
                   justifyContent: "space-between",
                   position: "relative",
                 }}>
-                <View>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratSemibold"
-                    fontSize="button"
-                    transform="capitalize">
-                    {val}
-                  </Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  {checkValForSocials(val) && (
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName={val === "playlist" ? "playlist-music" : val}
+                      IconComponent={
+                        val === "instagram"
+                          ? AntDesign
+                          : val === "tiktok"
+                          ? FontAwesome5
+                          : val === "facebook"
+                          ? Entypo
+                          : val === "playlist"
+                          ? MaterialCommunityIcons
+                          : ""
+                      }
+                      size={val === "playlist" ? 35 : 25}
+                      color={theme.colors.brand.brandTone}
+                    />
+                  )}
+                  <View
+                    style={{
+                      marginLeft:
+                        (val === "facebook" ||
+                          val === "instagram" ||
+                          val === "playlist" ||
+                          val === "tiktok") &&
+                        theme.spaceNumber[3],
+                    }}>
+                    <Text
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratSemibold"
+                      fontSize="button"
+                      transform="capitalize">
+                      {val}
+                    </Text>
+                  </View>
                 </View>
                 <View
                   style={{
@@ -217,7 +276,7 @@ export default function ProfileScreen() {
                     iconName="keyboard-arrow-right"
                     IconComponent={MaterialIcons}
                     size={20}
-                    color={theme.colors.brand.linesLight}
+                    color={theme.colors.brand.brandTone}
                   />
                 </View>
               </Pressable>
@@ -250,7 +309,7 @@ export default function ProfileScreen() {
             </Text>
             <Text
               variant="custom"
-              colorType="linesLight"
+              colorType="brandFadeLighter"
               fontType="montserratRegular"
               fontSize="button"
               transform="capitalize">
@@ -266,7 +325,7 @@ export default function ProfileScreen() {
               iconName="keyboard-arrow-right"
               IconComponent={MaterialIcons}
               size={20}
-              color={theme.colors.brand.linesLight}
+              color={theme.colors.brand.brandTone}
             />
           </View>
         </Pressable>
@@ -283,6 +342,84 @@ export default function ProfileScreen() {
 
   function sortRender() {
     switch (openUpdateModal.type) {
+      case "facebook":
+        return (
+          <FacebookUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "instagram":
+        return (
+          <InstagramUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "tiktok":
+        return (
+          <TikTokUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "playlist":
+        return (
+          <SharePlayListUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "bio":
+        return (
+          <BioUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              setIsTrigger(true);
+              setOpenUpdateModal({
+                type: "",
+                isOpen: false,
+              });
+            }}
+          />
+        );
       case "gender":
         return (
           <GenderUpdateModal
@@ -516,6 +653,40 @@ export default function ProfileScreen() {
             }}
           />
         );
+      case "show zodiac":
+        return (
+          <ZodiacUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "tribe":
+        return (
+          <TribeUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
       case currentUser?.interestsArray?.[0]:
         return (
           <InterestsUpdateModal
@@ -653,7 +824,7 @@ export default function ProfileScreen() {
               paddingBottom: theme.spaceNumberBy10[0],
             }}
             position="top"
-            size="xxxsmall">
+            size="xxsmall">
             {photoUrl1 && (
               <Pressable onPress={() => setShowProfile(true)}>
                 <Image
@@ -796,12 +967,19 @@ export default function ProfileScreen() {
               />
             </HorizontalPaddingSpace>
           </Spacer>
+          <Spacer position="bottom" size="large">
+            <AboutMeListComponent
+              title="Socials"
+              subTitle=""
+              value={["facebook", "instagram", "tiktok", "playlist"]}
+              isList={true}
+            />
+          </Spacer>
           <Spacer
             style={{
-              borderBottomWidth: 0.5,
-              borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumber[3],
               marginBottom: theme.spaceNumber[3],
+              backgroundColor: theme.colors.brand.linesFaint,
             }}
             position="top"
             size="xxxlarge">
@@ -831,6 +1009,13 @@ export default function ProfileScreen() {
               />
             </HorizontalPaddingSpace>
           </Spacer>
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "bio", isOpen: true })
+            }
+            title="Bio"
+            value={truncateSentence(currentUser?.bio, 7)}
+          />
           <AboutMeListComponent
             pressFunction={() =>
               setOpenUpdateModal({ type: "gender", isOpen: true })
@@ -916,6 +1101,30 @@ export default function ProfileScreen() {
             }
             title="Location"
             value={currentUser?.location}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({
+                type: "show zodiac",
+                isOpen: true,
+              })
+            }
+            title="Show Zodiac"
+            value={
+              currentUser?.zodiac === true || currentUser?.zodiac === false
+                ? currentUser?.zodiac?.toString()
+                : "Update..."
+            }
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({
+                type: "tribe",
+                isOpen: true,
+              })
+            }
+            title="Tribe"
+            value={currentUser?.tribe ? currentUser?.tribe : "Update..."}
           />
           <Spacer position="top" size="xxxxlarge">
             <HorizontalPaddingSpace

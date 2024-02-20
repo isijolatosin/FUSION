@@ -79,6 +79,7 @@ export const religions = [
   "Muslim",
   "Traditional",
   "Others",
+  "Prefer not to say",
 ];
 export const sexualOrientationList = [
   "Androphilia and Gynephilia",
@@ -376,7 +377,7 @@ export const interests = [
   "Singing",
   "Camping",
   "Swimming",
-  "Photgraphy",
+  "Photography",
   "Fishing",
   "Astrology",
   "Languages",
@@ -448,7 +449,7 @@ export const nochatlistsinformation =
 export const firstmessagehype =
   "Sending your first message is your chance to spark a meaningful connection. Be genuine, be yourself, and let the conversation flow. Go ahead, hit send, and make that exciting first move! Happy chatting!";
 export const unmatchmessage =
-  "Unmatching Francis would mean you can no longer view their profile or have any future conversations with them.";
+  "Unmatching this user would mean you can no longer view their profile or have any future conversations with them.";
 export const deactivateaccounttext =
   "Deactivating your profile on Fusion temporarily removes your profile on Fusion. Your profile is not visible to other users. Your profile is not deleted but disabled on the app.";
 export const pauseaccounttext =
