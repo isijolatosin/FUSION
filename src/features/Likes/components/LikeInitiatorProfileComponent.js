@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Fragment } from "react";
 import {
   Image,
   Modal,
@@ -14,6 +14,7 @@ import {
   Fontisto,
   FontAwesome5,
   Feather,
+  AntDesign,
 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -32,6 +33,7 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { FlatGrid } from "react-native-super-grid";
 import Button from "../../../components/utility/button.component";
 import { getZodiacSign } from "../../../utilities/generateZodiac";
+import { handleUrlPress } from "../../../utilities/detectTextType";
 
 export default function LikeInitiatorProfileComponent({
   data,
@@ -279,6 +281,39 @@ export default function LikeInitiatorProfileComponent({
             </View>
           </View>
           <HorizontalPaddingSpace space={theme.space[2]}>
+            {data?.[0]?.likedBy?.bio && (
+              <Fragment>
+                <Spacer position="top" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="title"
+                    width="100%">
+                    Bio
+                  </Text>
+                </Spacer>
+                <Spacer
+                  position="top"
+                  size="small"
+                  style={{
+                    borderWidth: 1,
+                    borderColor: theme.colors.brand.brandFadeLighter,
+                    borderRadius: theme.spaceNumber[2],
+                    borderStyle: "dashed",
+                    padding: theme.spaceNumber[3],
+                  }}>
+                  <Text
+                    variant="custom"
+                    colorType="lines"
+                    fontType="montserratRegular"
+                    fontSize="body"
+                    width="100%">
+                    {data?.[0]?.likedBy?.bio}
+                  </Text>
+                </Spacer>
+              </Fragment>
+            )}
             <Spacer position="top" size="medium">
               <Text
                 variant="custom"
@@ -532,6 +567,98 @@ export default function LikeInitiatorProfileComponent({
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
+                <View style={{ position: "absolute", top: 9, left: 10 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="search"
+                    IconComponent={Feather}
+                    size={15}
+                    color={theme.colors.brand.black}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 15 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.[0]?.likedBy?.preference}
+                </Text>
+              </View>
+            </View>
+            <Spacer position="top" size="medium">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
+                My Location
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                paddingVertical: theme.spaceNumber[3],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="location-pin"
+                IconComponent={Entypo}
+                size={15}
+                color={theme.colors.brand.black}
+              />
+              <Text
+                style={{ marginLeft: 3 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="button">
+                {data?.[0]?.likedBy?.location}
+              </Text>
+            </View>
+          </HorizontalPaddingSpace>
+
+          <Spacer style={{ position: "relative" }} position="top" size="large">
+            <Image
+              style={{
+                width: "100%",
+                height: imageHeight,
+                resizeMode: "cover",
+              }}
+              source={{
+                uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
+              }}
+            />
+          </Spacer>
+          <HorizontalPaddingSpace space={theme.space[2]}>
+            <Spacer position="top" size="medium">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
+                Vices
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: 8,
+                marginVertical: 5,
+                flexWrap: "wrap",
+              }}>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
                 <View
                   style={{
                     position: "absolute",
@@ -608,81 +735,7 @@ export default function LikeInitiatorProfileComponent({
                   {data?.[0]?.likedBy?.lifestyleHabits?.smoke}
                 </Text>
               </View>
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.highlight,
-                  paddingVertical: theme.spaceNumber[3],
-                  paddingHorizontal: theme.spaceNumber[7],
-                  borderRadius: theme.spaceNumberBy10[4],
-                }}>
-                <View style={{ position: "absolute", top: 9, left: 10 }}>
-                  <IconComponent
-                    iconFunction={() => {}}
-                    iconName="search"
-                    IconComponent={Feather}
-                    size={15}
-                    color={theme.colors.brand.black}
-                  />
-                </View>
-                <Text
-                  style={{ marginLeft: 15 }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button"
-                  width="100%">
-                  {data?.[0]?.likedBy?.preference}
-                </Text>
-              </View>
             </View>
-            <Spacer position="top" size="medium">
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratBold"
-                fontSize="title"
-                width="100%">
-                My Location
-              </Text>
-            </Spacer>
-            <View
-              style={{
-                flexDirection: "row",
-                paddingVertical: theme.spaceNumber[3],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="location-pin"
-                IconComponent={Entypo}
-                size={15}
-                color={theme.colors.brand.black}
-              />
-              <Text
-                style={{ marginLeft: 3 }}
-                variant="custom"
-                colorType="black"
-                fontType="montserratBold"
-                fontSize="button">
-                {data?.[0]?.likedBy?.address?.city},{" "}
-                {data?.[0]?.likedBy?.address?.province}
-              </Text>
-            </View>
-          </HorizontalPaddingSpace>
-
-          <Spacer style={{ position: "relative" }} position="top" size="large">
-            <Image
-              style={{
-                width: "100%",
-                height: imageHeight,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
-              }}
-            />
-          </Spacer>
-          <HorizontalPaddingSpace space={theme.space[2]}>
             <Spacer position="top" size="medium">
               <Text
                 variant="custom"
@@ -749,6 +802,36 @@ export default function LikeInitiatorProfileComponent({
                 </Text>
               </View>
             </View>
+          </HorizontalPaddingSpace>
+          {data?.[0]?.likedBy?.mediaArray?.[2] && (
+            <Spacer position="top" size="xxsmall">
+              <Image
+                style={{
+                  width: "100%",
+                  height: imageHeight,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri: `${data?.[0]?.likedBy?.mediaArray?.[2]}`,
+                }}
+              />
+            </Spacer>
+          )}
+          {data?.[0]?.likedBy?.mediaArray?.[3] && (
+            <Spacer position="top" size="xxsmall">
+              <Image
+                style={{
+                  width: "100%",
+                  height: imageHeight,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri: `${data?.[0]?.likedBy?.mediaArray?.[3]}`,
+                }}
+              />
+            </Spacer>
+          )}
+          <HorizontalPaddingSpace space={theme.space[3]}>
             <Spacer position="top" size="medium">
               <Text
                 variant="custom"
@@ -789,34 +872,6 @@ export default function LikeInitiatorProfileComponent({
               ))}
             </View>
           </HorizontalPaddingSpace>
-          {data?.[0]?.likedBy?.mediaArray?.[2] && (
-            <Spacer position="top" size="xxsmall">
-              <Image
-                style={{
-                  width: "100%",
-                  height: imageHeight,
-                  resizeMode: "cover",
-                }}
-                source={{
-                  uri: `${data?.[0]?.likedBy?.mediaArray?.[2]}`,
-                }}
-              />
-            </Spacer>
-          )}
-          {data?.[0]?.likedBy?.mediaArray?.[3] && (
-            <Spacer position="top" size="xxsmall">
-              <Image
-                style={{
-                  width: "100%",
-                  height: imageHeight,
-                  resizeMode: "cover",
-                }}
-                source={{
-                  uri: `${data?.[0]?.likedBy?.mediaArray?.[3]}`,
-                }}
-              />
-            </Spacer>
-          )}
           {data?.[0]?.likedBy?.mediaArray?.[4] && (
             <Spacer position="top" size="xxsmall">
               <Image
@@ -845,6 +900,76 @@ export default function LikeInitiatorProfileComponent({
               />
             </Spacer>
           )}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+              paddingBottom: theme.spaceNumberBy10[2],
+              paddingTop: theme.spaceNumber[3],
+              backgroundColor: theme.colors.brand.highlight,
+            }}>
+            {data?.[0]?.likedBy?.facebook?.visibleOnProfile && (
+              <HorizontalPaddingSpace space={theme.space[4]}>
+                <Pressable>
+                  <IconComponent
+                    iconFunction={() =>
+                      handleUrlPress(data?.[0]?.likedBy?.facebook?.link)
+                    }
+                    iconName="facebook"
+                    IconComponent={Entypo}
+                    size={theme.spaceNumberBy10[1]}
+                    color={theme.colors.brand.brandFade}
+                  />
+                </Pressable>
+              </HorizontalPaddingSpace>
+            )}
+            {data?.[0]?.likedBy?.instagram?.visibleOnProfile && (
+              <HorizontalPaddingSpace space={theme.space[4]}>
+                <Pressable>
+                  <IconComponent
+                    iconFunction={() =>
+                      handleUrlPress(data?.[0]?.likedBy?.instagram?.link)
+                    }
+                    iconName="instagram"
+                    IconComponent={AntDesign}
+                    size={theme.spaceNumberBy10[1]}
+                    color={theme.colors.brand.brandFade}
+                  />
+                </Pressable>
+              </HorizontalPaddingSpace>
+            )}
+            {data?.[0]?.likedBy?.tiktok?.visibleOnProfile && (
+              <HorizontalPaddingSpace space={theme.space[4]}>
+                <Pressable>
+                  <IconComponent
+                    iconFunction={() =>
+                      handleUrlPress(data?.[0]?.likedBy?.tiktok?.link)
+                    }
+                    iconName="tiktok"
+                    IconComponent={FontAwesome5}
+                    size={theme.spaceNumberBy10[1]}
+                    color={theme.colors.brand.brandFade}
+                  />
+                </Pressable>
+              </HorizontalPaddingSpace>
+            )}
+            {data?.[0]?.likedBy?.playlist?.visibleOnProfile && (
+              <HorizontalPaddingSpace space={theme.space[4]}>
+                <Pressable>
+                  <IconComponent
+                    iconFunction={() =>
+                      handleUrlPress(data?.[0]?.likedBy?.playlist?.link)
+                    }
+                    iconName="playlist-music"
+                    IconComponent={MaterialCommunityIcons}
+                    size={theme.spaceNumberBy10[2]}
+                    color={theme.colors.brand.brandFade}
+                  />
+                </Pressable>
+              </HorizontalPaddingSpace>
+            )}
+          </View>
         </ScrollView>
       ) : (
         <SafeArea

@@ -23,7 +23,6 @@ import calculateAge from "../../../../utilities/calculateAge";
 import firebase, { database } from "../../../../../config";
 import { addToArrayField } from "../../../../utilities/updateFirestoreDatabaseField";
 import { getZodiacSign } from "../../../../utilities/generateZodiac";
-import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
 import { handleUrlPress } from "../../../../utilities/detectTextType";
 
 export default function IndividualUserProfileComponent({
@@ -210,6 +209,39 @@ export default function IndividualUserProfileComponent({
             </Pressable>
           </View>
         </View>
+        {data?.bio && (
+          <Spacer position="bottom" size="large">
+            <Spacer position="top" size="medium">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
+                Bio
+              </Text>
+            </Spacer>
+            <Spacer
+              position="top"
+              size="small"
+              style={{
+                borderWidth: 1,
+                borderColor: theme.colors.brand.brandFadeLighter,
+                borderRadius: theme.spaceNumber[2],
+                borderStyle: "dashed",
+                padding: theme.spaceNumber[3],
+              }}>
+              <Text
+                variant="custom"
+                colorType="lines"
+                fontType="montserratRegular"
+                fontSize="body"
+                width="100%">
+                {data?.bio}
+              </Text>
+            </Spacer>
+          </Spacer>
+        )}
         <Spacer position="top" size="medium">
           <Text
             variant="custom"
@@ -488,6 +520,37 @@ export default function IndividualUserProfileComponent({
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
             }}>
+            <View
+              style={{
+                position: "absolute",
+                top: theme.spaceNumber[5],
+                left: 8,
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="dumbbell"
+                IconComponent={FontAwesome5}
+                size={10}
+                color={theme.colors.brand.black}
+              />
+            </View>
+            <Text
+              style={{ marginLeft: 8 }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="button"
+              width="100%">
+              {data?.lifestyleHabits?.gym}
+            </Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: theme.colors.brand.highlight,
+              paddingVertical: theme.spaceNumber[3],
+              paddingHorizontal: theme.spaceNumber[7],
+              borderRadius: theme.spaceNumberBy10[4],
+            }}>
             <View style={{ position: "absolute", top: 9, left: 10 }}>
               <IconComponent
                 iconFunction={() => {}}
@@ -573,37 +636,6 @@ export default function IndividualUserProfileComponent({
           gap: theme.spaceNumber[3],
           marginVertical: 5,
         }}>
-        <View
-          style={{
-            backgroundColor: theme.colors.brand.highlight,
-            paddingVertical: theme.spaceNumber[3],
-            paddingHorizontal: theme.spaceNumber[7],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <View
-            style={{
-              position: "absolute",
-              top: theme.spaceNumber[5],
-              left: 8,
-            }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="dumbbell"
-              IconComponent={FontAwesome5}
-              size={10}
-              color={theme.colors.brand.black}
-            />
-          </View>
-          <Text
-            style={{ marginLeft: 8 }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button"
-            width="100%">
-            {data?.lifestyleHabits?.gym}
-          </Text>
-        </View>
         <View
           style={{
             backgroundColor: theme.colors.brand.highlight,
