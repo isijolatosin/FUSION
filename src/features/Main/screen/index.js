@@ -89,9 +89,7 @@ const Index = ({ navigation }) => {
       // check if profile is in the same country with current user and if not, filter off
       const filterOffByCountryProfiles = [];
       for (let i = 0; i < returningData.length; i++) {
-        if (
-          returningData[i]?.locationcountry === currentUserData?.locationcountry
-        ) {
+        if (returningData[i]?.country === currentUserData?.country) {
           filterOffByCountryProfiles.push(returningData[i]);
         }
       }

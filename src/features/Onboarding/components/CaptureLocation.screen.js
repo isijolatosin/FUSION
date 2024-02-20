@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Dimensions, Keyboard, Pressable, View } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -17,9 +18,11 @@ import getAddress from "../../../utilities/getAddress";
 
 export default function CaptureLocation({ navigation }) {
   const {
-    state: { theme, user },
+    state: { theme },
     dispatch,
   } = useAppContext();
+  const route = useRoute();
+  const { user } = route.params || {};
   const { height } = Dimensions.get("window");
   const [isLoading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
@@ -36,7 +39,8 @@ export default function CaptureLocation({ navigation }) {
     user.longitude = userLocation.longitude;
     user.latitude = userLocation.latitude;
     user.location = `${locationObject?.city}, ${locationObject?.region}`;
-    user.locationcountry = locationObject?.country;
+    user.country = locationObject?.country;
+    user.address = `${locationObject?.streetNumber} ${locationObject?.street}. ${locationObject?.city}, ${locationObject?.region}`;
 
     dispatch({
       type: "SET_USER",

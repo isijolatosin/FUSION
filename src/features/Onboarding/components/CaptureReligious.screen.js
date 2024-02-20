@@ -43,7 +43,7 @@ export default function CaptureReligious({ navigation }) {
             color={theme.colors.brand.base}
             nextFunction={() => {
               if (religious) {
-                navigation.navigate("capture-country-screen", {
+                navigation.navigate("capture-sexual-orientation-screen", {
                   dob,
                   _height,
                   religious,

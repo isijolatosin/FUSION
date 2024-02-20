@@ -374,7 +374,7 @@ export default function IndividualUserProfileComponent({
               fontType="montserratRegular"
               fontSize="button"
               width="100%">
-              {data?.country}
+              {data?.nationality}
             </Text>
           </View>
           {data?.tribe && (
@@ -895,9 +895,9 @@ export default function IndividualUserProfileComponent({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "60%",
+          width: "70%",
           alignSelf: "flex-end",
-          paddingBottom: theme.spaceNumberBy10[2],
+          paddingBottom: theme.spaceNumberBy10[1],
           paddingTop: theme.spaceNumber[3],
         }}>
         {data?.facebook?.visibleOnProfile && (
@@ -917,6 +917,17 @@ export default function IndividualUserProfileComponent({
               iconFunction={() => handleUrlPress(data?.instagram?.link)}
               iconName="instagram"
               IconComponent={AntDesign}
+              size={theme.spaceNumberBy10[1]}
+              color={theme.colors.brand.brandFade}
+            />
+          </Pressable>
+        )}
+        {data?.snapchat?.visibleOnProfile && (
+          <Pressable>
+            <IconComponent
+              iconFunction={() => handleUrlPress(data?.snapchat?.link)}
+              iconName="snapchat"
+              IconComponent={Fontisto}
               size={theme.spaceNumberBy10[1]}
               color={theme.colors.brand.brandFade}
             />

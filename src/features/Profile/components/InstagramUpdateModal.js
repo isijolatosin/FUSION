@@ -20,7 +20,7 @@ export default function InstagramUpdateModal({ theme, currentUser, onClose }) {
     setInstagramLink(value.toLowerCase());
 
     updatedValue = {
-      visibleOnProfile: visibilityOption ?? isVisibleOnProfile,
+      visibleOnProfile: visibilityOption ?? isVisibleOnProfile ?? false,
       link: value.toLowerCase() ?? instagram,
     };
 

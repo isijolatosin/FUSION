@@ -251,7 +251,7 @@ export default function ProfileViewModal({
               </Text>
             </View>
           )}
-          {otherUser?.country && (
+          {otherUser?.nationality && (
             <View
               style={{
                 backgroundColor: theme.colors.brand.highlight,
@@ -275,7 +275,7 @@ export default function ProfileViewModal({
                 fontType="montserratRegular"
                 fontSize="button"
                 width="100%">
-                {otherUser?.country}
+                {otherUser?.nationality}
               </Text>
             </View>
           )}
@@ -840,6 +840,19 @@ export default function ProfileViewModal({
                 iconFunction={() => handleUrlPress(otherUser?.instagram?.link)}
                 iconName="instagram"
                 IconComponent={AntDesign}
+                size={theme.spaceNumberBy10[1]}
+                color={theme.colors.brand.brandFade}
+              />
+            </Pressable>
+          </HorizontalPaddingSpace>
+        )}
+        {otherUser?.snapchat?.visibleOnProfile && (
+          <HorizontalPaddingSpace space={theme.space[4]}>
+            <Pressable>
+              <IconComponent
+                iconFunction={() => handleUrlPress(otherUser?.snapchat?.link)}
+                iconName="snapchat"
+                IconComponent={Fontisto}
                 size={theme.spaceNumberBy10[1]}
                 color={theme.colors.brand.brandFade}
               />
