@@ -44,7 +44,7 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
   ];
 
   return (
-    <HorizontalPaddingSpace style={{ marginBottom: 50 }}>
+    <HorizontalPaddingSpace style={{ marginBottom: 50 }} space={theme.space[0]}>
       <Spacer position="bottom" size="medium">
         <View
           style={{

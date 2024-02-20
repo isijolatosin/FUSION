@@ -13,6 +13,7 @@ import {
   Fontisto,
   FontAwesome5,
   Feather,
+  AntDesign,
 } from "@expo/vector-icons";
 
 import { Spacer } from "../../../../components/spacer/spacer.component";
@@ -22,6 +23,8 @@ import calculateAge from "../../../../utilities/calculateAge";
 import firebase, { database } from "../../../../../config";
 import { addToArrayField } from "../../../../utilities/updateFirestoreDatabaseField";
 import { getZodiacSign } from "../../../../utilities/generateZodiac";
+import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
+import { handleUrlPress } from "../../../../utilities/detectTextType";
 
 export default function IndividualUserProfileComponent({
   fetchUsersData,
@@ -251,37 +254,39 @@ export default function IndividualUserProfileComponent({
               {data?.gender}
             </Text>
           </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
+          {data?.zodiac && (
             <View
               style={{
-                position: "absolute",
-                top: 10,
-                left: 9,
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
               }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
+              <View
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 9,
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
+                  IconComponent={MaterialCommunityIcons}
+                  size={15}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: theme.spaceNumber[5] }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {zodiacSign}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: theme.spaceNumber[5] }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {zodiacSign}
-            </Text>
-          </View>
+          )}
           <View
             style={{
               backgroundColor: theme.colors.brand.highlight,
@@ -340,6 +345,34 @@ export default function IndividualUserProfileComponent({
               {data?.country}
             </Text>
           </View>
+          {data?.tribe && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="origin"
+                  IconComponent={Fontisto}
+                  size={14}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {data?.tribe}
+              </Text>
+            </View>
+          )}
           <View
             style={{
               backgroundColor: theme.colors.brand.highlight,
@@ -455,120 +488,6 @@ export default function IndividualUserProfileComponent({
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
             }}>
-            <View
-              style={{
-                position: "absolute",
-                top: theme.spaceNumber[5],
-                left: 8,
-              }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="dumbbell"
-                IconComponent={FontAwesome5}
-                size={10}
-                color={theme.colors.brand.black}
-              />
-            </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {data?.lifestyleHabits?.gym}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View
-              style={{
-                position: "absolute",
-                top: theme.spaceNumber[4],
-                left: 8,
-              }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="cannabis"
-                IconComponent={FontAwesome5}
-                size={13}
-                color={theme.colors.brand.black}
-              />
-            </View>
-            <Text
-              style={{ marginLeft: 10 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {data?.lifestyleHabits?.cannabis}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 8 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="glass-wine"
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
-            </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {data?.lifestyleHabits?.drink}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 7, left: 10 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="cigar"
-                IconComponent={MaterialCommunityIcons}
-                size={15}
-                color={theme.colors.brand.black}
-              />
-            </View>
-            <Text
-              style={{ marginLeft: 15 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {data?.lifestyleHabits?.smoke}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
             <View style={{ position: "absolute", top: 9, left: 10 }}>
               <IconComponent
                 iconFunction={() => {}}
@@ -642,6 +561,140 @@ export default function IndividualUserProfileComponent({
           fontType="montserratBold"
           fontSize="title"
           width="100%">
+          Vices
+        </Text>
+      </Spacer>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          marginTop: theme.spaceNumber[3],
+          width: "100%",
+          gap: theme.spaceNumber[3],
+          marginVertical: 5,
+        }}>
+        <View
+          style={{
+            backgroundColor: theme.colors.brand.highlight,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
+          }}>
+          <View
+            style={{
+              position: "absolute",
+              top: theme.spaceNumber[5],
+              left: 8,
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="dumbbell"
+              IconComponent={FontAwesome5}
+              size={10}
+              color={theme.colors.brand.black}
+            />
+          </View>
+          <Text
+            style={{ marginLeft: 8 }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
+            {data?.lifestyleHabits?.gym}
+          </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: theme.colors.brand.highlight,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
+          }}>
+          <View
+            style={{
+              position: "absolute",
+              top: theme.spaceNumber[4],
+              left: 8,
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="cannabis"
+              IconComponent={FontAwesome5}
+              size={13}
+              color={theme.colors.brand.black}
+            />
+          </View>
+          <Text
+            style={{ marginLeft: 10 }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
+            {data?.lifestyleHabits?.cannabis}
+          </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: theme.colors.brand.highlight,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
+          }}>
+          <View style={{ position: "absolute", top: 9, left: 8 }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="glass-wine"
+              IconComponent={MaterialCommunityIcons}
+              size={15}
+              color={theme.colors.brand.black}
+            />
+          </View>
+          <Text
+            style={{ marginLeft: 8 }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
+            {data?.lifestyleHabits?.drink}
+          </Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: theme.colors.brand.highlight,
+            paddingVertical: theme.spaceNumber[3],
+            paddingHorizontal: theme.spaceNumber[7],
+            borderRadius: theme.spaceNumberBy10[4],
+          }}>
+          <View style={{ position: "absolute", top: 7, left: 10 }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="cigar"
+              IconComponent={MaterialCommunityIcons}
+              size={15}
+              color={theme.colors.brand.black}
+            />
+          </View>
+          <Text
+            style={{ marginLeft: 15 }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="button"
+            width="100%">
+            {data?.lifestyleHabits?.smoke}
+          </Text>
+        </View>
+      </View>
+      <Spacer position="top" size="medium">
+        <Text
+          variant="custom"
+          colorType="black"
+          fontType="montserratBold"
+          fontSize="title"
+          width="100%">
           Me in Three Words
         </Text>
       </Spacer>
@@ -701,6 +754,39 @@ export default function IndividualUserProfileComponent({
           </Text>
         </View>
       </View>
+
+      {data?.mediaArray?.[2] && (
+        <Spacer position="top" size="medium">
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderTopRightRadius: 5,
+              borderTopLeftRadius: theme.spaceNumberBy10[10],
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[2]}`,
+            }}
+          />
+        </Spacer>
+      )}
+      {data?.mediaArray?.[3] && (
+        <Spacer position="top" size="">
+          <Image
+            style={{
+              width: "100%",
+              height: imageHeight,
+              resizeMode: "cover",
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: theme.spaceNumberBy10[10],
+            }}
+            source={{
+              uri: `${data?.mediaArray?.[3]}`,
+            }}
+          />
+        </Spacer>
+      )}
       <Spacer position="top" size="medium">
         <Text
           variant="custom"
@@ -740,39 +826,6 @@ export default function IndividualUserProfileComponent({
           </View>
         ))}
       </View>
-
-      {data?.mediaArray?.[2] && (
-        <Spacer position="top" size="medium">
-          <Image
-            style={{
-              width: "100%",
-              height: imageHeight,
-              resizeMode: "cover",
-              borderTopRightRadius: 5,
-              borderTopLeftRadius: theme.spaceNumberBy10[10],
-            }}
-            source={{
-              uri: `${data?.mediaArray?.[2]}`,
-            }}
-          />
-        </Spacer>
-      )}
-      {data?.mediaArray?.[3] && (
-        <Spacer position="top" size="">
-          <Image
-            style={{
-              width: "100%",
-              height: imageHeight,
-              resizeMode: "cover",
-              borderBottomLeftRadius: 5,
-              borderBottomRightRadius: theme.spaceNumberBy10[10],
-            }}
-            source={{
-              uri: `${data?.mediaArray?.[3]}`,
-            }}
-          />
-        </Spacer>
-      )}
       {data?.mediaArray?.[4] && (
         <Spacer position="top" size="medium">
           <Image
@@ -805,6 +858,61 @@ export default function IndividualUserProfileComponent({
           />
         </Spacer>
       )}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "60%",
+          alignSelf: "flex-end",
+          paddingBottom: theme.spaceNumberBy10[2],
+          paddingTop: theme.spaceNumber[3],
+        }}>
+        {data?.facebook?.visibleOnProfile && (
+          <Pressable>
+            <IconComponent
+              iconFunction={() => handleUrlPress(data?.facebook?.link)}
+              iconName="facebook"
+              IconComponent={Entypo}
+              size={theme.spaceNumberBy10[1]}
+              color={theme.colors.brand.brandFade}
+            />
+          </Pressable>
+        )}
+        {data?.instagram?.visibleOnProfile && (
+          <Pressable>
+            <IconComponent
+              iconFunction={() => handleUrlPress(data?.instagram?.link)}
+              iconName="instagram"
+              IconComponent={AntDesign}
+              size={theme.spaceNumberBy10[1]}
+              color={theme.colors.brand.brandFade}
+            />
+          </Pressable>
+        )}
+        {data?.tiktok?.visibleOnProfile && (
+          <Pressable>
+            <IconComponent
+              iconFunction={() => handleUrlPress(data?.tiktok?.link)}
+              iconName="tiktok"
+              IconComponent={FontAwesome5}
+              size={theme.spaceNumberBy10[1]}
+              color={theme.colors.brand.brandFade}
+            />
+          </Pressable>
+        )}
+        {data?.playlist?.visibleOnProfile && (
+          <Pressable>
+            <IconComponent
+              iconFunction={() => handleUrlPress(data?.playlist?.link)}
+              iconName="playlist-music"
+              IconComponent={MaterialCommunityIcons}
+              size={theme.spaceNumberBy10[2]}
+              color={theme.colors.brand.brandFade}
+            />
+          </Pressable>
+        )}
+      </View>
     </ScrollView>
   );
 }

@@ -84,6 +84,14 @@ export default function CaptureWorkPlace({ navigation }) {
               width="100%">
               Where do you work?
             </Text>
+            <Text
+              variant="custom"
+              colorType="lines"
+              fontType="montserratRegular"
+              fontSize="caption"
+              width="100%">
+              Please, state your institution name if you are a student.
+            </Text>
           </Spacer>
           <Spacer position="top" size="xxxlarge">
             <InputComponent

@@ -86,6 +86,15 @@ export default function CaptureJobTitle({ navigation }) {
               width="100%">
               What's your job title?
             </Text>
+            <Text
+              variant="custom"
+              colorType="lines"
+              fontType="montserratRegular"
+              fontSize="caption"
+              width="100%">
+              Please, state that you are a student if you previously provided
+              your institution name.
+            </Text>
           </Spacer>
           <Spacer position="top" size="xxxlarge">
             <InputComponent
