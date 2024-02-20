@@ -24,8 +24,14 @@ export default function CaptureSelfDescription({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious, country, sexualOrientation, preference } =
-    route.params || {};
+  const {
+    dob,
+    _height,
+    religious,
+    sexualOrientation,
+    preference,
+    nationality,
+  } = route.params || {};
 
   let checkInput = false;
   let whatThreeWordsDescribeYou = {};
@@ -59,9 +65,9 @@ export default function CaptureSelfDescription({ navigation }) {
                     dob,
                     _height,
                     religious,
-                    country,
                     sexualOrientation,
                     preference,
+                    nationality,
                     whatThreeWordsDescribeYou,
                   });
                 } else {

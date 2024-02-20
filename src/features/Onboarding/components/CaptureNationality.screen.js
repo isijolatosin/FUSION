@@ -11,22 +11,20 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import { Dimensions, Keyboard, Pressable } from "react-native";
-import DropdownSelection from "./sub-component/DropdownSelection";
-import { countryList } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
-export default function CaptureCountry({ navigation }) {
-  const [isOpen, setOpen] = useState(false);
+export default function CaptureNationality({ navigation }) {
   const { height } = Dimensions.get("window");
-  const [country, setCountry] = useState("");
+  const [nationality, setNationality] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious } = route.params || {};
+  const { dob, _height, religious, sexualOrientation, preference } =
+    route.params || {};
 
   return (
     <SafeArea>
@@ -44,12 +42,14 @@ export default function CaptureCountry({ navigation }) {
               theme={theme}
               color={theme.colors.brand.base}
               nextFunction={() => {
-                if (country) {
-                  navigation.navigate("capture-sexual-orientation-screen", {
+                if (nationality) {
+                  navigation.navigate("capture-self-description-screen", {
                     dob,
                     _height,
                     religious,
-                    country,
+                    sexualOrientation,
+                    preference,
+                    nationality,
                   });
                 } else {
                   setPageError(true);
@@ -75,43 +75,23 @@ export default function CaptureCountry({ navigation }) {
             </Spacer>
             <OnboardingErrorComponent
               pageError={pageError}
-              text="Please provide your country"
+              text="Please provide your nationality"
               size="caption"
             />
-            <Spacer position="top" size="xxsmall">
-              <Text
-                variant="custom"
-                colorType="lines"
-                fontType="montserratRegular"
-                fontSize="caption"
-                width="100%">
-                Type your country below to filter or use the "Choose an option"
-                button to select from dropdown.
-              </Text>
-            </Spacer>
             <Spacer position="top" size="large">
               <InputComponent
                 includeIcon={false}
                 keyboardTyp="text-pad"
-                setValue={(text) => setCountry(text)}
-                value={country}
+                setValue={(text) => {
+                  setNationality(text);
+                }}
+                value={nationality}
                 width="100%"
                 isCountryCode={false}
                 isBackgroundColor={false}
                 placeholder="Type here..."
                 fontSize={theme.fontSizes.body}
                 fontType={theme.fonts.montserratLight}
-              />
-            </Spacer>
-            <Spacer position="top" size="xxxlarge">
-              <DropdownSelection
-                data={countryList}
-                isOpen={isOpen}
-                setOpen={setOpen}
-                value={country}
-                setFunction={setCountry}
-                theme={theme}
-                isForHeightComponent={false}
               />
             </Spacer>
           </HorizontalPaddingSpace>

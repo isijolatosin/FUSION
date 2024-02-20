@@ -18,7 +18,6 @@ import OtpScreen from "../../Onboarding/components/Otp.screen";
 import CaptureName from "../../Onboarding/components/CaptureName.screen";
 import CaptureEmail from "../../Onboarding/components/CaptureEmail.screen";
 import { useAppContext } from "../../../context/ThemeContext";
-import CaptureAddress from "../../Onboarding/components/CaptureAddress.screen";
 import CaptureLocation from "../../Onboarding/components/CaptureLocation.screen";
 import YouAreSpecial from "../../Onboarding/components/YouAreSpecial.screen";
 import CaptureGenderScreen from "../../Onboarding/components/CaptureGender.screen";
@@ -26,7 +25,7 @@ import CaptureGenderInterestScreen from "../../Onboarding/components/CaptureGend
 import CaptureDOBScreen from "../../Onboarding/components/CaptureDOB.screen";
 import CaptureHeightScreen from "../../Onboarding/components/CaptureHeight.screen";
 import CaptureReligiousScreen from "../../Onboarding/components/CaptureReligious.screen";
-import CaptureCountryScreen from "../../Onboarding/components/CaptureCountry.screen";
+import CaptureNationality from "../../Onboarding/components/CaptureNationality.screen";
 import CaptureLookingForScreen from "../../Onboarding/components/CaptureLookingFor.screen";
 import CaptureSelfDescriptionScreen from "../../Onboarding/components/CaptureSelfDescription.screen";
 import CaptureWorkPlaceScreen from "../../Onboarding/components/CaptureWorkPlace.screen";
@@ -34,7 +33,6 @@ import CaptureJobTitleScreen from "../../Onboarding/components/CaptureJobTitle.s
 import CaptureInterestsScreen from "../../Onboarding/components/CaptureInterests.screen";
 import CaptureLifestyleHabitsScreen from "../../Onboarding/components/CaptureLifestyleHabits.screen";
 import CapturePhotosScreen from "../../Onboarding/components/CapturePhotos.screen";
-// import CaptureFacialVerificationScreen from "../../Onboarding/components/CaptureFacialVerification.screen";
 import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.screen";
 import MainScreen from "../../Main/screen";
 import ProfileScreen from "../../Profile/screen";
@@ -263,16 +261,6 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="capture-address-screen"
-          component={CaptureAddress}
-          screenOptions={{
-            headerShown: false,
-          }}
-          options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          }}
-        />
-        <Stack.Screen
           name="capture-location-screen"
           component={CaptureLocation}
           screenOptions={{
@@ -343,16 +331,6 @@ export default function index() {
           }}
         />
         <Stack.Screen
-          name="capture-country-screen"
-          component={CaptureCountryScreen}
-          screenOptions={{
-            headerShown: false,
-          }}
-          options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          }}
-        />
-        <Stack.Screen
           name="capture-sexual-orientation-screen"
           component={CaptureSexualOrientation}
           screenOptions={{
@@ -365,6 +343,16 @@ export default function index() {
         <Stack.Screen
           name="capture-looking-for-screen"
           component={CaptureLookingForScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-nationality-screen"
+          component={CaptureNationality}
           screenOptions={{
             headerShown: false,
           }}

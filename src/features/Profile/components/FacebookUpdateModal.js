@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { CheckBox } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { Text } from "../../../components/typography/text.component";
@@ -20,7 +20,7 @@ export default function FacebookUpdateModal({ theme, currentUser, onClose }) {
     setFacebookLink(value.toLowerCase());
 
     updatedValue = {
-      visibleOnProfile: visibilityOption ?? isVisibleOnProfile,
+      visibleOnProfile: visibilityOption ?? isVisibleOnProfile ?? false,
       link: value.toLowerCase() ?? facebook,
     };
 
@@ -56,14 +56,31 @@ export default function FacebookUpdateModal({ theme, currentUser, onClose }) {
             color={theme.colors.brand.brandFade}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
-          <Text
-            style={{ textAlign: "center", width: "90%" }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="title">
-            Facebook
-          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              width: "90%",
+              justifyContent: "center",
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="facebook"
+              IconComponent={Entypo}
+              size={30}
+              color={theme.colors.brand.brandTone}
+            />
+            <View>
+              <Text
+                style={{ marginLeft: theme.spaceNumber[4] }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title">
+                Facebook
+              </Text>
+            </View>
+          </View>
         </View>
         <Spacer position="top" size="xxxlarge">
           <InputComponent

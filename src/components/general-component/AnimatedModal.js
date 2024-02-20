@@ -21,7 +21,7 @@ export default function AnimatedModal({
       onBackdropPress={onClose}
       style={{
         backgroundColor: isTransparent
-          ? theme.colors.brand.basewhitelighter
+          ? theme.colors.brand.basewhitelight
           : theme.colors.brand.basewhite,
         margin: 0,
         paddingTop: isPaddingTop ? (Platform.OS === "ios" ? 150 : 100) : 0,

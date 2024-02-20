@@ -23,8 +23,7 @@ export default function CaptureLookingFor({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious, country, sexualOrientation } =
-    route.params || {};
+  const { dob, _height, religious, sexualOrientation } = route.params || {};
 
   return (
     <SafeArea>
@@ -42,11 +41,10 @@ export default function CaptureLookingFor({ navigation }) {
             color={theme.colors.brand.base}
             nextFunction={() => {
               if (preference) {
-                navigation.navigate("capture-self-description-screen", {
+                navigation.navigate("capture-nationality-screen", {
                   dob,
                   _height,
                   religious,
-                  country,
                   sexualOrientation,
                   preference,
                 });

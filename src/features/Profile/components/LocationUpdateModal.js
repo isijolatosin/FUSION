@@ -30,7 +30,8 @@ export default function LocationUpdateModal({
     latitude,
     longitude,
     location,
-    locationcountry
+    country,
+    address
   ) {
     if (!latitude && !longitude) return;
 
@@ -58,8 +59,15 @@ export default function LocationUpdateModal({
     await updateUserValueField(
       "all-users",
       currentUser?.id,
-      "locationcountry",
-      locationcountry,
+      "country",
+      country,
+      () => {}
+    );
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "address",
+      address,
       () => {}
     );
 
@@ -77,12 +85,13 @@ export default function LocationUpdateModal({
       userLocation.longitude
     );
     const location = `${locationObject?.city}, ${locationObject?.region}`;
-    const locationcountry = locationObject?.country;
+    const country = locationObject?.country;
+    const address = `${locationObject?.streetNumber} ${locationObject?.street}. ${locationObject?.city}, ${locationObject?.region}`;
 
     const longitude = userLocation.longitude;
     const latitude = userLocation.latitude;
 
-    updateReligious(latitude, longitude, location, locationcountry);
+    updateReligious(latitude, longitude, location, country, address);
   };
 
   return (

@@ -444,7 +444,7 @@ export default function LikeInitiatorProfileComponent({
                   fontType="montserratRegular"
                   fontSize="button"
                   width="100%">
-                  {data?.[0]?.likedBy?.country}
+                  {data?.[0]?.likedBy?.nationality}
                 </Text>
               </View>
               <View
@@ -933,6 +933,21 @@ export default function LikeInitiatorProfileComponent({
                     }
                     iconName="instagram"
                     IconComponent={AntDesign}
+                    size={theme.spaceNumberBy10[1]}
+                    color={theme.colors.brand.brandFade}
+                  />
+                </Pressable>
+              </HorizontalPaddingSpace>
+            )}
+            {data?.[0]?.likedBy?.snapchat?.visibleOnProfile && (
+              <HorizontalPaddingSpace space={theme.space[4]}>
+                <Pressable>
+                  <IconComponent
+                    iconFunction={() =>
+                      handleUrlPress(data?.[0]?.likedBy?.snapchat?.link)
+                    }
+                    iconName="snapchat"
+                    IconComponent={Fontisto}
                     size={theme.spaceNumberBy10[1]}
                     color={theme.colors.brand.brandFade}
                   />

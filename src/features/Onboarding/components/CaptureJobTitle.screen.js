@@ -27,9 +27,10 @@ export default function CaptureJobTitle({ navigation }) {
     dob,
     _height,
     religious,
-    country,
+    nationality,
     sexualOrientation,
     preference,
+
     whatThreeWordsDescribeYou,
     workplace,
   } = route.params || {};
@@ -64,9 +65,9 @@ export default function CaptureJobTitle({ navigation }) {
                     dob,
                     _height,
                     religious,
-                    country,
                     sexualOrientation,
                     preference,
+                    nationality,
                     whatThreeWordsDescribeYou,
                     workplace,
                     jobtitle,

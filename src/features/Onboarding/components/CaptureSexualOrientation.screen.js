@@ -25,7 +25,7 @@ export default function CaptureSexualOrientation({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious, country } = route.params || {};
+  const { dob, _height, religious } = route.params || {};
 
   return (
     <SafeArea>
@@ -47,7 +47,6 @@ export default function CaptureSexualOrientation({ navigation }) {
                   dob,
                   _height,
                   religious,
-                  country,
                   sexualOrientation,
                 });
               } else {

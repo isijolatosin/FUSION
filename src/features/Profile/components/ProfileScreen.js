@@ -7,6 +7,7 @@ import {
   Entypo,
   FontAwesome5,
   MaterialCommunityIcons,
+  Fontisto,
 } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
@@ -57,6 +58,8 @@ import BioUpdateModal from "./BioUpdateModal";
 import truncateSentence from "../../../utilities/truncateSentence";
 import ZodiacUpdateModal from "./ZodiacUpdateModal";
 import TribeUpdateModal from "./TribeUpdateModal";
+import NationalityUpdateModal from "./NationalityUpdateModal";
+import SnapchatUpdateModal from "./SnapchatUpdateModal";
 
 export default function ProfileScreen() {
   const {
@@ -188,6 +191,8 @@ export default function ProfileScreen() {
         return true;
       case "playlist":
         return true;
+      case "snapchat":
+        return true;
       default:
         break;
     }
@@ -242,6 +247,8 @@ export default function ProfileScreen() {
                           ? Entypo
                           : val === "playlist"
                           ? MaterialCommunityIcons
+                          : val === "snapchat"
+                          ? Fontisto
                           : ""
                       }
                       size={val === "playlist" ? 35 : 25}
@@ -253,6 +260,7 @@ export default function ProfileScreen() {
                       marginLeft:
                         (val === "facebook" ||
                           val === "instagram" ||
+                          val === "snapchat" ||
                           val === "playlist" ||
                           val === "tiktok") &&
                         theme.spaceNumber[3],
@@ -393,6 +401,22 @@ export default function ProfileScreen() {
       case "playlist":
         return (
           <SharePlayListUpdateModal
+            theme={theme}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "snapchat":
+        return (
+          <SnapchatUpdateModal
             theme={theme}
             currentUser={currentUser}
             onClose={() => {
@@ -673,6 +697,23 @@ export default function ProfileScreen() {
       case "tribe":
         return (
           <TribeUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "nationality":
+        return (
+          <NationalityUpdateModal
             theme={theme}
             height={height}
             currentUser={currentUser}
@@ -971,7 +1012,13 @@ export default function ProfileScreen() {
             <AboutMeListComponent
               title="Socials"
               subTitle=""
-              value={["facebook", "instagram", "tiktok", "playlist"]}
+              value={[
+                "facebook",
+                "instagram",
+                "playlist",
+                "snapchat",
+                "tiktok",
+              ]}
               isList={true}
             />
           </Spacer>
@@ -1014,35 +1061,11 @@ export default function ProfileScreen() {
               setOpenUpdateModal({ type: "bio", isOpen: true })
             }
             title="Bio"
-            value={truncateSentence(currentUser?.bio, 7)}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({ type: "gender", isOpen: true })
+            value={
+              currentUser?.bio
+                ? truncateSentence(currentUser?.bio, 7)
+                : "Update..."
             }
-            title="Gender"
-            value={currentUser?.gender}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({ type: "work", isOpen: true })
-            }
-            title="Work"
-            value={currentUser?.workplace?.work}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({ type: "job", isOpen: true })
-            }
-            title="Job Title"
-            value={currentUser?.jobtitle?.job}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({ type: "height", isOpen: true })
-            }
-            title="Height"
-            value={currentUser?.height}
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1053,10 +1076,10 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
-              setOpenUpdateModal({ type: "interest", isOpen: true })
+              setOpenUpdateModal({ type: "gender", isOpen: true })
             }
-            title="Interested in"
-            value={currentUser?.interest}
+            title="Gender"
+            value={currentUser?.gender}
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1067,20 +1090,53 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
-              setOpenUpdateModal({ type: "preference", isOpen: true })
+              setOpenUpdateModal({ type: "height", isOpen: true })
             }
-            title="Preference"
-            value={currentUser?.preference}
+            title="Height"
+            value={currentUser?.height}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "interest", isOpen: true })
+            }
+            title="Interested in"
+            value={currentUser?.interest}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "job", isOpen: true })
+            }
+            title="Job Title"
+            value={currentUser?.jobtitle?.job}
           />
           <AboutMeListComponent
             pressFunction={() =>
               setOpenUpdateModal({
-                type: "sexualOrientation",
+                type: "location",
                 isOpen: true,
               })
             }
-            title="Sexual Orientation"
-            value={currentUser?.sexualOrientation}
+            title="Location"
+            value={currentUser?.location}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({
+                type: "nationality",
+                isOpen: true,
+              })
+            }
+            title="Nationality"
+            value={
+              currentUser?.nationality ? currentUser?.nationality : "Update..."
+            }
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "preference", isOpen: true })
+            }
+            title="Preference"
+            value={currentUser?.preference}
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1095,12 +1151,12 @@ export default function ProfileScreen() {
           <AboutMeListComponent
             pressFunction={() =>
               setOpenUpdateModal({
-                type: "location",
+                type: "sexualOrientation",
                 isOpen: true,
               })
             }
-            title="Location"
-            value={currentUser?.location}
+            title="Sexual Orientation"
+            value={currentUser?.sexualOrientation}
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1125,6 +1181,13 @@ export default function ProfileScreen() {
             }
             title="Tribe"
             value={currentUser?.tribe ? currentUser?.tribe : "Update..."}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "work", isOpen: true })
+            }
+            title="Work"
+            value={currentUser?.workplace?.work}
           />
           <Spacer position="top" size="xxxxlarge">
             <HorizontalPaddingSpace
