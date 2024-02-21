@@ -15,6 +15,7 @@ export default function HeightUpdateModal({
   height,
   currentUser,
   onClose,
+  interestedheight,
 }) {
   const [_height, setHeight] = useState(currentUser?.height);
   const [isOpen, setOpen] = useState(false);
@@ -23,13 +24,22 @@ export default function HeightUpdateModal({
     if (!value) return;
     setHeight(value);
 
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "height",
-      value ?? _height,
-      () => {}
-    );
+    if (interestedheight) {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "interestedheight",
+        value ?? _height,
+        () => {}
+      );
+    } else
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "height",
+        value ?? _height,
+        () => {}
+      );
   }
 
   return (

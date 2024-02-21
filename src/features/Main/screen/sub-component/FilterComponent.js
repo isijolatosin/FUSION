@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Dimensions, ScrollView, Switch, View } from "react-native";
+import React, { Fragment, useState } from "react";
+import { Dimensions, Pressable, ScrollView, Switch, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RangeSlider from "react-native-range-slider-expo";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { CheckBox } from "react-native-elements";
 
 import { Text } from "../../../../components/typography/text.component";
@@ -16,6 +16,9 @@ import Button from "../../../../components/utility/button.component";
 import { updateUserValueField } from "../../../../utilities/updateFirestoreDatabaseField";
 import AnimatedModal from "../../../../components/general-component/AnimatedModal";
 import { storeData } from "../../../../utilities/storeDataInPhoneMemory";
+import UpdateModal from "../../../Profile/components/UpdateModal";
+import ReligionUpdateModal from "../../../Profile/components/ReligionUpdateModal";
+import HeightUpdateModal from "../../../Profile/components/HeightUpdateModal";
 
 function RangeCompoent({
   theme,
@@ -38,11 +41,11 @@ function RangeCompoent({
   return (
     <View
       style={{
-        borderBottomColor: theme.colors.brand.lines,
+        borderBottomColor: theme.colors.brand.linesLighter,
         borderBottomWidth: 0.3,
-        paddingBottom: 25,
-        marginBottom: 30,
-        paddingHorizontal: 30,
+        paddingBottom: theme.spaceNumber[3],
+        marginBottom: theme.spaceNumber[6],
+        paddingHorizontal: theme.spaceNumberBy10[2],
       }}>
       <RangeCompoentSection>
         <View>
@@ -50,7 +53,7 @@ function RangeCompoent({
             variant="custom"
             colorType="black"
             fontType="montserratBold"
-            fontSize="title">
+            fontSize="button">
             {text}
           </Text>
         </View>
@@ -144,10 +147,10 @@ function DoubleRangeCompoent({
   return (
     <View
       style={{
-        borderBottomColor: theme.colors.brand.lines,
+        borderBottomColor: theme.colors.brand.linesLighter,
         borderBottomWidth: 0.3,
-        paddingBottom: 25,
-        marginBottom: theme.spaceNumberBy10[0],
+        paddingBottom: theme.spaceNumber[3],
+        marginBottom: theme.spaceNumber[0],
         paddingHorizontal: theme.spaceNumberBy10[2],
       }}>
       <RangeCompoentSection>
@@ -156,7 +159,7 @@ function DoubleRangeCompoent({
             variant="custom"
             colorType="black"
             fontType="montserratBold"
-            fontSize="title">
+            fontSize="button">
             {text}
           </Text>
         </View>
@@ -258,15 +261,23 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
   ];
 
   return (
-    <HorizontalPaddingSpace style={{ marginBottom: 50 }} space={theme.space[5]}>
+    <HorizontalPaddingSpace
+      style={{
+        borderBottomColor: theme.colors.brand.linesLight,
+        borderBottomWidth: 0.3,
+        paddingBottom: 25,
+        marginBottom: theme.spaceNumberBy10[0],
+        paddingHorizontal: theme.spaceNumberBy10[2],
+      }}
+      space={theme.space[5]}>
       <Spacer position="top" size="xsmall">
         <View>
           <Text
             variant="custom"
             colorType="black"
             fontType="montserratBold"
-            fontSize="title">
-            Who am I interested in?
+            fontSize="button">
+            I'm interested in
           </Text>
         </View>
       </Spacer>
@@ -312,6 +323,75 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
   );
 }
 
+function SubscriberPreferencesComponent({
+  theme,
+  currentUser,
+  setOpenUpdateModal,
+}) {
+  const subscriberPreference = [
+    {
+      title: "religious beliefs",
+      value: currentUser?.interestedreligiousbeliefs,
+    },
+    { title: "height", value: currentUser?.interestedheight },
+  ];
+  return (
+    <Fragment>
+      {subscriberPreference?.map((preference, idx) => (
+        <HorizontalPaddingSpace space={theme.space[5]} key={idx}>
+          <Pressable
+            onPress={() =>
+              setOpenUpdateModal({
+                type: preference?.title,
+                isOpen: true,
+              })
+            }
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: theme.colors.brand.linesLighter,
+              paddingVertical: theme.spaceNumberBy10[0],
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              position: "relative",
+            }}>
+            <View>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="button"
+                transform="capitalize">
+                {preference?.title}
+              </Text>
+              <Text
+                variant="custom"
+                colorType="brandFadeLighter"
+                fontType="montserratRegular"
+                fontSize="button"
+                transform="capitalize">
+                {preference?.value}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginRight: -theme.spaceNumber[2],
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="keyboard-arrow-right"
+                IconComponent={MaterialIcons}
+                size={20}
+                color={theme.colors.brand.brandTone}
+              />
+            </View>
+          </Pressable>
+        </HorizontalPaddingSpace>
+      ))}
+    </Fragment>
+  );
+}
+
 export default function FilterComponent({
   allUsers,
   currentUser,
@@ -328,10 +408,14 @@ export default function FilterComponent({
   theme,
   triggerAgeFilter,
 }) {
-  const { width } = Dimensions.get("window");
+  const { width, height } = Dimensions.get("window");
   const [suggestAgeWithRange, setSuggestAgeWithRange] = useState(false);
   const [suggestDistanceWithRange, setSuggestDistanceWithRange] =
     useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState({
+    type: "",
+    isOpen: false,
+  });
 
   const currentUserLocation = {
     longitude: currentUser?.longitude,
@@ -371,6 +455,45 @@ export default function FilterComponent({
     );
   }
 
+  function sortRender() {
+    switch (openUpdateModal.type) {
+      case "religious beliefs":
+        return (
+          <ReligionUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setIsRetrigger(true);
+              setOpenUpdateModal({
+                type: "",
+                isOpen: false,
+              });
+            }}
+            interestedreligiousbeliefs="interestedreligiousbeliefs"
+          />
+        );
+      case "height":
+        return (
+          <HeightUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setIsRetrigger(true);
+              setOpenUpdateModal({
+                type: "",
+                isOpen: false,
+              });
+            }}
+            interestedheight="interestedheight"
+          />
+        );
+      default:
+        break;
+    }
+  }
+
   return (
     <AnimatedModal
       isAlignItems={true}
@@ -385,31 +508,59 @@ export default function FilterComponent({
       theme={theme}
       width={width}
       isTransparent={true}>
+      <View
+        style={{
+          position: "absolute",
+          zIndex: theme.spaceNumberBy10[0],
+          right: theme.spaceNumberBy10[2],
+          top: theme.spaceNumberBy50[1],
+        }}>
+        <IconComponent
+          iconFunction={() => {
+            setSuggestAgeWithRange(false);
+            setSuggestDistanceWithRange(false);
+            onClose();
+          }}
+          iconName="close"
+          IconComponent={AntDesign}
+          size={25}
+          color={theme.colors.brand.black}
+        />
+      </View>
+      <Text
+        style={{
+          textAlign: "center",
+          paddingBottom: theme.spaceNumber[5],
+          marginTop: -theme.spaceNumberBy50[0],
+        }}
+        variant="custom"
+        colorType="black"
+        fontType="montserratBold"
+        fontSize="h5">
+        Preference Settings
+      </Text>
       <ScrollView style={{ paddingTop: 0, width: "100%" }}>
-        <View style={{ position: "absolute", right: 30, top: 0 }}>
-          <IconComponent
-            iconFunction={() => {
-              setSuggestAgeWithRange(false);
-              setSuggestDistanceWithRange(false);
-              onClose();
-            }}
-            iconName="close"
-            IconComponent={AntDesign}
-            size={25}
-            color={theme.colors.brand.black}
-          />
-        </View>
         <Spacer position="top" size="large">
-          <Text
-            style={{ textAlign: "center", marginTop: 30 }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="h5">
-            Preference Settings
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="xxlarge">
+          <Spacer
+            position="top"
+            size="xsmall"
+            style={{
+              backgroundColor: theme.colors.brand.linesFaint,
+              paddingVertical: theme.spaceNumber[3],
+              marginBottom: theme.spaceNumber[5],
+            }}>
+            <HorizontalPaddingSpace space={theme.space[5]}>
+              <View>
+                <Text
+                  variant="custom"
+                  colorType="linesLight"
+                  fontType="montserratSemibold"
+                  fontSize="button">
+                  Member Preferences
+                </Text>
+              </View>
+            </HorizontalPaddingSpace>
+          </Spacer>
           <RangeCompoent
             theme={theme}
             text="Distance"
@@ -436,15 +587,54 @@ export default function FilterComponent({
             triggerAgeFilter={triggerAgeFilter}
             setIsRetrigger={setIsRetrigger}
           />
-          <Spacer position="top" size="xxlarge">
+          <Spacer position="top" size="small">
             <InterestFilterComponent
               theme={theme}
               currentUser={currentUser}
               setIsRetrigger={setIsRetrigger}
             />
           </Spacer>
+          <Spacer position="top" size="xxxlarge">
+            <Spacer
+              position="top"
+              size="xsmall"
+              style={{
+                backgroundColor: theme.colors.brand.linesFaint,
+                paddingVertical: theme.spaceNumber[3],
+                marginBottom: theme.spaceNumber[5],
+              }}>
+              <HorizontalPaddingSpace space={theme.space[5]}>
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="linesLight"
+                    fontType="montserratSemibold"
+                    fontSize="button">
+                    Subscriber Preferences
+                  </Text>
+                </View>
+              </HorizontalPaddingSpace>
+            </Spacer>
+            <SubscriberPreferencesComponent
+              theme={theme}
+              currentUser={currentUser}
+              setOpenUpdateModal={setOpenUpdateModal}
+            />
+          </Spacer>
         </Spacer>
       </ScrollView>
+      <AnimatedModal
+        isVisible={openUpdateModal.isOpen}
+        onClose={() => {
+          setOpenUpdateModal({ type: "", isOpen: false });
+        }}
+        theme={theme}
+        width={width}
+        isTransparent={false}>
+        <UpdateModal height={height} theme={theme}>
+          {sortRender()}
+        </UpdateModal>
+      </AnimatedModal>
     </AnimatedModal>
   );
 }
