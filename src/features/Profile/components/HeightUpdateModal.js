@@ -17,7 +17,9 @@ export default function HeightUpdateModal({
   onClose,
   interestedheight,
 }) {
-  const [_height, setHeight] = useState(currentUser?.height);
+  const [_height, setHeight] = useState(
+    interestedheight ? currentUser?.interestedheight : currentUser?.height
+  );
   const [isOpen, setOpen] = useState(false);
 
   async function updateHeight(value) {

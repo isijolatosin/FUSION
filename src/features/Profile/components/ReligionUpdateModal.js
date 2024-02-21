@@ -17,7 +17,11 @@ export default function ReligionUpdateModal({
   onClose,
   interestedreligiousbeliefs,
 }) {
-  const [religious, setReligious] = useState(currentUser?.religious);
+  const [religious, setReligious] = useState(
+    interestedreligiousbeliefs
+      ? currentUser?.interestedreligiousbeliefs
+      : currentUser?.religious
+  );
   const [isOpen, setOpen] = useState(false);
 
   async function updateReligious(value) {
