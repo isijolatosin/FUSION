@@ -304,7 +304,7 @@ const Index = ({ navigation }) => {
         <HorizontalPaddingSpace space={theme.space[4]}>
           <Spacer position="top" size="large">
             <Spacer position="bottom" size="xlarge">
-              <BrandAvatarO />
+              <BrandAvatarO currentUser={currentUser} />
             </Spacer>
           </Spacer>
           <Spacer style={{ alignItems: "center" }} position="top" size="">

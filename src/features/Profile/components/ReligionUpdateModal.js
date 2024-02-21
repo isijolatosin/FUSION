@@ -15,6 +15,7 @@ export default function ReligionUpdateModal({
   height,
   currentUser,
   onClose,
+  interestedreligiousbeliefs,
 }) {
   const [religious, setReligious] = useState(currentUser?.religious);
   const [isOpen, setOpen] = useState(false);
@@ -24,13 +25,23 @@ export default function ReligionUpdateModal({
 
     setReligious(value);
 
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "religious",
-      value,
-      () => {}
-    );
+    if (interestedreligiousbeliefs) {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "interestedreligiousbeliefs",
+        value,
+        () => {}
+      );
+    } else {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "religious",
+        value,
+        () => {}
+      );
+    }
   }
 
   return (
