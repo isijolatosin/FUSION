@@ -12,7 +12,6 @@ import IconComponent from "../../../../components/icon-components/IconComponent"
 import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
 import filterUsersWithinDistanceRange from "../../../../utilities/filterUsersWithinDistanceRange";
 import calculateAge from "../../../../utilities/calculateAge";
-import Button from "../../../../components/utility/button.component";
 import { updateUserValueField } from "../../../../utilities/updateFirestoreDatabaseField";
 import AnimatedModal from "../../../../components/general-component/AnimatedModal";
 import { storeData } from "../../../../utilities/storeDataInPhoneMemory";
