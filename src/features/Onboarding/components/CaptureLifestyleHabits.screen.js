@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import {
   Ionicons,
   MaterialCommunityIcons,
@@ -59,7 +59,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
 
   return (
     <SafeArea>
-      <HorizontalPaddingSpace space={theme.space[5]}>
+      <HorizontalPaddingSpace space={theme.space[5]} style={{ flex: 1 }}>
         <NavigationBar>
           <IconComponent
             iconFunction={() => navigation.goBack()}
@@ -103,243 +103,249 @@ export default function CaptureLifestyleHabits({ navigation }) {
           </Text>
         </Spacer>
         <Spacer position="top" size="xsmall">
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="caption"
-            width="95%">
-            {lifestlyHabitsInstruction}
-          </Text>
+          <Spacer position="bottom" size="small">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption"
+              width="95%">
+              {lifestlyHabitsInstruction}
+            </Text>
+          </Spacer>
         </Spacer>
-        <Spacer
-          style={{ flexDirection: "row", alignItems: "center" }}
-          position="top"
-          size="xlarge">
-          <IconComponent
-            iconFunction={() => {}}
-            iconName="dumbbell"
-            IconComponent={FontAwesome5}
-            size={20}
-            color={theme.colors.brand.black}
-          />
-          <Text
-            style={{ marginLeft: theme.spaceNumber[5] }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            width="95%">
-            How frequently do you hit the gym ?
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="small">
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: theme.spaceNumber[5],
-            }}>
-            {LifestyleHabits.gym.map((gym, idx) => (
-              <Pressable
-                onPress={() => handleLifestyleHabits(gym, "gym")}
-                key={idx}
-                style={{
-                  backgroundColor:
-                    lifestyleHabits.gym === gym
-                      ? theme.colors.brand.base
-                      : theme.colors.brand.highlight,
-                  paddingHorizontal: theme.spaceNumber[7],
-                  paddingVertical: theme.spaceNumber[3],
-                  borderRadius: theme.spaceNumberBy10[9],
-                }}>
-                <Text
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ width: "100%", marginBottom: theme.spaceNumberBy10[2] }}>
+          <Spacer
+            style={{ flexDirection: "row", alignItems: "center" }}
+            position="top"
+            size="medium">
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="dumbbell"
+              IconComponent={FontAwesome5}
+              size={20}
+              color={theme.colors.brand.black}
+            />
+            <Text
+              style={{ paddingLeft: theme.spaceNumber[5] }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratSemibold"
+              width="95%">
+              How frequently do you hit the gym ?
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="small">
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumber[5],
+              }}>
+              {LifestyleHabits.gym.map((gym, idx) => (
+                <Pressable
+                  onPress={() => handleLifestyleHabits(gym, "gym")}
+                  key={idx}
                   style={{
-                    color:
+                    backgroundColor:
                       lifestyleHabits.gym === gym
-                        ? theme.colors.brand.basewhite
-                        : theme.colors.brand.black,
-                  }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button">
-                  {gym}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </Spacer>
-        <Spacer
-          style={{ flexDirection: "row", alignItems: "center" }}
-          position="top"
-          size="xlarge">
-          <IconComponent
-            iconFunction={() => {}}
-            iconName="cigar"
-            IconComponent={MaterialCommunityIcons}
-            size={25}
-            color={theme.colors.brand.black}
-          />
-          <Text
-            style={{ marginLeft: theme.spaceNumber[5] }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            width="95%">
-            How often do you smoke?
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="small">
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: theme.spaceNumber[5],
-            }}>
-            {LifestyleHabits.smoke.map((smoke, idx) => (
-              <Pressable
-                onPress={() => handleLifestyleHabits(smoke, "smoke")}
-                key={idx}
-                style={{
-                  backgroundColor:
-                    lifestyleHabits.smoke === smoke
-                      ? theme.colors.brand.base
-                      : theme.colors.brand.highlight,
-                  paddingHorizontal: theme.spaceNumber[7],
-                  paddingVertical: theme.spaceNumber[3],
-                  borderRadius: theme.spaceNumberBy10[9],
-                }}>
-                <Text
+                        ? theme.colors.brand.base
+                        : theme.colors.brand.highlight,
+                    paddingHorizontal: theme.spaceNumber[7],
+                    paddingVertical: theme.spaceNumber[3],
+                    borderRadius: theme.spaceNumberBy10[9],
+                  }}>
+                  <Text
+                    style={{
+                      color:
+                        lifestyleHabits.gym === gym
+                          ? theme.colors.brand.basewhite
+                          : theme.colors.brand.black,
+                    }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button">
+                    {gym}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </Spacer>
+          <Spacer
+            style={{ flexDirection: "row", alignItems: "center" }}
+            position="top"
+            size="xlarge">
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="cigar"
+              IconComponent={MaterialCommunityIcons}
+              size={25}
+              color={theme.colors.brand.black}
+            />
+            <Text
+              style={{ paddingLeft: theme.spaceNumber[5] }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratSemibold"
+              width="95%">
+              How often do you smoke?
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="small">
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumber[5],
+              }}>
+              {LifestyleHabits.smoke.map((smoke, idx) => (
+                <Pressable
+                  onPress={() => handleLifestyleHabits(smoke, "smoke")}
+                  key={idx}
                   style={{
-                    color:
+                    backgroundColor:
                       lifestyleHabits.smoke === smoke
-                        ? theme.colors.brand.basewhite
-                        : theme.colors.brand.black,
-                  }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button">
-                  {smoke}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </Spacer>
-        <Spacer
-          style={{ flexDirection: "row", alignItems: "center" }}
-          position="top"
-          size="xlarge">
-          <IconComponent
-            iconFunction={() => {}}
-            iconName="cannabis"
-            IconComponent={FontAwesome5}
-            size={25}
-            color={theme.colors.brand.black}
-          />
-          <Text
-            style={{ marginLeft: theme.spaceNumber[5] }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            width="95%">
-            How often do you engage in 420-friendly activities ?
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="small">
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: theme.spaceNumber[5],
-            }}>
-            {LifestyleHabits.cannabis.map((cannabis, idx) => (
-              <Pressable
-                onPress={() => handleLifestyleHabits(cannabis, "cannabis")}
-                key={idx}
-                style={{
-                  backgroundColor:
-                    lifestyleHabits.cannabis === cannabis
-                      ? theme.colors.brand.base
-                      : theme.colors.brand.highlight,
-                  paddingHorizontal: theme.spaceNumber[7],
-                  paddingVertical: theme.spaceNumber[3],
-                  borderRadius: theme.spaceNumberBy10[9],
-                }}>
-                <Text
+                        ? theme.colors.brand.base
+                        : theme.colors.brand.highlight,
+                    paddingHorizontal: theme.spaceNumber[7],
+                    paddingVertical: theme.spaceNumber[3],
+                    borderRadius: theme.spaceNumberBy10[9],
+                  }}>
+                  <Text
+                    style={{
+                      color:
+                        lifestyleHabits.smoke === smoke
+                          ? theme.colors.brand.basewhite
+                          : theme.colors.brand.black,
+                    }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button">
+                    {smoke}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </Spacer>
+          <Spacer
+            style={{ flexDirection: "row", alignItems: "center" }}
+            position="top"
+            size="xlarge">
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="cannabis"
+              IconComponent={FontAwesome5}
+              size={25}
+              color={theme.colors.brand.black}
+            />
+            <Text
+              style={{ paddingLeft: theme.spaceNumber[5] }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratSemibold"
+              width="95%">
+              How often do you engage in 420-friendly activities ?
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="small">
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumber[5],
+              }}>
+              {LifestyleHabits.cannabis.map((cannabis, idx) => (
+                <Pressable
+                  onPress={() => handleLifestyleHabits(cannabis, "cannabis")}
+                  key={idx}
                   style={{
-                    color:
+                    backgroundColor:
                       lifestyleHabits.cannabis === cannabis
-                        ? theme.colors.brand.basewhite
-                        : theme.colors.brand.black,
-                  }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button">
-                  {cannabis}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </Spacer>
-        <Spacer
-          style={{ flexDirection: "row", alignItems: "center" }}
-          position="top"
-          size="xlarge">
-          <IconComponent
-            iconFunction={() => {}}
-            iconName="glass-wine"
-            IconComponent={MaterialCommunityIcons}
-            size={25}
-            color={theme.colors.brand.black}
-          />
-          <Text
-            style={{ marginLeft: theme.spaceNumber[5] }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
-            width="95%">
-            How often do you drink?
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="small">
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: theme.spaceNumber[5],
-            }}>
-            {LifestyleHabits.drink.map((drink, idx) => (
-              <Pressable
-                onPress={() => handleLifestyleHabits(drink, "drink")}
-                key={idx}
-                style={{
-                  backgroundColor:
-                    lifestyleHabits.drink === drink
-                      ? theme.colors.brand.base
-                      : theme.colors.brand.highlight,
-                  paddingHorizontal: theme.spaceNumber[7],
-                  paddingVertical: theme.spaceNumber[3],
-                  borderRadius: theme.spaceNumberBy10[9],
-                }}>
-                <Text
+                        ? theme.colors.brand.base
+                        : theme.colors.brand.highlight,
+                    paddingHorizontal: theme.spaceNumber[7],
+                    paddingVertical: theme.spaceNumber[3],
+                    borderRadius: theme.spaceNumberBy10[9],
+                  }}>
+                  <Text
+                    style={{
+                      color:
+                        lifestyleHabits.cannabis === cannabis
+                          ? theme.colors.brand.basewhite
+                          : theme.colors.brand.black,
+                    }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button">
+                    {cannabis}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </Spacer>
+          <Spacer
+            style={{ flexDirection: "row", alignItems: "center" }}
+            position="top"
+            size="xlarge">
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="glass-wine"
+              IconComponent={MaterialCommunityIcons}
+              size={25}
+              color={theme.colors.brand.black}
+            />
+            <Text
+              style={{ paddingLeft: theme.spaceNumber[5] }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratSemibold"
+              width="95%">
+              How often do you drink?
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="small">
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumber[5],
+              }}>
+              {LifestyleHabits.drink.map((drink, idx) => (
+                <Pressable
+                  onPress={() => handleLifestyleHabits(drink, "drink")}
+                  key={idx}
                   style={{
-                    color:
+                    backgroundColor:
                       lifestyleHabits.drink === drink
-                        ? theme.colors.brand.basewhite
-                        : theme.colors.brand.black,
-                  }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button">
-                  {drink}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-        </Spacer>
+                        ? theme.colors.brand.base
+                        : theme.colors.brand.highlight,
+                    paddingHorizontal: theme.spaceNumber[7],
+                    paddingVertical: theme.spaceNumber[3],
+                    borderRadius: theme.spaceNumberBy10[9],
+                  }}>
+                  <Text
+                    style={{
+                      color:
+                        lifestyleHabits.drink === drink
+                          ? theme.colors.brand.basewhite
+                          : theme.colors.brand.black,
+                    }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button">
+                    {drink}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </Spacer>
+        </ScrollView>
         <OnboardingErrorComponent
           pageError={pageError}
           text="Please share your lifestyle habits"
