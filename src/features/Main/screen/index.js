@@ -267,19 +267,30 @@ const Index = ({ navigation }) => {
   }, [isRetrigger]);
 
   let currentUsertoSwipe = {};
-  if (userFilteredData?.length) {
-    currentUsertoSwipe = userFilteredData[index];
-  } else {
-    if (allUsers.length) currentUsertoSwipe = allUsers[index];
-  }
-
   let currentSwipeIndexIsLessThanAllUsersLength = true;
   if (userFilteredData?.length) {
-    if (index >= userFilteredData?.length)
+    let value = userFilteredData[index];
+
+    if (!userFilteredData[index]?.phonenumber) {
+      value = userFilteredData[0];
+    }
+    currentUsertoSwipe = value;
+    if (index >= userFilteredData?.length) {
       currentSwipeIndexIsLessThanAllUsersLength = false;
+    }
   } else {
-    if (index >= allUsers.length)
-      currentSwipeIndexIsLessThanAllUsersLength = false;
+    if (allUsers.length) {
+      let value = allUsers[index];
+
+      if (!allUsers[index]?.phonenumber) {
+        value = allUsers[0];
+      }
+
+      currentUsertoSwipe = value;
+      if (index >= allUsers.length) {
+        currentSwipeIndexIsLessThanAllUsersLength = false;
+      }
+    }
   }
 
   function handleYouLikedClose() {
@@ -441,7 +452,11 @@ const Index = ({ navigation }) => {
         text={dailyendofswipescreenmessage}
         buttonText="Change preference"
         buttonSecondText="Go through skipped profiles"
-        cardFunction={() => navigation.navigate("profile")}
+        cardFunction={() => {
+          setIndex(0);
+          storeData("swipe-index", 0);
+          navigation.navigate("profile");
+        }}
         showSecondButton={true}
         setIndex={setIndex}
       />
@@ -521,7 +536,10 @@ const Index = ({ navigation }) => {
         />
         <CloseButton
           onPress={() => {
-            currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+            if (currentSwipeIndexIsLessThanAllUsersLength) {
+              storeData("swipe-index", index + 1);
+              setIndex(index + 1);
+            }
             scrollToTop();
           }}
           spaceBottom="125px"
@@ -534,8 +552,10 @@ const Index = ({ navigation }) => {
           }}>
           <IconComponent
             iconFunction={() => {
-              storeData("swipe-index", index + 1);
-              currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+              if (currentSwipeIndexIsLessThanAllUsersLength) {
+                storeData("swipe-index", index + 1);
+                setIndex(index + 1);
+              }
               scrollToTop();
             }}
             iconName="close-a"
