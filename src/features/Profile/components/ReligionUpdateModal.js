@@ -80,7 +80,7 @@ export default function ReligionUpdateModal({
             data={religions}
             isOpen={isOpen}
             setOpen={setOpen}
-            value={religious}
+            value={religious ?? "Choose an option"}
             setFunction={updateReligious}
             theme={theme}
             isForHeightComponent={false}

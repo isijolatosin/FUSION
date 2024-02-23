@@ -609,7 +609,7 @@ export default function ProfileScreen() {
             }}
           />
         );
-      case "preference":
+      case "dating intentions":
         return (
           <PreferenceUpdateModal
             theme={theme}
@@ -726,6 +726,42 @@ export default function ProfileScreen() {
                 });
               }
             }}
+          />
+        );
+      case "religious preference":
+        return (
+          <ReligionUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            interestedreligiousbeliefs="interestedreligiousbeliefs"
+          />
+        );
+      case "height preference":
+        return (
+          <HeightUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            interestedheight="interestedheight"
           />
         );
       case currentUser?.interestsArray?.[0]:
@@ -1133,9 +1169,9 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
-              setOpenUpdateModal({ type: "preference", isOpen: true })
+              setOpenUpdateModal({ type: "dating intentions", isOpen: true })
             }
-            title="Preference"
+            title="Dating Intentions"
             value={currentUser?.preference}
           />
           <AboutMeListComponent
@@ -1189,6 +1225,40 @@ export default function ProfileScreen() {
             title="Work"
             value={currentUser?.workplace?.work}
           />
+          <Spacer position="top" size="xxxxlarge">
+            <HorizontalPaddingSpace
+              space={theme.space[5]}
+              style={{
+                marginBottom: theme.spaceNumberBy10[0],
+                backgroundColor: theme.colors.brand.linesFaint,
+                paddingVertical: theme.spaceNumber[3],
+              }}>
+              <Text
+                variant="custom"
+                colorType="linesLight"
+                fontType="montserratBold"
+                fontSize="body">
+                Subscription Preference
+              </Text>
+            </HorizontalPaddingSpace>
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "height preference", isOpen: true })
+              }
+              title="Preferred Height"
+              value={currentUser?.interestedheight}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({
+                  type: "religious preference",
+                  isOpen: true,
+                })
+              }
+              title="Preferred Religious Beliefs"
+              value={currentUser?.interestedreligiousbeliefs}
+            />
+          </Spacer>
           <Spacer position="top" size="xxxxlarge">
             <HorizontalPaddingSpace
               space={theme.space[5]}

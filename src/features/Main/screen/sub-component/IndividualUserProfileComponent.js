@@ -351,32 +351,34 @@ export default function IndividualUserProfileComponent({
               {data?.sexualOrientation}
             </Text>
           </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <View style={{ position: "absolute", top: 9, left: 9 }}>
-              <IconComponent
-                iconFunction={() => {}}
-                iconName="flag"
-                IconComponent={Fontisto}
-                size={12}
-                color={theme.colors.brand.black}
-              />
+          {data?.nationality && (
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.highlight,
+                paddingVertical: theme.spaceNumber[3],
+                paddingHorizontal: theme.spaceNumber[7],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="flag"
+                  IconComponent={Fontisto}
+                  size={12}
+                  color={theme.colors.brand.black}
+                />
+              </View>
+              <Text
+                style={{ marginLeft: 8 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="button"
+                width="100%">
+                {data?.nationality}
+              </Text>
             </View>
-            <Text
-              style={{ marginLeft: 8 }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              width="100%">
-              {data?.nationality}
-            </Text>
-          </View>
+          )}
           {data?.tribe && (
             <View
               style={{
