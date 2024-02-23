@@ -89,7 +89,10 @@ const Index = ({ navigation }) => {
       // check if profile is in the same country with current user and if not, filter off
       const filterOffByCountryProfiles = [];
       for (let i = 0; i < returningData.length; i++) {
-        if (returningData[i]?.country === currentUserData?.country) {
+        if (
+          returningData[i]?.country === currentUserData?.country ||
+          process.env.EXPO_PUBLIC_ROLE === currentUser.role // remove admin see all users later
+        ) {
           filterOffByCountryProfiles.push(returningData[i]);
         }
       }
