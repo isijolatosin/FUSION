@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -74,6 +74,29 @@ export default function ReligionUpdateModal({
           Religious Beliefs
         </Text>
       </View>
+      {interestedreligiousbeliefs &&
+        currentUser?.interestedreligiousbeliefs && (
+          <Pressable
+            onPress={async () => {
+              await updateUserValueField(
+                "all-users",
+                currentUser?.id,
+                "interestedreligiousbeliefs",
+                "",
+                () => {}
+              );
+              setReligious("");
+            }}>
+            <Text
+              style={{ textAlign: "center", marginTop: theme.spaceNumber[0] }}
+              variant="custom"
+              colorType="base"
+              fontType="montserratRegular"
+              fontSize="button">
+              Clear
+            </Text>
+          </Pressable>
+        )}
       <HorizontalPaddingSpace space={theme.space[3]}>
         <Spacer position="top" size="xxxlarge">
           <DropdownSelection
