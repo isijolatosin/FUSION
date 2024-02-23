@@ -91,7 +91,7 @@ const Index = ({ navigation }) => {
       for (let i = 0; i < returningData.length; i++) {
         if (
           returningData[i]?.country === currentUserData?.country ||
-          process.env.EXPO_PUBLIC_ROLE === currentUser.role // remove admin see all users later
+          process.env.EXPO_PUBLIC_ROLE === currentUserData.role // remove admin see all users later
         ) {
           filterOffByCountryProfiles.push(returningData[i]);
         }
