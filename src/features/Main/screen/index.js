@@ -115,6 +115,28 @@ const Index = ({ navigation }) => {
         }
       );
 
+      // check for subscriber preference. This is going to change in future phase
+      const fiterDataByHeightPreference = filterOffPausedProfile.filter(
+        (preference) => {
+          if (!currentUserData?.interestedheight) return preference;
+
+          if (preference?.height === currentUserData?.interestedheight) {
+            return preference;
+          }
+        }
+      );
+      const fiterDataByReliousBeliefsPreference =
+        fiterDataByHeightPreference.filter((preference) => {
+          if (!currentUserData?.interestedreligiousbeliefs) return preference;
+
+          if (
+            preference?.religious ===
+            currentUserData?.interestedreligiousbeliefs
+          ) {
+            return preference;
+          }
+        });
+
       //check if profile has been liked and filter off
       let filteredOffLikedProfiles = [];
       let filteredOffLikedProfilesStep2 = [];
@@ -123,13 +145,13 @@ const Index = ({ navigation }) => {
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
 
       if (likedNumberArray?.length) {
-        filterOffPausedProfile.map((data) => {
+        fiterDataByReliousBeliefsPreference.map((data) => {
           if (!likedNumberArray?.includes(data?.phonenumber)) {
             filteredOffLikedProfiles.push(data);
           }
         });
       } else {
-        filteredOffLikedProfiles = [...filterOffPausedProfile];
+        filteredOffLikedProfiles = [...fiterDataByReliousBeliefsPreference];
       }
 
       // check if profile has liked me and filter off

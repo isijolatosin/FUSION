@@ -76,7 +76,7 @@ export default function HeightUpdateModal({
             data={heightList}
             isOpen={isOpen}
             setOpen={setOpen}
-            value={_height}
+            value={_height ?? "Choose an option"}
             setFunction={updateHeight}
             theme={theme}
             isForHeightComponent={true}

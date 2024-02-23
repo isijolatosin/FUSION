@@ -57,7 +57,11 @@ function RangeCompoent({
           </Text>
         </View>
         <View>
-          <Text variant="loading" colorType="black" fontType="montserratLight">
+          <Text
+            variant="custom"
+            colorType="black"
+            fontType="montserratLight"
+            fontSize="button">
             {displayValue}
           </Text>
         </View>
@@ -163,7 +167,11 @@ function DoubleRangeCompoent({
           </Text>
         </View>
         <View>
-          <Text variant="loading" colorType="black" fontType="montserratLight">
+          <Text
+            variant="loading"
+            colorType="black"
+            fontType="montserratLight"
+            fontSize="button">
             {displayValue}
           </Text>
         </View>
@@ -297,7 +305,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
               variant="loading"
               colorType="black"
               fontType="montserratLight"
-              fontSize="body">
+              fontSize="button">
               {interest.value}
             </Text>
           </View>
@@ -306,7 +314,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
             onPress={() => handleInterestToggle(idx, interest.key)}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.linesLight}
-            size={35}
+            size={25}
             containerStyle={{
               padding: 0,
               margin: 0,
@@ -328,11 +336,11 @@ function SubscriberPreferencesComponent({
   setOpenUpdateModal,
 }) {
   const subscriberPreference = [
+    { title: "height", value: currentUser?.interestedheight },
     {
       title: "religious beliefs",
       value: currentUser?.interestedreligiousbeliefs,
     },
-    { title: "height", value: currentUser?.interestedheight },
   ];
   return (
     <Fragment>
@@ -538,7 +546,9 @@ export default function FilterComponent({
         fontSize="h5">
         Preference Settings
       </Text>
-      <ScrollView style={{ paddingTop: 0, width: "100%" }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ paddingTop: 0, width: "100%" }}>
         <Spacer position="top" size="large">
           <Spacer
             position="top"
