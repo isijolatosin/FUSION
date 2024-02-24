@@ -2,17 +2,18 @@ import calculateDistance from "./calculateDistance";
 
 const filterUsersWithinDistanceRange = (
   currentUserLocation,
-  allUsers,
+  dataArray,
   distanceValue
 ) => {
-  const usersWithinDistanceRange = allUsers.filter((user) => {
+  const usersWithinDistanceRange = dataArray.filter((user) => {
     const targetUserLocation = {
       longitude: user?.longitude,
       latitude: user?.latitude,
     };
 
-    const distance = calculateDistance(currentUserLocation, targetUserLocation);
-
+    const distance = Math.ceil(
+      calculateDistance(currentUserLocation, targetUserLocation)
+    );
     return distance <= distanceValue;
   });
 
