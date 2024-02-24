@@ -10,11 +10,8 @@ import { Spacer } from "../../../../components/spacer/spacer.component";
 import { RangeCompoentSection } from "../main.style";
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
-import filterUsersWithinDistanceRange from "../../../../utilities/filterUsersWithinDistanceRange";
-import calculateAge from "../../../../utilities/calculateAge";
 import { updateUserValueField } from "../../../../utilities/updateFirestoreDatabaseField";
 import AnimatedModal from "../../../../components/general-component/AnimatedModal";
-import { storeData } from "../../../../utilities/storeDataInPhoneMemory";
 import UpdateModal from "../../../Profile/components/UpdateModal";
 import ReligionUpdateModal from "../../../Profile/components/ReligionUpdateModal";
 import HeightUpdateModal from "../../../Profile/components/HeightUpdateModal";
@@ -35,7 +32,7 @@ function RangeCompoent({
     setSelectedValue(newValue);
   };
 
-  let displayValue = `${selectedValue}km`;
+  const displayValue = `${selectedValue ? selectedValue : 0}km`;
 
   return (
     <View
@@ -78,6 +75,7 @@ function RangeCompoent({
           maximumTrackTintColor={theme.colors.brand.highlight}
           thumbTintColor={theme.colors.brand.base}
           onValueChange={handleValueChange}
+          onSlidingStart={() => setSuggest(false)}
         />
         {/* ) : (
           <ExpoSlider
@@ -121,9 +119,9 @@ function RangeCompoent({
             suggest ? theme.colors.brand.highlight : theme.colors.brand.lines
           }
           onValueChange={(val) => {
-            triggerDistanceFilter();
-            setIsRetrigger(true);
             setSuggest(val);
+            triggerDistanceFilter(val);
+            setIsRetrigger(true);
           }}
           value={suggest}
         />
@@ -144,8 +142,11 @@ function DoubleRangeCompoent({
   setToAgeValue,
   triggerAgeFilter,
   setIsRetrigger,
+  currentUser,
 }) {
-  let displayValue = `${fromAgeValue} - ${toAgeValue}`;
+  const displayValue = `${
+    fromAgeValue ?? currentUser?.agePreference?.fromAgeValue
+  } - ${toAgeValue ?? currentUser?.agePreference?.toAgeValue}`;
 
   return (
     <View
@@ -189,10 +190,18 @@ function DoubleRangeCompoent({
           outOfRangeBarColor={theme.colors.brand.highlight}
           showRangeLabels={false}
           showValueLabels={false}
-          fromValueOnChange={(value) => setFromAgeValue(value)}
-          toValueOnChange={(value) => setToAgeValue(value)}
-          initialFromValue={fromAgeValue}
-          initialToValue={toAgeValue}
+          fromValueOnChange={(value) => {
+            setSuggest(false);
+            setFromAgeValue(value);
+          }}
+          toValueOnChange={(value) => {
+            setSuggest(false);
+            setToAgeValue(value);
+          }}
+          initialFromValue={
+            currentUser?.agePreference?.fromAgeValue ?? fromAgeValue
+          }
+          initialToValue={currentUser?.agePreference?.toAgeValue ?? toAgeValue}
           containerStyle={{
             padding: 0,
             height: theme.spaceNumberBy10[3],
@@ -220,9 +229,9 @@ function DoubleRangeCompoent({
             suggest ? theme.colors.brand.highlight : theme.colors.brand.lines
           }
           onValueChange={(val) => {
-            triggerAgeFilter();
-            setIsRetrigger(true);
             setSuggest(val);
+            triggerAgeFilter(val);
+            setIsRetrigger(true);
           }}
           value={suggest}
         />
@@ -400,65 +409,57 @@ function SubscriberPreferencesComponent({
 }
 
 export default function FilterComponent({
-  allUsers,
   currentUser,
-  distanceValue,
-  fromAgeValue,
   isVisible,
   onClose,
-  setDistanceValue,
-  setFromAgeValue,
   setIsRetrigger,
-  setToAgeValue,
-  setUserFilteredData,
-  toAgeValue,
   theme,
-  triggerAgeFilter,
 }) {
   const { width, height } = Dimensions.get("window");
-  const [suggestAgeWithRange, setSuggestAgeWithRange] = useState(false);
-  const [suggestDistanceWithRange, setSuggestDistanceWithRange] =
-    useState(false);
+  const [distanceValue, setDistanceValue] = useState(0);
+  const [fromAgeValue, setFromAgeValue] = useState(18);
+  const [toAgeValue, setToAgeValue] = useState(30);
+  const [suggestAgeWithRange, setSuggestAgeWithRange] = useState(
+    currentUser?.agePreference?.suggest
+  );
+  const [suggestDistanceWithRange, setSuggestDistanceWithRange] = useState(
+    currentUser?.distancePreference?.suggest
+  );
   const [openUpdateModal, setOpenUpdateModal] = useState({
     type: "",
     isOpen: false,
   });
 
-  const currentUserLocation = {
-    longitude: currentUser?.longitude,
-    latitude: currentUser?.latitude,
-  };
+  async function triggerAgeFilter(booleanOption) {
+    setSuggestAgeWithRange(booleanOption);
 
-  function triggerAgeFilter() {
-    if (fromAgeValue) storeData("fromAgeValue", fromAgeValue);
-    if (toAgeValue) storeData("toAgeValue", toAgeValue);
+    const value = {
+      fromAgeValue: fromAgeValue,
+      toAgeValue: toAgeValue,
+      suggest: booleanOption ?? suggestAgeWithRange,
+    };
 
     // age
-    const filterWithAgeRange = allUsers.filter((data) => {
-      const currentUserAge = calculateAge(
-        data?.dob?.year,
-        data?.dob?.month,
-        data?.dob?.day
-      );
-
-      if (+fromAgeValue <= +currentUserAge && +currentUserAge <= +toAgeValue) {
-        return data;
-      }
-    });
-
-    setUserFilteredData(filterWithAgeRange);
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "agePreference",
+      value,
+      setIsRetrigger
+    );
   }
 
-  function triggerDistanceFilter() {
-    storeData("distanceValue", distanceValue);
-
-    // distance
-    setUserFilteredData(
-      ...filterUsersWithinDistanceRange(
-        currentUserLocation,
-        allUsers,
-        distanceValue
-      )
+  async function triggerDistanceFilter(booleanOption) {
+    const value = {
+      value: distanceValue,
+      suggest: booleanOption ?? suggestDistanceWithRange,
+    };
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "distancePreference",
+      value,
+      setIsRetrigger
     );
   }
 
@@ -508,8 +509,6 @@ export default function FilterComponent({
       isPaddingTop={true}
       isVisible={isVisible}
       onClose={() => {
-        setSuggestAgeWithRange(false);
-        setSuggestDistanceWithRange(false);
         onClose();
       }}
       theme={theme}
@@ -524,8 +523,6 @@ export default function FilterComponent({
         }}>
         <IconComponent
           iconFunction={() => {
-            setSuggestAgeWithRange(false);
-            setSuggestDistanceWithRange(false);
             onClose();
           }}
           iconName="close"
@@ -572,10 +569,14 @@ export default function FilterComponent({
           </Spacer>
           <RangeCompoent
             theme={theme}
-            text="Distance"
+            text="Maximum Distance"
             description="Only suggest people within this range"
             type="distance"
-            selectedValue={distanceValue}
+            selectedValue={
+              distanceValue
+                ? distanceValue
+                : currentUser?.distancePreference?.value
+            }
             setSelectedValue={setDistanceValue}
             initialValue={0}
             suggest={suggestDistanceWithRange}
@@ -585,7 +586,7 @@ export default function FilterComponent({
           />
           <DoubleRangeCompoent
             theme={theme}
-            text="Age"
+            text="Age Range"
             description="Only suggest people within this age"
             setFromAgeValue={setFromAgeValue}
             setToAgeValue={setToAgeValue}
@@ -595,6 +596,7 @@ export default function FilterComponent({
             setSuggest={setSuggestAgeWithRange}
             triggerAgeFilter={triggerAgeFilter}
             setIsRetrigger={setIsRetrigger}
+            currentUser={currentUser}
           />
           <Spacer position="top" size="small">
             <InterestFilterComponent

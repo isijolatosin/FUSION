@@ -60,6 +60,9 @@ import ZodiacUpdateModal from "./ZodiacUpdateModal";
 import TribeUpdateModal from "./TribeUpdateModal";
 import NationalityUpdateModal from "./NationalityUpdateModal";
 import SnapchatUpdateModal from "./SnapchatUpdateModal";
+import AgePreferenceUpdateModal from "./AgePreferenceUpdateModal";
+import DistancePreferenceUpdateModal from "./DistancePreferenceUpdateModal";
+import Avatar from "../../../components/general-component/Avatar";
 
 export default function ProfileScreen() {
   const {
@@ -764,6 +767,40 @@ export default function ProfileScreen() {
             interestedheight="interestedheight"
           />
         );
+      case "distance":
+        return (
+          <DistancePreferenceUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
+      case "age":
+        return (
+          <AgePreferenceUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+          />
+        );
       case currentUser?.interestsArray?.[0]:
         return (
           <InterestsUpdateModal
@@ -902,33 +939,24 @@ export default function ProfileScreen() {
             }}
             position="top"
             size="xxsmall">
-            {photoUrl1 && (
-              <Pressable onPress={() => setShowProfile(true)}>
-                <Image
-                  style={{
-                    width: theme.spaceNumberBy10[9],
-                    height: theme.spaceNumberBy10[9],
-                    resizeMode: "cover",
-                    borderRadius: theme.spaceNumberBy10[9],
-                  }}
-                  source={{
-                    uri: `${photoUrl1}`,
-                  }}
-                />
-              </Pressable>
-            )}
+            <Avatar
+              data={photoUrl1}
+              theme={theme}
+              dimensionIndex={9}
+              func={() => setShowProfile(true)}
+            />
             <Spacer position="top" size="xsmall">
               <Text
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="body">
-                {currentUser?.firstname},{" "}
-                {calculateAge(
-                  currentUser?.dob?.year,
-                  currentUser?.dob?.month,
-                  currentUser?.dob?.day
-                )}
+                {currentUser?.firstname &&
+                  `${currentUser?.firstname}, ${calculateAge(
+                    currentUser?.dob?.year,
+                    currentUser?.dob?.month,
+                    currentUser?.dob?.day
+                  )}`}
               </Text>
             </Spacer>
           </Spacer>
@@ -1094,6 +1122,20 @@ export default function ProfileScreen() {
           </Spacer>
           <AboutMeListComponent
             pressFunction={() =>
+              setOpenUpdateModal({
+                type: "age",
+                isOpen: true,
+              })
+            }
+            title="Age Range"
+            value={
+              (currentUser?.agePreference?.toAgeValue &&
+                `${currentUser?.interest} ${currentUser?.agePreference?.fromAgeValue} - ${currentUser?.agePreference?.toAgeValue}`) ??
+              "Update..."
+            }
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
               setOpenUpdateModal({ type: "bio", isOpen: true })
             }
             title="Bio"
@@ -1158,6 +1200,20 @@ export default function ProfileScreen() {
           <AboutMeListComponent
             pressFunction={() =>
               setOpenUpdateModal({
+                type: "distance",
+                isOpen: true,
+              })
+            }
+            title="Maximum Distance"
+            value={
+              currentUser?.distancePreference?.value
+                ? `${currentUser?.distancePreference?.value} km`
+                : "Update..."
+            }
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({
                 type: "nationality",
                 isOpen: true,
               })
@@ -1166,13 +1222,6 @@ export default function ProfileScreen() {
             value={
               currentUser?.nationality ? currentUser?.nationality : "Update..."
             }
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({ type: "dating intentions", isOpen: true })
-            }
-            title="Dating Intentions"
-            value={currentUser?.preference}
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1243,6 +1292,27 @@ export default function ProfileScreen() {
             </HorizontalPaddingSpace>
             <AboutMeListComponent
               pressFunction={() =>
+                setOpenUpdateModal({ type: "cannabis", isOpen: true })
+              }
+              title="Cannabis"
+              value={currentUser?.lifestyleHabits?.cannabis}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "dating intentions", isOpen: true })
+              }
+              title="Dating Intentions"
+              value={currentUser?.preference}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "drinking", isOpen: true })
+              }
+              title="Drinking"
+              value={currentUser?.lifestyleHabits?.drink}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
                 setOpenUpdateModal({ type: "height preference", isOpen: true })
               }
               title="Preferred Height"
@@ -1258,43 +1328,12 @@ export default function ProfileScreen() {
               title="Preferred Religious Beliefs"
               value={currentUser?.interestedreligiousbeliefs}
             />
-          </Spacer>
-          <Spacer position="top" size="xxxxlarge">
-            <HorizontalPaddingSpace
-              space={theme.space[5]}
-              style={{
-                marginBottom: theme.spaceNumberBy10[0],
-                backgroundColor: theme.colors.brand.linesFaint,
-                paddingVertical: theme.spaceNumber[3],
-              }}>
-              <Text
-                variant="custom"
-                colorType="linesLight"
-                fontType="montserratBold"
-                fontSize="body">
-                My Vices
-              </Text>
-            </HorizontalPaddingSpace>
             <AboutMeListComponent
               pressFunction={() =>
                 setOpenUpdateModal({ type: "smoking", isOpen: true })
               }
               title="Smoking"
               value={currentUser?.lifestyleHabits?.smoke}
-            />
-            <AboutMeListComponent
-              pressFunction={() =>
-                setOpenUpdateModal({ type: "drinking", isOpen: true })
-              }
-              title="Drinking"
-              value={currentUser?.lifestyleHabits?.drink}
-            />
-            <AboutMeListComponent
-              pressFunction={() =>
-                setOpenUpdateModal({ type: "cannabis", isOpen: true })
-              }
-              title="Cannabis"
-              value={currentUser?.lifestyleHabits?.cannabis}
             />
           </Spacer>
           <AboutMeListComponent

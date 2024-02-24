@@ -43,16 +43,12 @@ const Index = ({ navigation }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [phone, setPhone] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
-  const [userFilteredData, setUserFilteredData] = useState([]);
   const [likedUser, setLikedUser] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const scrollViewRef = useRef(null);
-  const [fromAgeValue, setFromAgeValue] = useState(0);
-  const [toAgeValue, setToAgeValue] = useState(0);
-  const [distanceValue, setDistanceValue] = useState(0);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -86,6 +82,7 @@ const Index = ({ navigation }) => {
         }
       });
 
+      // ########################################################################
       // check if profile is in the same country with current user and if not, filter off
       const filterOffByCountryProfiles = [];
       for (let i = 0; i < returningData.length; i++) {
@@ -97,6 +94,7 @@ const Index = ({ navigation }) => {
         }
       }
 
+      // ########################################################################
       // check if profile is paused and remove
       const filterOffDeactivateProfile = filterOffByCountryProfiles.filter(
         (profile) => {
@@ -106,6 +104,7 @@ const Index = ({ navigation }) => {
         }
       );
 
+      // ########################################################################
       // check if profile is paused and remove
       const filterOffPausedProfile = filterOffDeactivateProfile.filter(
         (profile) => {
@@ -115,6 +114,7 @@ const Index = ({ navigation }) => {
         }
       );
 
+      // ########################################################################
       // check for subscriber preference. This is going to change in future phase
       const fiterDataByHeightPreference = filterOffPausedProfile.filter(
         (preference) => {
@@ -137,6 +137,57 @@ const Index = ({ navigation }) => {
           }
         });
 
+      // ########################################################################
+      // check for distance preference
+      const filteredDistancePreferenceData = [];
+      const currentUserLocation = {
+        longitude: currentUserData?.longitude,
+        latitude: currentUserData?.latitude,
+      };
+      if (currentUserData?.distancePreference?.suggest) {
+        filteredDistancePreferenceData.push(
+          ...filterUsersWithinDistanceRange(
+            currentUserLocation,
+            fiterDataByReliousBeliefsPreference,
+            currentUserData?.distancePreference?.value
+          )
+        );
+      } else {
+        filteredDistancePreferenceData.push(
+          ...fiterDataByReliousBeliefsPreference
+        );
+      }
+
+      // ########################################################################
+      // check for age preference
+      const fromAgeValue = currentUserData?.agePreference?.fromAgeValue;
+      const toAgeValue = currentUserData?.agePreference?.toAgeValue;
+      const filteredAgePreferenceData = [];
+
+      if (currentUserData?.agePreference?.suggest) {
+        const filterAgePreferenceData = filteredDistancePreferenceData.filter(
+          (data) => {
+            const currentUserAge = calculateAge(
+              data?.dob?.year,
+              data?.dob?.month,
+              data?.dob?.day
+            );
+
+            if (
+              fromAgeValue <= +currentUserAge &&
+              +currentUserAge <= toAgeValue
+            ) {
+              return data;
+            }
+          }
+        );
+
+        filteredAgePreferenceData.push(...filterAgePreferenceData);
+      } else {
+        filteredAgePreferenceData.push(...filteredDistancePreferenceData);
+      }
+
+      // ########################################################################
       //check if profile has been liked and filter off
       let filteredOffLikedProfiles = [];
       let filteredOffLikedProfilesStep2 = [];
@@ -145,15 +196,16 @@ const Index = ({ navigation }) => {
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
 
       if (likedNumberArray?.length) {
-        fiterDataByReliousBeliefsPreference.map((data) => {
+        filteredAgePreferenceData.map((data) => {
           if (!likedNumberArray?.includes(data?.phonenumber)) {
             filteredOffLikedProfiles.push(data);
           }
         });
       } else {
-        filteredOffLikedProfiles = [...fiterDataByReliousBeliefsPreference];
+        filteredOffLikedProfiles = [...filteredAgePreferenceData];
       }
 
+      // ########################################################################
       // check if profile has liked me and filter off
       const likedMeList = currentUserData?.likedMeList;
       if (likedMeList?.length && filteredOffLikedProfiles?.length) {
@@ -166,6 +218,7 @@ const Index = ({ navigation }) => {
         filteredOffLikedProfilesStep2 = [...filteredOffLikedProfiles];
       }
 
+      // ########################################################################
       // check if profile has been blocked or blocked by me and filter off
       const blockedMeList = [];
       currentUserData?.blockedMeList?.map((list) => {
@@ -197,62 +250,7 @@ const Index = ({ navigation }) => {
         filteredOffLikedProfilesStep4 = [...filteredOffLikedProfilesStep3];
       }
 
-      // prefilter
-      const fromAgeVal = await retrieveData("fromAgeValue");
-      const toAgeVal = await retrieveData("toAgeValue");
-      const distanceVal = await retrieveData("distanceValue");
-
-      if (fromAgeVal) {
-        setFromAgeValue(fromAgeVal);
-      } else {
-        setFromAgeValue(18);
-      }
-      if (toAgeVal) {
-        setToAgeValue(toAgeVal);
-      } else {
-        setToAgeValue(30);
-      }
-      if (distanceVal) {
-        setDistanceValue(distanceVal);
-      } else {
-        setDistanceValue(0);
-      }
-
-      const currentUserLocation = {
-        longitude: currentUser?.longitude,
-        latitude: currentUser?.latitude,
-      };
-
-      const filterResult = [];
-      if (distanceVal > 0) {
-        filterResult.push(
-          ...filterUsersWithinDistanceRange(
-            currentUserLocation,
-            filteredOffLikedProfilesStep4,
-            distanceValue
-          )
-        );
-      } else {
-        filterResult.push(...filteredOffLikedProfilesStep4);
-      }
-
-      if (fromAgeVal && toAgeVal) {
-        const filterWithAgeRange = filterResult.filter((data) => {
-          const currentUserAge = calculateAge(
-            data?.dob?.year,
-            data?.dob?.month,
-            data?.dob?.day
-          );
-
-          if (+fromAgeVal <= +currentUserAge && +currentUserAge <= +toAgeVal) {
-            return data;
-          }
-        });
-
-        setAllUsers(filterWithAgeRange);
-      } else {
-        setAllUsers(filterResult);
-      }
+      setAllUsers(filteredOffLikedProfilesStep4);
     }
   };
 
@@ -293,28 +291,17 @@ const Index = ({ navigation }) => {
 
   let currentUsertoSwipe = {};
   let currentSwipeIndexIsLessThanAllUsersLength = true;
-  if (userFilteredData?.length) {
-    let value = userFilteredData[index];
 
-    if (!userFilteredData[index]?.phonenumber) {
-      value = userFilteredData[0];
+  if (allUsers?.length) {
+    let value = allUsers[index];
+
+    if (!allUsers[index]?.phonenumber) {
+      value = allUsers[0];
     }
+
     currentUsertoSwipe = value;
-    if (index >= userFilteredData?.length) {
+    if (index >= allUsers.length) {
       currentSwipeIndexIsLessThanAllUsersLength = false;
-    }
-  } else {
-    if (allUsers.length) {
-      let value = allUsers[index];
-
-      if (!allUsers[index]?.phonenumber) {
-        value = allUsers[0];
-      }
-
-      currentUsertoSwipe = value;
-      if (index >= allUsers.length) {
-        currentSwipeIndexIsLessThanAllUsersLength = false;
-      }
     }
   }
 
@@ -468,10 +455,7 @@ const Index = ({ navigation }) => {
     // return <Loading text="Loading..." />;
   }
 
-  if (
-    index === allUsers.length ||
-    (userFilteredData?.length && index === userFilteredData?.length)
-  ) {
+  if (index === allUsers.length) {
     return (
       <CustomUseCardWithCTA
         text={dailyendofswipescreenmessage}
@@ -590,18 +574,10 @@ const Index = ({ navigation }) => {
           />
         </CloseButton>
         <FilterComponent
-          allUsers={allUsers}
           currentUser={currentUser}
-          distanceValue={distanceValue}
-          fromAgeValue={fromAgeValue}
           isVisible={isVisible}
           onClose={handleFilterClose}
-          setDistanceValue={setDistanceValue}
-          setFromAgeValue={setFromAgeValue}
           setIsRetrigger={setIsRetrigger}
-          setToAgeValue={setToAgeValue}
-          setUserFilteredData={setUserFilteredData}
-          toAgeValue={toAgeValue}
           theme={theme}
         />
         <YouLikedComponent
