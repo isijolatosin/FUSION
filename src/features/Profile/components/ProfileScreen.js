@@ -216,8 +216,8 @@ export default function ProfileScreen() {
               <Text
                 variant="custom"
                 colorType="linesLight"
-                fontType="montserratBold"
-                fontSize="body">
+                fontType="montserratSemibold"
+                fontSize="button">
                 {title}
               </Text>
             </View>
@@ -1105,9 +1105,9 @@ export default function ProfileScreen() {
                 <Text
                   style={{ marginRight: 5 }}
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="body">
+                  colorType="linesLight"
+                  fontType="montserratSemibold"
+                  fontSize="button">
                   About Me
                 </Text>
               </View>
@@ -1116,24 +1116,10 @@ export default function ProfileScreen() {
                 iconName="edit"
                 IconComponent={AntDesign}
                 size={15}
-                color={theme.colors.brand.black}
+                color={theme.colors.brand.lines}
               />
             </HorizontalPaddingSpace>
           </Spacer>
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({
-                type: "age",
-                isOpen: true,
-              })
-            }
-            title="Age Range"
-            value={
-              (currentUser?.agePreference?.toAgeValue &&
-                `${currentUser?.interest} ${currentUser?.agePreference?.fromAgeValue} - ${currentUser?.agePreference?.toAgeValue}`) ??
-              "Update..."
-            }
-          />
           <AboutMeListComponent
             pressFunction={() =>
               setOpenUpdateModal({ type: "bio", isOpen: true })
@@ -1175,13 +1161,6 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
-              setOpenUpdateModal({ type: "interest", isOpen: true })
-            }
-            title="Interested in"
-            value={currentUser?.interest}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
               setOpenUpdateModal({ type: "job", isOpen: true })
             }
             title="Job Title"
@@ -1196,20 +1175,6 @@ export default function ProfileScreen() {
             }
             title="Location"
             value={currentUser?.location}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
-              setOpenUpdateModal({
-                type: "distance",
-                isOpen: true,
-              })
-            }
-            title="Maximum Distance"
-            value={
-              currentUser?.distancePreference?.value
-                ? `${currentUser?.distancePreference?.value} km`
-                : "Update..."
-            }
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1285,8 +1250,70 @@ export default function ProfileScreen() {
               <Text
                 variant="custom"
                 colorType="linesLight"
-                fontType="montserratBold"
-                fontSize="body">
+                fontType="montserratSemibold"
+                fontSize="button">
+                Member Preference
+              </Text>
+            </HorizontalPaddingSpace>
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({
+                  type: "age",
+                  isOpen: true,
+                })
+              }
+              title="Age Range"
+              value={
+                (currentUser?.agePreference?.toAgeValue &&
+                  `${currentUser?.interest} ${currentUser?.agePreference?.fromAgeValue} - ${currentUser?.agePreference?.toAgeValue}`) ??
+                "Update..."
+              }
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "interest", isOpen: true })
+              }
+              title="Interested in"
+              value={currentUser?.interest}
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({
+                  type: "distance",
+                  isOpen: true,
+                })
+              }
+              title="Maximum Distance"
+              value={
+                currentUser?.distancePreference?.value
+                  ? `${currentUser?.distancePreference?.value} km`
+                  : "Update..."
+              }
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({
+                  type: "religious preference",
+                  isOpen: true,
+                })
+              }
+              title="Preferred Religious Beliefs"
+              value={currentUser?.interestedreligiousbeliefs}
+            />
+          </Spacer>
+          <Spacer position="top" size="xxxxlarge">
+            <HorizontalPaddingSpace
+              space={theme.space[5]}
+              style={{
+                marginBottom: theme.spaceNumberBy10[0],
+                backgroundColor: theme.colors.brand.linesFaint,
+                paddingVertical: theme.spaceNumber[3],
+              }}>
+              <Text
+                variant="custom"
+                colorType="linesLight"
+                fontType="montserratSemibold"
+                fontSize="button">
                 Subscription Preference
               </Text>
             </HorizontalPaddingSpace>
@@ -1317,16 +1344,6 @@ export default function ProfileScreen() {
               }
               title="Preferred Height"
               value={currentUser?.interestedheight}
-            />
-            <AboutMeListComponent
-              pressFunction={() =>
-                setOpenUpdateModal({
-                  type: "religious preference",
-                  isOpen: true,
-                })
-              }
-              title="Preferred Religious Beliefs"
-              value={currentUser?.interestedreligiousbeliefs}
             />
             <AboutMeListComponent
               pressFunction={() =>
