@@ -209,19 +209,17 @@ export default function LikeInitiatorProfileComponent({
               }}>
               <TouchableOpacity
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
                   width: theme.spaceNumberBy10[3],
                   height: theme.spaceNumberBy10[3],
-                  marginRight: theme.spaceNumberBy10[0],
-                  marginLeft: -theme.spaceNumberBy10[0],
+                  marginRight: theme.spaceNumberBy10[1],
+                  backgroundColor: theme.colors.brand.basewhite,
+                  borderRadius: theme.spaceNumberBy50[1],
                 }}>
                 <IconComponent
                   iconFunction={() => setShowLikeInitiatorProfile(false)}
                   iconName="keyboard-arrow-left"
                   IconComponent={MaterialIcons}
-                  size={45}
+                  size={theme.spaceNumberBy10[3]}
                   color={theme.colors.brand.base}
                 />
               </TouchableOpacity>
