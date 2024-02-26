@@ -352,41 +352,44 @@ export default function LikeInitiatorProfileComponent({
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
+                  transform="capitalize"
                   width="100%">
                   {data?.[0]?.likedBy?.gender}
                 </Text>
               </View>
-              <View
-                style={{
-                  backgroundColor: theme.colors.brand.highlight,
-                  paddingVertical: theme.spaceNumber[3],
-                  paddingHorizontal: theme.spaceNumber[7],
-                  borderRadius: theme.spaceNumberBy10[4],
-                }}>
+              {data?.[0]?.likedBy?.zodiac && (
                 <View
                   style={{
-                    position: "absolute",
-                    top: 10,
-                    left: 9,
+                    backgroundColor: theme.colors.brand.highlight,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[7],
+                    borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <IconComponent
-                    iconFunction={() => {}}
-                    iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
-                    IconComponent={MaterialCommunityIcons}
-                    size={15}
-                    color={theme.colors.brand.black}
-                  />
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: 10,
+                      left: 9,
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
+                      IconComponent={MaterialCommunityIcons}
+                      size={15}
+                      color={theme.colors.brand.black}
+                    />
+                  </View>
+                  <Text
+                    style={{ marginLeft: theme.spaceNumber[5] }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button"
+                    width="100%">
+                    {zodiacSign}
+                  </Text>
                 </View>
-                <Text
-                  style={{ marginLeft: theme.spaceNumber[5] }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="button"
-                  width="100%">
-                  {zodiacSign}
-                </Text>
-              </View>
+              )}
               <View
                 style={{
                   backgroundColor: theme.colors.brand.highlight,
@@ -445,6 +448,34 @@ export default function LikeInitiatorProfileComponent({
                   {data?.[0]?.likedBy?.nationality}
                 </Text>
               </View>
+              {data?.[0]?.likedBy?.tribe && (
+                <View
+                  style={{
+                    backgroundColor: theme.colors.brand.highlight,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[7],
+                    borderRadius: theme.spaceNumberBy10[4],
+                  }}>
+                  <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName="praying-hands"
+                      IconComponent={FontAwesome5}
+                      size={10}
+                      color={theme.colors.brand.black}
+                    />
+                  </View>
+                  <Text
+                    style={{ marginLeft: 10 }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button"
+                    width="100%">
+                    {data?.[0]?.likedBy?.tribe}
+                  </Text>
+                </View>
+              )}
               <View
                 style={{
                   backgroundColor: theme.colors.brand.highlight,
@@ -763,6 +794,7 @@ export default function LikeInitiatorProfileComponent({
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
+                  transform="capitalize"
                   width="100%">
                   {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.firstword}
                 </Text>
@@ -779,6 +811,7 @@ export default function LikeInitiatorProfileComponent({
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
+                  transform="capitalize"
                   width="100%">
                   {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.secondword}
                 </Text>
@@ -795,6 +828,7 @@ export default function LikeInitiatorProfileComponent({
                   colorType="black"
                   fontType="montserratRegular"
                   fontSize="button"
+                  transform="capitalize"
                   width="100%">
                   {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.thirdword}
                 </Text>

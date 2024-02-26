@@ -282,6 +282,7 @@ export default function IndividualUserProfileComponent({
               colorType="black"
               fontType="montserratRegular"
               fontSize="button"
+              transform="capitalize"
               width="100%">
               {data?.gender}
             </Text>
