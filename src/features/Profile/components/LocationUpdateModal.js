@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Keyboard, Pressable, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -120,69 +120,65 @@ export default function LocationUpdateModal({
           Location
         </Text>
       </View>
-      <HorizontalPaddingSpace space={theme.space[3]}>
-        <Spacer position="top" size="xxxlarge">
-          <Pressable onPress={Keyboard.dismiss}>
-            <HorizontalPaddingSpace space={theme.space[6]}>
-              <Spacer position="top" size="xxxxlarge">
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="map-marked-alt"
-                  IconComponent={FontAwesome5}
-                  size={70}
-                  color={theme.colors.brand.base}
-                  centralize={true}
-                />
-              </Spacer>
-              <Spacer position="top" size="xxxxlarge">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="playfairbold"
-                  fontSize="h3"
-                  width="100%">
-                  Enable your location services
-                </Text>
-              </Spacer>
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratSemibold"
-                  fontSize="caption"
-                  width="100%">
-                  {locationCaptureInstruction}
-                </Text>
-              </Spacer>
-              <OnboardingErrorComponent
-                pageError={responseMessage.code === "failed"}
-                text="Location Access Denied! Please allow Your-Fusion to access your location"
-                size="caption"
+      <ScrollView>
+        <HorizontalPaddingSpace space={theme.space[3]}>
+          <Spacer position="top" size="xlarge">
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="map-marked-alt"
+              IconComponent={FontAwesome5}
+              size={70}
+              color={theme.colors.brand.base}
+              centralize={true}
+            />
+          </Spacer>
+          <Spacer position="top" size="xxlarge">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="playfairbold"
+              fontSize="h3"
+              width="100%">
+              Reset your location services
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="medium">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratSemibold"
+              fontSize="caption"
+              width="100%">
+              {locationCaptureInstruction}
+            </Text>
+          </Spacer>
+          <OnboardingErrorComponent
+            pageError={responseMessage.code === "failed"}
+            text="Location Access Denied! Please allow Your-Fusion to access your location"
+            size="caption"
+          />
+          <View
+            style={{
+              height: "50%",
+              justifyContent: "flex-end",
+            }}>
+            {isLoading ? (
+              <Spinner size="large" color={theme.colors.brand.base} />
+            ) : (
+              <Button
+                fontType={theme.fonts.montserratBold}
+                backgroundColor={theme.colors.brand.base}
+                buttonFunction={() => {
+                  setLoading(true);
+                  handleLocationCapture();
+                }}
+                text="Reset Location"
+                textColor={theme.colors.brand.basewhite}
               />
-              <View
-                style={{
-                  height: "45%",
-                  justifyContent: "flex-end",
-                }}>
-                {isLoading ? (
-                  <Spinner size="large" color={theme.colors.brand.base} />
-                ) : (
-                  <Button
-                    fontType={theme.fonts.montserratBold}
-                    backgroundColor={theme.colors.brand.base}
-                    buttonFunction={() => {
-                      setLoading(true);
-                      handleLocationCapture();
-                    }}
-                    text="Enable Location"
-                    textColor={theme.colors.brand.basewhite}
-                  />
-                )}
-              </View>
-            </HorizontalPaddingSpace>
-          </Pressable>
-        </Spacer>
-      </HorizontalPaddingSpace>
+            )}
+          </View>
+        </HorizontalPaddingSpace>
+      </ScrollView>
     </View>
   );
 }

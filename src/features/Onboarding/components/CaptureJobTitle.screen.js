@@ -101,7 +101,7 @@ export default function CaptureJobTitle({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardTyp="text-pad"
-              setValue={setJobtitle}
+              setValue={(text) => setJobtitle(text.toLowerCase())}
               value={jobtitleName}
               width="100%"
               isCountryCode={false}

@@ -69,7 +69,7 @@ export default function CaptureName({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardTyp="text-pad"
-              setValue={setFirstname}
+              setValue={(text) => setFirstname(text.toLowerCase())}
               value={firstname}
               width="100%"
               isCountryCode={false}
@@ -83,7 +83,7 @@ export default function CaptureName({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardTyp="text-pad"
-              setValue={setLastname}
+              setValue={(text) => setLastname(text.toLowerCase())}
               value={lastname}
               width="100%"
               isCountryCode={false}

@@ -83,7 +83,7 @@ export default function CaptureNationality({ navigation }) {
                 includeIcon={false}
                 keyboardTyp="text-pad"
                 setValue={(text) => {
-                  setNationality(text);
+                  setNationality(text.toLowerCase());
                 }}
                 value={nationality}
                 width="100%"

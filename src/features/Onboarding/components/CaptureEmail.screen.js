@@ -65,7 +65,7 @@ export default function CaptureEmail({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardType="email-address"
-              setValue={setEmail}
+              setValue={(text) => setEmail(text.toLowerCase())}
               value={email}
               width="100%"
               isCountryCode={false}

@@ -36,7 +36,9 @@ const custom = (
     };
     text-transform: ${transform ? transform : "none"};
     text-align: ${textAlignment ? textAlignment : "left"};
+
 `;
+
 const popupText = (theme) => `
     font-family: ${theme.fonts.montserratRegular};
     font-size: ${theme.fontSizes.caption};
