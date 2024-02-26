@@ -31,11 +31,11 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
   const genderRray = [
     {
       key: "man",
-      value: "men",
+      value: "man",
     },
     {
       key: "woman",
-      value: "women",
+      value: "woman",
     },
     {
       key: "non-binary",

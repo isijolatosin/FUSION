@@ -24,7 +24,7 @@ export const createAccountInstruction =
   "We never share your details with anyone else. It’s our little secret. What happens if my number changes?";
 export const dobInstruction = "Only your age will be visible on your account";
 export const interestInstruction =
-  "This helps us make the perfect match for you. Pick 6 things you love doing.";
+  "This helps us make the perfect match for you. Pick only 6 things you love doing.";
 export const lifestlyHabitsInstruction =
   "Are they compatible with you? Let’s find out.";
 export const addPhotosInstruction =
@@ -390,7 +390,6 @@ export const interests = [
   "Politics",
   "Content Creation",
   "Cosplay",
-  "Working Out",
   "Painting",
   "Skating",
   "Partying",
@@ -421,7 +420,7 @@ export const interests = [
   "Plant Lover",
   "Tattoos",
   "Piercings",
-  "Ferminism",
+  "Feminism",
   "Thrift",
   "Self Care",
   "Mental Health Awareness",

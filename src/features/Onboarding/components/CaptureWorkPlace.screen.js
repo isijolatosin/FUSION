@@ -97,7 +97,7 @@ export default function CaptureWorkPlace({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardType="default"
-              setValue={setWorkplace}
+              setValue={(text) => setWorkplace(text.toLowerCase())}
               value={workplaceName}
               width="100%"
               isCountryCode={false}

@@ -90,7 +90,7 @@ export default function CaptureSelfDescription({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardType="default"
-              setValue={setFirstword}
+              setValue={(text) => setFirstword(text.toLowerCase())}
               value={firstword}
               width="100%"
               isCountryCode={false}
@@ -104,7 +104,7 @@ export default function CaptureSelfDescription({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardType="default"
-              setValue={setSecondword}
+              setValue={(text) => setSecondword(text.toLowerCase())}
               value={secondword}
               width="100%"
               isCountryCode={false}
@@ -118,7 +118,7 @@ export default function CaptureSelfDescription({ navigation }) {
             <InputComponent
               includeIcon={false}
               keyboardType="default"
-              setValue={setThirdword}
+              setValue={(text) => setThirdword(text.toLowerCase())}
               value={thirdword}
               width="100%"
               isCountryCode={false}
