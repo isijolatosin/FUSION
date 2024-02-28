@@ -212,7 +212,7 @@ export default function CompatibleComponent({
                       iconName={interestMapObject?.iconName}
                       IconComponent={interestMapObject?.family}
                       size={14}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base}
                     />
                     <View style={{ marginLeft: theme.spaceNumber[1] }}>
                       <Text

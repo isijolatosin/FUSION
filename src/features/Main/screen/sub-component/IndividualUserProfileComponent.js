@@ -274,7 +274,7 @@ export default function IndividualUserProfileComponent({
                 iconName={iconNamePerGender}
                 IconComponent={MaterialCommunityIcons}
                 size={15}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </View>
             <Text
@@ -307,7 +307,7 @@ export default function IndividualUserProfileComponent({
                   iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -340,7 +340,7 @@ export default function IndividualUserProfileComponent({
                 iconName="magnet"
                 IconComponent={Entypo}
                 size={12}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </View>
             <Text
@@ -367,7 +367,7 @@ export default function IndividualUserProfileComponent({
                   iconName="flag"
                   IconComponent={Fontisto}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -395,7 +395,7 @@ export default function IndividualUserProfileComponent({
                   iconName="origin"
                   IconComponent={Fontisto}
                   size={14}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -422,7 +422,7 @@ export default function IndividualUserProfileComponent({
                 iconName="praying-hands"
                 IconComponent={FontAwesome5}
                 size={10}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </View>
             <Text
@@ -449,7 +449,7 @@ export default function IndividualUserProfileComponent({
                   iconName="work"
                   IconComponent={MaterialIcons}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -477,7 +477,7 @@ export default function IndividualUserProfileComponent({
                   iconName="home-work"
                   IconComponent={MaterialIcons}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -504,7 +504,7 @@ export default function IndividualUserProfileComponent({
                 iconName="human-male-height"
                 IconComponent={MaterialCommunityIcons}
                 size={12}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </View>
             <Text
@@ -535,7 +535,7 @@ export default function IndividualUserProfileComponent({
                 iconName="dumbbell"
                 IconComponent={FontAwesome5}
                 size={10}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </View>
             <Text
@@ -561,7 +561,7 @@ export default function IndividualUserProfileComponent({
                 iconName="search"
                 IconComponent={Feather}
                 size={15}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </View>
             <Text
@@ -596,7 +596,7 @@ export default function IndividualUserProfileComponent({
             iconName="location-pin"
             IconComponent={Entypo}
             size={15}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base}
           />
           <Text
             style={{ marginLeft: 3 }}
@@ -660,7 +660,7 @@ export default function IndividualUserProfileComponent({
                 iconName={interestMapObject?.iconName}
                 IconComponent={interestMapObject?.family}
                 size={14}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
               <View style={{ marginLeft: theme.spaceNumber[1] }}>
                 <Text
@@ -714,7 +714,7 @@ export default function IndividualUserProfileComponent({
               iconName="cannabis"
               IconComponent={FontAwesome5}
               size={13}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base}
             />
           </View>
           <Text
@@ -740,7 +740,7 @@ export default function IndividualUserProfileComponent({
               iconName="glass-wine"
               IconComponent={MaterialCommunityIcons}
               size={15}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base}
             />
           </View>
           <Text
@@ -766,7 +766,7 @@ export default function IndividualUserProfileComponent({
               iconName="cigar"
               IconComponent={MaterialCommunityIcons}
               size={15}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base}
             />
           </View>
           <Text

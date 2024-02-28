@@ -13,6 +13,7 @@ import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import { interestInstruction, interests } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
+import sortByKey from "../../../utilities/sortByKey";
 
 export default function CaptureInterests({ navigation }) {
   const scrollViewRef = useRef(null);
@@ -121,7 +122,7 @@ export default function CaptureInterests({ navigation }) {
                 flexWrap: "wrap",
                 gap: 6,
               }}>
-              {interests.sort().map((interest, idx) => (
+              {sortByKey(interests).map((interest, idx) => (
                 <Pressable
                   onPress={() => handleInterest(interest.value)}
                   key={idx}
@@ -142,7 +143,7 @@ export default function CaptureInterests({ navigation }) {
                     color={
                       interestsArray.includes(interest.value)
                         ? theme.colors.brand.highlight
-                        : theme.colors.brand.brandFade
+                        : theme.colors.brand.base
                     }
                   />
                   <View>

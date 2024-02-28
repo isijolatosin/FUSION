@@ -99,7 +99,7 @@ export default function ProfileViewModal({
               iconName="close-a"
               IconComponent={Fontisto}
               size={15}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base}
             />
           </Pressable>
         </View>
@@ -170,7 +170,7 @@ export default function ProfileViewModal({
                   iconName={iconNamePerGender}
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -204,7 +204,7 @@ export default function ProfileViewModal({
                   iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -238,7 +238,7 @@ export default function ProfileViewModal({
                   iconName="magnet"
                   IconComponent={Entypo}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -266,7 +266,7 @@ export default function ProfileViewModal({
                   iconName="flag"
                   IconComponent={Fontisto}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -294,7 +294,7 @@ export default function ProfileViewModal({
                   iconName="origin"
                   IconComponent={Fontisto}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -322,7 +322,7 @@ export default function ProfileViewModal({
                   iconName="praying-hands"
                   IconComponent={FontAwesome5}
                   size={10}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -355,7 +355,7 @@ export default function ProfileViewModal({
                   iconName="work"
                   IconComponent={MaterialIcons}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -383,7 +383,7 @@ export default function ProfileViewModal({
                   iconName="home-work"
                   IconComponent={MaterialIcons}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -411,7 +411,7 @@ export default function ProfileViewModal({
                   iconName="human-male-height"
                   IconComponent={MaterialCommunityIcons}
                   size={12}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -444,7 +444,7 @@ export default function ProfileViewModal({
                   iconName="dumbbell"
                   IconComponent={FontAwesome5}
                   size={10}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -472,7 +472,7 @@ export default function ProfileViewModal({
                   iconName="search"
                   IconComponent={Feather}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -508,7 +508,7 @@ export default function ProfileViewModal({
             iconName="location-pin"
             IconComponent={Entypo}
             size={15}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base}
           />
           <Text
             style={{ marginLeft: 3 }}
@@ -574,7 +574,7 @@ export default function ProfileViewModal({
                       iconName={interestMapObject?.iconName}
                       IconComponent={interestMapObject?.family}
                       size={14}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base}
                     />
                     <View style={{ marginLeft: theme.spaceNumber[1] }}>
                       <Text
@@ -630,7 +630,7 @@ export default function ProfileViewModal({
                   iconName="cannabis"
                   IconComponent={FontAwesome5}
                   size={13}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -658,7 +658,7 @@ export default function ProfileViewModal({
                   iconName="glass-wine"
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -686,7 +686,7 @@ export default function ProfileViewModal({
                   iconName="cigar"
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </View>
               <Text
@@ -846,7 +846,7 @@ export default function ProfileViewModal({
                 iconName="facebook"
                 IconComponent={Entypo}
                 size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           </HorizontalPaddingSpace>
@@ -859,7 +859,7 @@ export default function ProfileViewModal({
                 iconName="instagram"
                 IconComponent={AntDesign}
                 size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           </HorizontalPaddingSpace>
@@ -872,7 +872,7 @@ export default function ProfileViewModal({
                 iconName="snapchat"
                 IconComponent={Fontisto}
                 size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           </HorizontalPaddingSpace>
@@ -885,7 +885,7 @@ export default function ProfileViewModal({
                 iconName="tiktok"
                 IconComponent={FontAwesome5}
                 size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           </HorizontalPaddingSpace>
@@ -898,7 +898,7 @@ export default function ProfileViewModal({
                 iconName="playlist-music"
                 IconComponent={MaterialCommunityIcons}
                 size={theme.spaceNumberBy10[2]}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
             </Pressable>
           </HorizontalPaddingSpace>
