@@ -651,7 +651,8 @@ export default function IndividualUserProfileComponent({
                 alignItems: "center",
                 backgroundColor: theme.colors.brand.highlight,
                 paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
+                paddingRight: theme.spaceNumber[7],
+                paddingLeft: theme.spaceNumber[4],
                 borderRadius: theme.spaceNumberBy10[4],
               }}>
               <IconComponent
