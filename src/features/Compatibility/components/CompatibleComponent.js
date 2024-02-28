@@ -10,6 +10,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import firebase, { database } from "../../../../config";
 import { addToArrayField } from "../../../utilities/updateFirestoreDatabaseField";
+import getInterestMapObject from "../../../utilities/getInterestMapObject";
 
 const CompatibleContainer = styled(ImageBackground)`
   flex: 1;
@@ -186,29 +187,46 @@ export default function CompatibleComponent({
                 gap: theme.spaceNumber[3],
                 flexWrap: "wrap",
               }}>
-              {data?.interestsArray?.map((interest, idx) => (
-                <View
-                  key={idx}
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                    elevation: 5,
-                    shadowColor: theme.colors.brand.black,
-                    shadowOpacity: 0.12,
-                    shadowRadius: theme.spaceNumber[2],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
-                    {interest}
-                  </Text>
-                </View>
-              ))}
+              {data?.interestsArray?.map((interest, idx) => {
+                const interestMapObject = getInterestMapObject(interest);
+                if (!interestMapObject?.family || !interestMapObject?.iconName)
+                  return;
+                return (
+                  <View
+                    key={idx}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      backgroundColor: theme.colors.brand.highlight,
+                      paddingVertical: theme.spaceNumber[3],
+                      paddingRight: theme.spaceNumber[7],
+                      paddingLeft: theme.spaceNumber[4],
+                      borderRadius: theme.spaceNumberBy10[4],
+                      elevation: 5,
+                      shadowColor: theme.colors.brand.black,
+                      shadowOpacity: 0.12,
+                      shadowRadius: theme.spaceNumber[2],
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName={interestMapObject?.iconName}
+                      IconComponent={interestMapObject?.family}
+                      size={14}
+                      color={theme.colors.brand.brandFade}
+                    />
+                    <View style={{ marginLeft: theme.spaceNumber[1] }}>
+                      <Text
+                        variant="custom"
+                        colorType="black"
+                        fontType="montserratRegular"
+                        fontSize="button"
+                        width="100%">
+                        {interest}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
             </View>
           </View>
         </View>

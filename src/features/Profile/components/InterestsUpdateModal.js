@@ -68,34 +68,43 @@ export default function InterestsUpdateModal({
           {initialInterest}
         </Text>
       </View>
-      <HorizontalPaddingSpace space={theme?.space[3]}>
-        <Spacer position="top" size="xxxlarge">
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ marginBottom: theme?.spaceNumberBy50[3] - 40 }}>
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                gap: 6,
-              }}>
-              {interests?.sort().map((interest, idx) => (
-                <Pressable
-                  onPress={() => handleInterest(interest)}
-                  key={idx}
-                  style={{
-                    backgroundColor:
-                      initialInterest === interest
-                        ? theme?.colors.brand.base
-                        : theme?.colors.brand.highlight,
-                    paddingHorizontal: theme?.spaceNumber[7],
-                    paddingVertical: theme?.spaceNumber[3],
-                    borderRadius: theme?.spaceNumberBy10[9],
-                  }}>
+      <Spacer position="top" size="xxxlarge">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ marginBottom: theme?.spaceNumberBy50[3] - 40 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: 6,
+            }}>
+            {interests?.sort().map((interest, idx) => (
+              <Pressable
+                onPress={() => handleInterest(interest.value)}
+                key={idx}
+                style={{
+                  flexDirection: "row",
+                  backgroundColor:
+                    initialInterest === interest.value
+                      ? theme?.colors.brand.base
+                      : theme?.colors.brand.highlight,
+                  paddingRight: theme?.spaceNumber[6],
+                  paddingLeft: theme?.spaceNumber[3],
+                  paddingVertical: theme?.spaceNumber[3],
+                  borderRadius: theme?.spaceNumberBy10[9],
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName={interest.iconName}
+                  IconComponent={interest.family}
+                  size={14}
+                  color={theme.colors.brand.brandFade}
+                />
+                <View style={{ marginLeft: theme.spaceNumber[1] }}>
                   <Text
                     style={{
                       color:
-                        initialInterest === interest
+                        initialInterest === interest.value
                           ? theme?.colors.brand.basewhite
                           : theme?.colors.brand.black,
                     }}
@@ -103,14 +112,14 @@ export default function InterestsUpdateModal({
                     colorType="black"
                     fontType="montserratRegular"
                     fontSize="button">
-                    {interest}
+                    {interest.value}
                   </Text>
-                </Pressable>
-              ))}
-            </View>
-          </ScrollView>
-        </Spacer>
-      </HorizontalPaddingSpace>
+                </View>
+              </Pressable>
+            ))}
+          </View>
+        </ScrollView>
+      </Spacer>
     </View>
   );
 }

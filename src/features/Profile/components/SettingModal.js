@@ -312,7 +312,7 @@ export default function SettingModal({
                   iconName="edit"
                   IconComponent={AntDesign}
                   size={15}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </Pressable>
               <View>

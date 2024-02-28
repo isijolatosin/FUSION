@@ -1116,7 +1116,7 @@ export default function ProfileScreen() {
                 iconName="edit"
                 IconComponent={AntDesign}
                 size={15}
-                color={theme.colors.brand.lines}
+                color={theme.colors.brand.brandFade}
               />
             </HorizontalPaddingSpace>
           </Spacer>
