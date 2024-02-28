@@ -139,7 +139,11 @@ export default function CaptureInterests({ navigation }) {
                     iconName={interest.iconName}
                     IconComponent={interest.family}
                     size={14}
-                    color={theme.colors.brand.brandFade}
+                    color={
+                      interestsArray.includes(interest.value)
+                        ? theme.colors.brand.highlight
+                        : theme.colors.brand.brandFade
+                    }
                   />
                   <View>
                     <Text
