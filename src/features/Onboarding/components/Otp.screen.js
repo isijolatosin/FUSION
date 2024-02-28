@@ -48,7 +48,7 @@ export default function OtpScreen({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3">
               Enter your verification code
             </Text>

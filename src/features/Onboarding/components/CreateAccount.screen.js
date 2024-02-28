@@ -62,7 +62,7 @@ export default function CreateAccount({ navigation }) {
               <Text
                 variant="custom"
                 colorType="black"
-                fontType="playfairbold"
+                fontType="arimaMadurai"
                 fontSize="h3"
                 width="50%">
                 What's your number?

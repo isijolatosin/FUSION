@@ -1,18 +1,11 @@
 export const fonts = {
-  montserratThin: "Montserrat_100Thin",
-  montserratThinItalic: "Montserrat_100Thin_Italic",
-  montserratExtraLight: "Montserrat_200ExtraLight",
-  montserratExtraLightItalic: "Montserrat_200ExtraLight_Italic",
   montserratLight: "Montserrat_300Light",
-  montserratLightItalic: "Montserrat_300Light_Italic",
   montserratRegular: "Montserrat_400Regular",
   montserratSemibold: "Montserrat_500Medium",
   montserratBold: "Montserrat_600SemiBold",
   montserratExtrabold: "Montserrat_700Bold",
-  playfair: "PlayfairDisplay_400Regular",
-  playfairsemibold: "PlayfairDisplay_500Medium",
   playfairbold: "PlayfairDisplay_600SemiBold",
-  playfairextraBold: "PlayfairDisplay_700Bold",
+  arimaMadurai: "ArimaMadurai_700Bold",
 };
 
 export const fontWeights = {

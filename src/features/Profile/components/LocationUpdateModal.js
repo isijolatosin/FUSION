@@ -136,7 +136,7 @@ export default function LocationUpdateModal({
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               Reset your location services

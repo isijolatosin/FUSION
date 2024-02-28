@@ -82,7 +82,7 @@ export default function CaptureJobTitle({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               What's your job title?

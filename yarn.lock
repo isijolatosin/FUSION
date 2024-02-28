@@ -1484,6 +1484,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@expo-google-fonts/arima-madurai@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/arima-madurai/-/arima-madurai-0.2.3.tgz#31b643467e4fe9a4a47143123b4d47e45078ff2c"
+  integrity sha512-4gjS8iTtzlt6qaaTJmi2NtCslzONceBV+QFcmlyr1qnAdbfYQQGVzPCnERQzftfWwN92OecNJEaXvO40eZyr6A==
+
 "@expo-google-fonts/montserrat@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/montserrat/-/montserrat-0.2.3.tgz#e22b337ee6bd2007126b466ddd18f9de59eb3fc6"

@@ -233,7 +233,7 @@ export default function SettingModal({
             }}
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4">
             Settings
           </Text>

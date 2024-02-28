@@ -70,7 +70,7 @@ const YouAreSpecialCircleWrapper = styled.View`
 `;
 
 const YouAreSpecialCircleText = styled.Text`
-  font-family: ${(props) => props.theme.fonts.playfairbold};
+  font-family: ${(props) => props.theme.fonts.arimaMadurai};
   font-size: ${(props) => props.theme.fontSizes.h4};
   width: 85%;
   text-align: left;

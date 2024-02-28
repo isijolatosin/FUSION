@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.1.6",
+    "@expo-google-fonts/arima-madurai": "^0.2.3",
     "@expo-google-fonts/montserrat": "^0.2.3",
     "@expo-google-fonts/oswald": "^0.2.3",
     "@expo-google-fonts/playfair-display": "^0.2.3",

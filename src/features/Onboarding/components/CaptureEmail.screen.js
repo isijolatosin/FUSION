@@ -46,7 +46,7 @@ export default function CaptureEmail({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               What's your email?
@@ -54,7 +54,7 @@ export default function CaptureEmail({ navigation }) {
             <Text
               variant="custom"
               colorType="linesLight"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h5"
               width="65%">
               {" "}

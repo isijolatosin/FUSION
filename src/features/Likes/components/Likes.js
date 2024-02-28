@@ -86,7 +86,7 @@ const LikesScreen = () => {
             style={{ textAlign: "center" }}
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4">
             Your Likes
           </Text>
@@ -135,7 +135,7 @@ const LikesScreen = () => {
             style={{ textAlign: "center" }}
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4">
             Your Likes
           </Text>
@@ -185,7 +185,7 @@ const LikesScreen = () => {
             style={{ textAlign: "center" }}
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4">
             Your Likes
           </Text>
