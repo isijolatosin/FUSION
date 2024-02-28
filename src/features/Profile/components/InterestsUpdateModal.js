@@ -98,7 +98,11 @@ export default function InterestsUpdateModal({
                   iconName={interest.iconName}
                   IconComponent={interest.family}
                   size={14}
-                  color={theme.colors.brand.brandFade}
+                  color={
+                    initialInterest === interest.value
+                      ? theme.colors.brand.highlight
+                      : theme.colors.brand.brandFade
+                  }
                 />
                 <View style={{ marginLeft: theme.spaceNumber[1] }}>
                   <Text
