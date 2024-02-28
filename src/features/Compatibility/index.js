@@ -101,6 +101,20 @@ export default function Index() {
     setCurrentUser(currentUserData);
     const currentUserInteresstArray = currentUserData?.interestsArray;
 
+    // ########################################################################
+    // check if profile is in the same country with current user and if not, filter off
+    const filterOffByCountryProfiles = [];
+    for (let i = 0; i < newData.length; i++) {
+      if (
+        newData[i]?.country === currentUserData?.country ||
+        process.env.EXPO_PUBLIC_ROLE === currentUserData.role // remove admin see all users later
+      ) {
+        filterOffByCountryProfiles.push(newData[i]);
+      }
+    }
+
+    // ########################################################################
+    // check that it is only current user match being retrieved
     const onlyCurrentUserOtherMatchesNumber = [];
     for (let i = 0; i < allMatchesResult.length; i++) {
       if (
@@ -122,9 +136,10 @@ export default function Index() {
       }
     }
 
+    // ########################################################################
     // find users with similar interests
     const usersWithSimilarInterests = [];
-    newData?.filter((user) => {
+    filterOffByCountryProfiles?.filter((user) => {
       const userInterestsArray = user?.interestsArray;
       if (user?.phonenumber !== phoneValueFromPhoneMemory) {
         if (
@@ -141,6 +156,7 @@ export default function Index() {
           const blockedMeList = currentUserData?.blockedMeList;
           const blockedList = currentUserData?.blockedList;
 
+          // ########################################################################
           // check if profile has been liked or liked me and filter off
           if (
             (likedNumberArray?.length &&
@@ -153,6 +169,7 @@ export default function Index() {
               stackingArray.push(user);
           }
 
+          // ########################################################################
           // check if profile has been blocked or blocked by me and filter off
           if (
             (blockedMeList?.length &&

@@ -8,6 +8,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { interests } from "../../../constants";
+import sortByKey from "../../../utilities/sortByKey";
 
 export default function InterestsUpdateModal({
   interestValue,
@@ -78,7 +79,7 @@ export default function InterestsUpdateModal({
               flexWrap: "wrap",
               gap: 6,
             }}>
-            {interests?.sort().map((interest, idx) => (
+            {sortByKey(interests).map((interest, idx) => (
               <Pressable
                 onPress={() => handleInterest(interest.value)}
                 key={idx}
@@ -101,7 +102,7 @@ export default function InterestsUpdateModal({
                   color={
                     initialInterest === interest.value
                       ? theme.colors.brand.highlight
-                      : theme.colors.brand.brandFade
+                      : theme.colors.brand.base
                   }
                 />
                 <View style={{ marginLeft: theme.spaceNumber[1] }}>

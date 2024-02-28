@@ -221,7 +221,7 @@ export default function LikeInitiatorProfileComponent({
                   iconName="keyboard-arrow-left"
                   IconComponent={MaterialIcons}
                   size={theme.spaceNumberBy10[3]}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base}
                 />
               </TouchableOpacity>
               <Text
@@ -344,7 +344,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName={iconNamePerGender}
                     IconComponent={MaterialCommunityIcons}
                     size={15}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -377,7 +377,7 @@ export default function LikeInitiatorProfileComponent({
                       iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
                       IconComponent={MaterialCommunityIcons}
                       size={15}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base}
                     />
                   </View>
                   <Text
@@ -410,7 +410,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="magnet"
                     IconComponent={Entypo}
                     size={12}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -436,7 +436,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="flag"
                     IconComponent={Fontisto}
                     size={12}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -463,7 +463,7 @@ export default function LikeInitiatorProfileComponent({
                       iconName="praying-hands"
                       IconComponent={FontAwesome5}
                       size={10}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base}
                     />
                   </View>
                   <Text
@@ -490,7 +490,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="praying-hands"
                     IconComponent={FontAwesome5}
                     size={10}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -517,7 +517,7 @@ export default function LikeInitiatorProfileComponent({
                       iconName="work"
                       IconComponent={MaterialIcons}
                       size={12}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base}
                     />
                   </View>
                   <Text
@@ -528,6 +528,34 @@ export default function LikeInitiatorProfileComponent({
                     fontSize="button"
                     width="100%">
                     {data?.[0]?.likedBy?.jobtitle?.job}
+                  </Text>
+                </View>
+              )}
+              {data?.[0]?.likedBy?.workplace?.visibleOnProfile && (
+                <View
+                  style={{
+                    backgroundColor: theme.colors.brand.highlight,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[7],
+                    borderRadius: theme.spaceNumberBy10[4],
+                  }}>
+                  <View style={{ position: "absolute", top: 9, left: 9 }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName="work"
+                      IconComponent={MaterialIcons}
+                      size={12}
+                      color={theme.colors.brand.base}
+                    />
+                  </View>
+                  <Text
+                    style={{ marginLeft: 10 }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="button"
+                    width="100%">
+                    {data?.[0]?.likedBy?.workplace?.work}
                   </Text>
                 </View>
               )}
@@ -544,7 +572,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="human-male-height"
                     IconComponent={MaterialCommunityIcons}
                     size={12}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -577,7 +605,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="dumbbell"
                     IconComponent={FontAwesome5}
                     size={10}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -603,7 +631,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="search"
                     IconComponent={Feather}
                     size={15}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -638,7 +666,7 @@ export default function LikeInitiatorProfileComponent({
                 iconName="location-pin"
                 IconComponent={Entypo}
                 size={15}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base}
               />
               <Text
                 style={{ marginLeft: 3 }}
@@ -703,7 +731,7 @@ export default function LikeInitiatorProfileComponent({
                       iconName={interestMapObject?.iconName}
                       IconComponent={interestMapObject?.family}
                       size={14}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base}
                     />
                     <View style={{ marginLeft: theme.spaceNumber[1] }}>
                       <Text
@@ -756,7 +784,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="cannabis"
                     IconComponent={FontAwesome5}
                     size={17}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -782,7 +810,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="glass-wine"
                     IconComponent={MaterialCommunityIcons}
                     size={15}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
@@ -808,7 +836,7 @@ export default function LikeInitiatorProfileComponent({
                     iconName="cigar"
                     IconComponent={MaterialCommunityIcons}
                     size={15}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base}
                   />
                 </View>
                 <Text
