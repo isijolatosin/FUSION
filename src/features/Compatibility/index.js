@@ -45,7 +45,7 @@ function ScreenWrapper({ children, theme, width }) {
               style={{ textAlign: "center" }}
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3">
               Similar Interest
             </Text>
@@ -301,7 +301,7 @@ export default function Index() {
         <Spacer
           position="top"
           size="small"
-          style={{ paddingBottom: theme.spaceNumberBy10[10] }}>
+          style={{ paddingBottom: theme.spaceNumberBy10[13] }}>
           <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
             {usersWithSimilarInterestsData?.map(
               (signleUserWithSimilarInterest, idx) => (

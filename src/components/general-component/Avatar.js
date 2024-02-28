@@ -5,7 +5,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { AvatarWrapper } from "../../features/Main/screen/main.style";
 import IconComponent from "../icon-components/IconComponent";
 
-export default function Avatar({ data, theme, dimensionIndex, func }) {
+export default function Avatar({
+  data,
+  theme,
+  dimensionIndex,
+  func,
+  isSmallIcon,
+}) {
   return (
     <AvatarWrapper
       onPress={func}
@@ -37,7 +43,7 @@ export default function Avatar({ data, theme, dimensionIndex, func }) {
             iconFunction={() => {}}
             iconName="user"
             IconComponent={AntDesign}
-            size={60}
+            size={isSmallIcon ? 30 : 60}
             color={theme.colors.brand.highlight}
           />
         </View>

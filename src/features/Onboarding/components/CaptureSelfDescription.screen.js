@@ -80,7 +80,7 @@ export default function CaptureSelfDescription({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               What three words describe you?

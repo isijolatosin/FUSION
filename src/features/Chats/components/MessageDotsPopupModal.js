@@ -66,7 +66,7 @@ export default function MessageDotsPopupModal({
               style={{ textAlign: "center" }}
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h4">
               Are you sure?
             </Text>
@@ -141,7 +141,7 @@ export default function MessageDotsPopupModal({
             style={{ textAlign: "center" }}
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4">
             Block this person
           </Text>

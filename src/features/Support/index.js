@@ -66,7 +66,7 @@ export default function Index({ navigation }) {
             style={{ textAlign: "center" }}
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4"
             width="100%">
             General Support

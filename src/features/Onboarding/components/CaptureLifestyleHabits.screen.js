@@ -96,7 +96,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
           <Text
             variant="custom"
             colorType="black"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h3"
             width="100%">
             What are your lifestyle habits?
@@ -126,7 +126,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               iconName="dumbbell"
               IconComponent={FontAwesome5}
               size={20}
-              color={theme.colors.brand.black}
+              color={theme.colors.brand.base}
             />
             <Text
               style={{ paddingLeft: theme.spaceNumber[5] }}
@@ -184,7 +184,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               iconName="cigar"
               IconComponent={MaterialCommunityIcons}
               size={25}
-              color={theme.colors.brand.black}
+              color={theme.colors.brand.base}
             />
             <Text
               style={{ paddingLeft: theme.spaceNumber[5] }}
@@ -242,7 +242,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               iconName="cannabis"
               IconComponent={FontAwesome5}
               size={25}
-              color={theme.colors.brand.black}
+              color={theme.colors.brand.base}
             />
             <Text
               style={{ paddingLeft: theme.spaceNumber[5] }}
@@ -300,7 +300,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               iconName="glass-wine"
               IconComponent={MaterialCommunityIcons}
               size={25}
-              color={theme.colors.brand.black}
+              color={theme.colors.brand.base}
             />
             <Text
               style={{ paddingLeft: theme.spaceNumber[5] }}

@@ -17,6 +17,7 @@ import { Spacer } from "../spacer/spacer.component";
 import calculateAge from "../../utilities/calculateAge";
 import { getZodiacSign } from "../../utilities/generateZodiac";
 import { handleUrlPress } from "../../utilities/detectTextType";
+import getInterestMapObject from "../../utilities/getInterestMapObject";
 
 export default function ProfileViewModal({
   otherUser,
@@ -72,7 +73,7 @@ export default function ProfileViewModal({
               }}
               variant="custom"
               colorType="basewhite"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h2"
               width="100%">
               {otherUser?.firstname},{" "}
@@ -98,7 +99,7 @@ export default function ProfileViewModal({
               iconName="close-a"
               IconComponent={Fontisto}
               size={15}
-              color={theme.colors.brand.black}
+              color={theme.colors.brand.brandFade}
             />
           </Pressable>
         </View>
@@ -169,7 +170,7 @@ export default function ProfileViewModal({
                   iconName={iconNamePerGender}
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -203,7 +204,7 @@ export default function ProfileViewModal({
                   iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -237,7 +238,7 @@ export default function ProfileViewModal({
                   iconName="magnet"
                   IconComponent={Entypo}
                   size={12}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -265,7 +266,7 @@ export default function ProfileViewModal({
                   iconName="flag"
                   IconComponent={Fontisto}
                   size={12}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -293,7 +294,7 @@ export default function ProfileViewModal({
                   iconName="origin"
                   IconComponent={Fontisto}
                   size={12}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -321,7 +322,7 @@ export default function ProfileViewModal({
                   iconName="praying-hands"
                   IconComponent={FontAwesome5}
                   size={10}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -354,7 +355,7 @@ export default function ProfileViewModal({
                   iconName="work"
                   IconComponent={MaterialIcons}
                   size={12}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -382,7 +383,7 @@ export default function ProfileViewModal({
                   iconName="home-work"
                   IconComponent={MaterialIcons}
                   size={12}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -410,7 +411,7 @@ export default function ProfileViewModal({
                   iconName="human-male-height"
                   IconComponent={MaterialCommunityIcons}
                   size={12}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -443,7 +444,7 @@ export default function ProfileViewModal({
                   iconName="dumbbell"
                   IconComponent={FontAwesome5}
                   size={10}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -471,7 +472,7 @@ export default function ProfileViewModal({
                   iconName="search"
                   IconComponent={Feather}
                   size={15}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -507,7 +508,7 @@ export default function ProfileViewModal({
             iconName="location-pin"
             IconComponent={Entypo}
             size={15}
-            color={theme.colors.brand.black}
+            color={theme.colors.brand.brandFade}
           />
           <Text
             style={{ marginLeft: 3 }}
@@ -532,6 +533,65 @@ export default function ProfileViewModal({
         />
       </Spacer>
       <HorizontalPaddingSpace space={theme.space[2]}>
+        <Spacer position="bottom" size="medium">
+          <Spacer position="top" size="medium">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="title"
+              width="100%">
+              My Interests
+            </Text>
+          </Spacer>
+          {otherUser?.interestsArray?.length && (
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[3],
+                marginVertical: 5,
+                flexWrap: "wrap",
+              }}>
+              {otherUser?.interestsArray?.map((word, idx) => {
+                const interestMapObject = getInterestMapObject(word);
+                if (!interestMapObject?.family || !interestMapObject?.iconName)
+                  return;
+                return (
+                  <View
+                    key={idx}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      backgroundColor: theme.colors.brand.highlight,
+                      paddingVertical: theme.spaceNumber[3],
+                      paddingHorizontal: theme.spaceNumber[7],
+                      borderRadius: theme.spaceNumberBy10[4],
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName={interestMapObject?.iconName}
+                      IconComponent={interestMapObject?.family}
+                      size={14}
+                      color={theme.colors.brand.brandFade}
+                    />
+                    <View style={{ marginLeft: theme.spaceNumber[1] }}>
+                      <Text
+                        key={idx}
+                        variant="custom"
+                        colorType="black"
+                        fontType="montserratRegular"
+                        fontSize="button"
+                        width="100%">
+                        {word}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          )}
+        </Spacer>
         <Spacer position="top" size="medium">
           <Text
             variant="custom"
@@ -569,7 +629,7 @@ export default function ProfileViewModal({
                   iconName="cannabis"
                   IconComponent={FontAwesome5}
                   size={13}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -597,7 +657,7 @@ export default function ProfileViewModal({
                   iconName="glass-wine"
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -625,7 +685,7 @@ export default function ProfileViewModal({
                   iconName="cigar"
                   IconComponent={MaterialCommunityIcons}
                   size={15}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.brandFade}
                 />
               </View>
               <Text
@@ -640,6 +700,36 @@ export default function ProfileViewModal({
             </View>
           )}
         </View>
+      </HorizontalPaddingSpace>
+      {otherUser?.mediaArray?.[2] && (
+        <Spacer position="top" size="xxsmall">
+          <Image
+            style={{
+              width: "100%",
+              height: 600,
+              resizeMode: "cover",
+            }}
+            source={{
+              uri: `${otherUser?.mediaArray?.[2]}`,
+            }}
+          />
+        </Spacer>
+      )}
+      {otherUser?.mediaArray?.[3] && (
+        <Spacer position="top" size="xxsmall">
+          <Image
+            style={{
+              width: "100%",
+              height: 600,
+              resizeMode: "cover",
+            }}
+            source={{
+              uri: `${otherUser?.mediaArray?.[3]}`,
+            }}
+          />
+        </Spacer>
+      )}
+      <HorizontalPaddingSpace space={theme.space[2]}>
         <Spacer position="top" size="medium">
           <Text
             variant="custom"
@@ -708,79 +798,6 @@ export default function ProfileViewModal({
             </View>
           </View>
         )}
-      </HorizontalPaddingSpace>
-      {otherUser?.mediaArray?.[2] && (
-        <Spacer position="top" size="xxsmall">
-          <Image
-            style={{
-              width: "100%",
-              height: 600,
-              resizeMode: "cover",
-            }}
-            source={{
-              uri: `${otherUser?.mediaArray?.[2]}`,
-            }}
-          />
-        </Spacer>
-      )}
-      {otherUser?.mediaArray?.[3] && (
-        <Spacer position="top" size="xxsmall">
-          <Image
-            style={{
-              width: "100%",
-              height: 600,
-              resizeMode: "cover",
-            }}
-            source={{
-              uri: `${otherUser?.mediaArray?.[3]}`,
-            }}
-          />
-        </Spacer>
-      )}
-      <HorizontalPaddingSpace space={theme.space[2]}>
-        <Spacer position="bottom" size="medium">
-          <Spacer position="top" size="medium">
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="title"
-              width="100%">
-              My Interests
-            </Text>
-          </Spacer>
-          {otherUser?.interestsArray?.length && (
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                gap: theme.spaceNumber[3],
-                marginVertical: 5,
-                flexWrap: "wrap",
-              }}>
-              {otherUser?.interestsArray?.map((word, idx) => (
-                <View
-                  key={idx}
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    key={idx}
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
-                    {word}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          )}
-        </Spacer>
       </HorizontalPaddingSpace>
       {otherUser?.mediaArray?.[4] && (
         <Spacer position="top" size="xxsmall">

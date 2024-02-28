@@ -290,7 +290,7 @@ const ChatsScreen = () => {
               style={{ textAlign: "center" }}
               variant="custom"
               colorType="linesLight"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h4">
               Profile Deactivated
             </Text>

@@ -59,7 +59,7 @@ export default function CaptureName({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="55%">
               What's your name?

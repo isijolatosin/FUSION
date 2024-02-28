@@ -77,7 +77,7 @@ export default function ContactModal({
                 style={{ textAlign: "center" }}
                 variant="custom"
                 colorType="black"
-                fontType="playfairbold"
+                fontType="arimaMadurai"
                 fontSize="h3">
                 Hi, Ask away.
               </Text>
@@ -85,7 +85,7 @@ export default function ContactModal({
                 style={{ textAlign: "center" }}
                 variant="custom"
                 colorType="black"
-                fontType="playfairbold"
+                fontType="arimaMadurai"
                 fontSize="h3">
                 We are here to help.
               </Text>
@@ -156,7 +156,7 @@ export default function ContactModal({
                   style={{ textAlign: "center" }}
                   variant="custom"
                   colorType="black"
-                  fontType="playfairbold"
+                  fontType="arimaMadurai"
                   fontSize="h3">
                   Hi, Ask away.
                 </Text>
@@ -164,7 +164,7 @@ export default function ContactModal({
                   style={{ textAlign: "center" }}
                   variant="custom"
                   colorType="black"
-                  fontType="playfairbold"
+                  fontType="arimaMadurai"
                   fontSize="h3">
                   We are here to help.
                 </Text>

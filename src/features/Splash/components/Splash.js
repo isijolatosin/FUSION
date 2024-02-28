@@ -22,7 +22,7 @@ export default function index() {
           <Text
             variant="custom"
             colorType="basewhite"
-            fontType="playfairbold"
+            fontType="arimaMadurai"
             fontSize="h4">
             An African community specially made for you.
           </Text>

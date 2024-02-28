@@ -79,7 +79,7 @@ export default function CaptureWorkPlace({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               Where do you work?

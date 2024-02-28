@@ -92,7 +92,7 @@ export default function CaptureInterests({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               Share Your Interest
@@ -123,28 +123,39 @@ export default function CaptureInterests({ navigation }) {
               }}>
               {interests.sort().map((interest, idx) => (
                 <Pressable
-                  onPress={() => handleInterest(interest)}
+                  onPress={() => handleInterest(interest.value)}
                   key={idx}
                   style={{
-                    backgroundColor: interestsArray.includes(interest)
+                    flexDirection: "row",
+                    backgroundColor: interestsArray.includes(interest.value)
                       ? theme.colors.brand.base
                       : theme.colors.brand.highlight,
                     paddingHorizontal: theme.spaceNumber[7],
                     paddingVertical: theme.spaceNumber[3],
                     borderRadius: theme.spaceNumberBy10[9],
                   }}>
-                  <Text
-                    style={{
-                      color: interestsArray.includes(interest)
-                        ? theme.colors.brand.basewhite
-                        : theme.colors.brand.black,
-                    }}
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button">
-                    {interest}
-                  </Text>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName={interest.iconName}
+                    IconComponent={interest.family}
+                    size={14}
+                    color={theme.colors.brand.brandFade}
+                  />
+                  <View>
+                    <Text
+                      style={{
+                        marginLeft: theme.spaceNumber[1],
+                        color: interestsArray.includes(interest.value)
+                          ? theme.colors.brand.basewhite
+                          : theme.colors.brand.black,
+                      }}
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratRegular"
+                      fontSize="button">
+                      {interest.value}
+                    </Text>
+                  </View>
                 </Pressable>
               ))}
             </View>

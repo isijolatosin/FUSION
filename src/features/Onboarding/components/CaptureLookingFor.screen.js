@@ -64,7 +64,7 @@ export default function CaptureLookingFor({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               What are you looking for?

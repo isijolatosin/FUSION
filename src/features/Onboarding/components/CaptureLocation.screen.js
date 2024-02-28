@@ -78,7 +78,7 @@ export default function CaptureLocation({ navigation }) {
             <Text
               variant="custom"
               colorType="black"
-              fontType="playfairbold"
+              fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
               Enable your location services
@@ -145,7 +145,7 @@ export default function CaptureLocation({ navigation }) {
                   }}
                   variant="custom"
                   colorType="black"
-                  fontType="playfairbold"
+                  fontType="arimaMadurai"
                   fontSize="h4"
                   width="80%">
                   Allow "Fusion" use your location.

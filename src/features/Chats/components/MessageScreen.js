@@ -356,6 +356,7 @@ export default function MessageScreen({ navigation }) {
                 theme={theme}
                 dimensionIndex={theme.spaceNumber[1]}
                 func={() => setShowProfile(true)}
+                isSmallIcon={true}
               />
               <Text
                 style={{ marginLeft: theme.spaceNumber[3] }}
