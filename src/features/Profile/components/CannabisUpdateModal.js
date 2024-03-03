@@ -14,29 +14,50 @@ export default function CannabisUpdateModal({
   height,
   currentUser,
   onClose,
+  myCannabisPreference,
 }) {
-  const [cannabisPreference, setCannabisPreference] = useState(
+  const [preference, setPreference] = useState(
     currentUser?.lifestyleHabits.cannabis
   );
+
+  const [cannabisPreference, setCannabisPreference] = useState(
+    currentUser.preferredCannabis ?? "Open to all"
+  );
+
+  // this is to differentiate between current user cannabis preference and their preferred.
+  const currentPreference = myCannabisPreference
+    ? cannabisPreference
+    : preference;
+
   async function updateCannabis(value) {
     if (!value) return;
 
-    setCannabisPreference(value);
+    if (myCannabisPreference) {
+      setCannabisPreference(value);
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        myCannabisPreference,
+        value,
+        () => {}
+      );
+    } else {
+      setPreference(value);
+      const updatedValue = {
+        cannabis: value ?? currentUser?.lifestyleHabits.cannabis,
+        drink: currentUser?.lifestyleHabits.drink,
+        gym: currentUser?.lifestyleHabits.gym,
+        smoke: currentUser?.lifestyleHabits.smoke,
+      };
 
-    const updatedValue = {
-      cannabis: value ?? currentUser?.lifestyleHabits.cannabis,
-      drink: currentUser?.lifestyleHabits.drink,
-      gym: currentUser?.lifestyleHabits.gym,
-      smoke: currentUser?.lifestyleHabits.smoke,
-    };
-
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "lifestyleHabits",
-      updatedValue,
-      () => {}
-    );
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "lifestyleHabits",
+        updatedValue,
+        () => {}
+      );
+    }
   }
 
   return (
@@ -62,7 +83,7 @@ export default function CannabisUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Cannabis
+          {myCannabisPreference ? "Cannabis Preference" : "Cannabis"}
         </Text>
       </View>
       <HorizontalPaddingSpace space={theme.space[3]}>
@@ -70,7 +91,7 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                cannabisPreference === "Not my thing"
+                currentPreference === "Not my thing"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -80,7 +101,7 @@ export default function CannabisUpdateModal({
               buttonFunction={() => updateCannabis("Not my thing")}
               text="Not my thing"
               textColor={
-                cannabisPreference === "Not my thing"
+                currentPreference === "Not my thing"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -89,7 +110,7 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                cannabisPreference === "Socially"
+                currentPreference === "Socially"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -99,7 +120,7 @@ export default function CannabisUpdateModal({
               buttonFunction={() => updateCannabis("Socially")}
               text="Socially"
               textColor={
-                cannabisPreference === "Socially"
+                currentPreference === "Socially"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -108,7 +129,7 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                cannabisPreference === "Frequently"
+                currentPreference === "Frequently"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -118,7 +139,7 @@ export default function CannabisUpdateModal({
               buttonFunction={() => updateCannabis("Frequently")}
               text="Frequently"
               textColor={
-                cannabisPreference === "Frequently"
+                currentPreference === "Frequently"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -127,7 +148,7 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                cannabisPreference === "Sometimes"
+                currentPreference === "Sometimes"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -137,7 +158,26 @@ export default function CannabisUpdateModal({
               buttonFunction={() => updateCannabis("Sometimes")}
               text="Sometimes"
               textColor={
-                cannabisPreference === "Sometimes"
+                currentPreference === "Sometimes"
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
+              }
+            />
+          </Spacer>
+          <Spacer position="top" size="small">
+            <Button
+              backgroundColor={
+                currentPreference === "Open to all"
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
+              }
+              isBorder={false}
+              isNotBold={true}
+              borderColor="transparent"
+              buttonFunction={() => updateCannabis("Open to all")}
+              text="Open to all"
+              textColor={
+                currentPreference === "Open to all"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }

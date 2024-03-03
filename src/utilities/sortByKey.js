@@ -13,4 +13,14 @@ function sortByKey(array) {
   });
 }
 
-export default sortByKey;
+function sortByTimestamp(array) {
+  return array.sort((a, b) => {
+    const valueADate = new Date(a.timestamp.seconds * 1000);
+    const valueBDate = new Date(b.timestamp.seconds * 1000);
+    const timestampA = valueADate.getTime();
+    const timestampB = valueBDate.getTime();
+    return timestampB - timestampA;
+  });
+}
+
+export { sortByKey, sortByTimestamp };

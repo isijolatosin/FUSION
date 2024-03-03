@@ -14,29 +14,49 @@ export default function DrinkUpdateModal({
   height,
   currentUser,
   onClose,
+  myDrinkingPreference,
 }) {
-  const [drinkingPreference, setDrinkingPreference] = useState(
-    currentUser?.lifestyleHabits.drink
+  const [preference, setPreference] = useState(
+    currentUser.lifestyleHabits.drink
   );
+  const [drinkingPreference, setDrinkingPreference] = useState(
+    currentUser.preferredDrinking ?? "Open to all"
+  );
+
+  // this is to differentiate between current user drink preference and their preferred.
+  const currentPreference = myDrinkingPreference
+    ? drinkingPreference
+    : preference;
+
   async function updateSmoke(value) {
     if (!value) return;
 
-    setDrinkingPreference(value);
+    if (myDrinkingPreference) {
+      setDrinkingPreference(value);
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        myDrinkingPreference,
+        value,
+        () => {}
+      );
+    } else {
+      setPreference(value);
+      const updatedValue = {
+        cannabis: currentUser?.lifestyleHabits.cannabis,
+        drink: value ?? currentUser?.lifestyleHabits.drink,
+        gym: currentUser?.lifestyleHabits.gym,
+        smoke: currentUser?.lifestyleHabits.smoke,
+      };
 
-    const updatedValue = {
-      cannabis: currentUser?.lifestyleHabits.cannabis,
-      drink: value ?? currentUser?.lifestyleHabits.drink,
-      gym: currentUser?.lifestyleHabits.gym,
-      smoke: currentUser?.lifestyleHabits.smoke,
-    };
-
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "lifestyleHabits",
-      updatedValue,
-      () => {}
-    );
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "lifestyleHabits",
+        updatedValue,
+        () => {}
+      );
+    }
   }
 
   return (
@@ -62,7 +82,7 @@ export default function DrinkUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Drinking
+          {myDrinkingPreference ? "Drinking Preference" : "Drinking"}
         </Text>
       </View>
       <HorizontalPaddingSpace space={theme.space[3]}>
@@ -70,7 +90,7 @@ export default function DrinkUpdateModal({
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                drinkingPreference === "Not my thing"
+                currentPreference === "Not my thing"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -80,7 +100,7 @@ export default function DrinkUpdateModal({
               buttonFunction={() => updateSmoke("Not my thing")}
               text="Not my thing"
               textColor={
-                drinkingPreference === "Not my thing"
+                currentPreference === "Not my thing"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -89,7 +109,7 @@ export default function DrinkUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                drinkingPreference === "Socially"
+                currentPreference === "Socially"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -99,7 +119,7 @@ export default function DrinkUpdateModal({
               buttonFunction={() => updateSmoke("Socially")}
               text="Socially"
               textColor={
-                drinkingPreference === "Socially"
+                currentPreference === "Socially"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -108,7 +128,7 @@ export default function DrinkUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                drinkingPreference === "Frequently"
+                currentPreference === "Frequently"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -118,7 +138,7 @@ export default function DrinkUpdateModal({
               buttonFunction={() => updateSmoke("Frequently")}
               text="Frequently"
               textColor={
-                drinkingPreference === "Frequently"
+                currentPreference === "Frequently"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -127,7 +147,7 @@ export default function DrinkUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                drinkingPreference === "Sometimes"
+                currentPreference === "Sometimes"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -137,7 +157,26 @@ export default function DrinkUpdateModal({
               buttonFunction={() => updateSmoke("Sometimes")}
               text="Sometimes"
               textColor={
-                drinkingPreference === "Sometimes"
+                currentPreference === "Sometimes"
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
+              }
+            />
+          </Spacer>
+          <Spacer position="top" size="small">
+            <Button
+              backgroundColor={
+                currentPreference === "Open to all"
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
+              }
+              isBorder={false}
+              isNotBold={true}
+              borderColor="transparent"
+              buttonFunction={() => updateSmoke("Open to all")}
+              text="Open to all"
+              textColor={
+                currentPreference === "Open to all"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }

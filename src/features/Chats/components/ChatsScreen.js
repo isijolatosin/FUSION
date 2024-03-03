@@ -33,6 +33,7 @@ import { detectUrl } from "../../../utilities/detectTextType";
 import AvatarVerticalList from "./AvatarVerticalList";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
+import { sortByTimestamp } from "../../../utilities/sortByKey";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -108,6 +109,8 @@ const ChatsScreen = () => {
   async function fetchMatches() {
     try {
       const allMatchesResult = await getAllData("matches");
+      // sort data by timestamp
+      const allMatchesResultSort = sortByTimestamp(allMatchesResult);
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
       const newData = await getAllData("all-users");
 
@@ -129,7 +132,7 @@ const ChatsScreen = () => {
         );
 
       const otherWithMatchIdArray = await Promise.all(
-        allMatchesResult.map(async (res) => {
+        allMatchesResultSort.map(async (res) => {
           if (
             res?.likedByprofile?.phonenumber === phoneValueFromPhoneMemory ||
             res?.likedProfile?.phonenumber === phoneValueFromPhoneMemory
@@ -248,7 +251,7 @@ const ChatsScreen = () => {
     return (
       <CustomUseCardWithCTA
         text={nomatchmessage}
-        buttonText="Back to swipe"
+        buttonText="Keep liking"
         cardFunction={() => navigation.navigate("home")}
       />
     );
@@ -399,7 +402,12 @@ const ChatsScreen = () => {
         )}
         <Spacer position="bottom" size="small">
           <HorizontalPaddingSpace space={theme.space[3]}>
-            <Text variant="custom" colorType="black" fontType="montserratBold">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="title"
+              transform="capitalize">
               Messages
             </Text>
           </HorizontalPaddingSpace>

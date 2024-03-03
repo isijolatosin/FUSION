@@ -19,7 +19,6 @@ import {
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
 import IconComponent from "../../../../components/icon-components/IconComponent";
-import calculateAge from "../../../../utilities/calculateAge";
 import firebase, { database } from "../../../../../config";
 import { addToArrayField } from "../../../../utilities/updateFirestoreDatabaseField";
 import { getZodiacSign } from "../../../../utilities/generateZodiac";
@@ -41,7 +40,7 @@ export default function IndividualUserProfileComponent({
   currentUser,
   setIsRetrigger,
 }) {
-  const imageHeight = 450;
+  const imageHeight = 400;
   const lastTap = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
   const [doubleTapWarning, setDoubleTapWarning] = useState(false);
@@ -155,29 +154,8 @@ export default function IndividualUserProfileComponent({
           <View
             style={{
               position: "absolute",
-              bottom: theme.spaceNumber[5],
-              left: theme.spaceNumber[5],
-            }}>
-            <Text
-              style={{
-                textShadowColor: theme.colors.brand.black,
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowRadius: 7,
-              }}
-              variant="custom"
-              colorType="basewhite"
-              fontType="arimaMadurai"
-              fontSize="h2"
-              width="100%">
-              {data?.firstname},{" "}
-              {calculateAge(data?.dob?.year, data?.dob?.month, data?.dob?.day)}
-            </Text>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              bottom: -theme.spaceNumber[2],
-              left: theme.spaceNumber[0],
+              bottom: theme.spaceNumber[2],
+              left: -theme.spaceNumber[2],
               flexDirection: "row",
               justifyContent: "flex-end",
               alignItems: "flex-end",

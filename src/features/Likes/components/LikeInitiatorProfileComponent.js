@@ -103,7 +103,11 @@ export default function LikeInitiatorProfileComponent({
         .catch((error) => console.log("Error " + error.message));
 
       //Remove current like initiation object from all like array list in database
-      removeDocumentFromCollections("all-likes", data?.[0]?.id, setIsRetrigger);
+      await removeDocumentFromCollections(
+        "all-likes",
+        data?.[0]?.id,
+        setIsRetrigger
+      );
 
       setInitiatorProfileData([]);
     } else {

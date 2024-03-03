@@ -9,6 +9,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  TouchableOpacity,
+  Text,
 } from "react-native";
 import { useEffect } from "react";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
@@ -24,6 +26,46 @@ export default function Onboarding({ navigation }) {
 
     clearMemory();
   }, []);
+
+  const LongStringWithLink = ({ longString, terms, policy }) => {
+    // Function to handle link press
+    const handleLinkPress = (path) => {
+      navigation.navigate(path);
+    };
+
+    // Split the long string into parts
+    const part1 = longString.split(terms);
+    const part2 = part1[1].split(policy);
+
+    return (
+      <Text>
+        {part1[0]}
+        <TouchableOpacity onPress={() => handleLinkPress("terms-of-service")}>
+          <Text
+            style={{
+              color: theme.colors.brand.lines,
+              fontSize: 12,
+              textDecorationLine: "underline",
+              marginBottom: -theme.spaceNumber[0] + 1,
+            }}>
+            {terms}
+          </Text>
+        </TouchableOpacity>
+        {part2[0]}
+        <TouchableOpacity onPress={() => handleLinkPress("privacy-policy")}>
+          <Text
+            style={{
+              color: theme.colors.brand.lines,
+              fontSize: 12,
+              textDecorationLine: "underline",
+              marginBottom: -theme.spaceNumber[0] + 1,
+            }}>
+            {policy}
+          </Text>
+        </TouchableOpacity>
+      </Text>
+    );
+  };
 
   return (
     <KeyboardAvoidingView
@@ -47,7 +89,13 @@ export default function Onboarding({ navigation }) {
             text="Sign In"
             textColor={theme.colors.brand.basewhite}
           />
-          <OnboardingScreenText>{oboardingSummaryText}</OnboardingScreenText>
+          <OnboardingScreenText>
+            <LongStringWithLink
+              longString={oboardingSummaryText}
+              terms="Terms of Service"
+              policy="Privacy Policy"
+            />
+          </OnboardingScreenText>
         </OnboardingWrapper>
       </Pressable>
     </KeyboardAvoidingView>

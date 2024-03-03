@@ -14,29 +14,51 @@ export default function SmokeUpdateModal({
   height,
   currentUser,
   onClose,
+  mySmokingPreference,
 }) {
-  const [smokingPreference, setSmokingPreference] = useState(
+  const [preference, setPreference] = useState(
     currentUser?.lifestyleHabits.smoke
   );
+
+  const [smokingPreference, setSmokingPreference] = useState(
+    currentUser.preferredSmoking ?? "Open to all"
+  );
+
+  // this is to differentiate between current user smoking preference and their preferred.
+  const currentPreference = mySmokingPreference
+    ? smokingPreference
+    : preference;
+
   async function updateSmoke(value) {
     if (!value) return;
 
-    setSmokingPreference(value);
+    if (mySmokingPreference) {
+      setSmokingPreference(value);
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        mySmokingPreference,
+        value,
+        () => {}
+      );
+    } else {
+      setPreference(value);
 
-    const updatedValue = {
-      cannabis: currentUser?.lifestyleHabits.cannabis,
-      drink: currentUser?.lifestyleHabits.drink,
-      gym: currentUser?.lifestyleHabits.gym,
-      smoke: value ?? currentUser?.lifestyleHabits.smoke,
-    };
+      const updatedValue = {
+        cannabis: currentUser?.lifestyleHabits.cannabis,
+        drink: currentUser?.lifestyleHabits.drink,
+        gym: currentUser?.lifestyleHabits.gym,
+        smoke: value ?? currentUser?.lifestyleHabits.smoke,
+      };
 
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "lifestyleHabits",
-      updatedValue,
-      () => {}
-    );
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "lifestyleHabits",
+        updatedValue,
+        () => {}
+      );
+    }
   }
 
   return (
@@ -62,7 +84,7 @@ export default function SmokeUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Smoking
+          {mySmokingPreference ? "Smoking Preference" : "Smoking"}
         </Text>
       </View>
       <HorizontalPaddingSpace space={theme.space[3]}>
@@ -70,7 +92,7 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                smokingPreference === "Not my thing"
+                currentPreference === "Not my thing"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -80,7 +102,7 @@ export default function SmokeUpdateModal({
               buttonFunction={() => updateSmoke("Not my thing")}
               text="Not my thing"
               textColor={
-                smokingPreference === "Not my thing"
+                currentPreference === "Not my thing"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -89,7 +111,7 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Socially"
+                currentPreference === "Socially"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -99,7 +121,7 @@ export default function SmokeUpdateModal({
               buttonFunction={() => updateSmoke("Socially")}
               text="Socially"
               textColor={
-                smokingPreference === "Socially"
+                currentPreference === "Socially"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -108,7 +130,7 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Frequently"
+                currentPreference === "Frequently"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -118,7 +140,7 @@ export default function SmokeUpdateModal({
               buttonFunction={() => updateSmoke("Frequently")}
               text="Frequently"
               textColor={
-                smokingPreference === "Frequently"
+                currentPreference === "Frequently"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -127,7 +149,7 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Sometimes"
+                currentPreference === "Sometimes"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
@@ -137,7 +159,26 @@ export default function SmokeUpdateModal({
               buttonFunction={() => updateSmoke("Sometimes")}
               text="Sometimes"
               textColor={
-                smokingPreference === "Sometimes"
+                currentPreference === "Sometimes"
+                  ? theme.colors.brand.basewhite
+                  : theme.colors.brand.black
+              }
+            />
+          </Spacer>
+          <Spacer position="top" size="small">
+            <Button
+              backgroundColor={
+                currentPreference === "Open to all"
+                  ? theme.colors.brand.base
+                  : theme.colors.brand.highlight
+              }
+              isBorder={false}
+              isNotBold={true}
+              borderColor="transparent"
+              buttonFunction={() => updateSmoke("Open to all")}
+              text="Open to all"
+              textColor={
+                currentPreference === "Open to all"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
