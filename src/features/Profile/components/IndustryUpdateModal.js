@@ -8,7 +8,6 @@ import { updateUserValueField } from "../../../utilities/updateFirestoreDatabase
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { industriesList } from "../../../constants";
 import { sortByKey } from "../../../utilities/sortByKey";
-import { CloseButton } from "../../Main/screen/main.style";
 
 export default function IndustryUpdateModal({
   theme,
@@ -55,7 +54,10 @@ export default function IndustryUpdateModal({
           paddingBottom: theme?.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateIndustries();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme?.spaceNumberBy10[2]}
@@ -130,25 +132,6 @@ export default function IndustryUpdateModal({
           </View>
         </ScrollView>
       </Spacer>
-      <CloseButton
-        onPress={updateIndustries}
-        spaceBottom="230px"
-        style={{
-          alignSelf: "flex-end",
-          elevation: 5,
-          shadowColor: theme.colors.brand.black,
-          shadowOpacity: 0.5,
-          shadowRadius: "5px",
-          backgroundColor: theme.colors.brand.base,
-        }}>
-        <IconComponent
-          iconFunction={updateIndustries}
-          iconName="send"
-          IconComponent={MaterialIcons}
-          size={theme.spaceNumberBy10[1]}
-          color={theme.colors.brand.basewhite}
-        />
-      </CloseButton>
     </View>
   );
 }

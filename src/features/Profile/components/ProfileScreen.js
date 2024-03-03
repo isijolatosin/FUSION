@@ -273,8 +273,7 @@ export default function ProfileScreen() {
                       variant="custom"
                       colorType="black"
                       fontType="montserratSemibold"
-                      fontSize="button"
-                      transform="capitalize">
+                      fontSize="button">
                       {val}
                     </Text>
                   </View>
@@ -323,8 +322,7 @@ export default function ProfileScreen() {
               variant="custom"
               colorType="brandFadeLighter"
               fontType="montserratRegular"
-              fontSize="caption"
-              transform="capitalize">
+              fontSize="caption">
               {value}
             </Text>
           </View>
@@ -1455,7 +1453,7 @@ export default function ProfileScreen() {
               value={
                 currentUser?.interestedheight
                   ? currentUser?.interestedheight
-                  : "Open to all..."
+                  : "Open to all"
               }
             />
             <AboutMeListComponent
@@ -1477,7 +1475,7 @@ export default function ProfileScreen() {
               pressFunction={() =>
                 setOpenUpdateModal({ type: "smoking preference", isOpen: true })
               }
-              title="Smoking Preference"
+              title="Smoking preference"
               value={
                 currentUser?.smokingPreference
                   ? currentUser?.smokingPreference
