@@ -17,7 +17,9 @@ export default function IndustryUpdateModal({
   onClose,
 }) {
   const [industries, setIndustries] = useState(
-    [...currentUser?.preferredIndustries] ?? []
+    currentUser?.preferredIndustries
+      ? [...currentUser?.preferredIndustries]
+      : []
   );
 
   async function updateIndustries() {
