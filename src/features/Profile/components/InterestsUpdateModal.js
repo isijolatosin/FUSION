@@ -8,7 +8,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { interests } from "../../../constants";
-import sortByKey from "../../../utilities/sortByKey";
+import { sortByKey } from "../../../utilities/sortByKey";
 
 export default function InterestsUpdateModal({
   interestValue,

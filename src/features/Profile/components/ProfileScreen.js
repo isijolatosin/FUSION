@@ -63,6 +63,7 @@ import SnapchatUpdateModal from "./SnapchatUpdateModal";
 import AgePreferenceUpdateModal from "./AgePreferenceUpdateModal";
 import DistancePreferenceUpdateModal from "./DistancePreferenceUpdateModal";
 import Avatar from "../../../components/general-component/Avatar";
+import IndustryUpdateModal from "./IndustryUpdateModal";
 
 export default function ProfileScreen() {
   const {
@@ -322,7 +323,7 @@ export default function ProfileScreen() {
               variant="custom"
               colorType="brandFadeLighter"
               fontType="montserratRegular"
-              fontSize="button"
+              fontSize="caption"
               transform="capitalize">
               {value}
             </Text>
@@ -612,6 +613,60 @@ export default function ProfileScreen() {
             }}
           />
         );
+      case "cannabis preference":
+        return (
+          <CannabisUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            myCannabisPreference="preferredCannabis"
+          />
+        );
+      case "drinking preference":
+        return (
+          <DrinkUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            myDrinkingPreference="preferredDrinking"
+          />
+        );
+      case "smoking preference":
+        return (
+          <SmokeUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            mySmokingPreference="preferredSmoking"
+          />
+        );
       case "dating intentions":
         return (
           <PreferenceUpdateModal
@@ -798,6 +853,21 @@ export default function ProfileScreen() {
                   isOpen: false,
                 });
               }
+            }}
+          />
+        );
+      case "industry":
+        return (
+          <IndustryUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              setIsTrigger(true);
+              setOpenUpdateModal({
+                type: "",
+                isOpen: false,
+              });
             }}
           />
         );
@@ -1133,10 +1203,24 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
+              setOpenUpdateModal({ type: "cannabis", isOpen: true })
+            }
+            title="Cannabis"
+            value={currentUser?.lifestyleHabits?.cannabis}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
               setOpenUpdateModal({ type: "country", isOpen: true })
             }
             title="Country"
             value={currentUser?.country}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
+              setOpenUpdateModal({ type: "drinking", isOpen: true })
+            }
+            title="Drinking"
+            value={currentUser?.lifestyleHabits?.drink}
           />
           <AboutMeListComponent
             pressFunction={() =>
@@ -1224,6 +1308,13 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
+              setOpenUpdateModal({ type: "smoking", isOpen: true })
+            }
+            title="Smoking"
+            value={currentUser?.lifestyleHabits?.smoke}
+          />
+          <AboutMeListComponent
+            pressFunction={() =>
               setOpenUpdateModal({
                 type: "tribe",
                 isOpen: true,
@@ -1298,7 +1389,11 @@ export default function ProfileScreen() {
                 })
               }
               title="Preferred Religious Beliefs"
-              value={currentUser?.interestedreligiousbeliefs}
+              value={
+                currentUser?.interestedreligiousbeliefs
+                  ? currentUser?.interestedreligiousbeliefs
+                  : "Update..."
+              }
             />
           </Spacer>
           <Spacer position="top" size="xxxxlarge">
@@ -1319,10 +1414,17 @@ export default function ProfileScreen() {
             </HorizontalPaddingSpace>
             <AboutMeListComponent
               pressFunction={() =>
-                setOpenUpdateModal({ type: "cannabis", isOpen: true })
+                setOpenUpdateModal({
+                  type: "cannabis preference",
+                  isOpen: true,
+                })
               }
-              title="Cannabis"
-              value={currentUser?.lifestyleHabits?.cannabis}
+              title="Cannabis preference"
+              value={
+                currentUser?.preferredCannabis
+                  ? currentUser?.preferredCannabis
+                  : "Open to all"
+              }
             />
             <AboutMeListComponent
               pressFunction={() =>
@@ -1333,24 +1435,54 @@ export default function ProfileScreen() {
             />
             <AboutMeListComponent
               pressFunction={() =>
-                setOpenUpdateModal({ type: "drinking", isOpen: true })
+                setOpenUpdateModal({
+                  type: "drinking preference",
+                  isOpen: true,
+                })
               }
-              title="Drinking"
-              value={currentUser?.lifestyleHabits?.drink}
+              title="Drinking preference"
+              value={
+                currentUser?.drinkingPreference
+                  ? currentUser?.drinkingPreference
+                  : "Open to all"
+              }
             />
             <AboutMeListComponent
               pressFunction={() =>
                 setOpenUpdateModal({ type: "height preference", isOpen: true })
               }
-              title="Preferred Height"
-              value={currentUser?.interestedheight}
+              title="Height preference"
+              value={
+                currentUser?.interestedheight
+                  ? currentUser?.interestedheight
+                  : "Open to all..."
+              }
             />
             <AboutMeListComponent
               pressFunction={() =>
-                setOpenUpdateModal({ type: "smoking", isOpen: true })
+                setOpenUpdateModal({ type: "industry", isOpen: true })
               }
-              title="Smoking"
-              value={currentUser?.lifestyleHabits?.smoke}
+              title="Industry preference"
+              value={
+                currentUser?.preferredIndustries?.length
+                  ? `You have ${currentUser?.preferredIndustries?.length} ${
+                      currentUser?.preferredIndustries?.length > 1
+                        ? "preferences"
+                        : "preference"
+                    }`
+                  : "Open to all"
+              }
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "smoking preference", isOpen: true })
+              }
+              title="Smoking Preference"
+              value={
+                currentUser?.smokingPreference
+                  ? currentUser?.smokingPreference
+                  : "Open to all"
+              }
             />
           </Spacer>
           <AboutMeListComponent

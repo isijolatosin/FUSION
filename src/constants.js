@@ -797,12 +797,61 @@ export const LifestyleHabits = {
   drink: ["Not my thing", "Socially", "Frequently", "Sometimes"],
   cannabis: ["Not my thing", "Socially", "Frequently", "Sometimes"],
 };
+export const industriesList = [
+  "Accommodation and Food Services",
+  "Administrative and Support Services",
+  "Agriculture, Forestry, Fishing, and Hunting",
+  "Arts and Recreation",
+  "Automobile and Mobile Services",
+  "Banks",
+  "Construction",
+  "Educational Services",
+  "Finance",
+  "Government",
+  "Health Care and Social Assistance",
+  "Information",
+  "Insurance",
+  "Legal Services",
+  "Management of Companies and Enterprises",
+  "Manufacturing",
+  "Media and Entertainment",
+  "Mining, Quarrying, and Oil and Gas Extraction",
+  "Pharmaceuticals, Biotechnology, and Life Sciences",
+  "Professional, Scientific, and Technical Services",
+  "Real Estate and Rental and Leasing",
+  "Retail Trade",
+  "Software and Services",
+  "Technology Hardware and Equipment",
+  "Telecommunication Services",
+  "Transportation and Warehousing",
+  "Utilities",
+  "Wholesale Trade",
+  "All Industries",
+];
+export const COMMUNITY_SUBSCRIPTION = {
+  tier1: {
+    title: "black",
+    cost: 0,
+  },
+  tier2: {
+    title: "silver",
+    cost: 7.99,
+  },
+  tier3: {
+    title: "diamond",
+    cost: 12.99,
+  },
+  tier4: {
+    title: "platinum",
+    cost: 18.99,
+  },
+};
 export const dailyendofswipescreenmessage =
   "All potential matches based on your preferences have been viewed, yet fresh individuals continue to join daily.";
 export const nomatchmessage =
   "Currently, there are no matches that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and exciting connections may be just around the corner. Your proactive spirit makes the dating experience worthwhile. Happy connecting!";
 export const nochatlistsinformation =
-  "Welcome to the chats! It looks like you haven't started any chats yet. No worries—your next meaningful connection might just be a swipe away! Take a moment to explore profiles, swipe right, and start a conversation. Your chat list will be buzzing with exciting connections in no time. Happy swiping and happy connecting!";
+  "Welcome to the chats! It looks like you haven't started any chats yet. No worries—your next meaningful connection might just be a click away! Take a moment to explore profiles, click and start a conversation. Your chat list will be buzzing with exciting connections in no time. Happy swiping and happy connecting!";
 export const firstmessagehype =
   "Sending your first message is your chance to spark a meaningful connection. Be genuine, be yourself, and let the conversation flow. Go ahead, hit send, and make that exciting first move! Happy chatting!";
 export const unmatchmessage =
@@ -814,7 +863,7 @@ export const pauseaccounttext =
 export const deleteaccounttext =
   "Deleting your profile removes it permanently on Fusion and your information is no longer accessible on the app. ";
 export const nolikesyetmessage =
-  "Looks like you haven't received any likes yet. Don't worry, the right connections are just a swipe away! Keep exploring and making meaningful connections.";
+  "Looks like you haven't received any likes yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const compatibleText =
   "Like polls attract on this end. We have selected matches with similar interest for you.";
 export const noSimilarInterestyetmessage =

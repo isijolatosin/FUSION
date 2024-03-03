@@ -13,7 +13,7 @@ import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import { interestInstruction, interests } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
-import sortByKey from "../../../utilities/sortByKey";
+import { sortByKey } from "../../../utilities/sortByKey";
 
 export default function CaptureInterests({ navigation }) {
   const scrollViewRef = useRef(null);
@@ -99,11 +99,19 @@ export default function CaptureInterests({ navigation }) {
               Share Your Interest
             </Text>
           </Spacer>
-          <Spacer position="top" size="xsmall">
+          <Spacer
+            position="top"
+            size="xsmall"
+            style={{
+              backgroundColor: theme.colors.brand.black,
+              paddingVertical: theme.spaceNumber[1],
+              paddingHorizontal: theme.spaceNumber[3],
+              borderRadius: theme.spaceNumber[1],
+            }}>
             <Text
               variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
+              colorType="basewhite"
+              fontType="montserratBold"
               fontSize="caption"
               width="95%">
               {interestInstruction}

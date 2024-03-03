@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
-import { Dimensions } from "react-native";
+import { Dimensions, ScrollView } from "react-native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -57,10 +57,10 @@ export default function CaptureLookingFor({ navigation }) {
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: theme.spaceNumberBy10[9],
+            marginTop: theme.spaceNumberBy10[1],
             height: height,
           }}>
-          <Spacer position="top" size="xxxxlarge">
+          <Spacer position="top" size="small">
             <Text
               variant="custom"
               colorType="black"
@@ -70,101 +70,105 @@ export default function CaptureLookingFor({ navigation }) {
               What are you looking for?
             </Text>
           </Spacer>
-          <Spacer position="top" size="xxxxlarge">
-            <Button
-              backgroundColor={
-                preference === "Friendship"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
-              }
-              isBorder={false}
-              isNotBold={true}
-              borderColor="transparent"
-              buttonFunction={() => setPreference("Friendship")}
-              text="Friendship"
-              textColor={
-                preference === "Friendship"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
-            />
-          </Spacer>
-          <Spacer position="top" size="small">
-            <Button
-              backgroundColor={
-                preference === "Life Partner"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
-              }
-              isBorder={false}
-              isNotBold={true}
-              borderColor="transparent"
-              buttonFunction={() => setPreference("Life Partner")}
-              text="Life Partner"
-              textColor={
-                preference === "Life Partner"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
-            />
-          </Spacer>
-          <Spacer position="top" size="small">
-            <Button
-              backgroundColor={
-                preference === "Casual Dating"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
-              }
-              isBorder={false}
-              isNotBold={true}
-              borderColor="transparent"
-              buttonFunction={() => setPreference("Casual Dating")}
-              text="Casual Dating"
-              textColor={
-                preference === "Casual Dating"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
-            />
-          </Spacer>
-          <Spacer position="top" size="small">
-            <Button
-              backgroundColor={
-                preference === "Don't know yet"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
-              }
-              isBorder={false}
-              isNotBold={true}
-              borderColor="transparent"
-              buttonFunction={() => setPreference("Don't know yet")}
-              text="Don't know yet"
-              textColor={
-                preference === "Don't know yet"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
-            />
-          </Spacer>
-          <Spacer position="top" size="small">
-            <Button
-              backgroundColor={
-                preference === "Prefer Not to Say"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
-              }
-              isBorder={false}
-              isNotBold={true}
-              borderColor="transparent"
-              buttonFunction={() => setPreference("Prefer Not to Say")}
-              text="Prefer Not to Say"
-              textColor={
-                preference === "Prefer Not to Say"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
-            />
-          </Spacer>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ width: "100%" }}>
+            <Spacer position="top" size="small">
+              <Button
+                backgroundColor={
+                  preference === "Friendship/Networking"
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.highlight
+                }
+                isBorder={false}
+                isNotBold={true}
+                borderColor="transparent"
+                buttonFunction={() => setPreference("Friendship/Networking")}
+                text="Friendship/Networking"
+                textColor={
+                  preference === "Friendship/Networking"
+                    ? theme.colors.brand.basewhite
+                    : theme.colors.brand.black
+                }
+              />
+            </Spacer>
+            <Spacer position="top" size="small">
+              <Button
+                backgroundColor={
+                  preference === "Life Partner"
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.highlight
+                }
+                isBorder={false}
+                isNotBold={true}
+                borderColor="transparent"
+                buttonFunction={() => setPreference("Life Partner")}
+                text="Life Partner"
+                textColor={
+                  preference === "Life Partner"
+                    ? theme.colors.brand.basewhite
+                    : theme.colors.brand.black
+                }
+              />
+            </Spacer>
+            <Spacer position="top" size="small">
+              <Button
+                backgroundColor={
+                  preference === "Casual Dating"
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.highlight
+                }
+                isBorder={false}
+                isNotBold={true}
+                borderColor="transparent"
+                buttonFunction={() => setPreference("Casual Dating")}
+                text="Casual Dating"
+                textColor={
+                  preference === "Casual Dating"
+                    ? theme.colors.brand.basewhite
+                    : theme.colors.brand.black
+                }
+              />
+            </Spacer>
+            <Spacer position="top" size="small">
+              <Button
+                backgroundColor={
+                  preference === "Don't know yet"
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.highlight
+                }
+                isBorder={false}
+                isNotBold={true}
+                borderColor="transparent"
+                buttonFunction={() => setPreference("Don't know yet")}
+                text="Don't know yet"
+                textColor={
+                  preference === "Don't know yet"
+                    ? theme.colors.brand.basewhite
+                    : theme.colors.brand.black
+                }
+              />
+            </Spacer>
+            <Spacer position="top" size="small">
+              <Button
+                backgroundColor={
+                  preference === "Prefer Not to Say"
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.highlight
+                }
+                isBorder={false}
+                isNotBold={true}
+                borderColor="transparent"
+                buttonFunction={() => setPreference("Prefer Not to Say")}
+                text="Prefer Not to Say"
+                textColor={
+                  preference === "Prefer Not to Say"
+                    ? theme.colors.brand.basewhite
+                    : theme.colors.brand.black
+                }
+              />
+            </Spacer>
+          </ScrollView>
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide what you are looking for"

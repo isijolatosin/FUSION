@@ -75,7 +75,7 @@ const TabNavigator = () => {
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color }) => (
-            <Entypo name="home" color={color} size={35} />
+            <Entypo name="home" color={color} size={25} />
           ),
           gestureEnabled: false,
         }}
@@ -88,8 +88,21 @@ const TabNavigator = () => {
             <MaterialCommunityIcons
               name="cards-heart"
               color={color}
-              size={35}
+              size={25}
             />
+          ),
+          gestureEnabled: false,
+        }}
+      />
+      <Tab.Screen
+        name="communities"
+        component={CompatibilityScreen}
+        options={{
+          cardStyle: {
+            backgroundColor: `${theme.colors.brand.basewhite}`,
+          },
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="group" color={color} size={20} />
           ),
           gestureEnabled: false,
         }}
@@ -98,18 +111,11 @@ const TabNavigator = () => {
         name="similar-interest"
         component={CompatibilityScreen}
         options={{
-          // tabBarLabel: "Compatibility",
-          // tabBarLabelStyle: {
-          //   position: "absolute",
-          //   bottom: theme.spaceNumber[6],
-          //   fontFamily: theme.fonts.montserratBold,
-          // },
           cardStyle: {
             backgroundColor: `${theme.colors.brand.basewhite}`,
           },
-          // tabBarIconStyle: { marginBottom: theme.spaceNumberBy10[1] },
           tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-people" color={color} size={40} />
+            <Ionicons name="ios-people" color={color} size={30} />
           ),
           gestureEnabled: false,
         }}
@@ -119,7 +125,7 @@ const TabNavigator = () => {
         component={ChatsScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-sharp" color={color} size={30} />
+            <Ionicons name="chatbubble-sharp" color={color} size={23} />
           ),
           gestureEnabled: false,
         }}
@@ -129,7 +135,7 @@ const TabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={35} />
+            <FontAwesome name="user" color={color} size={23} />
           ),
           gestureEnabled: false,
         }}

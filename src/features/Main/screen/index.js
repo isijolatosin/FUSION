@@ -476,11 +476,33 @@ const Index = ({ navigation }) => {
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
       <HorizontalPaddingSpace
         style={{ position: "relative" }}
-        space={theme.space[4]}>
+        space={theme.space[2]}>
         <Spacer position="top" size="large">
-          <Spacer position="bottom" size="large">
+          <Spacer position="bottom" size="xsmall">
             <NavigationBar>
-              <BrandAvatarO currentUser={currentUser} />
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {currentUser?.role === process.env.EXPO_PUBLIC_ROLE && (
+                  <View style={{ marginRight: theme.spaceNumber[5] }}>
+                    <BrandAvatarO />
+                  </View>
+                )}
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="arimaMadurai"
+                    fontSize="title"
+                    transform="capitalize"
+                    width="100%">
+                    {currentUsertoSwipe?.firstname},{" "}
+                    {calculateAge(
+                      currentUsertoSwipe?.dob?.year,
+                      currentUsertoSwipe?.dob?.month,
+                      currentUsertoSwipe?.dob?.day
+                    )}
+                  </Text>
+                </View>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
