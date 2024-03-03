@@ -212,7 +212,7 @@ export default function ProfileScreen() {
               backgroundColor: theme.colors.brand.linesFaint,
               paddingVertical: theme.spaceNumber[3],
             }}
-            space={theme.space[5]}>
+            space={theme.space[2]}>
             <View>
               <Text
                 variant="custom"
@@ -223,7 +223,7 @@ export default function ProfileScreen() {
               </Text>
             </View>
           </HorizontalPaddingSpace>
-          <HorizontalPaddingSpace space={theme.space[5]}>
+          <HorizontalPaddingSpace space={theme.space[2]}>
             {value?.map((val, idx) => (
               <Pressable
                 onPress={() => setOpenUpdateModal({ type: val, isOpen: true })}
@@ -298,7 +298,7 @@ export default function ProfileScreen() {
     }
 
     return (
-      <HorizontalPaddingSpace space={theme.space[5]}>
+      <HorizontalPaddingSpace space={theme.space[2]}>
         <Pressable
           onPress={pressFunction}
           style={{
@@ -1065,7 +1065,7 @@ export default function ProfileScreen() {
                 gap: theme.spaceNumberBy10[0],
                 justifyContent: "center",
               }}
-              space={theme.space[5]}>
+              space={theme.space[1]}>
               <PhotoComponent
                 isUpdatingPhoto={true}
                 dimension={31}
@@ -1168,7 +1168,7 @@ export default function ProfileScreen() {
                 flexDirection: "row",
                 alignItems: "center",
               }}
-              space={theme.space[5]}>
+              space={theme.space[2]}>
               <View>
                 <Text
                   style={{ marginRight: 5 }}
@@ -1330,7 +1330,7 @@ export default function ProfileScreen() {
           />
           <Spacer position="top" size="xxxxlarge">
             <HorizontalPaddingSpace
-              space={theme.space[5]}
+              space={theme.space[2]}
               style={{
                 marginBottom: theme.spaceNumberBy10[0],
                 backgroundColor: theme.colors.brand.linesFaint,
@@ -1396,7 +1396,7 @@ export default function ProfileScreen() {
           </Spacer>
           <Spacer position="top" size="xxxxlarge">
             <HorizontalPaddingSpace
-              space={theme.space[5]}
+              space={theme.space[2]}
               style={{
                 marginBottom: theme.spaceNumberBy10[0],
                 backgroundColor: theme.colors.brand.linesFaint,
