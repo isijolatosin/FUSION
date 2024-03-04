@@ -23,7 +23,7 @@ const InterestWrapper = styled.View`
   align-items: center;
 `;
 
-const ButtonAction = styled.Pressable`
+const ButtonAction = styled.TouchableOpacity`
   background-color: ${(props) =>
     props.backgroundColor
       ? props.backgroundColor
