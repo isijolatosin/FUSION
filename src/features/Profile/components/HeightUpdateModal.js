@@ -22,16 +22,13 @@ export default function HeightUpdateModal({
   );
   const [isOpen, setOpen] = useState(false);
 
-  async function updateHeight(value) {
-    if (!value) return;
-    setHeight(value);
-
+  async function updateHeight() {
     if (interestedheight) {
       await updateUserValueField(
         "all-users",
         currentUser?.id,
         "interestedheight",
-        value ?? _height,
+        _height,
         () => {}
       );
     } else
@@ -39,7 +36,7 @@ export default function HeightUpdateModal({
         "all-users",
         currentUser?.id,
         "height",
-        value ?? _height,
+        _height,
         () => {}
       );
   }
@@ -54,7 +51,10 @@ export default function HeightUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateHeight();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -67,7 +67,7 @@ export default function HeightUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Height
+          {interestedheight ? "Height Preference" : "Height"}
         </Text>
       </View>
       {interestedheight && currentUser?.interestedheight && (
@@ -99,7 +99,7 @@ export default function HeightUpdateModal({
             isOpen={isOpen}
             setOpen={setOpen}
             value={_height ?? "Choose an option"}
-            setFunction={updateHeight}
+            setFunction={setHeight}
             theme={theme}
             isForHeightComponent={true}
           />

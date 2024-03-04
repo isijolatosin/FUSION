@@ -13,19 +13,14 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
   const [selectedInterest, setSelectedInterest] = useState(currentUser?.gender);
   const [clickedIndex, setIndex] = useState(null);
 
-  async function handleInterestToggle(id, value) {
-    setIndex(id);
-    setSelectedInterest(value);
-
-    if (value) {
-      await updateUserValueField(
-        "all-users",
-        currentUser?.id,
-        "gender",
-        value,
-        () => {}
-      );
-    }
+  async function handleInterestToggle() {
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "gender",
+      selectedInterest,
+      () => {}
+    );
   }
 
   const genderRray = [
@@ -54,7 +49,10 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              handleInterestToggle();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -83,7 +81,10 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
           size="xxxlarge">
           <View>
             <Text
-              onPress={() => handleInterestToggle(idx, interest.key)}
+              onPress={() => {
+                setSelectedInterest(interest.key);
+                setIndex(idx);
+              }}
               style={{ textTransform: "capitalize" }}
               variant="loading"
               colorType="black"
@@ -94,7 +95,10 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
           </View>
           <CheckBox
             checked={selectedInterest === interest.key || clickedIndex === idx}
-            onPress={() => handleInterestToggle(idx, interest.key)}
+            onPress={() => {
+              setSelectedInterest(interest.key);
+              setIndex(idx);
+            }}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.linesLight}
             size={35}

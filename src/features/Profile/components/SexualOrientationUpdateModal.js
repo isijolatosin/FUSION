@@ -22,16 +22,12 @@ export default function SexualOrientationUpdateModal({
   );
   const [isOpen, setOpen] = useState(false);
 
-  async function updateSexualOrientation(value) {
-    if (!value) return;
-
-    setSexualOrientation(value);
-
+  async function updateSexualOrientation() {
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "sexualOrientation",
-      value,
+      sexualOrientation,
       () => {}
     );
   }
@@ -46,7 +42,10 @@ export default function SexualOrientationUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateSexualOrientation();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -69,7 +68,7 @@ export default function SexualOrientationUpdateModal({
             isOpen={isOpen}
             setOpen={setOpen}
             value={sexualOrientation}
-            setFunction={updateSexualOrientation}
+            setFunction={setSexualOrientation}
             theme={theme}
             isForHeightComponent={false}
           />

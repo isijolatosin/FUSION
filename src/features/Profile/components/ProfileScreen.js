@@ -38,7 +38,6 @@ import GenderUpdateModal from "./GenderUpdateModal";
 import WorkUpdateModal from "./WorkUpdateModal";
 import JobUpdateModal from "./JobUpdateModal";
 import HeightUpdateModal from "./HeightUpdateModal";
-import CountryUpdateModal from "./CountryUpdateModal";
 import InterestUpdateModal from "./InterestUpdateModal";
 import SmokeUpdateModal from "./SmokingUpdateModal";
 import DrinkUpdateModal from "./DrinkingUpdateModal";
@@ -509,9 +508,9 @@ export default function ProfileScreen() {
             }}
           />
         );
-      case "country":
+      case "tribe preference":
         return (
-          <CountryUpdateModal
+          <TribeUpdateModal
             theme={theme}
             height={height}
             currentUser={currentUser}
@@ -524,6 +523,7 @@ export default function ProfileScreen() {
                 });
               }
             }}
+            myTribePreference="preferredTribe"
           />
         );
       case "interest":
@@ -782,6 +782,24 @@ export default function ProfileScreen() {
                 });
               }
             }}
+          />
+        );
+      case "nationality preference":
+        return (
+          <NationalityUpdateModal
+            theme={theme}
+            height={height}
+            currentUser={currentUser}
+            onClose={() => {
+              {
+                setIsTrigger(true);
+                setOpenUpdateModal({
+                  type: "",
+                  isOpen: false,
+                });
+              }
+            }}
+            myNationalityPreference="preferredNationality"
           />
         );
       case "religious preference":
@@ -1208,13 +1226,6 @@ export default function ProfileScreen() {
           />
           <AboutMeListComponent
             pressFunction={() =>
-              setOpenUpdateModal({ type: "country", isOpen: true })
-            }
-            title="Country"
-            value={currentUser?.country}
-          />
-          <AboutMeListComponent
-            pressFunction={() =>
               setOpenUpdateModal({ type: "drinking", isOpen: true })
             }
             title="Drinking"
@@ -1440,8 +1451,8 @@ export default function ProfileScreen() {
               }
               title="Drinking preference"
               value={
-                currentUser?.drinkingPreference
-                  ? currentUser?.drinkingPreference
+                currentUser?.preferredDrinking
+                  ? currentUser?.preferredDrinking
                   : "Open to all"
               }
             />
@@ -1473,12 +1484,37 @@ export default function ProfileScreen() {
             />
             <AboutMeListComponent
               pressFunction={() =>
+                setOpenUpdateModal({
+                  type: "nationality preference",
+                  isOpen: true,
+                })
+              }
+              title="Nationality preference"
+              value={
+                currentUser?.preferredNationality
+                  ? currentUser?.preferredNationality
+                  : "Open to all"
+              }
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
                 setOpenUpdateModal({ type: "smoking preference", isOpen: true })
               }
               title="Smoking preference"
               value={
-                currentUser?.smokingPreference
-                  ? currentUser?.smokingPreference
+                currentUser?.preferredSmoking
+                  ? currentUser?.preferredSmoking
+                  : "Open to all"
+              }
+            />
+            <AboutMeListComponent
+              pressFunction={() =>
+                setOpenUpdateModal({ type: "tribe preference", isOpen: true })
+              }
+              title="Tribe preference"
+              value={
+                currentUser?.preferredTribe
+                  ? currentUser?.preferredTribe
                   : "Open to all"
               }
             />

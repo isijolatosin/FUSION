@@ -23,14 +23,10 @@ export default function DistancePreferenceUpdateModal({
     currentUser?.distancePreference?.suggest
   );
 
-  const handleValueChange = (newValue) => {
-    setDistanceValue(newValue);
-  };
-
-  async function triggerDistanceFilter(booleanValue) {
+  async function triggerDistanceFilter() {
     const valueObject = {
       value: distanceValue,
-      suggest: booleanValue ?? suggestDistanceWithRange,
+      suggest: suggestDistanceWithRange,
     };
     await updateUserValueField(
       "all-users",
@@ -51,7 +47,10 @@ export default function DistancePreferenceUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            triggerDistanceFilter();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -105,7 +104,7 @@ export default function DistancePreferenceUpdateModal({
               minimumTrackTintColor={theme.colors.brand.base}
               maximumTrackTintColor={theme.colors.brand.highlight}
               thumbTintColor={theme.colors.brand.base}
-              onValueChange={handleValueChange}
+              onValueChange={setDistanceValue}
               onSlidingStart={() => setSuggestDistanceWithRange(false)}
             />
           </RangeCompoentSection>
@@ -130,7 +129,6 @@ export default function DistancePreferenceUpdateModal({
                   : theme.colors.brand.lines
               }
               onValueChange={(val) => {
-                triggerDistanceFilter(val);
                 setSuggestDistanceWithRange(val);
               }}
               value={suggestDistanceWithRange}

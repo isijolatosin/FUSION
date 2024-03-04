@@ -29,11 +29,11 @@ export default function AgePreferenceUpdateModal({
     fromAgeValue ?? currentUser?.agePreference?.fromAgeValue
   } - ${toAgeValue ?? currentUser?.agePreference?.toAgeValue}`;
 
-  async function triggerAgeFilter(useOption) {
+  async function triggerAgeFilter() {
     const value = {
       fromAgeValue: fromAgeValue,
       toAgeValue: toAgeValue,
-      suggest: useOption ?? suggestAgeWithRange,
+      suggest: suggestAgeWithRange,
     };
 
     // age
@@ -56,7 +56,10 @@ export default function AgePreferenceUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            triggerAgeFilter();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -156,7 +159,6 @@ export default function AgePreferenceUpdateModal({
                   : theme.colors.brand.lines
               }
               onValueChange={(val) => {
-                triggerAgeFilter(val);
                 setSuggestAgeWithRange(val);
               }}
               value={suggestAgeWithRange}

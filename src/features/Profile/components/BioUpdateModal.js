@@ -12,14 +12,12 @@ import InputComponent from "../../../components/Input-Forms/InputComponent";
 export default function BioUpdateModal({ theme, currentUser, onClose }) {
   const [bio, setBio] = useState(currentUser?.bio);
 
-  async function updateBio(value) {
-    setBio(value);
-
+  async function updateBio() {
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "bio",
-      value,
+      bio,
       () => {}
     );
   }
@@ -35,7 +33,10 @@ export default function BioUpdateModal({ theme, currentUser, onClose }) {
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              updateBio();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -55,7 +56,7 @@ export default function BioUpdateModal({ theme, currentUser, onClose }) {
           <InputComponent
             includeIcon={false}
             keyboardType="default"
-            setValue={updateBio}
+            setValue={setBio}
             value={bio}
             width="100%"
             isCountryCode={false}

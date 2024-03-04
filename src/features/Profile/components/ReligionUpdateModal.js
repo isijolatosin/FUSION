@@ -24,17 +24,13 @@ export default function ReligionUpdateModal({
   );
   const [isOpen, setOpen] = useState(false);
 
-  async function updateReligious(value) {
-    if (!value) return;
-
-    setReligious(value);
-
+  async function updateReligious() {
     if (interestedreligiousbeliefs) {
       await updateUserValueField(
         "all-users",
         currentUser?.id,
         "interestedreligiousbeliefs",
-        value,
+        religious,
         () => {}
       );
     } else {
@@ -42,7 +38,7 @@ export default function ReligionUpdateModal({
         "all-users",
         currentUser?.id,
         "religious",
-        value,
+        religious,
         () => {}
       );
     }
@@ -58,7 +54,10 @@ export default function ReligionUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateReligious();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -71,7 +70,9 @@ export default function ReligionUpdateModal({
           colorType="black"
           fontType="montserratBold"
           fontSize="title">
-          Religious Beliefs
+          {interestedreligiousbeliefs
+            ? "Religious Beliefs Preference"
+            : "Religious Beliefs"}
         </Text>
       </View>
       {interestedreligiousbeliefs &&
@@ -104,7 +105,7 @@ export default function ReligionUpdateModal({
             isOpen={isOpen}
             setOpen={setOpen}
             value={religious ?? "Choose an option"}
-            setFunction={updateReligious}
+            setFunction={setReligious}
             theme={theme}
             isForHeightComponent={false}
           />

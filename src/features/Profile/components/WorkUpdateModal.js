@@ -16,12 +16,10 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
     currentUser?.workplace?.visibleOnProfile
   );
 
-  async function updateWorkPlace(value, visibilityOption) {
-    setWorkplace(value);
-
+  async function updateWorkPlace() {
     updatedValue = {
-      visibleOnProfile: visibilityOption ?? isVisibleOnProfile,
-      work: value ?? workplace,
+      visibleOnProfile: isVisibleOnProfile,
+      work: workplace,
     };
 
     await updateUserValueField(
@@ -31,11 +29,6 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
       updatedValue,
       () => {}
     );
-  }
-
-  async function handleCheckboxToggle() {
-    setIsVisibleOnProfile(!isVisibleOnProfile);
-    updateWorkPlace(workplace, !isVisibleOnProfile);
   }
 
   return (
@@ -49,7 +42,10 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              updateWorkPlace();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -69,7 +65,7 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
           <InputComponent
             includeIcon={false}
             keyboardType="default"
-            setValue={updateWorkPlace}
+            setValue={setWorkplace}
             value={workplace}
             width="100%"
             isCountryCode={false}
@@ -82,7 +78,7 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
           <CheckBox
             title="Visible on your profile"
             checked={isVisibleOnProfile}
-            onPress={handleCheckboxToggle}
+            onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.brandFade}
             titleProps={{
