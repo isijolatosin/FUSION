@@ -95,7 +95,7 @@ const Index = ({ navigation }) => {
       }
 
       // ########################################################################
-      // check if profile is paused and remove
+      // check if profile is deactivated and remove
       const filterOffDeactivateProfile = filterOffByCountryProfiles.filter(
         (profile) => {
           if (profile?.deactivate) return;

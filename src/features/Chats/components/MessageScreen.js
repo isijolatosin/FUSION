@@ -199,7 +199,6 @@ export default function MessageScreen({ navigation }) {
   function handlePickImageAsyncInModal() {
     handlePickImageAsync(
       () => {},
-      () => {},
       setOpenImageUploadModal,
       "",
       false,
@@ -211,7 +210,6 @@ export default function MessageScreen({ navigation }) {
   }
   function handleCaptureImageAsyncInModal() {
     handlePickImageAsync(
-      () => {},
       () => {},
       setOpenImageUploadModal,
       "",

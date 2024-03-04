@@ -5,12 +5,13 @@ import { AntDesign } from "@expo/vector-icons";
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../../context/ThemeContext";
 import { handlePickImageAsync } from "../../../../utilities/handleUploadImage";
+import Spinner from "../../../../components/general-component/Spinner";
 
 export default function PhotoComponent({
   isUpdatingPhoto,
   dimension,
   photoUrl,
-  setPhotoUrl,
+  // setPhotoUrl,
   showDeleteIcon,
   setOpenDeleteModal,
   setDeleteImageItem,
@@ -23,7 +24,7 @@ export default function PhotoComponent({
   const [isLoadingImage, useLoadingImage] = useState(false);
 
   async function handlePickImageAsyncOnBoarding() {
-    await handlePickImageAsync(useLoadingImage, setPhotoUrl);
+    await handlePickImageAsync(useLoadingImage);
   }
 
   return (
@@ -89,11 +90,12 @@ export default function PhotoComponent({
         <IconComponent
           iconFunction={() => {
             if (!photoUrl && !isUpdatingPhoto) {
-              handlePickImageAsync(useLoadingImage, setPhotoUrl);
+              handlePickImageAsync(useLoadingImage);
               return;
             }
             if (!photoUrl && isUpdatingPhoto) {
               setOpenImageUploadModal(true);
+              useLoadingImage(true);
               return;
             }
           }}

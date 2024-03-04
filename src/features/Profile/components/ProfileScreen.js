@@ -30,6 +30,7 @@ import GeneralPopupModal from "./GeneralPopupModal";
 import {
   handleDeleteImageAsync,
   handlePickImageAsync,
+  handleReplaceImageAsync,
 } from "../../../utilities/handleUploadImage";
 import SettingModal from "./SettingModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
@@ -83,13 +84,6 @@ export default function ProfileScreen() {
   const { width } = Dimensions.get("window");
   const [currentUser, setCurrentUser] = useState([]);
 
-  const [photoUrl1, setPhotoUrl1] = useState("");
-  const [photoUrl2, setPhotoUrl2] = useState("");
-  const [photoUrl3, setPhotoUrl3] = useState("");
-  const [photoUrl4, setPhotoUrl4] = useState("");
-  const [photoUrl5, setPhotoUrl5] = useState("");
-  const [photoUrl6, setPhotoUrl6] = useState("");
-
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -109,19 +103,6 @@ export default function ProfileScreen() {
     const currentUserData = newData.find(
       (data) => data.phonenumber === phoneValueFromPhoneMemory
     );
-
-    currentUserData?.mediaArray[0] &&
-      setPhotoUrl1(currentUserData?.mediaArray[0]);
-    currentUserData?.mediaArray[1] &&
-      setPhotoUrl2(currentUserData?.mediaArray[1]);
-    currentUserData?.mediaArray[2] &&
-      setPhotoUrl3(currentUserData?.mediaArray[2]);
-    currentUserData?.mediaArray[3] &&
-      setPhotoUrl4(currentUserData?.mediaArray[3]);
-    currentUserData?.mediaArray[4] &&
-      setPhotoUrl5(currentUserData?.mediaArray[4]);
-    currentUserData?.mediaArray[5] &&
-      setPhotoUrl6(currentUserData?.mediaArray[5]);
     setCurrentUser(currentUserData);
   }
 
@@ -144,14 +125,9 @@ export default function ProfileScreen() {
     return () => clearTimeout(resetTrigger);
   }, [isTrigger]);
 
-  const mediaArray = [];
-
-  if (photoUrl1) mediaArray.push(photoUrl1);
-  if (photoUrl2) mediaArray.push(photoUrl2);
-  if (photoUrl3) mediaArray.push(photoUrl3);
-  if (photoUrl4) mediaArray.push(photoUrl4);
-  if (photoUrl5) mediaArray.push(photoUrl5);
-  if (photoUrl6) mediaArray.push(photoUrl6);
+  async function handleReplaceImageAsyncInModal() {
+    handleReplaceImageAsync(currentUser, deleteImageItem, setIsTrigger);
+  }
 
   async function handleDeleteImageAsyncInModal() {
     handleDeleteImageAsync(currentUser, deleteImageItem, setIsTrigger);
@@ -159,7 +135,6 @@ export default function ProfileScreen() {
 
   function handlePickImageAsyncInModal() {
     handlePickImageAsync(
-      () => {},
       () => {},
       setOpenImageUploadModal,
       currentUser?.id,
@@ -172,7 +147,6 @@ export default function ProfileScreen() {
   }
   function handleCaptureImageAsyncInModal() {
     handlePickImageAsync(
-      () => {},
       () => {},
       setOpenImageUploadModal,
       currentUser?.id,
@@ -1026,7 +1000,7 @@ export default function ProfileScreen() {
             position="top"
             size="xxsmall">
             <Avatar
-              data={photoUrl1}
+              data={currentUser?.mediaArray?.[0]}
               theme={theme}
               dimensionIndex={9}
               func={() => setShowProfile(true)}
@@ -1084,78 +1058,37 @@ export default function ProfileScreen() {
                 justifyContent: "center",
               }}
               space={theme.space[1]}>
-              <PhotoComponent
-                isUpdatingPhoto={true}
-                dimension={31}
-                photoUrl={photoUrl1}
-                setPhotoUrl={setPhotoUrl1}
-                showDeleteIcon={true}
-                index={0}
-                setOpenDeleteModal={setOpenDeleteModal}
-                setDeleteImageItem={setDeleteImageItem}
-                deleteImageItem={deleteImageItem}
-                setOpenImageUploadModal={setOpenImageUploadModal}
-              />
-              <PhotoComponent
-                isUpdatingPhoto={true}
-                dimension={31}
-                photoUrl={photoUrl2}
-                setPhotoUrl={setPhotoUrl2}
-                showDeleteIcon={true}
-                index={1}
-                setOpenDeleteModal={setOpenDeleteModal}
-                setDeleteImageItem={setDeleteImageItem}
-                deleteImageItem={deleteImageItem}
-                setOpenImageUploadModal={setOpenImageUploadModal}
-              />
-              <PhotoComponent
-                isUpdatingPhoto={true}
-                dimension={31}
-                photoUrl={photoUrl3}
-                setPhotoUrl={setPhotoUrl3}
-                showDeleteIcon={true}
-                index={2}
-                setOpenDeleteModal={setOpenDeleteModal}
-                setDeleteImageItem={setDeleteImageItem}
-                deleteImageItem={deleteImageItem}
-                setOpenImageUploadModal={setOpenImageUploadModal}
-              />
-              <PhotoComponent
-                isUpdatingPhoto={true}
-                dimension={31}
-                photoUrl={photoUrl4}
-                setPhotoUrl={setPhotoUrl4}
-                showDeleteIcon={true}
-                index={3}
-                setOpenDeleteModal={setOpenDeleteModal}
-                setDeleteImageItem={setDeleteImageItem}
-                deleteImageItem={deleteImageItem}
-                setOpenImageUploadModal={setOpenImageUploadModal}
-              />
-              <PhotoComponent
-                isUpdatingPhoto={true}
-                dimension={31}
-                photoUrl={photoUrl5}
-                setPhotoUrl={setPhotoUrl5}
-                showDeleteIcon={true}
-                index={4}
-                setOpenDeleteModal={setOpenDeleteModal}
-                setDeleteImageItem={setDeleteImageItem}
-                deleteImageItem={deleteImageItem}
-                setOpenImageUploadModal={setOpenImageUploadModal}
-              />
-              <PhotoComponent
-                isUpdatingPhoto={true}
-                dimension={31}
-                photoUrl={photoUrl6}
-                setPhotoUrl={setPhotoUrl6}
-                showDeleteIcon={true}
-                index={5}
-                setOpenDeleteModal={setOpenDeleteModal}
-                setDeleteImageItem={setDeleteImageItem}
-                deleteImageItem={deleteImageItem}
-                setOpenImageUploadModal={setOpenImageUploadModal}
-              />
+              {currentUser?.mediaArray?.map((media, idx) => (
+                <PhotoComponent
+                  key={idx}
+                  isUpdatingPhoto={true}
+                  dimension={31}
+                  photoUrl={media}
+                  showDeleteIcon={true}
+                  index={0}
+                  setOpenDeleteModal={setOpenDeleteModal}
+                  setDeleteImageItem={setDeleteImageItem}
+                  deleteImageItem={deleteImageItem}
+                  setOpenImageUploadModal={setOpenImageUploadModal}
+                />
+              ))}
+              {currentUser?.mediaArray?.length < 6 &&
+                new Array(6 - currentUser?.mediaArray.length)
+                  .fill(0)
+                  .map((_val, idx) => (
+                    <PhotoComponent
+                      key={idx}
+                      isUpdatingPhoto={true}
+                      dimension={31}
+                      photoUrl=""
+                      showDeleteIcon={true}
+                      index={0}
+                      setOpenDeleteModal={setOpenDeleteModal}
+                      setDeleteImageItem={setDeleteImageItem}
+                      deleteImageItem={deleteImageItem}
+                      setOpenImageUploadModal={setOpenImageUploadModal}
+                    />
+                  ))}
             </HorizontalPaddingSpace>
           </Spacer>
           <Spacer position="bottom" size="large">
@@ -1536,10 +1469,13 @@ export default function ProfileScreen() {
         <GeneralPopupModal
           height={height}
           theme={theme}
-          functionCallTop={handleDeleteImageAsyncInModal}
-          functionCallBottom={() => setOpenDeleteModal(false)}
+          functionCallTop={handleReplaceImageAsyncInModal}
+          functionCallBottom={handleDeleteImageAsyncInModal}
           textTop="Replace Photo"
-          textBottom="Cancel"
+          textBottom="Delete Photo"
+          textCancel="Cancel"
+          setOpenImageUploadModal={setOpenDeleteModal}
+          setIsTrigger={setIsTrigger}
         />
       </AnimatedModal>
       <AnimatedModal
