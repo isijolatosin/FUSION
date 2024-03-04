@@ -16,12 +16,10 @@ export default function JobUpdateModal({ theme, currentUser, onClose }) {
     currentUser?.jobtitle?.visibleOnProfile
   );
 
-  async function updatejobtitle(value, visibilityOption) {
-    setJobtitle(value);
-
-    updatedValue = {
-      visibleOnProfile: visibilityOption ?? isVisibleOnProfile,
-      job: value ?? jobtitle,
+  async function updatejobtitle() {
+    const updatedValue = {
+      visibleOnProfile: isVisibleOnProfile,
+      job: jobtitle,
     };
 
     await updateUserValueField(
@@ -31,11 +29,6 @@ export default function JobUpdateModal({ theme, currentUser, onClose }) {
       updatedValue,
       () => {}
     );
-  }
-
-  async function handleCheckboxToggle() {
-    setIsVisibleOnProfile(!isVisibleOnProfile);
-    updatejobtitle(jobtitle, !isVisibleOnProfile);
   }
 
   return (
@@ -49,7 +42,10 @@ export default function JobUpdateModal({ theme, currentUser, onClose }) {
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              updatejobtitle();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -69,7 +65,7 @@ export default function JobUpdateModal({ theme, currentUser, onClose }) {
           <InputComponent
             includeIcon={false}
             keyboardType="default"
-            setValue={updatejobtitle}
+            setValue={setJobtitle}
             value={jobtitle}
             width="100%"
             isCountryCode={false}
@@ -82,7 +78,7 @@ export default function JobUpdateModal({ theme, currentUser, onClose }) {
           <CheckBox
             title="Visible on your profile"
             checked={isVisibleOnProfile}
-            onPress={handleCheckboxToggle}
+            onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.brandFade}
             titleProps={{

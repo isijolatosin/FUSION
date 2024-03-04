@@ -14,20 +14,14 @@ export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
     currentUser?.zodiac
   );
 
-  async function updateWorkPlace(visibilityOption) {
-    setIsVisibleOnProfile(visibilityOption);
-
+  async function updateWorkPlace() {
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "zodiac",
-      visibilityOption,
+      isVisibleOnProfile,
       () => {}
     );
-  }
-
-  async function handleCheckboxToggle() {
-    updateWorkPlace(!isVisibleOnProfile);
   }
 
   return (
@@ -41,7 +35,10 @@ export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              updateWorkPlace();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -61,7 +58,7 @@ export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
           <CheckBox
             title="Allow your zodiac visible on your profile"
             checked={isVisibleOnProfile}
-            onPress={handleCheckboxToggle}
+            onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
             checkedColor={theme.colors.brand.base}
             uncheckedColor={theme.colors.brand.brandFade}
             titleProps={{

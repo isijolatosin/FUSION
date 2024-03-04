@@ -9,19 +9,34 @@ import { updateUserValueField } from "../../../utilities/updateFirestoreDatabase
 import IconComponent from "../../../components/icon-components/IconComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
-export default function TribeUpdateModal({ theme, currentUser, onClose }) {
-  const [tribe, setTribe] = useState(currentUser?.tribe);
+export default function TribeUpdateModal({
+  theme,
+  currentUser,
+  onClose,
+  myTribePreference,
+}) {
+  const [tribe, setTribe] = useState(
+    myTribePreference ? currentUser?.preferredTribe : currentUser?.tribe
+  );
 
-  async function updateTribe(value) {
-    setTribe(value);
-
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "tribe",
-      value,
-      () => {}
-    );
+  async function updateTribe() {
+    if (myTribePreference) {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "preferredTribe",
+        tribe,
+        () => {}
+      );
+    } else {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "tribe",
+        tribe,
+        () => {}
+      );
+    }
   }
 
   return (
@@ -35,7 +50,10 @@ export default function TribeUpdateModal({ theme, currentUser, onClose }) {
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              updateTribe();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -48,14 +66,14 @@ export default function TribeUpdateModal({ theme, currentUser, onClose }) {
             colorType="black"
             fontType="montserratBold"
             fontSize="title">
-            Tribe
+            {myTribePreference ? "Tribe Preference" : "Tribe"}
           </Text>
         </View>
         <Spacer position="top" size="xxxlarge">
           <InputComponent
             includeIcon={false}
             keyboardType="default"
-            setValue={updateTribe}
+            setValue={setTribe}
             value={tribe}
             width="100%"
             isCountryCode={false}

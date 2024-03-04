@@ -17,34 +17,23 @@ export default function CannabisUpdateModal({
   myCannabisPreference,
 }) {
   const [preference, setPreference] = useState(
-    currentUser?.lifestyleHabits.cannabis
+    myCannabisPreference
+      ? currentUser.preferredCannabis ?? "Open to all"
+      : currentUser?.lifestyleHabits.cannabis
   );
 
-  const [cannabisPreference, setCannabisPreference] = useState(
-    currentUser.preferredCannabis ?? "Open to all"
-  );
-
-  // this is to differentiate between current user cannabis preference and their preferred.
-  const currentPreference = myCannabisPreference
-    ? cannabisPreference
-    : preference;
-
-  async function updateCannabis(value) {
-    if (!value) return;
-
+  async function updateCannabis() {
     if (myCannabisPreference) {
-      setCannabisPreference(value);
       await updateUserValueField(
         "all-users",
         currentUser?.id,
         myCannabisPreference,
-        value,
+        preference,
         () => {}
       );
     } else {
-      setPreference(value);
       const updatedValue = {
-        cannabis: value ?? currentUser?.lifestyleHabits.cannabis,
+        cannabis: preference ?? currentUser?.lifestyleHabits.cannabis,
         drink: currentUser?.lifestyleHabits.drink,
         gym: currentUser?.lifestyleHabits.gym,
         smoke: currentUser?.lifestyleHabits.smoke,
@@ -70,7 +59,10 @@ export default function CannabisUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateCannabis();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -91,17 +83,17 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                currentPreference === "Not my thing"
+                preference === "Not my thing"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateCannabis("Not my thing")}
+              buttonFunction={() => setPreference("Not my thing")}
               text="Not my thing"
               textColor={
-                currentPreference === "Not my thing"
+                preference === "Not my thing"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -110,17 +102,17 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Socially"
+                preference === "Socially"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateCannabis("Socially")}
+              buttonFunction={() => setPreference("Socially")}
               text="Socially"
               textColor={
-                currentPreference === "Socially"
+                preference === "Socially"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -129,17 +121,17 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Frequently"
+                preference === "Frequently"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateCannabis("Frequently")}
+              buttonFunction={() => setPreference("Frequently")}
               text="Frequently"
               textColor={
-                currentPreference === "Frequently"
+                preference === "Frequently"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -148,17 +140,17 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Sometimes"
+                preference === "Sometimes"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateCannabis("Sometimes")}
+              buttonFunction={() => setPreference("Sometimes")}
               text="Sometimes"
               textColor={
-                currentPreference === "Sometimes"
+                preference === "Sometimes"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -167,17 +159,17 @@ export default function CannabisUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Open to all"
+                preference === "Open to all"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateCannabis("Open to all")}
+              buttonFunction={() => setPreference("Open to all")}
               text="Open to all"
               textColor={
-                currentPreference === "Open to all"
+                preference === "Open to all"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }

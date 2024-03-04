@@ -15,19 +15,15 @@ export default function PreferenceUpdateModal({
   currentUser,
   onClose,
 }) {
-  const [smokingPreference, setSmokingPreference] = useState(
+  const [datingPreference, setDatingPreference] = useState(
     currentUser?.preference
   );
-  async function updatePreference(value) {
-    if (!value) return;
-
-    setSmokingPreference(value);
-
+  async function updatePreference() {
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "preference",
-      value,
+      datingPreference,
       () => {}
     );
   }
@@ -42,7 +38,10 @@ export default function PreferenceUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updatePreference();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -63,17 +62,17 @@ export default function PreferenceUpdateModal({
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                smokingPreference === "Friendship"
+                datingPreference === "Friendship"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updatePreference("Friendship")}
+              buttonFunction={() => setDatingPreference("Friendship")}
               text="Friendship"
               textColor={
-                smokingPreference === "Friendship"
+                datingPreference === "Friendship"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -82,17 +81,17 @@ export default function PreferenceUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Life Partner"
+                datingPreference === "Life Partner"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updatePreference("Life Partner")}
+              buttonFunction={() => setDatingPreference("Life Partner")}
               text="Life Partner"
               textColor={
-                smokingPreference === "Life Partner"
+                datingPreference === "Life Partner"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -101,17 +100,17 @@ export default function PreferenceUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Casual Dating"
+                datingPreference === "Casual Dating"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updatePreference("Casual Dating")}
+              buttonFunction={() => setDatingPreference("Casual Dating")}
               text="Casual Dating"
               textColor={
-                smokingPreference === "Casual Dating"
+                datingPreference === "Casual Dating"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -120,17 +119,17 @@ export default function PreferenceUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Don't know yet"
+                datingPreference === "Don't know yet"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updatePreference("Don't know yet")}
+              buttonFunction={() => setDatingPreference("Don't know yet")}
               text="Don't know yet"
               textColor={
-                smokingPreference === "Don't know yet"
+                datingPreference === "Don't know yet"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -139,17 +138,17 @@ export default function PreferenceUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                smokingPreference === "Prefer Not to Say"
+                datingPreference === "Prefer Not to Say"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updatePreference("Prefer Not to Say")}
+              buttonFunction={() => setDatingPreference("Prefer Not to Say")}
               text="Prefer Not to Say"
               textColor={
-                smokingPreference === "Prefer Not to Say"
+                datingPreference === "Prefer Not to Say"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }

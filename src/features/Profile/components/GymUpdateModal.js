@@ -18,15 +18,11 @@ export default function GymUpdateModal({
   const [gymPreference, setGymPreference] = useState(
     currentUser?.lifestyleHabits.gym
   );
-  async function updateSmoke(value) {
-    if (!value) return;
-
-    setGymPreference(value);
-
+  async function updateGym() {
     const updatedValue = {
       cannabis: currentUser?.lifestyleHabits.cannabis,
       drink: currentUser?.lifestyleHabits.drink,
-      gym: value ?? currentUser?.lifestyleHabits.gym,
+      gym: gymPreference ?? currentUser?.lifestyleHabits.gym,
       smoke: currentUser?.lifestyleHabits.smoke,
     };
 
@@ -49,7 +45,10 @@ export default function GymUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateGym();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -77,7 +76,7 @@ export default function GymUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Active")}
+              buttonFunction={() => setGymPreference("Active")}
               text="Active"
               textColor={
                 gymPreference === "Active"
@@ -96,7 +95,7 @@ export default function GymUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Not my thing")}
+              buttonFunction={() => setGymPreference("Not my thing")}
               text="Not my thing"
               textColor={
                 gymPreference === "Not my thing"
@@ -115,7 +114,7 @@ export default function GymUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Seasonal")}
+              buttonFunction={() => setGymPreference("Seasonal")}
               text="Seasonal"
               textColor={
                 gymPreference === "Seasonal"
@@ -134,7 +133,7 @@ export default function GymUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Sometimes")}
+              buttonFunction={() => setGymPreference("Sometimes")}
               text="Sometimes"
               textColor={
                 gymPreference === "Sometimes"

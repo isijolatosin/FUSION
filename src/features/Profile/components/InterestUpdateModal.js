@@ -16,16 +16,13 @@ export default function InterestUpdateModal({
   onClose,
 }) {
   const [genderInterest, setGenderInterest] = useState(currentUser?.interest);
-  async function updateHeight(value) {
-    if (!value) return;
 
-    setGenderInterest(value);
-
+  async function updateHeight() {
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "interest",
-      value,
+      genderInterest,
       () => {}
     );
   }
@@ -40,7 +37,10 @@ export default function InterestUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateHeight();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -68,7 +68,7 @@ export default function InterestUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateHeight("woman")}
+              buttonFunction={() => setGenderInterest("woman")}
               text="Women"
               textColor={
                 genderInterest === "woman"
@@ -87,7 +87,7 @@ export default function InterestUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateHeight("man")}
+              buttonFunction={() => setGenderInterest("man")}
               text="Men"
               textColor={
                 genderInterest === "man"
@@ -106,7 +106,7 @@ export default function InterestUpdateModal({
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateHeight("both")}
+              buttonFunction={() => setGenderInterest("both")}
               text="Both"
               textColor={
                 genderInterest === "both"

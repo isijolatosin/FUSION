@@ -17,38 +17,26 @@ export default function SmokeUpdateModal({
   mySmokingPreference,
 }) {
   const [preference, setPreference] = useState(
-    currentUser?.lifestyleHabits.smoke
+    mySmokingPreference
+      ? currentUser.preferredSmoking ?? "Open to all"
+      : currentUser?.lifestyleHabits.smoke
   );
-
-  const [smokingPreference, setSmokingPreference] = useState(
-    currentUser.preferredSmoking ?? "Open to all"
-  );
-
-  // this is to differentiate between current user smoking preference and their preferred.
-  const currentPreference = mySmokingPreference
-    ? smokingPreference
-    : preference;
 
   async function updateSmoke(value) {
-    if (!value) return;
-
     if (mySmokingPreference) {
-      setSmokingPreference(value);
       await updateUserValueField(
         "all-users",
         currentUser?.id,
         mySmokingPreference,
-        value,
+        preference,
         () => {}
       );
     } else {
-      setPreference(value);
-
       const updatedValue = {
         cannabis: currentUser?.lifestyleHabits.cannabis,
         drink: currentUser?.lifestyleHabits.drink,
         gym: currentUser?.lifestyleHabits.gym,
-        smoke: value ?? currentUser?.lifestyleHabits.smoke,
+        smoke: preference ?? currentUser?.lifestyleHabits.smoke,
       };
 
       await updateUserValueField(
@@ -71,7 +59,10 @@ export default function SmokeUpdateModal({
           paddingBottom: theme.spaceNumber[5],
         }}>
         <IconComponent
-          iconFunction={onClose}
+          iconFunction={() => {
+            updateSmoke();
+            onClose();
+          }}
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
@@ -92,17 +83,17 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="xxxxlarge">
             <Button
               backgroundColor={
-                currentPreference === "Not my thing"
+                preference === "Not my thing"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Not my thing")}
+              buttonFunction={() => setPreference("Not my thing")}
               text="Not my thing"
               textColor={
-                currentPreference === "Not my thing"
+                preference === "Not my thing"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -111,17 +102,17 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Socially"
+                preference === "Socially"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Socially")}
+              buttonFunction={() => setPreference("Socially")}
               text="Socially"
               textColor={
-                currentPreference === "Socially"
+                preference === "Socially"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -130,17 +121,17 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Frequently"
+                preference === "Frequently"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Frequently")}
+              buttonFunction={() => setPreference("Frequently")}
               text="Frequently"
               textColor={
-                currentPreference === "Frequently"
+                preference === "Frequently"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -149,17 +140,17 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Sometimes"
+                preference === "Sometimes"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Sometimes")}
+              buttonFunction={() => setPreference("Sometimes")}
               text="Sometimes"
               textColor={
-                currentPreference === "Sometimes"
+                preference === "Sometimes"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }
@@ -168,17 +159,17 @@ export default function SmokeUpdateModal({
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
-                currentPreference === "Open to all"
+                preference === "Open to all"
                   ? theme.colors.brand.base
                   : theme.colors.brand.highlight
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
-              buttonFunction={() => updateSmoke("Open to all")}
+              buttonFunction={() => setPreference("Open to all")}
               text="Open to all"
               textColor={
-                currentPreference === "Open to all"
+                preference === "Open to all"
                   ? theme.colors.brand.basewhite
                   : theme.colors.brand.black
               }

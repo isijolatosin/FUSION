@@ -13,19 +13,32 @@ export default function NationalityUpdateModal({
   theme,
   currentUser,
   onClose,
+  myNationalityPreference,
 }) {
-  const [nationality, setNationality] = useState(currentUser?.nationality);
+  const [nationality, setNationality] = useState(
+    myNationalityPreference
+      ? currentUser?.preferredNationality ?? "Open to all"
+      : currentUser?.nationality
+  );
 
-  async function updateNationality(value) {
-    setNationality(value);
-
-    await updateUserValueField(
-      "all-users",
-      currentUser?.id,
-      "nationality",
-      value,
-      () => {}
-    );
+  async function updateNationality() {
+    if (myNationalityPreference) {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "preferredNationality",
+        nationality,
+        () => {}
+      );
+    } else {
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "nationality",
+        nationality,
+        () => {}
+      );
+    }
   }
 
   return (
@@ -39,7 +52,10 @@ export default function NationalityUpdateModal({
             paddingBottom: theme.spaceNumber[5],
           }}>
           <IconComponent
-            iconFunction={onClose}
+            iconFunction={() => {
+              updateNationality();
+              onClose();
+            }}
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
@@ -52,14 +68,14 @@ export default function NationalityUpdateModal({
             colorType="black"
             fontType="montserratBold"
             fontSize="title">
-            Nationality
+            {myNationalityPreference ? "Nationality preference" : "Nationality"}
           </Text>
         </View>
         <Spacer position="top" size="xxxlarge">
           <InputComponent
             includeIcon={false}
             keyboardType="default"
-            setValue={updateNationality}
+            setValue={setNationality}
             value={nationality}
             width="100%"
             isCountryCode={false}
