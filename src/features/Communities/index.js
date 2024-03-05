@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Pressable, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import * as Updates from "expo-updates"; // reload entire app
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
@@ -239,6 +240,18 @@ export default function Index() {
 
     return () => clearTimeout(compatibleSubscriptionId);
   }, [isRetrigger]);
+
+  useEffect(() => {
+    async function reloadApp() {
+      try {
+        await Updates.reloadAsync();
+      } catch (error) {
+        console.error("Error reloading app:", error);
+      }
+    }
+
+    reloadApp();
+  }, []);
 
   if (isLoading) {
     return (
