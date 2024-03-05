@@ -865,9 +865,13 @@ export const deleteaccounttext =
 export const nolikesyetmessage =
   "Looks like you haven't received any likes yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const compatibleText =
+  "Our focus is on building community! Discover your Fusion Link and expand your network.";
+export const communitiesText =
   "Like polls attract on this end. We have selected matches with similar interest for you.";
 export const noSimilarInterestyetmessage =
   "While we're growing, it seems we don't have many users with similar interests right now. Don't be discouraged—new members join daily! In the meantime, consider exploring diverse profiles. Your perfect match might be just around the corner.";
+export const friendshipzone =
+  'This page caters to users seeking friendship connections. To engage with others and foster new friendships, please adjust your dating intentions to "friendship" in your profile.';
 export const noDataFromYourCountrymessage =
   "Sorry, we couldn't find any users matching your preferences in your profile settings. Consider adjusting your profile settings to broaden your search and discover more potential matches.";
 export const facialVerificationText =
