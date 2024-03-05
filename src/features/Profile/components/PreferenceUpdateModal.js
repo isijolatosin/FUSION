@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as Updates from "expo-updates"; // reload entire app
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { Text } from "../../../components/typography/text.component";
@@ -26,6 +27,12 @@ export default function PreferenceUpdateModal({
       datingPreference,
       () => {}
     );
+
+    const reloadAppId = setTimeout(async () => {
+      await Updates.reloadAsync();
+    }, 2000);
+
+    return () => clearTimeout(reloadAppId);
   }
 
   return (
