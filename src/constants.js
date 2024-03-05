@@ -888,3 +888,5 @@ export const unpauseAccountForMainScreen =
   "You've paused your profile from being shown to new people. Activate your profile to keep exploring new opportunities";
 export const activateAccountForMainScreen =
   "Your profile has been set to deactivate. If you wish to regain access, please activate your profile.";
+export const appreloadmessage =
+  "Kindly be aware that updating your preference will necessitate a reload of the app. Please ensure your readiness before proceeding.";
