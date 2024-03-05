@@ -46,6 +46,7 @@ import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDat
 import MessageScreen from "../../Chats/components/MessageScreen";
 import SupportScreen from "../../Support";
 import CompatibilityScreen from "../../Compatibility";
+import CommunitiesScreen from "../../Communities";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -96,7 +97,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="communities"
-        component={CompatibilityScreen}
+        component={CommunitiesScreen}
         options={{
           cardStyle: {
             backgroundColor: `${theme.colors.brand.basewhite}`,

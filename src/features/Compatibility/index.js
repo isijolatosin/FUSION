@@ -215,7 +215,7 @@ export default function Index() {
     const usersWithSimilarInterestsId = setTimeout(() => {
       setIsLoading(false);
       setUsersWithSimilarInterestsData(usersWithSimilarInterests);
-    }, 500);
+    }, 100);
 
     return () => clearTimeout(usersWithSimilarInterestsId);
   }
