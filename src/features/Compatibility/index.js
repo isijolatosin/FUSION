@@ -26,40 +26,30 @@ import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
 import CustomUseCardWithCTA from "../../components/general-component/CustomUseCardWithCTA";
+import HeaderComponent from "../../components/general-component/HeaderComponent";
 
 function ScreenWrapper({ children, theme, width }) {
   return (
     <SafeArea
-      style={{ backgroundColor: theme.colors.brand.basewhite, flex: 1 }}>
-      <Spacer position="top" size="large">
-        <HorizontalPaddingSpace space={theme.space[3]}>
-          <BrandAvatarO />
-        </HorizontalPaddingSpace>
-      </Spacer>
-      <Spacer position="top" size="xsmall">
-        <HorizontalPaddingSpace
-          space={theme.space[3]}
-          style={{ width: width, alignItems: "center" }}>
-          <Spacer position="bottom" size="small">
-            <Text
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="black"
-              fontType="arimaMadurai"
-              fontSize="h3">
-              Similar Interest
-            </Text>
-          </Spacer>
-          <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="caption">
-            {compatibleText}
-          </Text>
-        </HorizontalPaddingSpace>
-      </Spacer>
+      style={{
+        backgroundColor: theme.colors.brand.basewhite,
+        flex: 1,
+        position: "relative",
+      }}>
+      <HeaderComponent title="Similar Interest" theme={theme} />
+      <HorizontalPaddingSpace
+        space={theme.space[6]}
+        style={{ width: width, alignItems: "center" }}>
+        <Text
+          style={{ textAlign: "center" }}
+          variant="custom"
+          colorType="black"
+          fontType="montserratRegular"
+          fontSize="caption">
+          {compatibleText}
+        </Text>
+      </HorizontalPaddingSpace>
+      <Spacer position="top" size="xsmall"></Spacer>
       {children}
     </SafeArea>
   );
@@ -158,11 +148,10 @@ export default function Index() {
 
           // ########################################################################
           // check if profile has been liked or liked me and filter off
-          if (
-            (likedNumberArray?.length &&
-              !likedNumberArray?.includes(user?.phonenumber)) ||
-            (likedMeList?.length && !likedMeList?.includes(user?.phonenumber))
-          ) {
+          if (likedNumberArray?.length || likedMeList?.length) {
+            if (likedNumberArray?.includes(user?.phonenumber)) return;
+            if (likedMeList?.includes(user?.phonenumber)) return;
+
             if (
               hasMatchingElements(currentUserInteresstArray, userInterestsArray)
             )
@@ -171,11 +160,10 @@ export default function Index() {
 
           // ########################################################################
           // check if profile has been blocked or blocked by me and filter off
-          if (
-            (blockedMeList?.length &&
-              !blockedMeList?.includes(user?.phonenumber)) ||
-            (blockedList?.length && !blockedList?.includes(user?.phonenumber))
-          ) {
+          if (blockedMeList?.length || blockedList?.length) {
+            if (blockedList?.includes(user?.phonenumber)) return;
+            if (blockedMeList?.includes(user?.phonenumber)) return;
+
             const userInterestsArray = user?.interestsArray;
 
             if (
@@ -249,7 +237,7 @@ export default function Index() {
   if (usersWithSimilarInterestsData.length === 0 && !isLoading) {
     return (
       <ScreenWrapper theme={theme} width={width}>
-        <HorizontalPaddingSpace space={theme.space[8]}>
+        <HorizontalPaddingSpace space={theme.space[7]}>
           <Spacer position="top" size="xxxxlarge">
             <Text
               style={{

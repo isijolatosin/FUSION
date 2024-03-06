@@ -864,6 +864,8 @@ export const deleteaccounttext =
   "Deleting your profile removes it permanently on Fusion and your information is no longer accessible on the app. ";
 export const nolikesyetmessage =
   "Looks like you haven't received any likes yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
+export const nofriendrequestmessage =
+  "Looks like you haven't received any friend request yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const compatibleText =
   "Our focus is on building community! Discover your Fusion Link and expand your network.";
 export const communitiesText =

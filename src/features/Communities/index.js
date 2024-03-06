@@ -21,11 +21,13 @@ import {
   updateUserValueField,
 } from "../../utilities/updateFirestoreDatabaseField";
 import BrandAvatar from "../../components/general-component/BrandAvatar";
-import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
 import CustomUseCardWithCTA from "../../components/general-component/CustomUseCardWithCTA";
 import Loading from "../../components/general-component/Loading";
+import HeaderComponent from "../../components/general-component/HeaderComponent";
+import FriendRequestConfirmationComponent from "../Compatibility/components/FriendRequestConfirmationComponent";
+import TopNavigationTab from "../../components/general-component/TopNavigationTab";
 
 function ScreenWrapper({
   children,
@@ -39,32 +41,7 @@ function ScreenWrapper({
   return (
     <SafeArea
       style={{ backgroundColor: theme.colors.brand.basewhite, flex: 1 }}>
-      <Spacer position="top" size="large">
-        <HorizontalPaddingSpace
-          space={theme.space[3]}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            position: "relative",
-          }}>
-          <View
-            style={{
-              position: "absolute",
-              top: theme.spaceNumber[1],
-              left: theme.spaceNumber[5],
-            }}>
-            <BrandAvatarO />
-          </View>
-          <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            fontSize="title">
-            Friendship Hub
-          </Text>
-        </HorizontalPaddingSpace>
-      </Spacer>
+      <HeaderComponent title="Friendship Hub" theme={theme} />
       <Spacer position="top" size="xsmall">
         <HorizontalPaddingSpace
           space={theme.space[6]}
@@ -78,49 +55,12 @@ function ScreenWrapper({
             {compatibleText}
           </Text>
         </HorizontalPaddingSpace>
-        <Spacer position="top" size="large">
-          <HorizontalPaddingSpace
-            space={theme.space[3]}
-            style={{
-              width: width,
-              alignItems: "center",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "90%",
-              alignSelf: "center",
-            }}>
-            {screeenList.map((screen) => (
-              <Pressable
-                onPress={() => setCurrentScreen(screen)}
-                key={screen}
-                style={{
-                  borderBottomWidth: theme.spaceNumber[0],
-                  borderBottomColor:
-                    screen === currentScreen
-                      ? theme.colors.brand.base
-                      : theme.colors.brand.basewhite,
-                  paddingBottom: theme.spaceNumber[3],
-                }}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color:
-                      screen === currentScreen
-                        ? theme.colors.brand.base
-                        : theme.colors.brand.lines,
-                  }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratSemibold"
-                  fontSize="button"
-                  transform="capitalize">
-                  {screen}
-                </Text>
-              </Pressable>
-            ))}
-          </HorizontalPaddingSpace>
-        </Spacer>
+        <TopNavigationTab
+          arrayList={screeenList}
+          currentScreen={currentScreen}
+          setFunction={setCurrentScreen}
+          theme={theme}
+        />
       </Spacer>
       {children}
     </SafeArea>
@@ -389,10 +329,13 @@ export default function Index() {
               ))}
             </ScrollView>
           )}
-          <YouLikedComponent
+          <FriendRequestConfirmationComponent
             theme={theme}
             isVisible={requestVisible}
-            onClose={() => setRequestVisible(false)}
+            onClose={() => {
+              setIsRetrigger(true);
+              setRequestVisible(false);
+            }}
             selectedFriend={selectedFriend}
           />
         </View>

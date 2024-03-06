@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 import {
   NavigationBar,
@@ -76,44 +77,59 @@ export default function MessageScreen({ navigation }) {
     // });
   };
 
-  useEffect(() => {
-    async function getMessages() {
-      try {
-        const matchId = await retrieveData("match-id");
-        setMatchId(matchId);
-        //get other user
-        const allUsers = await getAllData("all-users");
-        const otherUserData = allUsers.find(
-          (data) => data.phonenumber === otherUserPhonenumber
-        );
-        setOtherUserData(otherUserData);
+  async function getMessages() {
+    try {
+      const matchId = await retrieveData("match-id");
+      setMatchId(matchId);
+      //get other user
+      const allUsers = await getAllData("all-users");
+      const otherUserData = allUsers.find(
+        (data) => data.phonenumber === otherUserPhonenumber
+      );
+      setOtherUserData(otherUserData);
 
-        // get message for current match id
-        if (matchId) {
-          const snapshot = await database
-            .collection("matches")
-            .doc(matchId)
-            .collection("messages")
-            .orderBy("timestamp", "asc")
-            .get();
+      // get message for current match id
+      if (matchId) {
+        const snapshot = await database
+          .collection("matches")
+          .doc(matchId)
+          .collection("messages")
+          .orderBy("timestamp", "asc")
+          .get();
 
-          // Access the documents in the subcollection
-          const data = snapshot?.docs?.map((doc) => doc?.data());
+        // Access the documents in the subcollection
+        const data = snapshot?.docs?.map((doc) => doc?.data());
 
-          const { groupedDataKeys, groupedData } = groupDataByKey(data);
-          setMessagesKeys(groupedDataKeys);
-          setMessagesForMessagesScreen(groupedData);
-        }
-      } catch (error) {
-        console.error("Error getting message data:", error);
+        const { groupedDataKeys, groupedData } = groupDataByKey(data);
+        setMessagesKeys(groupedDataKeys);
+        setMessagesForMessagesScreen(groupedData);
       }
+    } catch (error) {
+      console.error("Error getting message data:", error);
     }
+  }
 
-    const timeoutId = setTimeout(() => {
+  useFocusEffect(
+    React.useCallback(() => {
+      getMessages();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
+
+  useEffect(() => {
+    const msgtimeoutId = setTimeout(() => {
       getMessages();
     }, 800);
+    const timeoutId = setTimeout(() => {
+      setTriggerReload(false);
+    }, 800);
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(msgtimeoutId);
+      clearTimeout(timeoutId);
+    };
   }, [triggerReload, input]);
 
   const sendNotification = async () => {

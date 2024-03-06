@@ -28,6 +28,7 @@ import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ContactModal from "./ContactModal";
 import EmailUpdateModal from "./EmailUpdateModal";
+import ActionNotificationModal from "../../../components/general-component/ActionNotificationModal";
 
 export default function SettingModal({
   theme,
@@ -39,6 +40,9 @@ export default function SettingModal({
   const navigation = useNavigation();
   const { width } = Dimensions.get("window");
   const [openContactModal, setOpenContactModal] = useState(false);
+  const [showPauseModal, setShowPauseModal] = useState(false);
+  const [showDeactivateModal, setShowDeactivateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [openEmailUpdateModal, setOpenEmailUpdateModal] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [messageSentNote, setMessageSentNote] = useState(false);
@@ -207,7 +211,7 @@ export default function SettingModal({
       theme={theme}
       width={width}>
       <Spacer
-        style={{ paddingTop: theme.spaceNumberBy10[2] }}
+        style={{ paddingTop: theme.spaceNumber[0] }}
         position="top"
         size="xxxxlarge">
         <HorizontalPaddingSpace
@@ -234,7 +238,7 @@ export default function SettingModal({
             variant="custom"
             colorType="black"
             fontType="arimaMadurai"
-            fontSize="h4">
+            fontSize="h5">
             Settings
           </Text>
         </HorizontalPaddingSpace>
@@ -389,45 +393,6 @@ export default function SettingModal({
                 value={currentUser?.inAppNotification}
               />
             </Spacer>
-            {/* <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-              position="top"
-              size="small">
-              <View>
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="caption">
-                  SMS Notification
-                </Text>
-              </View>
-              <Switch
-                trackColor={{
-                  false: theme.colors.brand.linesLight,
-                  true: theme.colors.brand.base,
-                }}
-                thumbColor={
-                  currentUser?.smsNotification
-                    ? theme.colors.brand.highlight
-                    : theme.colors.brand.lines
-                }
-                onValueChange={async (val) => {
-                  await updateUserValueField(
-                    "all-users",
-                    userId,
-                    "smsNotification",
-                    val,
-                    setIsTrigger
-                  );
-                }}
-                value={currentUser?.smsNotification}
-              />
-            </Spacer> */}
           </HorizontalPaddingSpace>
           <HorizontalPaddingSpace
             style={{
@@ -479,13 +444,21 @@ export default function SettingModal({
                       : theme.colors.brand.lines
                   }
                   onValueChange={async (val) => {
-                    await updateUserValueField(
-                      "all-users",
-                      userId,
-                      "pause",
-                      val,
-                      setIsTrigger
-                    );
+                    if (currentUser?.pause) {
+                      await updateUserValueField(
+                        "all-users",
+                        userId,
+                        "pause",
+                        val,
+                        setIsTrigger
+                      );
+                    } else {
+                      const pauseId = setTimeout(() => {
+                        setShowPauseModal(val);
+                      }, 250);
+
+                      return () => clearTimeout(pauseId);
+                    }
                   }}
                   value={currentUser?.pause}
                 />
@@ -793,6 +766,75 @@ export default function SettingModal({
               setOpenEmailUpdateModal(false);
             }
           }}
+        />
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={showPauseModal}
+        onClose={() => setShowPauseModal(false)}
+        theme={theme}
+        width="100%"
+        isTransparent={true}>
+        <ActionNotificationModal
+          title="Are you sure?"
+          buttonText="Pause Account"
+          height="100%"
+          message={pauseaccounttext}
+          theme={theme}
+          functionCall={async () => {
+            await updateUserValueField(
+              "all-users",
+              userId,
+              "pause",
+              showPauseModal,
+              setIsTrigger
+            );
+          }}
+          onClose={() => setShowPauseModal(false)}
+          horizontalSpace={theme.space[5]}
+        />
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={showDeactivateModal}
+        onClose={() => setShowDeactivateModal(false)}
+        theme={theme}
+        width="100%"
+        isTransparent={true}>
+        <ActionNotificationModal
+          title="Are you sure?"
+          buttonText="Deactivate Account"
+          height="100%"
+          message={deactivateaccounttext}
+          theme={theme}
+          functionCall={async () => {
+            await updateUserValueField(
+              "all-users",
+              userId,
+              "deactivate",
+              showDeactivateModal,
+              setIsTrigger
+            );
+          }}
+          onClose={() => setShowDeactivateModal(false)}
+          horizontalSpace={theme.space[5]}
+        />
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        theme={theme}
+        width="100%"
+        isTransparent={true}>
+        <ActionNotificationModal
+          title="Are you sure?"
+          buttonText="Delete Account"
+          height="100%"
+          message={deleteaccounttext}
+          theme={theme}
+          functionCall={() => {
+            handleDeleteUserProfile(showDeleteModal);
+          }}
+          onClose={() => setShowDeactivateModal(false)}
+          horizontalSpace={theme.space[5]}
         />
       </AnimatedModal>
     </AnimatedModal>

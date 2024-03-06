@@ -7,9 +7,11 @@ import { ButtonAction } from "../../Main/screen/main.style";
 import { Text } from "../../../components/typography/text.component";
 import { unmatchmessage } from "../../../constants";
 import { TouchableOpacity, View } from "react-native";
-import Button from "../../../components/utility/button.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
+import ActionNotificationModal from "../../../components/general-component/ActionNotificationModal";
+import AnimatedModal from "../../../components/general-component/AnimatedModal";
+import { SafeArea } from "../../../components/utility/safe-area.component";
 
 export default function MessageDotsPopupModal({
   height,
@@ -57,10 +59,41 @@ export default function MessageDotsPopupModal({
 
   if (showUnmatchCard) {
     return (
-      <PopupModal height={height}>
-        <HorizontalPaddingSpace
-          style={{ width: "100%" }}
-          space={horizontalSpace ?? theme.space[0]}>
+      <AnimatedModal
+        isVisible={showUnmatchCard}
+        onClose={() => setShowUnmatchCard(false)}
+        theme={theme}
+        width="100%"
+        isTransparent={true}>
+        <ActionNotificationModal
+          title="Are you sure?"
+          buttonText="Unmatch"
+          height={height}
+          message={unmatchmessage}
+          theme={theme}
+          functionCall={() => functionCallTop()}
+          onClose={() => setShowUnmatchCard(false)}
+          horizontalSpace={horizontalSpace}
+        />
+      </AnimatedModal>
+    );
+  }
+
+  if (showBlockModal) {
+    return (
+      <AnimatedModal
+        isVisible={showBlockModal}
+        onClose={() => setShowBlockModal(false)}
+        theme={theme}
+        width="100%"
+        isTransparent={true}>
+        <SafeArea
+          style={{
+            width: "100%",
+            justifyContent: "flex-start",
+            display: "flex",
+            marginTop: theme.spaceNumberBy50[1],
+          }}>
           <Spacer position="bottom" size="medium">
             <Text
               style={{ textAlign: "center" }}
@@ -68,165 +101,91 @@ export default function MessageDotsPopupModal({
               colorType="black"
               fontType="arimaMadurai"
               fontSize="h4">
-              Are you sure?
+              Block this person
             </Text>
           </Spacer>
-          <View
+          <HorizontalPaddingSpace
             style={{
+              flex: 1,
               width: "100%",
-              paddingTop: theme.spaceNumberBy10[6],
-              paddingHorizontal: theme.spaceNumber[5],
-              paddingVertical: theme.spaceNumberBy10[2],
-              backgroundColor: theme.colors.brand.highlight,
-              borderRadius: theme.spaceNumber[2],
-              alignItems: "center",
-              elevation: 5,
-              shadowColor: theme.colors.brand.lines,
-              shadowOpacity: 0.3,
-              shadowRadius: "10px",
               position: "relative",
-            }}>
-            <Text
-              style={{
-                marginBottom: theme.spaceNumberBy10[3],
-                textAlign: "center",
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {unmatchmessage}
-            </Text>
-            <Button
-              buttonFunction={() => {
-                functionCallTop();
-              }}
-              backgroundColor={theme.colors.brand.base}
-              borderRadius={theme.space[5]}
-              text="Unmatch"
-              textColor={theme.colors.brand.basewhite}
-              fontType={theme.fonts.montserratRegular}
-              width="60%"
-            />
+              backgroundColor: theme.colors.brand.highlight,
+              paddingTop: theme.spaceNumberBy10[2],
+              paddingBottom: theme.spaceNumberBy10[10],
+            }}
+            space={theme.space[0]}>
             <View
               style={{
-                position: "abslute",
-                right: theme.spaceNumberBy10[0],
-                top: theme.spaceNumberBy10[0],
-                backgroundColor: theme.colors.brand.base,
-                position: "absolute",
-                marginLeft: theme.spaceNumberBy10[1],
-                padding: theme.spaceNumber[2],
-                borderRadius: theme.spaceNumberBy10[2],
+                width: "100%",
+                borderBottomWidth: 1,
+                borderBottomColor: theme.colors.brand.linesLight,
               }}>
-              <IconComponent
-                iconFunction={() => setShowUnmatchCard(false)}
-                iconName="close-a"
-                IconComponent={Fontisto}
-                size={theme.spaceNumber[4]}
-                color={theme.colors.brand.basewhite}
-              />
+              <Text
+                style={{
+                  textAlign: "center",
+                  paddingHorizontal: theme.spaceNumberBy10[2],
+                  paddingBottom: theme.spaceNumberBy10[1],
+                }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="body">
+                Your reason for blocking this user would remain anonymous. This
+                user would not be updated on your action.
+              </Text>
             </View>
-          </View>
-        </HorizontalPaddingSpace>
-      </PopupModal>
-    );
-  }
-
-  if (showBlockModal) {
-    return (
-      <PopupModal justify="flex-end" height={height}>
-        <Spacer position="bottom" size="medium">
-          <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            fontSize="h4">
-            Block this person
-          </Text>
-        </Spacer>
-        <HorizontalPaddingSpace
-          style={{
-            flex: 0.5,
-            width: "100%",
-            position: "relative",
-            backgroundColor: theme.colors.brand.highlight,
-            paddingTop: theme.spaceNumberBy10[2],
-            paddingBottom: theme.spaceNumberBy10[10],
-          }}
-          space={theme.space[0]}>
+            <BlockOptionComponent text="Fake Profile" />
+            <BlockOptionComponent text="Underage" />
+            <BlockOptionComponent text="Out of Fusion behaviour" />
+            <BlockOptionComponent text="No longer interested" />
+            <BlockOptionComponent text="Scam" />
+            <TouchableOpacity
+              onPress={() => {
+                functionCallBottom(
+                  otherUserMatchPhonenumber,
+                  otherUserMatchId,
+                  "Rude or Offensive behaviour"
+                );
+              }}
+              style={{
+                width: "100%",
+              }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  paddingHorizontal: theme.spaceNumberBy10[2],
+                  paddingTop: theme.spaceNumberBy10[1],
+                  paddingBottom: theme.spaceNumberBy10[1],
+                }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratRegular"
+                fontSize="body">
+                Rude or Offensive behaviour
+              </Text>
+            </TouchableOpacity>
+          </HorizontalPaddingSpace>
           <View
             style={{
-              width: "100%",
-              borderBottomWidth: 1,
-              borderBottomColor: theme.colors.brand.linesLight,
+              position: "absolute",
+              right: theme.spaceNumberBy10[1],
+              top: theme.spaceNumber[3],
+              backgroundColor: theme.colors.brand.base,
+              position: "absolute",
+              marginLeft: theme.spaceNumberBy10[1],
+              padding: theme.spaceNumber[3],
+              borderRadius: theme.spaceNumberBy10[2],
             }}>
-            <Text
-              style={{
-                textAlign: "center",
-                paddingHorizontal: theme.spaceNumberBy10[2],
-                paddingBottom: theme.spaceNumberBy10[1],
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="body">
-              Your reason for blocking this user would remain anonymous. This
-              user would not be updated on your action.
-            </Text>
+            <IconComponent
+              iconFunction={() => setShowBlockModal(false)}
+              iconName="close-a"
+              IconComponent={Fontisto}
+              size={theme.spaceNumber[5]}
+              color={theme.colors.brand.basewhite}
+            />
           </View>
-          <BlockOptionComponent text="Fake Profile" />
-          <BlockOptionComponent text="Underage" />
-          <BlockOptionComponent text="Out of Fusion behaviour" />
-          <BlockOptionComponent text="No longer interested" />
-          <BlockOptionComponent text="Scam" />
-          <TouchableOpacity
-            onPress={() => {
-              functionCallBottom(
-                otherUserMatchPhonenumber,
-                otherUserMatchId,
-                "Rude or Offensive behaviour"
-              );
-            }}
-            style={{
-              width: "100%",
-            }}>
-            <Text
-              style={{
-                textAlign: "center",
-                paddingHorizontal: theme.spaceNumberBy10[2],
-                paddingTop: theme.spaceNumberBy10[1],
-                paddingBottom: theme.spaceNumberBy10[1],
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="body">
-              Rude or Offensive behaviour
-            </Text>
-          </TouchableOpacity>
-        </HorizontalPaddingSpace>
-        <View
-          style={{
-            position: "absolute",
-            right: theme.spaceNumberBy10[1],
-            top: "35%",
-            backgroundColor: theme.colors.brand.base,
-            position: "absolute",
-            marginLeft: theme.spaceNumberBy10[1],
-            padding: theme.spaceNumber[3],
-            borderRadius: theme.spaceNumberBy10[2],
-          }}>
-          <IconComponent
-            iconFunction={() => setShowBlockModal(false)}
-            iconName="close-a"
-            IconComponent={Fontisto}
-            size={theme.spaceNumber[5]}
-            color={theme.colors.brand.basewhite}
-          />
-        </View>
-      </PopupModal>
+        </SafeArea>
+      </AnimatedModal>
     );
   }
 
