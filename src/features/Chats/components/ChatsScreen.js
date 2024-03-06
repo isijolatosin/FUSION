@@ -354,11 +354,8 @@ const ChatsScreen = () => {
 
   // #############################################################################
   // matches & friendship
-  function checkIfMessagingHasStarted(flag) {
-    let checkArray = otherUsers;
-    if (flag) {
-      checkArray = otherFriendshipUsers;
-    }
+  function checkIfMessagingHasStarted() {
+    let checkArray = [...otherUsers, ...otherFriendshipUsers];
     const truthy = [];
     checkArray?.map((dt) => {
       dt?.messages?.length ? truthy.push(false) : truthy.push(true);
