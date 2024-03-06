@@ -27,6 +27,8 @@ import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
 import CustomUseCardWithCTA from "../../components/general-component/CustomUseCardWithCTA";
 import HeaderComponent from "../../components/general-component/HeaderComponent";
+import ProfileDeactivateCardComponent from "../../components/general-component/ProfileDeactivateCardComponent";
+import ProfilePausedCardComponent from "../../components/general-component/ProfilePausedCardComponent";
 
 function ScreenWrapper({ children, theme, width }) {
   return (
@@ -226,6 +228,28 @@ export default function Index() {
     return () => clearTimeout(compatibleSubscriptionId);
   }, [isRetrigger]);
 
+  if (currentUser?.deactivate) {
+    return (
+      <ProfileDeactivateCardComponent
+        currentUser={currentUser}
+        message={activateAccountForSimilarScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
+    );
+  }
+
+  if (currentUser?.pause) {
+    return (
+      <ProfilePausedCardComponent
+        currentUser={currentUser}
+        message={unpauseAccountForSimilarScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
+    );
+  }
+
   if (isLoading) {
     return (
       <ScreenWrapper theme={theme} width={width}>
@@ -249,47 +273,8 @@ export default function Index() {
               fontSize="caption">
               {noSimilarInterestyetmessage}
             </Text>
-            {!currentUser?.pause && !currentUser?.deactivate && (
-              <Spacer position="top" size="xxxxlarge">
-                <BrandAvatar />
-              </Spacer>
-            )}
           </Spacer>
         </HorizontalPaddingSpace>
-        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          {!currentUser?.deactivate && currentUser?.pause && (
-            <CustomUseCardWithCTA
-              text={unpauseAccountForSimilarScreen}
-              buttonText="Unpause profile"
-              cardFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "pause",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              gapSize="xxsmall"
-            />
-          )}
-          {currentUser?.deactivate && (
-            <CustomUseCardWithCTA
-              text={activateAccountForSimilarScreen}
-              buttonText="Activate profile"
-              cardFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "deactivate",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              gapSize="xxsmall"
-            />
-          )}
-        </Spacer>
       </ScreenWrapper>
     );
   }

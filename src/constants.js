@@ -849,7 +849,7 @@ export const COMMUNITY_SUBSCRIPTION = {
 export const dailyendofswipescreenmessage =
   "All potential matches based on your preferences have been viewed, yet fresh individuals continue to join daily.";
 export const nomatchmessage =
-  "Currently, there are no matches that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and exciting connections may be just around the corner. Your proactive spirit makes the dating experience worthwhile. Happy connecting!";
+  "Currently, there are no connections that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and exciting connections may be just around the corner. Your proactive spirit makes the dating experience worthwhile. Happy connecting!";
 export const nochatlistsinformation =
   "Welcome to the chats! It looks like you haven't started any chats yet. No worries—your next meaningful connection might just be a click away! Take a moment to explore profiles, click and start a conversation. Your chat list will be buzzing with exciting connections in no time. Happy swiping and happy connecting!";
 export const firstmessagehype =
@@ -862,6 +862,8 @@ export const pauseaccounttext =
   "Pausing your profile on Fusion temporarily suspends your profile from being shown to new users. Your profile is not deleted but disabled on the app, you can still chat with your current matches.";
 export const deleteaccounttext =
   "Deleting your profile removes it permanently on Fusion and your information is no longer accessible on the app. ";
+export const deleteaccountconfirmationtext =
+  "We're saddened to see you leave. Deleting your profile means it's permanently removed from Fusion, and your information won't be accessible on the app anymore. If you require assistance or have any concerns, please don't hesitate to contact us.";
 export const nolikesyetmessage =
   "Looks like you haven't received any likes yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const nofriendrequestmessage =
@@ -892,3 +894,5 @@ export const activateAccountForMainScreen =
   "Your profile has been set to deactivate. If you wish to regain access, please activate your profile.";
 export const appreloadmessage =
   "Kindly be aware that updating your preference will necessitate a reload of the app. Please ensure your readiness before proceeding.";
+export const agerestrictionmessage =
+  "Please note that our app is exclusively for users aged 18 and above. We prioritize the safety and comfort of our community members, and this age restriction helps ensure a positive experience for everyone. Thank you for your understanding.";

@@ -28,6 +28,8 @@ import TopNavigationTab from "../../../components/general-component/TopNavigatio
 import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import FriendshipInitiatorProfileComponent from "../../Communities/components/FriendshipInitiatorProfileComponent";
+import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
+import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 
 const LikesScreen = () => {
   const {
@@ -101,100 +103,23 @@ const LikesScreen = () => {
 
   if (currentUser?.deactivate) {
     return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-        <HorizontalPaddingSpace space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <Spacer position="bottom" size="xlarge">
-              <BrandAvatarO />
-            </Spacer>
-          </Spacer>
-          <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            fontSize="h4">
-            Your Likes
-          </Text>
-          <Spacer position="top" size="large">
-            <Text
-              style={{
-                textAlign: "center",
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {nolikesyetmessage}
-            </Text>
-          </Spacer>
-        </HorizontalPaddingSpace>
-        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          <CustomUseCardWithCTA
-            text={activateAccountForLikeScreen}
-            buttonText="Activate profile"
-            cardFunction={async () => {
-              await updateUserValueField(
-                "all-users",
-                currentUser?.id,
-                "deactivate",
-                false,
-                setIsRetrigger
-              );
-            }}
-            gapSize="xxsmall"
-          />
-        </Spacer>
-      </SafeArea>
+      <ProfileDeactivateCardComponent
+        currentUser={currentUser}
+        message={activateAccountForLikeScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
     );
   }
+
   if (currentUser?.pause) {
     return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-        <HorizontalPaddingSpace space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <Spacer position="bottom" size="xlarge">
-              <BrandAvatarO />
-            </Spacer>
-          </Spacer>
-          <Text
-            style={{ textAlign: "center" }}
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            fontSize="h4">
-            Your Likes
-          </Text>
-          <Spacer position="top" size="large">
-            <Text
-              style={{
-                textAlign: "center",
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {nolikesyetmessage}
-            </Text>
-          </Spacer>
-        </HorizontalPaddingSpace>
-        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          <CustomUseCardWithCTA
-            text={unpauseAccountForLikeScreen}
-            buttonText="Unpause profile"
-            cardFunction={async () => {
-              await updateUserValueField(
-                "all-users",
-                currentUser?.id,
-                "pause",
-                false,
-                setIsRetrigger
-              );
-            }}
-            gapSize="xxsmall"
-          />
-        </Spacer>
-      </SafeArea>
+      <ProfilePausedCardComponent
+        currentUser={currentUser}
+        message={unpauseAccountForLikeScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
     );
   }
 

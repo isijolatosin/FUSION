@@ -253,7 +253,7 @@ export default function ProfileScreen() {
                 </View>
                 <View
                   style={{
-                    marginRight: -theme.spaceNumber[2],
+                    marginRight: theme.spaceNumber[2],
                   }}>
                   <IconComponent
                     iconFunction={() => {}}
@@ -301,7 +301,7 @@ export default function ProfileScreen() {
           </View>
           <View
             style={{
-              marginRight: -theme.spaceNumber[2],
+              marginRight: theme.spaceNumber[2],
             }}>
             <IconComponent
               iconFunction={() => {}}
@@ -991,14 +991,16 @@ export default function ProfileScreen() {
         </View>
       </NavigationBar>
       <View style={{ height: "100%" }}>
-        <HorizontalPaddingSpace space={theme.space[3]}>
-          <Spacer
-            style={{
-              alignItems: "center",
-              paddingBottom: theme.spaceNumberBy10[0],
-            }}
-            position="top"
-            size="xxsmall">
+        <Spacer
+          style={{
+            alignItems: "center",
+            paddingBottom: theme.spaceNumberBy10[0],
+            borderBottomWidth: 0.5,
+            borderBottomColor: theme.colors.brand.linesLighter,
+          }}
+          position="top"
+          size="xxsmall">
+          <HorizontalPaddingSpace space={theme.space[3]}>
             <Avatar
               data={currentUser?.mediaArray?.[0]}
               theme={theme}
@@ -1019,8 +1021,8 @@ export default function ProfileScreen() {
                   )}`}
               </Text>
             </Spacer>
-          </Spacer>
-        </HorizontalPaddingSpace>
+          </HorizontalPaddingSpace>
+        </Spacer>
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -1029,26 +1031,23 @@ export default function ProfileScreen() {
           style={{
             marginBottom: theme.spaceNumberBy10[5],
           }}>
-          <Spacer
+          <View
             style={{
-              borderBottomWidth: 0.5,
-              borderBottomColor: theme.colors.brand.lines,
-              paddingBottom: theme.spaceNumber[1],
-            }}
-            position="top"
-            size="large">
+              backgroundColor: theme.colors.brand.linesFaint,
+              paddingVertical: theme.spaceNumber[3],
+            }}>
             <HorizontalPaddingSpace
               style={{ paddingTop: 5 }}
-              space={theme.space[5]}>
+              space={theme.space[2]}>
               <Text
                 variant="custom"
-                colorType="black"
-                fontType="montserratBold"
-                fontSize="body">
+                colorType="linesLight"
+                fontType="montserratSemibold"
+                fontSize="button">
                 Uploaded Photos
               </Text>
             </HorizontalPaddingSpace>
-          </Spacer>
+          </View>
           <Spacer position="top" size="large">
             <HorizontalPaddingSpace
               style={{

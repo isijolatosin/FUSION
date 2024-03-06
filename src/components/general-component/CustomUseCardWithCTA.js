@@ -33,9 +33,6 @@ export default function CustomUseCardWithCTA({
       <HorizontalPaddingSpace
         style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}
         space={theme.space[5]}>
-        <Spacer position="bottom" size={gapSize ? gapSize : "large"}>
-          <BrandAvatar noFlex={true} width={150} />
-        </Spacer>
         <Text
           style={{ textAlign: "center" }}
           variant="custom"

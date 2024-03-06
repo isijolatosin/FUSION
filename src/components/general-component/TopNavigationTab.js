@@ -43,6 +43,7 @@ const TopNavigationTab = ({
               paddingBottom: theme.spaceNumber[3],
             }}>
             <Text
+              onPress={() => setFunction(item)}
               style={{
                 textAlign: "center",
                 color:
