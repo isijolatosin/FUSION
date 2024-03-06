@@ -34,6 +34,7 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import { sortByTimestamp } from "../../../utilities/sortByKey";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
+import AnimatedModal from "../../../components/general-component/AnimatedModal";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -636,60 +637,60 @@ const ChatsScreen = () => {
             </Spacer>
           )}
       </Spacer>
-      {newMessageInput && (
-        <PopupModal backgroundColor="rgba(255, 255, 255, 0.9)">
-          <HorizontalPaddingSpace
-            space={theme.space[7]}
-            style={{ width: "100%" }}>
-            <Spacer position="bottom" size="xxxxlarge">
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="caption">
-                {firstmessagehype}
-              </Text>
-            </Spacer>
-            <View
-              style={{
-                elevation: 5,
-                shadowColor: theme.colors.brand.lines,
-                shadowOpacity: 0.3,
-                shadowRadius: "10px",
-                backgroundColor: theme.colors.brand.basewhite,
-              }}>
-              <InputComponent
-                includeIcon={false}
-                keyboardType="default"
-                setValue={setInput}
-                value={input}
-                width="100%"
-                isCountryCode={false}
-                placeholder="Begin the adventure..."
-                fontSize={theme.fontSizes.body}
-                fontType={theme.fonts.montserratLight}
-                backgroundColor="basewhite"
-                isBackgroundColor={true}
-              />
-            </View>
-            <Spacer
-              position="top"
-              size="large"
-              style={{ alignItems: "center" }}>
-              <Button
-                backgroundColor={theme.colors.brand.base}
-                isBorder={false}
-                isNotBold={true}
-                borderColor="transparent"
-                buttonFunction={handleStartMessaging}
-                text="Send your first impression"
-                textColor={theme.colors.brand.basewhite}
-                width="80%"
-              />
-            </Spacer>
-          </HorizontalPaddingSpace>
-        </PopupModal>
-      )}
+      <AnimatedModal
+        isVisible={newMessageInput}
+        onClose={() => setNewMessageInput(false)}
+        theme={theme}
+        width="100%"
+        isTransparent={true}>
+        <HorizontalPaddingSpace
+          space={theme.space[7]}
+          style={{ width: "100%" }}>
+          <Spacer position="bottom" size="xxxxlarge">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {firstmessagehype}
+            </Text>
+          </Spacer>
+          <View
+            style={{
+              elevation: 5,
+              shadowColor: theme.colors.brand.lines,
+              shadowOpacity: 0.3,
+              shadowRadius: "10px",
+              backgroundColor: theme.colors.brand.basewhite,
+            }}>
+            <InputComponent
+              includeIcon={false}
+              keyboardType="default"
+              setValue={setInput}
+              value={input}
+              width="100%"
+              isCountryCode={false}
+              placeholder="Begin the adventure..."
+              fontSize={theme.fontSizes.body}
+              fontType={theme.fonts.montserratLight}
+              backgroundColor="basewhite"
+              isBackgroundColor={true}
+            />
+          </View>
+          <Spacer position="top" size="large" style={{ alignItems: "center" }}>
+            <Button
+              backgroundColor={theme.colors.brand.base}
+              isBorder={false}
+              isNotBold={true}
+              borderColor="transparent"
+              buttonFunction={handleStartMessaging}
+              text="Send your first impression"
+              textColor={theme.colors.brand.basewhite}
+              width="80%"
+            />
+          </Spacer>
+        </HorizontalPaddingSpace>
+      </AnimatedModal>
     </SafeArea>
   );
 };
