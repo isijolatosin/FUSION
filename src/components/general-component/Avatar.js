@@ -6,6 +6,7 @@ import { AvatarWrapper } from "../../features/Main/screen/main.style";
 import IconComponent from "../icon-components/IconComponent";
 
 export default function Avatar({
+  ringBorder,
   data,
   theme,
   dimensionIndex,
@@ -17,7 +18,8 @@ export default function Avatar({
       onPress={func}
       width={theme.spaceNumberBy10[dimensionIndex ?? 5]}
       height={theme.spaceNumberBy10[dimensionIndex ?? 5]}
-      borderRadius={theme.spaceNumberBy50[1]}>
+      borderRadius={theme.spaceNumberBy50[1]}
+      ringBorder={ringBorder}>
       {data ? (
         <Image
           source={{

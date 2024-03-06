@@ -60,7 +60,7 @@
     "expo-modules-core": "1.5.12",
     "expo-notifications": "0.20.1",
     "expo-status-bar": "~1.6.0",
-    "expo-updates": "^0.24.11",
+    "expo-updates": "0.18.19",
     "firebase": "9.6.1",
     "jest": "^29.7.0",
     "jest-expo": "49.0.0",
