@@ -38,6 +38,8 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import { Text } from "../../../components/typography/text.component";
 import Button from "../../../components/utility/button.component";
+import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
+import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 
 const Index = ({ navigation }) => {
   const [allUsers, setAllUsers] = useState([]);
@@ -319,88 +321,23 @@ const Index = ({ navigation }) => {
 
   if (currentUser?.deactivate) {
     return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.highlight }}>
-        <HorizontalPaddingSpace space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <Spacer position="bottom" size="xlarge">
-              <BrandAvatarO currentUser={currentUser} />
-            </Spacer>
-          </Spacer>
-          <Spacer style={{ alignItems: "center" }} position="top" size="">
-            <Text
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="linesLight"
-              fontType="arimaMadurai"
-              fontSize="h4">
-              Profile Deactivated
-            </Text>
-          </Spacer>
-          <Spacer style={{ alignItems: "center" }} position="top" size="large">
-            <Text
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {activateAccountForMainScreen}
-            </Text>
-          </Spacer>
-          <Spacer
-            style={{ alignItems: "center" }}
-            position="top"
-            size="xxxxlarge">
-            <Button
-              backgroundColor="transparent"
-              borderRadius={theme.space[3]}
-              isBorder={true}
-              borderColor={theme.colors.brand.base}
-              buttonFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "deactivate",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              text="Activate profile"
-              textColor={theme.colors.brand.base}
-              width="80%"
-            />
-          </Spacer>
-        </HorizontalPaddingSpace>
-      </SafeArea>
+      <ProfileDeactivateCardComponent
+        currentUser={currentUser}
+        message={activateAccountForMainScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
     );
   }
 
   if (currentUser?.pause) {
     return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-        <HorizontalPaddingSpace space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <BrandAvatarO currentUser={currentUser} />
-          </Spacer>
-        </HorizontalPaddingSpace>
-        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          {currentUser?.pause && (
-            <CustomUseCardWithCTA
-              text={unpauseAccountForMainScreen}
-              buttonText="Unpause profile"
-              cardFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "pause",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              gapSize="xxsmall"
-            />
-          )}
-        </Spacer>
-      </SafeArea>
+      <ProfilePausedCardComponent
+        currentUser={currentUser}
+        message={unpauseAccountForMainScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
     );
   }
 
@@ -474,7 +411,7 @@ const Index = ({ navigation }) => {
         style={{ position: "relative" }}
         space={theme.space[2]}>
         <Spacer position="top" size="large">
-          <Spacer position="bottom" size="xsmall">
+          <Spacer position="bottom" size="medium">
             <NavigationBar>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 {currentUser?.role === process.env.EXPO_PUBLIC_ROLE && (

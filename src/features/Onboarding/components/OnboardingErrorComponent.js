@@ -18,9 +18,9 @@ export default function OnboardingErrorComponent({
           <Text
             variant="custom"
             colorType="error"
-            fontType="montserratBold"
+            fontType="montserratSemibold"
             fontSize={size}>
-            Error: {text}
+            {text}
           </Text>
         </Spacer>
       )}

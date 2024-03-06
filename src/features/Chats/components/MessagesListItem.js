@@ -38,16 +38,7 @@ export default function MessagesListItem({
             colorType="black"
             fontType="montserratExtrabold"
             fontSize="body">
-            {name}{" "}
-            {flag && (
-              <Text
-                variant="custom"
-                colorType="brandFade"
-                fontType="montserratRegular"
-                fontSize="caption">
-                {`(${flag})`}
-              </Text>
-            )}
+            {name}
           </Text>
           <Spacer position="top" size="xsmall">
             <Text

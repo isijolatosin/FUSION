@@ -18,6 +18,7 @@ import {
   pauseaccounttext,
   deleteaccounttext,
   deactivateaccounttext,
+  deleteaccountconfirmationtext,
 } from "../../../constants";
 import {
   removeItemFromArray,
@@ -147,6 +148,48 @@ export default function SettingModal({
           // Get a reference to the message and delete messages
           const messageRef = database
             .collection("matches")
+            .doc(doc?.id)
+            .collection("messages");
+          const querySnapshot = await messageRef.get();
+
+          querySnapshot.forEach(async (doc) => {
+            await doc.ref.delete();
+          });
+        }
+      });
+
+      // delete from friendship-matches
+      const allFriendshipMatches = database.collection("friendship-matches");
+      const friendshipMatchQuerySnapshot = await allFriendshipMatches.get();
+      friendshipMatchQuerySnapshot.forEach(async (doc) => {
+        const currentIterationFriendshipMatchData = doc.data();
+
+        if (
+          currentIterationFriendshipMatchData?.friendshipRequestFrom
+            ?.phonenumber === currentUser?.phonenumber
+        ) {
+          await doc.ref.delete();
+
+          // Get a reference to the message and delete messages
+          const messageRef = database
+            .collection("friendship-matches")
+            .doc(doc?.id)
+            .collection("messages");
+          const querySnapshot = await messageRef.get();
+
+          querySnapshot.forEach(async (doc) => {
+            await doc.ref.delete();
+          });
+        }
+        if (
+          currentIterationFriendshipMatchData?.friendshipRequestTo
+            ?.phonenumber === currentUser?.phonenumber
+        ) {
+          await doc.ref.delete();
+
+          // Get a reference to the message and delete messages
+          const messageRef = database
+            .collection("friendship-matches")
             .doc(doc?.id)
             .collection("messages");
           const querySnapshot = await messageRef.get();
@@ -500,19 +543,21 @@ export default function SettingModal({
                       : theme.colors.brand.lines
                   }
                   onValueChange={async (val) => {
-                    await updateUserValueField(
-                      "all-users",
-                      userId,
-                      "deactivate",
-                      val,
-                      setIsTrigger
-                    );
-                    navigation.navigate("home");
-                    const deativateTimeoutID = setTimeout(() => {
-                      onClose();
-                    }, 500);
+                    if (currentUser?.deactivate) {
+                      await updateUserValueField(
+                        "all-users",
+                        userId,
+                        "deactivate",
+                        val,
+                        setIsTrigger
+                      );
+                    } else {
+                      const deactivateId = setTimeout(() => {
+                        setShowDeactivateModal(val);
+                      }, 250);
 
-                    return () => clearTimeout(deativateTimeoutID);
+                      return () => clearTimeout(deactivateId);
+                    }
                   }}
                   value={currentUser?.deactivate}
                 />
@@ -527,7 +572,7 @@ export default function SettingModal({
                 </Text>
               </Spacer>
             </Spacer>
-            <Spacer position="top" size="small">
+            <Spacer position="top" size="large">
               <View
                 style={{
                   flexDirection: "row",
@@ -543,22 +588,29 @@ export default function SettingModal({
                     Delete Account
                   </Text>
                 </View>
-                <Switch
-                  trackColor={{
-                    false: theme.colors.brand.linesLight,
-                    true: theme.colors.brand.base,
+                <TouchableOpacity
+                  style={{
+                    marginVertical: theme.spaceNumber[2],
+                    backgroundColor: theme.colors.brand.base,
+                    paddingVertical: theme.spaceNumber[3],
+                    paddingHorizontal: theme.spaceNumber[6],
+                    borderRadius: theme.spaceNumber[8],
                   }}
-                  thumbColor={
-                    deleteAccount
-                      ? theme.colors.brand.highlight
-                      : theme.colors.brand.lines
-                  }
-                  onValueChange={(val) => {
-                    setDeleteAccount(val);
-                    handleDeleteUserProfile(val);
-                  }}
-                  value={deleteAccount}
-                />
+                  onPress={() => {
+                    const deleteId = setTimeout(() => {
+                      setShowDeleteModal(true);
+                    }, 250);
+
+                    return () => clearTimeout(deleteId);
+                  }}>
+                  <Text
+                    variant="custom"
+                    colorType="basewhite"
+                    fontType="montserratBold"
+                    fontSize="caption">
+                    Delete
+                  </Text>
+                </TouchableOpacity>
               </View>
               <Spacer position="top" size="small">
                 <Text
@@ -768,6 +820,8 @@ export default function SettingModal({
           }}
         />
       </AnimatedModal>
+
+      {/*################ pause modal ##################*/}
       <AnimatedModal
         isVisible={showPauseModal}
         onClose={() => setShowPauseModal(false)}
@@ -788,11 +842,18 @@ export default function SettingModal({
               showPauseModal,
               setIsTrigger
             );
+            const pauseTimeoutID = setTimeout(() => {
+              setShowPauseModal(false);
+            }, 50);
+
+            return () => clearTimeout(pauseTimeoutID);
           }}
           onClose={() => setShowPauseModal(false)}
           horizontalSpace={theme.space[5]}
         />
       </AnimatedModal>
+
+      {/*################ deactivate modal ##################*/}
       <AnimatedModal
         isVisible={showDeactivateModal}
         onClose={() => setShowDeactivateModal(false)}
@@ -813,11 +874,18 @@ export default function SettingModal({
               showDeactivateModal,
               setIsTrigger
             );
+            const deativateTimeoutID = setTimeout(() => {
+              setShowDeactivateModal(false);
+            }, 50);
+
+            return () => clearTimeout(deativateTimeoutID);
           }}
           onClose={() => setShowDeactivateModal(false)}
           horizontalSpace={theme.space[5]}
         />
       </AnimatedModal>
+
+      {/*################ delete modal ##################*/}
       <AnimatedModal
         isVisible={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
@@ -828,12 +896,12 @@ export default function SettingModal({
           title="Are you sure?"
           buttonText="Delete Account"
           height="100%"
-          message={deleteaccounttext}
+          message={deleteaccountconfirmationtext}
           theme={theme}
           functionCall={() => {
             handleDeleteUserProfile(showDeleteModal);
           }}
-          onClose={() => setShowDeactivateModal(false)}
+          onClose={() => setShowDeleteModal(false)}
           horizontalSpace={theme.space[5]}
         />
       </AnimatedModal>

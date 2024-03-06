@@ -10,9 +10,10 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import { useAppContext } from "../../../context/ThemeContext";
 import { InputWarraper, NavigationBar } from "./onboarding.styles";
-import { dobInstruction } from "../../../constants";
+import { agerestrictionmessage, dobInstruction } from "../../../constants";
 import NextNavigation from "../../../components/Next-navigation";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
+import calculateAge from "../../../utilities/calculateAge";
 
 export default function CaptureDOB({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -33,6 +34,11 @@ export default function CaptureDOB({ navigation }) {
     };
   }
 
+  function validateAgeRestriction() {
+    if (calculateAge(year, month, day) < 18) return false;
+    return true;
+  }
+
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
@@ -49,7 +55,7 @@ export default function CaptureDOB({ navigation }) {
               theme={theme}
               color={theme.colors.brand.base}
               nextFunction={() => {
-                if (Object.values(dob).length > 2 || (month && day && year)) {
+                if (day && month && year && validateAgeRestriction()) {
                   navigation.navigate("capture-height-screen", { dob });
                 } else {
                   setPageError(true);
@@ -161,7 +167,7 @@ export default function CaptureDOB({ navigation }) {
             </Spacer>
             <OnboardingErrorComponent
               pageError={pageError}
-              text="Please provide your date of birth"
+              text={agerestrictionmessage}
               size="caption"
             />
           </HorizontalPaddingSpace>

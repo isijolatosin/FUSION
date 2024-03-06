@@ -9,9 +9,11 @@ import { useAppContext } from "../../context/ThemeContext";
 import BrandAvatarO from "../../components/general-component/BrandAvatarO";
 import { Text } from "../../components/typography/text.component";
 import {
+  activateAccountForMainScreen,
   activateAccountForSimilarScreen,
   compatibleText,
   friendshipzone,
+  unpauseAccountForMainScreen,
   unpauseAccountForSimilarScreen,
 } from "../../constants";
 import CommunitiesComponent from "./components/CommunitiesComponent";
@@ -28,6 +30,8 @@ import Loading from "../../components/general-component/Loading";
 import HeaderComponent from "../../components/general-component/HeaderComponent";
 import FriendRequestConfirmationComponent from "../Compatibility/components/FriendRequestConfirmationComponent";
 import TopNavigationTab from "../../components/general-component/TopNavigationTab";
+import ProfileDeactivateCardComponent from "../../components/general-component/ProfileDeactivateCardComponent";
+import ProfilePausedCardComponent from "../../components/general-component/ProfilePausedCardComponent";
 
 function ScreenWrapper({
   children,
@@ -180,6 +184,28 @@ export default function Index() {
     return () => clearTimeout(compatibleSubscriptionId);
   }, [isRetrigger]);
 
+  if (currentUser?.deactivate) {
+    return (
+      <ProfileDeactivateCardComponent
+        currentUser={currentUser}
+        message={activateAccountForMainScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
+    );
+  }
+
+  if (currentUser?.pause) {
+    return (
+      <ProfilePausedCardComponent
+        currentUser={currentUser}
+        message={unpauseAccountForMainScreen}
+        setIsRetrigger={setIsRetrigger}
+        theme={theme}
+      />
+    );
+  }
+
   if (isLoading) {
     return (
       <ScreenWrapper
@@ -207,47 +233,8 @@ export default function Index() {
               fontSize="caption">
               {friendshipzone}
             </Text>
-            {!currentUser?.pause && !currentUser?.deactivate && (
-              <Spacer position="top" size="xxxxlarge">
-                <BrandAvatar />
-              </Spacer>
-            )}
           </Spacer>
         </HorizontalPaddingSpace>
-        <Spacer position="top" size="xxxxlarge" style={{ flex: 0.5 }}>
-          {!currentUser?.deactivate && currentUser?.pause && (
-            <CustomUseCardWithCTA
-              text={unpauseAccountForSimilarScreen}
-              buttonText="Unpause profile"
-              cardFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "pause",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              gapSize="xxsmall"
-            />
-          )}
-          {currentUser?.deactivate && (
-            <CustomUseCardWithCTA
-              text={activateAccountForSimilarScreen}
-              buttonText="Activate profile"
-              cardFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "deactivate",
-                  false,
-                  setIsRetrigger
-                );
-              }}
-              gapSize="xxsmall"
-            />
-          )}
-        </Spacer>
       </ScreenWrapper>
     );
   }

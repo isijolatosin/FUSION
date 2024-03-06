@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ScrollView, Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -23,7 +23,6 @@ import CustomUseCardWithCTA from "../../../components/general-component/CustomUs
 import {
   activateAccountForMainScreen,
   firstmessagehype,
-  nochatlistsinformation,
   nomatchmessage,
 } from "../../../constants";
 import { PopupModal } from "../../Onboarding/components/onboarding.styles";
@@ -34,6 +33,7 @@ import AvatarVerticalList from "./AvatarVerticalList";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import { sortByTimestamp } from "../../../utilities/sortByKey";
+import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -88,15 +88,18 @@ const ChatsScreen = () => {
   } = useAppContext();
   const [input, setInput] = useState("");
   const [currentUser, setCurrentUser] = useState({});
-  const [selectedChatMatchPhonenumber, setSelectedChatMatchPhonenumber] =
-    useState("");
+  const [matchesListContentHeight, setMatchesListContentHeight] = useState(0);
+  const [communitiesListContentHeight, setCommunitiesListContentHeight] =
+    useState(0);
   const [showCard, setShowCard] = useState(false);
   const [newMessageInput, setNewMessageInput] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState({});
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
+  const [otherFriendshipUsers, setOtherFriendshipUsers] = useState([]); // match ID is included in each object in array
 
   async function pushTokenToUserObject(val, id) {
+    if (!val) return;
     await updateUserValueField(
       "all-users",
       id,
@@ -110,6 +113,8 @@ const ChatsScreen = () => {
     try {
       const allMatchesResult = await getAllData("matches");
       const friendshipData = await getAllData("friendship-matches");
+
+      // #############################################################################
       // sort data by timestamp
       const allMatchesResultSort = sortByTimestamp(allMatchesResult);
       const allFriendshipMatchesResultSort = sortByTimestamp(friendshipData);
@@ -134,7 +139,7 @@ const ChatsScreen = () => {
         );
 
       // #############################################################################
-      // match
+      // matches
       const otherWithMatchIdArray = await Promise.all(
         allMatchesResultSort.map(async (res) => {
           if (
@@ -143,6 +148,7 @@ const ChatsScreen = () => {
           ) {
             const current_Match_id = res?.id;
 
+            // ########################################
             // get match messages
             const messagesCollection = database
               .collection("matches")
@@ -157,6 +163,7 @@ const ChatsScreen = () => {
               (result) => result.matchId === res?.id
             );
 
+            // ########################################
             //get other user
             const matchMate = [res?.likedByprofile, res?.likedProfile].find(
               (profile) => profile?.id !== currentUserData?.id
@@ -190,6 +197,7 @@ const ChatsScreen = () => {
           ) {
             const current_friendship_id = res?.id;
 
+            // #######################################
             // get friendship messages
             const messagesCollection = database
               .collection("friendship-matches")
@@ -204,6 +212,7 @@ const ChatsScreen = () => {
               (result) => result.matchId === res?.id
             );
 
+            // ########################################
             //get other user
             const friendshipMatchMate = [
               res?.friendshipRequestFrom,
@@ -228,14 +237,22 @@ const ChatsScreen = () => {
         })
       );
 
-      const validMatches = [
-        ...otherWithMatchIdArray,
-        ...otherWithFriendshipMatchIdArray,
-      ].filter((match) => match !== null);
+      const validMatches = otherWithMatchIdArray.filter(
+        (match) => match !== null
+      );
+
+      const validFriendshipMatches = otherWithFriendshipMatchIdArray.filter(
+        (match) => match !== null
+      );
 
       if (validMatches.length > 0) {
         setOtherUsers(validMatches);
-      } else {
+      }
+      if (validFriendshipMatches.length > 0) {
+        setOtherFriendshipUsers(validFriendshipMatches);
+      }
+
+      if (!validMatches.length && !validFriendshipMatches.length) {
         const timeID = setTimeout(() => {
           setShowCard(true);
         }, 3000);
@@ -277,6 +294,8 @@ const ChatsScreen = () => {
     } else if (detectUrl(input) && input?.startsWith("Https://")) {
       textTransform = input?.toLowerCase();
     }
+
+    // #############################################################################
     //pushing message to firebase db
     database
       .collection(selectedMatch?.flag ? "friendship-matches" : "matches")
@@ -303,17 +322,9 @@ const ChatsScreen = () => {
     setIsRefreshChatScreen(true);
   }
 
-  if (showCard) {
-    return (
-      <CustomUseCardWithCTA
-        text={nomatchmessage}
-        buttonText="Keep liking"
-        cardFunction={() => navigation.navigate("home")}
-      />
-    );
-  }
-
-  function checkIfMessageListsAreEmpty() {
+  // #############################################################################
+  // match
+  function checkIfMatchMessageListsAreEmpty() {
     let isEmpty = [];
     otherUsers.map((otherUser) => {
       if (otherUser?.messages?.length) {
@@ -326,69 +337,58 @@ const ChatsScreen = () => {
     return isEmpty?.some((truthy) => truthy === true);
   }
 
-  function checkIfMessagingHasStarted() {
+  // #############################################################################
+  // friendship
+  function checkIfFriendshipMessageListsAreEmpty() {
+    let isEmpty = [];
+    otherFriendshipUsers.map((otherUser) => {
+      if (otherUser?.messages?.length) {
+        isEmpty.push(true);
+      } else {
+        isEmpty.push(false);
+      }
+    });
+
+    return isEmpty?.some((truthy) => truthy === true);
+  }
+
+  // #############################################################################
+  // matches & friendship
+  function checkIfMessagingHasStarted(flag) {
+    let checkArray = otherUsers;
+    if (flag) {
+      checkArray = otherFriendshipUsers;
+    }
     const truthy = [];
-    otherUsers?.map((dt) => {
+    checkArray?.map((dt) => {
       dt?.messages?.length ? truthy.push(false) : truthy.push(true);
     });
 
     return truthy?.some((truthy) => truthy === true);
   }
 
+  // #############################################################################
+  // check if user's profile is deactivated
   if (currentUser?.deactivate) {
     return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.highlight }}>
-        <HorizontalPaddingSpace space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <Spacer position="bottom" size="xlarge">
-              <BrandAvatarO />
-            </Spacer>
-          </Spacer>
-          <Spacer style={{ alignItems: "center" }} position="top" size="">
-            <Text
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="linesLight"
-              fontType="arimaMadurai"
-              fontSize="h4">
-              Profile Deactivated
-            </Text>
-          </Spacer>
-          <Spacer style={{ alignItems: "center" }} position="top" size="large">
-            <Text
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {activateAccountForMainScreen}
-            </Text>
-          </Spacer>
-          <Spacer
-            style={{ alignItems: "center" }}
-            position="top"
-            size="xxxxlarge">
-            <Button
-              backgroundColor="transparent"
-              borderRadius={theme.space[3]}
-              isBorder={true}
-              borderColor={theme.colors.brand.base}
-              buttonFunction={async () => {
-                await updateUserValueField(
-                  "all-users",
-                  currentUser?.id,
-                  "deactivate",
-                  false,
-                  setIsRefreshChatScreen
-                );
-              }}
-              text="Activate profile"
-              textColor={theme.colors.brand.base}
-              width="80%"
-            />
-          </Spacer>
-        </HorizontalPaddingSpace>
-      </SafeArea>
+      <ProfileDeactivateCardComponent
+        currentUser={currentUser}
+        message={activateAccountForMainScreen}
+        setIsRetrigger={setIsRefreshChatScreen}
+        theme={theme}
+      />
+    );
+  }
+
+  // #############################################################################
+  // show no matches and friend requests information
+  if (showCard) {
+    return (
+      <CustomUseCardWithCTA
+        text={nomatchmessage}
+        buttonText="Keep liking"
+        cardFunction={() => navigation.navigate("home")}
+      />
     );
   }
 
@@ -408,7 +408,9 @@ const ChatsScreen = () => {
               <Text
                 variant="custom"
                 colorType="black"
-                fontType="montserratBold">
+                fontType="montserratBold"
+                fontSize="body"
+                transform="capitalize">
                 New Matches
               </Text>
             </HorizontalPaddingSpace>
@@ -422,7 +424,7 @@ const ChatsScreen = () => {
                 }}
                 position="top"
                 size="small">
-                {otherUsers?.map(
+                {[...otherUsers, ...otherFriendshipUsers]?.map(
                   (otherUser, idx) =>
                     !otherUser?.messages?.length && (
                       <Pressable
@@ -461,96 +463,181 @@ const ChatsScreen = () => {
             </HorizontalPaddingSpace>
           </Spacer>
         )}
-        <Spacer position="bottom" size="small">
-          <HorizontalPaddingSpace space={theme.space[3]}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="title"
-              transform="capitalize">
-              Messages
-            </Text>
-          </HorizontalPaddingSpace>
-        </Spacer>
-        {checkIfMessageListsAreEmpty() ? (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{
-              paddingTop: theme.spaceNumber[6],
-            }}>
-            {otherUsers?.map(
-              (otherUser, idx) =>
-                otherUser?.messages?.length > 0 && (
-                  <Spacer key={idx} position="bottom" size="medium">
-                    <Pressable
-                      onPress={() => {
-                        const matchId = otherUser?.id;
-                        storeData("match-id", matchId);
-                        const otherUserPhonenumber = otherUser?.flag
-                          ? otherUser?.friendshipMatch?.phonenumber
-                          : otherUser?.match?.phonenumber;
-                        const flag = otherUser?.flag;
 
-                        navigation.navigate("message-screen", {
-                          currentUser,
-                          otherUserPhonenumber,
-                          flag,
-                        });
-                      }}>
-                      <MessagesListItem
-                        photo={
-                          otherUser?.match?.mediaArray[0] ??
-                          otherUser?.friendshipMatch?.mediaArray[0]
-                        }
-                        theme={theme}
-                        name={
-                          otherUser?.match?.firstname ??
-                          otherUser?.friendshipMatch?.firstname
-                        }
-                        lastSenderMessage={
-                          otherUser?.messages?.[otherUser?.messages?.length - 1]
-                            ?.message
-                        }
-                        lastSenderName={
-                          otherUser?.messages?.[otherUser?.messages?.length - 1]
-                            ?.firstname === currentUser.firstname
-                            ? "You"
-                            : otherUser?.messages?.[
-                                otherUser?.messages?.length - 1
-                              ]?.firstname
-                        }
-                        flag={otherUser?.flag}
-                      />
-                    </Pressable>
-                  </Spacer>
-                )
-            )}
-          </ScrollView>
-        ) : (
-          <Spacer
-            style={{
-              paddingBottom: theme.spaceNumberBy10[16],
-              backgroundColor: theme.colors.brand.basewhite,
-              flex: 1,
-            }}
-            position="top"
-            size="small">
-            <AvatarVerticalList
-              theme={theme}
-              interest={currentUser?.interest}
-            />
-            <HorizontalPaddingSpace space={theme.space[3]}>
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratSemibold"
-                fontSize="caption">
-                {nochatlistsinformation}
-              </Text>
-            </HorizontalPaddingSpace>
-          </Spacer>
+        {/* ################################################################# */}
+        {/* Matches messages List */}
+        {checkIfMatchMessageListsAreEmpty() && (
+          <Fragment>
+            <Spacer position="bottom" size="small">
+              <HorizontalPaddingSpace space={theme.space[3]}>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="body"
+                  transform="capitalize">
+                  Match messages
+                </Text>
+              </HorizontalPaddingSpace>
+            </Spacer>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              onContentSizeChange={(_contentWidth, height) => {
+                setMatchesListContentHeight(height);
+              }}
+              contentContainerStyle={{ minHeight: matchesListContentHeight }}
+              style={{
+                paddingTop: theme.spaceNumber[6],
+                height: theme.spaceNumberBy10[2],
+                marginBottom: theme.spaceNumber[6],
+              }}>
+              {otherUsers?.map(
+                (otherUser, idx) =>
+                  otherUser?.messages?.length > 0 && (
+                    <Spacer key={idx} position="bottom" size="medium">
+                      <Pressable
+                        onPress={() => {
+                          const matchId = otherUser?.id;
+                          storeData("match-id", matchId);
+                          const otherUserPhonenumber = otherUser?.flag
+                            ? otherUser?.friendshipMatch?.phonenumber
+                            : otherUser?.match?.phonenumber;
+                          const flag = otherUser?.flag;
+
+                          navigation.navigate("message-screen", {
+                            currentUser,
+                            otherUserPhonenumber,
+                            flag,
+                          });
+                        }}>
+                        <MessagesListItem
+                          photo={
+                            otherUser?.match?.mediaArray[0] ??
+                            otherUser?.friendshipMatch?.mediaArray[0]
+                          }
+                          theme={theme}
+                          name={
+                            otherUser?.match?.firstname ??
+                            otherUser?.friendshipMatch?.firstname
+                          }
+                          lastSenderMessage={
+                            otherUser?.messages?.[
+                              otherUser?.messages?.length - 1
+                            ]?.message
+                          }
+                          lastSenderName={
+                            otherUser?.messages?.[
+                              otherUser?.messages?.length - 1
+                            ]?.firstname === currentUser.firstname
+                              ? "You"
+                              : otherUser?.messages?.[
+                                  otherUser?.messages?.length - 1
+                                ]?.firstname
+                          }
+                          flag={otherUser?.flag}
+                        />
+                      </Pressable>
+                    </Spacer>
+                  )
+              )}
+            </ScrollView>
+          </Fragment>
         )}
+
+        {/* ################################################################# */}
+        {/* Communities messages List */}
+        {checkIfFriendshipMessageListsAreEmpty() && (
+          <Fragment>
+            <Spacer position="bottom" size="small">
+              <HorizontalPaddingSpace space={theme.space[3]}>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratBold"
+                  fontSize="body"
+                  transform="capitalize">
+                  Communities messages
+                </Text>
+              </HorizontalPaddingSpace>
+            </Spacer>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              onContentSizeChange={(_contentWidth, height) => {
+                setCommunitiesListContentHeight(height);
+              }}
+              contentContainerStyle={{
+                minHeight: communitiesListContentHeight,
+              }}
+              style={{
+                paddingTop: theme.spaceNumber[6],
+                height: theme.spaceNumberBy10[2],
+                marginBottom: theme.spaceNumber[6],
+              }}>
+              {otherFriendshipUsers?.map(
+                (otherFriendshipUser, idx) =>
+                  otherFriendshipUser?.messages?.length > 0 && (
+                    <Spacer key={idx} position="bottom" size="medium">
+                      <Pressable
+                        onPress={() => {
+                          const matchId = otherFriendshipUser?.id;
+                          storeData("match-id", matchId);
+                          const otherUserPhonenumber =
+                            otherFriendshipUser?.friendshipMatch?.phonenumber;
+                          const flag = otherFriendshipUser?.flag;
+
+                          navigation.navigate("message-screen", {
+                            currentUser,
+                            otherUserPhonenumber,
+                            flag,
+                          });
+                        }}>
+                        <MessagesListItem
+                          photo={
+                            otherFriendshipUser?.friendshipMatch?.mediaArray[0]
+                          }
+                          theme={theme}
+                          name={otherFriendshipUser?.friendshipMatch?.firstname}
+                          lastSenderMessage={
+                            otherFriendshipUser?.messages?.[
+                              otherFriendshipUser?.messages?.length - 1
+                            ]?.message
+                          }
+                          lastSenderName={
+                            otherFriendshipUser?.messages?.[
+                              otherFriendshipUser?.messages?.length - 1
+                            ]?.firstname === currentUser.firstname
+                              ? "You"
+                              : otherFriendshipUser?.messages?.[
+                                  otherFriendshipUser?.messages?.length - 1
+                                ]?.firstname
+                          }
+                          flag={otherFriendshipUser?.flag}
+                        />
+                      </Pressable>
+                    </Spacer>
+                  )
+              )}
+            </ScrollView>
+          </Fragment>
+        )}
+        {/* ################################################################# */}
+        {/* No Messages Information */}
+        {!checkIfMatchMessageListsAreEmpty() &&
+          !checkIfFriendshipMessageListsAreEmpty() && (
+            <Spacer
+              style={{
+                paddingBottom: theme.spaceNumberBy10[16],
+                backgroundColor: theme.colors.brand.basewhite,
+                flex: 1,
+              }}
+              position="top"
+              size="small">
+              <AvatarVerticalList
+                theme={theme}
+                interest={currentUser?.interest}
+              />
+            </Spacer>
+          )}
       </Spacer>
       {newMessageInput && (
         <PopupModal backgroundColor="rgba(255, 255, 255, 0.9)">
