@@ -50,7 +50,7 @@ export default function MessageScreen({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { currentUser, otherUserPhonenumber } = route.params || {};
+  const { currentUser, otherUserPhonenumber, flag } = route.params || {};
 
   const [messagesKeys, setMessagesKeys] = useState([]);
   const [messagesForMessagesScreen, setMessagesForMessagesScreen] = useState(
@@ -91,7 +91,7 @@ export default function MessageScreen({ navigation }) {
       // get message for current match id
       if (matchId) {
         const snapshot = await database
-          .collection("matches")
+          .collection(flag ? "friendship-matches" : "matches")
           .doc(matchId)
           .collection("messages")
           .orderBy("timestamp", "asc")
@@ -173,7 +173,7 @@ export default function MessageScreen({ navigation }) {
 
       //pushing message to firebase db...
       database
-        .collection("matches")
+        .collection(flag ? "friendship-matches" : "matches")
         .doc(matchId)
         .collection("messages")
         .add({
@@ -198,15 +198,19 @@ export default function MessageScreen({ navigation }) {
   };
   const sendPhotoMessage = (photo) => {
     //pushing message to firebase db...
-    database.collection("matches").doc(matchId).collection("messages").add({
-      firstname: currentUser.firstname,
-      matchId: matchId,
-      message: photo,
-      photo: currentUser.mediaArray?.[0],
-      recieverphonenumber: otherUserDataObject?.phonenumber,
-      senderphonenumber: currentUser?.phonenumber,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    database
+      .collection(flag ? "friendship-matches" : "matches")
+      .doc(matchId)
+      .collection("messages")
+      .add({
+        firstname: currentUser.firstname,
+        matchId: matchId,
+        message: photo,
+        photo: currentUser.mediaArray?.[0],
+        recieverphonenumber: otherUserDataObject?.phonenumber,
+        senderphonenumber: currentUser?.phonenumber,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
 
     setTriggerReload(true);
     setInput("");
@@ -297,7 +301,11 @@ export default function MessageScreen({ navigation }) {
     );
 
     // For match object
-    removeDocumentFromCollections("matches", matchId, () => {});
+    removeDocumentFromCollections(
+      flag ? "friendship-matches" : "matches",
+      matchId,
+      () => {}
+    );
 
     storeData("refreshChatScreen", true);
     navigation.navigate("chat");
@@ -337,7 +345,11 @@ export default function MessageScreen({ navigation }) {
     );
 
     // For match object
-    removeDocumentFromCollections("matches", matchId, () => {});
+    removeDocumentFromCollections(
+      flag ? "friendship-matches" : "matches",
+      matchId,
+      () => {}
+    );
 
     storeData("refreshChatScreen", true);
     navigation.navigate("chat");

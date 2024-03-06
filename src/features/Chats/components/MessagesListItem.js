@@ -12,6 +12,7 @@ export default function MessagesListItem({
   name,
   lastSenderMessage,
   lastSenderName,
+  flag,
 }) {
   return (
     <HorizontalPaddingSpace space={theme.space[3]}>
@@ -29,6 +30,7 @@ export default function MessagesListItem({
           data={photo}
           theme={theme}
           dimensionIndex={theme.spaceNumber[1]}
+          isSmallIcon={true}
         />
         <View style={{ marginLeft: theme.spaceNumber[6] }}>
           <Text
@@ -36,7 +38,16 @@ export default function MessagesListItem({
             colorType="black"
             fontType="montserratExtrabold"
             fontSize="body">
-            {name}
+            {name}{" "}
+            {flag && (
+              <Text
+                variant="custom"
+                colorType="brandFade"
+                fontType="montserratRegular"
+                fontSize="caption">
+                {`(${flag})`}
+              </Text>
+            )}
           </Text>
           <Spacer position="top" size="xsmall">
             <Text

@@ -109,8 +109,10 @@ const ChatsScreen = () => {
   async function fetchMatches() {
     try {
       const allMatchesResult = await getAllData("matches");
+      const friendshipData = await getAllData("friendship-matches");
       // sort data by timestamp
       const allMatchesResultSort = sortByTimestamp(allMatchesResult);
+      const allFriendshipMatchesResultSort = sortByTimestamp(friendshipData);
       const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
       const newData = await getAllData("all-users");
 
@@ -131,6 +133,8 @@ const ChatsScreen = () => {
           )
         );
 
+      // #############################################################################
+      // match
       const otherWithMatchIdArray = await Promise.all(
         allMatchesResultSort.map(async (res) => {
           if (
@@ -175,9 +179,59 @@ const ChatsScreen = () => {
         })
       );
 
-      const validMatches = otherWithMatchIdArray.filter(
-        (match) => match !== null
+      // #############################################################################
+      // friendship
+      const otherWithFriendshipMatchIdArray = await Promise.all(
+        allFriendshipMatchesResultSort.map(async (res) => {
+          if (
+            res?.friendshipRequestFrom?.phonenumber ===
+              phoneValueFromPhoneMemory ||
+            res?.friendshipRequestTo?.phonenumber === phoneValueFromPhoneMemory
+          ) {
+            const current_friendship_id = res?.id;
+
+            // get friendship messages
+            const messagesCollection = database
+              .collection("friendship-matches")
+              .doc(current_friendship_id)
+              .collection("messages")
+              .orderBy("timestamp", "asc");
+
+            const snapshot = await messagesCollection.get();
+            const results = snapshot.docs.map((doc) => doc.data());
+
+            const friendshipMatchingResults = results.filter(
+              (result) => result.matchId === res?.id
+            );
+
+            //get other user
+            const friendshipMatchMate = [
+              res?.friendshipRequestFrom,
+              res?.friendshipRequestTo,
+            ].find((profile) => profile?.id !== currentUserData?.id);
+
+            const allUsers = await getAllData("all-users");
+            const otherUserData = allUsers.find(
+              (data) => data.phonenumber === friendshipMatchMate?.phonenumber
+            );
+
+            const matchdataAndMessagesList = {
+              id: current_friendship_id,
+              flag: res?.flag,
+              friendshipMatch: otherUserData,
+              messages: friendshipMatchingResults,
+            };
+
+            return matchdataAndMessagesList;
+          }
+          return null;
+        })
       );
+
+      const validMatches = [
+        ...otherWithMatchIdArray,
+        ...otherWithFriendshipMatchIdArray,
+      ].filter((match) => match !== null);
 
       if (validMatches.length > 0) {
         setOtherUsers(validMatches);
@@ -225,7 +279,7 @@ const ChatsScreen = () => {
     }
     //pushing message to firebase db
     database
-      .collection("matches")
+      .collection(selectedMatch?.flag ? "friendship-matches" : "matches")
       .doc(selectedMatch?.id)
       .collection("messages")
       .add({
@@ -233,7 +287,9 @@ const ChatsScreen = () => {
         matchId: selectedMatch?.id,
         message: textTransform,
         photo: currentUser.mediaArray?.[0],
-        recieverphonenumber: selectedChatMatchPhonenumber,
+        recieverphonenumber:
+          selectedMatch?.match?.phonenumber ??
+          selectedMatch?.friendshipMatch?.phonenumber,
         senderphonenumber: currentUser?.phonenumber,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
@@ -367,22 +423,27 @@ const ChatsScreen = () => {
                 position="top"
                 size="small">
                 {otherUsers?.map(
-                  (otherUser) =>
+                  (otherUser, idx) =>
                     !otherUser?.messages?.length && (
                       <Pressable
-                        key={otherUser?.id}
+                        key={idx}
                         style={{
                           alignItems: "center",
                           marginRight: theme.spaceNumber[5],
                           marginTop: theme.spaceNumber[5],
                         }}>
                         <Avatar
-                          data={otherUser?.match?.mediaArray[0]}
+                          ringBorder={otherUser?.flag ? true : false}
+                          data={
+                            otherUser?.match?.mediaArray[0] ??
+                            otherUser?.friendshipMatch?.mediaArray[0]
+                          }
                           theme={theme}
                           func={() => {
                             setSelectedMatch(otherUser);
                             setNewMessageInput(true);
                           }}
+                          isSmallIcon={true}
                         />
                         <View>
                           <Text
@@ -419,28 +480,34 @@ const ChatsScreen = () => {
               paddingTop: theme.spaceNumber[6],
             }}>
             {otherUsers?.map(
-              (otherUser) =>
+              (otherUser, idx) =>
                 otherUser?.messages?.length > 0 && (
-                  <Spacer
-                    key={otherUser?.match?.id}
-                    position="bottom"
-                    size="medium">
+                  <Spacer key={idx} position="bottom" size="medium">
                     <Pressable
                       onPress={() => {
                         const matchId = otherUser?.id;
                         storeData("match-id", matchId);
-                        const otherUserPhonenumber =
-                          otherUser?.match?.phonenumber;
+                        const otherUserPhonenumber = otherUser?.flag
+                          ? otherUser?.friendshipMatch?.phonenumber
+                          : otherUser?.match?.phonenumber;
+                        const flag = otherUser?.flag;
 
                         navigation.navigate("message-screen", {
                           currentUser,
                           otherUserPhonenumber,
+                          flag,
                         });
                       }}>
                       <MessagesListItem
-                        photo={otherUser?.match?.mediaArray[0]}
+                        photo={
+                          otherUser?.match?.mediaArray[0] ??
+                          otherUser?.friendshipMatch?.mediaArray[0]
+                        }
                         theme={theme}
-                        name={otherUser?.match?.firstname}
+                        name={
+                          otherUser?.match?.firstname ??
+                          otherUser?.friendshipMatch?.firstname
+                        }
                         lastSenderMessage={
                           otherUser?.messages?.[otherUser?.messages?.length - 1]
                             ?.message
@@ -453,6 +520,7 @@ const ChatsScreen = () => {
                                 otherUser?.messages?.length - 1
                               ]?.firstname
                         }
+                        flag={otherUser?.flag}
                       />
                     </Pressable>
                   </Spacer>
