@@ -47,6 +47,7 @@ export default function LikeInitiatorProfileCard({
         colors={["transparent", theme.colors.brand.basewhite]}
         style={{
           height: theme.spaceNumberBy50[1],
+          borderRadius: theme.spaceNumberBy10[1],
           position: "absolute",
           bottom: 0,
           left: 0,

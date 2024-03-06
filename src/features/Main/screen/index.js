@@ -197,9 +197,8 @@ const Index = ({ navigation }) => {
 
       if (likedNumberArray?.length) {
         filteredAgePreferenceData.map((data) => {
-          if (!likedNumberArray?.includes(data?.phonenumber)) {
-            filteredOffLikedProfiles.push(data);
-          }
+          if (likedNumberArray?.includes(data?.phonenumber)) return;
+          filteredOffLikedProfiles.push(data);
         });
       } else {
         filteredOffLikedProfiles = [...filteredAgePreferenceData];
@@ -210,41 +209,38 @@ const Index = ({ navigation }) => {
       const likedMeList = currentUserData?.likedMeList;
       if (likedMeList?.length && filteredOffLikedProfiles?.length) {
         filteredOffLikedProfiles.map((data) => {
-          if (!likedMeList?.includes(data?.phonenumber)) {
-            filteredOffLikedProfilesStep2.push(data);
-          }
+          if (likedMeList?.includes(data?.phonenumber)) return;
+          filteredOffLikedProfilesStep2.push(data);
         });
       } else {
         filteredOffLikedProfilesStep2 = [...filteredOffLikedProfiles];
       }
 
       // ########################################################################
-      // check if profile has been blocked or blocked by me and filter off
+      // block me filter off
       const blockedMeList = [];
       currentUserData?.blockedMeList?.map((list) => {
         blockedMeList.push(list?.phonenumber);
       });
-
-      const blockedList = [];
-      currentUserData?.blockedList?.map((list) => {
-        blockedList.push(list?.phonenumber);
-      });
-
       if (blockedMeList?.length) {
         filteredOffLikedProfilesStep2.map((data) => {
-          if (!blockedMeList?.includes(data?.phonenumber)) {
-            filteredOffLikedProfilesStep3.push(data);
-          }
+          if (blockedMeList?.includes(data?.phonenumber)) return;
+          filteredOffLikedProfilesStep3.push(data);
         });
       } else {
         filteredOffLikedProfilesStep3 = [...filteredOffLikedProfilesStep2];
       }
 
+      // ########################################################################
+      //  Block by me filter off
+      const blockedList = [];
+      currentUserData?.blockedList?.map((list) => {
+        blockedList.push(list?.phonenumber);
+      });
       if (blockedList?.length) {
         filteredOffLikedProfilesStep3.map((data) => {
-          if (!blockedList?.includes(data?.phonenumber)) {
-            filteredOffLikedProfilesStep4.push(data);
-          }
+          if (blockedList?.includes(data?.phonenumber)) return;
+          filteredOffLikedProfilesStep4.push(data);
         });
       } else {
         filteredOffLikedProfilesStep4 = [...filteredOffLikedProfilesStep3];

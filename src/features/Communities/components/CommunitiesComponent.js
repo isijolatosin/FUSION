@@ -60,9 +60,9 @@ export default function CommunitiesComponent({
       setRequestVisible(true);
 
       // create friendship intend structure in firebase firestore
-      database.collection("all-likes").add({
+      database.collection("friend-request").add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        friendRequestFrom: currentUser?.phonenumber,
+        friendRequestFrom: { ...currentUser },
         friendRequestToNumber: profileLikedNumber,
         flag: "community",
       });
@@ -72,8 +72,7 @@ export default function CommunitiesComponent({
         "all-users",
         currentUser?.id,
         "listOfAllLikedNumbers",
-        data?.phonenumber,
-        setIsRetrigger
+        data?.phonenumber
       );
 
       // add current user number (request initiator) to liked-me-list in other user profile object
@@ -81,8 +80,7 @@ export default function CommunitiesComponent({
         "all-users",
         data?.id,
         "likedMeList",
-        currentUser?.phonenumber,
-        setIsRetrigger
+        currentUser?.phonenumber
       );
 
       // currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);

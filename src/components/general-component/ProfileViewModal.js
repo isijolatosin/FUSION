@@ -42,7 +42,9 @@ export default function ProfileViewModal({
   );
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{ width: width }}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{ width: width, marginTop: theme.spaceNumberBy50[0] }}>
       <View style={{ position: "relative" }}>
         <Image
           style={{
@@ -741,64 +743,65 @@ export default function ProfileViewModal({
             Me in Three Words
           </Text>
         </Spacer>
-        {Object.keys(otherUser?.whatThreeWordsDescribeYou)?.length && (
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              gap: theme.spaceNumber[3],
-              marginVertical: 5,
-            }}>
+        {otherUser?.whatThreeWordsDescribeYou &&
+          Object.keys(otherUser?.whatThreeWordsDescribeYou)?.length && (
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[3],
+                marginVertical: 5,
               }}>
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {otherUser?.whatThreeWordsDescribeYou?.firstword}
-              </Text>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {otherUser?.whatThreeWordsDescribeYou?.firstword}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {otherUser?.whatThreeWordsDescribeYou?.secondword}
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.highlight,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {otherUser?.whatThreeWordsDescribeYou?.thirdword}
+                </Text>
+              </View>
             </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {otherUser?.whatThreeWordsDescribeYou?.secondword}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {otherUser?.whatThreeWordsDescribeYou?.thirdword}
-              </Text>
-            </View>
-          </View>
-        )}
+          )}
       </HorizontalPaddingSpace>
       {otherUser?.mediaArray?.[4] && (
         <Spacer position="top" size="xxsmall">
