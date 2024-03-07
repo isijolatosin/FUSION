@@ -17,10 +17,7 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton } from "./main.style";
-import {
-  getAllData,
-  updateUserValueField,
-} from "../../../utilities/updateFirestoreDatabaseField";
+import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
 // import Loading from "../../../components/general-component/Loading";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";

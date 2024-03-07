@@ -94,6 +94,7 @@ export default function CapturePhotos({ navigation }) {
       .collection("all-users")
       .add({
         address,
+        allowAllServices: true,
         country,
         dob,
         email,

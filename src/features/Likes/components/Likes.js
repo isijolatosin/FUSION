@@ -125,7 +125,12 @@ const LikesScreen = () => {
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-      <HeaderComponent title="Your Likes" theme={theme} />
+      <HeaderComponent
+        title="Your Likes"
+        theme={theme}
+        LeftComp={() => <></>}
+        RightComp={() => <></>}
+      />
       <TopNavigationTab
         arrayList={["match likes", "community likes"]}
         currentScreen={currentScreen}

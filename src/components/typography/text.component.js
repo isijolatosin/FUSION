@@ -25,7 +25,8 @@ const custom = (
   fontType,
   fontSize,
   textAlignment,
-  transform
+  transform,
+  lineHeight
 ) => `
     font-family: ${
       fontType ? theme.fonts[fontType] : theme.fonts.montserratRegular
@@ -36,7 +37,7 @@ const custom = (
     };
     text-transform: ${transform ? transform : "none"};
     text-align: ${textAlignment ? textAlignment : "left"};
-
+    line-height: ${lineHeight ? lineHeight : "0px"};
 `;
 
 const popupText = (theme) => `
@@ -67,6 +68,7 @@ export const Text = styled.Text`
     fontSize,
     textAlignment,
     transform,
+    lineHeight,
   }) =>
     variants[variant](
       theme,
@@ -74,7 +76,8 @@ export const Text = styled.Text`
       fontType,
       fontSize,
       textAlignment,
-      transform
+      transform,
+      lineHeight
     )}
     width: ${(props) => (props.width ? props.width : "100%")};
 `;

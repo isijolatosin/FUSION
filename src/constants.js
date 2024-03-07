@@ -896,3 +896,9 @@ export const appreloadmessage =
   "Kindly be aware that updating your preference will necessitate a reload of the app. Please ensure your readiness before proceeding.";
 export const agerestrictionmessage =
   "Please note that our app is exclusively for users aged 18 and above. We prioritize the safety and comfort of our community members, and this age restriction helps ensure a positive experience for everyone. Thank you for your understanding.";
+export const privacypreferencemessage =
+  "In engaging with Fusion, there's a process involving the storage and retrieval of data from your device, facilitated by tools managed either by us or our designated partners. We extend to you the opportunity to personalize your preferences regarding these integrations through the settings provided. Your ability to modify these choices is available to you at any time, ensuring your experience aligns seamlessly with your preferences.";
+export const enssentialpermissionsmessage =
+  "These essential tools are crucial for the app's operation and cannot be turned off. They enable key features like authentication and chat, ensuring smooth functionality.";
+export const personalizemarkingserviceinfo =
+  "These tools are utilized to assess and enhance the efficiency of our marketing initiatives. They do not track your activity across various apps and websites.";

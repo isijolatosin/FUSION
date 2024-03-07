@@ -45,7 +45,12 @@ function ScreenWrapper({
   return (
     <SafeArea
       style={{ backgroundColor: theme.colors.brand.basewhite, flex: 1 }}>
-      <HeaderComponent title="Friendship Hub" theme={theme} />
+      <HeaderComponent
+        title="Friendship Hub"
+        theme={theme}
+        LeftComp={() => <></>}
+        RightComp={() => <></>}
+      />
       <Spacer position="top" size="xsmall">
         <HorizontalPaddingSpace
           space={theme.space[6]}
