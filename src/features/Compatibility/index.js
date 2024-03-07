@@ -38,7 +38,12 @@ function ScreenWrapper({ children, theme, width }) {
         flex: 1,
         position: "relative",
       }}>
-      <HeaderComponent title="Similar Interest" theme={theme} />
+      <HeaderComponent
+        title="Similar Interest"
+        theme={theme}
+        LeftComp={() => <></>}
+        RightComp={() => <></>}
+      />
       <HorizontalPaddingSpace
         space={theme.space[6]}
         style={{ width: width, alignItems: "center" }}>

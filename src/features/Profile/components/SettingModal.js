@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   View,
   ScrollView,
@@ -30,6 +30,7 @@ import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ContactModal from "./ContactModal";
 import EmailUpdateModal from "./EmailUpdateModal";
 import ActionNotificationModal from "../../../components/general-component/ActionNotificationModal";
+import PrivacyPreference from "../../../components/general-component/PrivacyPreference";
 
 export default function SettingModal({
   theme,
@@ -50,6 +51,10 @@ export default function SettingModal({
   const [selectedHelp, setSelectedHelp] = useState("");
   const [selectedHelpValue, setSelectedHelpValue] = useState("");
   const userId = currentUser?.id;
+  const [isOpenModal, setModalOpen] = useState({
+    type: "",
+    open: false,
+  });
 
   async function handleDeleteUserProfile(val) {
     if (val) {
@@ -247,6 +252,71 @@ export default function SettingModal({
     setMessageSentNote(false);
   }
 
+  function TextIconComponent({ compFunction, title }) {
+    return (
+      <Pressable onPress={compFunction}>
+        <Spacer
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          position="top"
+          size="medium">
+          <View
+            style={{
+              flex: 0.8,
+            }}>
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="montserratBold"
+              fontSize="caption">
+              {title}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={compFunction}
+            style={{ flex: 0.2, alignItems: "flex-end" }}>
+            <IconComponent
+              iconFunction={compFunction}
+              iconName="chevron-right"
+              IconComponent={Octicons}
+              size={theme.spaceNumberBy10[1]}
+              color={theme.colors.brand.brandFade}
+            />
+          </TouchableOpacity>
+        </Spacer>
+      </Pressable>
+    );
+  }
+
+  function dynamicComponent() {
+    switch (isOpenModal.type) {
+      case "privacy preference":
+        return (
+          <PrivacyPreference
+            theme={theme}
+            title="Privacy Preference"
+            setModalOpen={setModalOpen}
+            currentUser={currentUser}
+            setIsTrigger={setIsTrigger}
+          />
+        );
+      case "community guidelines":
+        return (
+          <PrivacyPreference
+            theme={theme}
+            title="Privacy Preference"
+            setModalOpen={setModalOpen}
+          />
+        );
+
+      default:
+        return;
+    }
+  }
+
   return (
     <AnimatedModal
       isVisible={openSettingModal}
@@ -264,7 +334,7 @@ export default function SettingModal({
             alignItems: "center",
             width: width,
           }}
-          space={theme.space[5]}>
+          space={theme.space[3]}>
           <IconComponent
             iconFunction={onClose}
             iconName="chevron-back"
@@ -293,7 +363,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
@@ -308,7 +378,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer
               style={{
                 flexDirection: "row",
@@ -381,7 +451,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
@@ -396,7 +466,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer
               style={{
                 flexDirection: "row",
@@ -444,7 +514,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
@@ -459,7 +529,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="small">
               <View
                 style={{
@@ -630,7 +700,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
@@ -645,7 +715,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="medium">
               <View
                 style={{
@@ -696,7 +766,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[5]}>
+            space={theme.space[3]}>
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
@@ -712,61 +782,49 @@ export default function SettingModal({
               position: "relative",
               paddingBottom: theme.spaceNumberBy10[2],
             }}
-            space={theme.space[5]}>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-              position="top"
-              size="medium">
-              <View style={{ flex: 0.8 }}>
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="caption">
-                  Privacy Policy
-                </Text>
-              </View>
-              <TouchableOpacity style={{ flex: 0.2, alignItems: "flex-end" }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="chevron-right"
-                  IconComponent={Octicons}
-                  size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.brandFade}
-                />
-              </TouchableOpacity>
+            space={theme.space[3]}>
+            <TextIconComponent title="Privacy Policy" compFunction={() => {}} />
+            <TextIconComponent
+              title="Terms of Service"
+              compFunction={() => {}}
+            />
+            <TextIconComponent
+              title="Privacy preference"
+              compFunction={() =>
+                setModalOpen({ type: "privacy preference", open: true })
+              }
+            />
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.brand.linesLight,
+              paddingBottom: theme.spaceNumberBy10[0],
+            }}
+            space={theme.space[3]}>
+            <Spacer position="top" size="xxxlarge">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="body">
+                Community
+              </Text>
             </Spacer>
-            <Spacer
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-              position="top"
-              size="medium">
-              <View style={{ flex: 0.8 }}>
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="caption">
-                  Terms of Service
-                </Text>
-              </View>
-              <TouchableOpacity style={{ flex: 0.2, alignItems: "flex-end" }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="chevron-right"
-                  IconComponent={Octicons}
-                  size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.brandFade}
-                />
-              </TouchableOpacity>
-            </Spacer>
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            style={{
+              position: "relative",
+              paddingBottom: theme.spaceNumberBy10[2],
+            }}
+            space={theme.space[3]}>
+            <TextIconComponent
+              title="Community guidelines"
+              compFunction={() =>
+                setModalOpen({ type: "community guidelines", open: true })
+              }
+            />
           </HorizontalPaddingSpace>
           <TouchableOpacity
             onPress={handleSignOut} // open when app is ready to deploy
@@ -849,7 +907,7 @@ export default function SettingModal({
             return () => clearTimeout(pauseTimeoutID);
           }}
           onClose={() => setShowPauseModal(false)}
-          horizontalSpace={theme.space[5]}
+          horizontalSpace={theme.space[3]}
         />
       </AnimatedModal>
 
@@ -881,7 +939,7 @@ export default function SettingModal({
             return () => clearTimeout(deativateTimeoutID);
           }}
           onClose={() => setShowDeactivateModal(false)}
-          horizontalSpace={theme.space[5]}
+          horizontalSpace={theme.space[3]}
         />
       </AnimatedModal>
 
@@ -902,8 +960,18 @@ export default function SettingModal({
             handleDeleteUserProfile(showDeleteModal);
           }}
           onClose={() => setShowDeleteModal(false)}
-          horizontalSpace={theme.space[5]}
+          horizontalSpace={theme.space[3]}
         />
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={isOpenModal.open}
+        onClose={() => {
+          setModalOpen({ type: "", open: false });
+        }}
+        theme={theme}
+        width={width}
+        isTransparent={false}>
+        <Fragment>{dynamicComponent(currentUser)}</Fragment>
       </AnimatedModal>
     </AnimatedModal>
   );

@@ -236,7 +236,8 @@ export default function FriendshipInitiatorProfileComponent({
                 data?.[0]?.friendRequestFrom?.dob?.day
               )}`}
               theme={theme}
-              hideLogo={true}
+              LeftComp={() => <></>}
+              RightComp={() => <></>}
             />
           </View>
         </View>

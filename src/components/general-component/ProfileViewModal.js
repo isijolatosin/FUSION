@@ -64,7 +64,8 @@ export default function ProfileViewModal({
               otherUser?.dob?.day
             )}`}
             theme={theme}
-            hideLogo={true}
+            LeftComp={() => <></>}
+            RightComp={() => <></>}
           />
         </View>
       </View>

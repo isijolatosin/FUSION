@@ -208,7 +208,8 @@ export default function InitiatorProfileComponent({
                   data?.[0]?.likedBy?.dob?.day
                 )}`}
                 theme={theme}
-                hideLogo={true}
+                LeftComp={() => <></>}
+                RightComp={() => <></>}
               />
             </View>
           </View>
