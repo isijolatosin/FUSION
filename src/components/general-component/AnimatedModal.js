@@ -5,7 +5,7 @@ import Modal from "react-native-modal";
 export default function AnimatedModal({
   children,
   isAlignItems,
-  isPaddingBottom,
+  paddingBottom,
   isPaddingTop,
   isVisible,
   onClose,
@@ -27,7 +27,7 @@ export default function AnimatedModal({
         paddingTop: isPaddingTop ? (Platform.OS === "ios" ? 150 : 100) : 0,
         position: "relative",
         alignItems: isAlignItems ? "flex-end" : "",
-        paddingBottom: isPaddingBottom ? theme.spaceNumberBy10[0] : 0,
+        paddingBottom: paddingBottom ? paddingBottom : 0,
         width: width,
       }}>
       {children}

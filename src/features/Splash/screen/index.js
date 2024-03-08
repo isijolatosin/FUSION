@@ -109,6 +109,16 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="chat"
+        component={ChatsScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="chatbubble-sharp" color={color} size={23} />
+          ),
+          gestureEnabled: false,
+        }}
+      />
+      <Tab.Screen
         name="similar-interest"
         component={CompatibilityScreen}
         options={{
@@ -117,16 +127,6 @@ const TabNavigator = () => {
           },
           tabBarIcon: ({ color }) => (
             <Ionicons name="ios-people" color={color} size={30} />
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="chat"
-        component={ChatsScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-sharp" color={color} size={23} />
           ),
           gestureEnabled: false,
         }}

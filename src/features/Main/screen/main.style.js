@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-const CloseButton = styled.Pressable`
+const CloseButton = styled.TouchableOpacity`
   position: fixed;
   z-index: 10;
   bottom: ${(props) => (props.spaceBottom ? props.spaceBottom : "160px")};
@@ -55,7 +55,7 @@ const ButtonAction = styled.TouchableOpacity`
     `border-bottom-color: ${props.borderBottomColor}`};
 `;
 
-const AvatarWrapper = styled.Pressable`
+const AvatarWrapper = styled.TouchableOpacity`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.height}px`};
   border-radius: ${(props) => `${props.borderRadius}px`};
@@ -64,7 +64,7 @@ const AvatarWrapper = styled.Pressable`
     props.ringBorder ? props.theme.colors.brand.highlight : ""};
 `;
 
-const IconComponentWraper = styled.Pressable`
+const IconComponentWraper = styled.TouchableOpacity`
   margin-top: 0;
   margin-bottom: 0;
   margin-left: ${(props) =>

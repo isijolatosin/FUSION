@@ -25,13 +25,11 @@ import {
   firstmessagehype,
   nomatchmessage,
 } from "../../../constants";
-import { PopupModal } from "../../Onboarding/components/onboarding.styles";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import Button from "../../../components/utility/button.component";
 import { detectUrl } from "../../../utilities/detectTextType";
 import AvatarVerticalList from "./AvatarVerticalList";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
-import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import { sortByTimestamp } from "../../../utilities/sortByKey";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";

@@ -902,3 +902,5 @@ export const enssentialpermissionsmessage =
   "These essential tools are crucial for the app's operation and cannot be turned off. They enable key features like authentication and chat, ensuring smooth functionality.";
 export const personalizemarkingserviceinfo =
   "These tools are utilized to assess and enhance the efficiency of our marketing initiatives. They do not track your activity across various apps and websites.";
+export const noeventmessage =
+  "Currently, there are no events to display. You can help our community grow by sharing any events happening in your community with other users.";

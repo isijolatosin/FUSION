@@ -505,7 +505,7 @@ export default function FilterComponent({
   return (
     <AnimatedModal
       isAlignItems={true}
-      isPaddingBottom={true}
+      paddingBottom={theme.spaceNumberBy10[5]}
       isPaddingTop={true}
       isVisible={isVisible}
       onClose={() => {
