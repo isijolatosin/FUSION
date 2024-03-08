@@ -340,49 +340,19 @@ const Index = ({ navigation }) => {
 
   if (allUsers.length === 0) {
     return (
-      <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-        <HorizontalPaddingSpace
-          style={{ position: "relative" }}
-          space={theme.space[4]}>
-          <Spacer position="top" size="large">
-            <NavigationBar>
-              <BrandAvatarO currentUser={currentUser} />
-            </NavigationBar>
-          </Spacer>
-          <Spacer position="top" size="xxxxlarge">
-            <Text
-              style={{
-                textAlign: "center",
-              }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {noDataFromYourCountrymessage}
-            </Text>
-            <Spacer position="top" size="xxxxlarge">
-              <Spacer position="bottom" size="xxlarge">
-                <BrandAvatar />
-              </Spacer>
-            </Spacer>
-            <Spacer
-              position="top"
-              size="xxxxlarge"
-              style={{ alignItems: "center" }}>
-              <Button
-                backgroundColor={theme.colors.brand.base}
-                borderRadius={theme.space[3]}
-                buttonFunction={() => navigation.navigate("profile")}
-                text="Change preference"
-                textColor={theme.colors.brand.basewhite}
-                width="80%"
-              />
-            </Spacer>
-          </Spacer>
-        </HorizontalPaddingSpace>
-      </SafeArea>
+      <CustomUseCardWithCTA
+        text={noDataFromYourCountrymessage}
+        buttonText="Change preference"
+        cardFunction={() => {
+          setIndex(0);
+          storeData("swipe-index", 0);
+          navigation.navigate("profile");
+        }}
+        headingTitle="No Matches"
+        showSecondButton={false}
+        setIndex={() => {}}
+      />
     );
-    // return <Loading text="Loading..." />;
   }
 
   if (index === allUsers.length) {
@@ -396,6 +366,7 @@ const Index = ({ navigation }) => {
           storeData("swipe-index", 0);
           navigation.navigate("profile");
         }}
+        headingTitle="No Matches"
         showSecondButton={true}
         setIndex={setIndex}
       />

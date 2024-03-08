@@ -6,16 +6,17 @@ import { SafeArea } from "../utility/safe-area.component";
 import { Text } from "../typography/text.component";
 import { HorizontalPaddingSpace } from "../utility/space-area.component";
 import Button from "../utility/button.component";
-import BrandAvatar from "./BrandAvatar";
 import { Spacer } from "../spacer/spacer.component";
 import { storeData } from "../../utilities/storeDataInPhoneMemory";
+import HeaderComponent from "./HeaderComponent";
+import { View } from "react-native";
 
 export default function CustomUseCardWithCTA({
   text,
   buttonText,
   buttonSecondText,
   cardFunction,
-  gapSize,
+  headingTitle,
   showSecondButton,
   setIndex,
 }) {
@@ -30,48 +31,56 @@ export default function CustomUseCardWithCTA({
         backgroundColor: theme.colors.brand.basewhite,
         justifyContent: "center",
       }}>
-      <HorizontalPaddingSpace
-        style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}
-        space={theme.space[5]}>
-        <Text
-          style={{ textAlign: "center" }}
-          variant="custom"
-          colorType="black"
-          fontType="montserratRegular"
-          fontSize="caption">
-          {text}
-        </Text>
-        <Button
-          backgroundColor={theme.colors.brand.base}
-          isBorder={false}
-          borderColor="transparent"
-          buttonFunction={cardFunction}
-          text={buttonText}
-          textColor={theme.colors.brand.basewhite}
-          width="80%"
-        />
-      </HorizontalPaddingSpace>
-      <Spacer position="top" size="small">
+      <HeaderComponent
+        title={headingTitle}
+        theme={theme}
+        LeftComp={() => <></>}
+        RightComp={() => <></>}
+      />
+      <View style={{ flex: 1, marginTop: theme.spaceNumberBy10[5] }}>
         <HorizontalPaddingSpace
-          style={{ alignItems: "center" }}
+          style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}
           space={theme.space[5]}>
-          {showSecondButton && (
-            <Button
-              backgroundColor={theme.colors.brand.basewhite}
-              isBorder={true}
-              borderColor={theme.colors.brand.base}
-              borderRadius={theme.space[3]}
-              buttonFunction={() => {
-                setIndex(0);
-                storeData("swipe-index", 0);
-              }}
-              text={buttonSecondText}
-              textColor={theme.colors.brand.base}
-              width="80%"
-            />
-          )}
+          <Text
+            style={{ textAlign: "center" }}
+            variant="custom"
+            colorType="black"
+            fontType="montserratRegular"
+            fontSize="caption">
+            {text}
+          </Text>
+          <Button
+            backgroundColor={theme.colors.brand.base}
+            isBorder={false}
+            borderColor="transparent"
+            buttonFunction={cardFunction}
+            text={buttonText}
+            textColor={theme.colors.brand.basewhite}
+            width="80%"
+          />
         </HorizontalPaddingSpace>
-      </Spacer>
+        <Spacer position="top" size="small">
+          <HorizontalPaddingSpace
+            style={{ alignItems: "center" }}
+            space={theme.space[5]}>
+            {showSecondButton && (
+              <Button
+                backgroundColor={theme.colors.brand.basewhite}
+                isBorder={true}
+                borderColor={theme.colors.brand.base}
+                borderRadius={theme.space[3]}
+                buttonFunction={() => {
+                  setIndex(0);
+                  storeData("swipe-index", 0);
+                }}
+                text={buttonSecondText}
+                textColor={theme.colors.brand.base}
+                width="80%"
+              />
+            )}
+          </HorizontalPaddingSpace>
+        </Spacer>
+      </View>
     </SafeArea>
   );
 }

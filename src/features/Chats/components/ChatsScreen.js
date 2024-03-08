@@ -33,6 +33,7 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { sortByTimestamp } from "../../../utilities/sortByKey";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -383,6 +384,7 @@ const ChatsScreen = () => {
       <CustomUseCardWithCTA
         text={nomatchmessage}
         buttonText="Keep liking"
+        headingTitle="Chats"
         cardFunction={() => navigation.navigate("home")}
       />
     );
@@ -390,6 +392,12 @@ const ChatsScreen = () => {
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+      <HeaderComponent
+        title="Chats"
+        theme={theme}
+        LeftComp={() => <></>}
+        RightComp={() => <></>}
+      />
       <Spacer
         style={{
           paddingBottom: theme.spaceNumberBy10[16],
@@ -399,7 +407,7 @@ const ChatsScreen = () => {
         position="top"
         size="xxxlarge">
         {checkIfMessagingHasStarted() && (
-          <Spacer position="bottom" size="xxlarge">
+          <Spacer position="bottom" size="large">
             <HorizontalPaddingSpace space={theme.space[3]}>
               <Text
                 variant="custom"
