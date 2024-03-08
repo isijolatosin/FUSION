@@ -27,7 +27,8 @@ const TopNavigationTab = ({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "90%",
+          width: "60%",
+          // width: "90%", // PHASE TWO PROJECT - change to 90%
           alignSelf: "center",
         }}>
         {arrayList.map((item) => (

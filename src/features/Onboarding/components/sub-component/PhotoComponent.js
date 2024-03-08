@@ -11,7 +11,6 @@ export default function PhotoComponent({
   isUpdatingPhoto,
   dimension,
   photoUrl,
-  // setPhotoUrl,
   showDeleteIcon,
   setOpenDeleteModal,
   setDeleteImageItem,

@@ -1,37 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, Pressable, ScrollView, View } from "react-native";
+import { Dimensions, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
 import { Spacer } from "../../components/spacer/spacer.component";
 import { useAppContext } from "../../context/ThemeContext";
-import BrandAvatarO from "../../components/general-component/BrandAvatarO";
 import { Text } from "../../components/typography/text.component";
 import {
   activateAccountForMainScreen,
-  activateAccountForSimilarScreen,
   compatibleText,
   friendshipzone,
   unpauseAccountForMainScreen,
-  unpauseAccountForSimilarScreen,
 } from "../../constants";
-import CommunitiesComponent from "./components/CommunitiesComponent";
 import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
-import {
-  getAllData,
-  updateUserValueField,
-} from "../../utilities/updateFirestoreDatabaseField";
-import BrandAvatar from "../../components/general-component/BrandAvatar";
+import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
-import CustomUseCardWithCTA from "../../components/general-component/CustomUseCardWithCTA";
 import Loading from "../../components/general-component/Loading";
 import HeaderComponent from "../../components/general-component/HeaderComponent";
 import FriendRequestConfirmationComponent from "../Compatibility/components/FriendRequestConfirmationComponent";
 import TopNavigationTab from "../../components/general-component/TopNavigationTab";
 import ProfileDeactivateCardComponent from "../../components/general-component/ProfileDeactivateCardComponent";
 import ProfilePausedCardComponent from "../../components/general-component/ProfilePausedCardComponent";
+import People from "./components/People";
+// import Communities from "./components/Communities"; // PHASE TWO PROJECT
+import Events from "./components/Events";
 
 function ScreenWrapper({
   children,
@@ -40,7 +34,8 @@ function ScreenWrapper({
   theme,
   width,
 }) {
-  const screeenList = ["people", "communities", "events"];
+  const screeenList = ["people", "events"];
+  // const screeenList = ["people", "communities", "events"]; // PHASE TWO PROJECT
 
   return (
     <SafeArea
@@ -77,7 +72,9 @@ function ScreenWrapper({
 }
 
 export default function Index() {
-  const scrollViewRef = useRef(null);
+  const scrollViewPeopleRef = useRef(null);
+  // const scrollViewCommunityRef = useRef(null); // PHASE TWO PROJECT
+  const scrollViewEventRef = useRef(null);
   const { width } = Dimensions.get("window");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState([]);
@@ -244,9 +241,29 @@ export default function Index() {
     );
   }
 
-  const scrollToTop = () => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+  // #########################################################################
+  // People scroll
+  const scrollToTopPeopleComp = () => {
+    if (scrollViewPeopleRef.current) {
+      scrollViewPeopleRef.current.scrollTo({ y: 0, animated: true });
+    }
+  };
+
+  // #########################################################################
+  // PHASE TWO PROJECT
+  // #########################################################################
+  // Communities scroll
+  // const scrollToTopCommunityComp = () => {
+  //   if (scrollViewCommunityRef.current) {
+  //     scrollViewCommunityRef.current.scrollTo({ y: 0, animated: true });
+  //   }
+  // };
+
+  // #########################################################################
+  // Event scroll
+  const scrollToEventTop = () => {
+    if (scrollViewEventRef.current) {
+      scrollViewEventRef.current.scrollTo({ y: 0, animated: true });
     }
   };
 
@@ -260,10 +277,10 @@ export default function Index() {
         <View style={{ paddingBottom: theme.spaceNumberBy10[12] - 8 }}>
           {currentScreen === "people" && (
             <ScrollView
-              ref={scrollViewRef}
+              ref={scrollViewPeopleRef}
               showsVerticalScrollIndicator={false}>
               {communitiesData?.map((signleUserWithSimilarInterest, idx) => (
-                <CommunitiesComponent
+                <People
                   key={idx}
                   data={signleUserWithSimilarInterest}
                   width={width}
@@ -272,54 +289,36 @@ export default function Index() {
                   setRequestVisible={setRequestVisible}
                   currentUser={currentUser}
                   setIsRetrigger={setIsRetrigger}
-                  scrollToTop={scrollToTop}
+                  scrollToTop={scrollToTopPeopleComp}
                   setIsSelectedUserToView={setIsSelectedUserToView}
                   setSelectedUserToView={setSelectedUserToView}
                 />
               ))}
             </ScrollView>
           )}
-          {currentScreen === "communities" && (
-            <ScrollView
-              ref={scrollViewRef}
-              showsVerticalScrollIndicator={false}>
-              {[]?.map((signleUserWithSimilarInterest, idx) => (
-                <CommunitiesComponent
-                  key={idx}
-                  data={signleUserWithSimilarInterest}
-                  width={width}
-                  theme={theme}
-                  setSelectedFriend={setSelectedFriend}
-                  setRequestVisible={setRequestVisible}
-                  currentUser={currentUser}
-                  setIsRetrigger={setIsRetrigger}
-                  scrollToTop={scrollToTop}
-                  setIsSelectedUserToView={setIsSelectedUserToView}
-                  setSelectedUserToView={setSelectedUserToView}
-                />
-              ))}
-            </ScrollView>
-          )}
+          {/* {currentScreen === "communities" && (
+            <Spacer position="top" size="small">
+              <Communities
+                requests={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                width={width}
+                theme={theme}
+                currentUser={currentUser}
+                scrollViewCommunityRef={scrollViewCommunityRef}
+                scrollToTop={scrollToTopCommunityComp}
+              />
+            </Spacer>
+          )} */}
           {currentScreen === "events" && (
-            <ScrollView
-              ref={scrollViewRef}
-              showsVerticalScrollIndicator={false}>
-              {[]?.map((signleUserWithSimilarInterest, idx) => (
-                <CommunitiesComponent
-                  key={idx}
-                  data={signleUserWithSimilarInterest}
-                  width={width}
-                  theme={theme}
-                  setSelectedFriend={setSelectedFriend}
-                  setRequestVisible={setRequestVisible}
-                  currentUser={currentUser}
-                  setIsRetrigger={setIsRetrigger}
-                  scrollToTop={scrollToTop}
-                  setIsSelectedUserToView={setIsSelectedUserToView}
-                  setSelectedUserToView={setSelectedUserToView}
-                />
-              ))}
-            </ScrollView>
+            <Spacer position="top" size="small">
+              <Events
+                data={{}}
+                width={width}
+                theme={theme}
+                currentUser={currentUser}
+                scrollViewCommunityRef={scrollViewEventRef}
+                scrollToTop={scrollToEventTop}
+              />
+            </Spacer>
           )}
           <FriendRequestConfirmationComponent
             theme={theme}
