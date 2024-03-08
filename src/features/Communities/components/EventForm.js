@@ -261,8 +261,10 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              handleUploadImage();
               Keyboard.dismiss();
+              if (image) return;
+
+              handleUploadImage();
             }}
             style={{
               alignItems: "center",
@@ -270,10 +272,10 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
             }}>
             <Text
               variant="custom"
-              colorType="base"
+              colorType={image ? "lines" : "base"}
               fontType="montserratRegular"
               fontSize="body">
-              Upload Image
+              {image ? "Image Uploaded" : "Upload Image"}
             </Text>
           </TouchableOpacity>
         </HorizontalPaddingSpace>
