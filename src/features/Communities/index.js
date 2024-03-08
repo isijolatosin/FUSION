@@ -64,6 +64,7 @@ function ScreenWrapper({
           currentScreen={currentScreen}
           setFunction={setCurrentScreen}
           theme={theme}
+          width="60%"
         />
       </Spacer>
       {children}

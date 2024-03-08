@@ -10,6 +10,7 @@ const TopNavigationTab = ({
   horizontalSpace,
   setFunction,
   theme,
+  width,
 }) => {
   return (
     <Spacer
@@ -27,8 +28,7 @@ const TopNavigationTab = ({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "60%",
-          // width: "90%", // PHASE TWO PROJECT - change to 90%
+          width: width,
           alignSelf: "center",
         }}>
         {arrayList.map((item) => (

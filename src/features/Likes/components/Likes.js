@@ -137,6 +137,7 @@ const LikesScreen = () => {
         horizontalSpace={theme.space[5]}
         setFunction={setCurrentScreen}
         theme={theme}
+        width="90%"
       />
       <HorizontalPaddingSpace space={theme.space[0]}>
         <Spacer style={{ alignItems: "center" }} position="top" size="">
@@ -169,21 +170,23 @@ const LikesScreen = () => {
           ) : (
             currentScreen === "match likes" && (
               <View style={{ width: "100%" }}>
-                <Spacer position="top" size="large">
-                  <Text
-                    style={{
-                      textAlign: "center",
-                    }}
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="caption">
-                    {nolikesyetmessage}
-                  </Text>
-                  <Spacer position="top" size="xxxxlarge">
-                    <BrandAvatar isLike={true} />
+                <HorizontalPaddingSpace space={theme.space[5]}>
+                  <Spacer position="top" size="large">
+                    <Text
+                      style={{
+                        textAlign: "center",
+                      }}
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratRegular"
+                      fontSize="caption">
+                      {nolikesyetmessage}
+                    </Text>
+                    <Spacer position="top" size="xxxxlarge">
+                      <BrandAvatar isLike={true} />
+                    </Spacer>
                   </Spacer>
-                </Spacer>
+                </HorizontalPaddingSpace>
               </View>
             )
           )}
@@ -219,21 +222,23 @@ const LikesScreen = () => {
           ) : (
             currentScreen === "community likes" && (
               <View style={{ width: "100%" }}>
-                <Spacer position="top" size="large">
-                  <Text
-                    style={{
-                      textAlign: "center",
-                    }}
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="caption">
-                    {nofriendrequestmessage}
-                  </Text>
-                  <Spacer position="top" size="xxxxlarge">
-                    <BrandAvatar isLike={true} />
+                <HorizontalPaddingSpace space={theme.space[5]}>
+                  <Spacer position="top" size="large">
+                    <Text
+                      style={{
+                        textAlign: "center",
+                      }}
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratRegular"
+                      fontSize="caption">
+                      {nofriendrequestmessage}
+                    </Text>
+                    <Spacer position="top" size="xxxxlarge">
+                      <BrandAvatar isLike={true} />
+                    </Spacer>
                   </Spacer>
-                </Spacer>
+                </HorizontalPaddingSpace>
               </View>
             )
           )}
