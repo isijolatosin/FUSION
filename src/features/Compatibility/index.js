@@ -25,7 +25,6 @@ import Loading from "../../components/general-component/Loading";
 import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
-import CustomUseCardWithCTA from "../../components/general-component/CustomUseCardWithCTA";
 import HeaderComponent from "../../components/general-component/HeaderComponent";
 import ProfileDeactivateCardComponent from "../../components/general-component/ProfileDeactivateCardComponent";
 import ProfilePausedCardComponent from "../../components/general-component/ProfilePausedCardComponent";
