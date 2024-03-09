@@ -64,6 +64,7 @@ import AgePreferenceUpdateModal from "./AgePreferenceUpdateModal";
 import DistancePreferenceUpdateModal from "./DistancePreferenceUpdateModal";
 import Avatar from "../../../components/general-component/Avatar";
 import IndustryUpdateModal from "./IndustryUpdateModal";
+import TextAndIconComponent from "./TextAndIconComponent";
 
 export default function ProfileScreen() {
   const {
@@ -271,48 +272,12 @@ export default function ProfileScreen() {
     }
 
     return (
-      <HorizontalPaddingSpace space={theme.space[2]}>
-        <Pressable
-          onPress={pressFunction}
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: theme.colors.brand.linesLighter,
-            paddingVertical: theme.spaceNumberBy10[0],
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            position: "relative",
-          }}>
-          <View>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="button">
-              {title}
-            </Text>
-            <Text
-              variant="custom"
-              colorType="brandFadeLighter"
-              fontType="montserratRegular"
-              fontSize="caption">
-              {value}
-            </Text>
-          </View>
-          <View
-            style={{
-              marginRight: theme.spaceNumber[2],
-            }}>
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="keyboard-arrow-right"
-              IconComponent={MaterialIcons}
-              size={20}
-              color={theme.colors.brand.brandTone}
-            />
-          </View>
-        </Pressable>
-      </HorizontalPaddingSpace>
+      <TextAndIconComponent
+        pressFunction={pressFunction}
+        theme={theme}
+        title={title}
+        value={value}
+      />
     );
   }
 

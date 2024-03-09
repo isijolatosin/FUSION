@@ -117,6 +117,11 @@ export default function CapturePhotos({ navigation }) {
         sexualOrientation,
         whatThreeWordsDescribeYou,
         workplace,
+        enableAllMarketingTool: false,
+        googlefirebaseAccessGrant: true,
+        phoneDataStorageAndRetrievalGrant: true,
+        expoLocationAccessGrant: true,
+        cloudinaryAccessGrant: true,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {

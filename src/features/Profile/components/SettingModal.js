@@ -30,7 +30,8 @@ import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ContactModal from "./ContactModal";
 import EmailUpdateModal from "./EmailUpdateModal";
 import ActionNotificationModal from "../../../components/general-component/ActionNotificationModal";
-import PrivacyPreference from "../../../components/general-component/PrivacyPreference";
+import PrivacyPreference from "./PrivacyPreference";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function SettingModal({
   theme,
@@ -46,7 +47,6 @@ export default function SettingModal({
   const [showDeactivateModal, setShowDeactivateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [openEmailUpdateModal, setOpenEmailUpdateModal] = useState(false);
-  const [deleteAccount, setDeleteAccount] = useState(false);
   const [messageSentNote, setMessageSentNote] = useState(false);
   const [selectedHelp, setSelectedHelp] = useState("");
   const [selectedHelpValue, setSelectedHelpValue] = useState("");
@@ -207,7 +207,6 @@ export default function SettingModal({
 
       await clearDataByKey("match-id");
       await clearDataByKey("phonenumber");
-      await clearDataByKey("refreshChatScreen");
       await clearDataByKey("swipe-index");
 
       const userProfileDeleteTimeoutId = setTimeout(() => {
@@ -228,7 +227,6 @@ export default function SettingModal({
   async function handleSignOut() {
     await clearDataByKey("phonenumber");
     await clearDataByKey("match-id");
-    await clearDataByKey("refreshChatScreen");
     await clearDataByKey("swipe-index");
 
     const userSignOutTimeoutId = setTimeout(() => {
@@ -327,34 +325,28 @@ export default function SettingModal({
         style={{ paddingTop: theme.spaceNumber[0] }}
         position="top"
         size="xxxxlarge">
-        <HorizontalPaddingSpace
-          style={{
-            position: "relative",
-            flexDirection: "row",
-            alignItems: "center",
-            width: width,
-          }}
-          space={theme.space[3]}>
-          <IconComponent
-            iconFunction={onClose}
-            iconName="chevron-back"
-            IconComponent={Ionicons}
-            size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
-            horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
-          />
-          <Text
-            style={{
-              textAlign: "center",
-              width: "90%",
-            }}
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            fontSize="h5">
-            Settings
-          </Text>
-        </HorizontalPaddingSpace>
+        <HeaderComponent
+          title="Settings"
+          textWidth="94%"
+          hideLogo={true}
+          theme={theme}
+          LeftComp={() => (
+            <View
+              style={{
+                marginLeft: theme.spaceNumber[2],
+              }}>
+              <IconComponent
+                iconFunction={onClose}
+                iconName="chevron-back"
+                IconComponent={Ionicons}
+                size={theme.spaceNumberBy10[2]}
+                color={theme.colors.brand.brandFade}
+                horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
+              />
+            </View>
+          )}
+          RightComp={() => <></>}
+        />
         <ScrollView showsVerticalScrollIndicator={false}>
           <HorizontalPaddingSpace
             style={{
@@ -363,7 +355,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
@@ -378,7 +370,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer
               style={{
                 flexDirection: "row",
@@ -451,7 +443,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
@@ -466,7 +458,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer
               style={{
                 flexDirection: "row",
@@ -514,7 +506,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
@@ -529,7 +521,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="small">
               <View
                 style={{
@@ -700,7 +692,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
@@ -715,7 +707,7 @@ export default function SettingModal({
             style={{
               position: "relative",
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="medium">
               <View
                 style={{
@@ -766,7 +758,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
@@ -782,7 +774,7 @@ export default function SettingModal({
               position: "relative",
               paddingBottom: theme.spaceNumberBy10[2],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <TextIconComponent title="Privacy Policy" compFunction={() => {}} />
             <TextIconComponent
               title="Terms of Service"
@@ -802,7 +794,7 @@ export default function SettingModal({
               borderBottomColor: theme.colors.brand.linesLight,
               paddingBottom: theme.spaceNumberBy10[0],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
@@ -818,7 +810,7 @@ export default function SettingModal({
               position: "relative",
               paddingBottom: theme.spaceNumberBy10[2],
             }}
-            space={theme.space[3]}>
+            space={theme.space[2]}>
             <TextIconComponent
               title="Community guidelines"
               compFunction={() =>
@@ -907,7 +899,7 @@ export default function SettingModal({
             return () => clearTimeout(pauseTimeoutID);
           }}
           onClose={() => setShowPauseModal(false)}
-          horizontalSpace={theme.space[3]}
+          horizontalSpace={theme.space[2]}
         />
       </AnimatedModal>
 
@@ -939,7 +931,7 @@ export default function SettingModal({
             return () => clearTimeout(deativateTimeoutID);
           }}
           onClose={() => setShowDeactivateModal(false)}
-          horizontalSpace={theme.space[3]}
+          horizontalSpace={theme.space[2]}
         />
       </AnimatedModal>
 
@@ -960,7 +952,7 @@ export default function SettingModal({
             handleDeleteUserProfile(showDeleteModal);
           }}
           onClose={() => setShowDeleteModal(false)}
-          horizontalSpace={theme.space[3]}
+          horizontalSpace={theme.space[2]}
         />
       </AnimatedModal>
       <AnimatedModal

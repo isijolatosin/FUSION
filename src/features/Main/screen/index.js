@@ -251,7 +251,6 @@ const Index = ({ navigation }) => {
 
   const functionCall = async () => {
     await clearDataByKey("match-id");
-    await clearDataByKey("refreshChatScreen");
 
     const indexFromPhoneMemory = await retrieveData("swipe-index");
 

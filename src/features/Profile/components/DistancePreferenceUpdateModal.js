@@ -16,11 +16,15 @@ export default function DistancePreferenceUpdateModal({
   onClose,
 }) {
   const [distanceValue, setDistanceValue] = useState(
-    currentUser?.distancePreference?.value ?? 0
+    currentUser?.distancePreference?.value
+      ? currentUser?.distancePreference?.value
+      : 0
   );
   const displayDistanceText = `${distanceValue ? distanceValue : 0}km`;
   const [suggestDistanceWithRange, setSuggestDistanceWithRange] = useState(
     currentUser?.distancePreference?.suggest
+      ? currentUser?.distancePreference?.suggest
+      : false
   );
 
   async function triggerDistanceFilter() {
