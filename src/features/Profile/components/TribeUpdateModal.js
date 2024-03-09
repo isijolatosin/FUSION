@@ -16,7 +16,13 @@ export default function TribeUpdateModal({
   myTribePreference,
 }) {
   const [tribe, setTribe] = useState(
-    myTribePreference ? currentUser?.preferredTribe : currentUser?.tribe
+    myTribePreference
+      ? currentUser?.preferredTribe
+        ? currentUser?.preferredTribe
+        : "Open to all"
+      : currentUser?.tribe
+      ? currentUser?.tribe
+      : "Update..."
   );
 
   async function updateTribe() {

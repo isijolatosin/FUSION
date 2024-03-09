@@ -898,7 +898,19 @@ export const agerestrictionmessage =
   "Please note that our app is exclusively for users aged 18 and above. We prioritize the safety and comfort of our community members, and this age restriction helps ensure a positive experience for everyone. Thank you for your understanding.";
 export const privacypreferencemessage =
   "In engaging with Fusion, there's a process involving the storage and retrieval of data from your device, facilitated by tools managed either by us or our designated partners. We extend to you the opportunity to personalize your preferences regarding these integrations through the settings provided. Your ability to modify these choices is available to you at any time, ensuring your experience aligns seamlessly with your preferences.";
-export const enssentialpermissionsmessage =
+export const storeandusedeviceinformation =
+  "We're committed to providing you with the best possible experience as you connect with others and build meaningful relationships. To achieve this, we utilize certain information on your device to personalize and optimize your experience.";
+export const storeandusedeviceinformationp1 =
+  "Providing your phone number allows us to enhance security by verifying your identity and ensuring that only genuine users are interacting on our platform. It also enables seamless communication and helps you stay connected with your matches.";
+export const storeandusedeviceinformationp2 =
+  "By tracking your last click, we can improve the relevance of potential matches presented to you. This information helps us understand your preferences and tailor the matchmaking process to better suit your interests and preferences.";
+export const storeandusedeviceinformationp3 =
+  "Storing match IDs on your device allows us to efficiently manage your matches and provide you with relevant updates and notifications. It helps us track your connections, facilitate messaging, and notify you of any new developments or interactions with your matches.";
+export const storeandusedeviceinformationp4 =
+  "By allowing Fusion to store and utilize this information on your device, you enable us to deliver a more personalized, secure, and streamlined experience tailored to your needs and preferences. Rest assured that we prioritize your privacy and security, and any information collected is handled in accordance with our stringent privacy policies.";
+export const storeandusedeviceinformationp5 =
+  "Thank you for entrusting us with your information as we work together to create meaningful connections and foster meaningful relationships through Fusion.";
+export const strictlynecessarypermissionsmessage =
   "These essential tools are crucial for the app's operation and cannot be turned off. They enable key features like authentication and chat, ensuring smooth functionality.";
 export const personalizemarkingserviceinfo =
   "These tools are utilized to assess and enhance the efficiency of our marketing initiatives. They do not track your activity across various apps and websites.";

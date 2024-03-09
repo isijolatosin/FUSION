@@ -17,8 +17,12 @@ export default function NationalityUpdateModal({
 }) {
   const [nationality, setNationality] = useState(
     myNationalityPreference
-      ? currentUser?.preferredNationality ?? "Open to all"
+      ? currentUser?.preferredNationality
+        ? currentUser?.preferredNationality
+        : "Open to all"
       : currentUser?.nationality
+      ? currentUser?.nationality
+      : "Update..."
   );
 
   async function updateNationality() {

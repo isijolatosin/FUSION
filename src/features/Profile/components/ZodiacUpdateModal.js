@@ -11,7 +11,7 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 
 export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
-    currentUser?.zodiac
+    currentUser?.zodiac ? currentUser?.zodiac : false
   );
 
   async function updateWorkPlace() {

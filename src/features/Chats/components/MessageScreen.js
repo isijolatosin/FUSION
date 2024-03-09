@@ -306,8 +306,6 @@ export default function MessageScreen({ navigation }) {
       matchId,
       () => {}
     );
-
-    storeData("refreshChatScreen", true);
     navigation.navigate("chat");
   }
 
@@ -350,8 +348,6 @@ export default function MessageScreen({ navigation }) {
       matchId,
       () => {}
     );
-
-    storeData("refreshChatScreen", true);
     navigation.navigate("chat");
   }
 

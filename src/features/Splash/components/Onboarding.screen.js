@@ -20,7 +20,6 @@ export default function Onboarding({ navigation }) {
     async function clearMemory() {
       await clearDataByKey("match-id");
       await clearDataByKey("phonenumber");
-      await clearDataByKey("refreshChatScreen");
       await clearDataByKey("swipe-index");
     }
 

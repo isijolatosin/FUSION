@@ -15,7 +15,7 @@ const ProfileDeactivateCardComponent = ({
 }) => {
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.highlight }}>
-      <Spacer position="top" size="large">
+      <Spacer position="top" size="xxsmall">
         <HorizontalPaddingSpace space={theme.space[4]}>
           <HeaderComponent
             title="Profile Deactivated"
