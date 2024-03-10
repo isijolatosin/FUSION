@@ -69,7 +69,22 @@ const PrivacyPreference = ({
             </TouchableOpacity>
           )}
           RightComp={() => (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+              onPress={async () => {
+                const privacyPreferenceConfirmation = {
+                  phoneDataStorageAndRetrievalGrant:
+                    currentUser?.phoneDataStorageAndRetrievalGrant,
+                  allowAllServices: currentUser?.allowAllServices,
+                  enableAllMarketingTool: currentUser?.enableAllMarketingTool,
+                };
+                await updateUserValueField(
+                  "all-users",
+                  currentUser?.id,
+                  "privacyPreferenceConfirmation",
+                  privacyPreferenceConfirmation,
+                  setIsTrigger
+                );
+              }}>
               <Text
                 variant="custom"
                 colorType="base"

@@ -32,6 +32,7 @@ import EmailUpdateModal from "./EmailUpdateModal";
 import ActionNotificationModal from "../../../components/general-component/ActionNotificationModal";
 import PrivacyPreference from "./PrivacyPreference";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
+import CommunityGuidelines from "./CommunityGuidlines";
 
 export default function SettingModal({
   theme,
@@ -303,7 +304,7 @@ export default function SettingModal({
         );
       case "community guidelines":
         return (
-          <PrivacyPreference
+          <CommunityGuidelines
             theme={theme}
             title="Privacy Preference"
             setModalOpen={setModalOpen}
@@ -708,7 +709,9 @@ export default function SettingModal({
               position: "relative",
             }}
             space={theme.space[2]}>
-            <Spacer position="top" size="medium">
+            <Pressable
+              onPress={() => currentUser?.email && setOpenContactModal(true)}
+              style={{ paddingTop: theme.spaceNumber[4] }}>
               <View
                 style={{
                   flexDirection: "row",
@@ -749,7 +752,7 @@ export default function SettingModal({
                   Please verify that your email is registered with us.
                 </Text>
               </View>
-            </Spacer>
+            </Pressable>
           </HorizontalPaddingSpace>
           <HorizontalPaddingSpace
             style={{
