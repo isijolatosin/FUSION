@@ -79,15 +79,7 @@ export default function ContactModal({
                 colorType="black"
                 fontType="arimaMadurai"
                 fontSize="h3">
-                Hi, Ask away.
-              </Text>
-              <Text
-                style={{ textAlign: "center" }}
-                variant="custom"
-                colorType="black"
-                fontType="arimaMadurai"
-                fontSize="h3">
-                We are here to help.
+                Help Center
               </Text>
             </Spacer>
             <Spacer position="top" size="xxxlarge">
@@ -98,6 +90,19 @@ export default function ContactModal({
                 isNotBold={false}
                 buttonFunction={() => setSelectedHelp("general question")}
                 text="General Question"
+                fontType={theme.fonts.montserratSemibold}
+                textColor={theme.colors.brand.black}
+                width="100%"
+              />
+            </Spacer>
+            <Spacer position="top" size="small">
+              <Button
+                backgroundColor={theme.colors.brand.highlight}
+                borderRadius={`${theme.spaceNumber[8]}px`}
+                isBorder={false}
+                isNotBold={false}
+                buttonFunction={() => setSelectedHelp("report illegal content")}
+                text="Report Illegal Content"
                 fontType={theme.fonts.montserratSemibold}
                 textColor={theme.colors.brand.black}
                 width="100%"
@@ -152,14 +157,6 @@ export default function ContactModal({
                 />
               </View>
               <Spacer position="top" size="xxlarge">
-                <Text
-                  style={{ textAlign: "center" }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="arimaMadurai"
-                  fontSize="h3">
-                  Hi, Ask away.
-                </Text>
                 <Text
                   style={{ textAlign: "center" }}
                   variant="custom"
