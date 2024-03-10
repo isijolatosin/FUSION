@@ -916,62 +916,51 @@ export const personalizemarkingserviceinfo =
   "These tools are utilized to assess and enhance the efficiency of our marketing initiatives. They do not track your activity across various apps and websites.";
 export const noeventmessage =
   "Currently, there are no events to display. You can help our community grow by sharing any events happening in your community with other users.";
-export const communityguidelinetext = `<p>We're dedicated to transforming dating culture by providing a platform where individuals can confidently discover their next relationship among like-minded people who prioritize kindness and respect.</p>
+export const communityguidelinetext = `<p>
+We're committed to reshaping the landscape of friendship and dating, offering a space where individuals can authentically connect with others who share their values of kindness and respect, fostering meaningful relationships within a supportive community.</p>
 
 <p>Here are the guiding principles behind our mission:</p>
 <br>
 <h2>We believe the Fusion Team Must:</h2>
 
-<p><strong>Prioritize Safety:</strong></p>
-
-<p>Fusion users should feel secure to express themselves, connect with others, and plan dates of their choice. We prioritize the safety of our community members by addressing known threats promptly and empowering users to report any unknown threats.</p>
-
-<p><strong>Err on the Side of Caution:</strong></p>
-  
-<p> To maintain a safe dating and friendship environment, we swiftly act on reports to protect Fusion users. We welcome and consider relevant information to make informed decisions, ensuring the safety and well-being of our community.</p>
-  
-<p><strong>Check our Biases:</strong></p>
-
-<p> We regularly review and update our policies and protocols to adapt to the dynamic social environment. Our commitment remains steadfast in fostering an empathetic community where everyone feels accepted and valued.</p>
-  
-<p><strong>Not act as arbiters of truth:</strong></p>
-
-<p>While we provide information about potential matches, we refrain from making judgments on truth and falsehood. Our focus is on preventing harm and ensuring the safety of our users.</p>
-  
-<p><strong>Listen:</strong></p>
-
+<p><strong>Attentive:</strong></p>
 <p>Fusion users can expect prompt responses from our team when seeking support or sharing feedback. We strive to assist users in various capacities, including connecting them with resources and services for additional support.</p>
+
+<p><strong>Avoid Acting as Judges of Truth:</strong></p>
+<p>While we provide information about potential matches, we refrain from making judgments on truth and falsehood. Our focus is on preventing harm and ensuring the safety of our users.</p>
+
+<p><strong>Examine Our Biases:</strong></p>
+<p> We regularly review and update our policies and protocols to adapt to the dynamic social environment. Our commitment remains steadfast in fostering an empathetic community where everyone feels accepted and valued.</p>
+
+<p><strong>Exercise Caution:</strong></p>
+<p> To maintain a safe dating and friendship environment, we act on reports to protect Fusion users. We welcome and consider relevant information to make informed decisions, ensuring the safety and well-being of our community.</p>
+
+<p><strong>Make Safety a Priority:</strong></p>
+<p>Fusion users should feel secure to express themselves, connect with others, and plan dates of their choice. We prioritize the safety of our community members by addressing known threats promptly and empowering users to report any unknown threats.</p>
   
-<p><strong>Foster A Community Built on Trust & Respect:</strong></p>
-  
+<p><strong>Promote a Community Grounded in Trust & Respect:</strong></p>
 <p>We uphold the responsibility of creating a secure environment for meaningful connections. We respect users' privacy and prioritize their personal information in developing our tools and services.</p>
 
 <br>
 <h2>As part of the Fusion community, we expect members to:</h2>
 
-<p><strong>Be Open to Others</strong></p>
-  
+<p><strong>Embrace Openness to Others</strong></p>
 <p>Embracing diversity and inclusivity, we encourage users to respect differing opinions and skip or remove profiles they're not interested in. Antagonizing others for their beliefs goes against our values of empathy and kindness.</p>
 
-<p><strong>Understand Consent is Critical</strong></p>
-
-<p>Consent must be clearly and freely communicated. It can be both expressly granted and revoked, as well as implied. In Discover, Fusion members are expected not to promote physical, emotional, or psychological abuse, harm, harassment, hate, or discrimination. This includes sexual advances, comments, and imagery. Posting crude, lewd, or offensive content to your profile or initiating inappropriate conversations is not acceptable behavior.</p>
-
-<p><strong>Respect Boundaries</strong></p>
-
+<p><strong>Honor Personal Boundaries</strong></p>
 <p>Fusion users should refrain from reaching out to users outside of Fusion unless it has been communicated that it is appropriate to do so. Seeing someone on Fusion does not imply permission to interact with them through social media. If someone unmatches you on Fusion, it is important to respect their decision rather than attempting to find them on social media.</p>
 
-<p><strong>Be Honest</strong></p>
-
-<p>Fusion users are encouraged to provide authentic information in their profiles. While surnames are optional, providing false names or dates of birth, maintaining duplicate accounts, or creating an account if you are under 18 is not permitted. Deceiving others about your age or using misleading or outdated photos is contrary to our values of honesty and authenticity, and unfair to the Fusion community.</p>
-
-<p><strong>Put in Effort</strong></p>
-
+<p><strong>Invest Effort</strong></p>
 <p>Fusion users who invest effort into their dating life are more likely to find meaningful connections. Authentic representation of oneself, including quirks and personality traits, is encouraged. While it's understandable that not everyone loves every photo of themselves, profiles consisting mainly of memes or gibberish prompts make it difficult for others to get to know you. Your matches want to see the real you.</p>
 
-<p><strong>Seek Meaningful Relationships</strong></p>
+<p><strong>Practice Honesty</strong></p>
+<p>Fusion users are encouraged to provide authentic information in their profiles. While surnames are optional, providing false names or dates of birth, maintaining duplicate accounts, or creating an account if you are under 18 is not permitted. Deceiving others about your age or using misleading or outdated photos is contrary to our values of honesty and authenticity, and unfair to the Fusion community.</p>
 
+<p><strong>Pursue Meaningful Relationships</strong></p>
 <p>Fusion users are seeking meaningful connections rather than mere reactions. It's important to be mindful of how you share information about yourself and inquire about others. Meaningful connections are built on authenticity, transparency, and respect. Fusion welcomes users who represent themselves authentically, communicate their intentions transparently, and treat others respectfully.</p>
+
+<p><strong>Recognize the Importance of Consent</strong></p>
+<p>Consent must be clearly and freely communicated. It can be both expressly granted and revoked, as well as implied. In Discover, Fusion members are expected not to promote physical, emotional, or psychological abuse, harm, harassment, hate, or discrimination. This includes sexual advances, comments, and imagery. Posting crude, lewd, or offensive content to your profile or initiating inappropriate conversations is not acceptable behavior.</p>
 
 <p>If you have further questions, please feel free to Contact us via <strong><i style="color: #6F0606;">Contact us in Help Center</i></strong>.</p>
 `;
