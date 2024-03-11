@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Dimensions, Pressable, ScrollView, Switch, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RangeSlider from "react-native-range-slider-expo";
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { CheckBox } from "react-native-elements";
 
 import { Text } from "../../../../components/typography/text.component";
@@ -15,6 +15,7 @@ import AnimatedModal from "../../../../components/general-component/AnimatedModa
 import UpdateModal from "../../../Profile/components/UpdateModal";
 import ReligionUpdateModal from "../../../Profile/components/ReligionUpdateModal";
 import HeightUpdateModal from "../../../Profile/components/HeightUpdateModal";
+import HeaderComponent from "../../../../components/general-component/HeaderComponent";
 
 function RangeCompoent({
   theme,
@@ -39,9 +40,9 @@ function RangeCompoent({
       style={{
         borderBottomColor: theme.colors.brand.linesLighter,
         borderBottomWidth: 0.3,
-        paddingBottom: theme.spaceNumber[3],
-        marginBottom: theme.spaceNumber[6],
-        paddingHorizontal: theme.spaceNumberBy10[2],
+        paddingBottom: theme.spaceNumber[5],
+        marginBottom: theme.spaceNumber[0],
+        paddingHorizontal: theme.spaceNumber[4],
       }}>
       <RangeCompoentSection>
         <View>
@@ -63,21 +64,24 @@ function RangeCompoent({
           </Text>
         </View>
       </RangeCompoentSection>
-      <RangeCompoentSection>
-        {/* {Platform.OS === "ios" ? ( */}
-        <Slider
-          style={{ width: "100%", margin: 0 }}
-          minimumValue={initialValue}
-          maximumValue={100}
-          step={1}
-          value={selectedValue}
-          minimumTrackTintColor={theme.colors.brand.base}
-          maximumTrackTintColor={theme.colors.brand.highlight}
-          thumbTintColor={theme.colors.brand.base}
-          onValueChange={handleValueChange}
-          onSlidingStart={() => setSuggest(false)}
-        />
-        {/* ) : (
+      <View
+        style={{
+          paddingRight: theme.spaceNumberBy10[4] + theme.spaceNumber[1],
+        }}>
+        <RangeCompoentSection>
+          <Slider
+            style={{ width: "100%", margin: 0 }}
+            minimumValue={initialValue}
+            maximumValue={200}
+            step={1}
+            value={selectedValue}
+            minimumTrackTintColor={theme.colors.brand.base}
+            maximumTrackTintColor={theme.colors.brand.highlight}
+            thumbTintColor={theme.colors.brand.base}
+            onValueChange={handleValueChange}
+            onSlidingStart={() => setSuggest(false)}
+          />
+          {/* ) : (
           <ExpoSlider
             min={0}
             max={100}
@@ -99,7 +103,8 @@ function RangeCompoent({
             }}
           />
         )} */}
-      </RangeCompoentSection>
+        </RangeCompoentSection>
+      </View>
       <RangeCompoentSection>
         <View>
           <Text
@@ -153,9 +158,9 @@ function DoubleRangeCompoent({
       style={{
         borderBottomColor: theme.colors.brand.linesLighter,
         borderBottomWidth: 0.3,
-        paddingBottom: theme.spaceNumber[3],
+        paddingVertical: theme.spaceNumber[5],
         marginBottom: theme.spaceNumber[0],
-        paddingHorizontal: theme.spaceNumberBy10[2],
+        paddingHorizontal: theme.spaceNumber[4],
       }}>
       <RangeCompoentSection>
         <View>
@@ -177,39 +182,46 @@ function DoubleRangeCompoent({
           </Text>
         </View>
       </RangeCompoentSection>
-      <RangeCompoentSection>
-        <RangeSlider
-          min={18}
-          max={100}
-          step={1}
-          styleSize="small"
-          barHeight={4}
-          fromKnobColor={theme.colors.brand.base}
-          toKnobColor={theme.colors.brand.base}
-          inRangeBarColor={theme.colors.brand.base}
-          outOfRangeBarColor={theme.colors.brand.highlight}
-          showRangeLabels={false}
-          showValueLabels={false}
-          fromValueOnChange={(value) => {
-            setSuggest(false);
-            setFromAgeValue(value);
-          }}
-          toValueOnChange={(value) => {
-            setSuggest(false);
-            setToAgeValue(value);
-          }}
-          initialFromValue={
-            currentUser?.agePreference?.fromAgeValue ?? fromAgeValue
-          }
-          initialToValue={currentUser?.agePreference?.toAgeValue ?? toAgeValue}
-          containerStyle={{
-            padding: 0,
-            height: theme.spaceNumberBy10[3],
-            width: "97%",
-            marginLeft: 8,
-          }}
-        />
-      </RangeCompoentSection>
+      <View
+        style={{
+          paddingRight: theme.spaceNumberBy10[4] + theme.spaceNumber[1],
+        }}>
+        <RangeCompoentSection>
+          <RangeSlider
+            min={18}
+            max={70}
+            step={1}
+            styleSize="small"
+            barHeight={4}
+            fromKnobColor={theme.colors.brand.base}
+            toKnobColor={theme.colors.brand.base}
+            inRangeBarColor={theme.colors.brand.base}
+            outOfRangeBarColor={theme.colors.brand.highlight}
+            showRangeLabels={false}
+            showValueLabels={false}
+            fromValueOnChange={(value) => {
+              setSuggest(false);
+              setFromAgeValue(value);
+            }}
+            toValueOnChange={(value) => {
+              setSuggest(false);
+              setToAgeValue(value);
+            }}
+            initialFromValue={
+              currentUser?.agePreference?.fromAgeValue ?? fromAgeValue
+            }
+            initialToValue={
+              currentUser?.agePreference?.toAgeValue ?? toAgeValue
+            }
+            containerStyle={{
+              padding: 0,
+              height: theme.spaceNumberBy10[3],
+              width: "97%",
+              marginLeft: 8,
+            }}
+          />
+        </RangeCompoentSection>
+      </View>
       <RangeCompoentSection>
         <View>
           <Text
@@ -285,7 +297,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
         marginBottom: theme.spaceNumberBy10[0],
         paddingHorizontal: theme.spaceNumberBy10[2],
       }}
-      space={theme.space[5]}>
+      space={theme.space[2]}>
       <Spacer position="top" size="xsmall">
         <View>
           <Text
@@ -354,7 +366,7 @@ function SubscriberPreferencesComponent({
   return (
     <Fragment>
       {subscriberPreference?.map((preference, idx) => (
-        <HorizontalPaddingSpace space={theme.space[5]} key={idx}>
+        <HorizontalPaddingSpace space={theme.space[2]} key={idx}>
           <Pressable
             onPress={() =>
               setOpenUpdateModal({
@@ -391,7 +403,7 @@ function SubscriberPreferencesComponent({
             </View>
             <View
               style={{
-                marginRight: -theme.spaceNumber[2],
+                marginRight: theme.spaceNumber[2],
               }}>
               <IconComponent
                 iconFunction={() => {}}
@@ -506,7 +518,7 @@ export default function FilterComponent({
     <AnimatedModal
       isAlignItems={true}
       paddingBottom={theme.spaceNumberBy10[5]}
-      isPaddingTop={true}
+      isPaddingTop={false}
       isVisible={isVisible}
       onClose={() => {
         onClose();
@@ -514,138 +526,127 @@ export default function FilterComponent({
       theme={theme}
       width={width}
       isTransparent={true}>
-      <View
-        style={{
-          position: "absolute",
-          zIndex: theme.spaceNumberBy10[0],
-          right: theme.spaceNumberBy10[2],
-          top: theme.spaceNumberBy50[1],
-        }}>
-        <IconComponent
-          iconFunction={() => {
-            onClose();
-          }}
-          iconName="close"
-          IconComponent={AntDesign}
-          size={25}
-          color={theme.colors.brand.black}
-        />
-      </View>
-      <Text
-        style={{
-          textAlign: "center",
-          paddingBottom: theme.spaceNumber[5],
-          marginTop: -theme.spaceNumberBy50[0],
-        }}
-        variant="custom"
-        colorType="black"
-        fontType="montserratBold"
-        fontSize="h5">
-        Preference Settings
-      </Text>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{ paddingTop: 0, width: "100%" }}>
-        <Spacer position="top" size="large">
-          <Spacer
-            position="top"
-            size="xsmall"
-            style={{
-              backgroundColor: theme.colors.brand.linesFaint,
-              paddingVertical: theme.spaceNumber[3],
-              marginBottom: theme.spaceNumber[5],
-            }}>
-            <HorizontalPaddingSpace space={theme.space[5]}>
-              <View>
-                <Text
-                  variant="custom"
-                  colorType="linesLight"
-                  fontType="montserratSemibold"
-                  fontSize="button">
-                  Member Preferences
-                </Text>
-              </View>
-            </HorizontalPaddingSpace>
-          </Spacer>
-          <RangeCompoent
-            theme={theme}
-            text="Maximum Distance"
-            description="Only suggest people within this range"
-            type="distance"
-            selectedValue={
-              distanceValue
-                ? distanceValue
-                : currentUser?.distancePreference?.value
-            }
-            setSelectedValue={setDistanceValue}
-            initialValue={0}
-            suggest={suggestDistanceWithRange}
-            setSuggest={setSuggestDistanceWithRange}
-            triggerDistanceFilter={triggerDistanceFilter}
-            setIsRetrigger={setIsRetrigger}
-          />
-          <DoubleRangeCompoent
-            theme={theme}
-            text="Age Range"
-            description="Only suggest people within this age"
-            setFromAgeValue={setFromAgeValue}
-            setToAgeValue={setToAgeValue}
-            fromAgeValue={fromAgeValue}
-            toAgeValue={toAgeValue}
-            suggest={suggestAgeWithRange}
-            setSuggest={setSuggestAgeWithRange}
-            triggerAgeFilter={triggerAgeFilter}
-            setIsRetrigger={setIsRetrigger}
-            currentUser={currentUser}
-          />
-          <Spacer position="top" size="small">
-            <InterestFilterComponent
-              theme={theme}
-              currentUser={currentUser}
-              setIsRetrigger={setIsRetrigger}
+      <View style={{ marginTop: theme.spaceNumberBy50[0] }}>
+        <HeaderComponent
+          title="Preference Settings"
+          textWidth="90%"
+          theme={theme}
+          LeftComp={() => (
+            <IconComponent
+              iconFunction={() => {
+                onClose();
+              }}
+              iconName="keyboard-arrow-left"
+              IconComponent={MaterialIcons}
+              size={35}
+              color={theme.colors.brand.brandFade}
             />
-          </Spacer>
-          <Spacer position="top" size="xxxlarge">
-            <Spacer
-              position="top"
-              size="xsmall"
+          )}
+          RightComp={() => {}}
+          isBorder={true}
+        />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ paddingTop: 0, width: "100%" }}>
+          <View>
+            <View
               style={{
                 backgroundColor: theme.colors.brand.linesFaint,
                 paddingVertical: theme.spaceNumber[3],
                 marginBottom: theme.spaceNumber[5],
               }}>
-              <HorizontalPaddingSpace space={theme.space[5]}>
+              <HorizontalPaddingSpace space={theme.space[2]}>
                 <View>
                   <Text
                     variant="custom"
                     colorType="linesLight"
                     fontType="montserratSemibold"
                     fontSize="button">
-                    Subscriber Preferences
+                    Member Preferences
                   </Text>
                 </View>
               </HorizontalPaddingSpace>
-            </Spacer>
-            <SubscriberPreferencesComponent
+            </View>
+            <RangeCompoent
               theme={theme}
-              currentUser={currentUser}
-              setOpenUpdateModal={setOpenUpdateModal}
+              text="Maximum Distance"
+              description="Only suggest people within this range"
+              type="distance"
+              selectedValue={
+                distanceValue
+                  ? distanceValue
+                  : currentUser?.distancePreference?.value
+              }
+              setSelectedValue={setDistanceValue}
+              initialValue={0}
+              suggest={suggestDistanceWithRange}
+              setSuggest={setSuggestDistanceWithRange}
+              triggerDistanceFilter={triggerDistanceFilter}
+              setIsRetrigger={setIsRetrigger}
             />
-          </Spacer>
-        </Spacer>
-      </ScrollView>
-      <AnimatedModal
-        isVisible={openUpdateModal.isOpen}
-        onClose={() => {
-          setOpenUpdateModal({ type: "", isOpen: false });
-        }}
-        theme={theme}
-        width={width}
-        isTransparent={false}>
-        <UpdateModal height={height} theme={theme}>
-          {sortRender()}
-        </UpdateModal>
-      </AnimatedModal>
+            <DoubleRangeCompoent
+              theme={theme}
+              text="Age Range"
+              description="Only suggest people within this age"
+              setFromAgeValue={setFromAgeValue}
+              setToAgeValue={setToAgeValue}
+              fromAgeValue={fromAgeValue}
+              toAgeValue={toAgeValue}
+              suggest={suggestAgeWithRange}
+              setSuggest={setSuggestAgeWithRange}
+              triggerAgeFilter={triggerAgeFilter}
+              setIsRetrigger={setIsRetrigger}
+              currentUser={currentUser}
+            />
+            <Spacer position="top" size="small">
+              <InterestFilterComponent
+                theme={theme}
+                currentUser={currentUser}
+                setIsRetrigger={setIsRetrigger}
+              />
+            </Spacer>
+            <Spacer position="top" size="xxxlarge">
+              <Spacer
+                position="top"
+                size="xsmall"
+                style={{
+                  backgroundColor: theme.colors.brand.linesFaint,
+                  paddingVertical: theme.spaceNumber[3],
+                  marginBottom: theme.spaceNumber[5],
+                }}>
+                <HorizontalPaddingSpace space={theme.space[2]}>
+                  <View>
+                    <Text
+                      variant="custom"
+                      colorType="linesLight"
+                      fontType="montserratSemibold"
+                      fontSize="button">
+                      Subscriber Preferences
+                    </Text>
+                  </View>
+                </HorizontalPaddingSpace>
+              </Spacer>
+              <SubscriberPreferencesComponent
+                theme={theme}
+                currentUser={currentUser}
+                setOpenUpdateModal={setOpenUpdateModal}
+              />
+            </Spacer>
+          </View>
+        </ScrollView>
+        <AnimatedModal
+          isVisible={openUpdateModal.isOpen}
+          onClose={() => {
+            setOpenUpdateModal({ type: "", isOpen: false });
+          }}
+          theme={theme}
+          width={width}
+          isTransparent={false}>
+          <UpdateModal height={height} theme={theme}>
+            {sortRender()}
+          </UpdateModal>
+        </AnimatedModal>
+      </View>
     </AnimatedModal>
   );
 }

@@ -12,8 +12,9 @@ import IconComponent from "../icon-components/IconComponent";
 const ActionNotificationModal = ({
   title,
   buttonText,
-  height,
   message,
+  confirmation,
+  confirmationText,
   theme,
   functionCall,
   onClose,
@@ -58,18 +59,35 @@ const ActionNotificationModal = ({
           fontType="montserratRegular"
           fontSize="caption">
           {message}
+          {confirmation && (
+            <>
+              {"\n"}
+              {"\n"}
+              {"\n"}
+              <Text
+                style={{ textAlign: "center" }}
+                variant="custom"
+                colorType="base"
+                fontType="montserratBold"
+                fontSize="caption">
+                {confirmationText}
+              </Text>
+            </>
+          )}
         </Text>
-        <Button
-          buttonFunction={() => {
-            functionCall();
-          }}
-          backgroundColor={theme.colors.brand.base}
-          borderRadius={theme.space[5]}
-          text={buttonText}
-          textColor={theme.colors.brand.basewhite}
-          fontType={theme.fonts.montserratRegular}
-          width="60%"
-        />
+        {!confirmation && (
+          <Button
+            buttonFunction={() => {
+              functionCall();
+            }}
+            backgroundColor={theme.colors.brand.base}
+            borderRadius={theme.space[5]}
+            text={buttonText}
+            textColor={theme.colors.brand.highlight}
+            fontType={theme.fonts.montserratRegular}
+            width="60%"
+          />
+        )}
         <View
           style={{
             position: "abslute",

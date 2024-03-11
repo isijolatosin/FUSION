@@ -15,7 +15,7 @@ export default function MessagesListItem({
   flag,
 }) {
   return (
-    <HorizontalPaddingSpace space={theme.space[3]}>
+    <HorizontalPaddingSpace space={theme.space[2]}>
       <View
         style={{
           position: "relative",

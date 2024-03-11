@@ -13,8 +13,8 @@ export default function UpdateModal({ height, theme, children }) {
           position: "relative",
           height: height,
         }}
-        space={theme.space[5]}>
-        <Spacer position="top" size="xxxxlarge">
+        space={theme.space[2]}>
+        <Spacer position="top" size="xxxlarge">
           <Spacer position="top" size="xxlarge">
             {children}
           </Spacer>

@@ -1,4 +1,4 @@
-import { Text, View, Pressable, ImageBackground } from "react-native";
+import { Text, View, ImageBackground, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 const OnboardingSreencContainer = styled(ImageBackground)`
@@ -40,7 +40,7 @@ const LogoText = styled(Text)`
   color: ${(props) => props.theme.colors.brand.basewhite};
 `;
 
-const ButtonWrapper = styled(Pressable)`
+const ButtonWrapper = styled(TouchableOpacity)`
   background-color: ${(props) => props.backgroundColor};
   width: ${(props) => (props.width ? props.width : "100%")};
   padding-top: ${(props) => `${props.theme.spaceNumber[9]}px`};

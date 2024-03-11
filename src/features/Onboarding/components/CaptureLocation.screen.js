@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, Keyboard, Pressable, View } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Dimensions, Image, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -10,7 +9,11 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import Button from "../../../components/utility/button.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
-import { locationCaptureInstruction } from "../../../constants";
+import {
+  locationBackgroundImage,
+  locationCaptureInstruction,
+  locationCaptureInstruction2,
+} from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import getUserLocation from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
@@ -58,32 +61,39 @@ export default function CaptureLocation({ navigation }) {
     <SafeArea
       style={{
         height: height,
-        justifyContent: "center",
+        justifyContent: "flex-start",
       }}>
-      <Pressable onPress={Keyboard.dismiss}>
-        <HorizontalPaddingSpace space={theme.space[6]}>
-          <Spacer position="top" size="xxxxlarge">
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="map-marked-alt"
-              IconComponent={FontAwesome5}
-              // iconName="location-pin"
-              // IconComponent={Entypo}
-              size={70}
-              color={theme.colors.brand.base}
-              centralize={true}
-            />
-          </Spacer>
-          <Spacer position="top" size="xxxxlarge">
+      <View>
+        <Image
+          source={{
+            uri: `${locationBackgroundImage}`,
+          }}
+          style={{
+            width: "100%",
+            height: theme.spaceNumberBy50[4],
+          }}
+        />
+        <HorizontalPaddingSpace space={theme.space[2]}>
+          <View>
             <Text
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
-              Enable your location services
+              Enable your
             </Text>
-          </Spacer>
+            <View style={{ marginTop: -theme.spaceNumber[5] }}>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="arimaMadurai"
+                fontSize="h3"
+                width="100%">
+                Location Services
+              </Text>
+            </View>
+          </View>
           <Spacer position="top" size="medium">
             <Text
               variant="custom"
@@ -92,6 +102,9 @@ export default function CaptureLocation({ navigation }) {
               fontSize="caption"
               width="100%">
               {locationCaptureInstruction}
+              {"\n"}
+              {"\n"}
+              {locationCaptureInstruction2}
             </Text>
           </Spacer>
 
@@ -100,27 +113,29 @@ export default function CaptureLocation({ navigation }) {
             text="Location Access Denied! Please allow Your-Fusion to access your location"
             size="caption"
           />
-
           <View
             style={{
-              height: "45%",
+              // height: "45%",
+              marginTop: theme.spaceNumberBy10[3],
               justifyContent: "flex-end",
             }}>
             {isLoading ? (
               <Spinner size="large" color={theme.colors.brand.base} />
             ) : (
-              <Button
-                fontType={theme.fonts.montserratBold}
-                backgroundColor={theme.colors.brand.base}
-                buttonFunction={() => {
-                  // if (!user.longitude && !user.latitude) return;
-                  // if (responseMessage.code === "failed") return;
-                  setLoading(true);
-                  handleLocationCapture();
-                }}
-                text="Enable Location"
-                textColor={theme.colors.brand.basewhite}
-              />
+              <HorizontalPaddingSpace space={theme.space[6]}>
+                <Button
+                  fontType={theme.fonts.montserratBold}
+                  backgroundColor={theme.colors.brand.base}
+                  buttonFunction={() => {
+                    // if (!user.longitude && !user.latitude) return;
+                    // if (responseMessage.code === "failed") return;
+                    setLoading(true);
+                    handleLocationCapture();
+                  }}
+                  text="Enable Location"
+                  textColor={theme.colors.brand.basewhite}
+                />
+              </HorizontalPaddingSpace>
             )}
           </View>
           {/* {isLoading && (
@@ -173,7 +188,7 @@ export default function CaptureLocation({ navigation }) {
             </PopupModal>
           )} */}
         </HorizontalPaddingSpace>
-      </Pressable>
+      </View>
     </SafeArea>
   );
 }

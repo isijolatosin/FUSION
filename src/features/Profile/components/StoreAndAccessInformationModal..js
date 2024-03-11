@@ -29,7 +29,6 @@ const StoreAndAccessInformationModal = ({
     <SafeArea style={{ width: "100%" }}>
       <HeaderComponent
         title={title}
-        textWidth="93%"
         hideLogo={true}
         theme={theme}
         isBorder={true}

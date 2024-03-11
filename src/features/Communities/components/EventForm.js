@@ -67,7 +67,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
     <SafeArea style={{ width: "100%" }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}>
-        <HorizontalPaddingSpace space={theme.space[3]}>
+        <HorizontalPaddingSpace space={theme.space[2]}>
           <Spacer
             position="bottom"
             size="large"
@@ -290,7 +290,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
             paddingBottom: theme.spaceNumber[7],
             marginTop: theme.spaceNumberBy10[2],
           }}>
-          <HorizontalPaddingSpace space={theme.space[3]}>
+          <HorizontalPaddingSpace space={theme.space[2]}>
             <Text
               variant="custom"
               colorType={
