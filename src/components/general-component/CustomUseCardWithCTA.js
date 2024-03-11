@@ -40,7 +40,7 @@ export default function CustomUseCardWithCTA({
       <View style={{ flex: 1, marginTop: theme.spaceNumberBy10[5] }}>
         <HorizontalPaddingSpace
           style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}
-          space={theme.space[5]}>
+          space={theme.space[2]}>
           <Text
             style={{ textAlign: "center" }}
             variant="custom"
@@ -62,7 +62,7 @@ export default function CustomUseCardWithCTA({
         <Spacer position="top" size="small">
           <HorizontalPaddingSpace
             style={{ alignItems: "center" }}
-            space={theme.space[5]}>
+            space={theme.space[2]}>
             {showSecondButton && (
               <Button
                 backgroundColor={theme.colors.brand.basewhite}

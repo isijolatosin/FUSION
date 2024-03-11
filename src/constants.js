@@ -28,7 +28,9 @@ export const oboardingSummaryText =
 export const nameCaptureInstruction =
   "Your last name would not be displaced on your profile and no changes can be made to your names.";
 export const locationCaptureInstruction =
-  "This helps us find the perfect match for you. Your location must be enable to use the app.";
+  "To enhance your experience and help you find the perfect connection, we recommend enabling access to your location settings. By allowing us to access your location, we can better match you with individuals who are nearby and share similar interests.";
+export const locationCaptureInstruction2 =
+  "You can easily turn on your location settings at this stage. Rest assured, you have full control, and you can disable it at any time if you prefer.";
 export const phonenumberCaptionInstruction =
   "Please note that your phone number is linked to your account for security and communication purposes. If you change your phone number, you would need to create a new account.";
 export const youarespecialmessage =

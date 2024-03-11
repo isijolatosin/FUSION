@@ -408,7 +408,7 @@ const ChatsScreen = () => {
         size="xxxlarge">
         {checkIfMessagingHasStarted() && (
           <Spacer position="bottom" size="large">
-            <HorizontalPaddingSpace space={theme.space[3]}>
+            <HorizontalPaddingSpace space={theme.space[2]}>
               <Text
                 variant="custom"
                 colorType="black"
@@ -418,7 +418,7 @@ const ChatsScreen = () => {
                 New Matches
               </Text>
             </HorizontalPaddingSpace>
-            <HorizontalPaddingSpace space={theme.space[3]}>
+            <HorizontalPaddingSpace space={theme.space[2]}>
               <ScrollView
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
@@ -473,7 +473,7 @@ const ChatsScreen = () => {
         {checkIfMatchMessageListsAreEmpty() && (
           <Fragment>
             <Spacer position="bottom" size="small">
-              <HorizontalPaddingSpace space={theme.space[3]}>
+              <HorizontalPaddingSpace space={theme.space[2]}>
                 <Text
                   variant="custom"
                   colorType="black"
@@ -553,7 +553,7 @@ const ChatsScreen = () => {
         {checkIfFriendshipMessageListsAreEmpty() && (
           <Fragment>
             <Spacer position="bottom" size="small">
-              <HorizontalPaddingSpace space={theme.space[3]}>
+              <HorizontalPaddingSpace space={theme.space[2]}>
                 <Text
                   variant="custom"
                   colorType="black"

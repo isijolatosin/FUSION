@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
-import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import { Image, ScrollView, View } from "react-native";
+import { CheckBox } from "react-native-elements";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import IconComponent from "../../../components/icon-components/IconComponent";
-import { locationCaptureInstruction } from "../../../constants";
+import {
+  locationBackgroundImage,
+  locationCaptureInstruction,
+  locationCaptureInstruction2,
+} from "../../../constants";
 import Button from "../../../components/utility/button.component";
 import getUserLocation from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
@@ -21,12 +26,15 @@ export default function LocationUpdateModal({
   onClose,
 }) {
   const [isLoading, setLoading] = useState(false);
+  const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
+    currentUser?.locationVisibility ? currentUser?.locationVisibility : false
+  );
   const [responseMessage, setResponseMessage] = useState({
     message: "",
     code: "",
   });
 
-  async function updateReligious(
+  async function updateLocation(
     latitude,
     longitude,
     location,
@@ -70,6 +78,13 @@ export default function LocationUpdateModal({
       address,
       () => {}
     );
+    await updateUserValueField(
+      "all-users",
+      currentUser?.id,
+      "locationVisibility",
+      isVisibleOnProfile,
+      () => {}
+    );
 
     const loadingTimeout = setTimeout(() => {
       setLoading(false);
@@ -91,7 +106,7 @@ export default function LocationUpdateModal({
     const longitude = userLocation.longitude;
     const latitude = userLocation.latitude;
 
-    updateReligious(latitude, longitude, location, country, address);
+    updateLocation(latitude, longitude, location, country, address);
   };
 
   return (
@@ -120,28 +135,35 @@ export default function LocationUpdateModal({
           Location
         </Text>
       </View>
+      <Image
+        source={{
+          uri: `${locationBackgroundImage}`,
+        }}
+        style={{
+          width: "100%",
+          height: theme.spaceNumberBy50[1],
+        }}
+      />
       <ScrollView>
-        <HorizontalPaddingSpace space={theme.space[3]}>
-          <Spacer position="top" size="xlarge">
-            <IconComponent
-              iconFunction={() => {}}
-              iconName="map-marked-alt"
-              IconComponent={FontAwesome5}
-              size={70}
-              color={theme.colors.brand.base}
-              centralize={true}
-            />
-          </Spacer>
-          <Spacer position="top" size="xxlarge">
+        <HorizontalPaddingSpace space={theme.space[2]}>
+          <Text
+            variant="custom"
+            colorType="black"
+            fontType="arimaMadurai"
+            fontSize="h3"
+            width="100%">
+            Reset your
+          </Text>
+          <View style={{ marginTop: -theme.spaceNumber[5] }}>
             <Text
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
-              Reset your location services
+              Location Services
             </Text>
-          </Spacer>
+          </View>
           <Spacer position="top" size="medium">
             <Text
               variant="custom"
@@ -150,6 +172,9 @@ export default function LocationUpdateModal({
               fontSize="caption"
               width="100%">
               {locationCaptureInstruction}
+              {"\n"}
+              {"\n"}
+              {locationCaptureInstruction2}
             </Text>
           </Spacer>
           <OnboardingErrorComponent
@@ -157,9 +182,30 @@ export default function LocationUpdateModal({
             text="Location Access Denied! Please allow Your-Fusion to access your location"
             size="caption"
           />
+          <Spacer position="top" size="xxlarge">
+            <CheckBox
+              title="Visible on your profile"
+              checked={isVisibleOnProfile}
+              onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
+              checkedColor={theme.colors.brand.base}
+              uncheckedColor={theme.colors.brand.brandFade}
+              titleProps={{
+                style: {
+                  fontWeight: "thin",
+                  fontFamily: theme.fonts.montserratRegular,
+                },
+              }}
+              wrapperStyle={{
+                margin: -20,
+              }}
+              containerStyle={{
+                backgroundColor: theme.colors.brand.basewhite,
+                borderColor: theme.colors.brand.basewhite,
+              }}
+            />
+          </Spacer>
           <View
             style={{
-              height: "50%",
               justifyContent: "flex-end",
             }}>
             {isLoading ? (
@@ -174,6 +220,7 @@ export default function LocationUpdateModal({
                 }}
                 text="Reset Location"
                 textColor={theme.colors.brand.basewhite}
+                width="80%"
               />
             )}
           </View>

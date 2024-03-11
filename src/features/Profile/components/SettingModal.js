@@ -49,6 +49,9 @@ export default function SettingModal({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [openEmailUpdateModal, setOpenEmailUpdateModal] = useState(false);
   const [messageSentNote, setMessageSentNote] = useState(false);
+  const [pauseConfirmation, setPauseConfirmation] = useState(false);
+  const [deactivateConfirmation, setDeactivateConfirmation] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedHelp, setSelectedHelp] = useState("");
   const [selectedHelpValue, setSelectedHelpValue] = useState("");
   const userId = currentUser?.id;
@@ -276,7 +279,11 @@ export default function SettingModal({
           </View>
           <TouchableOpacity
             onPress={compFunction}
-            style={{ flex: 0.2, alignItems: "flex-end" }}>
+            style={{
+              flex: 0.2,
+              alignItems: "flex-end",
+              marginRight: theme.spaceNumber[5],
+            }}>
             <IconComponent
               iconFunction={compFunction}
               iconName="chevron-right"
@@ -728,7 +735,11 @@ export default function SettingModal({
                   </Text>
                 </View>
                 <TouchableOpacity
-                  style={{ flex: 0.2, alignItems: "flex-end" }}
+                  style={{
+                    flex: 0.2,
+                    alignItems: "flex-end",
+                    marginRight: theme.spaceNumber[5],
+                  }}
                   onPress={() =>
                     currentUser?.email && setOpenContactModal(true)
                   }>
@@ -884,7 +895,8 @@ export default function SettingModal({
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Pause Account"
-          height="100%"
+          confirmation={pauseConfirmation}
+          confirmationText="YOUR ACCOUNT HAS BEEN PAUSED"
           message={pauseaccounttext}
           theme={theme}
           functionCall={async () => {
@@ -895,13 +907,12 @@ export default function SettingModal({
               showPauseModal,
               setIsTrigger
             );
-            const pauseTimeoutID = setTimeout(() => {
-              setShowPauseModal(false);
-            }, 50);
-
-            return () => clearTimeout(pauseTimeoutID);
+            setPauseConfirmation(true);
           }}
-          onClose={() => setShowPauseModal(false)}
+          onClose={() => {
+            setPauseConfirmation(false);
+            setShowPauseModal(false);
+          }}
           horizontalSpace={theme.space[2]}
         />
       </AnimatedModal>
@@ -916,7 +927,8 @@ export default function SettingModal({
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Deactivate Account"
-          height="100%"
+          confirmation={deactivateConfirmation}
+          confirmationText="YOUR ACCOUNT HAS BEEN DEACTIVATED"
           message={deactivateaccounttext}
           theme={theme}
           functionCall={async () => {
@@ -927,13 +939,12 @@ export default function SettingModal({
               showDeactivateModal,
               setIsTrigger
             );
-            const deativateTimeoutID = setTimeout(() => {
-              setShowDeactivateModal(false);
-            }, 50);
-
-            return () => clearTimeout(deativateTimeoutID);
+            setDeactivateConfirmation(true);
           }}
-          onClose={() => setShowDeactivateModal(false)}
+          onClose={() => {
+            setDeactivateConfirmation(false);
+            setShowDeactivateModal(false);
+          }}
           horizontalSpace={theme.space[2]}
         />
       </AnimatedModal>
@@ -948,13 +959,18 @@ export default function SettingModal({
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Delete Account"
-          height="100%"
+          confirmation={deleteConfirmation}
+          confirmationText="YOUR ACCOUNT HAS BEEN DELETED"
           message={deleteaccountconfirmationtext}
           theme={theme}
           functionCall={() => {
             handleDeleteUserProfile(showDeleteModal);
+            setDeleteConfirmation(true);
           }}
-          onClose={() => setShowDeleteModal(false)}
+          onClose={() => {
+            setDeleteConfirmation(false);
+            setShowDeleteModal(false);
+          }}
           horizontalSpace={theme.space[2]}
         />
       </AnimatedModal>

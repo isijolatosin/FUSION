@@ -357,7 +357,7 @@ export default function MessageScreen({ navigation }) {
         style={{
           marginTop: Platform.OS !== "ios" ? 60 : 80,
         }}
-        space={theme.space[3]}>
+        space={theme.space[2]}>
         <NavigationBar>
           <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
             <IconComponent

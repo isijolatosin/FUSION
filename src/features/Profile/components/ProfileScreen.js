@@ -974,6 +974,7 @@ export default function ProfileScreen() {
             />
             <Spacer position="top" size="xsmall">
               <Text
+                style={{ textAlign: "center" }}
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
