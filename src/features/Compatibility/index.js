@@ -209,7 +209,7 @@ export default function Index() {
     const usersWithSimilarInterestsId = setTimeout(() => {
       setIsLoading(false);
       setUsersWithSimilarInterestsData(usersWithSimilarInterests);
-    }, 100);
+    }, 3000);
 
     return () => clearTimeout(usersWithSimilarInterestsId);
   }
@@ -257,7 +257,7 @@ export default function Index() {
   if (isLoading) {
     return (
       <ScreenWrapper theme={theme} width={width}>
-        <Loading text="Loading..." />
+        <Loading theme={theme} width={width} />
       </ScreenWrapper>
     );
   }

@@ -10,7 +10,6 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-import { splashImage } from "../../../constants";
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
 import CreateAccount from "../../Onboarding/components/CreateAccount.screen";
@@ -41,7 +40,6 @@ import ChatsScreen from "../../Chats/screen";
 import CaptureSexualOrientation from "../../Onboarding/components/CaptureSexualOrientation.screen";
 import { theme } from "../../../infrastructure/theme";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import { OnboardingSreencContainer } from "../components/splash.styles";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 import MessageScreen from "../../Chats/components/MessageScreen";
 import SupportScreen from "../../Support";
@@ -171,7 +169,7 @@ const FadeOutComponent = ({ navigation }) => {
     return () => clearTimeout(timeOutID);
   }, []);
 
-  return <Splash />;
+  return <Splash theme={theme} />;
 };
 const FadeInComponent = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -185,7 +183,7 @@ const FadeInComponent = ({ navigation }) => {
         useNativeDriver: true,
       }),
       Animated.timing(offsetAnim, {
-        toValue: 200, // Offset value in pixels
+        toValue: 50, // Offset value in pixels
         duration: 1000,
         useNativeDriver: true,
       }),
@@ -204,13 +202,7 @@ const FadeInComponent = ({ navigation }) => {
 };
 
 const OnboardingScreen = ({ navigation }) => {
-  const image = { uri: `${splashImage}` };
-
-  return (
-    <OnboardingSreencContainer source={image}>
-      <FadeInComponent navigation={navigation} />
-    </OnboardingSreencContainer>
-  );
+  return <FadeInComponent navigation={navigation} />;
 };
 
 export default function index() {
@@ -226,7 +218,13 @@ export default function index() {
           headerShown: false,
         }}>
         <Stack.Screen name="splash" component={FadeOutComponent} />
-        <Stack.Screen name="onBoard" component={OnboardingScreen} />
+        <Stack.Screen
+          name="onBoard"
+          component={OnboardingScreen}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          }}
+        />
         <Stack.Screen
           name="create-account"
           component={CreateAccount}

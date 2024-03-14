@@ -56,10 +56,10 @@ const StrictlyNecessaryPermissionModal = ({
       </HorizontalPaddingSpace>
       <Spacer position="top" size="xxlarge">
         <TextAndIconComponent
-          currentUserGrantType={currentUser?.googlefirebaseAccessGrant}
+          currentUserGrantType={currentUser?.cloudinaryAccessGrant}
           pressFunction={() => {}}
           theme={theme}
-          title="Google Firebase"
+          title="Cloudinary"
           value="View Details"
           font="montserratRegular"
           size="caption"
@@ -68,10 +68,22 @@ const StrictlyNecessaryPermissionModal = ({
         />
       </Spacer>
       <TextAndIconComponent
-        currentUserGrantType={currentUser?.cloudinaryAccessGrant}
+        currentUserGrantType={currentUser?.expoLocationAccessGrant}
         pressFunction={() => {}}
         theme={theme}
-        title="Cloudinary"
+        title="Expo"
+        value="View Details"
+        font="montserratRegular"
+        size="caption"
+        isSwitch={true}
+        disabled={true}
+      />
+
+      <TextAndIconComponent
+        currentUserGrantType={currentUser?.googlefirebaseAccessGrant}
+        pressFunction={() => {}}
+        theme={theme}
+        title="Google Firebase"
         value="View Details"
         font="montserratRegular"
         size="caption"
@@ -79,10 +91,10 @@ const StrictlyNecessaryPermissionModal = ({
         disabled={true}
       />
       <TextAndIconComponent
-        currentUserGrantType={currentUser?.expoLocationAccessGrant}
+        currentUserGrantType={currentUser?.lottieAccessGrant}
         pressFunction={() => {}}
         theme={theme}
-        title="Expo"
+        title="Lottie"
         value="View Details"
         font="montserratRegular"
         size="caption"

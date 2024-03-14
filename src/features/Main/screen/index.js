@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Dimensions, Image, Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
   Fontisto,
@@ -19,7 +19,6 @@ import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton } from "./main.style";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
-// import Loading from "../../../components/general-component/Loading";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 import {
   unpauseAccountForMainScreen,
@@ -32,19 +31,20 @@ import BrandAvatarO from "../../../components/general-component/BrandAvatarO";
 import calculateAge from "../../../utilities/calculateAge";
 import filterUsersWithinDistanceRange from "../../../utilities/filterUsersWithinDistanceRange";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
-import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import { Text } from "../../../components/typography/text.component";
-import Button from "../../../components/utility/button.component";
 import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
+import Loading from "../../../components/general-component/Loading";
 
 const Index = ({ navigation }) => {
+  const { width } = Dimensions.get("window");
   const [allUsers, setAllUsers] = useState([]);
   const [phone, setPhone] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const [likedUser, setLikedUser] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const scrollViewRef = useRef(null);
@@ -61,6 +61,7 @@ const Index = ({ navigation }) => {
 
   const fetchUsersData = async (phonenumber) => {
     if (phonenumber) {
+      setLoading(true);
       const newData = await getAllData("all-users");
       const currentUserData = newData.find(
         (data) => data.phonenumber === phonenumber
@@ -245,7 +246,12 @@ const Index = ({ navigation }) => {
         filteredOffLikedProfilesStep4 = [...filteredOffLikedProfilesStep3];
       }
 
-      setAllUsers(filteredOffLikedProfilesStep4);
+      const loadDelay = setTimeout(() => {
+        setAllUsers(filteredOffLikedProfilesStep4);
+        setLoading(false);
+      }, 3000);
+
+      return () => clearTimeout(loadDelay);
     }
   };
 
@@ -337,10 +343,12 @@ const Index = ({ navigation }) => {
     );
   }
 
+  if (loading) {
+    return <Loading theme={theme} width={width} />;
+  }
   if (allUsers.length === 0) {
     return (
       <CustomUseCardWithCTA
-        text={noDataFromYourCountrymessage}
         buttonText="Change preference"
         cardFunction={() => {
           setIndex(0);
@@ -348,8 +356,20 @@ const Index = ({ navigation }) => {
           navigation.navigate("profile");
         }}
         headingTitle="No Matches"
-        showSecondButton={false}
+        ImageComponent={() => (
+          <Image
+            style={{
+              width: "100%",
+              height: "100%",
+              resizeMode: "cover",
+            }}
+            source={require("../../../../assets/illustration-1.png")}
+          />
+        )}
         setIndex={() => {}}
+        showSecondButton={false}
+        spaceSize="xxxxlarge"
+        text={noDataFromYourCountrymessage}
       />
     );
   }
@@ -357,7 +377,6 @@ const Index = ({ navigation }) => {
   if (index === allUsers.length) {
     return (
       <CustomUseCardWithCTA
-        text={dailyendofswipescreenmessage}
         buttonText="Change preference"
         buttonSecondText="Go through skipped profiles"
         cardFunction={() => {
@@ -366,8 +385,20 @@ const Index = ({ navigation }) => {
           navigation.navigate("profile");
         }}
         headingTitle="No Matches"
-        showSecondButton={true}
+        ImageComponent={() => (
+          <Image
+            style={{
+              width: "100%",
+              height: "100%",
+              resizeMode: "cover",
+            }}
+            source={require("../../../../assets/illustration-1.png")}
+          />
+        )}
         setIndex={setIndex}
+        showSecondButton={true}
+        spaceSize="xxxxlarge"
+        text={dailyendofswipescreenmessage}
       />
     );
   }
