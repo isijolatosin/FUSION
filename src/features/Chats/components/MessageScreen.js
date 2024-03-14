@@ -355,9 +355,12 @@ export default function MessageScreen({ navigation }) {
     <View style={{ flex: 1 }}>
       <HorizontalPaddingSpace
         style={{
-          marginTop: Platform.OS !== "ios" ? 60 : 80,
+          marginTop:
+            Platform.OS !== "ios"
+              ? theme.spaceNumberBy10[5]
+              : theme.spaceNumberBy10[4],
         }}
-        space={theme.space[2]}>
+        space={theme.space[0]}>
         <NavigationBar>
           <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
             <IconComponent
@@ -401,6 +404,7 @@ export default function MessageScreen({ navigation }) {
       </HorizontalPaddingSpace>
       {messagesKeys?.length ? (
         <MessageContainer
+          showsVerticalScrollIndicator={false}
           ref={scrollViewRef}
           onContentSizeChange={onContentSizeChange}>
           {messagesKeys.map((key, idx) => (

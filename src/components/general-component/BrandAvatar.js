@@ -11,7 +11,7 @@ export default function BrandAvatar({ noFlex, width, isLike }) {
     <View style={noFlex ? {} : { flex: 1 }}>
       <View style={{ width: width, position: "relative" }}>
         <Image
-          source={require("../../../assets/fusion_logo.png")}
+          source={require("../../../assets/wiingr_logo.png")}
           style={{ width: "100%", resizeMode: "contain" }}
         />
         <View

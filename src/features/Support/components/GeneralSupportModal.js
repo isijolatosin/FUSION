@@ -22,7 +22,7 @@ export default function GeneralSupportModal({
       if (isAvailable) {
         await MailComposer.composeAsync({
           recipients: [`${data?.email}`],
-          subject: "Hello from Fusion!",
+          subject: "Hello from Wiingr!",
           body: "",
         }).then(async (res) => {
           if (res?.status === "cancelled") return;

@@ -91,6 +91,7 @@ export default function Index() {
   } = useAppContext();
 
   async function asyncFunctionCall() {
+    setIsLoading(true);
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     const newData = await getAllData("all-users");
@@ -105,8 +106,6 @@ export default function Index() {
     // ########################################################################
     // Block current user if their preference is not Frienship
     if (currentUserData?.preference !== "Friendship") return;
-
-    setIsLoading(true);
 
     // ########################################################################
     // Remove current user profile
@@ -165,7 +164,7 @@ export default function Index() {
     const communityDataId = setTimeout(() => {
       setIsLoading(false);
       setCommunitiesData(communityData);
-    }, 300);
+    }, 3000);
     return () => clearTimeout(communityDataId);
   }
 
@@ -216,7 +215,7 @@ export default function Index() {
         setCurrentScreen={setCurrentScreen}
         theme={theme}
         width={width}>
-        <Loading text="Loading..." />
+        <Loading theme={theme} width={width} />
       </ScreenWrapper>
     );
   }

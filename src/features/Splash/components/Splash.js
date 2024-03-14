@@ -1,41 +1,77 @@
 import React from "react";
+import LottieView from "lottie-react-native";
+import { Dimensions, View } from "react-native";
 
-import {
-  OnboardingScreenText,
-  OnboardingSreencContainer,
-} from "./splash.styles";
+import { OnboardingScreenText } from "./splash.styles";
 import {
   homeSplashImage,
   splashOboardingSummaryText,
 } from "../../../constants";
-import BrandAvatar from "../../../components/general-component/BrandAvatar";
-import { View } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
+import { SafeArea } from "../../../components/utility/safe-area.component";
+import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 
-export default function index() {
+export default function index({ theme }) {
   const image = { uri: `${homeSplashImage}` };
+  const { width } = Dimensions.get("window");
   return (
-    <OnboardingSreencContainer source={image}>
-      <View style={{ position: "absolute", bottom: "7%", left: "10%" }}>
-        <View style={{ width: "60%" }}>
-          <Text
-            variant="custom"
-            colorType="basewhite"
-            fontType="arimaMadurai"
-            fontSize="h4">
-            An African community specially made for you.
-          </Text>
-          <Spacer position="top" size="small">
-            <OnboardingScreenText>
-              {splashOboardingSummaryText}
-            </OnboardingScreenText>
-          </Spacer>
-        </View>
-        <Spacer position="top" size="xsmall">
-          <BrandAvatar noFlex={true} width={70} />
-        </Spacer>
+    <SafeArea>
+      <View
+        style={{
+          flex: 0.9,
+          width: width,
+        }}>
+        <LottieView
+          source={require("../../../../assets/animations/welcome.json")}
+          autoPlay
+          loop
+        />
       </View>
-    </OnboardingSreencContainer>
+      <HorizontalPaddingSpace space={theme.space[5]}>
+        <Text
+          style={{ textAlign: "center" }}
+          variant="custom"
+          colorType="black"
+          fontType="arimaMadurai"
+          fontSize="body">
+          Here is
+        </Text>
+        <Text
+          style={{ textAlign: "center" }}
+          variant="custom"
+          colorType="base"
+          fontType="arimaMadurai"
+          fontSize="h2">
+          Wiingr
+        </Text>
+        <Text
+          style={{ textAlign: "center" }}
+          variant="custom"
+          colorType="black"
+          fontType="arimaMadurai"
+          fontSize="h5">
+          An African community
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: -theme.spaceNumber[5],
+          }}
+          variant="custom"
+          colorType="black"
+          fontType="arimaMadurai"
+          fontSize="h5">
+          specially made for you.
+        </Text>
+      </HorizontalPaddingSpace>
+      <HorizontalPaddingSpace space={theme.space[7]}>
+        <Spacer position="top" size="small">
+          <OnboardingScreenText>
+            {splashOboardingSummaryText}
+          </OnboardingScreenText>
+        </Spacer>
+      </HorizontalPaddingSpace>
+    </SafeArea>
   );
 }

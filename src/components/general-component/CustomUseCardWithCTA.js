@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { useAppContext } from "../../context/ThemeContext";
@@ -9,16 +10,18 @@ import Button from "../utility/button.component";
 import { Spacer } from "../spacer/spacer.component";
 import { storeData } from "../../utilities/storeDataInPhoneMemory";
 import HeaderComponent from "./HeaderComponent";
-import { View } from "react-native";
+import IllustrationContainer from "./IllustrationContainer";
 
 export default function CustomUseCardWithCTA({
-  text,
-  buttonText,
   buttonSecondText,
+  buttonText,
   cardFunction,
   headingTitle,
-  showSecondButton,
+  ImageComponent,
   setIndex,
+  showSecondButton,
+  spaceSize,
+  text,
 }) {
   const navigation = useNavigation();
   const {
@@ -38,9 +41,14 @@ export default function CustomUseCardWithCTA({
         RightComp={() => <></>}
       />
       <View style={{ flex: 1, marginTop: theme.spaceNumberBy10[5] }}>
+        <IllustrationContainer
+          ImageComponent={ImageComponent}
+          spaceSize={spaceSize}
+          theme={theme}
+        />
         <HorizontalPaddingSpace
           style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}
-          space={theme.space[2]}>
+          space={theme.space[7]}>
           <Text
             style={{ textAlign: "center" }}
             variant="custom"
@@ -49,16 +57,22 @@ export default function CustomUseCardWithCTA({
             fontSize="caption">
             {text}
           </Text>
-          <Button
-            backgroundColor={theme.colors.brand.base}
-            isBorder={false}
-            borderColor="transparent"
-            buttonFunction={cardFunction}
-            text={buttonText}
-            textColor={theme.colors.brand.basewhite}
-            width="80%"
-          />
         </HorizontalPaddingSpace>
+        <Spacer position="top" size="xxlarge">
+          <HorizontalPaddingSpace
+            style={{ alignItems: "center" }}
+            space={theme.space[2]}>
+            <Button
+              backgroundColor={theme.colors.brand.base}
+              isBorder={false}
+              borderColor="transparent"
+              buttonFunction={cardFunction}
+              text={buttonText}
+              textColor={theme.colors.brand.basewhite}
+              width="80%"
+            />
+          </HorizontalPaddingSpace>
+        </Spacer>
         <Spacer position="top" size="small">
           <HorizontalPaddingSpace
             style={{ alignItems: "center" }}

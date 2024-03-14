@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Image, ScrollView, View } from "react-native";
+import LottieView from "lottie-react-native";
+import { Dimensions, ScrollView, View } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -9,7 +10,6 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import {
-  locationBackgroundImage,
   locationCaptureInstruction,
   locationCaptureInstruction2,
 } from "../../../constants";
@@ -25,6 +25,7 @@ export default function LocationUpdateModal({
   currentUser,
   onClose,
 }) {
+  const { width } = Dimensions.get("window");
   const [isLoading, setLoading] = useState(false);
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
     currentUser?.locationVisibility ? currentUser?.locationVisibility : false
@@ -135,15 +136,17 @@ export default function LocationUpdateModal({
           Location
         </Text>
       </View>
-      <Image
-        source={{
-          uri: `${locationBackgroundImage}`,
-        }}
+      <View
         style={{
-          width: "100%",
-          height: theme.spaceNumberBy50[1],
-        }}
-      />
+          height: theme.spaceNumberBy50[4],
+          width: width,
+        }}>
+        <LottieView
+          source={require("../../../../assets/animations/location.json")}
+          autoPlay
+          loop
+        />
+      </View>
       <ScrollView>
         <HorizontalPaddingSpace space={theme.space[2]}>
           <Text
@@ -179,7 +182,7 @@ export default function LocationUpdateModal({
           </Spacer>
           <OnboardingErrorComponent
             pageError={responseMessage.code === "failed"}
-            text="Location Access Denied! Please allow Your-Fusion to access your location"
+            text="Location Access Denied! Please allow Wiingr to access your location"
             size="caption"
           />
           <Spacer position="top" size="xxlarge">

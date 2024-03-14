@@ -136,7 +136,7 @@ export default function MessageDotsPopupModal({
             </View>
             <BlockOptionComponent text="Fake Profile" />
             <BlockOptionComponent text="Underage" />
-            <BlockOptionComponent text="Out of Fusion behaviour" />
+            <BlockOptionComponent text="Out of Wiingr behaviour" />
             <BlockOptionComponent text="No longer interested" />
             <BlockOptionComponent text="Scam" />
             <TouchableOpacity

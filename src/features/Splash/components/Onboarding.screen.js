@@ -1,4 +1,5 @@
 import React from "react";
+import LottieView from "lottie-react-native";
 
 import { OnboardingWrapper, OnboardingScreenText } from "./splash.styles";
 import Button from "../../../components/utility/button.component";
@@ -11,11 +12,14 @@ import {
   Pressable,
   TouchableOpacity,
   Text,
+  View,
+  Dimensions,
 } from "react-native";
 import { useEffect } from "react";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 
 export default function Onboarding({ navigation }) {
+  const { width } = Dimensions.get("window");
   useEffect(() => {
     async function clearMemory() {
       await clearDataByKey("match-id");
@@ -71,6 +75,19 @@ export default function Onboarding({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <Pressable onPress={Keyboard.dismiss}>
         <OnboardingWrapper>
+          <View
+            style={{
+              flex: 0.5,
+              width: width,
+              marginBottom: theme.spaceNumberBy50[1],
+              alignSelf: "center",
+            }}>
+            <LottieView
+              source={require("../../../../assets/animations/create.json")}
+              autoPlay
+              loop
+            />
+          </View>
           <Button
             backgroundColor={theme.colors.brand.base}
             isBorder={false}
@@ -81,12 +98,12 @@ export default function Onboarding({ navigation }) {
           <Button
             backgroundColor="transparent"
             isBorder={true}
-            borderColor={theme.colors.brand.basewhite}
+            borderColor={theme.colors.brand.base}
             buttonFunction={() => {
               navigation.navigate("create-account");
             }}
             text="Sign In"
-            textColor={theme.colors.brand.basewhite}
+            textColor={theme.colors.brand.base}
           />
           <OnboardingScreenText>
             <LongStringWithLink

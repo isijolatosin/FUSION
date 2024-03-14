@@ -8,7 +8,7 @@ export default function BrandAvatarO() {
   return (
     <Pressable onPress={() => navigation.navigate("support")}>
       <Image
-        source={require("../../../assets/fusion_O.png")}
+        source={require("../../../assets/wiingr_O.png")}
         style={{ resizeMode: "contain" }}
       />
     </Pressable>

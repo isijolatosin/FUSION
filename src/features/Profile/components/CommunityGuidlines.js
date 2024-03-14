@@ -49,7 +49,7 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
               colorType="black"
               fontType="arimaMadurai"
               fontSize="h3">
-              Fusion Member
+              Wiingr Member
             </Text>
             <Text
               style={{ marginTop: -theme.spaceNumberBy10[1] }}

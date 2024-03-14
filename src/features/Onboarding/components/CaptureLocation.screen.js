@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Dimensions, Image, View } from "react-native";
+import LottieView from "lottie-react-native";
+import { Dimensions, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -8,9 +9,7 @@ import { useAppContext } from "../../../context/ThemeContext";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import Button from "../../../components/utility/button.component";
-import IconComponent from "../../../components/icon-components/IconComponent";
 import {
-  locationBackgroundImage,
   locationCaptureInstruction,
   locationCaptureInstruction2,
 } from "../../../constants";
@@ -26,7 +25,7 @@ export default function CaptureLocation({ navigation }) {
   } = useAppContext();
   const route = useRoute();
   const { user } = route.params || {};
-  const { height } = Dimensions.get("window");
+  const { width, height } = Dimensions.get("window");
   const [isLoading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     message: "",
@@ -64,15 +63,17 @@ export default function CaptureLocation({ navigation }) {
         justifyContent: "flex-start",
       }}>
       <View>
-        <Image
-          source={{
-            uri: `${locationBackgroundImage}`,
-          }}
+        <View
           style={{
-            width: "100%",
             height: theme.spaceNumberBy50[4],
-          }}
-        />
+            width: width,
+          }}>
+          <LottieView
+            source={require("../../../../assets/animations/location.json")}
+            autoPlay
+            loop
+          />
+        </View>
         <HorizontalPaddingSpace space={theme.space[2]}>
           <View>
             <Text
@@ -110,7 +111,7 @@ export default function CaptureLocation({ navigation }) {
 
           <OnboardingErrorComponent
             pageError={responseMessage.code === "failed"}
-            text="Location Access Denied! Please allow Your-Fusion to access your location"
+            text="Location Access Denied! Please allow Wiingr to access your location"
             size="caption"
           />
           <View
@@ -138,55 +139,6 @@ export default function CaptureLocation({ navigation }) {
               </HorizontalPaddingSpace>
             )}
           </View>
-          {/* {isLoading && (
-            <PopupModal>
-              <View
-                style={{
-                  height: "60%",
-                  backgroundColor: theme.colors.brand.basewhite,
-                  paddingTop: theme.spaceNumberBy10[0],
-                  width: "80%",
-                  alignItems: "center",
-                  elevation: 5,
-                  shadowColor: theme.colors.brand.black,
-                  shadowOpacity: 0.3,
-                  shadowRadius: "5px",
-                }}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 22,
-                    paddingBottom: theme.spaceNumberBy10[0],
-                  }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="arimaMadurai"
-                  fontSize="h4"
-                  width="80%">
-                  Allow "Fusion" use your location.
-                </Text>
-                <Image
-                  style={{ width: "100%", flex: 1, resizeMode: "cover" }}
-                  source={{
-                    uri: locationBackgroundImage,
-                  }}
-                />
-                <LocationButtonWrapper
-                  onPress={() =>
-                    openLocationSettings(Linking, Platform, navigation)
-                  }>
-                  <LocationButtonText>Always Allow</LocationButtonText>
-                </LocationButtonWrapper>
-                <LocationButtonWrapper
-                  onPress={() =>
-                    openLocationSettings(Linking, Platform, navigation)
-                  }
-                  noBorderBottom={true}>
-                  <LocationButtonText>Allow While Using App</LocationButtonText>
-                </LocationButtonWrapper>
-              </View>
-            </PopupModal>
-          )} */}
         </HorizontalPaddingSpace>
       </View>
     </SafeArea>

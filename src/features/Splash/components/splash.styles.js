@@ -1,12 +1,6 @@
 import { Text, View, ImageBackground, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
-const OnboardingSreencContainer = styled(ImageBackground)`
-  flex: 1;
-  justify-content: center;
-  position: relative;
-`;
-
 const OnboardingWrapper = styled(View)`
   height: 100%;
   width: 80%;
@@ -17,7 +11,8 @@ const OnboardingWrapper = styled(View)`
 `;
 
 const OnboardingScreenText = styled(Text)`
-  color: ${(props) => props.theme.colors.brand.basewhite};
+  color: ${(props) => props.theme.colors.brand.base};
+  text-align: center;
   font-size: ${(props) => props.theme.sizes[1]};
   font-family: ${(props) => props.theme.fonts.montserratSemibold};
 `;
@@ -68,7 +63,6 @@ const ButtonText = styled.Text`
 `;
 
 export {
-  OnboardingSreencContainer,
   OnboardingScreenText,
   OnboardingWrapper,
   LogoWrapper,

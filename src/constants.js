@@ -859,19 +859,19 @@ export const firstmessagehype =
 export const unmatchmessage =
   "Unmatching this user would mean you can no longer view their profile or have any future conversations with them.";
 export const deactivateaccounttext =
-  "Deactivating your profile on Fusion temporarily removes your profile on Fusion. Your profile is not visible to other users. Your profile is not deleted but disabled on the app.";
+  "Deactivating your profile on Wiingr temporarily removes your profile on Wiingr. Your profile is not visible to other users. Your profile is not deleted but disabled on the app.";
 export const pauseaccounttext =
-  "Pausing your profile on Fusion temporarily suspends your profile from being shown to new users. Your profile is not deleted but disabled on the app, you can still chat with your current matches.";
+  "Pausing your profile on Wiingr temporarily suspends your profile from being shown to new users. Your profile is not deleted but disabled on the app, you can still chat with your current matches.";
 export const deleteaccounttext =
-  "Deleting your profile removes it permanently on Fusion and your information is no longer accessible on the app. ";
+  "Deleting your profile removes it permanently on Wiingr and your information is no longer accessible on the app. ";
 export const deleteaccountconfirmationtext =
-  "We're saddened to see you leave. Deleting your profile means it's permanently removed from Fusion, and your information won't be accessible on the app anymore. If you require assistance or have any concerns, please don't hesitate to contact us.";
+  "We're saddened to see you leave. Deleting your profile means it's permanently removed from Wiingr, and your information won't be accessible on the app anymore. If you require assistance or have any concerns, please don't hesitate to contact us.";
 export const nolikesyetmessage =
   "Looks like you haven't received any likes yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const nofriendrequestmessage =
   "Looks like you haven't received any friend request yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const compatibleText =
-  "Our focus is on building community! Discover your Fusion Link and expand your network.";
+  "Our focus is on building community! Discover your Wiingr Link and expand your network.";
 export const communitiesText =
   "Like polls attract on this end. We have selected matches with similar interest for you.";
 export const noSimilarInterestyetmessage =
@@ -899,7 +899,7 @@ export const appreloadmessage =
 export const agerestrictionmessage =
   "Please note that our app is exclusively for users aged 18 and above. We prioritize the safety and comfort of our community members, and this age restriction helps ensure a positive experience for everyone. Thank you for your understanding.";
 export const privacypreferencemessage =
-  "In engaging with Fusion, there's a process involving the storage and retrieval of data from your device, facilitated by tools managed either by us or our designated partners. We extend to you the opportunity to personalize your preferences regarding these integrations through the settings provided. Your ability to modify these choices is available to you at any time, ensuring your experience aligns seamlessly with your preferences.";
+  "In engaging with Wiingr, there's a process involving the storage and retrieval of data from your device, facilitated by tools managed either by us or our designated partners. We extend to you the opportunity to personalize your preferences regarding these integrations through the settings provided. Your ability to modify these choices is available to you at any time, ensuring your experience aligns seamlessly with your preferences.";
 export const storeandusedeviceinformation =
   "We're committed to providing you with the best possible experience as you connect with others and build meaningful relationships. To achieve this, we utilize certain information on your device to personalize and optimize your experience.";
 export const storeandusedeviceinformationp1 =
@@ -909,9 +909,9 @@ export const storeandusedeviceinformationp2 =
 export const storeandusedeviceinformationp3 =
   "Storing match IDs on your device allows us to efficiently manage your matches and provide you with relevant updates and notifications. It helps us track your connections, facilitate messaging, and notify you of any new developments or interactions with your matches.";
 export const storeandusedeviceinformationp4 =
-  "By allowing Fusion to store and utilize this information on your device, you enable us to deliver a more personalized, secure, and streamlined experience tailored to your needs and preferences. Rest assured that we prioritize your privacy and security, and any information collected is handled in accordance with our stringent privacy policies.";
+  "By allowing Wiingr to store and utilize this information on your device, you enable us to deliver a more personalized, secure, and streamlined experience tailored to your needs and preferences. Rest assured that we prioritize your privacy and security, and any information collected is handled in accordance with our stringent privacy policies.";
 export const storeandusedeviceinformationp5 =
-  "Thank you for entrusting us with your information as we work together to create meaningful connections and foster meaningful relationships through Fusion.";
+  "Thank you for entrusting us with your information as we work together to create meaningful connections and foster meaningful relationships through Wiingr.";
 export const strictlynecessarypermissionsmessage =
   "These essential tools are crucial for the app's operation and cannot be turned off. They enable key features like authentication and chat, ensuring smooth functionality.";
 export const personalizemarkingserviceinfo =
@@ -923,10 +923,10 @@ We're committed to reshaping the landscape of friendship and dating, offering a 
 
 <p>Here are the guiding principles behind our mission:</p>
 <br>
-<h2>We believe the Fusion Team Must:</h2>
+<h2>We believe the Wiingr Team Must:</h2>
 
 <p><strong>Attentive:</strong></p>
-<p>Fusion users can expect prompt responses from our team when seeking support or sharing feedback. We strive to assist users in various capacities, including connecting them with resources and services for additional support.</p>
+<p>Wiingr users can expect prompt responses from our team when seeking support or sharing feedback. We strive to assist users in various capacities, including connecting them with resources and services for additional support.</p>
 
 <p><strong>Avoid Acting as Judges of Truth:</strong></p>
 <p>While we provide information about potential matches, we refrain from making judgments on truth and falsehood. Our focus is on preventing harm and ensuring the safety of our users.</p>
@@ -935,34 +935,34 @@ We're committed to reshaping the landscape of friendship and dating, offering a 
 <p> We regularly review and update our policies and protocols to adapt to the dynamic social environment. Our commitment remains steadfast in fostering an empathetic community where everyone feels accepted and valued.</p>
 
 <p><strong>Exercise Caution:</strong></p>
-<p> To maintain a safe dating and friendship environment, we act on reports to protect Fusion users. We welcome and consider relevant information to make informed decisions, ensuring the safety and well-being of our community.</p>
+<p> To maintain a safe dating and friendship environment, we act on reports to protect Wiingr users. We welcome and consider relevant information to make informed decisions, ensuring the safety and well-being of our community.</p>
 
 <p><strong>Make Safety a Priority:</strong></p>
-<p>Fusion users should feel secure to express themselves, connect with others, and plan dates of their choice. We prioritize the safety of our community members by addressing known threats promptly and empowering users to report any unknown threats.</p>
+<p>Wiingr users should feel secure to express themselves, connect with others, and plan dates of their choice. We prioritize the safety of our community members by addressing known threats promptly and empowering users to report any unknown threats.</p>
   
 <p><strong>Promote a Community Grounded in Trust & Respect:</strong></p>
 <p>We uphold the responsibility of creating a secure environment for meaningful connections. We respect users' privacy and prioritize their personal information in developing our tools and services.</p>
 
 <br>
-<h2>As part of the Fusion community, we expect members to:</h2>
+<h2>As part of the Wiingr community, we expect members to:</h2>
 
 <p><strong>Embrace Openness to Others</strong></p>
 <p>Embracing diversity and inclusivity, we encourage users to respect differing opinions and skip or remove profiles they're not interested in. Antagonizing others for their beliefs goes against our values of empathy and kindness.</p>
 
 <p><strong>Honor Personal Boundaries</strong></p>
-<p>Fusion users should refrain from reaching out to users outside of Fusion unless it has been communicated that it is appropriate to do so. Seeing someone on Fusion does not imply permission to interact with them through social media. If someone unmatches you on Fusion, it is important to respect their decision rather than attempting to find them on social media.</p>
+<p>Wiingr users should refrain from reaching out to users outside of Wiingr unless it has been communicated that it is appropriate to do so. Seeing someone on Wiingr does not imply permission to interact with them through social media. If someone unmatches you on Wiingr, it is important to respect their decision rather than attempting to find them on social media.</p>
 
 <p><strong>Invest Effort</strong></p>
-<p>Fusion users who invest effort into their dating life are more likely to find meaningful connections. Authentic representation of oneself, including quirks and personality traits, is encouraged. While it's understandable that not everyone loves every photo of themselves, profiles consisting mainly of memes or gibberish prompts make it difficult for others to get to know you. Your matches want to see the real you.</p>
+<p>Wiingr users who invest effort into their dating life are more likely to find meaningful connections. Authentic representation of oneself, including quirks and personality traits, is encouraged. While it's understandable that not everyone loves every photo of themselves, profiles consisting mainly of memes or gibberish prompts make it difficult for others to get to know you. Your matches want to see the real you.</p>
 
 <p><strong>Practice Honesty</strong></p>
-<p>Fusion users are encouraged to provide authentic information in their profiles. While surnames are optional, providing false names or dates of birth, maintaining duplicate accounts, or creating an account if you are under 18 is not permitted. Deceiving others about your age or using misleading or outdated photos is contrary to our values of honesty and authenticity, and unfair to the Fusion community.</p>
+<p>Wiingr users are encouraged to provide authentic information in their profiles. While surnames are optional, providing false names or dates of birth, maintaining duplicate accounts, or creating an account if you are under 18 is not permitted. Deceiving others about your age or using misleading or outdated photos is contrary to our values of honesty and authenticity, and unfair to the Wiingr community.</p>
 
 <p><strong>Pursue Meaningful Relationships</strong></p>
-<p>Fusion users are seeking meaningful connections rather than mere reactions. It's important to be mindful of how you share information about yourself and inquire about others. Meaningful connections are built on authenticity, transparency, and respect. Fusion welcomes users who represent themselves authentically, communicate their intentions transparently, and treat others respectfully.</p>
+<p>Wiingr users are seeking meaningful connections rather than mere reactions. It's important to be mindful of how you share information about yourself and inquire about others. Meaningful connections are built on authenticity, transparency, and respect. Wiingr welcomes users who represent themselves authentically, communicate their intentions transparently, and treat others respectfully.</p>
 
 <p><strong>Recognize the Importance of Consent</strong></p>
-<p>Consent must be clearly and freely communicated. It can be both expressly granted and revoked, as well as implied. In Discover, Fusion members are expected not to promote physical, emotional, or psychological abuse, harm, harassment, hate, or discrimination. This includes sexual advances, comments, and imagery. Posting crude, lewd, or offensive content to your profile or initiating inappropriate conversations is not acceptable behavior.</p>
+<p>Consent must be clearly and freely communicated. It can be both expressly granted and revoked, as well as implied. In Discover, Wiingr members are expected not to promote physical, emotional, or psychological abuse, harm, harassment, hate, or discrimination. This includes sexual advances, comments, and imagery. Posting crude, lewd, or offensive content to your profile or initiating inappropriate conversations is not acceptable behavior.</p>
 
 <p>If you have further questions, please feel free to Contact us via <strong><i style="color: #6F0606;">Contact us in Help Center</i></strong>.</p>
 `;

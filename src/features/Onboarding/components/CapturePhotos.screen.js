@@ -121,6 +121,7 @@ export default function CapturePhotos({ navigation }) {
         googlefirebaseAccessGrant: true,
         phoneDataStorageAndRetrievalGrant: true,
         expoLocationAccessGrant: true,
+        lottieAccessGrant: true,
         cloudinaryAccessGrant: true,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })

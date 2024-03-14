@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "fusion",
-    "slug": "fusion-app",
-    "description": "Your fusion app is a social application for african community",
+    "name": "wiingr",
+    "slug": "wiingr-app",
+    "description": "Your wiingr app is a social application for african community",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -34,7 +34,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Your Fusion to access this device's location."
+          "locationAlwaysAndWhenInUsePermission": "Allow Your wiingr to access this device's location."
         }
       ]
     ],

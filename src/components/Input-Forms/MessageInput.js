@@ -19,12 +19,12 @@ export default function MessageInput({
 }) {
   return (
     <TextInputMessageWrapper
-      height={theme.spaceNumberBy10[9]}
+      height={theme.spaceNumberBy10[6]}
       backgroundColor={theme.colors.brand.highlight}
-      paddingLeft={`${theme.spaceNumberBy10[1]}px`}
-      paddingRight={`${theme.spaceNumberBy10[1]}px`}
-      paddingTop={`${theme.spaceNumber[7]}px`}
-      paddingBottom={`${theme.spaceNumberBy10[2]}px`}
+      paddingLeft={`${theme.spaceNumberBy10[0]}px`}
+      paddingRight={`${theme.spaceNumberBy10[0]}px`}
+      paddingTop={`${theme.spaceNumber[3]}px`}
+      paddingBottom={`${theme.spaceNumberBy10[1]}px`}
       isBorderColor={false}>
       <TextMessageWrap
         backgroundColor={theme.colors.brand.basewhite}
@@ -37,12 +37,12 @@ export default function MessageInput({
           multiline={true}
           numberOfLines={4}
           enablesReturnKeyAutomatically={true}
-          keyboardAppearance="dark"
+          keyboardAppearance="light"
           onChangeText={(text) => setInput(text)}
           value={value}
           keyboardType="default"
           theme={theme}
-          placeholder="Send a message"
+          placeholder="..."
           placeholderTextColor={theme.colors.brand.lines}
           fontType={theme.fonts.montserratRegular}
           fontSize={theme.fontSizes.body}
