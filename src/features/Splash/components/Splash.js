@@ -3,24 +3,20 @@ import LottieView from "lottie-react-native";
 import { Dimensions, View } from "react-native";
 
 import { OnboardingScreenText } from "./splash.styles";
-import {
-  homeSplashImage,
-  splashOboardingSummaryText,
-} from "../../../constants";
+import { splashOboardingSummaryText } from "../../../constants";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 
 export default function index({ theme }) {
-  const image = { uri: `${homeSplashImage}` };
-  const { width } = Dimensions.get("window");
   return (
     <SafeArea>
       <View
         style={{
           flex: 0.9,
-          width: width,
+          width: theme.spaceNumberBy50[5],
+          alignSelf: "center",
         }}>
         <LottieView
           source={require("../../../../assets/animations/welcome.json")}

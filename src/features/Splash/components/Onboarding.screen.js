@@ -79,7 +79,6 @@ export default function Onboarding({ navigation }) {
             style={{
               flex: 0.5,
               width: width,
-              marginBottom: theme.spaceNumberBy50[1],
               alignSelf: "center",
             }}>
             <LottieView
