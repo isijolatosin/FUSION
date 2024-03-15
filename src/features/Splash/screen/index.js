@@ -183,7 +183,7 @@ const FadeInComponent = ({ navigation }) => {
         useNativeDriver: true,
       }),
       Animated.timing(offsetAnim, {
-        toValue: 50, // Offset value in pixels
+        toValue: 10, // Offset value in pixels
         duration: 1000,
         useNativeDriver: true,
       }),
