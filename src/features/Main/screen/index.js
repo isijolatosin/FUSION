@@ -1,4 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Dimensions, Image, Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -44,7 +50,7 @@ const Index = ({ navigation }) => {
   const [likedUser, setLikedUser] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const scrollViewRef = useRef(null);
@@ -60,8 +66,8 @@ const Index = ({ navigation }) => {
   } = useAppContext();
 
   const fetchUsersData = async (phonenumber) => {
+    storeData("last-screen-visit", "home");
     if (phonenumber) {
-      setLoading(true);
       const newData = await getAllData("all-users");
       const currentUserData = newData.find(
         (data) => data.phonenumber === phonenumber
@@ -246,12 +252,8 @@ const Index = ({ navigation }) => {
         filteredOffLikedProfilesStep4 = [...filteredOffLikedProfilesStep3];
       }
 
-      const loadDelay = setTimeout(() => {
-        setAllUsers(filteredOffLikedProfilesStep4);
-        setLoading(false);
-      }, 3000);
-
-      return () => clearTimeout(loadDelay);
+      setAllUsers(filteredOffLikedProfilesStep4);
+      setLoading(false);
     }
   };
 
@@ -271,6 +273,9 @@ const Index = ({ navigation }) => {
     fetchUsersData(phoneValueFromPhoneMemory);
   };
 
+  // Memoize the functionCall function
+  const memoizedFetchData = useMemo(() => functionCall, []);
+
   useFocusEffect(
     React.useCallback(() => {
       functionCall();
@@ -287,7 +292,7 @@ const Index = ({ navigation }) => {
     }, 2000);
 
     return () => clearTimeout(resetFilterTrigger);
-  }, [isRetrigger]);
+  }, [isRetrigger, memoizedFetchData]);
 
   let currentUsertoSwipe = {};
   let currentSwipeIndexIsLessThanAllUsersLength = true;
@@ -346,6 +351,7 @@ const Index = ({ navigation }) => {
   if (loading) {
     return <Loading theme={theme} width={width} />;
   }
+
   if (allUsers.length === 0) {
     return (
       <CustomUseCardWithCTA

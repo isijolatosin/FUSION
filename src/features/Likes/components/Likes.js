@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Dimensions, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -25,7 +25,7 @@ import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import FriendshipInitiatorProfileComponent from "../../Communities/components/FriendshipInitiatorProfileComponent";
 import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
-import Loading from "../../../components/general-component/Loading";
+import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 const LikesScreen = () => {
   const {
@@ -55,6 +55,7 @@ const LikesScreen = () => {
   const [isRetrigger, setIsRetrigger] = useState(false);
 
   async function fetchUsersData() {
+    storeData("last-screen-visit", "likes");
     setLoading(true);
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
@@ -78,13 +79,9 @@ const LikesScreen = () => {
       (friend) => friend?.friendRequestToNumber === phoneValueFromPhoneMemory
     );
 
-    const matchAndCommunityId = setTimeout(() => {
-      setYourLikesData(likeInitiators);
-      setFriendRequestData(friendInitiators);
-      setLoading(false);
-    }, 3000);
-
-    return () => clearImmediate(matchAndCommunityId);
+    setYourLikesData(likeInitiators);
+    setFriendRequestData(friendInitiators);
+    setLoading(false);
   }
 
   useFocusEffect(
@@ -96,6 +93,9 @@ const LikesScreen = () => {
     }, [])
   );
 
+  // Memoize the fetchUsersData function
+  const memoizedFetchData = useMemo(() => fetchUsersData, []);
+
   useEffect(() => {
     fetchUsersData();
 
@@ -104,7 +104,7 @@ const LikesScreen = () => {
     }, 1000);
 
     return () => clearTimeout(resetLikeTrigger);
-  }, [isRetrigger]);
+  }, [isRetrigger, memoizedFetchData]);
 
   if (currentUser?.deactivate) {
     return (
@@ -144,115 +144,111 @@ const LikesScreen = () => {
         theme={theme}
         width="90%"
       />
-      {loading ? (
-        <Loading theme={theme} width={width} />
-      ) : (
-        <HorizontalPaddingSpace space={theme.space[0]}>
-          <Spacer style={{ alignItems: "center" }} position="top" size="">
-            {yourLikesData.length && currentScreen === "match likes" ? (
-              <Spacer
-                position="top"
-                size="large"
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  gap: theme.spaceNumberBy10[1],
-                }}>
-                {yourLikesData.map((item, idx) => (
-                  <View
-                    key={idx}
-                    style={{
-                      width: theme.spaceNumberBy50[2],
-                      height: theme.spaceNumberBy50[2],
-                    }}>
-                    <LikeInitiatorProfileCard
-                      key={item?.id}
-                      data={item}
-                      theme={theme}
-                      setInitiatorProfileData={setInitiatorProfileData}
-                      setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
-                    />
-                  </View>
-                ))}
-              </Spacer>
-            ) : (
-              currentScreen === "match likes" && (
-                <View style={{ width: "100%" }}>
-                  <HorizontalPaddingSpace space={theme.space[5]}>
-                    <Spacer position="top" size="large">
-                      <Text
-                        style={{
-                          textAlign: "center",
-                        }}
-                        variant="custom"
-                        colorType="black"
-                        fontType="montserratRegular"
-                        fontSize="caption">
-                        {nolikesyetmessage}
-                      </Text>
-                      <Spacer position="top" size="xxxxlarge">
-                        <BrandAvatar isLike={true} />
-                      </Spacer>
-                    </Spacer>
-                  </HorizontalPaddingSpace>
+      <HorizontalPaddingSpace space={theme.space[0]}>
+        <Spacer style={{ alignItems: "center" }} position="top" size="">
+          {yourLikesData.length && currentScreen === "match likes" ? (
+            <Spacer
+              position="top"
+              size="large"
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumberBy10[1],
+              }}>
+              {yourLikesData.map((item, idx) => (
+                <View
+                  key={idx}
+                  style={{
+                    width: theme.spaceNumberBy50[2],
+                    height: theme.spaceNumberBy50[2],
+                  }}>
+                  <LikeInitiatorProfileCard
+                    key={item?.id}
+                    data={item}
+                    theme={theme}
+                    setInitiatorProfileData={setInitiatorProfileData}
+                    setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
+                  />
                 </View>
-              )
-            )}
-            {friendRequestData.length && currentScreen === "community likes" ? (
-              <Spacer
-                position="top"
-                size="large"
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  gap: theme.spaceNumberBy10[1],
-                }}>
-                {friendRequestData.map((item, idx) => (
-                  <View
-                    key={idx}
-                    style={{
-                      width: theme.spaceNumberBy50[2],
-                      height: theme.spaceNumberBy50[2],
-                    }}>
-                    <FriendInitiatorProfileCard
-                      data={item}
-                      theme={theme}
-                      setFriendRequesterProfileData={
-                        setFriendRequesterProfileData
-                      }
-                      setShowFriendRequesterProfile={
-                        setShowFriendRequesterProfile
-                      }
-                    />
-                  </View>
-                ))}
-              </Spacer>
-            ) : (
-              currentScreen === "community likes" && (
-                <View style={{ width: "100%" }}>
-                  <HorizontalPaddingSpace space={theme.space[5]}>
-                    <Spacer position="top" size="large">
-                      <Text
-                        style={{
-                          textAlign: "center",
-                        }}
-                        variant="custom"
-                        colorType="black"
-                        fontType="montserratRegular"
-                        fontSize="caption">
-                        {nofriendrequestmessage}
-                      </Text>
-                      <Spacer position="top" size="xxxxlarge">
-                        <BrandAvatar isLike={true} />
-                      </Spacer>
+              ))}
+            </Spacer>
+          ) : (
+            currentScreen === "match likes" && (
+              <View style={{ width: "100%" }}>
+                <HorizontalPaddingSpace space={theme.space[5]}>
+                  <Spacer position="top" size="large">
+                    <Text
+                      style={{
+                        textAlign: "center",
+                      }}
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratRegular"
+                      fontSize="caption">
+                      {nolikesyetmessage}
+                    </Text>
+                    <Spacer position="top" size="xxxxlarge">
+                      <BrandAvatar isLike={true} />
                     </Spacer>
-                  </HorizontalPaddingSpace>
+                  </Spacer>
+                </HorizontalPaddingSpace>
+              </View>
+            )
+          )}
+          {friendRequestData.length && currentScreen === "community likes" ? (
+            <Spacer
+              position="top"
+              size="large"
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumberBy10[1],
+              }}>
+              {friendRequestData.map((item, idx) => (
+                <View
+                  key={idx}
+                  style={{
+                    width: theme.spaceNumberBy50[2],
+                    height: theme.spaceNumberBy50[2],
+                  }}>
+                  <FriendInitiatorProfileCard
+                    data={item}
+                    theme={theme}
+                    setFriendRequesterProfileData={
+                      setFriendRequesterProfileData
+                    }
+                    setShowFriendRequesterProfile={
+                      setShowFriendRequesterProfile
+                    }
+                  />
                 </View>
-              )
-            )}
-          </Spacer>
-        </HorizontalPaddingSpace>
-      )}
+              ))}
+            </Spacer>
+          ) : (
+            currentScreen === "community likes" && (
+              <View style={{ width: "100%" }}>
+                <HorizontalPaddingSpace space={theme.space[5]}>
+                  <Spacer position="top" size="large">
+                    <Text
+                      style={{
+                        textAlign: "center",
+                      }}
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratRegular"
+                      fontSize="caption">
+                      {nofriendrequestmessage}
+                    </Text>
+                    <Spacer position="top" size="xxxxlarge">
+                      <BrandAvatar isLike={true} />
+                    </Spacer>
+                  </Spacer>
+                </HorizontalPaddingSpace>
+              </View>
+            )
+          )}
+        </Spacer>
+      </HorizontalPaddingSpace>
       <AnimatedModal
         isVisible={showLikeInitiatorProfile}
         onClose={() => setShowLikeInitiatorProfile(false)}

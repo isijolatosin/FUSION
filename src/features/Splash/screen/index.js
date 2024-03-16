@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Animated } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -49,10 +49,10 @@ import CommunitiesScreen from "../../Communities";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = () => {
+const TabNavigator = ({ route }) => {
   return (
     <Tab.Navigator
-      initialRouteName="home"
+      initialRouteName={route?.params?.lastScreenVisited}
       screenOptions={() => ({
         tabBarStyle: {
           height: theme.spaceNumberBy10[7],
@@ -209,11 +209,27 @@ export default function index() {
   const {
     state: { theme },
   } = useAppContext();
+  const [rendered, setRendered] = useState(false);
+  const [lastScreenVisited, setLastScreenVisited] = useState("");
+
+  useEffect(() => {
+    (async function getLastScreenVisit() {
+      lastScreenFromMemory = await retrieveData("last-screen-visit");
+      setLastScreenVisited(lastScreenFromMemory);
+    })();
+
+    const delayRender = setTimeout(() => {
+      setRendered(true);
+    }, 50);
+    return () => clearTimeout(delayRender);
+  }, []);
+
+  if (!rendered) return null;
 
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="splash" // change back to splash
+        initialRouteName={lastScreenVisited ? "main" : "splash"}
         screenOptions={{
           headerShown: false,
         }}>
@@ -448,6 +464,7 @@ export default function index() {
         <Stack.Screen
           name="main"
           component={TabNavigator}
+          initialParams={{ lastScreenVisited }}
           screenOptions={{
             headerShown: false,
           }}
