@@ -358,9 +358,9 @@ export default function MessageScreen({ navigation }) {
           marginTop:
             Platform.OS !== "ios"
               ? theme.spaceNumberBy10[5]
-              : theme.spaceNumberBy10[4],
+              : theme.spaceNumberBy10[6],
         }}
-        space={theme.space[0]}>
+        space={theme.space[1]}>
         <NavigationBar>
           <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
             <IconComponent
@@ -420,7 +420,7 @@ export default function MessageScreen({ navigation }) {
           ))}
         </MessageContainer>
       ) : (
-        <Loading text="Loading..." size="body" color="linesLight" />
+        <Loading theme={theme} isMessage={true} />
       )}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}>

@@ -406,7 +406,7 @@ const ChatsScreen = () => {
           flex: 1,
         }}
         position="top"
-        size="xxxlarge">
+        size="medium">
         {checkIfMessagingHasStarted() && (
           <Spacer position="bottom" size="large">
             <HorizontalPaddingSpace space={theme.space[2]}>

@@ -1,5 +1,6 @@
 import React from "react";
 import LottieView from "lottie-react-native";
+import { Linking } from "react-native";
 
 import { OnboardingWrapper, OnboardingScreenText } from "./splash.styles";
 import Button from "../../../components/utility/button.component";
@@ -32,8 +33,8 @@ export default function Onboarding({ navigation }) {
 
   const LongStringWithLink = ({ longString, terms, policy }) => {
     // Function to handle link press
-    const handleLinkPress = (path) => {
-      navigation.navigate(path);
+    const handleLinkPress = (url) => {
+      Linking.openURL(url);
     };
 
     // Split the long string into parts
@@ -43,7 +44,7 @@ export default function Onboarding({ navigation }) {
     return (
       <Text>
         {part1[0]}
-        <TouchableOpacity onPress={() => handleLinkPress("terms-of-service")}>
+        <TouchableOpacity onPress={() => handleLinkPress("https://google.com")}>
           <Text
             style={{
               color: theme.colors.brand.lines,
@@ -55,7 +56,7 @@ export default function Onboarding({ navigation }) {
           </Text>
         </TouchableOpacity>
         {part2[0]}
-        <TouchableOpacity onPress={() => handleLinkPress("privacy-policy")}>
+        <TouchableOpacity onPress={() => handleLinkPress("https://google.com")}>
           <Text
             style={{
               color: theme.colors.brand.lines,
