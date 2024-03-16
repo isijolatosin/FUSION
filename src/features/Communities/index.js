@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -17,7 +17,6 @@ import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
 import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
-import Loading from "../../components/general-component/Loading";
 import HeaderComponent from "../../components/general-component/HeaderComponent";
 import FriendRequestConfirmationComponent from "../Compatibility/components/FriendRequestConfirmationComponent";
 import TopNavigationTab from "../../components/general-component/TopNavigationTab";
@@ -26,6 +25,7 @@ import ProfilePausedCardComponent from "../../components/general-component/Profi
 import People from "./components/People";
 // import Communities from "./components/Communities"; // PHASE TWO PROJECT
 import Events from "./components/Events";
+import { storeData } from "../../utilities/storeDataInPhoneMemory";
 
 function ScreenWrapper({
   children,
@@ -91,6 +91,7 @@ export default function Index() {
   } = useAppContext();
 
   async function asyncFunctionCall() {
+    storeData("last-screen-visit", "communities");
     setIsLoading(true);
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
@@ -161,11 +162,8 @@ export default function Index() {
       communityData.push(user);
     });
 
-    const communityDataId = setTimeout(() => {
-      setIsLoading(false);
-      setCommunitiesData(communityData);
-    }, 3000);
-    return () => clearTimeout(communityDataId);
+    setIsLoading(false);
+    setCommunitiesData(communityData);
   }
 
   useFocusEffect(
@@ -177,6 +175,9 @@ export default function Index() {
     }, [])
   );
 
+  // Memoize the asyncFunctionCall function
+  const memoizedFetchData = useMemo(() => asyncFunctionCall, []);
+
   useEffect(() => {
     asyncFunctionCall();
     const compatibleSubscriptionId = setTimeout(() => {
@@ -184,7 +185,7 @@ export default function Index() {
     }, 1000);
 
     return () => clearTimeout(compatibleSubscriptionId);
-  }, [isRetrigger]);
+  }, [isRetrigger, memoizedFetchData]);
 
   if (currentUser?.deactivate) {
     return (
@@ -205,18 +206,6 @@ export default function Index() {
         setIsRetrigger={setIsRetrigger}
         theme={theme}
       />
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <ScreenWrapper
-        currentScreen={currentScreen}
-        setCurrentScreen={setCurrentScreen}
-        theme={theme}
-        width={width}>
-        <Loading theme={theme} width={width} />
-      </ScreenWrapper>
     );
   }
 

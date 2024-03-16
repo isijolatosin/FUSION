@@ -65,6 +65,7 @@ import DistancePreferenceUpdateModal from "./DistancePreferenceUpdateModal";
 import Avatar from "../../../components/general-component/Avatar";
 import IndustryUpdateModal from "./IndustryUpdateModal";
 import TextAndIconComponent from "./TextAndIconComponent";
+import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
 export default function ProfileScreen() {
   const {
@@ -97,6 +98,7 @@ export default function ProfileScreen() {
   }, []);
 
   async function fetchUsersData() {
+    storeData("last-screen-visit", "profile");
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     const newData = await getAllData("all-users");

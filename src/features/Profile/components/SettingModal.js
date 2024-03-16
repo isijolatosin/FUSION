@@ -212,6 +212,7 @@ export default function SettingModal({
       await clearDataByKey("match-id");
       await clearDataByKey("phonenumber");
       await clearDataByKey("swipe-index");
+      await clearDataByKey("last-screen-visit");
 
       const userProfileDeleteTimeoutId = setTimeout(() => {
         navigation.navigate("onBoard");
@@ -232,6 +233,7 @@ export default function SettingModal({
     await clearDataByKey("phonenumber");
     await clearDataByKey("match-id");
     await clearDataByKey("swipe-index");
+    await clearDataByKey("last-screen-visit");
 
     const userSignOutTimeoutId = setTimeout(() => {
       navigation.navigate("onBoard");

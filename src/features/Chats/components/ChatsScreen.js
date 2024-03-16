@@ -110,6 +110,7 @@ const ChatsScreen = () => {
   }
 
   async function fetchMatches() {
+    storeData("last-screen-visit", "chat");
     try {
       const allMatchesResult = await getAllData("matches");
       const friendshipData = await getAllData("friendship-matches");

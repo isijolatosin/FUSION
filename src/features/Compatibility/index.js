@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -6,7 +6,6 @@ import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
 import { Spacer } from "../../components/spacer/spacer.component";
 import { useAppContext } from "../../context/ThemeContext";
-import BrandAvatarO from "../../components/general-component/BrandAvatarO";
 import { Text } from "../../components/typography/text.component";
 import {
   activateAccountForSimilarScreen,
@@ -16,12 +15,8 @@ import {
 } from "../../constants";
 import CompatibleComponent from "./components/CompatibleComponent";
 import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
-import {
-  getAllData,
-  updateUserValueField,
-} from "../../utilities/updateFirestoreDatabaseField";
-import BrandAvatar from "../../components/general-component/BrandAvatar";
-import Loading from "../../components/general-component/Loading";
+import { getAllData } from "../../utilities/updateFirestoreDatabaseField";
+import { storeData } from "../../utilities/storeDataInPhoneMemory";
 import YouLikedComponent from "../Main/screen/sub-component/YouLikedComponent";
 import AnimatedModal from "../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../components/general-component/ProfileViewModal";
@@ -85,6 +80,7 @@ export default function Index() {
 
   async function asyncFunctionCall() {
     setIsLoading(true);
+    storeData("last-screen-visit", "similar-interest");
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     const newData = await getAllData("all-users");
@@ -206,12 +202,8 @@ export default function Index() {
       }
     });
 
-    const usersWithSimilarInterestsId = setTimeout(() => {
-      setIsLoading(false);
-      setUsersWithSimilarInterestsData(usersWithSimilarInterests);
-    }, 3000);
-
-    return () => clearTimeout(usersWithSimilarInterestsId);
+    setIsLoading(false);
+    setUsersWithSimilarInterestsData(usersWithSimilarInterests);
   }
 
   useFocusEffect(
@@ -223,6 +215,9 @@ export default function Index() {
     }, [])
   );
 
+  // Memoize the asyncFunctionCall function
+  const memoizedFetchData = useMemo(() => asyncFunctionCall, []);
+
   useEffect(() => {
     asyncFunctionCall();
     const compatibleSubscriptionId = setTimeout(() => {
@@ -230,7 +225,7 @@ export default function Index() {
     }, 1000);
 
     return () => clearTimeout(compatibleSubscriptionId);
-  }, [isRetrigger]);
+  }, [isRetrigger, memoizedFetchData]);
 
   if (currentUser?.deactivate) {
     return (
@@ -251,14 +246,6 @@ export default function Index() {
         setIsRetrigger={setIsRetrigger}
         theme={theme}
       />
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <ScreenWrapper theme={theme} width={width}>
-        <Loading theme={theme} width={width} />
-      </ScreenWrapper>
     );
   }
 
