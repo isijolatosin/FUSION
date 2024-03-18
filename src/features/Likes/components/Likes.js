@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { Dimensions, Image, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -26,6 +26,7 @@ import FriendshipInitiatorProfileComponent from "../../Communities/components/Fr
 import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import IllustrationContainer from "../../../components/general-component/IllustrationContainer";
 
 const LikesScreen = () => {
   const {
@@ -176,6 +177,22 @@ const LikesScreen = () => {
             currentScreen === "match likes" && (
               <View style={{ width: "100%" }}>
                 <HorizontalPaddingSpace space={theme.space[5]}>
+                  <Spacer position="top" size="xxxxlarge">
+                    <IllustrationContainer
+                      ImageComponent={() => (
+                        <Image
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            resizeMode: "cover",
+                          }}
+                          source={require("../../../../assets/illustration-2.png")}
+                        />
+                      )}
+                      spaceSize=""
+                      theme={theme}
+                    />
+                  </Spacer>
                   <Spacer position="top" size="large">
                     <Text
                       style={{
@@ -187,9 +204,6 @@ const LikesScreen = () => {
                       fontSize="caption">
                       {nolikesyetmessage}
                     </Text>
-                    <Spacer position="top" size="xxxxlarge">
-                      <BrandAvatar isLike={true} />
-                    </Spacer>
                   </Spacer>
                 </HorizontalPaddingSpace>
               </View>

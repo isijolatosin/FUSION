@@ -25,6 +25,7 @@ import {
 
 export default function CreateAccount({ navigation }) {
   const [isPopup, setPopup] = useState(false);
+  const [checkNumberChangeInfo, setCheckNumberChangeInfo] = useState(false);
   const [phonenumber, setPhonenumber] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const recaptchaVerifier = useRef(null);
@@ -92,13 +93,27 @@ export default function CreateAccount({ navigation }) {
               </InputWarraper>
             </Spacer>
             <Spacer position="top" size="small">
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="caption">
-                {createAccountInstruction}
-              </Text>
+              <View>
+                <Text
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  {createAccountInstruction}
+                  <Text
+                    variant="custom"
+                    colorType="base"
+                    fontType="montserratRegular"
+                    fontSize="caption"
+                    onPress={() => {
+                      setCheckNumberChangeInfo(true);
+                      setPopup(true);
+                    }}>
+                    {" "}
+                    What happens if my number changes?
+                  </Text>
+                </Text>
+              </View>
             </Spacer>
             {cellNumber.length > 10 && (
               <Spacer
@@ -153,7 +168,10 @@ export default function CreateAccount({ navigation }) {
                     }}>
                     <IconComponent
                       color={theme.colors.brand.base}
-                      iconFunction={() => setPopup(false)}
+                      iconFunction={() => {
+                        setCheckNumberChangeInfo(false);
+                        setPopup(false);
+                      }}
                       iconName="close"
                       IconComponent={AntDesign}
                       size={theme.spaceNumberBy10[1]}
@@ -172,14 +190,17 @@ export default function CreateAccount({ navigation }) {
                               navigation
                             );
                             setPopup(false);
+                            setCheckNumberChangeInfo(false);
                           }}>
-                          <Text
-                            variant="custom"
-                            colorType="base"
-                            fontType="montserratRegular"
-                            fontSize="body">
-                            Request OTP
-                          </Text>
+                          {!checkNumberChangeInfo && (
+                            <Text
+                              variant="custom"
+                              colorType="base"
+                              fontType="montserratRegular"
+                              fontSize="body">
+                              Request OTP
+                            </Text>
+                          )}
                         </Pressable>
                       </Spacer>
                     )}

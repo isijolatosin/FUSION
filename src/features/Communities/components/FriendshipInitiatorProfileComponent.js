@@ -661,38 +661,42 @@ export default function FriendshipInitiatorProfileComponent({
                   </Text>
                 </View>
               </View>
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  My Location
-                </Text>
-              </Spacer>
-              <View
-                style={{
-                  flexDirection: "row",
-                  paddingVertical: theme.spaceNumber[3],
-                  borderRadius: theme.spaceNumberBy10[4],
-                }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="location-pin"
-                  IconComponent={Entypo}
-                  size={15}
-                  color={theme.colors.brand.base}
-                />
-                <Text
-                  style={{ marginLeft: 3 }}
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="button">
-                  {data?.[0]?.friendRequestFrom?.location}
-                </Text>
-              </View>
+              {data?.[0]?.friendRequestFrom?.locationVisibility && (
+                <Fragment>
+                  <Spacer position="top" size="medium">
+                    <Text
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratBold"
+                      fontSize="title"
+                      width="100%">
+                      My Location
+                    </Text>
+                  </Spacer>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      paddingVertical: theme.spaceNumber[3],
+                      borderRadius: theme.spaceNumberBy10[4],
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName="location-pin"
+                      IconComponent={Entypo}
+                      size={15}
+                      color={theme.colors.brand.base}
+                    />
+                    <Text
+                      style={{ marginLeft: 3 }}
+                      variant="custom"
+                      colorType="black"
+                      fontType="montserratBold"
+                      fontSize="button">
+                      {data?.[0]?.friendRequestFrom?.location}
+                    </Text>
+                  </View>
+                </Fragment>
+              )}
             </HorizontalPaddingSpace>
 
             <Spacer
