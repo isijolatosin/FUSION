@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { Fragment, useCallback, useRef, useState } from "react";
 import {
   Image,
   RefreshControl,
@@ -553,38 +553,42 @@ export default function IndividualUserProfileComponent({
             </Text>
           </View>
         </View>
-        <Spacer position="top" size="medium">
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="title"
-            width="100%">
-            My Location
-          </Text>
-        </Spacer>
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: theme.spaceNumber[3],
-            borderRadius: theme.spaceNumberBy10[4],
-          }}>
-          <IconComponent
-            iconFunction={() => {}}
-            iconName="location-pin"
-            IconComponent={Entypo}
-            size={15}
-            color={theme.colors.brand.base}
-          />
-          <Text
-            style={{ marginLeft: 3 }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="button">
-            {data?.location}
-          </Text>
-        </View>
+        {data?.locationVisibility && (
+          <Fragment>
+            <Spacer position="top" size="medium">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
+                My Location
+              </Text>
+            </Spacer>
+            <View
+              style={{
+                flexDirection: "row",
+                paddingVertical: theme.spaceNumber[3],
+                borderRadius: theme.spaceNumberBy10[4],
+              }}>
+              <IconComponent
+                iconFunction={() => {}}
+                iconName="location-pin"
+                IconComponent={Entypo}
+                size={15}
+                color={theme.colors.brand.base}
+              />
+              <Text
+                style={{ marginLeft: 3 }}
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="button">
+                {data?.location}
+              </Text>
+            </View>
+          </Fragment>
+        )}
       </View>
       <Spacer style={{ position: "relative" }} position="top" size="large">
         <Image

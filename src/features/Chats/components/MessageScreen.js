@@ -35,12 +35,10 @@ import {
   removeDocumentFromCollections,
   removeItemFromArray,
 } from "../../../utilities/updateFirestoreDatabaseField";
-import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import MessageDotsPopupModal from "./MessageDotsPopupModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
-import getAddress from "../../../utilities/getAddress";
 
 export default function MessageScreen({ navigation }) {
   const { width, height } = Dimensions.get("window");

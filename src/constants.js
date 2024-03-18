@@ -38,7 +38,7 @@ export const youarespecialmessage =
 export const yourprofileisset =
   "Your profile is set. Select matches specially curated for you.";
 export const createAccountInstruction =
-  "We never share your details with anyone else. It’s our little secret. What happens if my number changes?";
+  "We never share your details with anyone else. It’s our little secret. ";
 export const dobInstruction = "Only your age will be visible on your account";
 export const interestInstruction =
   "This helps us make the perfect match for you. Pick only 6 things you love doing.";
