@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Pressable,
+  Linking,
 } from "react-native";
 import { Ionicons, Octicons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -19,6 +20,7 @@ import {
   deleteaccounttext,
   deactivateaccounttext,
   deleteaccountconfirmationtext,
+  baseUrl,
 } from "../../../constants";
 import {
   removeItemFromArray,
@@ -791,10 +793,15 @@ export default function SettingModal({
               paddingBottom: theme.spaceNumberBy10[2],
             }}
             space={theme.space[2]}>
-            <TextIconComponent title="Privacy Policy" compFunction={() => {}} />
+            <TextIconComponent
+              title="Privacy Policy"
+              compFunction={() => Linking.openURL(`${baseUrl}/privacy-policy`)}
+            />
             <TextIconComponent
               title="Terms of Service"
-              compFunction={() => {}}
+              compFunction={() =>
+                Linking.openURL(`${baseUrl}/terms-of-service`)
+              }
             />
             <TextIconComponent
               title="Privacy preference"

@@ -966,3 +966,4 @@ We're committed to reshaping the landscape of friendship and dating, offering a 
 
 <p>If you have further questions, please feel free to Contact us via <strong><i style="color: #6F0606;">Contact us in Help Center</i></strong>.</p>
 `;
+export const baseUrl = "https://www.wiingr.com/#";

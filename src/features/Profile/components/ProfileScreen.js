@@ -66,6 +66,7 @@ import Avatar from "../../../components/general-component/Avatar";
 import IndustryUpdateModal from "./IndustryUpdateModal";
 import TextAndIconComponent from "./TextAndIconComponent";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function ProfileScreen() {
   const {
@@ -184,7 +185,7 @@ export default function ProfileScreen() {
         <View>
           <HorizontalPaddingSpace
             style={{
-              marginTop: theme.spaceNumberBy10[5],
+              marginTop: theme.spaceNumberBy10[2],
               backgroundColor: theme.colors.brand.linesFaint,
               paddingVertical: theme.spaceNumber[3],
             }}
@@ -929,69 +930,31 @@ export default function ProfileScreen() {
       style={{
         backgroundColor: theme.colors.brand.basewhite,
       }}>
-      <YouAreSpecialCircleWrapper
-        style={{
-          position: "absolute",
-          top: -250,
-          left: 0,
-        }}
-        color="highlight"
-        width={width}
-        height={width}
-      />
-      <NavigationBar>
-        <View
-          style={{
-            marginTop: Platform.OS !== "ios" ? 40 : 20,
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            paddingRight: theme.spaceNumber[9],
-            width: "100%",
-          }}>
-          <IconComponent
-            iconFunction={handleOpenSettingModal}
-            iconName="settings-sharp"
-            IconComponent={Ionicons}
-            size={25}
-            color={theme.colors.brand.brandTone}
-          />
-        </View>
-      </NavigationBar>
-      <View style={{ height: "100%" }}>
-        <Spacer
-          style={{
-            alignItems: "center",
-            paddingBottom: theme.spaceNumberBy10[0],
-            borderBottomWidth: 0.5,
-            borderBottomColor: theme.colors.brand.linesLighter,
-          }}
-          position="top"
-          size="xxsmall">
-          <HorizontalPaddingSpace space={theme.space[3]}>
+      <Spacer position="bottom" size="xxlarge">
+        <HeaderComponent
+          title={currentUser?.firstname && currentUser?.firstname}
+          theme={theme}
+          LeftComp={() => (
             <Avatar
               data={currentUser?.mediaArray?.[0]}
               theme={theme}
-              dimensionIndex={9}
+              dimensionIndex={2}
               func={() => setShowProfile(true)}
             />
-            <Spacer position="top" size="xsmall">
-              <Text
-                style={{ textAlign: "center" }}
-                variant="custom"
-                colorType="black"
-                fontType="montserratBold"
-                fontSize="body">
-                {currentUser?.firstname &&
-                  `${currentUser?.firstname}, ${calculateAge(
-                    currentUser?.dob?.year,
-                    currentUser?.dob?.month,
-                    currentUser?.dob?.day
-                  )}`}
-              </Text>
-            </Spacer>
-          </HorizontalPaddingSpace>
-        </Spacer>
-
+          )}
+          RightComp={() => (
+            <IconComponent
+              iconFunction={handleOpenSettingModal}
+              iconName="settings-sharp"
+              IconComponent={Ionicons}
+              size={25}
+              color={theme.colors.brand.brandTone}
+            />
+          )}
+          size="h5"
+        />
+      </Spacer>
+      <View style={{ height: "100%" }}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           position="top"
@@ -1004,9 +967,7 @@ export default function ProfileScreen() {
               backgroundColor: theme.colors.brand.linesFaint,
               paddingVertical: theme.spaceNumber[3],
             }}>
-            <HorizontalPaddingSpace
-              style={{ paddingTop: 5 }}
-              space={theme.space[2]}>
+            <HorizontalPaddingSpace space={theme.space[2]}>
               <Text
                 variant="custom"
                 colorType="linesLight"
@@ -1016,7 +977,7 @@ export default function ProfileScreen() {
               </Text>
             </HorizontalPaddingSpace>
           </View>
-          <Spacer position="top" size="large">
+          <Spacer position="top" size="small">
             <HorizontalPaddingSpace
               style={{
                 flexDirection: "row",
@@ -1058,20 +1019,12 @@ export default function ProfileScreen() {
                   ))}
             </HorizontalPaddingSpace>
           </Spacer>
-          <Spacer position="bottom" size="large">
-            <AboutMeListComponent
-              title="Socials"
-              subTitle=""
-              value={[
-                "facebook",
-                "instagram",
-                "playlist",
-                "snapchat",
-                "tiktok",
-              ]}
-              isList={true}
-            />
-          </Spacer>
+          <AboutMeListComponent
+            title="Socials"
+            subTitle=""
+            value={["facebook", "instagram", "playlist", "snapchat", "tiktok"]}
+            isList={true}
+          />
           <Spacer
             style={{
               paddingBottom: theme.spaceNumber[3],
@@ -1079,7 +1032,7 @@ export default function ProfileScreen() {
               backgroundColor: theme.colors.brand.linesFaint,
             }}
             position="top"
-            size="xxxlarge">
+            size="xxlarge">
             <HorizontalPaddingSpace
               style={{
                 paddingTop: 5,
@@ -1239,7 +1192,7 @@ export default function ProfileScreen() {
             title="Work"
             value={currentUser?.workplace?.work}
           />
-          <Spacer position="top" size="xxxxlarge">
+          <Spacer position="top" size="xxlarge">
             <HorizontalPaddingSpace
               space={theme.space[2]}
               style={{
@@ -1305,7 +1258,7 @@ export default function ProfileScreen() {
               }
             />
           </Spacer>
-          <Spacer position="top" size="xxxxlarge">
+          <Spacer position="top" size="xxlarge">
             <HorizontalPaddingSpace
               space={theme.space[2]}
               style={{
@@ -1419,12 +1372,14 @@ export default function ProfileScreen() {
               }
             />
           </Spacer>
-          <AboutMeListComponent
-            title="I Enjoy"
-            subTitle=""
-            value={currentUser?.interestsArray}
-            isList={true}
-          />
+          <View style={{ marginBottom: theme.spaceNumberBy10[2] }}>
+            <AboutMeListComponent
+              title="I Enjoy"
+              subTitle=""
+              value={currentUser?.interestsArray}
+              isList={true}
+            />
+          </View>
         </ScrollView>
       </View>
       <AnimatedModal
