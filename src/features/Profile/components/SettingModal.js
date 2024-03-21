@@ -795,13 +795,11 @@ export default function SettingModal({
             space={theme.space[2]}>
             <TextIconComponent
               title="Privacy Policy"
-              compFunction={() => Linking.openURL(`${baseUrl}/privacy-policy`)}
+              compFunction={() => Linking.openURL(`${baseUrl}privacy-policy`)}
             />
             <TextIconComponent
               title="Terms of Service"
-              compFunction={() =>
-                Linking.openURL(`${baseUrl}/terms-of-service`)
-              }
+              compFunction={() => Linking.openURL(`${baseUrl}terms-of-service`)}
             />
             <TextIconComponent
               title="Privacy preference"
