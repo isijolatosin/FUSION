@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Dimensions, Image, View } from "react-native";
+import { Image, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -32,8 +32,6 @@ const LikesScreen = () => {
   const {
     state: { theme },
   } = useAppContext();
-  const { width } = Dimensions.get("window");
-  const [loading, setLoading] = useState(false);
   const [yourLikesData, setYourLikesData] = useState([]);
   const [friendRequestData, setFriendRequestData] = useState([]);
 
@@ -57,7 +55,7 @@ const LikesScreen = () => {
 
   async function fetchUsersData() {
     storeData("last-screen-visit", "likes");
-    setLoading(true);
+
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     // all data
@@ -82,7 +80,6 @@ const LikesScreen = () => {
 
     setYourLikesData(likeInitiators);
     setFriendRequestData(friendInitiators);
-    setLoading(false);
   }
 
   useFocusEffect(
@@ -186,7 +183,11 @@ const LikesScreen = () => {
                             height: "100%",
                             resizeMode: "cover",
                           }}
-                          source={require("../../../../assets/illustration-2.png")}
+                          source={
+                            currentUser?.gender === "woman"
+                              ? require("../../../../assets/illustration-woman.png")
+                              : require("../../../../assets/illustration-man.png")
+                          }
                         />
                       )}
                       spaceSize=""

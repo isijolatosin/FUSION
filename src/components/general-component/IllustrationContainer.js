@@ -7,7 +7,7 @@ const IllustrationContainer = ({ ImageComponent, spaceSize, theme }) => {
     <Spacer position="bottom" size={spaceSize}>
       <View
         style={{
-          width: theme.spaceNumberBy50[2] + theme.spaceNumberBy10[1],
+          width: theme.spaceNumberBy50[2] + theme.spaceNumberBy10[4],
           height: theme.spaceNumberBy50[2] + theme.spaceNumberBy10[1],
           alignSelf: "center",
         }}>

@@ -6,7 +6,9 @@ import {
   Platform,
   View,
 } from "react-native";
+import LottieView from "lottie-react-native";
 import { useRoute } from "@react-navigation/native";
+// import { Audio } from "expo-av";
 import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -39,6 +41,7 @@ import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import MessageDotsPopupModal from "./MessageDotsPopupModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
+// import { uploadAudioToCloudinary } from "../../../utilities/pickImageAsync";
 
 export default function MessageScreen({ navigation }) {
   const { width, height } = Dimensions.get("window");
@@ -57,6 +60,10 @@ export default function MessageScreen({ navigation }) {
   const [input, setInput] = useState("");
   const [matchId, setMatchId] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+  const [recording, setRecording] = useState();
+  // const [sound, setSound] = useState();
+  // const [recordingActive, setRecordingActive] = useState(false);
+  // const [permissionResponse, requestPermission] = Audio.usePermissions();
   const [showImageModal, setShowImageModal] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [triggerReload, setTriggerReload] = useState(false);
@@ -208,7 +215,13 @@ export default function MessageScreen({ navigation }) {
         recieverphonenumber: otherUserDataObject?.phonenumber,
         senderphonenumber: currentUser?.phonenumber,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      });
+      })
+      .then(() => {
+        // call in-app notification function
+        sendNotification();
+        console.log(`PHOTO MESSAGE SENT SUCCESSFULLY`);
+      })
+      .catch((error) => console.log("Error " + error.message));
 
     setTriggerReload(true);
     setInput("");
@@ -349,8 +362,73 @@ export default function MessageScreen({ navigation }) {
     navigation.navigate("chat");
   }
 
+  //   async function startRecording() {
+  //     try {
+  //       if (permissionResponse.status !== "granted") {
+  //         console.log("Requesting permission..");
+  //         await requestPermission();
+  //       }
+  //       await Audio.setAudioModeAsync({
+  //         allowsRecordingIOS: true,
+  //         playsInSilentModeIOS: true,
+  //       });
+  //
+  //       const { recording } = await Audio.Recording.createAsync(
+  //         Audio.RecordingOptionsPresets.HIGH_QUALITY
+  //       );
+  //
+  //       if (recording) setRecordingActive(true);
+  //       setRecording(recording);
+  //     } catch (err) {
+  //       console.error("Failed to start recording", err);
+  //     }
+  //   }
+
+  // async function stopRecording() {
+  //   setRecordingActive(false);
+  //   await recording?.stopAndUnloadAsync();
+  //   await Audio.setAudioModeAsync({
+  //     allowsRecordingIOS: false,
+  //   });
+  //   const uri = recording.getURI();
+  //   setRecording(undefined);
+
+  // upload to cloudinary
+  // const result = await uploadAudioToCloudinary(uri);
+
+  //     database
+  //       .collection(flag ? "friendship-matches" : "matches")
+  //       .doc(matchId)
+  //       .collection("messages")
+  //       .add({
+  //         firstname: currentUser.firstname,
+  //         matchId: matchId,
+  //         message: uri,
+  //         photo: currentUser.mediaArray?.[0],
+  //         recieverphonenumber: otherUserDataObject?.phonenumber,
+  //         senderphonenumber: currentUser?.phonenumber,
+  //         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //       })
+  //       .then(() => {
+  //         // call in-app notification function
+  //         sendNotification();
+  //         console.log(`AUDIO MESSAGE SENT SUCCESSFULLY`);
+  //       })
+  //       .catch((error) => console.log("Error " + error.message));
+  //
+  //     setTriggerReload(true);
+  // }
+
+  // async function playAudio(audioFile) {
+  // const { sound } = await Audio.Sound.createAsync(
+  //   require("file:///var/mobile/Containers/Data/Application/183C3684-E540-4655-A4D8-AEE4A487B611/Library/Caches/ExponentExperienceData/@isijolatosin2210/wiingr-app/AV/recording-F3CCCDC6-20AE-4DF3-B4E7-3B22C323DD9E.m4a")
+  // );
+  // setSound(sound);
+  // await sound.playAsync();
+  // }
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, position: "relative" }}>
       <HorizontalPaddingSpace
         style={{
           marginTop:
@@ -360,7 +438,12 @@ export default function MessageScreen({ navigation }) {
         }}
         space={theme.space[1]}>
         <NavigationBar>
-          <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              flex: 1,
+            }}>
             <IconComponent
               iconFunction={() => navigation.goBack()}
               iconName="chevron-back"
@@ -387,10 +470,23 @@ export default function MessageScreen({ navigation }) {
                 colorType="black"
                 fontType="montserratBold"
                 fontSize="title">
-                {otherUserDataObject?.firstname}
+                {otherUserDataObject?.firstname}{" "}
               </Text>
             </View>
           </View>
+          {/* {recordingActive && (
+            <View
+              style={{
+                width: theme.spaceNumberBy50[4],
+                height: theme.spaceNumberBy10[4],
+              }}>
+              <LottieView
+                source={require("../../../../assets/animations/recording.json")}
+                autoPlay
+                loop
+              />
+            </View>
+          )} */}
           <IconComponent
             iconFunction={() => setOpenDotActionModal(true)}
             iconName="dots-vertical"
@@ -414,6 +510,7 @@ export default function MessageScreen({ navigation }) {
               currentUser={currentUser}
               setSelectedImage={setSelectedImage}
               setShowImageModal={setShowImageModal}
+              // playAudio={playAudio}
             />
           ))}
         </MessageContainer>
@@ -426,8 +523,12 @@ export default function MessageScreen({ navigation }) {
           value={input}
           theme={theme}
           setInput={setInput}
+          recording={recording}
+          setRecording={setRecording}
           sendMessage={sendMessage}
           setOpenImageUploadModal={setOpenImageUploadModal}
+          // stopRecording={stopRecording}
+          // startRecording={startRecording}
         />
       </KeyboardAvoidingView>
       {showImageModal && (

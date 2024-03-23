@@ -1,11 +1,14 @@
-import { View, Pressable, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { View, Pressable, Image, TouchableOpacity } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import {
   MessageBubble,
   MessageBubbleWrap,
 } from "../../../components/Input-Forms/input.styles";
 import {
   detectImageUrl,
+  detectAudioFile,
   detectPhoneNumber,
   detectUrl,
   handleCallPress,
@@ -13,6 +16,7 @@ import {
 } from "../../../utilities/detectTextType";
 import { Text } from "../../../components/typography/text.component";
 import { getTime } from "../../../utilities/formatTimestamp";
+import IconComponent from "../../../components/icon-components/IconComponent";
 
 export default function MessageGroupComponent({
   theme,
@@ -21,6 +25,7 @@ export default function MessageGroupComponent({
   currentUser,
   setSelectedImage,
   setShowImageModal,
+  // playAudio,
 }) {
   function checkIfdateIsToday(targetDate) {
     // Get the current date in the same format
@@ -117,6 +122,30 @@ export default function MessageGroupComponent({
                     uri: item?.message,
                   }}
                 />
+              </TouchableOpacity>
+            ) : detectAudioFile(item?.message) ? (
+              <TouchableOpacity
+                style={{ flexDirection: "row", alignItems: "center" }}
+                // onPress={() => playAudio(item?.message)}
+              >
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="multitrack-audio"
+                  IconComponent={MaterialIcons}
+                  size={20}
+                  theme={theme}
+                  horizontalRightSpace={theme.space[1]}
+                  color={theme.colors.brand.base}
+                />
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="base"
+                    fontType="montserratSemibold"
+                    fontSize="caption">
+                    Play audio
+                  </Text>
+                </View>
               </TouchableOpacity>
             ) : (
               <View>
