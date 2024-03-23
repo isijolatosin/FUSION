@@ -8,3 +8,7 @@
 - Librarys to consider
 
 1. react-native-onboarding-swiper
+
+-APP VERSION MANAGEMENT: Setting versionCode(android) or buildNumber(iOS), you can automate inside of eas.json by setting the appVersionSource to remote in "cli" and remove the versionCode(android) and buildNumber(ios) from app.json since it will no longer be needed. And if you prefer manual update, set the appVersionSource in eas.json to local and add the versionCode(android) and buildNumber(iOS) to app.json. After, run eas build --profile production --platform ios( or android)
+
+To change your version code any time, run eas build:version:set and follow through

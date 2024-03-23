@@ -387,6 +387,7 @@ const ChatsScreen = () => {
         buttonText="Keep liking"
         headingTitle="Chats"
         cardFunction={() => navigation.navigate("home")}
+        ImageComponent={() => <></>}
       />
     );
   }

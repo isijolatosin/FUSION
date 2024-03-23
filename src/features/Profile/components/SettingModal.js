@@ -8,6 +8,7 @@ import {
   Pressable,
   Linking,
 } from "react-native";
+import Constants from "expo-constants";
 import { Ionicons, Octicons, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -795,11 +796,19 @@ export default function SettingModal({
             space={theme.space[2]}>
             <TextIconComponent
               title="Privacy Policy"
-              compFunction={() => Linking.openURL(`${baseUrl}privacy-policy`)}
+              compFunction={() =>
+                Linking.openURL(
+                  `${Constants.expoConfig.extra.eas.baseurl}privacy-policy`
+                )
+              }
             />
             <TextIconComponent
               title="Terms of Service"
-              compFunction={() => Linking.openURL(`${baseUrl}terms-of-service`)}
+              compFunction={() =>
+                Linking.openURL(
+                  `${Constants.expoConfig.extra.eas.baseurl}terms-of-service`
+                )
+              }
             />
             <TextIconComponent
               title="Privacy preference"

@@ -41,13 +41,11 @@ export default function CustomUseCardWithCTA({
         RightComp={() => <></>}
       />
       <View style={{ flex: 1, marginTop: theme.spaceNumberBy10[5] }}>
-        {React.isValidElement(ImageComponent) && (
-          <IllustrationContainer
-            ImageComponent={ImageComponent}
-            spaceSize={spaceSize}
-            theme={theme}
-          />
-        )}
+        <IllustrationContainer
+          ImageComponent={ImageComponent}
+          spaceSize={spaceSize}
+          theme={theme}
+        />
 
         <HorizontalPaddingSpace
           style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}

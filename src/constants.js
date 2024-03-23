@@ -13,14 +13,6 @@ import {
   Zocial,
 } from "@expo/vector-icons";
 
-export const locationBackgroundImage =
-  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703740615/fusion/global-communication-background-business-network-design_2_j3fnht.png";
-export const splashImage =
-  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703726052/fusion/intercultural-friends-sitting-bench-while-hugging_1_kclgy8.png";
-
-export const homeSplashImage =
-  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1704926359/fusion/full-length-portrait-happy-young-african-man_2_mzvuxq.png";
-
 export const splashOboardingSummaryText =
   "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
 export const oboardingSummaryText =
@@ -966,4 +958,3 @@ We're committed to reshaping the landscape of friendship and dating, offering a 
 
 <p>If you have further questions, please feel free to Contact us via <strong><i style="color: #6F0606;">Contact us in Help Center</i></strong>.</p>
 `;
-export const baseUrl = "https://www.wiingr.com/";

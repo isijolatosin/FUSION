@@ -8,14 +8,18 @@ import {
   TextInputMessageWrapper,
   TextMessageWrap,
 } from "./input.styles";
-// import { IconComponentWraper } from "../../features/Main/screen/main.style";
+// import { TouchableWithoutFeedback, View } from "react-native";
 
 export default function MessageInput({
   value,
   theme,
   setInput,
+  // recording,
   sendMessage,
+  // setRecording,
   setOpenImageUploadModal,
+  // startRecording,
+  // stopRecording,
 }) {
   return (
     <TextInputMessageWrapper
@@ -63,22 +67,22 @@ export default function MessageInput({
           iconFunction={() => setOpenImageUploadModal(true)}
           iconName="camera"
           IconComponent={FontAwesome}
-          size={30}
+          size={20}
           theme={theme}
-          horizontalLeftSpace={theme.space[1]}
-          horizontalRightSpace={theme.space[0]}
+          horizontalLeftSpace={theme.space[3]}
+          horizontalRightSpace={theme.space[3]}
         />
-
-        {/* To do done in phase 2 */}
-
-        {/* <IconComponentWraper
+        {/* <TouchableWithoutFeedback
           onPressIn={startRecording}
-          onPressOut={stopRecording}
-          horizontalLeftSpace={theme.space[2]}
-          horizontalRightSpace={theme.space[2]}
-          >
-          <FontAwesome name="microphone" size={30} />
-        </IconComponentWraper> */}
+          onPressOut={stopRecording}>
+          <View
+            style={{
+              marginLeft: theme.spaceNumber[5],
+              marginRight: theme.spaceNumber[7],
+            }}>
+            <FontAwesome name="microphone" size={20} />
+          </View>
+        </TouchableWithoutFeedback> */}
       </TextInputMessageIcon>
     </TextInputMessageWrapper>
   );

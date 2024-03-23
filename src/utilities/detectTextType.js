@@ -30,6 +30,30 @@ function detectImageUrl(text) {
   const imageRegex = /\.(jpeg|jpg|gif|png)$/i;
   return imageRegex.test(text);
 }
+
+function detectAudioFile(fileName) {
+  // List of common audio file extensions
+  const audioExtensions = [
+    ".mp3",
+    ".wav",
+    ".ogg",
+    ".aac",
+    ".m4a",
+    ".flac",
+    ".wma",
+    ".alac",
+    ".aiff",
+    ".ape",
+  ];
+
+  // Extract file extension
+  const fileExtension = fileName
+    .slice(((fileName.lastIndexOf(".") - 1) >>> 0) + 2)
+    .toLowerCase();
+
+  // Check if the file extension matches any audio extensions
+  return audioExtensions.includes("." + fileExtension);
+}
 //
 // function handleImageUrlPress(url) {
 //   if (detectImageUrl(url)) {
@@ -50,6 +74,7 @@ export {
   detectUrl,
   handleUrlPress,
   detectImageUrl,
+  detectAudioFile,
   shortenText,
   //   handleImageUrlPress,
 };

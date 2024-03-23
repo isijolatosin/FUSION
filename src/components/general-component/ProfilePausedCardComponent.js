@@ -28,6 +28,7 @@ const ProfilePausedCardComponent = ({
               );
             }}
             headingTitle=" Profile Paused"
+            ImageComponent={() => <></>}
           />
         )}
       </Spacer>

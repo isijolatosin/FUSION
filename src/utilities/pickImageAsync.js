@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+// import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
 
@@ -18,26 +19,6 @@ export const uploadImageToCloudinary = async (imagePath) => {
   }
 
   try {
-    //     if (oldUrl) {
-    //       //destroy old image
-    //       const publicId = oldUrl.split("/").pop().split(".")[0];
-    //
-    //       const result = await fetch(
-    //         "https://api.cloudinary.com/v1_1/dhdccvkyt/image/destroy",
-    //         {
-    //           method: "POST",
-    //           headers: {
-    //             "Content-Type": "application/json",
-    //           },
-    //           body: JSON.stringify({
-    //             public_id: publicId,
-    //             api_key: "888914778648642",
-    //             api_secret: "R1N12-ebyWt24Y-1qWN-KsSqge8",
-    //           }),
-    //         }
-    //       );
-    //     }
-
     const compressedImageUri = await compressImage(imagePath);
     const formData = new FormData();
     formData.append("file", {
@@ -63,6 +44,47 @@ export const uploadImageToCloudinary = async (imagePath) => {
     console.error("Error uploading image to Cloudinary:", error);
   }
 };
+// export const uploadAudioToCloudinary = async (audioPath) => {
+//   if (!audioPath) {
+//     console.error("No audio path selected for upload");
+//     return;
+//   }
+//
+//   try {
+//     // Read the file data from the local audioPath
+//     const fileData = await FileSystem.readAsStringAsync(audioPath, {
+//       encoding: FileSystem.EncodingType.Base64,
+//     });
+//
+//     // Upload the file data to Cloudinary
+//     const response = await fetch(
+//       "https://api.cloudinary.com/v1_1/dhdccvkyt/upload",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           file: `data:audio/m4a;base64,${fileData}`,
+//           upload_preset: "fusion_pgas5byx",
+//         }),
+//       }
+//     );
+//
+//     if (!response.ok) {
+//       throw new Error("Failed to upload audio to Cloudinary");
+//     }
+//
+//     const responseData = await response.json();
+//     console.log("responseData", responseData);
+//
+//     // Cloudinary returns the URL of the uploaded file
+//     // return responseData.secure_url;
+//   } catch (error) {
+//     console.error("Error uploading audio to Cloudinary:", error);
+//     return null;
+//   }
+// };
 
 export const pickImageAsync = async (noAllowEditingForPhotoMessage) => {
   let result = await ImagePicker.launchImageLibraryAsync({
