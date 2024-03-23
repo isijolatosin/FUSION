@@ -60,6 +60,7 @@
     "expo-location": "16.1.0",
     "expo-mail-composer": "12.3.0",
     "expo-modules-core": "1.5.12",
+    "expo-network": "5.4.0",
     "expo-notifications": "0.20.1",
     "expo-status-bar": "~1.6.0",
     "expo-updates": "0.18.19",

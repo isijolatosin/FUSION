@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import * as Device from "expo-device";
+import * as Network from "expo-network";
 import { Dimensions, Image, Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -67,6 +68,7 @@ const Index = ({ navigation }) => {
 
   const {
     state: { theme },
+    dispatch,
   } = useAppContext();
 
   async function deviceDetect(userId) {
@@ -74,13 +76,17 @@ const Index = ({ navigation }) => {
 
     const deviceTypeEnum = ["UNKNOWN", "PHONE", "TABLET", "DESKTOP", "TV"];
     const modelName = Device?.modelName;
+    const brand = Device?.brand;
     const isDevice = Device?.isDevice;
     const deviceType = deviceTypeEnum[await Device?.getDeviceTypeAsync()];
+    const ip = await Network.getIpAddressAsync();
 
     const userDevice = {
-      modelname: modelName,
-      isdevice: isDevice,
+      brand: brand,
       devicetype: deviceType,
+      ipaddress: ip,
+      isdevice: isDevice,
+      modelname: modelName,
     };
 
     await updateUserValueField(
