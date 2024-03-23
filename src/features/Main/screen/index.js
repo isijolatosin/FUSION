@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import * as Device from "expo-device";
 import { Dimensions, Image, Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -23,7 +24,10 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import FilterComponent from "./sub-component/FilterComponent";
 import { CloseButton } from "./main.style";
-import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  getAllData,
+  updateUserValueField,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
 import CustomUseCardWithCTA from "../../../components/general-component/CustomUseCardWithCTA";
 import {
@@ -65,6 +69,29 @@ const Index = ({ navigation }) => {
     state: { theme },
   } = useAppContext();
 
+  async function deviceDetect(userId) {
+    if (!userId) return;
+
+    const deviceTypeEnum = ["UNKNOWN", "PHONE", "TABLET", "DESKTOP", "TV"];
+    const modelName = Device?.modelName;
+    const isDevice = Device?.isDevice;
+    const deviceType = deviceTypeEnum[await Device?.getDeviceTypeAsync()];
+
+    const userDevice = {
+      modelname: modelName,
+      isdevice: isDevice,
+      devicetype: deviceType,
+    };
+
+    await updateUserValueField(
+      "all-users",
+      userId,
+      "deviceinformation",
+      userDevice,
+      () => {}
+    );
+  }
+
   const fetchUsersData = async (phonenumber) => {
     storeData("last-screen-visit", "home");
     if (phonenumber) {
@@ -73,6 +100,9 @@ const Index = ({ navigation }) => {
         (data) => data.phonenumber === phonenumber
       );
       setCurrentUser(currentUserData);
+
+      if (!currentUserData?.deviceinformation)
+        deviceDetect(currentUserData?.id);
 
       const returningData = newData.filter((data) => {
         if (data.phonenumber !== phonenumber) {
