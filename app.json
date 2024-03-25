@@ -48,7 +48,8 @@
     "extra": {
       "eas": {
         "projectId": "c8a2c8c5-e0d7-415d-88cd-83c85489de5b",
-        "baseurl": "https://www.wiingr.com/"
+        "baseurl": "https://www.wiingr.com/",
+        "adminKey": "ADMIN"
       }
     },
     "runtimeVersion": {

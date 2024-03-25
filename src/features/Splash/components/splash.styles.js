@@ -38,13 +38,13 @@ const LogoText = styled(Text)`
 const ButtonWrapper = styled(TouchableOpacity)`
   background-color: ${(props) => props.backgroundColor};
   width: ${(props) => (props.width ? props.width : "100%")};
-  padding-top: ${(props) => `${props.theme.spaceNumber[9]}px`};
-  padding-bottom: ${(props) => `${props.theme.spaceNumber[9]}px`};
+  padding-top: ${(props) => `${props.theme.spaceNumber[6]}px`};
+  padding-bottom: ${(props) => `${props.theme.spaceNumber[6]}px`};
   border-width: ${(props) =>
     !props.isBorder ? "0px" : props.theme.letterSpacing[0]};
   border-color: ${(props) => props.borderColor};
   border-radius: ${(props) =>
-    props.borderRadius ? props.borderRadius : props.theme.space[3]};
+    props.borderRadius ? props.borderRadius : props.theme.space[5]};
   display: flex;
   justify-content: center;
   align-items: center;

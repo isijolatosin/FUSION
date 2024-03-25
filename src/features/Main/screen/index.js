@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
+import Constants from "expo-constants";
 import { Dimensions, Image, Pressable, View } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -132,7 +133,7 @@ const Index = ({ navigation }) => {
       for (let i = 0; i < returningData.length; i++) {
         if (
           returningData[i]?.country === currentUserData?.country ||
-          process.env.EXPO_PUBLIC_ROLE === currentUserData.role // remove admin see all users later
+          Constants.expoConfig.extra.eas.adminKey === currentUserData.role // remove admin see all users later
         ) {
           filterOffByCountryProfiles.push(returningData[i]);
         }
