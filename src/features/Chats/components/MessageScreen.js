@@ -192,8 +192,10 @@ export default function MessageScreen({ navigation }) {
         })
         .then(() => {
           // call in-app notification function
-          sendNotification();
-          console.log(`MESSAGE SENT SUCCESSFULLY`);
+          if (otherUserDataObject?.inAppNotification) {
+            sendNotification();
+            console.log(`MESSAGE SENT SUCCESSFULLY`);
+          }
         })
         .catch((error) => console.log("Error " + error.message));
 
@@ -218,8 +220,10 @@ export default function MessageScreen({ navigation }) {
       })
       .then(() => {
         // call in-app notification function
-        sendNotification();
-        console.log(`PHOTO MESSAGE SENT SUCCESSFULLY`);
+        if (otherUserDataObject?.inAppNotification) {
+          sendNotification();
+          console.log(`PHOTO MESSAGE SENT SUCCESSFULLY`);
+        }
       })
       .catch((error) => console.log("Error " + error.message));
 

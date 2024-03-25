@@ -46,6 +46,8 @@ import { Text } from "../../../components/typography/text.component";
 import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import Loading from "../../../components/general-component/Loading";
+import hasMatchingElements from "../../../utilities/hasMatchElements";
+import Avatar from "../../../components/general-component/Avatar";
 
 const Index = ({ navigation }) => {
   const { width } = Dimensions.get("window");
@@ -521,6 +523,63 @@ const Index = ({ navigation }) => {
             </NavigationBar>
           </Spacer>
         </Spacer>
+        {hasMatchingElements(
+          currentUsertoSwipe?.interestsArray,
+          currentUser?.interestsArray,
+          4
+        ) && (
+          <View
+            style={{
+              borderTopLeftRadius: -theme.spaceNumber[5],
+              backgroundColor: theme.colors.brand.black,
+              marginBottom: theme.spaceNumber[3],
+              paddingRight: theme.spaceNumber[6],
+              paddingLeft: theme.spaceNumber[5],
+              paddingVertical: theme.spaceNumber[2],
+              flexDirection: "row",
+              alignItems: "center",
+              borderColor: theme.colors.brand.linesLighter,
+              borderRadius: theme.spaceNumberBy10[2],
+              borderBottomRightRadius: 0,
+            }}>
+            <View style={{ marginRight: -theme.spaceNumber[3] }}>
+              <Avatar
+                data={currentUser?.mediaArray[0]}
+                theme={theme}
+                dimensionIndex={2}
+                func={() => {}}
+                isSmallIcon={false}
+              />
+            </View>
+            <View
+              style={{
+                borderWidth: "2.5px",
+                borderRadius: theme.spaceNumberBy10[5],
+                borderColor: theme.colors.brand.black,
+              }}>
+              <Avatar
+                data={currentUsertoSwipe?.mediaArray[0]}
+                theme={theme}
+                dimensionIndex={3}
+                func={() => {}}
+                isSmallIcon={false}
+              />
+            </View>
+            <View
+              style={{
+                paddingLeft: theme.spaceNumber[2],
+                flex: 1,
+              }}>
+              <Text
+                variant="custom"
+                colorType="basewhite"
+                fontType="montserratRegular"
+                fontSize="caption">
+                {`3+ shared interests! ${currentUser?.firstname} & ${currentUsertoSwipe?.firstname}, let's spark a conversation...`}
+              </Text>
+            </View>
+          </View>
+        )}
         <IndividualUserProfileComponent
           fetchUsersData={fetchUsersData}
           phone={phone}
@@ -546,7 +605,15 @@ const Index = ({ navigation }) => {
             }
             scrollToTop();
           }}
-          spaceBottom="125px"
+          spaceBottom={
+            hasMatchingElements(
+              currentUsertoSwipe?.interestsArray,
+              currentUser?.interestsArray,
+              4
+            )
+              ? "200px"
+              : "135px"
+          }
           style={{
             elevation: 5,
             shadowColor: theme.colors.brand.black,
