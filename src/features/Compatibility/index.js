@@ -23,6 +23,7 @@ import ProfileViewModal from "../../components/general-component/ProfileViewModa
 import HeaderComponent from "../../components/general-component/HeaderComponent";
 import ProfileDeactivateCardComponent from "../../components/general-component/ProfileDeactivateCardComponent";
 import ProfilePausedCardComponent from "../../components/general-component/ProfilePausedCardComponent";
+import hasMatchingElements from "../../utilities/hasMatchElements";
 
 function ScreenWrapper({ children, theme, width }) {
   return (
@@ -71,12 +72,6 @@ export default function Index() {
   const {
     state: { theme },
   } = useAppContext();
-
-  function hasMatchingElements(array1, array2) {
-    const commonElements = array1.filter((element) => array2.includes(element));
-
-    return commonElements.length >= 3;
-  }
 
   async function asyncFunctionCall() {
     setIsLoading(true);
@@ -155,7 +150,11 @@ export default function Index() {
             if (likedMeList?.includes(user?.phonenumber)) return;
 
             if (
-              hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+              hasMatchingElements(
+                currentUserInteresstArray,
+                userInterestsArray,
+                3
+              )
             )
               stackingArray.push(user);
           }
@@ -169,7 +168,11 @@ export default function Index() {
             const userInterestsArray = user?.interestsArray;
 
             if (
-              hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+              hasMatchingElements(
+                currentUserInteresstArray,
+                userInterestsArray,
+                3
+              )
             )
               stackingArray.push(user);
           }
@@ -181,7 +184,11 @@ export default function Index() {
             !likedMeList
           ) {
             if (
-              hasMatchingElements(currentUserInteresstArray, userInterestsArray)
+              hasMatchingElements(
+                currentUserInteresstArray,
+                userInterestsArray,
+                3
+              )
             )
               stackingArray.push(user);
           }

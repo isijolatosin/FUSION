@@ -27,7 +27,7 @@ import {
   removeItemFromArray,
   updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
-import { database } from "../../../../config";
+import firebase, { database } from "../../../../config";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ContactModal from "./ContactModal";
@@ -65,170 +65,183 @@ export default function SettingModal({
 
   async function handleDeleteUserProfile(val) {
     if (val) {
-      // delete from all users
+      // archive user
       database
-        .collection("all-users")
-        .doc(userId)
-        .delete()
-        .then(() => {
-          console.log("User successfully deleted!");
+        .collection("archive")
+        .add({
+          ...currentUser,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
-        .catch((_error) => {
-          console.error("Error deleting user with Id: ", userId);
-        });
+        .then(async () => {
+          console.log(`USER ARCHIVED SUCCESSFULLY`);
 
-      //delete from all liked me list and list of all liked numbers array
-      const allUsersRef = database.collection("all-users");
-      const allUsersQuerySnapshot = await allUsersRef.get();
-      allUsersQuerySnapshot.forEach((doc) => {
-        const currentIterationUserData = doc.data();
-        const currentIterationUserId = doc.id;
+          // delete from all users
+          database
+            .collection("all-users")
+            .doc(userId)
+            .delete()
+            .then(() => {
+              console.log("User successfully deleted!");
+            })
+            .catch((_error) => {
+              console.error("Error deleting user with Id: ", userId);
+            });
 
-        if (
-          currentIterationUserData?.likedMeList?.includes(
-            currentUser?.phonenumber
-          )
-        ) {
-          removeItemFromArray(
-            "all-users",
-            currentIterationUserId,
-            "likedMeList",
-            currentUser?.phonenumber,
-            () => {}
-          );
-        }
-        if (
-          currentIterationUserData?.listOfAllLikedNumbers?.includes(
-            currentUser?.phonenumber
-          )
-        ) {
-          removeItemFromArray(
-            "all-users",
-            currentIterationUserId,
-            "listOfAllLikedNumbers",
-            currentUser?.phonenumber,
-            () => {}
-          );
-        }
-      });
+          //delete from all liked me list and list of all liked numbers array
+          const allUsersRef = database.collection("all-users");
+          const allUsersQuerySnapshot = await allUsersRef.get();
+          allUsersQuerySnapshot.forEach((doc) => {
+            const currentIterationUserData = doc.data();
+            const currentIterationUserId = doc.id;
 
-      //delete from all likes
-      const allLikesRef = database.collection("all-likes");
-      const querySnapshot = await allLikesRef.get();
-      querySnapshot.forEach(async (doc) => {
-        const docData = doc.data();
-        const likedBy = docData?.likedBy;
-        const profileLikedNumber = docData?.profileLikedNumber;
-
-        if (profileLikedNumber === currentUser?.phonenumber) {
-          await doc.ref.delete();
-        }
-        if (likedBy?.phonenumber === currentUser?.phonenumber) {
-          await doc.ref.delete();
-        }
-      });
-
-      // delete from matches
-      const allMatches = database.collection("matches");
-      const matchQuerySnapshot = await allMatches.get();
-      matchQuerySnapshot.forEach(async (doc) => {
-        const currentIterationMatchData = doc.data();
-
-        if (
-          currentIterationMatchData?.likedByprofile?.phonenumber ===
-          currentUser?.phonenumber
-        ) {
-          await doc.ref.delete();
-
-          // Get a reference to the message and delete messages
-          const messageRef = database
-            .collection("matches")
-            .doc(doc?.id)
-            .collection("messages");
-          const querySnapshot = await messageRef.get();
-
-          querySnapshot.forEach(async (doc) => {
-            await doc.ref.delete();
+            if (
+              currentIterationUserData?.likedMeList?.includes(
+                currentUser?.phonenumber
+              )
+            ) {
+              removeItemFromArray(
+                "all-users",
+                currentIterationUserId,
+                "likedMeList",
+                currentUser?.phonenumber,
+                () => {}
+              );
+            }
+            if (
+              currentIterationUserData?.listOfAllLikedNumbers?.includes(
+                currentUser?.phonenumber
+              )
+            ) {
+              removeItemFromArray(
+                "all-users",
+                currentIterationUserId,
+                "listOfAllLikedNumbers",
+                currentUser?.phonenumber,
+                () => {}
+              );
+            }
           });
-        }
-        if (
-          currentIterationMatchData?.likedProfile?.phonenumber ===
-          currentUser?.phonenumber
-        ) {
-          await doc.ref.delete();
 
-          // Get a reference to the message and delete messages
-          const messageRef = database
-            .collection("matches")
-            .doc(doc?.id)
-            .collection("messages");
-          const querySnapshot = await messageRef.get();
-
+          //delete from all likes
+          const allLikesRef = database.collection("all-likes");
+          const querySnapshot = await allLikesRef.get();
           querySnapshot.forEach(async (doc) => {
-            await doc.ref.delete();
+            const docData = doc.data();
+            const likedBy = docData?.likedBy;
+            const profileLikedNumber = docData?.profileLikedNumber;
+
+            if (profileLikedNumber === currentUser?.phonenumber) {
+              await doc.ref.delete();
+            }
+            if (likedBy?.phonenumber === currentUser?.phonenumber) {
+              await doc.ref.delete();
+            }
           });
-        }
-      });
 
-      // delete from friendship-matches
-      const allFriendshipMatches = database.collection("friendship-matches");
-      const friendshipMatchQuerySnapshot = await allFriendshipMatches.get();
-      friendshipMatchQuerySnapshot.forEach(async (doc) => {
-        const currentIterationFriendshipMatchData = doc.data();
+          // delete from matches
+          const allMatches = database.collection("matches");
+          const matchQuerySnapshot = await allMatches.get();
+          matchQuerySnapshot.forEach(async (doc) => {
+            const currentIterationMatchData = doc.data();
 
-        if (
-          currentIterationFriendshipMatchData?.friendshipRequestFrom
-            ?.phonenumber === currentUser?.phonenumber
-        ) {
-          await doc.ref.delete();
+            if (
+              currentIterationMatchData?.likedByprofile?.phonenumber ===
+              currentUser?.phonenumber
+            ) {
+              await doc.ref.delete();
 
-          // Get a reference to the message and delete messages
-          const messageRef = database
-            .collection("friendship-matches")
-            .doc(doc?.id)
-            .collection("messages");
-          const querySnapshot = await messageRef.get();
+              // Get a reference to the message and delete messages
+              const messageRef = database
+                .collection("matches")
+                .doc(doc?.id)
+                .collection("messages");
+              const querySnapshot = await messageRef.get();
 
-          querySnapshot.forEach(async (doc) => {
-            await doc.ref.delete();
+              querySnapshot.forEach(async (doc) => {
+                await doc.ref.delete();
+              });
+            }
+            if (
+              currentIterationMatchData?.likedProfile?.phonenumber ===
+              currentUser?.phonenumber
+            ) {
+              await doc.ref.delete();
+
+              // Get a reference to the message and delete messages
+              const messageRef = database
+                .collection("matches")
+                .doc(doc?.id)
+                .collection("messages");
+              const querySnapshot = await messageRef.get();
+
+              querySnapshot.forEach(async (doc) => {
+                await doc.ref.delete();
+              });
+            }
           });
-        }
-        if (
-          currentIterationFriendshipMatchData?.friendshipRequestTo
-            ?.phonenumber === currentUser?.phonenumber
-        ) {
-          await doc.ref.delete();
 
-          // Get a reference to the message and delete messages
-          const messageRef = database
-            .collection("friendship-matches")
-            .doc(doc?.id)
-            .collection("messages");
-          const querySnapshot = await messageRef.get();
+          // delete from friendship-matches
+          const allFriendshipMatches =
+            database.collection("friendship-matches");
+          const friendshipMatchQuerySnapshot = await allFriendshipMatches.get();
+          friendshipMatchQuerySnapshot.forEach(async (doc) => {
+            const currentIterationFriendshipMatchData = doc.data();
 
-          querySnapshot.forEach(async (doc) => {
-            await doc.ref.delete();
+            if (
+              currentIterationFriendshipMatchData?.friendshipRequestFrom
+                ?.phonenumber === currentUser?.phonenumber
+            ) {
+              await doc.ref.delete();
+
+              // Get a reference to the message and delete messages
+              const messageRef = database
+                .collection("friendship-matches")
+                .doc(doc?.id)
+                .collection("messages");
+              const querySnapshot = await messageRef.get();
+
+              querySnapshot.forEach(async (doc) => {
+                await doc.ref.delete();
+              });
+            }
+            if (
+              currentIterationFriendshipMatchData?.friendshipRequestTo
+                ?.phonenumber === currentUser?.phonenumber
+            ) {
+              await doc.ref.delete();
+
+              // Get a reference to the message and delete messages
+              const messageRef = database
+                .collection("friendship-matches")
+                .doc(doc?.id)
+                .collection("messages");
+              const querySnapshot = await messageRef.get();
+
+              querySnapshot.forEach(async (doc) => {
+                await doc.ref.delete();
+              });
+            }
           });
-        }
-      });
 
-      await clearDataByKey("match-id");
-      await clearDataByKey("phonenumber");
-      await clearDataByKey("swipe-index");
-      await clearDataByKey("last-screen-visit");
+          await clearDataByKey("match-id");
+          await clearDataByKey("phonenumber");
+          await clearDataByKey("swipe-index");
+          await clearDataByKey("last-screen-visit");
 
-      const userProfileDeleteTimeoutId = setTimeout(() => {
-        navigation.navigate("onBoard");
-      }, 500);
+          const userProfileDeleteTimeoutId = setTimeout(() => {
+            navigation.navigate("onBoard");
+          }, 500);
 
-      const userProfileDeleteNavigateTimeoutId = setTimeout(() => {
-        onClose();
-      }, 1000);
+          const userProfileDeleteNavigateTimeoutId = setTimeout(() => {
+            onClose();
+          }, 1000);
 
-      return () => {
-        clearTimeout(userProfileDeleteTimeoutId);
-        clearTimeout(userProfileDeleteNavigateTimeoutId);
-      };
+          return () => {
+            clearTimeout(userProfileDeleteTimeoutId);
+            clearTimeout(userProfileDeleteNavigateTimeoutId);
+          };
+        })
+        .catch((error) => console.log("Error " + error.message));
     }
   }
 
