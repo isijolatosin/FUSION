@@ -186,6 +186,7 @@ export default function CompatibleComponent({
                 flexDirection: "row",
                 gap: theme.spaceNumber[3],
                 flexWrap: "wrap",
+                marginBottom: theme.spaceNumberBy10[5],
               }}>
               {data?.interestsArray?.map((interest, idx) => {
                 const interestMapObject = getInterestMapObject(interest);
@@ -198,7 +199,7 @@ export default function CompatibleComponent({
                       flexDirection: "row",
                       alignItems: "center",
                       backgroundColor: theme.colors.brand.highlight,
-                      paddingVertical: theme.spaceNumber[3],
+                      paddingVertical: theme.spaceNumber[2],
                       paddingRight: theme.spaceNumber[7],
                       paddingLeft: theme.spaceNumber[4],
                       borderRadius: theme.spaceNumberBy10[4],
@@ -219,7 +220,7 @@ export default function CompatibleComponent({
                         variant="custom"
                         colorType="black"
                         fontType="montserratRegular"
-                        fontSize="button"
+                        fontSize="caption"
                         width="100%">
                         {interest}
                       </Text>

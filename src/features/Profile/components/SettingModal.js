@@ -252,7 +252,7 @@ export default function SettingModal({
     await clearDataByKey("last-screen-visit");
 
     const userSignOutTimeoutId = setTimeout(() => {
-      const phone = currentUser?.phonenumber ?? "+14372208744";
+      const phone = currentUser?.phonenumber;
       navigation.navigate("onBoard", { phone });
       auth.signOut();
     }, 500);

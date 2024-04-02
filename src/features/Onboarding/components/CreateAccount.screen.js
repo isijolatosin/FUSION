@@ -134,7 +134,7 @@ export default function CreateAccount({ navigation }) {
               display: "flex",
               justifyContent: "space-between",
             }}>
-            <View style={{ flex: 0.6 }}>
+            <View style={{ flex: 0.65 }}>
               <Spacer position="bottom" size="small">
                 <Text
                   style={{
@@ -339,7 +339,7 @@ export default function CreateAccount({ navigation }) {
             </View>
             <View
               style={{
-                flex: 0.4,
+                flex: 0.35,
                 width: width,
                 marginBottom: theme.spaceNumberBy10[4],
               }}>

@@ -69,7 +69,8 @@ export default function SignIn({ navigation }) {
 
       setPassword(null);
       setEmail(null);
-      storeData("phonenumber", phone);
+
+      if (phone) storeData("phonenumber", phone);
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);
@@ -81,12 +82,15 @@ export default function SignIn({ navigation }) {
 
       const emailPswdId2 = setTimeout(() => {
         setLoading(false);
-        if (phone) {
-          if (verifyUserInDatabaseBeforeSignin(phone))
-            navigation.navigate("main");
-          return;
+        setLogMessage({
+          message: "",
+          code: "",
+        });
+        if (verifyUserInDatabaseBeforeSignin(phone)) {
+          navigation.navigate("main");
+        } else {
+          navigation.navigate("capture-name-screen");
         }
-        navigation.navigate("capture-name-screen");
       }, 5000);
 
       return () => clearTimeout(emailPswdId, emailPswdId2);
@@ -130,7 +134,7 @@ export default function SignIn({ navigation }) {
             </Text>
             <HorizontalPaddingSpace
               space={theme.space[6]}
-              style={{ flex: 0.4 }}>
+              style={{ flex: 0.5 }}>
               <Spacer position="bottom" size="large">
                 <InputComponent
                   autoCapitalize="none"
