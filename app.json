@@ -5,7 +5,7 @@
     "description": "Your wiingr app is a social application for african community",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/wiingr_O.png",
+    "icon": "",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -42,6 +42,14 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow Your wiingr to access this device's location."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
         }
       ]
     ],

@@ -1,6 +1,7 @@
 import React from "react";
 import LottieView from "lottie-react-native";
 import { Linking } from "react-native";
+import { useRoute } from "@react-navigation/native";
 
 import { OnboardingWrapper, OnboardingScreenText } from "./splash.styles";
 import Button from "../../../components/utility/button.component";
@@ -21,6 +22,10 @@ import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 
 export default function Onboarding({ navigation }) {
   const { width } = Dimensions.get("window");
+
+  const route = useRoute();
+  const { phone } = route.params || {};
+
   useEffect(() => {
     async function clearMemory() {
       await clearDataByKey("match-id");
@@ -100,7 +105,7 @@ export default function Onboarding({ navigation }) {
             isBorder={true}
             borderColor={theme.colors.brand.base}
             buttonFunction={() => {
-              navigation.navigate("create-account");
+              navigation.navigate("sign-in", { phone });
             }}
             text="Sign In"
             textColor={theme.colors.brand.base}

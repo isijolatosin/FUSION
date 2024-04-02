@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { Keyboard, Pressable } from "react-native";
-import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+// import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -12,7 +12,7 @@ import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Text } from "../../../components/typography/text.component";
 import OTPInputComponent from "../../../components/Input-Forms/OTPInputComponent";
-import { firebaseConfig } from "../../../../config";
+// import { firebaseConfig } from "../../../../config";
 
 export default function OtpScreen({ navigation }) {
   const recaptchaVerifier = useRef(null);
@@ -29,10 +29,10 @@ export default function OtpScreen({ navigation }) {
 
   return (
     <SafeArea>
-      <FirebaseRecaptchaVerifierModal
+      {/* <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={firebaseConfig}
-      />
+      /> */}
       <Pressable onPress={Keyboard.dismiss}>
         <HorizontalPaddingSpace space={theme.space[5]}>
           <NavigationBar>

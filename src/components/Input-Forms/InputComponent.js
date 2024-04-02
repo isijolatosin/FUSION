@@ -6,12 +6,15 @@ import IconComponent from "../icon-components/IconComponent";
 import { TextInput, TextInputWrapper, PlusText } from "./input.styles";
 
 export default function InputComponent({
+  autoCapitalize,
+  autoFocus,
   includeIcon,
   centralize,
   keyboardType,
   setValue,
   value,
   width,
+  inputMode,
   isCountryCode,
   backgroundColor,
   isBackgroundColor,
@@ -24,6 +27,7 @@ export default function InputComponent({
   allBorder,
   multiline,
   numberOfLines,
+  secureTextEntry,
 }) {
   const [switchIcon, setSwitchIcon] = useState(false);
   const {
@@ -39,6 +43,9 @@ export default function InputComponent({
       allBorder={allBorder}>
       {isCountryCode && <PlusText fontColor={fontColor}>+</PlusText>}
       <TextInput
+        autoFocus={autoFocus}
+        inputMode={inputMode}
+        autoCapitalize={autoCapitalize}
         onChangeText={(text) => setValue(text)}
         value={value}
         keyboardType={keyboardType}
@@ -55,6 +62,7 @@ export default function InputComponent({
         backgroundColor="transparent"
         multiline={multiline}
         numberOfLines={numberOfLines}
+        secureTextEntry={secureTextEntry}
       />
       {includeIcon && (
         <IconComponent

@@ -27,7 +27,7 @@ import {
   removeItemFromArray,
   updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
-import firebase, { database } from "../../../../config";
+import firebase, { auth, database } from "../../../../config";
 import { clearDataByKey } from "../../../utilities/removeDataFromPhoneMemory";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ContactModal from "./ContactModal";
@@ -252,7 +252,9 @@ export default function SettingModal({
     await clearDataByKey("last-screen-visit");
 
     const userSignOutTimeoutId = setTimeout(() => {
-      navigation.navigate("onBoard");
+      const phone = currentUser?.phonenumber ?? "+14372208744";
+      navigation.navigate("onBoard", { phone });
+      auth.signOut();
     }, 500);
 
     const userNavigateTimeoutId2 = setTimeout(() => {

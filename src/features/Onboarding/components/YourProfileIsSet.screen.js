@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Dimensions, Platform } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { yourprofileisset } from "../../../constants";
@@ -12,7 +11,6 @@ import {
 import { firebaseConfig } from "../../../../config";
 
 export default function YourProfileIsSet({ navigation }) {
-  const recaptchaVerifier = useRef(null);
   const { height } = Dimensions.get("window");
 
   const route = useRoute();
@@ -36,10 +34,6 @@ export default function YourProfileIsSet({ navigation }) {
         justifyContent: "center",
         alignItems: "center",
       }}>
-      <FirebaseRecaptchaVerifierModal
-        ref={recaptchaVerifier}
-        firebaseConfig={firebaseConfig}
-      />
       <YouAreSpecialCircleWrapper>
         <YouAreSpecialCircleText>{yourprofileisset}</YouAreSpecialCircleText>
       </YouAreSpecialCircleWrapper>
