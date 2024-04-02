@@ -45,6 +45,7 @@ import MessageScreen from "../../Chats/components/MessageScreen";
 import SupportScreen from "../../Support";
 import CompatibilityScreen from "../../Compatibility";
 import CommunitiesScreen from "../../Communities";
+import SignIn from "../../Onboarding/components/SignIn.screen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -244,6 +245,16 @@ export default function index() {
         <Stack.Screen
           name="create-account"
           component={CreateAccount}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          }}
+        />
+        <Stack.Screen
+          name="sign-in"
+          component={SignIn}
           screenOptions={{
             headerShown: false,
           }}
