@@ -164,6 +164,8 @@ const FadeOutComponent = ({ navigation }) => {
       timeOutID = setTimeout(() => {
         navigation.navigate(verify ? "main" : "onBoard");
       }, 4000);
+
+      return () => clearTimeout(timeOutID);
     };
     functionCall();
 
