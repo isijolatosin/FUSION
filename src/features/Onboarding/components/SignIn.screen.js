@@ -20,13 +20,18 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import { useAppContext } from "../../../context/ThemeContext";
 import { auth } from "../../../../config";
-import { validateEmail } from "../../../utilities/validateEmail";
+import {
+  validateEmail,
+  validatePhoneNumber,
+} from "../../../utilities/validateEmail";
 import { Text } from "../../../components/typography/text.component";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 
 export default function SignIn({ navigation }) {
+  const [code, setCode] = useState(null);
+  const [phonenumber, setPhonenumber] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showPswd, setShowPswd] = useState(false);
@@ -47,7 +52,12 @@ export default function SignIn({ navigation }) {
   async function signIn() {
     setLoading(true);
 
-    if (!validateEmail(email) && !password) {
+    if (
+      !validateEmail(email) &&
+      !password &&
+      !code &&
+      !validatePhoneNumber(phonenumber)
+    ) {
       setLogMessage({
         message: "Missing field(s). Please check and try again",
         code: "error",
@@ -55,6 +65,7 @@ export default function SignIn({ navigation }) {
       setLoading(false);
     }
 
+    const formattedPhonenumber = `+${code}${phonenumber}`;
     try {
       const response = await auth.signInWithEmailAndPassword(email, password);
 
@@ -69,8 +80,14 @@ export default function SignIn({ navigation }) {
 
       setPassword(null);
       setEmail(null);
+      setCode(null);
+      setPhonenumber(null);
 
-      if (phone) storeData("phonenumber", phone);
+      if (phone) {
+        storeData("phonenumber", phone);
+      } else {
+        storeData("phonenumber", formattedPhonenumber);
+      }
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);
@@ -135,12 +152,52 @@ export default function SignIn({ navigation }) {
             <HorizontalPaddingSpace
               space={theme.space[6]}
               style={{ flex: 0.5 }}>
+              <Spacer
+                position="bottom"
+                size="xsmall"
+                style={{ flexDirection: "row", width: "100%" }}>
+                <View style={{ flex: 0.2, marginRight: theme.spaceNumber[5] }}>
+                  <InputComponent
+                    autoCapitalize="none"
+                    centralize={true}
+                    inputMode="numeric"
+                    autoFocus={true}
+                    includeIcon={false}
+                    keyboardTyp="numeric"
+                    setValue={setCode}
+                    value={code}
+                    width="100%"
+                    isCountryCode={false}
+                    isBackgroundColor={false}
+                    isBorderColor={theme.colors.brand.linesLighter}
+                    placeholder="+123"
+                    fontSize={theme.fontSizes.body}
+                    fontType={theme.fonts.montserratLight}
+                  />
+                </View>
+                <View style={{ flex: 0.8 }}>
+                  <InputComponent
+                    autoCapitalize="none"
+                    inputMode="numeric"
+                    includeIcon={false}
+                    keyboardTyp="numeric"
+                    setValue={setPhonenumber}
+                    value={phonenumber}
+                    width="100%"
+                    isCountryCode={false}
+                    isBackgroundColor={false}
+                    isBorderColor={theme.colors.brand.linesLighter}
+                    placeholder="Phone number"
+                    fontSize={theme.fontSizes.body}
+                    fontType={theme.fonts.montserratLight}
+                  />
+                </View>
+              </Spacer>
               <Spacer position="bottom" size="large">
                 <InputComponent
                   autoCapitalize="none"
                   includeIcon={false}
                   inputMode="email"
-                  autoFocus={true}
                   keyboardTyp="email-address"
                   setValue={setEmail}
                   value={email}

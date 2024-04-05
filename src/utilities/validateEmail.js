@@ -3,4 +3,10 @@ function validateEmail(email) {
   return pattern.test(email);
 }
 
-export { validateEmail };
+function validatePhoneNumber(phoneNumber) {
+  const cleanedPhoneNumber = phoneNumber.replace(/\D/g, "");
+  const phoneNumberRegex = /^\d{10}$/;
+  return phoneNumberRegex.test(cleanedPhoneNumber);
+}
+
+export { validateEmail, validatePhoneNumber };

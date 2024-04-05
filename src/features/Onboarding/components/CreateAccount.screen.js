@@ -20,7 +20,10 @@ import InputComponent from "../../../components/Input-Forms/InputComponent";
 import { useAppContext } from "../../../context/ThemeContext";
 import { auth } from "../../../../config";
 import { KeyboardAvoidingView } from "react-native";
-import { validateEmail } from "../../../utilities/validateEmail";
+import {
+  validateEmail,
+  validatePhoneNumber,
+} from "../../../utilities/validateEmail";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 
@@ -51,7 +54,7 @@ export default function CreateAccount({ navigation }) {
       !password &&
       !password2 &&
       !code &&
-      !phonenumber
+      !validatePhoneNumber(phonenumber)
     ) {
       setLogMessage({
         message: "Missing field(s). Please check all fields and try again",
