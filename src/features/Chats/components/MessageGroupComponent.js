@@ -32,10 +32,6 @@ export default function MessageGroupComponent({
     const options = { timeZone: "UTC" };
     const now = new Date().toISOString().slice(0, 10);
     const currentDate = now.toLocaleString("en-US", options);
-    const [year, month, day] = targetDate.split("-").map(Number);
-    const dateObject = new Date(Date.UTC(year, month - 1, day))
-      .toISOString()
-      .slice(0, 10);
 
     // Check if the target date is equal to the current date
     const isToday = targetDate === currentDate;

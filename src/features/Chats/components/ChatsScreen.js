@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { ScrollView, Pressable, View } from "react-native";
+import { ScrollView, Pressable, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
+import { Fontisto } from "@expo/vector-icons";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -34,6 +35,7 @@ import { sortByTimestamp } from "../../../utilities/sortByKey";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
+import IconComponent from "../../../components/icon-components/IconComponent";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -266,10 +268,11 @@ const ChatsScreen = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      fetchMatches();
-      return () => {
-        // Cleanup function if needed
-      };
+      const screenReloadId = setTimeout(() => {
+        fetchMatches();
+      }, 100);
+
+      return () => clearTimeout(screenReloadId);
     }, [])
   );
 
@@ -653,7 +656,24 @@ const ChatsScreen = () => {
         isTransparent={true}>
         <HorizontalPaddingSpace
           space={theme.space[7]}
-          style={{ width: "100%" }}>
+          style={{
+            width: "100%",
+            position: "relative",
+          }}>
+          <View
+            style={{
+              position: "absolute",
+              top: -theme.spaceNumberBy10[5],
+              right: theme.spaceNumberBy10[3],
+            }}>
+            <IconComponent
+              iconFunction={() => setNewMessageInput(false)}
+              iconName="close-a"
+              IconComponent={Fontisto}
+              size={15}
+              color={theme.colors.brand.base}
+            />
+          </View>
           <Spacer position="bottom" size="xxxxlarge">
             <Text
               variant="custom"
@@ -696,6 +716,23 @@ const ChatsScreen = () => {
               textColor={theme.colors.brand.basewhite}
               width="80%"
             />
+          </Spacer>
+          <Spacer
+            position="top"
+            size="xxlarge"
+            style={{
+              alignSelf: "center",
+              marginTop: theme.spaceNumberBy50[1],
+            }}>
+            <TouchableOpacity>
+              <Text
+                variant="custom"
+                colorType="lines"
+                fontType="montserratRegular"
+                fontSize="caption">
+                Click screen to exit
+              </Text>
+            </TouchableOpacity>
           </Spacer>
         </HorizontalPaddingSpace>
       </AnimatedModal>

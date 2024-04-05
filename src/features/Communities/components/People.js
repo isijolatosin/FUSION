@@ -37,7 +37,6 @@ export default function CommunitiesComponent({
   setSelectedFriend,
   setRequestVisible,
   currentUser,
-  setIsRetrigger,
   scrollToTop,
   setIsSelectedUserToView,
   setSelectedUserToView,

@@ -484,7 +484,7 @@ const Index = ({ navigation }) => {
                   flexDirection: "row",
                   justifyContent: "center",
                 }}>
-                <Pressable
+                {/* <Pressable
                   style={{
                     transform: [{ rotateX: "180deg" }],
                   }}>
@@ -502,7 +502,7 @@ const Index = ({ navigation }) => {
                         : theme.colors.brand.highlight
                     }
                   />
-                </Pressable>
+                </Pressable> */}
                 <Pressable
                   style={{
                     marginLeft: theme.spaceNumber[7],

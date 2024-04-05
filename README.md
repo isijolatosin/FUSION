@@ -13,9 +13,20 @@
 
 To change your version code any time, run eas build:version:set and follow through
 
-COMMANDS
+## OVER THE AIR UPDATE
 
-- expo publish: To update live app with cosmetic changes
+- expo publish: To update live app with cosmetic changes, new functionalities, bug fixes.
+
+## REBUILD THE BINARIES
+
+For major changes like new package installation, change of app name, changes in ios / android folder, splash screen, icon, owner, scheme. More in expo documentation. Also update the version, buildNumber(ios)/versionCode(android) before running the below command.
+
+- eas build --platform ios/android
+  after
+- eas submit --platform ios/android
+
+## COMMANDS
+
 - npx expo-doctor: To run diagnosis on app
 - eas build: To create build to expo dashboard
 - eas update: To create update to expo dashboard

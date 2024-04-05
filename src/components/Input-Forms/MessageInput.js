@@ -69,8 +69,8 @@ export default function MessageInput({
           IconComponent={FontAwesome}
           size={20}
           theme={theme}
-          horizontalLeftSpace={theme.space[3]}
-          horizontalRightSpace={theme.space[3]}
+          horizontalLeftSpace={theme.space[2]}
+          horizontalRightSpace={theme.space[2]}
         />
         {/* <TouchableWithoutFeedback
           onPressIn={startRecording}

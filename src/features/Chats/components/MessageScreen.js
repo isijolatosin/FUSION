@@ -6,7 +6,6 @@ import {
   Platform,
   View,
 } from "react-native";
-import LottieView from "lottie-react-native";
 import { useRoute } from "@react-navigation/native";
 // import { Audio } from "expo-av";
 import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
@@ -66,7 +65,6 @@ export default function MessageScreen({ navigation }) {
   // const [permissionResponse, requestPermission] = Audio.usePermissions();
   const [showImageModal, setShowImageModal] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [triggerReload, setTriggerReload] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [openDotActionModal, setOpenDotActionModal] = useState(false);
   const [otherUserDataObject, setOtherUserData] = useState({});
@@ -95,19 +93,24 @@ export default function MessageScreen({ navigation }) {
 
       // get message for current match id
       if (matchId) {
-        const snapshot = await database
+        database
           .collection(flag ? "friendship-matches" : "matches")
           .doc(matchId)
           .collection("messages")
           .orderBy("timestamp", "asc")
-          .get();
+          .onSnapshot((snapshot) => {
+            const dataArr = [];
+            snapshot?.forEach((doc) => {
+              dataArr?.push({
+                id: doc.id,
+                ...doc?.data(),
+              });
+            });
 
-        // Access the documents in the subcollection
-        const data = snapshot?.docs?.map((doc) => doc?.data());
-
-        const { groupedDataKeys, groupedData } = groupDataByKey(data);
-        setMessagesKeys(groupedDataKeys);
-        setMessagesForMessagesScreen(groupedData);
+            const { groupedDataKeys, groupedData } = groupDataByKey(dataArr);
+            setMessagesKeys(groupedDataKeys);
+            setMessagesForMessagesScreen(groupedData);
+          });
       }
     } catch (error) {
       console.error("Error getting message data:", error);
@@ -122,20 +125,6 @@ export default function MessageScreen({ navigation }) {
       };
     }, [])
   );
-
-  useEffect(() => {
-    const msgtimeoutId = setTimeout(() => {
-      getMessages();
-    }, 800);
-    const timeoutId = setTimeout(() => {
-      setTriggerReload(false);
-    }, 800);
-
-    return () => {
-      clearTimeout(msgtimeoutId);
-      clearTimeout(timeoutId);
-    };
-  }, [triggerReload, input]);
 
   const sendNotification = async () => {
     // check if user opt for in app notification
@@ -162,7 +151,6 @@ export default function MessageScreen({ navigation }) {
   };
 
   const sendMessage = async () => {
-    setTriggerReload(false);
     if (!input?.length) return;
 
     if (matchId) {
@@ -199,7 +187,6 @@ export default function MessageScreen({ navigation }) {
         })
         .catch((error) => console.log("Error " + error.message));
 
-      setTriggerReload(true);
       setInput("");
     }
   };
@@ -227,7 +214,6 @@ export default function MessageScreen({ navigation }) {
       })
       .catch((error) => console.log("Error " + error.message));
 
-    setTriggerReload(true);
     setInput("");
   };
 

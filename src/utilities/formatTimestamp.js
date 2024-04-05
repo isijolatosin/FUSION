@@ -1,10 +1,10 @@
 function getTime(timestamp) {
   // Convert Firestore timestamp to JavaScript Date object
-  const dateObject = timestamp.toDate();
+  const dateObject = timestamp?.toDate();
 
   // Get hour and minute
-  const hours = dateObject.getHours();
-  const minutes = dateObject.getMinutes();
+  const hours = dateObject?.getHours();
+  const minutes = dateObject?.getMinutes();
 
   // Format the result in 24-hour format
   const formattedTime = `${hours < 10 ? "0" : ""}${hours}:${
@@ -16,12 +16,12 @@ function getTime(timestamp) {
 
 function getDate(timestamp) {
   // Convert Firebase Firestore timestamp to JavaScript Date object
-  const dateObject = timestamp.toDate();
+  const dateObject = timestamp?.toDate();
 
   // Extract date components
-  const year = dateObject.getFullYear();
-  const month = dateObject.getMonth() + 1; // Months are zero-based, so add 1
-  const day = dateObject.getDate();
+  const year = dateObject?.getFullYear();
+  const month = dateObject?.getMonth() + 1; // Months are zero-based, so add 1
+  const day = dateObject?.getDate();
 
   // Format the result
   const formattedDate = `${year}-${month < 10 ? "0" : ""}${month}-${

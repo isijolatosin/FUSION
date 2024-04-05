@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -54,6 +54,16 @@ export default function YouLikedComponent({
             uri: `${likedUser?.photo}`,
           }}
         />
+        <TouchableOpacity
+          style={{ position: "absolute", bottom: -theme.spaceNumberBy50[1] }}>
+          <Text
+            variant="custom"
+            colorType="lines"
+            fontType="montserratRegular"
+            fontSize="caption">
+            Click screen to exit
+          </Text>
+        </TouchableOpacity>
       </HorizontalPaddingSpace>
     </Modal>
   );

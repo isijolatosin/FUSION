@@ -27,7 +27,7 @@ function handleUrlPress(url) {
 }
 
 function detectImageUrl(text) {
-  const imageRegex = /\.(jpeg|jpg|gif|png)$/i;
+  const imageRegex = /\.(jpeg|jpg|gif|png|bmp|svg)$/i;
   return imageRegex.test(text);
 }
 

@@ -4,7 +4,11 @@ import Avatar from "../../../components/general-component/Avatar";
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
-import { shortenText } from "../../../utilities/detectTextType";
+import {
+  detectImageUrl,
+  detectUrl,
+  shortenText,
+} from "../../../utilities/detectTextType";
 
 export default function MessagesListItem({
   photo,
@@ -12,8 +16,21 @@ export default function MessagesListItem({
   name,
   lastSenderMessage,
   lastSenderName,
-  flag,
 }) {
+  let message = lastSenderMessage;
+  if (detectImageUrl(lastSenderMessage)) {
+    message = "Shared an image with you";
+  } else if (detectUrl(lastSenderMessage)) {
+    message = "shared a link with you";
+  } else shortenText(lastSenderMessage, 40);
+
+  let messageColor = "lines";
+  if (lastSenderName === name) {
+    messageColor = "black";
+  }
+  if (detectImageUrl(lastSenderMessage) || detectUrl(lastSenderMessage)) {
+    messageColor = "blue";
+  }
   return (
     <HorizontalPaddingSpace space={theme.space[2]}>
       <View
@@ -43,12 +60,12 @@ export default function MessagesListItem({
           <Spacer position="top" size="xsmall">
             <Text
               variant="custom"
-              colorType={lastSenderName === name ? "black" : "lines"}
+              colorType={messageColor}
               fontType={
                 lastSenderName === name ? "montserratBold" : "montserratLight"
               }
               fontSize="button">
-              {lastSenderMessage ? shortenText(lastSenderMessage, 40) : ""}
+              {lastSenderMessage ? message : ""}
             </Text>
           </Spacer>
         </View>
