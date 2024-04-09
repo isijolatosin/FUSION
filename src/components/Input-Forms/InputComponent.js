@@ -20,6 +20,7 @@ export default function InputComponent({
   isBackgroundColor,
   isBorderColor,
   fontSize,
+  placeholderFontSize,
   fontColor,
   fontType,
   maxlength,
@@ -57,6 +58,7 @@ export default function InputComponent({
         fontType={fontType ?? theme.fonts.montserratLight}
         centralize={centralize}
         fontSize={fontSize}
+        placeholderFontSize={placeholderFontSize}
         fontColor={fontColor}
         maxLength={maxlength}
         backgroundColor="transparent"

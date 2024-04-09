@@ -22,6 +22,7 @@ import { auth } from "../../../../config";
 import { KeyboardAvoidingView } from "react-native";
 import {
   validateEmail,
+  validatePhoneCode,
   validatePhoneNumber,
 } from "../../../utilities/validateEmail";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
@@ -47,17 +48,15 @@ export default function CreateAccount({ navigation }) {
   } = useAppContext();
 
   async function signUp() {
-    setLoading(true);
-
     if (
-      !validateEmail(email) &&
-      !password &&
-      !password2 &&
-      !code &&
+      !validateEmail(email) ||
+      !password ||
+      !password2 ||
+      !validatePhoneCode(`+${code}`) ||
       !validatePhoneNumber(phonenumber)
     ) {
       setLogMessage({
-        message: "Missing field(s). Please check all fields and try again",
+        message: "Invalid field(s). Please check all fields and try again",
         code: "error",
       });
       setLoading(false);
@@ -65,31 +64,20 @@ export default function CreateAccount({ navigation }) {
       return;
     }
 
-    if (password !== password2) {
-      setLogMessage({
-        message:
-          "Passcode does not match. Please enter passcodes and try again",
-        code: "error",
-      });
-      setLoading(false);
-
-      return;
-    }
     const formattedPhonenumber = `+${code}${phonenumber}`;
-
     try {
+      setLoading(true);
       await auth.createUserWithEmailAndPassword(email, password);
-
-      setCode(null);
-      setPhonenumber(null);
-      setEmail(null);
-      setPassword(null);
-      setPassword2(null);
 
       storeData("phonenumber", formattedPhonenumber);
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);
+        setCode(null);
+        setPhonenumber(null);
+        setEmail(null);
+        setPassword(null);
+        setPassword2(null);
         setLogMessage({
           message: "Account successfully created.",
           code: "success",
@@ -109,12 +97,12 @@ export default function CreateAccount({ navigation }) {
 
       if (error.message?.includes("weak-password")) {
         errorMsg =
-          "Password strength: Weak. Please try a new combination of password";
+          "Password strength: Weak. Please try a new password combination";
       }
 
       if (error.message?.includes("already-in-use")) {
         errorMsg =
-          "Email Already in use: Please provide an email for your registration";
+          "Email Already in use: Please provide your email for registration";
       }
 
       setLogMessage({
@@ -168,7 +156,22 @@ export default function CreateAccount({ navigation }) {
                   size="xsmall"
                   style={{ flexDirection: "row", width: "100%" }}>
                   <View
-                    style={{ flex: 0.2, marginRight: theme.spaceNumber[5] }}>
+                    style={{
+                      flex: 0.2,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginRight: theme.spaceNumberBy10[2],
+                    }}>
+                    <View style={{ marginTop: theme.spaceNumber[0] }}>
+                      <Text
+                        variant="custom"
+                        colorType="lines"
+                        fontType="montserratRegular"
+                        fontSize="title"
+                        width="100%">
+                        +
+                      </Text>
+                    </View>
                     <InputComponent
                       autoCapitalize="none"
                       centralize={true}
@@ -177,13 +180,15 @@ export default function CreateAccount({ navigation }) {
                       includeIcon={false}
                       keyboardTyp="numeric"
                       setValue={setCode}
+                      maxlength={7}
                       value={code}
                       width="100%"
                       isCountryCode={false}
                       isBackgroundColor={false}
                       isBorderColor={theme.colors.brand.linesLighter}
-                      placeholder="+123"
+                      placeholder="123"
                       fontSize={theme.fontSizes.body}
+                      placeholderFontSize={theme.fontSizes.button}
                       fontType={theme.fonts.montserratLight}
                     />
                   </View>
@@ -195,12 +200,14 @@ export default function CreateAccount({ navigation }) {
                       keyboardTyp="numeric"
                       setValue={setPhonenumber}
                       value={phonenumber}
+                      maxlength={10}
                       width="100%"
                       isCountryCode={false}
                       isBackgroundColor={false}
                       isBorderColor={theme.colors.brand.linesLighter}
-                      placeholder="Phone number"
+                      placeholder="phone no..."
                       fontSize={theme.fontSizes.body}
+                      placeholderFontSize={theme.fontSizes.button}
                       fontType={theme.fonts.montserratLight}
                     />
                   </View>
@@ -217,8 +224,9 @@ export default function CreateAccount({ navigation }) {
                     isCountryCode={false}
                     isBackgroundColor={false}
                     isBorderColor={theme.colors.brand.linesLighter}
-                    placeholder="Email"
+                    placeholder="email..."
                     fontSize={theme.fontSizes.body}
+                    placeholderFontSize={theme.fontSizes.button}
                     fontType={theme.fonts.montserratLight}
                   />
                 </Spacer>
@@ -234,8 +242,9 @@ export default function CreateAccount({ navigation }) {
                     isCountryCode={false}
                     isBackgroundColor={false}
                     isBorderColor={theme.colors.brand.linesLighter}
-                    placeholder="Passcode"
+                    placeholder="password..."
                     fontSize={theme.fontSizes.body}
+                    placeholderFontSize={theme.fontSizes.button}
                     fontType={theme.fonts.montserratLight}
                     secureTextEntry={showPswd ? false : true}
                   />
@@ -258,8 +267,9 @@ export default function CreateAccount({ navigation }) {
                     isCountryCode={false}
                     isBackgroundColor={false}
                     isBorderColor={theme.colors.brand.linesLighter}
-                    placeholder="Verify passcode"
+                    placeholder="confirm password..."
                     fontSize={theme.fontSizes.body}
+                    placeholderFontSize={theme.fontSizes.button}
                     fontType={theme.fonts.montserratLight}
                     secureTextEntry={showPswd2 ? false : true}
                   />
@@ -309,7 +319,7 @@ export default function CreateAccount({ navigation }) {
                         colorType="basewhite"
                         fontType="montserratRegular"
                         fontSize="button">
-                        Create new account
+                        Create account
                       </Text>
                     </TouchableOpacity>
                   )}

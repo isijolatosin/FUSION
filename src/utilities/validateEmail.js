@@ -1,6 +1,21 @@
+import { countryCodes, emailAcceptableExtensions } from "../constants";
+
 function validateEmail(email) {
+  let isValid = false;
+  const domain = email.trim().toLowerCase().split("@")[1];
+  if (!domain) return false;
+
+  const domainExtension = domain.split(".").pop(); // Get the extension part
+
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return pattern.test(email);
+
+  if (
+    pattern.test(email) &&
+    emailAcceptableExtensions.includes(domainExtension)
+  )
+    isValid = true;
+
+  return isValid;
 }
 
 function validatePhoneNumber(phoneNumber) {
@@ -9,4 +24,8 @@ function validatePhoneNumber(phoneNumber) {
   return phoneNumberRegex.test(cleanedPhoneNumber);
 }
 
-export { validateEmail, validatePhoneNumber };
+function validatePhoneCode(code) {
+  return countryCodes.includes(code);
+}
+
+export { validateEmail, validatePhoneNumber, validatePhoneCode };

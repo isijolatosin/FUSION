@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LottieView from "lottie-react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
@@ -22,10 +22,10 @@ import { useAppContext } from "../../../context/ThemeContext";
 import { auth } from "../../../../config";
 import {
   validateEmail,
+  validatePhoneCode,
   validatePhoneNumber,
 } from "../../../utilities/validateEmail";
 import { Text } from "../../../components/typography/text.component";
-import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 
@@ -50,38 +50,26 @@ export default function SignIn({ navigation }) {
   } = useAppContext();
 
   async function signIn() {
-    setLoading(true);
-
     if (
-      !validateEmail(email) &&
-      !password &&
-      !code &&
+      !validateEmail(email) ||
+      !password ||
+      !validatePhoneCode(`+${code}`) ||
       !validatePhoneNumber(phonenumber)
     ) {
       setLogMessage({
-        message: "Missing field(s). Please check and try again",
+        message:
+          "Invalid credentials: You have presented an invalid login credentials, please check and try again",
         code: "error",
       });
       setLoading(false);
+
+      return;
     }
 
     const formattedPhonenumber = `+${code}${phonenumber}`;
     try {
-      const response = await auth.signInWithEmailAndPassword(email, password);
-
-      const user = {
-        createdAt: response.createdAt,
-        email: response.email,
-        phonenumber: response.phonenumber,
-        photo: response.photoURL,
-        emailVerified: response.emailVerified,
-        displayName: response.displayName,
-      };
-
-      setPassword(null);
-      setEmail(null);
-      setCode(null);
-      setPhonenumber(null);
+      setLoading(true);
+      await auth.signInWithEmailAndPassword(email, password);
 
       if (phone) {
         storeData("phonenumber", phone);
@@ -91,6 +79,10 @@ export default function SignIn({ navigation }) {
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);
+        setPassword(null);
+        setEmail(null);
+        setCode(null);
+        setPhonenumber(null);
         setLogMessage({
           message: "Signed in successfully!",
           code: "success",
@@ -156,7 +148,23 @@ export default function SignIn({ navigation }) {
                 position="bottom"
                 size="xsmall"
                 style={{ flexDirection: "row", width: "100%" }}>
-                <View style={{ flex: 0.2, marginRight: theme.spaceNumber[5] }}>
+                <View
+                  style={{
+                    flex: 0.15,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginRight: theme.spaceNumberBy10[2],
+                  }}>
+                  <View style={{ marginTop: theme.spaceNumber[0] }}>
+                    <Text
+                      variant="custom"
+                      colorType="lines"
+                      fontType="montserratRegular"
+                      fontSize="title"
+                      width="100%">
+                      +
+                    </Text>
+                  </View>
                   <InputComponent
                     autoCapitalize="none"
                     centralize={true}
@@ -170,12 +178,14 @@ export default function SignIn({ navigation }) {
                     isCountryCode={false}
                     isBackgroundColor={false}
                     isBorderColor={theme.colors.brand.linesLighter}
-                    placeholder="+123"
+                    placeholder="123"
                     fontSize={theme.fontSizes.body}
+                    placeholderFontSize={theme.fontSizes.button}
                     fontType={theme.fonts.montserratLight}
+                    maxlength={7}
                   />
                 </View>
-                <View style={{ flex: 0.8 }}>
+                <View style={{ flex: 0.85 }}>
                   <InputComponent
                     autoCapitalize="none"
                     inputMode="numeric"
@@ -187,9 +197,11 @@ export default function SignIn({ navigation }) {
                     isCountryCode={false}
                     isBackgroundColor={false}
                     isBorderColor={theme.colors.brand.linesLighter}
-                    placeholder="Phone number"
+                    placeholder="phone no..."
                     fontSize={theme.fontSizes.body}
+                    placeholderFontSize={theme.fontSizes.button}
                     fontType={theme.fonts.montserratLight}
+                    maxlength={10}
                   />
                 </View>
               </Spacer>
@@ -205,8 +217,9 @@ export default function SignIn({ navigation }) {
                   isCountryCode={false}
                   isBackgroundColor={false}
                   isBorderColor={theme.colors.brand.linesLighter}
-                  placeholder="Email"
+                  placeholder="email..."
                   fontSize={theme.fontSizes.body}
+                  placeholderFontSize={theme.fontSizes.button}
                   fontType={theme.fonts.montserratLight}
                 />
               </Spacer>
@@ -222,8 +235,9 @@ export default function SignIn({ navigation }) {
                   isCountryCode={false}
                   isBackgroundColor={false}
                   isBorderColor={theme.colors.brand.linesLighter}
-                  placeholder="Password"
+                  placeholder="password..."
                   fontSize={theme.fontSizes.body}
+                  placeholderFontSize={theme.fontSizes.button}
                   fontType={theme.fonts.montserratLight}
                   secureTextEntry={showPswd ? false : true}
                 />
@@ -292,7 +306,7 @@ export default function SignIn({ navigation }) {
                     colorType="base"
                     fontType="montserratSemibold"
                     fontSize="button">
-                    Create new account
+                    Create Account
                   </Text>
                 </TouchableOpacity>
               </Spacer>
