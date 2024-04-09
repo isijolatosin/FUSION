@@ -96,6 +96,7 @@ export default function Onboarding({ navigation }) {
           <Button
             backgroundColor={theme.colors.brand.base}
             isBorder={true}
+            borderColor={theme.colors.brand.base}
             buttonFunction={() => navigation.navigate("create-account")}
             text="Create Account"
             textColor={theme.colors.brand.basewhite}

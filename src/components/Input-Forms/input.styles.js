@@ -29,7 +29,11 @@ const TextInputWrapper = styled.View`
       : props.theme.colors.brand.lines};
 `;
 
-const TextInput = styled.TextInput`
+const TextInput = styled.TextInput.attrs((props) => ({
+  fontSize: props.placeholderFontSize
+    ? props.placeholderFontSize
+    : props.theme.fontSizes.body,
+}))`
   font-size: ${(props) =>
     props.fontSize ? props.fontSize : props.theme.fontSizes.body};
   font-family: ${(props) =>
