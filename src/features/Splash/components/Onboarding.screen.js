@@ -49,7 +49,8 @@ export default function Onboarding({ navigation }) {
     return (
       <Text>
         {part1[0]}
-        <TouchableOpacity onPress={() => handleLinkPress("https://google.com")}>
+        <TouchableOpacity
+          onPress={() => handleLinkPress("https://www.wiingr.com/terms")}>
           <Text
             style={{
               color: theme.colors.brand.lines,
@@ -61,7 +62,8 @@ export default function Onboarding({ navigation }) {
           </Text>
         </TouchableOpacity>
         {part2[0]}
-        <TouchableOpacity onPress={() => handleLinkPress("https://google.com")}>
+        <TouchableOpacity
+          onPress={() => handleLinkPress("https://www.wiingr.com/privacy")}>
           <Text
             style={{
               color: theme.colors.brand.lines,
