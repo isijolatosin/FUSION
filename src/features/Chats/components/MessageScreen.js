@@ -491,12 +491,12 @@ export default function MessageScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
           ref={scrollViewRef}
           onContentSizeChange={onContentSizeChange}>
-          {messagesKeys.map((key, idx) => (
+          {messagesKeys?.map((key, idx) => (
             <MessageGroupComponent
               key={idx}
               theme={theme}
               dateTitle={key}
-              data={messagesForMessagesScreen[key]}
+              data={messagesForMessagesScreen?.[key]}
               currentUser={currentUser}
               setSelectedImage={setSelectedImage}
               setShowImageModal={setShowImageModal}

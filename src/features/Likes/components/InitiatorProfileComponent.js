@@ -1069,39 +1069,67 @@ export default function InitiatorProfileComponent({
               colorType="black"
               fontType="arimaMadurai"
               fontSize="h5">
-              You and {otherUserData?.name} are a match
+              It's a match
             </Text>
           </Spacer>
-          <View style={{ height: `${theme.spaceNumberBy10[2]}%` }}>
-            <FlatGrid
-              data={[otherUserData, currentUserData]}
-              spacing={theme.spaceNumberBy10[2]}
-              renderItem={({ item }) => (
-                <Image
-                  style={{
-                    height: theme.spaceNumberBy50[3],
-                    resizeMode: "cover",
-                    borderRadius: theme.spaceNumber[2],
-                  }}
-                  source={{
-                    uri: `${item?.photo}`,
-                  }}
-                />
-              )}
+          <View
+            style={{
+              height: `${theme.spaceNumberBy10[2]}%`,
+              flexDirection: "row",
+              marginTop: theme.spaceNumberBy10[3],
+            }}>
+            <Image
+              style={{
+                height: theme.spaceNumberBy50[1],
+                width: theme.spaceNumberBy50[1],
+                resizeMode: "cover",
+                borderRadius: theme.spaceNumberBy50[1],
+                marginRight: -theme.spaceNumberBy10[3],
+              }}
+              source={{
+                uri: `${otherUserData?.photo}`,
+              }}
             />
+            <Image
+              style={{
+                height: theme.spaceNumberBy50[4],
+                width: theme.spaceNumberBy50[4],
+                resizeMode: "cover",
+                borderRadius: theme.spaceNumberBy50[3],
+                borderWidth: theme.spaceNumber[4],
+                borderColor: theme.colors.brand.basewhite,
+              }}
+              source={{
+                uri: `${currentUserData?.photo}`,
+              }}
+            />
+          </View>
+          <View
+            style={{ width: "70%", marginVertical: theme.spaceNumberBy10[1] }}>
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {` It's time to embark on the adventure. Let's ask ${otherUserData?.name} about
+              something interesting or you can just start with "Hello"`}
+            </Text>
           </View>
           <View
             style={{
               width: "100%",
               alignItems: "center",
-              marginTop: theme.spaceNumberBy50[0],
+              marginTop: theme.spaceNumberBy10[0],
             }}>
             <Button
               backgroundColor={theme.colors.brand.base}
               isBorder={false}
               borderColor="transparent"
               buttonFunction={routeToChatScreen}
-              text="Send a Message"
+              text="Say Hello 👋"
               textColor={theme.colors.brand.basewhite}
               width="80%"
             />
@@ -1117,7 +1145,7 @@ export default function InitiatorProfileComponent({
 
                 return () => clearTimeout(likeInitiatorProfileId);
               }}
-              text="Later"
+              text="Not now, will talk later"
               textColor={theme.colors.brand.black}
               width="80%"
             />

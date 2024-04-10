@@ -156,7 +156,11 @@ export default function MessageGroupComponent({
             )}
 
             <Text
-              style={{ position: "absolute", top: 5, left: 15 }}
+              style={{
+                position: "absolute",
+                top: 5,
+                left: theme.spaceNumber[7],
+              }}
               variant="custom"
               colorType="lines"
               fontType="montserratRegular"
