@@ -813,7 +813,7 @@ export default function SettingModal({
               title="Privacy Policy"
               compFunction={() =>
                 Linking.openURL(
-                  `${Constants.expoConfig.extra.eas.baseurl}privacy-policy`
+                  `${Constants.expoConfig.extra.eas.baseurl}privacy`
                 )
               }
             />
@@ -821,7 +821,7 @@ export default function SettingModal({
               title="Terms of Service"
               compFunction={() =>
                 Linking.openURL(
-                  `${Constants.expoConfig.extra.eas.baseurl}terms-of-service`
+                  `${Constants.expoConfig.extra.eas.baseurl}terms`
                 )
               }
             />

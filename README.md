@@ -29,6 +29,6 @@ For major changes like new package installation, change of app name, changes in 
 
 - npx expo-doctor: To run diagnosis on app
 - eas build: To create build to expo dashboard
-- eas update: To create update to expo dashboard
 - eas update:configure: To configure eas.json file in app
+- eas update: To create update to expo dashboard
 - eas submit -p ios/android --latest: To submit latest app build to app store and play store
