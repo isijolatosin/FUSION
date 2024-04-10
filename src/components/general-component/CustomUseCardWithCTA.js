@@ -65,8 +65,8 @@ export default function CustomUseCardWithCTA({
             space={theme.space[2]}>
             <Button
               backgroundColor={theme.colors.brand.base}
-              isBorder={false}
-              borderColor="transparent"
+              isBorder={true}
+              borderColor={theme.colors.brand.base}
               buttonFunction={cardFunction}
               text={buttonText}
               textColor={theme.colors.brand.basewhite}
@@ -83,7 +83,6 @@ export default function CustomUseCardWithCTA({
                 backgroundColor={theme.colors.brand.basewhite}
                 isBorder={true}
                 borderColor={theme.colors.brand.base}
-                borderRadius={theme.space[3]}
                 buttonFunction={() => {
                   setIndex(0);
                   storeData("swipe-index", 0);

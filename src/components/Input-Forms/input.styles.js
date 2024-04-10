@@ -120,7 +120,6 @@ const MessageContainer = styled.ScrollView`
   margin-top: ${(props) => `${props.theme.spaceNumberBy10[0]}px`};
   padding-left: ${(props) => `${props.theme.spaceNumberBy10[0]}px`};
   padding-right: ${(props) => `${props.theme.spaceNumberBy10[0]}px`};
-  background-color: ${(props) => props.theme.colors.brand.basewhite};
 `;
 
 const MessageBubbleWrap = styled.View`

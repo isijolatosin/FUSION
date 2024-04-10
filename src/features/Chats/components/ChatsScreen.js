@@ -485,7 +485,15 @@ const ChatsScreen = () => {
                   fontType="montserratBold"
                   fontSize="body"
                   transform="capitalize">
-                  Match messages
+                  Matches
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="caption"
+                    transform="capitalize">
+                    {" - "} {otherUsers.length}
+                  </Text>
                 </Text>
               </HorizontalPaddingSpace>
             </Spacer>
@@ -565,7 +573,16 @@ const ChatsScreen = () => {
                   fontType="montserratBold"
                   fontSize="body"
                   transform="capitalize">
-                  Communities messages
+                  Communities
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="caption"
+                    transform="capitalize">
+                    {" - "}
+                    {otherFriendshipUsers.length}
+                  </Text>
                 </Text>
               </HorizontalPaddingSpace>
             </Spacer>

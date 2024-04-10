@@ -3,12 +3,7 @@ import { Animated } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  Entypo,
-  Ionicons,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Octicons, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
@@ -60,22 +55,25 @@ const TabNavigator = ({ route }) => {
           paddingHorizontal: theme.spaceNumber[0],
           paddingTop: theme.spaceNumberBy10[0],
           paddingBottom: theme.spaceNumberBy10[0],
-          backgroundColor: theme.colors.brand.highlight,
-          borderTopWidth: 1,
+          backgroundColor: theme.colors.brand.basewhite,
         },
         headerShown: false,
         gestureEnabled: false,
         tabBarLabel: "",
-        tabBarActiveTintColor: theme.colors.brand.base,
-        tabBarInactiveTintColor: theme.colors.brand.brandFade,
+        // tabBarActiveTintColor: theme.colors.brand.base,
+        tabBarInactiveTintColor: theme.colors.brand.black,
       })}>
       <Tab.Screen
         name="home"
         component={MainScreen}
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          tabBarIcon: ({ color }) => (
-            <Entypo name="home" color={color} size={25} />
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons
+              name="home"
+              color={focused ? theme.colors.brand.brandFade : color}
+              size={25}
+            />
           ),
           gestureEnabled: false,
         }}
@@ -84,10 +82,11 @@ const TabNavigator = ({ route }) => {
         name="likes"
         component={LikesScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="cards-heart"
-              color={color}
+          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons
+              name="heart"
+              color={focused ? theme.colors.brand.brandFade : color}
               size={25}
             />
           ),
@@ -101,8 +100,12 @@ const TabNavigator = ({ route }) => {
           cardStyle: {
             backgroundColor: `${theme.colors.brand.basewhite}`,
           },
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="group" color={color} size={20} />
+          tabBarIcon: ({ color, focused }) => (
+            <MaterialCommunityIcons
+              name="account-group-outline"
+              color={focused ? theme.colors.brand.brandFade : color}
+              size={35}
+            />
           ),
           gestureEnabled: false,
         }}
@@ -111,8 +114,13 @@ const TabNavigator = ({ route }) => {
         name="chat"
         component={ChatsScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="chatbubble-sharp" color={color} size={23} />
+          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name="chatbubble-outline"
+              color={focused ? theme.colors.brand.brandFade : color}
+              size={25}
+            />
           ),
           gestureEnabled: false,
         }}
@@ -124,8 +132,12 @@ const TabNavigator = ({ route }) => {
           cardStyle: {
             backgroundColor: `${theme.colors.brand.basewhite}`,
           },
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-people" color={color} size={30} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name="people-outline"
+              color={focused ? theme.colors.brand.brandFade : color}
+              size={30}
+            />
           ),
           gestureEnabled: false,
         }}
@@ -134,8 +146,13 @@ const TabNavigator = ({ route }) => {
         name="profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="user" color={color} size={23} />
+          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons
+              name="person"
+              color={focused ? theme.colors.brand.brandFade : color}
+              size={26}
+            />
           ),
           gestureEnabled: false,
         }}

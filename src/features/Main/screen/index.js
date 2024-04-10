@@ -9,11 +9,7 @@ import * as Device from "expo-device";
 import * as Network from "expo-network";
 import Constants from "expo-constants";
 import { Dimensions, Image, Pressable, View } from "react-native";
-import {
-  MaterialCommunityIcons,
-  Fontisto,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { Fontisto, FontAwesome } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
@@ -457,9 +453,10 @@ const Index = ({ navigation }) => {
           <Spacer position="bottom" size="medium">
             <NavigationBar>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                {currentUser?.role === process.env.EXPO_PUBLIC_ROLE && (
+                {currentUser?.role ===
+                  Constants.expoConfig.extra.eas.adminKey && (
                   <View style={{ marginRight: theme.spaceNumber[5] }}>
-                    <BrandAvatarO />
+                    <BrandAvatarO theme={theme} />
                   </View>
                 )}
                 <View>
@@ -479,6 +476,63 @@ const Index = ({ navigation }) => {
                   </Text>
                 </View>
               </View>
+              {hasMatchingElements(
+                currentUsertoSwipe?.interestsArray,
+                currentUser?.interestsArray,
+                4
+              ) && (
+                <View
+                  style={{
+                    flex: 1,
+                    borderTopLeftRadius: -theme.spaceNumber[5],
+                    backgroundColor: theme.colors.brand.black,
+                    marginLeft: theme.spaceNumber[3],
+                    paddingRight: theme.spaceNumber[6],
+                    paddingLeft: theme.spaceNumber[5],
+                    paddingVertical: theme.spaceNumber[1],
+                    flexDirection: "row",
+                    alignItems: "center",
+                    borderColor: theme.colors.brand.linesLighter,
+                    borderRadius: theme.spaceNumberBy10[2],
+                  }}>
+                  <View style={{ marginRight: -theme.spaceNumber[3] }}>
+                    <Avatar
+                      data={currentUser?.mediaArray[0]}
+                      theme={theme}
+                      dimensionIndex={1}
+                      func={() => {}}
+                      isSmallIcon={false}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      borderWidth: "2.5px",
+                      borderRadius: theme.spaceNumberBy10[5],
+                      borderColor: theme.colors.brand.black,
+                    }}>
+                    <Avatar
+                      data={currentUsertoSwipe?.mediaArray[0]}
+                      theme={theme}
+                      dimensionIndex={1}
+                      func={() => {}}
+                      isSmallIcon={false}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      paddingLeft: theme.spaceNumber[2],
+                      flex: 1,
+                    }}>
+                    <Text
+                      variant="custom"
+                      colorType="basewhite"
+                      fontType="montserratRegular"
+                      fontSize="xcaption">
+                      {`${currentUser?.firstname} & ${currentUsertoSwipe?.firstname}, let's spark a conversation...`}
+                    </Text>
+                  </View>
+                </View>
+              )}
               <View
                 style={{
                   flexDirection: "row",
@@ -524,80 +578,34 @@ const Index = ({ navigation }) => {
             </NavigationBar>
           </Spacer>
         </Spacer>
-        {hasMatchingElements(
-          currentUsertoSwipe?.interestsArray,
-          currentUser?.interestsArray,
-          4
-        ) && (
-          <View
-            style={{
-              borderTopLeftRadius: -theme.spaceNumber[5],
-              backgroundColor: theme.colors.brand.black,
-              marginBottom: theme.spaceNumber[3],
-              paddingRight: theme.spaceNumber[6],
-              paddingLeft: theme.spaceNumber[5],
-              paddingVertical: theme.spaceNumber[2],
-              flexDirection: "row",
-              alignItems: "center",
-              borderColor: theme.colors.brand.linesLighter,
-              borderRadius: theme.spaceNumberBy10[2],
-              borderBottomRightRadius: 0,
-            }}>
-            <View style={{ marginRight: -theme.spaceNumber[3] }}>
-              <Avatar
-                data={currentUser?.mediaArray[0]}
-                theme={theme}
-                dimensionIndex={2}
-                func={() => {}}
-                isSmallIcon={false}
-              />
-            </View>
-            <View
-              style={{
-                borderWidth: "2.5px",
-                borderRadius: theme.spaceNumberBy10[5],
-                borderColor: theme.colors.brand.black,
-              }}>
-              <Avatar
-                data={currentUsertoSwipe?.mediaArray[0]}
-                theme={theme}
-                dimensionIndex={3}
-                func={() => {}}
-                isSmallIcon={false}
-              />
-            </View>
-            <View
-              style={{
-                paddingLeft: theme.spaceNumber[2],
-                flex: 1,
-              }}>
-              <Text
-                variant="custom"
-                colorType="basewhite"
-                fontType="montserratRegular"
-                fontSize="caption">
-                {`3+ shared interests! ${currentUser?.firstname} & ${currentUsertoSwipe?.firstname}, let's spark a conversation...`}
-              </Text>
-            </View>
-          </View>
-        )}
-        <IndividualUserProfileComponent
-          fetchUsersData={fetchUsersData}
-          phone={phone}
-          data={currentUsertoSwipe}
-          theme={theme}
-          scrollViewRef={scrollViewRef}
-          setLikedUser={setLikedUser}
-          setIsYouLikedVisible={setIsYouLikedVisible}
-          currentSwipeIndexIsLessThanAllUsersLength={
-            currentSwipeIndexIsLessThanAllUsersLength
-          }
-          index={index}
-          setIndex={setIndex}
-          scrollToTop={scrollToTop}
-          currentUser={currentUser}
-          setIsRetrigger={setIsRetrigger}
-        />
+        <View
+          style={{
+            backgroundColor: theme.colors.brand.basewhite,
+            marginBottom: theme.spaceNumberBy50[3],
+            borderRadius: theme.spaceNumberBy50[0],
+            shadowColor: theme.colors.brand.linesLight,
+            shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+          }}>
+          <IndividualUserProfileComponent
+            fetchUsersData={fetchUsersData}
+            phone={phone}
+            data={currentUsertoSwipe}
+            theme={theme}
+            scrollViewRef={scrollViewRef}
+            setLikedUser={setLikedUser}
+            setIsYouLikedVisible={setIsYouLikedVisible}
+            currentSwipeIndexIsLessThanAllUsersLength={
+              currentSwipeIndexIsLessThanAllUsersLength
+            }
+            index={index}
+            setIndex={setIndex}
+            scrollToTop={scrollToTop}
+            currentUser={currentUser}
+            setIsRetrigger={setIsRetrigger}
+          />
+        </View>
         <CloseButton
           onPress={() => {
             if (currentSwipeIndexIsLessThanAllUsersLength) {
@@ -606,21 +614,13 @@ const Index = ({ navigation }) => {
             }
             scrollToTop();
           }}
-          spaceBottom={
-            hasMatchingElements(
-              currentUsertoSwipe?.interestsArray,
-              currentUser?.interestsArray,
-              4
-            )
-              ? "200px"
-              : "135px"
-          }
+          spaceBottom="250px"
           style={{
             elevation: 5,
             shadowColor: theme.colors.brand.black,
-            shadowOpacity: 0.5,
-            shadowRadius: "5px",
-            backgroundColor: theme.colors.brand.base,
+            shadowOpacity: 0.3,
+            shadowRadius: "10px",
+            backgroundColor: theme.colors.brand.basewhite,
           }}>
           <IconComponent
             iconFunction={() => {
@@ -633,7 +633,7 @@ const Index = ({ navigation }) => {
             iconName="close-a"
             IconComponent={Fontisto}
             size={theme.spaceNumberBy10[1]}
-            color={theme.colors.brand.basewhite}
+            color={theme.colors.brand.base}
           />
         </CloseButton>
         <FilterComponent
