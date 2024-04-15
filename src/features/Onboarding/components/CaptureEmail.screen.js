@@ -45,20 +45,29 @@ export default function CaptureEmail({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
-              colorType="black"
+              colorType="linesLight"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What's your email?
+              What's your
             </Text>
             <Text
               variant="custom"
-              colorType="linesLight"
+              colorType="black"
               fontType="arimaMadurai"
-              fontSize="h5"
-              width="65%">
-              {" "}
-              (optional)
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              email?
+              <Text
+                variant="custom"
+                colorType="linesLight"
+                fontType="arimaMadurai"
+                fontSize="body">
+                {" "}
+                (optional)
+              </Text>
             </Text>
           </Spacer>
           <Spacer position="top" size="large">

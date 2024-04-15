@@ -58,11 +58,21 @@ export default function CaptureName({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              What's your
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
-              width="55%">
-              What's your name?
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              name?
             </Text>
           </Spacer>
           <Spacer position="top" size="large">
