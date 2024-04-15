@@ -870,6 +870,8 @@ export const noSimilarInterestyetmessage =
   "While we're growing, it seems we don't have many users with similar interests right now. Don't be discouraged—new members join daily! In the meantime, consider exploring diverse profiles. Your perfect match might be just around the corner.";
 export const friendshipzone =
   'This page caters to users seeking friendship connections. To engage with others and foster new friendships, please adjust your dating intentions to "friendship" in your profile.';
+export const nofriendshipdata =
+  "Based on the preferences set by other users, there are currently no available data. Please feel free to reach out if you have any further questions or if there's anything else we can assist you with";
 export const noDataFromYourCountrymessage =
   "Sorry, we couldn't find any users matching your preferences in your profile settings. Consider adjusting your profile settings to broaden your search and discover more potential matches.";
 export const facialVerificationText =

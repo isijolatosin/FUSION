@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Octicons, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
@@ -51,8 +55,10 @@ const TabNavigator = ({ route }) => {
       initialRouteName={route?.params?.lastScreenVisited}
       screenOptions={() => ({
         tabBarStyle: {
+          display: "flex",
+          alignItems: "center",
           height: theme.spaceNumberBy10[7],
-          paddingHorizontal: theme.spaceNumber[0],
+          paddingLeft: theme.spaceNumber[5],
           paddingTop: theme.spaceNumberBy10[0],
           paddingBottom: theme.spaceNumberBy10[0],
           backgroundColor: theme.colors.brand.basewhite,
@@ -65,15 +71,38 @@ const TabNavigator = ({ route }) => {
       })}>
       <Tab.Screen
         name="home"
+        component={CommunitiesScreen}
+        options={{
+          cardStyle: {
+            backgroundColor: `${theme.colors.brand.basewhite}`,
+          },
+          tabBarIcon: ({ color, focused }) => (
+            <View
+              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
+              <MaterialCommunityIcons
+                name="account-group-outline"
+                color={focused ? theme.colors.brand.brandFade : color}
+                size={35}
+              />
+            </View>
+          ),
+          gestureEnabled: false,
+        }}
+      />
+      <Tab.Screen
+        name="swipe"
         component={MainScreen}
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color, focused }) => (
-            <Octicons
-              name="home"
-              color={focused ? theme.colors.brand.brandFade : color}
-              size={25}
-            />
+            <View
+              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
+              <Ionicons
+                name="heart-outline"
+                color={focused ? theme.colors.brand.brandFade : color}
+                size={30}
+              />
+            </View>
           ),
           gestureEnabled: false,
         }}
@@ -84,28 +113,14 @@ const TabNavigator = ({ route }) => {
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color, focused }) => (
-            <Octicons
-              name="heart"
-              color={focused ? theme.colors.brand.brandFade : color}
-              size={25}
-            />
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="communities"
-        component={CommunitiesScreen}
-        options={{
-          cardStyle: {
-            backgroundColor: `${theme.colors.brand.basewhite}`,
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <MaterialCommunityIcons
-              name="account-group-outline"
-              color={focused ? theme.colors.brand.brandFade : color}
-              size={35}
-            />
+            <View
+              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
+              <SimpleLineIcons
+                name="like"
+                color={focused ? theme.colors.brand.brandFade : color}
+                size={25}
+              />
+            </View>
           ),
           gestureEnabled: false,
         }}
@@ -116,11 +131,14 @@ const TabNavigator = ({ route }) => {
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name="chatbubble-outline"
-              color={focused ? theme.colors.brand.brandFade : color}
-              size={25}
-            />
+            <View
+              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
+              <Ionicons
+                name="chatbubble-outline"
+                color={focused ? theme.colors.brand.brandFade : color}
+                size={25}
+              />
+            </View>
           ),
           gestureEnabled: false,
         }}
@@ -133,11 +151,14 @@ const TabNavigator = ({ route }) => {
             backgroundColor: `${theme.colors.brand.basewhite}`,
           },
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name="people-outline"
-              color={focused ? theme.colors.brand.brandFade : color}
-              size={30}
-            />
+            <View
+              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
+              <Ionicons
+                name="people-outline"
+                color={focused ? theme.colors.brand.brandFade : color}
+                size={30}
+              />
+            </View>
           ),
           gestureEnabled: false,
         }}
@@ -148,11 +169,14 @@ const TabNavigator = ({ route }) => {
         options={{
           cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
           tabBarIcon: ({ color, focused }) => (
-            <Octicons
-              name="person"
-              color={focused ? theme.colors.brand.brandFade : color}
-              size={26}
-            />
+            <View
+              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
+              <Ionicons
+                name="person-outline"
+                color={focused ? theme.colors.brand.brandFade : color}
+                size={25}
+              />
+            </View>
           ),
           gestureEnabled: false,
         }}

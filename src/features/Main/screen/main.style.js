@@ -4,8 +4,8 @@ const CloseButton = styled.TouchableOpacity`
   position: fixed;
   z-index: 10;
   bottom: ${(props) => (props.spaceBottom ? props.spaceBottom : "160px")};
-  width: 50px;
-  height: 50px;
+  width: ${(props) => (props.width ? props.width : "50px")};
+  height: ${(props) => (props.height ? props.height : "50px")};
   border-radius: 100px;
   align-items: center;
   justify-content: center;

@@ -8,8 +8,14 @@ import React, {
 import * as Device from "expo-device";
 import * as Network from "expo-network";
 import Constants from "expo-constants";
-import { Dimensions, Image, Pressable, View } from "react-native";
-import { Fontisto, FontAwesome } from "@expo/vector-icons";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Fontisto, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
@@ -21,7 +27,6 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import FilterComponent from "./sub-component/FilterComponent";
-import { CloseButton } from "./main.style";
 import {
   getAllData,
   updateUserValueField,
@@ -45,9 +50,11 @@ import ProfileDeactivateCardComponent from "../../../components/general-componen
 import Loading from "../../../components/general-component/Loading";
 import hasMatchingElements from "../../../utilities/hasMatchElements";
 import Avatar from "../../../components/general-component/Avatar";
+import { database, firebaseConfig } from "../../../../config";
 
 const Index = ({ navigation }) => {
-  const { width } = Dimensions.get("window");
+  const { width, height } = Dimensions.get("window");
+  const lastTap = useRef(0);
   const [allUsers, setAllUsers] = useState([]);
   const [phone, setPhone] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
@@ -57,6 +64,7 @@ const Index = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
+  const [doubleTapWarning, setDoubleTapWarning] = useState(false);
   const scrollViewRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -345,6 +353,56 @@ const Index = ({ navigation }) => {
     }
   }
 
+  async function handleYouLikedAUser() {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300;
+    setDoubleTapWarning(false);
+
+    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
+      const likedUserNameAndPhoto = {
+        name: currentUsertoSwipe?.firstname,
+        photo: currentUsertoSwipe?.mediaArray?.[0],
+      };
+      setLikedUser(likedUserNameAndPhoto);
+      setIsYouLikedVisible(true);
+
+      // create match intend structure in firebase firestore
+      database.collection("all-likes").add({
+        timestamp: firebaseConfig.firestore.FieldValue.serverTimestamp(),
+        likedBy: {
+          ...currentUser,
+        }, // the number who liked another profile
+        profileLikedNumber: currentUsertoSwipe?.phonenumber, // profile number that was liked
+      });
+
+      // add liked profile number to list-of-all-liked-numbers in current user profile object
+      await addToArrayField(
+        "all-users",
+        currentUser?.id,
+        "listOfAllLikedNumbers",
+        currentUsertoSwipe?.phonenumber,
+        setIsRetrigger
+      );
+
+      // add current user number (like initiator) to liked-me-list in other user profile object
+      await addToArrayField(
+        "all-users",
+        currentUsertoSwipe?.id,
+        "likedMeList",
+        currentUser?.phonenumber,
+        setIsRetrigger
+      );
+
+      currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
+      scrollToTop();
+    } else {
+      setDoubleTapWarning(true);
+    }
+
+    // Update the lastTap reference
+    lastTap.current = now;
+  }
+
   function handleYouLikedClose() {
     setIsYouLikedVisible(false);
   }
@@ -580,8 +638,9 @@ const Index = ({ navigation }) => {
         </Spacer>
         <View
           style={{
+            height: { height },
             backgroundColor: theme.colors.brand.basewhite,
-            marginBottom: theme.spaceNumberBy50[3],
+            marginBottom: theme.spaceNumberBy50[2],
             borderRadius: theme.spaceNumberBy50[0],
             shadowColor: theme.colors.brand.linesLight,
             shadowOffset: { width: 0, height: 0 },
@@ -606,36 +665,89 @@ const Index = ({ navigation }) => {
             setIsRetrigger={setIsRetrigger}
           />
         </View>
-        <CloseButton
-          onPress={() => {
-            if (currentSwipeIndexIsLessThanAllUsersLength) {
-              storeData("swipe-index", index + 1);
-              setIndex(index + 1);
-            }
-            scrollToTop();
-          }}
-          spaceBottom="250px"
+        <HorizontalPaddingSpace
+          space={theme.space[1]}
           style={{
-            elevation: 5,
-            shadowColor: theme.colors.brand.black,
-            shadowOpacity: 0.3,
-            shadowRadius: "10px",
-            backgroundColor: theme.colors.brand.basewhite,
+            position: "absolute",
+            width: theme.spaceNumberBy50[0],
+            left: theme.spaceNumberBy10[1],
+            bottom: theme.spaceNumberBy50[0] + theme.spaceNumberBy10[3],
+            alignItems: "center",
+            backgroundColor: theme.colors.brand.basewhitelighter,
+            borderRadius: theme.spaceNumberBy50[0],
+            paddingVertical: theme.spaceNumber[2],
           }}>
-          <IconComponent
-            iconFunction={() => {
+          <TouchableOpacity
+            onPress={() => {
               if (currentSwipeIndexIsLessThanAllUsersLength) {
                 storeData("swipe-index", index + 1);
                 setIndex(index + 1);
               }
               scrollToTop();
             }}
-            iconName="close-a"
-            IconComponent={Fontisto}
-            size={theme.spaceNumberBy10[1]}
-            color={theme.colors.brand.base}
-          />
-        </CloseButton>
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: theme.colors.brand.basewhite,
+              width: theme.spaceNumberBy10[3],
+              height: theme.spaceNumberBy10[3],
+              borderRadius: theme.spaceNumberBy50[0],
+              shadowColor: theme.colors.brand.linesLight,
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: 0.8,
+              shadowRadius: 10,
+              marginBottom: theme.spaceNumberBy10[2],
+            }}>
+            <IconComponent
+              iconFunction={() => {
+                if (currentSwipeIndexIsLessThanAllUsersLength) {
+                  storeData("swipe-index", index + 1);
+                  setIndex(index + 1);
+                }
+                scrollToTop();
+              }}
+              iconName="close-a"
+              IconComponent={Fontisto}
+              size={theme.spaceNumber[7]}
+              color={theme.colors.brand.base}
+            />
+          </TouchableOpacity>
+          {doubleTapWarning && (
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="black"
+              fontType="montserratRegular"
+              fontSize="xcaption">
+              double tap
+            </Text>
+          )}
+          <TouchableOpacity
+            onPress={handleYouLikedAUser}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: theme.colors.brand.basewhite,
+              width: theme.spaceNumberBy10[3],
+              height: theme.spaceNumberBy10[3],
+              borderRadius: theme.spaceNumberBy50[0],
+              shadowColor: theme.colors.brand.linesLight,
+              shadowOffset: { width: 0, height: 0 },
+              shadowOpacity: 0.8,
+              shadowRadius: 10,
+              marginTop: theme.spaceNumberBy10[2],
+            }}>
+            <IconComponent
+              iconFunction={handleYouLikedAUser}
+              iconName="heart"
+              IconComponent={Ionicons}
+              size={theme.spaceNumber[13]}
+              color={theme.colors.brand.base}
+            />
+          </TouchableOpacity>
+        </HorizontalPaddingSpace>
         <FilterComponent
           currentUser={currentUser}
           isVisible={isVisible}

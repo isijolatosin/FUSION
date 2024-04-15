@@ -63,11 +63,21 @@ export default function CaptureLookingFor({ navigation }) {
           <Spacer position="top" size="small">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              What are you
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What are you looking for?
+              currently hoping for?
             </Text>
           </Spacer>
           <ScrollView

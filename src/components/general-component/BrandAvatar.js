@@ -11,14 +11,18 @@ export default function BrandAvatar({ noFlex, width, isLike }) {
     <View style={noFlex ? {} : { flex: 1 }}>
       <View style={{ width: width, position: "relative" }}>
         <Image
-          source={require("../../../assets/wiingr_logo.png")}
-          style={{ width: "100%", resizeMode: "contain" }}
+          source={require("../../../assets/wiingr.png")}
+          style={{
+            width: "100%",
+            height: theme.spaceNumberBy10[7],
+            resizeMode: "contain",
+          }}
         />
         <View
           style={{
             position: "absolute",
-            left: noFlex ? "100%" : isLike ? "69%" : "74%",
-            top: noFlex ? -theme.spaceNumber[0] : -theme.spaceNumber[1],
+            left: noFlex ? "100%" : isLike ? "60%" : "74%",
+            top: noFlex ? -theme.spaceNumber[0] : theme.spaceNumber[4],
             borderWidth: 1,
             borderRadius: theme.spaceNumberBy50[1],
             borderColor: noFlex

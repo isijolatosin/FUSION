@@ -64,6 +64,17 @@ export default function CreateAccount({ navigation }) {
       return;
     }
 
+    if (password !== password2) {
+      setLogMessage({
+        message:
+          "Password does not match. Please ensure passwords match and try again",
+        code: "error",
+      });
+      setLoading(false);
+
+      return;
+    }
+
     const formattedPhonenumber = `+${code}${phonenumber}`;
     try {
       setLoading(true);

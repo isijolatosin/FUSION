@@ -63,11 +63,21 @@ export default function CaptureReligious({ navigation }) {
           <Spacer position="top" size="large">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              What do
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What are your religious beliefs?
+              you believe in?
             </Text>
           </Spacer>
           <OnboardingErrorComponent

@@ -54,11 +54,21 @@ export default function CaptureGender({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              How do
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What's your Gender?
+              you identify?
             </Text>
           </Spacer>
           <Spacer position="top" size="xxxxlarge">

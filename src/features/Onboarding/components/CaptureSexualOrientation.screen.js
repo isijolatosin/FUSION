@@ -64,11 +64,21 @@ export default function CaptureSexualOrientation({ navigation }) {
           <Spacer position="top" size="large">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              We would love to know
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What is your Sexual Orientation?
+              your sexual orientation?
             </Text>
           </Spacer>
           <OnboardingErrorComponent

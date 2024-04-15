@@ -11,6 +11,7 @@ import {
   activateAccountForMainScreen,
   compatibleText,
   friendshipzone,
+  nofriendshipdata,
   unpauseAccountForMainScreen,
 } from "../../constants";
 import { retrieveData } from "../../utilities/retrieveDataFromPhoneMemory";
@@ -209,10 +210,15 @@ export default function Index() {
     );
   }
 
-  if (communitiesData.length === 0 && !isLoading) {
+  // #########################################################################
+  // current user preference not set to friendship message
+  if (currentUser?.preference !== "Friendship" && !isLoading) {
     return (
-      <ScreenWrapper theme={theme} width={width}>
-        <HorizontalPaddingSpace space={theme.space[8]}>
+      <ScreenWrapper
+        theme={theme}
+        width={width}
+        setCurrentScreen={setCurrentScreen}>
+        <HorizontalPaddingSpace space={theme.space[5]}>
           <Spacer position="top" size="xxxxlarge">
             <Text
               style={{
@@ -264,27 +270,43 @@ export default function Index() {
         theme={theme}
         width={width}>
         <View style={{ paddingBottom: theme.spaceNumberBy10[12] - 8 }}>
-          {currentScreen === "people" && (
-            <ScrollView
-              ref={scrollViewPeopleRef}
-              showsVerticalScrollIndicator={false}>
-              {communitiesData?.map((signleUserWithSimilarInterest, idx) => (
-                <People
-                  key={idx}
-                  data={signleUserWithSimilarInterest}
-                  width={width}
-                  theme={theme}
-                  setSelectedFriend={setSelectedFriend}
-                  setRequestVisible={setRequestVisible}
-                  currentUser={currentUser}
-                  setIsRetrigger={setIsRetrigger}
-                  scrollToTop={scrollToTopPeopleComp}
-                  setIsSelectedUserToView={setIsSelectedUserToView}
-                  setSelectedUserToView={setSelectedUserToView}
-                />
-              ))}
-            </ScrollView>
-          )}
+          {currentScreen === "people" &&
+            (communitiesData.length === 0 ? (
+              <HorizontalPaddingSpace space={theme.space[5]}>
+                <Spacer position="top" size="xxxxlarge">
+                  <Text
+                    style={{
+                      textAlign: "center",
+                    }}
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratRegular"
+                    fontSize="caption">
+                    {nofriendshipdata}
+                  </Text>
+                </Spacer>
+              </HorizontalPaddingSpace>
+            ) : (
+              <ScrollView
+                ref={scrollViewPeopleRef}
+                showsVerticalScrollIndicator={false}>
+                {communitiesData?.map((signleUserWithSimilarInterest, idx) => (
+                  <People
+                    key={idx}
+                    data={signleUserWithSimilarInterest}
+                    width={width}
+                    theme={theme}
+                    setSelectedFriend={setSelectedFriend}
+                    setRequestVisible={setRequestVisible}
+                    currentUser={currentUser}
+                    setIsRetrigger={setIsRetrigger}
+                    scrollToTop={scrollToTopPeopleComp}
+                    setIsSelectedUserToView={setIsSelectedUserToView}
+                    setSelectedUserToView={setSelectedUserToView}
+                  />
+                ))}
+              </ScrollView>
+            ))}
           {/* {currentScreen === "communities" && (
             <Spacer position="top" size="small">
               <Communities
@@ -300,7 +322,6 @@ export default function Index() {
           {currentScreen === "events" && (
             <Spacer position="top" size="small">
               <Events
-                data={{}}
                 width={width}
                 theme={theme}
                 currentUser={currentUser}

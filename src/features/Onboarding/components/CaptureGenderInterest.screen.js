@@ -54,11 +54,21 @@ export default function CaptureGenderInterest({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              What is
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              Who are you interested in?
+              your spec?
             </Text>
           </Spacer>
           <Spacer position="top" size="xxxxlarge">

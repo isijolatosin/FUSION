@@ -62,11 +62,21 @@ export default function CaptureHeight({ navigation }) {
           <Spacer position="top" size="large">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              Height is just a number!
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What's your height?
+              How tall are you?
             </Text>
           </Spacer>
           <OnboardingErrorComponent
