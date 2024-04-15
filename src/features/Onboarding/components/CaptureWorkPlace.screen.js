@@ -78,16 +78,26 @@ export default function CaptureWorkPlace({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              What do you do
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              Where do you work?
+              between 9am and 5pm?
             </Text>
             <Text
               variant="custom"
               colorType="lines"
-              fontType="montserratRegular"
+              fontType="arimaMadurai"
               fontSize="caption"
               width="100%">
               Please, state your institution name if you are a student.

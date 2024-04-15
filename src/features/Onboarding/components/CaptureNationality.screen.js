@@ -66,11 +66,21 @@ export default function CaptureNationality({ navigation }) {
             <Spacer position="top" size="large">
               <Text
                 variant="custom"
+                colorType="linesLight"
+                fontType="arimaMadurai"
+                fontSize="h4"
+                lineHeight={theme.lineHeights[25]}
+                width="100%">
+                You must have an interesting taste bud!
+              </Text>
+              <Text
+                variant="custom"
                 colorType="black"
                 fontType="arimaMadurai"
-                fontSize="h3"
+                fontSize="h4"
+                lineHeight={theme.lineHeights[25]}
                 width="100%">
-                What is your nationality?
+                What's your nationality?
               </Text>
             </Spacer>
             <OnboardingErrorComponent

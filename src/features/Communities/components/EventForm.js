@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import firebase, { database } from "../../../../config";
@@ -26,6 +27,8 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
   const [eventLocation, setEventLocation] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
   async function handleUploadImage() {
     const image = await handlePickImageAsync(
@@ -62,6 +65,44 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
     setDate("");
     setReload(true);
   }
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleDateConfirm = (date) => {
+    const _date = new Date(date);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+
+    setDate(_date.toLocaleDateString("en-US", options));
+
+    hideDatePicker();
+  };
+
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleTimeConfirm = (time) => {
+    const date = new Date(time);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    setTime(`${formattedHours}:${formattedMinutes} ${ampm}`);
+
+    hideTimePicker();
+  };
 
   return (
     <SafeArea style={{ width: "100%" }}>
@@ -176,34 +217,6 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
             <InputComponent
               includeIcon={false}
               keyboardTyp="text-pad"
-              setValue={(text) => setDate(text.toLowerCase())}
-              value={date}
-              width="100%"
-              isCountryCode={false}
-              isBackgroundColor={false}
-              placeholder="Date"
-              fontSize={theme.fontSizes.body}
-              fontType={theme.fonts.montserratLight}
-            />
-            <View
-              style={{
-                position: "absolute",
-                top: theme.spaceNumberBy10[1],
-                left: -theme.spaceNumberBy10[0],
-              }}>
-              <Text
-                variant="custom"
-                colorType="error"
-                fontType="montserratBold"
-                fontSize="button">
-                *
-              </Text>
-            </View>
-          </View>
-          <View style={{ position: "relative" }}>
-            <InputComponent
-              includeIcon={false}
-              keyboardTyp="text-pad"
               setValue={(text) => setTime(text.toLowerCase())}
               value={time}
               width="100%"
@@ -259,6 +272,78 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
               </Text>
             </View>
           </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              borderBottomWidth: theme.letterSpacing[0],
+              borderBottomColor: theme.colors.brand.lines,
+              paddingVertical: theme.spaceNumber[7],
+            }}>
+            <TouchableOpacity
+              onPress={showDatePicker}
+              style={{
+                position: "relative",
+                marginRight: theme.spaceNumberBy10[5],
+              }}>
+              <View style={{ position: "absolute", top: theme.spaceNumber[0] }}>
+                <Text
+                  variant="custom"
+                  colorType="error"
+                  fontType="montserratBold"
+                  fontSize="body">
+                  *
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{ marginLeft: theme.spaceNumber[5] }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="body">
+                  Date
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleDateConfirm}
+              onCancel={hideDatePicker}
+            />
+            <TouchableOpacity
+              onPress={showTimePicker}
+              style={{
+                position: "relative",
+              }}>
+              <View style={{ position: "absolute", top: theme.spaceNumber[0] }}>
+                <Text
+                  variant="custom"
+                  colorType="error"
+                  fontType="montserratBold"
+                  fontSize="body">
+                  *
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{ marginLeft: theme.spaceNumber[5] }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="body">
+                  Time
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isTimePickerVisible}
+              mode="time"
+              onConfirm={handleTimeConfirm}
+              onCancel={hideTimePicker}
+            />
+          </View>
           <TouchableOpacity
             onPress={() => {
               Keyboard.dismiss();
@@ -269,6 +354,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
             style={{
               alignItems: "center",
               paddingTop: theme.spaceNumberBy10[2],
+              width: "50%",
             }}>
             <Text
               variant="custom"

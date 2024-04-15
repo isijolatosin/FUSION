@@ -81,17 +81,28 @@ export default function CaptureJobTitle({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              Share your plot twist.
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What's your job title?
+              What's your job?
             </Text>
             <Text
               variant="custom"
               colorType="lines"
-              fontType="montserratRegular"
+              fontType="arimaMadurai"
               fontSize="caption"
+              lineHeight={theme.lineHeights[0]}
               width="100%">
               Please, state that you are a student if you previously provided
               your institution name.

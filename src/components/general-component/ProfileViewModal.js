@@ -70,18 +70,34 @@ export default function ProfileViewModal({
         </View>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: width }}>
-        <View style={{ position: "relative" }}>
-          <Image
-            style={{
-              width: "100%",
-              height: 600,
-              resizeMode: "cover",
-            }}
-            source={{
-              uri: `${otherUser?.mediaArray?.[0]}`,
-            }}
-          />
-        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal={true}
+          contentContainerStyle={{
+            paddingLeft: theme.spaceNumberBy10[0],
+          }}>
+          {otherUser?.mediaArray.map((img, idx) => (
+            <View
+              key={idx}
+              style={{
+                position: "relative",
+                borderRadius: theme.spaceNumberBy10[1],
+                marginRight: theme.spaceNumberBy10[0],
+              }}>
+              <Image
+                style={{
+                  height: width,
+                  width: width - 50,
+                  resizeMode: "cover",
+                  borderRadius: theme.spaceNumberBy10[1],
+                }}
+                source={{
+                  uri: `${img}`,
+                }}
+              />
+            </View>
+          ))}
+        </ScrollView>
         <HorizontalPaddingSpace space={theme.space[2]}>
           {otherUser?.bio && (
             <Fragment>
@@ -504,18 +520,6 @@ export default function ProfileViewModal({
             </Fragment>
           )}
         </HorizontalPaddingSpace>
-        <Spacer style={{ position: "relative" }} position="top" size="large">
-          <Image
-            style={{
-              // width: "100%",
-              height: 600,
-              resizeMode: "cover",
-            }}
-            source={{
-              uri: `${otherUser?.mediaArray?.[1]}`,
-            }}
-          />
-        </Spacer>
         <HorizontalPaddingSpace space={theme.space[2]}>
           <Spacer position="bottom" size="medium">
             <Spacer position="top" size="medium">
@@ -689,34 +693,6 @@ export default function ProfileViewModal({
             )}
           </View>
         </HorizontalPaddingSpace>
-        {otherUser?.mediaArray?.[2] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: 600,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${otherUser?.mediaArray?.[2]}`,
-              }}
-            />
-          </Spacer>
-        )}
-        {otherUser?.mediaArray?.[3] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: 600,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${otherUser?.mediaArray?.[3]}`,
-              }}
-            />
-          </Spacer>
-        )}
         <HorizontalPaddingSpace space={theme.space[2]}>
           <Spacer position="top" size="medium">
             <Text
@@ -788,35 +764,6 @@ export default function ProfileViewModal({
               </View>
             )}
         </HorizontalPaddingSpace>
-        {otherUser?.mediaArray?.[4] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: 600,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${otherUser?.mediaArray?.[4]}`,
-              }}
-            />
-          </Spacer>
-        )}
-
-        {otherUser?.mediaArray?.[5] && (
-          <Spacer position="top" size="xxsmall">
-            <Image
-              style={{
-                width: "100%",
-                height: 600,
-                resizeMode: "cover",
-              }}
-              source={{
-                uri: `${otherUser?.mediaArray?.[5]}`,
-              }}
-            />
-          </Spacer>
-        )}
         <View
           style={{
             flexDirection: "row",

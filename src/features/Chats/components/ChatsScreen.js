@@ -430,9 +430,7 @@ const ChatsScreen = () => {
                 style={{
                   flexDirection: "row",
                   width: "100%",
-                }}
-                position="top"
-                size="small">
+                }}>
                 {[...otherUsers, ...otherFriendshipUsers]?.map(
                   (otherUser, idx) =>
                     !otherUser?.messages?.length && (

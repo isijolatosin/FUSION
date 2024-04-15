@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
-import { Dimensions, Keyboard, Pressable, View, Platform } from "react-native";
+import { Ionicons, Fontisto } from "@expo/vector-icons";
+import {
+  Dimensions,
+  Keyboard,
+  Pressable,
+  View,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -21,6 +29,7 @@ export default function CaptureDOB({ navigation }) {
   const [day, setDay] = useState("");
   const [year, setYear] = useState("");
   const [pageError, setPageError] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
@@ -38,6 +47,27 @@ export default function CaptureDOB({ navigation }) {
     if (calculateAge(year, month, day) < 18) return false;
     return true;
   }
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleDateConfirm = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString("en-US", { month: "long" });
+    const year = date.getFullYear();
+
+    setDay(day);
+    setMonth(month);
+    setYear(year);
+
+    hideDatePicker();
+  };
 
   return (
     <SafeArea>
@@ -72,89 +102,134 @@ export default function CaptureDOB({ navigation }) {
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
+                colorType="linesLight"
+                fontType="arimaMadurai"
+                fontSize="h4"
+                lineHeight={theme.lineHeights[25]}
+                width="100%">
+                When is
+              </Text>
+              <Text
+                variant="custom"
                 colorType="black"
                 fontType="arimaMadurai"
-                fontSize="h3"
+                fontSize="h4"
+                lineHeight={theme.lineHeights[25]}
                 width="100%">
-                We would love to know your birth date?
+                your birthday?
               </Text>
             </Spacer>
             <Spacer position="top" size="xlarge">
-              <InputWarraper theme={theme} gap={theme.space[5]}>
-                <View style={{ width: "20%", alignItems: "center" }}>
-                  <Spacer position="bottom" size="xsmall">
-                    <Text
-                      variant="custom"
-                      colorType="base"
-                      fontType="montserratSemibold"
-                      fontSize="caption">
-                      Month
-                    </Text>
-                  </Spacer>
-                  <InputComponent
-                    centralize={true}
-                    keyboardType="number-pad"
-                    includeIcon={false}
-                    setValue={setMonth}
-                    value={month}
-                    isCountryCode={false}
-                    backgroundColor={"highlight"}
-                    isBackgroundColor={true}
-                    fontType={theme.fonts.montserratRegular}
-                    maxlength={2}
+              {Platform.OS === "ios" ? (
+                <>
+                  <TouchableOpacity
+                    onPress={showDatePicker}
+                    style={{
+                      position: "relative",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {}}
+                      iconName="date"
+                      IconComponent={Fontisto}
+                      size={35}
+                      color={theme.colors.brand.brandTone}
+                    />
+                    <View style={{ marginLeft: theme.spaceNumber[5] }}>
+                      <Text
+                        variant="custom"
+                        colorType="black"
+                        fontType="montserratRegular"
+                        fontSize="body">
+                        Select your Date of birth
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleDateConfirm}
+                    onCancel={hideDatePicker}
                   />
-                </View>
-                <View style={{ width: "20%", alignItems: "center" }}>
-                  <Spacer position="bottom" size="xsmall">
-                    <Text
-                      variant="custom"
-                      colorType="base"
-                      fontType="montserratSemibold"
-                      fontSize="caption">
-                      Day
-                    </Text>
-                  </Spacer>
-                  <InputComponent
-                    centralize={true}
-                    keyboardType="number-pad"
-                    includeIcon={false}
-                    setValue={setDay}
-                    value={day}
-                    isCountryCode={false}
-                    backgroundColor={"highlight"}
-                    isBackgroundColor={true}
-                    fontType={theme.fonts.montserratRegular}
-                    maxlength={2}
-                  />
-                </View>
-                <View
-                  style={{
-                    width: Platform.OS === "ios" ? "46.5%" : "45%",
-                    alignItems: "center",
-                  }}>
-                  <Spacer position="bottom" size="xsmall">
-                    <Text
-                      variant="custom"
-                      colorType="base"
-                      fontType="montserratSemibold"
-                      fontSize="caption">
-                      Year
-                    </Text>
-                  </Spacer>
-                  <InputComponent
-                    centralize={true}
-                    keyboardType="number-pad"
-                    includeIcon={false}
-                    setValue={setYear}
-                    value={year}
-                    isCountryCode={false}
-                    backgroundColor={"highlight"}
-                    isBackgroundColor={true}
-                    fontType={theme.fonts.montserratRegular}
-                    maxlength={4}
-                  />
-                </View>
-              </InputWarraper>
+                </>
+              ) : (
+                <InputWarraper theme={theme} gap={theme.space[5]}>
+                  <View style={{ width: "20%", alignItems: "center" }}>
+                    <Spacer position="bottom" size="xsmall">
+                      <Text
+                        variant="custom"
+                        colorType="base"
+                        fontType="montserratSemibold"
+                        fontSize="caption">
+                        Month
+                      </Text>
+                    </Spacer>
+                    <InputComponent
+                      centralize={true}
+                      keyboardType="number-pad"
+                      includeIcon={false}
+                      setValue={setMonth}
+                      value={month}
+                      isCountryCode={false}
+                      backgroundColor={"highlight"}
+                      isBackgroundColor={true}
+                      fontType={theme.fonts.montserratRegular}
+                      maxlength={2}
+                    />
+                  </View>
+                  <View style={{ width: "20%", alignItems: "center" }}>
+                    <Spacer position="bottom" size="xsmall">
+                      <Text
+                        variant="custom"
+                        colorType="base"
+                        fontType="montserratSemibold"
+                        fontSize="caption">
+                        Day
+                      </Text>
+                    </Spacer>
+                    <InputComponent
+                      centralize={true}
+                      keyboardType="number-pad"
+                      includeIcon={false}
+                      setValue={setDay}
+                      value={day}
+                      isCountryCode={false}
+                      backgroundColor={"highlight"}
+                      isBackgroundColor={true}
+                      fontType={theme.fonts.montserratRegular}
+                      maxlength={2}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      width: Platform.OS === "ios" ? "46.5%" : "45%",
+                      alignItems: "center",
+                    }}>
+                    <Spacer position="bottom" size="xsmall">
+                      <Text
+                        variant="custom"
+                        colorType="base"
+                        fontType="montserratSemibold"
+                        fontSize="caption">
+                        Year
+                      </Text>
+                    </Spacer>
+                    <InputComponent
+                      centralize={true}
+                      keyboardType="number-pad"
+                      includeIcon={false}
+                      setValue={setYear}
+                      value={year}
+                      isCountryCode={false}
+                      backgroundColor={"highlight"}
+                      isBackgroundColor={true}
+                      fontType={theme.fonts.montserratRegular}
+                      maxlength={4}
+                    />
+                  </View>
+                </InputWarraper>
+              )}
             </Spacer>
             <Spacer position="top" size="xxxxlarge">
               <Text

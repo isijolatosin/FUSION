@@ -16,6 +16,8 @@ export default function PhotoComponent({
   setDeleteImageItem,
   deleteImageItem,
   setOpenImageUploadModal,
+  width,
+  borderRadius,
 }) {
   const {
     state: { theme },
@@ -41,9 +43,9 @@ export default function PhotoComponent({
       }}
       style={{
         position: "relative",
-        width: dimension + "%",
-        height: theme.spaceNumberBy10[9],
-        borderRadius: 5,
+        width: dimension ? dimension + "%" : width - 10,
+        height: width ? width : theme.spaceNumberBy10[9],
+        borderRadius: borderRadius ? borderRadius : 5,
         backgroundColor: theme.colors.brand.highlight,
         alignItems: "center",
         justifyContent: "center",
@@ -54,16 +56,22 @@ export default function PhotoComponent({
             source={{
               uri: `${photoUrl}`,
             }}
-            style={{ width: "100%", height: "100%", borderRadius: 5 }}
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: borderRadius ? borderRadius : 5,
+            }}
           />
           {showDeleteIcon ? (
             <Pressable
               style={{
                 position: "absolute",
-                top: theme.spaceNumber[0],
-                right: theme.spaceNumber[0],
+                top: theme.spaceNumber[5],
+                right: theme.spaceNumber[5],
                 backgroundColor: theme.colors.brand.basewhite,
-                borderRadius: theme.spaceNumberBy10[9],
+                borderRadius: borderRadius
+                  ? borderRadius
+                  : theme.spaceNumberBy10[9],
                 padding: theme.spaceNumber[0],
               }}>
               <IconComponent

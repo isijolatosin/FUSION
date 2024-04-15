@@ -79,11 +79,30 @@ export default function CaptureSelfDescription({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              Let others know
+            </Text>
+            <Text
+              variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
               width="100%">
-              What three words describe you?
+              a little more about you.
+            </Text>
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="arimaMadurai"
+              lineHeight={theme.lineHeights[0]}
+              fontSize="caption"
+              width="100%">
+              Tell us three words that best describe you.
             </Text>
           </Spacer>
           <Spacer position="top" size="large">

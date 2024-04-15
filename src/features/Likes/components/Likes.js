@@ -243,6 +243,26 @@ const LikesScreen = () => {
             currentScreen === "community likes" && (
               <View style={{ width: "100%" }}>
                 <HorizontalPaddingSpace space={theme.space[5]}>
+                  <Spacer position="top" size="xxxxlarge">
+                    <IllustrationContainer
+                      ImageComponent={() => (
+                        <Image
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            resizeMode: "cover",
+                          }}
+                          source={
+                            currentUser?.gender === "woman"
+                              ? require("../../../../assets/illustration-woman.png")
+                              : require("../../../../assets/illustration-man.png")
+                          }
+                        />
+                      )}
+                      spaceSize=""
+                      theme={theme}
+                    />
+                  </Spacer>
                   <Spacer position="top" size="large">
                     <Text
                       style={{
@@ -254,9 +274,6 @@ const LikesScreen = () => {
                       fontSize="caption">
                       {nofriendrequestmessage}
                     </Text>
-                    <Spacer position="top" size="xxxxlarge">
-                      <BrandAvatar isLike={true} />
-                    </Spacer>
                   </Spacer>
                 </HorizontalPaddingSpace>
               </View>

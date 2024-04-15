@@ -977,48 +977,49 @@ export default function ProfileScreen() {
               </Text>
             </HorizontalPaddingSpace>
           </View>
-          <Spacer position="top" size="small">
-            <HorizontalPaddingSpace
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                gap: theme.spaceNumberBy10[0],
-                justifyContent: "center",
-              }}
-              space={theme.space[1]}>
-              {currentUser?.mediaArray?.map((media, idx) => (
-                <PhotoComponent
-                  key={idx}
-                  isUpdatingPhoto={true}
-                  dimension={31}
-                  photoUrl={media}
-                  showDeleteIcon={true}
-                  index={0}
-                  setOpenDeleteModal={setOpenDeleteModal}
-                  setDeleteImageItem={setDeleteImageItem}
-                  deleteImageItem={deleteImageItem}
-                  setOpenImageUploadModal={setOpenImageUploadModal}
-                />
-              ))}
-              {currentUser?.mediaArray?.length < 6 &&
-                new Array(6 - currentUser?.mediaArray.length)
-                  .fill(0)
-                  .map((_val, idx) => (
-                    <PhotoComponent
-                      key={idx}
-                      isUpdatingPhoto={true}
-                      dimension={31}
-                      photoUrl=""
-                      showDeleteIcon={true}
-                      index={0}
-                      setOpenDeleteModal={setOpenDeleteModal}
-                      setDeleteImageItem={setDeleteImageItem}
-                      deleteImageItem={deleteImageItem}
-                      setOpenImageUploadModal={setOpenImageUploadModal}
-                    />
-                  ))}
+          <View>
+            <HorizontalPaddingSpace space={theme.space[1]}>
+              <ScrollView
+                horizontal={true}
+                contentContainerStyle={{
+                  gap: theme.spaceNumberBy10[0],
+                }}>
+                {currentUser?.mediaArray?.map((media, idx) => (
+                  <PhotoComponent
+                    key={idx}
+                    isUpdatingPhoto={true}
+                    photoUrl={media}
+                    showDeleteIcon={true}
+                    index={0}
+                    setOpenDeleteModal={setOpenDeleteModal}
+                    setDeleteImageItem={setDeleteImageItem}
+                    deleteImageItem={deleteImageItem}
+                    setOpenImageUploadModal={setOpenImageUploadModal}
+                    width={width}
+                    borderRadius={theme.spaceNumberBy10[1]}
+                  />
+                ))}
+                {currentUser?.mediaArray?.length < 6 &&
+                  new Array(6 - currentUser?.mediaArray.length)
+                    .fill(0)
+                    .map((_val, idx) => (
+                      <PhotoComponent
+                        key={idx}
+                        isUpdatingPhoto={true}
+                        photoUrl=""
+                        showDeleteIcon={true}
+                        index={0}
+                        setOpenDeleteModal={setOpenDeleteModal}
+                        setDeleteImageItem={setDeleteImageItem}
+                        deleteImageItem={deleteImageItem}
+                        setOpenImageUploadModal={setOpenImageUploadModal}
+                        width={width}
+                        borderRadius={theme.spaceNumberBy10[1]}
+                      />
+                    ))}
+              </ScrollView>
             </HorizontalPaddingSpace>
-          </Spacer>
+          </View>
           <AboutMeListComponent
             title="Socials"
             subTitle=""

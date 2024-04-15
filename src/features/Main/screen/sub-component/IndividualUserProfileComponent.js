@@ -3,7 +3,6 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  Pressable,
   View,
   TouchableOpacity,
 } from "react-native";
@@ -20,8 +19,6 @@ import {
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
 import IconComponent from "../../../../components/icon-components/IconComponent";
-import firebase, { database } from "../../../../../config";
-import { addToArrayField } from "../../../../utilities/updateFirestoreDatabaseField";
 import { getZodiacSign } from "../../../../utilities/generateZodiac";
 import { handleUrlPress } from "../../../../utilities/detectTextType";
 import getInterestMapObject from "../../../../utilities/getInterestMapObject";
@@ -33,19 +30,9 @@ export default function IndividualUserProfileComponent({
   data,
   theme,
   scrollViewRef,
-  setLikedUser,
-  setIsYouLikedVisible,
-  currentSwipeIndexIsLessThanAllUsersLength,
-  index,
-  setIndex,
-  scrollToTop,
-  currentUser,
-  setIsRetrigger,
 }) {
   const imageHeight = 400;
-  const lastTap = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
-  const [doubleTapWarning, setDoubleTapWarning] = useState(false);
 
   let iconNamePerGender = "";
   if (data?.gender === "woman") {
@@ -56,56 +43,6 @@ export default function IndividualUserProfileComponent({
   }
   if (data?.gender === "woman") {
     iconNamePerGender = "gender-non-binary";
-  }
-
-  async function handleYouLikedAUser(profileLikedNumber) {
-    const now = Date.now();
-    const DOUBLE_TAP_DELAY = 300;
-    setDoubleTapWarning(false);
-
-    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
-      const likedUserNameAndPhoto = {
-        name: data?.firstname,
-        photo: data?.mediaArray?.[0],
-      };
-      setLikedUser(likedUserNameAndPhoto);
-      setIsYouLikedVisible(true);
-
-      // create match intend structure in firebase firestore
-      database.collection("all-likes").add({
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        likedBy: {
-          ...currentUser,
-        }, // the number who liked another profile
-        profileLikedNumber: profileLikedNumber, // profile number that was liked
-      });
-
-      // add liked profile number to list-of-all-liked-numbers in current user profile object
-      await addToArrayField(
-        "all-users",
-        currentUser?.id,
-        "listOfAllLikedNumbers",
-        data?.phonenumber,
-        setIsRetrigger
-      );
-
-      // add current user number (like initiator) to liked-me-list in other user profile object
-      await addToArrayField(
-        "all-users",
-        data?.id,
-        "likedMeList",
-        currentUser?.phonenumber,
-        setIsRetrigger
-      );
-
-      currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
-      scrollToTop();
-    } else {
-      setDoubleTapWarning(true);
-    }
-
-    // Update the lastTap reference
-    lastTap.current = now;
   }
 
   const onRefresh = useCallback(() => {
@@ -146,51 +83,14 @@ export default function IndividualUserProfileComponent({
           <Image
             style={{
               width: "100%",
-              height: imageHeight,
+              height: imageHeight + 310,
               resizeMode: "cover",
               borderRadius: 5,
-              borderBottomRightRadius: theme.spaceNumberBy50[3],
             }}
             source={{
               uri: `${data?.mediaArray?.[0]}`,
             }}
           />
-          <View
-            style={{
-              position: "absolute",
-              bottom: theme.spaceNumber[2],
-              left: -theme.spaceNumber[2],
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
-              width: "100%",
-              padding: theme.spaceNumberBy10[0],
-            }}>
-            {doubleTapWarning && (
-              <View
-                style={{
-                  marginRight: -theme.spaceNumberBy10[4],
-                  marginBottom: -theme.spaceNumber[3],
-                }}>
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratRegular"
-                  fontSize="caption">
-                  double tap
-                </Text>
-              </View>
-            )}
-            <Pressable>
-              <IconComponent
-                iconFunction={() => handleYouLikedAUser(data?.phonenumber)}
-                iconName="heart"
-                IconComponent={MaterialCommunityIcons}
-                size={50}
-                color={theme.colors.brand.base}
-              />
-            </Pressable>
-          </View>
         </View>
         {data?.bio && (
           <Spacer position="bottom" size="large">

@@ -158,18 +158,29 @@ export default function CapturePhotos({ navigation }) {
         <Spacer position="top" size="large">
           <Text
             variant="custom"
+            colorType="linesLight"
+            fontType="arimaMadurai"
+            fontSize="h4"
+            lineHeight={theme.lineHeights[25]}
+            width="100%">
+            Let's spice
+          </Text>
+          <Text
+            variant="custom"
             colorType="black"
             fontType="arimaMadurai"
-            fontSize="h3"
+            fontSize="h4"
+            lineHeight={theme.lineHeights[25]}
             width="100%">
-            Add your photos
+            things up!
           </Text>
         </Spacer>
         <Spacer position="top" size="xsmall">
           <Text
             variant="custom"
             colorType="black"
-            fontType="montserratRegular"
+            fontType="arimaMadurai"
+            lineHeight={theme.lineHeights[0]}
             fontSize="caption"
             width="95%">
             {addPhotosInstruction}
