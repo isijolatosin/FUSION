@@ -5,7 +5,6 @@ import { useRoute } from "@react-navigation/native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
@@ -13,6 +12,7 @@ import NextNavigation from "../../../components/Next-navigation";
 import { Dimensions, Keyboard, Pressable } from "react-native";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureNationality({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -29,48 +29,56 @@ export default function CaptureNationality({ navigation }) {
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
-        <HorizontalPaddingSpace space={theme.space[5]}>
-          <NavigationBar>
-            <IconComponent
-              iconFunction={() => navigation.goBack()}
-              iconName="chevron-back"
-              IconComponent={Ionicons}
-              size={30}
-              color={theme.colors.brand.base}
-            />
-            <NextNavigation
-              theme={theme}
-              color={theme.colors.brand.base}
-              nextFunction={() => {
-                if (nationality) {
-                  navigation.navigate("capture-self-description-screen", {
-                    dob,
-                    _height,
-                    religious,
-                    sexualOrientation,
-                    preference,
-                    nationality,
-                  });
-                } else {
-                  setPageError(true);
-                }
-              }}
-            />
-          </NavigationBar>
+        <HorizontalPaddingSpace space={theme.space[2]}>
+          <HeaderComponent
+            title="Onboarding"
+            theme={theme}
+            textWidth="103%"
+            topSpace="small"
+            LeftComp={() => (
+              <IconComponent
+                iconFunction={() => navigation.goBack()}
+                iconName="chevron-back"
+                IconComponent={Ionicons}
+                size={30}
+                color={theme.colors.brand.base}
+              />
+            )}
+            RightComp={() => (
+              <NextNavigation
+                theme={theme}
+                color={theme.colors.brand.base}
+                nextFunction={() => {
+                  if (nationality) {
+                    navigation.navigate("capture-self-description-screen", {
+                      dob,
+                      _height,
+                      religious,
+                      sexualOrientation,
+                      preference,
+                      nationality,
+                    });
+                  } else {
+                    setPageError(true);
+                  }
+                }}
+              />
+            )}
+            size="title"
+          />
           <HorizontalPaddingSpace
             space={theme.space[3]}
             style={{
-              marginTop: theme.spaceNumberBy10[9],
               height: height,
             }}>
-            <Spacer position="top" size="large">
+            <Spacer position="top" size="xxxxlarge">
               <Text
                 variant="custom"
                 colorType="linesLight"
                 fontType="arimaMadurai"
                 fontSize="h4"
                 lineHeight={theme.lineHeights[25]}
-                width="100%">
+                width="90%">
                 You must have an interesting taste bud!
               </Text>
               <Text
@@ -86,7 +94,7 @@ export default function CaptureNationality({ navigation }) {
             <OnboardingErrorComponent
               pageError={pageError}
               text="Please provide your nationality"
-              size="caption"
+              size="body"
             />
             <Spacer position="top" size="large">
               <InputComponent

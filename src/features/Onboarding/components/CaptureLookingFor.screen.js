@@ -6,13 +6,13 @@ import { Dimensions, ScrollView } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import Button from "../../../components/utility/button.component";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureLookingFor({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -27,40 +27,44 @@ export default function CaptureLookingFor({ navigation }) {
 
   return (
     <SafeArea>
-      <HorizontalPaddingSpace space={theme.space[5]}>
-        <NavigationBar>
-          <IconComponent
-            iconFunction={() => navigation.goBack()}
-            iconName="chevron-back"
-            IconComponent={Ionicons}
-            size={30}
-            color={theme.colors.brand.base}
-          />
-          <NextNavigation
-            theme={theme}
-            color={theme.colors.brand.base}
-            nextFunction={() => {
-              if (preference) {
-                navigation.navigate("capture-nationality-screen", {
-                  dob,
-                  _height,
-                  religious,
-                  sexualOrientation,
-                  preference,
-                });
-              } else {
-                setPageError(true);
-              }
-            }}
-          />
-        </NavigationBar>
-        <HorizontalPaddingSpace
-          space={theme.space[3]}
-          style={{
-            marginTop: theme.spaceNumberBy10[1],
-            height: height,
-          }}>
-          <Spacer position="top" size="small">
+      <HorizontalPaddingSpace space={theme.space[2]}>
+        <HeaderComponent
+          title="Onboarding"
+          theme={theme}
+          textWidth="103%"
+          topSpace="small"
+          size="title"
+          LeftComp={() => (
+            <IconComponent
+              iconFunction={() => navigation.goBack()}
+              iconName="chevron-back"
+              IconComponent={Ionicons}
+              size={30}
+              color={theme.colors.brand.base}
+            />
+          )}
+          RightComp={() => (
+            <NextNavigation
+              theme={theme}
+              color={theme.colors.brand.base}
+              nextFunction={() => {
+                if (preference) {
+                  navigation.navigate("capture-nationality-screen", {
+                    dob,
+                    _height,
+                    religious,
+                    sexualOrientation,
+                    preference,
+                  });
+                } else {
+                  setPageError(true);
+                }
+              }}
+            />
+          )}
+        />
+        <HorizontalPaddingSpace space={theme.space[3]}>
+          <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
               colorType="linesLight"
@@ -181,8 +185,8 @@ export default function CaptureLookingFor({ navigation }) {
           </ScrollView>
           <OnboardingErrorComponent
             pageError={pageError}
-            text="Please provide what you are looking for"
-            size="caption"
+            text="Please provide what you are hoping for"
+            size="body"
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

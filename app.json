@@ -3,7 +3,7 @@
     "name": "wiingr",
     "slug": "wiingr-app",
     "description": "Your wiingr app is a social application for african community",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -15,12 +15,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.tosin.wiingrapp",
-      "buildNumber": "1.0.4",
+      "buildNumber": "1.0.6",
       "supportsTablet": true
     },
     "android": {
       "package": "com.tosin.wiingrapp",
-      "versionCode": 5,
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fff"

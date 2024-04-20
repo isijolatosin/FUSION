@@ -17,14 +17,9 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import {
-  NavigationBar,
-  YouAreSpecialCircleWrapper,
-} from "../../Onboarding/components/onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import calculateAge from "../../../utilities/calculateAge";
 import PhotoComponent from "../../Onboarding/components/sub-component/PhotoComponent";
 import GeneralPopupModal from "./GeneralPopupModal";
 import {

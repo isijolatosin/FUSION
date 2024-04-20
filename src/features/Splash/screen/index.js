@@ -3,11 +3,7 @@ import { Animated, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  SimpleLineIcons,
-} from "@expo/vector-icons";
+import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
@@ -45,6 +41,7 @@ import SupportScreen from "../../Support";
 import CompatibilityScreen from "../../Compatibility";
 import CommunitiesScreen from "../../Communities";
 import SignIn from "../../Onboarding/components/SignIn.screen";
+import BrandLogoTab from "../../../components/general-component/BrandLogoTab";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -79,10 +76,10 @@ const TabNavigator = ({ route }) => {
           tabBarIcon: ({ color, focused }) => (
             <View
               style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <MaterialCommunityIcons
-                name="account-group-outline"
-                color={focused ? theme.colors.brand.brandFade : color}
-                size={35}
+              <BrandLogoTab
+                theme={theme}
+                widthHeight={theme.spaceNumberBy10[4]}
+                noFunc={true}
               />
             </View>
           ),

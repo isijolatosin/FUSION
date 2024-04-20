@@ -17,11 +17,16 @@ import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import { useAppContext } from "../../../context/ThemeContext";
-import { InputWarraper, NavigationBar } from "./onboarding.styles";
-import { agerestrictionmessage, dobInstruction } from "../../../constants";
+import { InputWarraper } from "./onboarding.styles";
+import {
+  agerestrictionmessage,
+  dobInstruction,
+  months,
+} from "../../../constants";
 import NextNavigation from "../../../components/Next-navigation";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import calculateAge from "../../../utilities/calculateAge";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureDOB({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -62,9 +67,9 @@ export default function CaptureDOB({ navigation }) {
     const month = date.toLocaleString("en-US", { month: "long" });
     const year = date.getFullYear();
 
-    setDay(day);
-    setMonth(month);
-    setYear(year);
+    setDay(+day);
+    setMonth(months.indexOf(month) + 1);
+    setYear(+year);
 
     hideDatePicker();
   };
@@ -72,31 +77,39 @@ export default function CaptureDOB({ navigation }) {
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
-        <HorizontalPaddingSpace space={theme.space[5]}>
-          <NavigationBar>
-            <IconComponent
-              iconFunction={() => navigation.goBack()}
-              iconName="chevron-back"
-              IconComponent={Ionicons}
-              size={30}
-              color={theme.colors.brand.base}
-            />
-            <NextNavigation
-              theme={theme}
-              color={theme.colors.brand.base}
-              nextFunction={() => {
-                if (day && month && year && validateAgeRestriction()) {
-                  navigation.navigate("capture-height-screen", { dob });
-                } else {
-                  setPageError(true);
-                }
-              }}
-            />
-          </NavigationBar>
+        <HorizontalPaddingSpace space={theme.space[2]}>
+          <HeaderComponent
+            title="Onboarding"
+            theme={theme}
+            textWidth="103%"
+            topSpace="small"
+            size="title"
+            LeftComp={() => (
+              <IconComponent
+                iconFunction={() => navigation.goBack()}
+                iconName="chevron-back"
+                IconComponent={Ionicons}
+                size={30}
+                color={theme.colors.brand.base}
+              />
+            )}
+            RightComp={() => (
+              <NextNavigation
+                theme={theme}
+                color={theme.colors.brand.base}
+                nextFunction={() => {
+                  if (day && month && year && validateAgeRestriction()) {
+                    navigation.navigate("capture-height-screen", { dob });
+                  } else {
+                    setPageError(true);
+                  }
+                }}
+              />
+            )}
+          />
           <HorizontalPaddingSpace
-            space={theme.space[0]}
+            space={theme.space[3]}
             style={{
-              marginTop: 100,
               height: height,
             }}>
             <Spacer position="top" size="xxxlarge">
@@ -130,7 +143,7 @@ export default function CaptureDOB({ navigation }) {
                       alignItems: "center",
                     }}>
                     <IconComponent
-                      iconFunction={() => {}}
+                      iconFunction={() => showDatePicker()}
                       iconName="date"
                       IconComponent={Fontisto}
                       size={35}
@@ -231,6 +244,17 @@ export default function CaptureDOB({ navigation }) {
                 </InputWarraper>
               )}
             </Spacer>
+            {month && year && day && (
+              <Spacer position="top" size="large">
+                <Text
+                  variant="custom"
+                  colorType="base"
+                  fontType="montserratSemibold"
+                  fontSize="caption">
+                  {`You selected ${months[month - 1]} ${day} ${year}`}
+                </Text>
+              </Spacer>
+            )}
             <Spacer position="top" size="xxxxlarge">
               <Text
                 variant="custom"
@@ -243,7 +267,7 @@ export default function CaptureDOB({ navigation }) {
             <OnboardingErrorComponent
               pageError={pageError}
               text={agerestrictionmessage}
-              size="caption"
+              size="body"
             />
           </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>

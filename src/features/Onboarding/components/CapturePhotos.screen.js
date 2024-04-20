@@ -8,7 +8,6 @@ import "firebase/database";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
@@ -18,6 +17,7 @@ import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import PhotoComponentPhotoScreen from "./sub-component/PhotoComponentPhotoScreen";
 import firebase, { database } from "../../../../config";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CapturePhotos({ navigation }) {
   const [photoUrl1, setPhotoUrl1] = useState("");
@@ -37,7 +37,7 @@ export default function CapturePhotos({ navigation }) {
         firstname,
         gender,
         interest,
-        lastname,
+        lastname, // this is optional and may not be capture. Handle when pushing to DB
         latitude,
         longitude,
         location,
@@ -104,7 +104,7 @@ export default function CapturePhotos({ navigation }) {
         interest,
         interestsArray,
         jobtitle,
-        lastname,
+        lastname: lastname ? lastname : "",
         latitude,
         location,
         lifestyleHabits,
@@ -133,99 +133,110 @@ export default function CapturePhotos({ navigation }) {
 
   return (
     <SafeArea>
-      <HorizontalPaddingSpace space={theme.space[5]}>
-        <NavigationBar>
-          <IconComponent
-            iconFunction={() => navigation.goBack()}
-            iconName="chevron-back"
-            IconComponent={Ionicons}
-            size={30}
-            color={theme.colors.brand.base}
-          />
-          <NextNavigation
-            theme={theme}
-            color={theme.colors.brand.base}
-            nextFunction={() => {
-              if (checkMediaArrayLength(mediaArray)) {
-                saveDataToFirebase();
-                navigation.navigate("your-profile-is-set", { phonenumber });
-              } else {
-                setPageError(true);
-              }
-            }}
-          />
-        </NavigationBar>
-        <Spacer position="top" size="large">
-          <Text
-            variant="custom"
-            colorType="linesLight"
-            fontType="arimaMadurai"
-            fontSize="h4"
-            lineHeight={theme.lineHeights[25]}
-            width="100%">
-            Let's spice
-          </Text>
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            fontSize="h4"
-            lineHeight={theme.lineHeights[25]}
-            width="100%">
-            things up!
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="xsmall">
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="arimaMadurai"
-            lineHeight={theme.lineHeights[0]}
-            fontSize="caption"
-            width="95%">
-            {addPhotosInstruction}
-          </Text>
-        </Spacer>
-        <Spacer position="top" size="xxxlarge">
-          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12 }}>
-            <PhotoComponentPhotoScreen
-              photoUrl={photoUrl1}
-              setPhotoUrl={setPhotoUrl1}
-              dimension={theme.spaceNumberBy10[2]}
+      <HorizontalPaddingSpace space={theme.space[2]}>
+        <HeaderComponent
+          title="Onboarding"
+          theme={theme}
+          textWidth="103%"
+          topSpace="small"
+          LeftComp={() => (
+            <IconComponent
+              iconFunction={() => navigation.goBack()}
+              iconName="chevron-back"
+              IconComponent={Ionicons}
+              size={30}
+              color={theme.colors.brand.base}
             />
-            <PhotoComponentPhotoScreen
-              photoUrl={photoUrl2}
-              setPhotoUrl={setPhotoUrl2}
-              dimension={theme.spaceNumberBy10[2]}
+          )}
+          RightComp={() => (
+            <NextNavigation
+              theme={theme}
+              color={theme.colors.brand.base}
+              nextFunction={() => {
+                if (checkMediaArrayLength(mediaArray)) {
+                  saveDataToFirebase();
+                  navigation.navigate("your-profile-is-set", { phonenumber });
+                } else {
+                  setPageError(true);
+                }
+              }}
             />
-            <PhotoComponentPhotoScreen
-              photoUrl={photoUrl3}
-              setPhotoUrl={setPhotoUrl3}
-              dimension={theme.spaceNumberBy10[2]}
-            />
-            <PhotoComponentPhotoScreen
-              photoUrl={photoUrl4}
-              setPhotoUrl={setPhotoUrl4}
-              dimension={theme.spaceNumberBy10[2]}
-            />
-            <PhotoComponentPhotoScreen
-              photoUrl={photoUrl5}
-              setPhotoUrl={setPhotoUrl5}
-              dimension={theme.spaceNumberBy10[2]}
-            />
-            <PhotoComponentPhotoScreen
-              photoUrl={photoUrl6}
-              setPhotoUrl={setPhotoUrl6}
-              dimension={theme.spaceNumberBy10[2]}
-            />
-          </View>
-        </Spacer>
-
-        <OnboardingErrorComponent
-          pageError={pageError}
-          text="Please your photos. Minimum of 3 required"
-          size="caption"
+          )}
+          size="title"
         />
+        <HorizontalPaddingSpace space={theme.space[2]}>
+          <Spacer position="top" size="xxxxlarge">
+            <Text
+              variant="custom"
+              colorType="linesLight"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              Let's spice
+            </Text>
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="arimaMadurai"
+              fontSize="h4"
+              lineHeight={theme.lineHeights[25]}
+              width="100%">
+              things up!
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="xsmall">
+            <Text
+              variant="custom"
+              colorType="black"
+              fontType="arimaMadurai"
+              lineHeight={theme.lineHeights[0]}
+              fontSize="caption"
+              width="95%">
+              {addPhotosInstruction}
+            </Text>
+          </Spacer>
+          <Spacer position="top" size="xxxlarge">
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12 }}>
+              <PhotoComponentPhotoScreen
+                photoUrl={photoUrl1}
+                setPhotoUrl={setPhotoUrl1}
+                dimension={theme.spaceNumberBy10[2]}
+              />
+              <PhotoComponentPhotoScreen
+                photoUrl={photoUrl2}
+                setPhotoUrl={setPhotoUrl2}
+                dimension={theme.spaceNumberBy10[2]}
+              />
+              <PhotoComponentPhotoScreen
+                photoUrl={photoUrl3}
+                setPhotoUrl={setPhotoUrl3}
+                dimension={theme.spaceNumberBy10[2]}
+              />
+              <PhotoComponentPhotoScreen
+                photoUrl={photoUrl4}
+                setPhotoUrl={setPhotoUrl4}
+                dimension={theme.spaceNumberBy10[2]}
+              />
+              <PhotoComponentPhotoScreen
+                photoUrl={photoUrl5}
+                setPhotoUrl={setPhotoUrl5}
+                dimension={theme.spaceNumberBy10[2]}
+              />
+              <PhotoComponentPhotoScreen
+                photoUrl={photoUrl6}
+                setPhotoUrl={setPhotoUrl6}
+                dimension={theme.spaceNumberBy10[2]}
+              />
+            </View>
+          </Spacer>
+
+          <OnboardingErrorComponent
+            pageError={pageError}
+            text="Please update your photos. Minimum of 3 required"
+            size="body"
+          />
+        </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>
     </SafeArea>
   );

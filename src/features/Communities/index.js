@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import Constants from "expo-constants";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../components/utility/space-area.component";
@@ -121,7 +122,7 @@ export default function Index() {
     for (let i = 0; i < otherProfileData.length; i++) {
       if (
         otherProfileData[i]?.country === currentUserData?.country ||
-        process.env.EXPO_PUBLIC_ROLE === currentUserData.role // remove "admin see all users" later
+        Constants.expoConfig.extra.eas.adminKey === currentUserData.role // remove "admin see all users" later
       ) {
         filterOffByCountryProfiles.push(otherProfileData[i]);
       }
