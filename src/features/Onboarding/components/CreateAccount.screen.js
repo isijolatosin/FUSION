@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import LottieView from "lottie-react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
-  ActivityIndicator,
   Dimensions,
   Keyboard,
   Platform,
@@ -26,7 +25,7 @@ import {
   validatePhoneNumber,
 } from "../../../utilities/validateEmail";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
-import { storeData } from "../../../utilities/storeDataInPhoneMemory";
+import ProgressBar from "../../../components/general-component/ProgressiveBar";
 
 export default function CreateAccount({ navigation }) {
   const [email, setEmail] = useState(null);
@@ -37,9 +36,17 @@ export default function CreateAccount({ navigation }) {
   const [password2, setPassword2] = useState(null);
   const [showPswd2, setShowPswd2] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [logMessage, setLogMessage] = useState({
     message: "",
     code: "",
+  });
+  const [formValidate, setFormValidate] = useState({
+    code: true,
+    phonenumber: true,
+    email: true,
+    password: true,
+    password2: true,
   });
 
   const { width, height } = Dimensions.get("window");
@@ -48,6 +55,22 @@ export default function CreateAccount({ navigation }) {
   } = useAppContext();
 
   async function signUp() {
+    if (!email || !password || !password2 || !code || !phonenumber) {
+      setFormValidate({
+        code: !!code,
+        phonenumber: !!phonenumber,
+        email: !!email,
+        password: !!password,
+        password2: !!password2,
+      });
+      setLogMessage({
+        message: "Kindly fill in the required field(s) highlighted in red.",
+        code: "error",
+      });
+
+      return;
+    }
+
     if (
       !validateEmail(email) ||
       !password ||
@@ -55,22 +78,32 @@ export default function CreateAccount({ navigation }) {
       !validatePhoneCode(`+${code}`) ||
       !validatePhoneNumber(phonenumber)
     ) {
+      setFormValidate({
+        code: !!validatePhoneCode(`+${code}`),
+        phonenumber: !!validatePhoneNumber(phonenumber),
+        email: !!validateEmail(email),
+        password: !!password,
+        password2: !!password2,
+      });
       setLogMessage({
-        message: "Invalid field(s). Please check all fields and try again",
+        message: "Please check field(s) and try again",
         code: "error",
       });
-      setLoading(false);
 
       return;
     }
 
     if (password !== password2) {
+      setFormValidate({
+        ...formValidate,
+        password: false,
+        password2: false,
+      });
       setLogMessage({
         message:
           "Password does not match. Please ensure passwords match and try again",
         code: "error",
       });
-      setLoading(false);
 
       return;
     }
@@ -78,9 +111,18 @@ export default function CreateAccount({ navigation }) {
     const formattedPhonenumber = `+${code}${phonenumber}`;
     try {
       setLoading(true);
-      await auth.createUserWithEmailAndPassword(email, password);
 
-      storeData("phonenumber", formattedPhonenumber);
+      const interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 1) {
+            clearInterval(interval);
+            return 1;
+          }
+          return prevProgress + 0.1;
+        });
+      }, 400);
+
+      await auth.createUserWithEmailAndPassword(email, password);
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);
@@ -93,27 +135,54 @@ export default function CreateAccount({ navigation }) {
           message: "Account successfully created.",
           code: "success",
         });
+        setFormValidate({
+          code: true,
+          phonenumber: true,
+          email: true,
+          password: true,
+          password2: true,
+        });
       }, 4000);
-      const emailPswdId2 = setTimeout(() => {
-        if (verifyUserInDatabaseBeforeSignin(formattedPhonenumber)) {
+
+      const emailPswdId2 = setTimeout(async () => {
+        const isVerifyUser = await verifyUserInDatabaseBeforeSignin(
+          formattedPhonenumber
+        );
+        if (isVerifyUser) {
+          console.log("Yes they are*******");
           navigation.navigate("main");
         } else {
-          navigation.navigate("capture-name-screen");
+          navigation.navigate("capture-name-screen", {
+            email,
+            phonenumber: formattedPhonenumber,
+          });
         }
       }, 5000);
 
-      return () => clearTimeout(emailPswdId, emailPswdId2);
+      return () => {
+        clearInterval(interval);
+        clearTimeout(emailPswdId, emailPswdId2);
+      };
     } catch (error) {
       let errorMsg = error.message;
 
       if (error.message?.includes("weak-password")) {
         errorMsg =
           "Password strength: Weak. Please try a new password combination";
+        setFormValidate({
+          ...formValidate,
+          password: false,
+          password2: false,
+        });
       }
 
       if (error.message?.includes("already-in-use")) {
         errorMsg =
           "Email Already in use: Please provide your email for registration";
+        setFormValidate({
+          ...formValidate,
+          email: false,
+        });
       }
 
       setLogMessage({
@@ -121,6 +190,7 @@ export default function CreateAccount({ navigation }) {
         code: "error",
       });
       setLoading(false);
+      setProgress(0);
     }
   }
 
@@ -196,7 +266,11 @@ export default function CreateAccount({ navigation }) {
                       width="100%"
                       isCountryCode={false}
                       isBackgroundColor={false}
-                      isBorderColor={theme.colors.brand.linesLighter}
+                      isBorderColor={
+                        formValidate.code
+                          ? theme.colors.brand.linesLighter
+                          : theme.colors.brand.error
+                      }
                       placeholder="123"
                       fontSize={theme.fontSizes.body}
                       placeholderFontSize={theme.fontSizes.button}
@@ -215,7 +289,11 @@ export default function CreateAccount({ navigation }) {
                       width="100%"
                       isCountryCode={false}
                       isBackgroundColor={false}
-                      isBorderColor={theme.colors.brand.linesLighter}
+                      isBorderColor={
+                        formValidate.phonenumber
+                          ? theme.colors.brand.linesLighter
+                          : theme.colors.brand.error
+                      }
                       placeholder="phone no..."
                       fontSize={theme.fontSizes.body}
                       placeholderFontSize={theme.fontSizes.button}
@@ -234,7 +312,11 @@ export default function CreateAccount({ navigation }) {
                     width="100%"
                     isCountryCode={false}
                     isBackgroundColor={false}
-                    isBorderColor={theme.colors.brand.linesLighter}
+                    isBorderColor={
+                      formValidate.email
+                        ? theme.colors.brand.linesLighter
+                        : theme.colors.brand.error
+                    }
                     placeholder="email..."
                     fontSize={theme.fontSizes.body}
                     placeholderFontSize={theme.fontSizes.button}
@@ -252,7 +334,11 @@ export default function CreateAccount({ navigation }) {
                     width="100%"
                     isCountryCode={false}
                     isBackgroundColor={false}
-                    isBorderColor={theme.colors.brand.linesLighter}
+                    isBorderColor={
+                      formValidate.password
+                        ? theme.colors.brand.linesLighter
+                        : theme.colors.brand.error
+                    }
                     placeholder="password..."
                     fontSize={theme.fontSizes.body}
                     placeholderFontSize={theme.fontSizes.button}
@@ -277,7 +363,11 @@ export default function CreateAccount({ navigation }) {
                     width="100%"
                     isCountryCode={false}
                     isBackgroundColor={false}
-                    isBorderColor={theme.colors.brand.linesLighter}
+                    isBorderColor={
+                      formValidate.password2
+                        ? theme.colors.brand.linesLighter
+                        : theme.colors.brand.error
+                    }
                     placeholder="confirm password..."
                     fontSize={theme.fontSizes.body}
                     placeholderFontSize={theme.fontSizes.button}
@@ -304,7 +394,7 @@ export default function CreateAccount({ navigation }) {
                           logMessage.code === "error" ? "error" : "teal"
                         }
                         fontType="montserratRegular"
-                        fontSize="xcaption">
+                        fontSize="caption">
                         {logMessage.message}
                       </Text>
                     </HorizontalPaddingSpace>
@@ -312,11 +402,9 @@ export default function CreateAccount({ navigation }) {
                 )}
 
                 <Spacer position="top" size="xxxlarge">
+                  {/* loading */}
                   {loading ? (
-                    <ActivityIndicator
-                      size="small"
-                      color={theme.colors.brand.base}
-                    />
+                    <ProgressBar progress={progress} theme={theme} />
                   ) : (
                     <TouchableOpacity
                       onPress={signUp}
@@ -335,7 +423,7 @@ export default function CreateAccount({ navigation }) {
                     </TouchableOpacity>
                   )}
                 </Spacer>
-                <Spacer position="top" size="medium">
+                <Spacer position="top" size="xxlarge">
                   <TouchableOpacity
                     onPress={() => {
                       setCode(null);
@@ -346,6 +434,13 @@ export default function CreateAccount({ navigation }) {
                       setLogMessage({
                         message: "",
                         code: "",
+                      });
+                      setFormValidate({
+                        code: true,
+                        phonenumber: true,
+                        email: true,
+                        password: true,
+                        password2: true,
                       });
                       navigation.navigate("sign-in");
                     }}>

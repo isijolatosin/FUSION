@@ -3,7 +3,6 @@ import LottieView from "lottie-react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import {
-  ActivityIndicator,
   Dimensions,
   Keyboard,
   KeyboardAvoidingView,
@@ -28,6 +27,7 @@ import {
 import { Text } from "../../../components/typography/text.component";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
+import ProgressBar from "../../../components/general-component/ProgressiveBar";
 
 export default function SignIn({ navigation }) {
   const [code, setCode] = useState(null);
@@ -36,9 +36,16 @@ export default function SignIn({ navigation }) {
   const [password, setPassword] = useState(null);
   const [showPswd, setShowPswd] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [logMessage, setLogMessage] = useState({
     message: "",
     code: "",
+  });
+  const [formValidate, setFormValidate] = useState({
+    code: true,
+    phonenumber: true,
+    email: true,
+    password: true,
   });
 
   const route = useRoute();
@@ -50,18 +57,39 @@ export default function SignIn({ navigation }) {
   } = useAppContext();
 
   async function signIn() {
+    if (!email || !password || !code || !phonenumber) {
+      setFormValidate({
+        code: !!code,
+        phonenumber: !!phonenumber,
+        email: !!email,
+        password: !!password,
+      });
+
+      setLogMessage({
+        message: "Kindly fill in the required field(s) highlighted in red.",
+        code: "error",
+      });
+
+      return;
+    }
+
     if (
       !validateEmail(email) ||
       !password ||
       !validatePhoneCode(`+${code}`) ||
       !validatePhoneNumber(phonenumber)
     ) {
+      setFormValidate({
+        code: !!validatePhoneCode(`+${code}`),
+        phonenumber: !!validatePhoneNumber(phonenumber),
+        email: !!validateEmail(email),
+        password: !!password,
+      });
       setLogMessage({
         message:
-          "Invalid credentials: You have presented an invalid login credentials, please check and try again",
+          "You have presented an invalid login credentials, please check and try again",
         code: "error",
       });
-      setLoading(false);
 
       return;
     }
@@ -69,13 +97,19 @@ export default function SignIn({ navigation }) {
     const formattedPhonenumber = `+${code}${phonenumber}`;
     try {
       setLoading(true);
-      await auth.signInWithEmailAndPassword(email, password);
 
-      if (phone) {
-        storeData("phonenumber", phone);
-      } else {
-        storeData("phonenumber", formattedPhonenumber);
-      }
+      const intervl = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 1) {
+            clearInterval(intervl);
+            return 1;
+          }
+          return prevProgress + 0.1;
+        });
+      }, 400);
+
+      await auth.signInWithEmailAndPassword(email, password);
+      storeData("phonenumber", phone || formattedPhonenumber);
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);
@@ -87,22 +121,36 @@ export default function SignIn({ navigation }) {
           message: "Signed in successfully!",
           code: "success",
         });
+
+        setFormValidate({
+          code: true,
+          phonenumber: true,
+          email: true,
+          password: true,
+        });
       }, 4000);
 
-      const emailPswdId2 = setTimeout(() => {
+      const emailPswdId2 = setTimeout(async () => {
         setLoading(false);
         setLogMessage({
           message: "",
           code: "",
         });
-        if (verifyUserInDatabaseBeforeSignin(phone)) {
+
+        const isVerifyUser = await verifyUserInDatabaseBeforeSignin(
+          formattedPhonenumber
+        );
+        if (isVerifyUser) {
           navigation.navigate("main");
         } else {
           navigation.navigate("capture-name-screen");
         }
       }, 5000);
 
-      return () => clearTimeout(emailPswdId, emailPswdId2);
+      return () => {
+        clearInterval(intervl);
+        clearTimeout(emailPswdId, emailPswdId2);
+      };
     } catch (error) {
       console.log("ERROR:", error);
 
@@ -110,7 +158,13 @@ export default function SignIn({ navigation }) {
 
       if (error.message.includes("invalid-login")) {
         errorMsg =
-          "Invalid credentials: You have presented an invalid login credentials, please check and try again";
+          "User with these credentials does not exist. Please create account to proceed.";
+        setFormValidate({
+          code: false,
+          phonenumber: false,
+          email: false,
+          password: false,
+        });
       }
 
       setLogMessage({
@@ -118,6 +172,7 @@ export default function SignIn({ navigation }) {
         code: "error",
       });
       setLoading(false);
+      setProgress(0);
     }
   }
 
@@ -177,7 +232,11 @@ export default function SignIn({ navigation }) {
                     width="100%"
                     isCountryCode={false}
                     isBackgroundColor={false}
-                    isBorderColor={theme.colors.brand.linesLighter}
+                    isBorderColor={
+                      formValidate.code
+                        ? theme.colors.brand.linesLighter
+                        : theme.colors.brand.error
+                    }
                     placeholder="123"
                     fontSize={theme.fontSizes.body}
                     placeholderFontSize={theme.fontSizes.button}
@@ -196,7 +255,11 @@ export default function SignIn({ navigation }) {
                     width="100%"
                     isCountryCode={false}
                     isBackgroundColor={false}
-                    isBorderColor={theme.colors.brand.linesLighter}
+                    isBorderColor={
+                      formValidate.phonenumber
+                        ? theme.colors.brand.linesLighter
+                        : theme.colors.brand.error
+                    }
                     placeholder="phone no..."
                     fontSize={theme.fontSizes.body}
                     placeholderFontSize={theme.fontSizes.button}
@@ -216,7 +279,11 @@ export default function SignIn({ navigation }) {
                   width="100%"
                   isCountryCode={false}
                   isBackgroundColor={false}
-                  isBorderColor={theme.colors.brand.linesLighter}
+                  isBorderColor={
+                    formValidate.email
+                      ? theme.colors.brand.linesLighter
+                      : theme.colors.brand.error
+                  }
                   placeholder="email..."
                   fontSize={theme.fontSizes.body}
                   placeholderFontSize={theme.fontSizes.button}
@@ -234,7 +301,11 @@ export default function SignIn({ navigation }) {
                   width="100%"
                   isCountryCode={false}
                   isBackgroundColor={false}
-                  isBorderColor={theme.colors.brand.linesLighter}
+                  isBorderColor={
+                    formValidate.password
+                      ? theme.colors.brand.linesLighter
+                      : theme.colors.brand.error
+                  }
                   placeholder="password..."
                   fontSize={theme.fontSizes.body}
                   placeholderFontSize={theme.fontSizes.button}
@@ -246,7 +317,7 @@ export default function SignIn({ navigation }) {
                     iconFunction={() => setShowPswd(!showPswd)}
                     iconName={showPswd ? "eye-off-outline" : "eye-outline"}
                     IconComponent={Ionicons}
-                    size={25}
+                    size={20}
                     color={theme.colors.brand.linesLight}
                   />
                 </View>
@@ -259,7 +330,7 @@ export default function SignIn({ navigation }) {
                       variant="custom"
                       colorType={logMessage.code === "error" ? "error" : "teal"}
                       fontType="montserratRegular"
-                      fontSize="xcaption">
+                      fontSize="caption">
                       {logMessage.message}
                     </Text>
                   </HorizontalPaddingSpace>
@@ -267,10 +338,7 @@ export default function SignIn({ navigation }) {
               )}
               <Spacer position="top" size="xxxxlarge">
                 {loading ? (
-                  <ActivityIndicator
-                    size="small"
-                    color={theme.colors.brand.base}
-                  />
+                  <ProgressBar progress={progress} theme={theme} />
                 ) : (
                   <TouchableOpacity
                     onPress={signIn}
@@ -297,6 +365,12 @@ export default function SignIn({ navigation }) {
                     setLogMessage({
                       message: "",
                       code: "",
+                    });
+                    setFormValidate({
+                      code: true,
+                      phonenumber: true,
+                      email: true,
+                      password: true,
                     });
                     navigation.navigate("create-account");
                   }}>

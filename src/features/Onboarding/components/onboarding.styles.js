@@ -4,7 +4,7 @@ const NavigationBar = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${(props) => (props.flexEnd ? "flex-end" : "space-between")};
   width: 100%;
 `;
 

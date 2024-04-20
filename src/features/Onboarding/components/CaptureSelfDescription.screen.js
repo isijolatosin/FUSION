@@ -6,13 +6,13 @@ import { useRoute } from "@react-navigation/native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureSelfDescription({ navigation }) {
   const [firstword, setFirstword] = useState("");
@@ -47,111 +47,122 @@ export default function CaptureSelfDescription({ navigation }) {
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
-        <HorizontalPaddingSpace space={theme.space[5]}>
-          <NavigationBar>
-            <IconComponent
-              iconFunction={() => navigation.goBack()}
-              iconName="chevron-back"
-              IconComponent={Ionicons}
-              size={30}
-              color={theme.colors.brand.base}
-            />
-            <NextNavigation
-              theme={theme}
-              color={theme.colors.brand.base}
-              nextFunction={() => {
-                if (checkInput) {
-                  navigation.navigate("capture-work-place-screen", {
-                    dob,
-                    _height,
-                    religious,
-                    sexualOrientation,
-                    preference,
-                    nationality,
-                    whatThreeWordsDescribeYou,
-                  });
-                } else {
-                  setPageError(true);
-                }
-              }}
-            />
-          </NavigationBar>
-          <Spacer position="top" size="xxxxlarge">
-            <Text
-              variant="custom"
-              colorType="linesLight"
-              fontType="arimaMadurai"
-              fontSize="h4"
-              lineHeight={theme.lineHeights[25]}
-              width="100%">
-              Let others know
-            </Text>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="arimaMadurai"
-              fontSize="h4"
-              lineHeight={theme.lineHeights[25]}
-              width="100%">
-              a little more about you.
-            </Text>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="arimaMadurai"
-              lineHeight={theme.lineHeights[0]}
-              fontSize="caption"
-              width="100%">
-              Tell us three words that best describe you.
-            </Text>
-          </Spacer>
-          <Spacer position="top" size="large">
-            <InputComponent
-              includeIcon={false}
-              keyboardType="default"
-              setValue={(text) => setFirstword(text.toLowerCase())}
-              value={firstword}
-              width="100%"
-              isCountryCode={false}
-              isBackgroundColor={false}
-              placeholder="First word"
-              fontSize={theme.fontSizes.body}
-              fontType={theme.fonts.montserratLight}
-            />
-          </Spacer>
-          <Spacer position="top" size="large">
-            <InputComponent
-              includeIcon={false}
-              keyboardType="default"
-              setValue={(text) => setSecondword(text.toLowerCase())}
-              value={secondword}
-              width="100%"
-              isCountryCode={false}
-              isBackgroundColor={false}
-              placeholder="Second word"
-              fontSize={theme.fontSizes.body}
-              fontType={theme.fonts.montserratLight}
-            />
-          </Spacer>
-          <Spacer position="top" size="large">
-            <InputComponent
-              includeIcon={false}
-              keyboardType="default"
-              setValue={(text) => setThirdword(text.toLowerCase())}
-              value={thirdword}
-              width="100%"
-              isCountryCode={false}
-              isBackgroundColor={false}
-              placeholder="Third word"
-              fontSize={theme.fontSizes.body}
-              fontType={theme.fonts.montserratLight}
-            />
-          </Spacer>
-          <OnboardingErrorComponent
-            pageError={pageError}
-            text="Please provide three words that describes you"
-            size="caption"
+        <HorizontalPaddingSpace space={theme.space[2]}>
+          <HeaderComponent
+            title="Onboarding"
+            theme={theme}
+            textWidth="103%"
+            topSpace="small"
+            LeftComp={() => (
+              <IconComponent
+                iconFunction={() => navigation.goBack()}
+                iconName="chevron-back"
+                IconComponent={Ionicons}
+                size={30}
+                color={theme.colors.brand.base}
+              />
+            )}
+            RightComp={() => (
+              <NextNavigation
+                theme={theme}
+                color={theme.colors.brand.base}
+                nextFunction={() => {
+                  if (checkInput) {
+                    navigation.navigate("capture-work-place-screen", {
+                      dob,
+                      _height,
+                      religious,
+                      sexualOrientation,
+                      preference,
+                      nationality,
+                      whatThreeWordsDescribeYou,
+                    });
+                  } else {
+                    setPageError(true);
+                  }
+                }}
+              />
+            )}
+            size="title"
           />
+          <HorizontalPaddingSpace space={theme.space[3]}>
+            <Spacer position="top" size="xxxxlarge">
+              <Text
+                variant="custom"
+                colorType="linesLight"
+                fontType="arimaMadurai"
+                fontSize="h4"
+                lineHeight={theme.lineHeights[25]}
+                width="100%">
+                Let others know
+              </Text>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="arimaMadurai"
+                fontSize="h4"
+                lineHeight={theme.lineHeights[25]}
+                width="100%">
+                a little more about you.
+              </Text>
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="arimaMadurai"
+                lineHeight={theme.lineHeights[0]}
+                fontSize="caption"
+                width="100%">
+                Tell us three words that best describe you.
+              </Text>
+            </Spacer>
+            <Spacer position="top" size="large">
+              <InputComponent
+                includeIcon={false}
+                keyboardType="default"
+                setValue={(text) => setFirstword(text.toLowerCase())}
+                value={firstword}
+                width="100%"
+                isCountryCode={false}
+                isBackgroundColor={false}
+                placeholder="First word"
+                fontSize={theme.fontSizes.body}
+                fontType={theme.fonts.montserratLight}
+              />
+            </Spacer>
+            <Spacer position="top" size="large">
+              <InputComponent
+                includeIcon={false}
+                keyboardType="default"
+                setValue={(text) => setSecondword(text.toLowerCase())}
+                value={secondword}
+                width="100%"
+                isCountryCode={false}
+                isBackgroundColor={false}
+                placeholder="Second word"
+                fontSize={theme.fontSizes.body}
+                fontType={theme.fonts.montserratLight}
+              />
+            </Spacer>
+            <Spacer position="top" size="large">
+              <InputComponent
+                includeIcon={false}
+                keyboardType="default"
+                setValue={(text) => setThirdword(text.toLowerCase())}
+                value={thirdword}
+                width="100%"
+                isCountryCode={false}
+                isBackgroundColor={false}
+                placeholder="Third word"
+                fontSize={theme.fontSizes.body}
+                fontType={theme.fonts.montserratLight}
+              />
+            </Spacer>
+            <OnboardingErrorComponent
+              pageError={pageError}
+              text="Please provide three words that describes you"
+              size="body"
+            />
+          </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>

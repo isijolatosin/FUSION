@@ -21,7 +21,6 @@ import {
   deleteaccounttext,
   deactivateaccounttext,
   deleteaccountconfirmationtext,
-  baseUrl,
 } from "../../../constants";
 import {
   removeItemFromArray,
@@ -223,6 +222,21 @@ export default function SettingModal({
             }
           });
 
+          //delete user from authentication
+          const user = auth.currentUser;
+          if (user) {
+            user
+              .delete()
+              .then(() => {
+                console.log("User account deleted successfully.");
+              })
+              .catch((error) => {
+                console.error("Error deleting user account:", error);
+              });
+          } else {
+            console.error("No user signed in or user object is not available.");
+          }
+
           await clearDataByKey("match-id");
           await clearDataByKey("phonenumber");
           await clearDataByKey("swipe-index");
@@ -230,11 +244,14 @@ export default function SettingModal({
 
           const userProfileDeleteTimeoutId = setTimeout(() => {
             navigation.navigate("onBoard");
-          }, 500);
+            setShowDeleteModal(false);
+            setShowDeleteModal(false);
+            onClose();
+          }, 1000);
 
           const userProfileDeleteNavigateTimeoutId = setTimeout(() => {
             onClose();
-          }, 1000);
+          }, 1500);
 
           return () => {
             clearTimeout(userProfileDeleteTimeoutId);

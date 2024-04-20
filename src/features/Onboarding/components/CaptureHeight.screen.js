@@ -1,19 +1,19 @@
 import React, { useState } from "react";
+import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { NavigationBar } from "./onboarding.styles";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
-import { Dimensions } from "react-native";
 import DropdownSelection from "./sub-component/DropdownSelection";
 import { heightList } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureHeight({ navigation }) {
   const [isOpen, setOpen] = useState(false);
@@ -29,37 +29,45 @@ export default function CaptureHeight({ navigation }) {
 
   return (
     <SafeArea>
-      <HorizontalPaddingSpace space={theme.space[5]}>
-        <NavigationBar>
-          <IconComponent
-            iconFunction={() => navigation.goBack()}
-            iconName="chevron-back"
-            IconComponent={Ionicons}
-            size={30}
-            color={theme.colors.brand.base}
-          />
-          <NextNavigation
-            theme={theme}
-            color={theme.colors.brand.base}
-            nextFunction={() => {
-              if (_height) {
-                navigation.navigate("capture-religious-screen", {
-                  dob,
-                  _height,
-                });
-              } else {
-                setPageError(true);
-              }
-            }}
-          />
-        </NavigationBar>
+      <HorizontalPaddingSpace space={theme.space[2]}>
+        <HeaderComponent
+          title="Onboarding"
+          theme={theme}
+          textWidth="103%"
+          topSpace="small"
+          size="title"
+          LeftComp={() => (
+            <IconComponent
+              iconFunction={() => navigation.goBack()}
+              iconName="chevron-back"
+              IconComponent={Ionicons}
+              size={30}
+              color={theme.colors.brand.base}
+            />
+          )}
+          RightComp={() => (
+            <NextNavigation
+              theme={theme}
+              color={theme.colors.brand.base}
+              nextFunction={() => {
+                if (_height) {
+                  navigation.navigate("capture-religious-screen", {
+                    dob,
+                    _height,
+                  });
+                } else {
+                  setPageError(true);
+                }
+              }}
+            />
+          )}
+        />
         <HorizontalPaddingSpace
           space={theme.space[3]}
           style={{
-            marginTop: theme.spaceNumberBy10[9],
             height: height,
           }}>
-          <Spacer position="top" size="large">
+          <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
               colorType="linesLight"
@@ -82,7 +90,7 @@ export default function CaptureHeight({ navigation }) {
           <OnboardingErrorComponent
             pageError={pageError}
             text="Please provide your interest"
-            size="caption"
+            size="body"
           />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection

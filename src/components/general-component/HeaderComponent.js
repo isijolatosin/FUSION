@@ -12,11 +12,12 @@ const HeaderComponent = ({
   size,
   font,
   isBorder,
+  topSpace,
 }) => {
   return (
     <Spacer
       position="top"
-      size="large"
+      size={topSpace ? topSpace : "large"}
       style={{
         flexDirection: "row",
         alignItems: "center",

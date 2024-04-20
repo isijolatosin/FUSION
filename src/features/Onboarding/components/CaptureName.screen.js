@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Keyboard, Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { useAppContext } from "../../../context/ThemeContext";
-import { NavigationBar } from "./onboarding.styles";
-import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import { nameCaptureInstruction } from "../../../constants";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
+import OnboardingErrorComponent from "./OnboardingErrorComponent";
 
 export default function CaptureName({ navigation }) {
   const [firstname, setFirstname] = useState("");
@@ -23,38 +22,40 @@ export default function CaptureName({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { phonenumber } = route.params || {};
+  const { email, phonenumber } = route.params || {};
 
   return (
     <SafeArea>
       <Pressable onPress={Keyboard.dismiss}>
-        <HorizontalPaddingSpace space={theme.space[5]}>
-          <NavigationBar>
-            <IconComponent
-              iconFunction={() => navigation.goBack()}
-              iconName="chevron-back"
-              IconComponent={Ionicons}
-              size={30}
-              color={theme.colors.brand.base}
-            />
-            <NextNavigation
-              theme={theme}
-              color={theme.colors.brand.base}
-              nextFunction={() => {
-                if (firstname) {
-                  navigation.navigate("capture-email-screen", {
-                    user: {
-                      firstname: firstname,
-                      lastname: lastname,
-                      phonenumber: phonenumber,
-                    },
-                  });
-                } else {
-                  setPageError(true);
-                }
-              }}
-            />
-          </NavigationBar>
+        <HorizontalPaddingSpace space={theme.space[3]}>
+          <HeaderComponent
+            title="Onboarding"
+            theme={theme}
+            textWidth="112%"
+            topSpace="small"
+            size="title"
+            LeftComp={() => <></>}
+            RightComp={() => (
+              <NextNavigation
+                theme={theme}
+                color={theme.colors.brand.base}
+                nextFunction={() => {
+                  if (firstname) {
+                    navigation.navigate("capture-location-screen", {
+                      user: {
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        phonenumber: phonenumber,
+                      },
+                    });
+                  } else {
+                    setPageError(true);
+                  }
+                }}
+              />
+            )}
+          />
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
@@ -98,7 +99,7 @@ export default function CaptureName({ navigation }) {
               width="100%"
               isCountryCode={false}
               isBackgroundColor={false}
-              placeholder="Last Name"
+              placeholder="Last Name (optional)"
               fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
             />
@@ -113,17 +114,11 @@ export default function CaptureName({ navigation }) {
               {nameCaptureInstruction}
             </Text>
           </Spacer>
-          {pageError && (
-            <Spacer position="top" size="large">
-              <Text
-                variant="custom"
-                colorType="error"
-                fontType="montserratRegular"
-                width="100%">
-                Error: Please provide your name!
-              </Text>
-            </Spacer>
-          )}
+          <OnboardingErrorComponent
+            pageError={pageError}
+            text="Please provide your name!"
+            size="body"
+          />
         </HorizontalPaddingSpace>
       </Pressable>
     </SafeArea>
