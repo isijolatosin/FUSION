@@ -28,6 +28,7 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import FilterComponent from "./sub-component/FilterComponent";
 import {
+  addToArrayField,
   getAllData,
   updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
@@ -50,7 +51,7 @@ import ProfileDeactivateCardComponent from "../../../components/general-componen
 import Loading from "../../../components/general-component/Loading";
 import hasMatchingElements from "../../../utilities/hasMatchElements";
 import Avatar from "../../../components/general-component/Avatar";
-import { database, firebaseConfig } from "../../../../config";
+import firebase, { database } from "../../../../config";
 
 const Index = ({ navigation }) => {
   const { width, height } = Dimensions.get("window");
@@ -65,6 +66,7 @@ const Index = ({ navigation }) => {
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const [doubleTapWarning, setDoubleTapWarning] = useState(false);
+  const [delayEndOfSwipeCard, setDelayEndOfSwipeCard] = useState(true);
   const scrollViewRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -106,7 +108,7 @@ const Index = ({ navigation }) => {
   }
 
   const fetchUsersData = async (phonenumber) => {
-    storeData("last-screen-visit", "home");
+    storeData("last-screen-visit", "swipe");
     if (phonenumber) {
       const newData = await getAllData("all-users");
       const currentUserData = newData.find(
@@ -354,6 +356,9 @@ const Index = ({ navigation }) => {
   }
 
   async function handleYouLikedAUser() {
+    // checking for the last swipe and disabling end of swipe cards
+    if (index + 1 === allUsers.length) setDelayEndOfSwipeCard(false);
+
     const now = Date.now();
     const DOUBLE_TAP_DELAY = 300;
     setDoubleTapWarning(false);
@@ -364,11 +369,10 @@ const Index = ({ navigation }) => {
         photo: currentUsertoSwipe?.mediaArray?.[0],
       };
       setLikedUser(likedUserNameAndPhoto);
-      setIsYouLikedVisible(true);
 
       // create match intend structure in firebase firestore
       database.collection("all-likes").add({
-        timestamp: firebaseConfig.firestore.FieldValue.serverTimestamp(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         likedBy: {
           ...currentUser,
         }, // the number who liked another profile
@@ -380,8 +384,7 @@ const Index = ({ navigation }) => {
         "all-users",
         currentUser?.id,
         "listOfAllLikedNumbers",
-        currentUsertoSwipe?.phonenumber,
-        setIsRetrigger
+        currentUsertoSwipe?.phonenumber
       );
 
       // add current user number (like initiator) to liked-me-list in other user profile object
@@ -389,12 +392,13 @@ const Index = ({ navigation }) => {
         "all-users",
         currentUsertoSwipe?.id,
         "likedMeList",
-        currentUser?.phonenumber,
-        setIsRetrigger
+        currentUser?.phonenumber
       );
 
       currentSwipeIndexIsLessThanAllUsersLength && setIndex(index + 1);
       scrollToTop();
+
+      setIsYouLikedVisible(true);
     } else {
       setDoubleTapWarning(true);
     }
@@ -405,6 +409,7 @@ const Index = ({ navigation }) => {
 
   function handleYouLikedClose() {
     setIsYouLikedVisible(false);
+    setDelayEndOfSwipeCard(true);
   }
   function handleFilterClose() {
     setIsVisible(false);
@@ -445,7 +450,7 @@ const Index = ({ navigation }) => {
     return <Loading theme={theme} width={width} />;
   }
 
-  if (allUsers.length === 0) {
+  if (allUsers.length === 0 && delayEndOfSwipeCard) {
     return (
       <CustomUseCardWithCTA
         buttonText="Change preference"
@@ -473,7 +478,7 @@ const Index = ({ navigation }) => {
     );
   }
 
-  if (index === allUsers.length) {
+  if (index === allUsers.length && delayEndOfSwipeCard) {
     return (
       <CustomUseCardWithCTA
         buttonText="Change preference"
@@ -653,16 +658,6 @@ const Index = ({ navigation }) => {
             data={currentUsertoSwipe}
             theme={theme}
             scrollViewRef={scrollViewRef}
-            setLikedUser={setLikedUser}
-            setIsYouLikedVisible={setIsYouLikedVisible}
-            currentSwipeIndexIsLessThanAllUsersLength={
-              currentSwipeIndexIsLessThanAllUsersLength
-            }
-            index={index}
-            setIndex={setIndex}
-            scrollToTop={scrollToTop}
-            currentUser={currentUser}
-            setIsRetrigger={setIsRetrigger}
           />
         </View>
         <HorizontalPaddingSpace

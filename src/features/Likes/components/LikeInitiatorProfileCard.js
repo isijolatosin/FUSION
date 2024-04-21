@@ -27,7 +27,7 @@ export default function LikeInitiatorProfileCard({
       onPress={() => handleSelectedLikedData(data)}
       style={{
         width: "100%",
-        height: theme.spaceNumberBy50[4],
+        height: theme.spaceNumberBy50[3],
         position: "relative",
         backgroundColor: theme.colors.brand.basewhite,
         borderRadius: theme.spaceNumberBy10[1],

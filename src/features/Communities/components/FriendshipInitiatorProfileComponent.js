@@ -29,7 +29,6 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { CloseButton } from "../../Main/screen/main.style";
-import { FlatGrid } from "react-native-super-grid";
 import Button from "../../../components/utility/button.component";
 import { getZodiacSign } from "../../../utilities/generateZodiac";
 import { handleUrlPress } from "../../../utilities/detectTextType";
@@ -227,6 +226,7 @@ export default function FriendshipInitiatorProfileComponent({
           </Pressable>
           <View style={{ flex: 0.9 }}>
             <HeaderComponent
+              textWidth="98%"
               title={`${
                 data?.[0]?.friendRequestFrom?.firstname
               }, ${calculateAge(
@@ -244,57 +244,60 @@ export default function FriendshipInitiatorProfileComponent({
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ marginBottom: theme.spaceNumberBy10[5] + 3 }}>
-            <View style={{ position: "relative" }}>
-              <Image
-                style={{
-                  width: "100%",
-                  height: imageHeight,
-                  resizeMode: "cover",
-                }}
-                source={{
-                  uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[0]}`,
-                }}
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  width: "100%",
-                  padding: theme.spaceNumberBy10[0],
-                }}>
-                {doubleTapWarning && (
-                  <Text
-                    style={{
-                      position: "absolute",
-                      left: theme.spaceNumberBy50[5] + theme.spaceNumberBy10[1],
-                      bottom: theme.spaceNumberBy10[6],
-                    }}
-                    variant="custom"
-                    colorType="basewhite"
-                    fontType="montserratRegular"
-                    fontSize="caption">
-                    double tap
-                  </Text>
-                )}
-                <TouchableOpacity
-                  style={{
-                    borderRadius: theme.spaceNumberBy50[3],
-                    padding: theme.spaceNumber[3],
-                    backgroundColor: theme.colors.brand.basewhite,
-                  }}>
-                  <IconComponent
-                    iconFunction={() => handleAcceptFriendshipRequest()}
-                    iconName="thumbs-up"
-                    IconComponent={Entypo}
-                    size={theme.spaceNumberBy10[2]}
-                    color={theme.colors.brand.base}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
             <HorizontalPaddingSpace space={theme.space[2]}>
+              <View style={{ position: "relative" }}>
+                <Image
+                  style={{
+                    width: "100%",
+                    height: imageHeight,
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumberBy10[3],
+                  }}
+                  source={{
+                    uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[0]}`,
+                  }}
+                />
+                <View
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                    width: "100%",
+                    padding: theme.spaceNumberBy10[0],
+                  }}>
+                  {doubleTapWarning && (
+                    <Text
+                      style={{
+                        position: "absolute",
+                        left:
+                          theme.spaceNumberBy50[5] + theme.spaceNumberBy10[1],
+                        bottom: theme.spaceNumberBy10[6],
+                      }}
+                      variant="custom"
+                      colorType="basewhite"
+                      fontType="montserratRegular"
+                      fontSize="caption">
+                      double tap
+                    </Text>
+                  )}
+                  <TouchableOpacity
+                    style={{
+                      borderRadius: theme.spaceNumberBy50[3],
+                      padding: theme.spaceNumber[3],
+                      backgroundColor: theme.colors.brand.basewhite,
+                    }}>
+                    <IconComponent
+                      iconFunction={() => handleAcceptFriendshipRequest()}
+                      iconName="thumbs-up"
+                      IconComponent={Entypo}
+                      size={theme.spaceNumberBy10[2]}
+                      color={theme.colors.brand.base}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
               {data?.[0]?.friendRequestFrom?.bio && (
                 <Fragment>
                   <Spacer position="top" size="medium">
@@ -696,24 +699,24 @@ export default function FriendshipInitiatorProfileComponent({
                   </View>
                 </Fragment>
               )}
-            </HorizontalPaddingSpace>
 
-            <Spacer
-              style={{ position: "relative" }}
-              position="top"
-              size="large">
-              <Image
-                style={{
-                  width: "100%",
-                  height: imageHeight,
-                  resizeMode: "cover",
-                }}
-                source={{
-                  uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[1]}`,
-                }}
-              />
-            </Spacer>
-            <HorizontalPaddingSpace space={theme.space[2]}>
+              <Spacer
+                style={{ position: "relative" }}
+                position="top"
+                size="large">
+                <Image
+                  style={{
+                    width: "100%",
+                    height: imageHeight,
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumberBy10[3],
+                  }}
+                  source={{
+                    uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[1]}`,
+                  }}
+                />
+              </Spacer>
+
               <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
@@ -877,36 +880,37 @@ export default function FriendshipInitiatorProfileComponent({
                   </Text>
                 </View>
               </View>
-            </HorizontalPaddingSpace>
-            {data?.[0]?.friendRequestFrom?.mediaArray?.[2] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[2]}`,
-                  }}
-                />
-              </Spacer>
-            )}
-            {data?.[0]?.friendRequestFrom?.mediaArray?.[3] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[3]}`,
-                  }}
-                />
-              </Spacer>
-            )}
-            <HorizontalPaddingSpace space={theme.space[3]}>
+              {data?.[0]?.friendRequestFrom?.mediaArray?.[2] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[2]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
+              {data?.[0]?.friendRequestFrom?.mediaArray?.[3] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[3]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
+
               <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
@@ -985,35 +989,37 @@ export default function FriendshipInitiatorProfileComponent({
                   </Text>
                 </View>
               </View>
+              {data?.[0]?.friendRequestFrom?.mediaArray?.[4] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[4]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
+              {data?.[0]?.friendRequestFrom?.mediaArray?.[5] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[5]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
             </HorizontalPaddingSpace>
-            {data?.[0]?.friendRequestFrom?.mediaArray?.[4] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[4]}`,
-                  }}
-                />
-              </Spacer>
-            )}
-            {data?.[0]?.friendRequestFrom?.mediaArray?.[5] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.friendRequestFrom?.mediaArray?.[5]}`,
-                  }}
-                />
-              </Spacer>
-            )}
             <View
               style={{
                 flexDirection: "row",
@@ -1022,6 +1028,8 @@ export default function FriendshipInitiatorProfileComponent({
                 paddingBottom: theme.spaceNumberBy10[2],
                 paddingTop: theme.spaceNumber[3],
                 backgroundColor: theme.colors.brand.highlight,
+                borderTopLeftRadius: theme.spaceNumberBy10[3],
+                borderTopRightRadius: theme.spaceNumberBy10[3],
               }}>
               {data?.[0]?.friendRequestFrom?.facebook?.visibleOnProfile && (
                 <HorizontalPaddingSpace space={theme.space[4]}>
@@ -1207,7 +1215,7 @@ export default function FriendshipInitiatorProfileComponent({
                   return () => clearTimeout(likeInitiatorProfileId);
                 }}
                 text="Not now, will talk later"
-                textColor={theme.colors.brand.black}
+                textColor={theme.colors.brand.base}
                 width="80%"
               />
             </View>

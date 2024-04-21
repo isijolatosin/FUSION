@@ -51,7 +51,7 @@ export default function CaptureInterests({ navigation }) {
         <HeaderComponent
           title="Onboarding"
           theme={theme}
-          textWidth="103%"
+          textWidth="102%"
           topSpace="small"
           LeftComp={() => (
             <IconComponent

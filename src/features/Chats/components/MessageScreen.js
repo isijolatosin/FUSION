@@ -102,14 +102,16 @@ export default function MessageScreen({ navigation }) {
             const dataArr = [];
             snapshot?.forEach((doc) => {
               dataArr?.push({
-                id: doc.id,
+                id: doc?.id,
                 ...doc?.data(),
               });
             });
 
-            const { groupedDataKeys, groupedData } = groupDataByKey(dataArr);
-            setMessagesKeys(groupedDataKeys);
-            setMessagesForMessagesScreen(groupedData);
+            if (dataArr?.length > 0) {
+              const { groupedDataKeys, groupedData } = groupDataByKey(dataArr);
+              setMessagesKeys(groupedDataKeys);
+              setMessagesForMessagesScreen(groupedData);
+            }
           });
       }
     } catch (error) {
@@ -349,7 +351,7 @@ export default function MessageScreen({ navigation }) {
       matchId,
       () => {}
     );
-    navigation.navigate("chat");
+    navigation.navigate("chat", { refresh: true });
   }
 
   //   async function startRecording() {

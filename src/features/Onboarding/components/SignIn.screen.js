@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import LottieView from "lottie-react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native";
 import {
   Dimensions,
   Keyboard,
@@ -47,9 +46,6 @@ export default function SignIn({ navigation }) {
     email: true,
     password: true,
   });
-
-  const route = useRoute();
-  const { phone } = route.params || {};
 
   const { width, height } = Dimensions.get("window");
   const {
@@ -109,7 +105,7 @@ export default function SignIn({ navigation }) {
       }, 400);
 
       await auth.signInWithEmailAndPassword(email, password);
-      storeData("phonenumber", phone || formattedPhonenumber);
+      storeData("phonenumber", formattedPhonenumber);
 
       const emailPswdId = setTimeout(() => {
         setLoading(false);

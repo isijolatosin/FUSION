@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -28,27 +28,20 @@ export default function YouLikedComponent({
       <HorizontalPaddingSpace
         style={{ width: "100%", alignItems: "center" }}
         space={theme.space[7]}>
-        <Spacer position="top" size="large">
+        <Spacer position="bottom" size="large">
           <Text
             variant="custom"
             colorType="black"
             fontType="montserratSemibold">
-            You liked {likedUser?.name}.
+            You liked {likedUser?.name} ❤️
           </Text>
         </Spacer>
-        <IconComponent
-          iconFunction={() => {}}
-          iconName="heart"
-          IconComponent={MaterialCommunityIcons}
-          size={60}
-          color={theme.colors.brand.base}
-        />
         <Image
           style={{
             width: "100%",
-            height: 450,
+            height: 350,
             resizeMode: "cover",
-            borderRadius: 5,
+            borderRadius: theme.spaceNumberBy10[3],
           }}
           source={{
             uri: `${likedUser?.photo}`,

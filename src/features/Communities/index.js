@@ -146,8 +146,16 @@ export default function Index() {
     filterOffByPreferenceProfiles?.filter((user) => {
       const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
       const likedMeList = currentUserData?.likedMeList;
-      const blockedMeList = currentUserData?.blockedMeList;
-      const blockedList = currentUserData?.blockedList;
+
+      const blockedMeList = [];
+      currentUserData?.blockedMeList?.map((list) => {
+        blockedMeList.push(list?.phonenumber);
+      });
+
+      const blockedList = [];
+      currentUserData?.blockedList?.map((list) => {
+        blockedList.push(list?.phonenumber);
+      });
 
       if (
         likedNumberArray?.length &&

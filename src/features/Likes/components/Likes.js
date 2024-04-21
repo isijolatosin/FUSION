@@ -20,7 +20,6 @@ import {
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import FriendInitiatorProfileCard from "../../Compatibility/components/FriendInitiatorProfileCard";
 import TopNavigationTab from "../../../components/general-component/TopNavigationTab";
-import BrandAvatar from "../../../components/general-component/BrandAvatar";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import FriendshipInitiatorProfileComponent from "../../Communities/components/FriendshipInitiatorProfileComponent";
 import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";

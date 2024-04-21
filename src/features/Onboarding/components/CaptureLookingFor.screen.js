@@ -31,7 +31,7 @@ export default function CaptureLookingFor({ navigation }) {
         <HeaderComponent
           title="Onboarding"
           theme={theme}
-          textWidth="103%"
+          textWidth="102%"
           topSpace="small"
           size="title"
           LeftComp={() => (
@@ -97,10 +97,10 @@ export default function CaptureLookingFor({ navigation }) {
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
-                buttonFunction={() => setPreference("Friendship/Networking")}
+                buttonFunction={() => setPreference("Friendship")}
                 text="Friendship/Networking"
                 textColor={
-                  preference === "Friendship/Networking"
+                  preference === "Friendship"
                     ? theme.colors.brand.basewhite
                     : theme.colors.brand.black
                 }

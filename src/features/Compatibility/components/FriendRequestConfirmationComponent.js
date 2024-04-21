@@ -40,14 +40,12 @@ export default function FriendRequestConfirmationComponent({
             <Text
               variant="custom"
               colorType="lines"
-              fontType="montserratSemibold"
-              fontSize="body">
+              fontType="montserratSemibold">
               Friend request sent to{" "}
               <Text
                 variant="custom"
                 colorType="base"
-                fontType="montserratSemibold"
-                fontSize="body">
+                fontType="montserratSemibold">
                 {selectedFriend?.name}
               </Text>
             </Text>
@@ -56,9 +54,9 @@ export default function FriendRequestConfirmationComponent({
         <Image
           style={{
             width: "100%",
-            height: 250,
+            height: 350,
             resizeMode: "cover",
-            borderRadius: 5,
+            borderRadius: theme.spaceNumberBy10[3],
           }}
           source={{
             uri: `${selectedFriend?.photo}`,

@@ -33,7 +33,7 @@ export default function CaptureHeight({ navigation }) {
         <HeaderComponent
           title="Onboarding"
           theme={theme}
-          textWidth="103%"
+          textWidth="102%"
           topSpace="small"
           size="title"
           LeftComp={() => (

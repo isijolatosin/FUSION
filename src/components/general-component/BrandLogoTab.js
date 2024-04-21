@@ -1,17 +1,29 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 
-export default function BrandLogoTab({ theme, widthHeight }) {
+export default function BrandLogoTab({ theme, width, height, focused }) {
   return (
-    <Image
-      width={widthHeight ? widthHeight : theme.spaceNumberBy10[2]}
-      height={widthHeight ? widthHeight : theme.spaceNumberBy10[2]}
-      source={require("../../../assets/wiingr.png")}
+    <View
       style={{
-        resizeMode: "contain",
-        width: widthHeight ? widthHeight : theme.spaceNumberBy10[2],
-        height: widthHeight ? widthHeight : theme.spaceNumberBy10[2],
-      }}
-    />
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: theme.spaceNumberBy10[2],
+        width: width,
+        height: height,
+        backgroundColor: focused
+          ? theme.colors.brand.base
+          : theme.colors.brand.basewhite,
+      }}>
+      <Image
+        source={require("../../../assets/wiingr.png")}
+        style={{
+          resizeMode: "contain",
+          width: focused ? theme.spaceNumber[15] : width,
+          height: focused ? theme.spaceNumber[15] : height,
+
+          tintColor: focused && theme.colors.brand.basewhite,
+        }}
+      />
+    </View>
   );
 }

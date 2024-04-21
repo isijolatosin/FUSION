@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { ScrollView, Pressable, View, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -84,10 +84,12 @@ async function registerForPushNotificationsAsync() {
 }
 
 const ChatsScreen = () => {
+  const route = useRoute();
   const navigation = useNavigation();
   const {
     state: { theme },
   } = useAppContext();
+  const { refresh } = route.params || {};
   const [input, setInput] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [matchesListContentHeight, setMatchesListContentHeight] = useState(0);
@@ -258,7 +260,7 @@ const ChatsScreen = () => {
       if (!validMatches.length && !validFriendshipMatches.length) {
         const timeID = setTimeout(() => {
           setShowCard(true);
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(timeID);
       }
     } catch (error) {
@@ -284,7 +286,7 @@ const ChatsScreen = () => {
     }, 1000);
 
     return () => clearTimeout(resetChatTrigger);
-  }, [isRefreshChatScreen]);
+  }, [isRefreshChatScreen, refresh]);
 
   function handleStartMessaging() {
     if (!input?.length) return;
@@ -383,7 +385,7 @@ const ChatsScreen = () => {
 
   // #############################################################################
   // show no matches and friend requests information
-  if (showCard) {
+  if (showCard && !otherFriendshipUsers.length && !otherUsers.length) {
     return (
       <CustomUseCardWithCTA
         text={nomatchmessage}

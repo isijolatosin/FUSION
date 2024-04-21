@@ -31,7 +31,7 @@ export default function CaptureName({ navigation }) {
           <HeaderComponent
             title="Onboarding"
             theme={theme}
-            textWidth="112%"
+            textWidth="111%"
             topSpace="small"
             size="title"
             LeftComp={() => <></>}

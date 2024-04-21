@@ -202,6 +202,7 @@ export default function InitiatorProfileComponent({
             </Pressable>
             <View style={{ flex: 0.9 }}>
               <HeaderComponent
+                textWidth="98%"
                 title={`${data?.[0]?.likedBy?.firstname}, ${calculateAge(
                   data?.[0]?.likedBy?.dob?.year,
                   data?.[0]?.likedBy?.dob?.month,
@@ -216,52 +217,61 @@ export default function InitiatorProfileComponent({
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ marginBottom: theme.spaceNumberBy10[5] + 3 }}>
-            <View style={{ position: "relative" }}>
-              <Image
-                style={{
-                  width: "100%",
-                  height: imageHeight,
-                  resizeMode: "cover",
-                }}
-                source={{
-                  uri: `${data?.[0]?.likedBy?.mediaArray?.[0]}`,
-                }}
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                  width: "100%",
-                  padding: theme.spaceNumberBy10[0],
-                }}>
-                {doubleTapWarning && (
-                  <Text
-                    style={{
-                      position: "absolute",
-                      left: theme.spaceNumberBy50[5] + theme.spaceNumberBy10[1],
-                      bottom: theme.spaceNumberBy10[6],
-                    }}
-                    variant="custom"
-                    colorType="basewhite"
-                    fontType="montserratRegular"
-                    fontSize="caption">
-                    double tap
-                  </Text>
-                )}
-                <Pressable>
-                  <IconComponent
-                    iconFunction={() => handleLikeInitiatorProfile()}
-                    iconName="heart"
-                    IconComponent={MaterialCommunityIcons}
-                    size={60}
-                    color={theme.colors.brand.basewhite}
-                  />
-                </Pressable>
-              </View>
-            </View>
             <HorizontalPaddingSpace space={theme.space[2]}>
+              <View style={{ position: "relative" }}>
+                <Image
+                  style={{
+                    width: "100%",
+                    height: imageHeight,
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumberBy10[3],
+                  }}
+                  source={{
+                    uri: `${data?.[0]?.likedBy?.mediaArray?.[0]}`,
+                  }}
+                />
+                <View
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                    width: "100%",
+                    padding: theme.spaceNumberBy10[0],
+                  }}>
+                  {doubleTapWarning && (
+                    <Text
+                      style={{
+                        position: "absolute",
+                        left:
+                          theme.spaceNumberBy50[5] + theme.spaceNumberBy10[1],
+                        bottom: theme.spaceNumberBy10[6],
+                      }}
+                      variant="custom"
+                      colorType="basewhite"
+                      fontType="montserratRegular"
+                      fontSize="caption">
+                      double tap
+                    </Text>
+                  )}
+                  <TouchableOpacity
+                    onPress={handleLikeInitiatorProfile}
+                    style={{
+                      backgroundColor: theme.colors.brand.basewhite,
+                      borderRadius: theme.spaceNumberBy10[2],
+                      padding: theme.spaceNumber[3],
+                    }}>
+                    <IconComponent
+                      iconFunction={() => handleLikeInitiatorProfile()}
+                      iconName="heart"
+                      IconComponent={MaterialCommunityIcons}
+                      size={35}
+                      color={theme.colors.brand.base}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
               {data?.[0]?.likedBy?.bio && (
                 <Fragment>
                   <Spacer position="top" size="medium">
@@ -663,24 +673,24 @@ export default function InitiatorProfileComponent({
                   </View>
                 </Fragment>
               )}
-            </HorizontalPaddingSpace>
 
-            <Spacer
-              style={{ position: "relative" }}
-              position="top"
-              size="large">
-              <Image
-                style={{
-                  width: "100%",
-                  height: imageHeight,
-                  resizeMode: "cover",
-                }}
-                source={{
-                  uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
-                }}
-              />
-            </Spacer>
-            <HorizontalPaddingSpace space={theme.space[2]}>
+              <Spacer
+                style={{ position: "relative" }}
+                position="top"
+                size="large">
+                <Image
+                  style={{
+                    width: "100%",
+                    height: imageHeight,
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumberBy10[3],
+                  }}
+                  source={{
+                    uri: `${data?.[0]?.likedBy?.mediaArray?.[1]}`,
+                  }}
+                />
+              </Spacer>
+
               <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
@@ -842,36 +852,37 @@ export default function InitiatorProfileComponent({
                   </Text>
                 </View>
               </View>
-            </HorizontalPaddingSpace>
-            {data?.[0]?.likedBy?.mediaArray?.[2] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.likedBy?.mediaArray?.[2]}`,
-                  }}
-                />
-              </Spacer>
-            )}
-            {data?.[0]?.likedBy?.mediaArray?.[3] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.likedBy?.mediaArray?.[3]}`,
-                  }}
-                />
-              </Spacer>
-            )}
-            <HorizontalPaddingSpace space={theme.space[3]}>
+              {data?.[0]?.likedBy?.mediaArray?.[2] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.mediaArray?.[2]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
+              {data?.[0]?.likedBy?.mediaArray?.[3] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.mediaArray?.[3]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
+
               <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
@@ -941,35 +952,37 @@ export default function InitiatorProfileComponent({
                   </Text>
                 </View>
               </View>
+              {data?.[0]?.likedBy?.mediaArray?.[4] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.mediaArray?.[4]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
+              {data?.[0]?.likedBy?.mediaArray?.[5] && (
+                <Spacer position="top" size="xxsmall">
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.mediaArray?.[5]}`,
+                    }}
+                  />
+                </Spacer>
+              )}
             </HorizontalPaddingSpace>
-            {data?.[0]?.likedBy?.mediaArray?.[4] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.likedBy?.mediaArray?.[4]}`,
-                  }}
-                />
-              </Spacer>
-            )}
-            {data?.[0]?.likedBy?.mediaArray?.[5] && (
-              <Spacer position="top" size="xxsmall">
-                <Image
-                  style={{
-                    width: "100%",
-                    height: imageHeight,
-                    resizeMode: "cover",
-                  }}
-                  source={{
-                    uri: `${data?.[0]?.likedBy?.mediaArray?.[5]}`,
-                  }}
-                />
-              </Spacer>
-            )}
             <View
               style={{
                 flexDirection: "row",
@@ -978,6 +991,8 @@ export default function InitiatorProfileComponent({
                 paddingBottom: theme.spaceNumberBy10[2],
                 paddingTop: theme.spaceNumber[3],
                 backgroundColor: theme.colors.brand.highlight,
+                borderTopLeftRadius: theme.spaceNumberBy10[3],
+                borderTopRightRadius: theme.spaceNumberBy10[3],
               }}>
               {data?.[0]?.likedBy?.facebook?.visibleOnProfile && (
                 <HorizontalPaddingSpace space={theme.space[4]}>
@@ -1146,7 +1161,7 @@ export default function InitiatorProfileComponent({
                 return () => clearTimeout(likeInitiatorProfileId);
               }}
               text="Not now, will talk later"
-              textColor={theme.colors.brand.black}
+              textColor={theme.colors.brand.base}
               width="80%"
             />
           </View>

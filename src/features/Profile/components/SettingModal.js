@@ -270,7 +270,7 @@ export default function SettingModal({
 
     const userSignOutTimeoutId = setTimeout(() => {
       const phone = currentUser?.phonenumber;
-      navigation.navigate("onBoard", { phone });
+      navigation.navigate("onBoard");
       auth.signOut();
     }, 500);
 
