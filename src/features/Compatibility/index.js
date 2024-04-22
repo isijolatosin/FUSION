@@ -141,8 +141,16 @@ export default function Index() {
           const stackingArray = [];
           const likedNumberArray = currentUserData?.listOfAllLikedNumbers;
           const likedMeList = currentUserData?.likedMeList;
-          const blockedMeList = currentUserData?.blockedMeList;
-          const blockedList = currentUserData?.blockedList;
+
+          const blockedMeList = [];
+          currentUserData?.blockedMeList?.map((list) => {
+            blockedMeList.push(list?.phonenumber);
+          });
+
+          const blockedList = [];
+          currentUserData?.blockedList?.map((list) => {
+            blockedList.push(list?.phonenumber);
+          });
 
           // ########################################################################
           // check if profile has been liked or liked me and filter off
@@ -156,8 +164,9 @@ export default function Index() {
                 userInterestsArray,
                 3
               )
-            )
+            ) {
               stackingArray.push(user);
+            }
           }
 
           // ########################################################################
@@ -174,15 +183,16 @@ export default function Index() {
                 userInterestsArray,
                 3
               )
-            )
+            ) {
               stackingArray.push(user);
+            }
           }
 
           if (
-            !blockedMeList &&
-            !blockedList &&
-            !likedNumberArray &&
-            !likedMeList
+            !blockedMeList?.length &&
+            !blockedList?.length &&
+            !likedNumberArray?.length &&
+            !likedMeList?.length
           ) {
             if (
               hasMatchingElements(
@@ -190,8 +200,9 @@ export default function Index() {
                 userInterestsArray,
                 3
               )
-            )
+            ) {
               stackingArray.push(user);
+            }
           }
 
           if (stackingArray?.length) {

@@ -10,7 +10,6 @@ import Onboarding from "../components/Onboarding.screen";
 import CreateAccount from "../../Onboarding/components/CreateAccount.screen";
 import OtpScreen from "../../Onboarding/components/Otp.screen";
 import CaptureName from "../../Onboarding/components/CaptureName.screen";
-import CaptureEmail from "../../Onboarding/components/CaptureEmail.screen";
 import { useAppContext } from "../../../context/ThemeContext";
 import CaptureLocation from "../../Onboarding/components/CaptureLocation.screen";
 import YouAreSpecial from "../../Onboarding/components/YouAreSpecial.screen";
@@ -47,6 +46,57 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = ({ route }) => {
+  const TAB_LIST = [
+    {
+      component: CommunitiesScreen,
+      Icon: BrandLogoTab,
+      name: "home",
+      size: 25,
+      width: theme.spaceNumberBy10[3],
+      height: theme.spaceNumberBy10[3],
+      isBaseComponent: true,
+    },
+    {
+      component: MainScreen,
+      Icon: Ionicons,
+      name: "swipe",
+      iconName: "heart-outline",
+      size: 25,
+      isBaseComponent: false,
+    },
+    {
+      component: LikesScreen,
+      Icon: SimpleLineIcons,
+      name: "likes",
+      iconName: "like",
+      size: 20,
+      isBaseComponent: false,
+    },
+    {
+      component: ChatsScreen,
+      Icon: Ionicons,
+      name: "chat",
+      iconName: "chatbubble-outline",
+      size: 20,
+      isBaseComponent: false,
+    },
+    {
+      component: CompatibilityScreen,
+      Icon: Ionicons,
+      name: "similar-interest",
+      iconName: "people-outline",
+      size: 25,
+      isBaseComponent: false,
+    },
+    {
+      component: ProfileScreen,
+      Icon: Ionicons,
+      name: "profile",
+      iconName: "person-outline",
+      size: 20,
+      isBaseComponent: false,
+    },
+  ];
   return (
     <Tab.Navigator
       initialRouteName={route?.params?.lastScreenVisited}
@@ -55,7 +105,7 @@ const TabNavigator = ({ route }) => {
           display: "flex",
           alignItems: "center",
           height: theme.spaceNumberBy10[7],
-          paddingLeft: theme.spaceNumber[5],
+          paddingLeft: theme.spaceNumber[0],
           paddingTop: theme.spaceNumberBy10[0],
           paddingBottom: theme.spaceNumberBy10[0],
           backgroundColor: theme.colors.brand.basewhite,
@@ -64,120 +114,54 @@ const TabNavigator = ({ route }) => {
         gestureEnabled: false,
         tabBarLabel: "",
         // tabBarActiveTintColor: theme.colors.brand.base,
-        tabBarInactiveTintColor: theme.colors.brand.black,
+        tabBarInactiveTintColor: theme.colors.brand.lines,
       })}>
-      <Tab.Screen
-        name="home"
-        component={CommunitiesScreen}
-        options={{
-          cardStyle: {
-            backgroundColor: `${theme.colors.brand.basewhite}`,
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <BrandLogoTab
-                theme={theme}
-                widthHeight={theme.spaceNumberBy10[4]}
-                noFunc={true}
-              />
-            </View>
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="swipe"
-        component={MainScreen}
-        options={{
-          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <Ionicons
-                name="heart-outline"
-                color={focused ? theme.colors.brand.brandFade : color}
-                size={30}
-              />
-            </View>
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="likes"
-        component={LikesScreen}
-        options={{
-          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <SimpleLineIcons
-                name="like"
-                color={focused ? theme.colors.brand.brandFade : color}
-                size={25}
-              />
-            </View>
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="chat"
-        component={ChatsScreen}
-        options={{
-          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <Ionicons
-                name="chatbubble-outline"
-                color={focused ? theme.colors.brand.brandFade : color}
-                size={25}
-              />
-            </View>
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="similar-interest"
-        component={CompatibilityScreen}
-        options={{
-          cardStyle: {
-            backgroundColor: `${theme.colors.brand.basewhite}`,
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <Ionicons
-                name="people-outline"
-                color={focused ? theme.colors.brand.brandFade : color}
-                size={30}
-              />
-            </View>
-          ),
-          gestureEnabled: false,
-        }}
-      />
-      <Tab.Screen
-        name="profile"
-        component={ProfileScreen}
-        options={{
-          cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={{ width: theme.spaceNumberBy50[0], alignItems: "center" }}>
-              <Ionicons
-                name="person-outline"
-                color={focused ? theme.colors.brand.brandFade : color}
-                size={25}
-              />
-            </View>
-          ),
-          gestureEnabled: false,
-        }}
-      />
+      {TAB_LIST.map((list, index) => (
+        <Tab.Screen
+          key={index}
+          name={list.name}
+          component={list.component}
+          options={{
+            cardStyle: {
+              backgroundColor: `${theme.colors.brand.basewhite}`,
+            },
+            tabBarIcon: ({ color, focused }) =>
+              list.isBaseComponent ? (
+                <View
+                  style={{
+                    width: theme.spaceNumberBy50[0],
+                    alignItems: "center",
+                  }}>
+                  <list.Icon
+                    theme={theme}
+                    width={list.width}
+                    height={list.height}
+                    focused={focused}
+                  />
+                </View>
+              ) : (
+                <View
+                  style={{
+                    width: theme.spaceNumberBy10[3],
+                    height: theme.spaceNumberBy10[3],
+                    backgroundColor: focused
+                      ? theme.colors.brand.base
+                      : theme.colors.brand.basewhite,
+                    borderRadius: theme.spaceNumberBy10[2],
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}>
+                  <list.Icon
+                    name={list.iconName}
+                    color={focused ? theme.colors.brand.basewhite : color}
+                    size={list.size}
+                  />
+                </View>
+              ),
+            gestureEnabled: false,
+          }}
+        />
+      ))}
     </Tab.Navigator>
   );
 };
@@ -315,16 +299,6 @@ export default function index() {
         <Stack.Screen
           name="capture-name-screen"
           component={CaptureName}
-          screenOptions={{
-            headerShown: false,
-          }}
-          options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          }}
-        />
-        <Stack.Screen
-          name="capture-email-screen"
-          component={CaptureEmail}
           screenOptions={{
             headerShown: false,
           }}

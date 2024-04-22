@@ -90,7 +90,7 @@ export default function CaptureLookingFor({ navigation }) {
             <Spacer position="top" size="small">
               <Button
                 backgroundColor={
-                  preference === "Friendship/Networking"
+                  preference === "Friendship"
                     ? theme.colors.brand.base
                     : theme.colors.brand.highlight
                 }
