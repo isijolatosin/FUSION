@@ -107,7 +107,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              fontSize="h3"
+              fontSize="h4"
               width="100%">
               What are your lifestyle habits?
             </Text>

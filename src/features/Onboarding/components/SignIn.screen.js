@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LottieView from "lottie-react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 import {
   Dimensions,
   Keyboard,
@@ -29,8 +30,13 @@ import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDat
 import ProgressBar from "../../../components/general-component/ProgressiveBar";
 
 export default function SignIn({ navigation }) {
-  const [code, setCode] = useState(null);
-  const [phonenumber, setPhonenumber] = useState(null);
+  const route = useRoute();
+  const { phone } = route.params || {};
+
+  const [code, setCode] = useState(phone ? phone.slice(1, -10) : null);
+  const [phonenumber, setPhonenumber] = useState(
+    phone ? phone.substr(-10) : null
+  );
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showPswd, setShowPswd] = useState(false);

@@ -155,7 +155,7 @@ export default function CapturePhotos({ navigation }) {
               nextFunction={() => {
                 if (checkMediaArrayLength(mediaArray)) {
                   saveDataToFirebase();
-                  navigation.navigate("your-profile-is-set", { phonenumber });
+                  navigation.navigate("sign-in", { phone: phonenumber });
                 } else {
                   setPageError(true);
                 }
