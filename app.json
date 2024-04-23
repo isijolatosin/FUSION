@@ -2,8 +2,8 @@
   "expo": {
     "name": "wiingr",
     "slug": "wiingr-app",
-    "description": "Your wiingr app is a social application for african community",
-    "version": "1.0.7",
+    "description": "Wiingr app is a social application for african community",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -15,12 +15,17 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.tosin.wiingrapp",
-      "buildNumber": "1.0.7",
-      "supportsTablet": true
+      "buildNumber": "1.0.8",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Wiingr requires access to your camera to enable photo and video capture for creating and sharing content.",
+        "NSLocationAlwaysUsageDescription": "By allowing us to access your location, we can better match you with individuals who are nearby and share similar interests.",
+        "NSPhotoLibraryUsageDescription": "To personalize your experience, wiingr requires access to your photo library to enable photo uploads and sharing with friends.."
+      }
     },
     "android": {
       "package": "com.tosin.wiingrapp",
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fff"
@@ -41,7 +46,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Your wiingr to access this device's location."
+          "locationAlwaysAndWhenInUsePermission": "Allow Wiingr to access this device's location."
         }
       ],
       [

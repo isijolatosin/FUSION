@@ -98,7 +98,7 @@ export default function CaptureInterests({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="arimaMadurai"
-                fontSize="h3"
+                fontSize="h4"
                 width="100%">
                 Share Your Interest
               </Text>

@@ -27,19 +27,22 @@ export default function CaptureLocation({ navigation }) {
   const { user } = route.params || {};
   const { width, height } = Dimensions.get("window");
   const [isLoading, setLoading] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
   const [responseMessage, setResponseMessage] = useState({
     message: "",
     code: "",
   });
 
   const handleLocationCapture = async () => {
+    setLoading(true);
+
     const userLocation = await getUserLocation(setResponseMessage);
     const locationObject = await getAddress(
-      userLocation.latitude,
-      userLocation.longitude
+      userLocation?.latitude,
+      userLocation?.longitude
     );
-    user.longitude = userLocation.longitude;
-    user.latitude = userLocation.latitude;
+    user.longitude = userLocation?.longitude;
+    user.latitude = userLocation?.latitude;
     user.location = `${locationObject?.city}, ${locationObject?.region}`;
     user.country = locationObject?.country;
     user.address = `${locationObject?.streetNumber} ${locationObject?.street}. ${locationObject?.city}, ${locationObject?.region}`;
@@ -49,11 +52,19 @@ export default function CaptureLocation({ navigation }) {
       payload: user,
     });
 
-    setTimeout(() => {
+    const locId = setTimeout(() => {
+      setLoading(false);
+      if (userLocation?.latitude || userLocation?.longitude) setIsEnabled(true);
+    }, 1000);
+
+    const locId2 = setTimeout(() => {
       if (user.longitude && user.latitude) {
+        setIsEnabled(false);
         navigation.navigate("you-are-special-screen");
       }
-    }, 2000);
+    }, 3000);
+
+    return () => clearTimeout(locId, locId2);
   };
 
   return (
@@ -116,7 +127,6 @@ export default function CaptureLocation({ navigation }) {
           />
           <View
             style={{
-              // height: "45%",
               marginTop: theme.spaceNumberBy10[3],
               justifyContent: "flex-end",
             }}>
@@ -127,13 +137,8 @@ export default function CaptureLocation({ navigation }) {
                 <Button
                   fontType={theme.fonts.montserratBold}
                   backgroundColor={theme.colors.brand.base}
-                  buttonFunction={() => {
-                    // if (!user.longitude && !user.latitude) return;
-                    // if (responseMessage.code === "failed") return;
-                    setLoading(true);
-                    handleLocationCapture();
-                  }}
-                  text="Enable Location"
+                  buttonFunction={() => handleLocationCapture()}
+                  text={isEnabled ? "Location Enabled 📍" : "Enable Location"}
                   textColor={theme.colors.brand.basewhite}
                 />
               </HorizontalPaddingSpace>

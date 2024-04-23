@@ -245,7 +245,7 @@ export default function SettingModal({
           const userProfileDeleteTimeoutId = setTimeout(() => {
             navigation.navigate("onBoard");
             setShowDeleteModal(false);
-            setShowDeleteModal(false);
+            setDeleteConfirmation(false);
             onClose();
           }, 1000);
 
