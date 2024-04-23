@@ -200,7 +200,7 @@ export default function SignIn({ navigation }) {
             </Text>
             <HorizontalPaddingSpace
               space={theme.space[6]}
-              style={{ flex: 0.5 }}>
+              style={{ flex: 0.5, zIndex: theme.spaceNumberBy10[0] }}>
               <Spacer
                 position="bottom"
                 size="xsmall"

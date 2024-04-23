@@ -206,7 +206,7 @@ export default function CreateAccount({ navigation }) {
               display: "flex",
               justifyContent: "space-between",
             }}>
-            <View style={{ flex: 0.65 }}>
+            <View style={{ flex: 0.65, zIndex: theme.spaceNumberBy10[0] }}>
               <Spacer position="bottom" size="small">
                 <Text
                   style={{
@@ -229,9 +229,7 @@ export default function CreateAccount({ navigation }) {
                   All required *
                 </Text>
               </Spacer>
-              <HorizontalPaddingSpace
-                space={theme.space[6]}
-                style={{ zIndex: theme.spaceNumberBy10[0] }}>
+              <HorizontalPaddingSpace space={theme.space[6]}>
                 <Spacer
                   position="bottom"
                   size="xsmall"
