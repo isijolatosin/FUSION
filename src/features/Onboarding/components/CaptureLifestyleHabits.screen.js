@@ -107,6 +107,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
+              lineHeight={theme.lineHeights[25]}
               fontSize="h4"
               width="100%">
               What are your lifestyle habits?
@@ -118,6 +119,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="caption"
                 width="95%">
                 {lifestlyHabitsInstruction}
@@ -147,6 +149,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="body"
                 width="95%">
                 How frequently do you hit the gym ?
@@ -182,6 +185,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       variant="custom"
                       colorType="black"
                       fontType="montserratRegular"
+                      lineHeight={theme.lineHeights[0]}
                       fontSize="button">
                       {gym}
                     </Text>
@@ -205,6 +209,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="body"
                 width="95%">
                 How often do you smoke?
@@ -240,6 +245,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       variant="custom"
                       colorType="black"
                       fontType="montserratRegular"
+                      lineHeight={theme.lineHeights[0]}
                       fontSize="button">
                       {smoke}
                     </Text>
@@ -263,6 +269,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="body"
                 width="95%">
                 How often do you engage in 420-friendly activities ? (Marijuana)
@@ -298,6 +305,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       variant="custom"
                       colorType="black"
                       fontType="montserratRegular"
+                      lineHeight={theme.lineHeights[0]}
                       fontSize="button">
                       {cannabis}
                     </Text>
@@ -321,6 +329,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="montserratBold"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="body"
                 width="95%">
                 How often do you drink?
@@ -356,6 +365,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       variant="custom"
                       colorType="black"
                       fontType="montserratRegular"
+                      lineHeight={theme.lineHeights[0]}
                       fontSize="button">
                       {drink}
                     </Text>
@@ -368,6 +378,13 @@ export default function CaptureLifestyleHabits({ navigation }) {
             pageError={pageError}
             text="Please share your lifestyle habits"
             size="body"
+            classes={{
+              textAlign: "left",
+              color: theme.colors.brand.error,
+              fontFamily: theme.fonts.montserratSemibold,
+              fontSize: theme.spaceNumber[7],
+              marginTop: theme.spaceNumberBy10[2],
+            }}
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

@@ -528,7 +528,7 @@ const Index = ({ navigation }) => {
                     colorType="black"
                     fontType="arimaMadurai"
                     fontSize="title"
-                    transform="capitalize"
+                    transform={Platform.OS === "ios" ? "capitalize" : ""}
                     width="100%">
                     {currentUsertoSwipe?.firstname},{" "}
                     {calculateAge(

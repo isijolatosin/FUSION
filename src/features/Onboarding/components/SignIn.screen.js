@@ -195,6 +195,7 @@ export default function SignIn({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
+              lineHeight={theme.lineHeights[25]}
               fontSize="h4">
               Sign In
             </Text>
@@ -217,6 +218,7 @@ export default function SignIn({ navigation }) {
                       variant="custom"
                       colorType="lines"
                       fontType="montserratRegular"
+                      lineHeight={theme.lineHeights[25]}
                       fontSize="title"
                       width="100%">
                       +
@@ -353,6 +355,7 @@ export default function SignIn({ navigation }) {
                       variant="custom"
                       colorType="basewhite"
                       fontType="montserratRegular"
+                      lineHeight={theme.lineHeights[0]}
                       fontSize="button">
                       Login
                     </Text>
@@ -381,6 +384,7 @@ export default function SignIn({ navigation }) {
                     variant="custom"
                     colorType="base"
                     fontType="montserratSemibold"
+                    lineHeight={theme.lineHeights[0]}
                     fontSize="button">
                     Create Account
                   </Text>

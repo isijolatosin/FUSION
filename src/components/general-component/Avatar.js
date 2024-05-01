@@ -26,16 +26,16 @@ export default function Avatar({
             uri: `${data}`,
           }}
           style={{
-            width: "100%",
-            height: "100%",
+            width: Platform.OS === "ios" ? "100%" : 10,
+            height: Platform.OS === "ios" ? "100%" : 10,
             borderRadius: theme.spaceNumberBy50[1],
           }}
         />
       ) : (
         <View
           style={{
-            width: "100%",
-            height: "100%",
+            width: Platform.OS === "ios" ? "100%" : 100,
+            height: Platform.OS === "ios" ? "100%" : 100,
             backgroundColor: theme.colors.brand.linesLighter,
             borderRadius: theme.spaceNumberBy50[1],
             justifyContent: "center",

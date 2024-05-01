@@ -98,6 +98,7 @@ export default function CaptureInterests({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="arimaMadurai"
+                lineHeight={theme.lineHeights[25]}
                 fontSize="h4"
                 width="100%">
                 Share Your Interest
@@ -116,6 +117,7 @@ export default function CaptureInterests({ navigation }) {
                 variant="custom"
                 colorType="basewhite"
                 fontType="montserratBold"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="caption"
                 width="95%">
                 {interestInstruction}
@@ -163,6 +165,7 @@ export default function CaptureInterests({ navigation }) {
                         variant="custom"
                         colorType="black"
                         fontType="montserratRegular"
+                        lineHeight={theme.lineHeights[0]}
                         fontSize="button">
                         {interest.value}
                       </Text>
@@ -177,6 +180,13 @@ export default function CaptureInterests({ navigation }) {
             text="Please share your interests. Only 6 interests required"
             bottomSpace={true}
             size="body"
+            classes={{
+              textAlign: "left",
+              color: theme.colors.brand.error,
+              fontFamily: theme.fonts.montserratSemibold,
+              fontSize: theme.spaceNumber[7],
+              marginTop: theme.spaceNumberBy10[2],
+            }}
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

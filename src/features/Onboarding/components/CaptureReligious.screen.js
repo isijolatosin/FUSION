@@ -92,6 +92,13 @@ export default function CaptureReligious({ navigation }) {
             pageError={pageError}
             text="Please provide your religious beliefs"
             size="body"
+            classes={{
+              textAlign: "left",
+              color: theme.colors.brand.error,
+              fontFamily: theme.fonts.montserratSemibold,
+              fontSize: theme.spaceNumber[7],
+              marginTop: theme.spaceNumber[2],
+            }}
           />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection

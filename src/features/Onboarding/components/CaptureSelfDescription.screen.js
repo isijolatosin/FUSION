@@ -161,6 +161,13 @@ export default function CaptureSelfDescription({ navigation }) {
               pageError={pageError}
               text="Please provide three words that describes you"
               size="body"
+              classes={{
+                textAlign: "left",
+                color: theme.colors.brand.error,
+                fontFamily: theme.fonts.montserratSemibold,
+                fontSize: theme.spaceNumber[7],
+                marginTop: theme.spaceNumberBy10[2],
+              }}
             />
           </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>

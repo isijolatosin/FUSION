@@ -235,6 +235,12 @@ export default function CapturePhotos({ navigation }) {
             pageError={pageError}
             text="Please update your photos. Minimum of 3 required"
             size="body"
+            classes={{
+              textAlign: "left",
+              color: theme.colors.brand.error,
+              fontFamily: theme.fonts.montserratSemibold,
+              fontSize: theme.spaceNumber[7],
+            }}
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

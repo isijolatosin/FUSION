@@ -66,7 +66,7 @@ function ScreenWrapper({
           currentScreen={currentScreen}
           setFunction={setCurrentScreen}
           theme={theme}
-          width="60%"
+          width={Platform.OS === "ios" ? "60%" : theme.spaceNumberBy10[5]}
         />
       </Spacer>
       {children}

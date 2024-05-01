@@ -174,6 +174,7 @@ export default function CaptureDOB({ navigation }) {
                         variant="custom"
                         colorType="base"
                         fontType="montserratSemibold"
+                        lineHeight={theme.lineHeights[0]}
                         fontSize="caption">
                         Month
                       </Text>
@@ -197,6 +198,7 @@ export default function CaptureDOB({ navigation }) {
                         variant="custom"
                         colorType="base"
                         fontType="montserratSemibold"
+                        lineHeight={theme.lineHeights[0]}
                         fontSize="caption">
                         Day
                       </Text>
@@ -224,6 +226,7 @@ export default function CaptureDOB({ navigation }) {
                         variant="custom"
                         colorType="base"
                         fontType="montserratSemibold"
+                        lineHeight={theme.lineHeights[0]}
                         fontSize="caption">
                         Year
                       </Text>
@@ -250,6 +253,7 @@ export default function CaptureDOB({ navigation }) {
                   variant="custom"
                   colorType="base"
                   fontType="montserratSemibold"
+                  lineHeight={theme.lineHeights[0]}
                   fontSize="caption">
                   {`You selected ${months[month - 1]} ${day} ${year}`}
                 </Text>
@@ -260,6 +264,7 @@ export default function CaptureDOB({ navigation }) {
                 variant="custom"
                 colorType="black"
                 fontType="montserratRegular"
+                lineHeight={theme.lineHeights[0]}
                 fontSize="caption">
                 {dobInstruction}
               </Text>

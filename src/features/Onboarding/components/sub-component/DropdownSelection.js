@@ -55,6 +55,7 @@ export default function DropdownSelection({
                 variant="custom"
                 colorType="basewhite"
                 fontType="montserratSemibold"
+                lineHeight={theme.lineHeights[5]}
                 fontSize="title">
                 {isForHeightComponent
                   ? formatHeightText(inputText).feet

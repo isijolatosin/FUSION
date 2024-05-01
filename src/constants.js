@@ -12,6 +12,8 @@ import {
   SimpleLineIcons,
   Zocial,
 } from "@expo/vector-icons";
+export const mapImage =
+  "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703740615/fusion/global-communication-background-business-network-design_2_j3fnht.png";
 
 export const splashOboardingSummaryText =
   "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
