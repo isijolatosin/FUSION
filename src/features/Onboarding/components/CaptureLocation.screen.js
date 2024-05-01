@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LottieView from "lottie-react-native";
-import { Dimensions, View } from "react-native";
+import { Dimensions, View, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -12,6 +12,7 @@ import Button from "../../../components/utility/button.component";
 import {
   locationCaptureInstruction,
   locationCaptureInstruction2,
+  mapImage,
 } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import getUserLocation from "../../../utilities/getUserLocation";
@@ -78,28 +79,50 @@ export default function CaptureLocation({ navigation }) {
           style={{
             height: theme.spaceNumberBy50[4],
             width: width,
+            marginVertical:
+              Platform.OS === "ios" ? 0 : theme.spaceNumberBy10[1],
           }}>
-          <LottieView
-            source={require("../../../../assets/animations/location.json")}
-            autoPlay
-            loop
-          />
+          {Platform.OS === "ios" ? (
+            <LottieView
+              source={require("../../../../assets/animations/location.json")}
+              autoPlay
+              loop
+            />
+          ) : (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                height: theme.spaceNumberBy50[4],
+                width: width,
+              }}>
+              <Image
+                width={width}
+                height={theme.spaceNumberBy50[4]}
+                source={{ uri: mapImage }}
+              />
+            </View>
+          )}
         </View>
         <HorizontalPaddingSpace space={theme.space[2]}>
           <View>
             <Text
+              style={{ textAlign: "center" }}
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
+              lineHeight={theme.lineHeights[25]}
               fontSize="h3"
               width="100%">
               Enable your
             </Text>
             <View style={{ marginTop: -theme.spaceNumber[5] }}>
               <Text
+                style={{ textAlign: "center" }}
                 variant="custom"
                 colorType="black"
                 fontType="arimaMadurai"
+                lineHeight={theme.lineHeights[25]}
                 fontSize="h3"
                 width="100%">
                 Location Services
@@ -111,6 +134,7 @@ export default function CaptureLocation({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="montserratSemibold"
+              lineHeight={theme.lineHeights[0]}
               fontSize="caption"
               width="100%">
               {locationCaptureInstruction}

@@ -241,8 +241,7 @@ export default function CommunitiesComponent({
                   variant="custom"
                   colorType="black"
                   fontType="montserratRegular"
-                  fontSize="button"
-                  width="100%">
+                  fontSize="button">
                   {data?.gender}
                 </Text>
               </View>
@@ -273,8 +272,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {zodiacSign}
                   </Text>
                 </View>
@@ -307,8 +305,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.sexualOrientation}
                   </Text>
                 </View>
@@ -335,8 +332,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.nationality}
                   </Text>
                 </View>
@@ -363,8 +359,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.tribe}
                   </Text>
                 </View>
@@ -391,8 +386,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.religious}
                   </Text>
                 </View>
@@ -424,8 +418,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.jobtitle?.job}
                   </Text>
                 </View>
@@ -452,8 +445,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.workplace?.work}
                   </Text>
                 </View>
@@ -480,8 +472,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.height?.replace("feet", "'")?.replace("inch", '"')}
                   </Text>
                 </View>
@@ -513,8 +504,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.lifestyleHabits?.gym}
                   </Text>
                 </View>
@@ -541,8 +531,7 @@ export default function CommunitiesComponent({
                     variant="custom"
                     colorType="black"
                     fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
+                    fontSize="button">
                     {data?.preference}
                   </Text>
                 </View>

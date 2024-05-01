@@ -30,6 +30,7 @@ export default function index({ theme }) {
           variant="custom"
           colorType="black"
           fontType="arimaMadurai"
+          lineHeight={theme.lineHeights[5]}
           fontSize="body">
           Here is
         </Text>
@@ -38,6 +39,7 @@ export default function index({ theme }) {
           variant="custom"
           colorType="base"
           fontType="arimaMadurai"
+          lineHeight={theme.lineHeights[25]}
           fontSize="h2">
           Wiingr
         </Text>
@@ -46,6 +48,7 @@ export default function index({ theme }) {
           variant="custom"
           colorType="black"
           fontType="arimaMadurai"
+          lineHeight={theme.lineHeights[16]}
           fontSize="h5">
           An African community
         </Text>
@@ -57,6 +60,7 @@ export default function index({ theme }) {
           variant="custom"
           colorType="black"
           fontType="arimaMadurai"
+          lineHeight={theme.lineHeights[22]}
           fontSize="h5">
           specially made for you.
         </Text>

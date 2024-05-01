@@ -95,6 +95,13 @@ export default function CaptureNationality({ navigation }) {
               pageError={pageError}
               text="Please provide your nationality"
               size="body"
+              classes={{
+                textAlign: "left",
+                color: theme.colors.brand.error,
+                fontFamily: theme.fonts.montserratSemibold,
+                fontSize: theme.spaceNumber[7],
+                marginTop: theme.spaceNumber[2],
+              }}
             />
             <Spacer position="top" size="large">
               <InputComponent

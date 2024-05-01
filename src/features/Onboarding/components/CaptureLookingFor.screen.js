@@ -187,6 +187,13 @@ export default function CaptureLookingFor({ navigation }) {
             pageError={pageError}
             text="Please provide what you are hoping for"
             size="body"
+            classes={{
+              textAlign: "left",
+              color: theme.colors.brand.error,
+              fontFamily: theme.fonts.montserratSemibold,
+              fontSize: theme.spaceNumber[7],
+              marginTop: theme.spaceNumber[2],
+            }}
           />
         </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>

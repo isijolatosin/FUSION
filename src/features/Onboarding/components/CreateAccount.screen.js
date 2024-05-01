@@ -149,7 +149,6 @@ export default function CreateAccount({ navigation }) {
           formattedPhonenumber
         );
         if (isVerifyUser) {
-          console.log("Yes they are*******");
           navigation.navigate("main");
         } else {
           navigation.navigate("capture-name-screen", {
@@ -215,6 +214,7 @@ export default function CreateAccount({ navigation }) {
                   variant="custom"
                   colorType="black"
                   fontType="arimaMadurai"
+                  lineHeight={theme.lineHeights[25]}
                   fontSize="h4">
                   Create account
                 </Text>
@@ -225,6 +225,7 @@ export default function CreateAccount({ navigation }) {
                   variant="custom"
                   colorType="base"
                   fontType="arimaMadurai"
+                  lineHeight={theme.lineHeights[0]}
                   fontSize="xcaption">
                   All required *
                 </Text>
@@ -247,6 +248,7 @@ export default function CreateAccount({ navigation }) {
                         colorType="lines"
                         fontType="montserratRegular"
                         fontSize="title"
+                        lineHeight={theme.lineHeights[25]}
                         width="100%">
                         +
                       </Text>
@@ -392,6 +394,7 @@ export default function CreateAccount({ navigation }) {
                           logMessage.code === "error" ? "error" : "teal"
                         }
                         fontType="montserratRegular"
+                        lineHeight={theme.lineHeights[0]}
                         fontSize="caption">
                         {logMessage.message}
                       </Text>
@@ -415,6 +418,7 @@ export default function CreateAccount({ navigation }) {
                         variant="custom"
                         colorType="basewhite"
                         fontType="montserratRegular"
+                        lineHeight={theme.lineHeights[0]}
                         fontSize="button">
                         Create account
                       </Text>
@@ -447,6 +451,7 @@ export default function CreateAccount({ navigation }) {
                       variant="custom"
                       colorType="base"
                       fontType="montserratSemibold"
+                      lineHeight={theme.lineHeights[0]}
                       fontSize="button">
                       Login
                     </Text>

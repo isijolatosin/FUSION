@@ -36,6 +36,7 @@ const HeaderComponent = ({
           variant="custom"
           colorType="black"
           fontType={font ? font : "arimaMadurai"}
+          lineHeight={theme.lineHeights[25]}
           fontSize={size ? size : "h5"}>
           {title}
         </Text>
