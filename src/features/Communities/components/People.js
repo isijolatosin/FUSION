@@ -3,6 +3,7 @@ import {
   ImageBackground,
   Pressable,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import styled from "styled-components/native";
@@ -113,7 +114,10 @@ export default function CommunitiesComponent({
       }}
       style={{
         width: width,
-        height: theme.spaceNumberBy50[10],
+        height:
+          Platform.OS === "ios" && Platform.isPad
+            ? theme.spaceNumberBy50[13]
+            : theme.spaceNumberBy50[10],
       }}>
       <CompatibleContainer source={image}>
         <LinearGradient

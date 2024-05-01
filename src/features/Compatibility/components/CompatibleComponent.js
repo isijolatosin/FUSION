@@ -1,4 +1,4 @@
-import { View, ImageBackground, Pressable } from "react-native";
+import { View, ImageBackground, Pressable, Platform } from "react-native";
 import React, { useRef, useState } from "react";
 import styled from "styled-components/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -92,7 +92,10 @@ export default function CompatibleComponent({
       }}
       style={{
         width: width,
-        height: theme.spaceNumberBy50[10],
+        height:
+          Platform.OS === "ios" && Platform.isPad
+            ? theme.spaceNumberBy50[13]
+            : theme.spaceNumberBy50[10],
       }}>
       <CompatibleContainer source={image}>
         <LinearGradient

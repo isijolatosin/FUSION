@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -502,7 +503,10 @@ export default function IndividualUserProfileComponent({
         <Image
           style={{
             width: "100%",
-            height: imageHeight,
+            height:
+              Platform.OS === "ios" && Platform.isPad
+                ? imageHeight + 310
+                : imageHeight,
             resizeMode: "cover",
             borderRadius: 5,
           }}
@@ -677,7 +681,10 @@ export default function IndividualUserProfileComponent({
           <Image
             style={{
               width: "100%",
-              height: imageHeight,
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
               resizeMode: "cover",
               borderTopRightRadius: 5,
               borderTopLeftRadius: theme.spaceNumberBy10[10],
@@ -693,7 +700,10 @@ export default function IndividualUserProfileComponent({
           <Image
             style={{
               width: "100%",
-              height: imageHeight,
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
               resizeMode: "cover",
               borderBottomLeftRadius: 5,
               borderBottomRightRadius: theme.spaceNumberBy10[10],
@@ -780,7 +790,10 @@ export default function IndividualUserProfileComponent({
           <Image
             style={{
               width: "100%",
-              height: imageHeight,
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
               resizeMode: "cover",
               borderTopRightRadius: 5,
               borderTopLeftRadius: theme.spaceNumberBy10[10],
@@ -796,7 +809,10 @@ export default function IndividualUserProfileComponent({
           <Image
             style={{
               width: "100%",
-              height: imageHeight,
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
               resizeMode: "cover",
               borderBottomLeftRadius: 5,
               borderBottomRightRadius: theme.spaceNumberBy10[10],
