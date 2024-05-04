@@ -1,6 +1,6 @@
 import * as Location from "expo-location";
 
-const getUserLocation = async (setResponseMessage) => {
+const requestLocationPermission = async (setResponseMessage) => {
   let { status } = await Location.requestForegroundPermissionsAsync();
   if (status !== "granted") {
     console.error("Location permission not granted");
@@ -11,6 +11,10 @@ const getUserLocation = async (setResponseMessage) => {
     return;
   }
 
+  return status;
+};
+
+const getUserLocation = async () => {
   let location = await Location.getCurrentPositionAsync({
     accuracy: Location.Accuracy.High,
   });
@@ -19,4 +23,4 @@ const getUserLocation = async (setResponseMessage) => {
   return { latitude, longitude };
 };
 
-export default getUserLocation;
+export { getUserLocation, requestLocationPermission };

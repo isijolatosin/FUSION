@@ -15,7 +15,7 @@ import {
   mapImage,
 } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
-// import getUserLocation from "../../../utilities/getUserLocation";
+import { requestLocationPermission } from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
 import getAddress from "../../../utilities/getAddress";
 
@@ -37,6 +37,12 @@ export default function CaptureLocation({ navigation }) {
   const handleLocationCapture = async () => {
     setLoading(true);
     try {
+      const status = await requestLocationPermission(setResponseMessage);
+      if (status !== "granted") {
+        setLoading(false);
+        return;
+      }
+
       // const userLocation = await getUserLocation(setResponseMessage);
       const response = await fetch("https://ipapi.co/json/");
       const userLocation = await response.json();
@@ -151,7 +157,7 @@ export default function CaptureLocation({ navigation }) {
 
           <OnboardingErrorComponent
             pageError={responseMessage.code === "failed"}
-            text="Location Access Denied! Please allow Wiingr to access your location"
+            text="Location Access Denied! Please allow location access to Wiingr in your location settings"
             size="caption"
           />
           <View
