@@ -8,8 +8,8 @@ const getAddress = async (latitude, longitude) => {
     });
     const city = address?.[0]?.city;
     const country = address?.[0]?.country;
-    const district = address?.[0]?.district;
     const countryCode = address?.[0]?.isoCountryCode;
+    const district = address?.[0]?.district;
     const postalCode = address?.[0]?.postalCode;
     const region = address?.[0]?.region;
     const street = address?.[0]?.street;
@@ -19,8 +19,8 @@ const getAddress = async (latitude, longitude) => {
     const addressObject = {
       city,
       country,
-      district,
       countryCode,
+      district,
       postalCode,
       region,
       street,

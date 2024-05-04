@@ -70,7 +70,7 @@ export default function CaptureHeight({ navigation }) {
           <Spacer position="top" size="xxxxlarge">
             <Text
               variant="custom"
-              colorType="linesLight"
+              colorType="lines"
               fontType="arimaMadurai"
               fontSize="h4"
               lineHeight={theme.lineHeights[25]}

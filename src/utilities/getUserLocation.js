@@ -11,7 +11,9 @@ const getUserLocation = async (setResponseMessage) => {
     return;
   }
 
-  let location = await Location.getCurrentPositionAsync({});
+  let location = await Location.getCurrentPositionAsync({
+    accuracy: Location.Accuracy.High,
+  });
   const { latitude, longitude } = location.coords;
 
   return { latitude, longitude };
