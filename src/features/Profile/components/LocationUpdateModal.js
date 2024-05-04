@@ -14,7 +14,10 @@ import {
   locationCaptureInstruction2,
 } from "../../../constants";
 import Button from "../../../components/utility/button.component";
-import getUserLocation from "../../../utilities/getUserLocation";
+import {
+  getUserLocation,
+  requestLocationPermission,
+} from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
 import OnboardingErrorComponent from "../../Onboarding/components/OnboardingErrorComponent";
 import getAddress from "../../../utilities/getAddress";
@@ -95,7 +98,16 @@ export default function LocationUpdateModal({
   }
 
   const handleLocationCapture = async () => {
-    const userLocation = await getUserLocation(setResponseMessage);
+    setLoading(true);
+
+    const status = await requestLocationPermission(setResponseMessage);
+    if (status !== "granted") {
+      setLoading(false);
+      return;
+    }
+
+    const userLocation = await getUserLocation();
+
     const locationObject = await getAddress(
       userLocation.latitude,
       userLocation.longitude
@@ -182,7 +194,7 @@ export default function LocationUpdateModal({
           </Spacer>
           <OnboardingErrorComponent
             pageError={responseMessage.code === "failed"}
-            text="Location Access Denied! Please allow Wiingr to access your location"
+            text="Location Access Denied! Please allow location access to Wiingr in your location settings"
             size="caption"
           />
           <Spacer position="top" size="xxlarge">
@@ -218,7 +230,6 @@ export default function LocationUpdateModal({
                 fontType={theme.fonts.montserratBold}
                 backgroundColor={theme.colors.brand.base}
                 buttonFunction={() => {
-                  setLoading(true);
                   handleLocationCapture();
                 }}
                 text="Reset Location"
