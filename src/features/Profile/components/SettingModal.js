@@ -223,7 +223,7 @@ export default function SettingModal({
           });
 
           //delete user from authentication
-          const user = auth.currentUser;
+          const user = firebase.auth().currentUser;
           if (user) {
             user
               .delete()
@@ -242,20 +242,20 @@ export default function SettingModal({
           await clearDataByKey("swipe-index");
           await clearDataByKey("last-screen-visit");
 
-          const userProfileDeleteTimeoutId = setTimeout(() => {
-            navigation.navigate("onBoard");
-            setShowDeleteModal(false);
-            setDeleteConfirmation(false);
-            onClose();
-          }, 1000);
+          const deleteConfirmationTimeoutId = setTimeout(() => {
+            setDeleteConfirmation(true);
+          }, 2000);
 
-          const userProfileDeleteNavigateTimeoutId = setTimeout(() => {
+          const userProfileDeleteTimeoutId = setTimeout(() => {
+            setDeleteConfirmation(false);
+            setShowDeleteModal(false);
             onClose();
-          }, 1500);
+            navigation.navigate("onBoard");
+          }, 6000);
 
           return () => {
             clearTimeout(userProfileDeleteTimeoutId);
-            clearTimeout(userProfileDeleteNavigateTimeoutId);
+            clearTimeout(deleteConfirmationTimeoutId);
           };
         })
         .catch((error) => console.log("Error " + error.message));
@@ -271,7 +271,9 @@ export default function SettingModal({
     const userSignOutTimeoutId = setTimeout(() => {
       const phone = currentUser?.phonenumber;
       navigation.navigate("onBoard");
-      auth.signOut();
+      auth
+        .signOut()
+        .then(() => console.log(`User with phone number ${phone} signed out!`));
     }, 500);
 
     const userNavigateTimeoutId2 = setTimeout(() => {
@@ -1013,7 +1015,6 @@ export default function SettingModal({
           theme={theme}
           functionCall={() => {
             handleDeleteUserProfile(showDeleteModal);
-            setDeleteConfirmation(true);
           }}
           onClose={() => {
             setDeleteConfirmation(false);

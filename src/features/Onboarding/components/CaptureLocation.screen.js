@@ -15,7 +15,7 @@ import {
   mapImage,
 } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
-import getUserLocation from "../../../utilities/getUserLocation";
+// import getUserLocation from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
 import getAddress from "../../../utilities/getAddress";
 
@@ -36,36 +36,43 @@ export default function CaptureLocation({ navigation }) {
 
   const handleLocationCapture = async () => {
     setLoading(true);
+    try {
+      // const userLocation = await getUserLocation(setResponseMessage);
+      const response = await fetch("https://ipapi.co/json/");
+      const userLocation = await response.json();
+      const locationObject = await getAddress(
+        userLocation?.latitude,
+        userLocation?.longitude
+      );
+      user.longitude = userLocation?.longitude;
+      user.latitude = userLocation?.latitude;
+      user.location = `${locationObject?.city}, ${locationObject?.region}`;
+      user.country = locationObject?.country;
+      user.address = `${locationObject?.streetNumber} ${locationObject?.street}. ${locationObject?.city}, ${locationObject?.region}`;
 
-    const userLocation = await getUserLocation(setResponseMessage);
-    const locationObject = await getAddress(
-      userLocation?.latitude,
-      userLocation?.longitude
-    );
-    user.longitude = userLocation?.longitude;
-    user.latitude = userLocation?.latitude;
-    user.location = `${locationObject?.city}, ${locationObject?.region}`;
-    user.country = locationObject?.country;
-    user.address = `${locationObject?.streetNumber} ${locationObject?.street}. ${locationObject?.city}, ${locationObject?.region}`;
+      dispatch({
+        type: "SET_USER",
+        payload: user,
+      });
 
-    dispatch({
-      type: "SET_USER",
-      payload: user,
-    });
+      const locId = setTimeout(() => {
+        setLoading(false);
+        if (userLocation?.latitude || userLocation?.longitude)
+          setIsEnabled(true);
+      }, 1000);
 
-    const locId = setTimeout(() => {
+      const locId2 = setTimeout(() => {
+        if (user.longitude && user.latitude) {
+          setIsEnabled(false);
+          navigation.navigate("you-are-special-screen");
+        }
+      }, 3000);
+
+      return () => clearTimeout(locId, locId2);
+    } catch (error) {
+      console.error("Error fetching IP geolocation:", error);
       setLoading(false);
-      if (userLocation?.latitude || userLocation?.longitude) setIsEnabled(true);
-    }, 1000);
-
-    const locId2 = setTimeout(() => {
-      if (user.longitude && user.latitude) {
-        setIsEnabled(false);
-        navigation.navigate("you-are-special-screen");
-      }
-    }, 3000);
-
-    return () => clearTimeout(locId, locId2);
+    }
   };
 
   return (
@@ -107,7 +114,6 @@ export default function CaptureLocation({ navigation }) {
         <HorizontalPaddingSpace space={theme.space[2]}>
           <View>
             <Text
-              style={{ textAlign: "center" }}
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
@@ -118,7 +124,6 @@ export default function CaptureLocation({ navigation }) {
             </Text>
             <View style={{ marginTop: -theme.spaceNumber[5] }}>
               <Text
-                style={{ textAlign: "center" }}
                 variant="custom"
                 colorType="black"
                 fontType="arimaMadurai"
