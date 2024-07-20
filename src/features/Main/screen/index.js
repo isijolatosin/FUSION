@@ -805,7 +805,7 @@ const Index = ({ navigation }) => {
             <Text
               style={{ textAlign: "center" }}
               variant="custom"
-              colorType="blue"
+              colorType="teal"
               fontType="montserratRegular"
               fontSize="caption">
               {isGymPreferenceOpen
@@ -815,15 +815,26 @@ const Index = ({ navigation }) => {
           </Pressable>
 
           {isGymPreferenceOpen ? (
-            <View>
-              <GymtypesComponent
-                handleSelectedGym={handleSelectedGym}
-                gymSelectedTypes={gymSelectedTypes}
-                userCountry={formatCountryName(currentUser?.country)}
-                width={width}
-                currentUser={currentUser}
-                setIsRetrigger={setIsRetrigger}
-              />
+            <View style={{ flex: 1 }}>
+              <View>
+                <GymtypesComponent
+                  handleSelectedGym={handleSelectedGym}
+                  gymSelectedTypes={gymSelectedTypes}
+                  userCountry={formatCountryName(currentUser?.country)}
+                  width={width}
+                  currentUser={currentUser}
+                  setIsRetrigger={setIsRetrigger}
+                />
+              </View>
+              <HorizontalPaddingSpace
+                space={theme.space[2]}
+                style={{ flex: 1 }}>
+                <Placeholder
+                  isSliblingComp={true}
+                  theme={theme}
+                  width={width}
+                />
+              </HorizontalPaddingSpace>
             </View>
           ) : (
             <HorizontalPaddingSpace

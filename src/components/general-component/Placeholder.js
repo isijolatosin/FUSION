@@ -10,10 +10,10 @@ const Placeholder = ({ isSliblingComp, theme, width, height }) => {
       style={{
         position: "absolute",
         backgroundColor: theme.colors.brand.base,
-        top: 0,
+        top: isSliblingComp ? 0 : theme.spaceNumberBy10[1],
         bottom: 0,
-        width: isSliblingComp ? width - 20 : width,
-        height: height,
+        width: width,
+        height: height ? height : "100%",
       }}>
       {isSliblingComp ? (
         <></>

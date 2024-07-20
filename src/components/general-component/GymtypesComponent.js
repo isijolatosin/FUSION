@@ -99,7 +99,7 @@ const GymtypesComponent = ({
                   <Text
                     style={{ textAlign: "right" }}
                     variant="custom"
-                    colorType="blue"
+                    colorType="teal"
                     fontType="montserratRegular"
                     fontSize="xcaption">
                     Change
@@ -258,14 +258,6 @@ const GymtypesComponent = ({
             ))}
           </View>
         </View>
-        <HorizontalPaddingSpace space={theme.space[2]}>
-          <Placeholder
-            isSliblingComp={true}
-            theme={theme}
-            width={width}
-            height={theme.spaceNumberBy50[3]}
-          />
-        </HorizontalPaddingSpace>
       </HorizontalPaddingSpace>
     </>
   );
