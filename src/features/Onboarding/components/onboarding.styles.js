@@ -6,6 +6,7 @@ const NavigationBar = styled.View`
   align-items: center;
   justify-content: ${(props) => (props.flexEnd ? "flex-end" : "space-between")};
   width: 100%;
+  height: ${(props) => `${props.height}px`};
 `;
 
 const InputWarraper = styled.View`
@@ -28,7 +29,9 @@ const PopupModal = styled.View`
   right: 0;
   z-index: 10;
   background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : "rgba(255, 255, 255, 0.7)"};
+    props.backgroundColor
+      ? props.backgroundColor
+      : props.theme.colors.brand.base};
   height: ${(props) => (props.height ? `${props.height}px` : "100%")};
 `;
 

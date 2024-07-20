@@ -26,7 +26,7 @@ export default function MessagesListItem({
 
   let messageColor = "lines";
   if (lastSenderName === name) {
-    messageColor = "black";
+    messageColor = "base1";
   }
   if (detectImageUrl(lastSenderMessage) || detectUrl(lastSenderMessage)) {
     messageColor = "blue";
@@ -52,7 +52,7 @@ export default function MessagesListItem({
         <View style={{ marginLeft: theme.spaceNumber[6] }}>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base6"
             fontType="montserratExtrabold"
             fontSize="body">
             {name}

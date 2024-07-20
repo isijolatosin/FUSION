@@ -14,7 +14,7 @@ import InputComponent from "../../../components/Input-Forms/InputComponent";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
-export default function CaptureSelfDescription({ navigation }) {
+export default function CaptureGymGoalScreen({ navigation }) {
   const [firstword, setFirstword] = useState("");
   const [secondword, setSecondword] = useState("");
   const [thirdword, setThirdword] = useState("");
@@ -24,24 +24,13 @@ export default function CaptureSelfDescription({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const {
-    dob,
-    _height,
-    religious,
-    sexualOrientation,
-    preference,
-    nationality,
-  } = route.params || {};
+  const { dob, _height, sexualOrientation, preference } = route.params || {};
 
   let checkInput = false;
-  let whatThreeWordsDescribeYou = {};
+  let gymGoals = [];
   if (firstword && secondword && thirdword) {
     checkInput = true;
-    whatThreeWordsDescribeYou = {
-      firstword: firstword,
-      secondword: secondword,
-      thirdword: thirdword,
-    };
+    gymGoals = [firstword, secondword, thirdword];
   }
 
   return (
@@ -71,11 +60,9 @@ export default function CaptureSelfDescription({ navigation }) {
                     navigation.navigate("capture-work-place-screen", {
                       dob,
                       _height,
-                      religious,
                       sexualOrientation,
                       preference,
-                      nationality,
-                      whatThreeWordsDescribeYou,
+                      gymGoals,
                     });
                   } else {
                     setPageError(true);
@@ -91,7 +78,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 variant="custom"
                 colorType="lines"
                 fontType="arimaMadurai"
-                fontSize="h4"
+                fontSize="h5"
                 lineHeight={theme.lineHeights[25]}
                 width="100%">
                 Let others know
@@ -103,7 +90,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 fontSize="h4"
                 lineHeight={theme.lineHeights[25]}
                 width="100%">
-                a little more about you.
+                your gym goals.
               </Text>
               <Text
                 variant="custom"
@@ -112,7 +99,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 lineHeight={theme.lineHeights[0]}
                 fontSize="caption"
                 width="100%">
-                Tell us three words that best describe you.
+                How about you tell others three of your goals.
               </Text>
             </Spacer>
             <Spacer position="top" size="large">
@@ -124,7 +111,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 width="100%"
                 isCountryCode={false}
                 isBackgroundColor={false}
-                placeholder="First word"
+                placeholder="Goal 1:"
                 fontSize={theme.fontSizes.body}
                 fontType={theme.fonts.montserratLight}
               />
@@ -138,7 +125,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 width="100%"
                 isCountryCode={false}
                 isBackgroundColor={false}
-                placeholder="Second word"
+                placeholder="Goal 2:"
                 fontSize={theme.fontSizes.body}
                 fontType={theme.fonts.montserratLight}
               />
@@ -152,7 +139,7 @@ export default function CaptureSelfDescription({ navigation }) {
                 width="100%"
                 isCountryCode={false}
                 isBackgroundColor={false}
-                placeholder="Third word"
+                placeholder="Goal 3:"
                 fontSize={theme.fontSizes.body}
                 fontType={theme.fonts.montserratLight}
               />

@@ -46,7 +46,7 @@ export default function Avatar({
             iconName="user"
             IconComponent={AntDesign}
             size={isSmallIcon ? 30 : 60}
-            color={theme.colors.brand.highlight}
+            color={theme.colors.brand.base6}
           />
         </View>
       )}

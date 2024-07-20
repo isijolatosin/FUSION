@@ -69,14 +69,14 @@ export default function ContactModal({
                 iconName="close-a"
                 IconComponent={Fontisto}
                 size={theme.spaceNumberBy10[1]}
-                color={theme.colors.brand.black}
+                color={theme.colors.brand.base1}
               />
             </View>
             <Spacer position="top" size="xxlarge">
               <Text
                 style={{ textAlign: "center" }}
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="arimaMadurai"
                 fontSize="h3">
                 Help Center
@@ -84,53 +84,53 @@ export default function ContactModal({
             </Spacer>
             <Spacer position="top" size="xxxlarge">
               <Button
-                backgroundColor={theme.colors.brand.highlight}
+                backgroundColor={theme.colors.brand.base8}
                 borderRadius={`${theme.spaceNumber[8]}px`}
                 isBorder={false}
                 isNotBold={false}
                 buttonFunction={() => setSelectedHelp("general question")}
                 text="General Question"
                 fontType={theme.fonts.montserratSemibold}
-                textColor={theme.colors.brand.black}
+                textColor={theme.colors.brand.base1}
                 width="100%"
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
-                backgroundColor={theme.colors.brand.highlight}
+                backgroundColor={theme.colors.brand.base8}
                 borderRadius={`${theme.spaceNumber[8]}px`}
                 isBorder={false}
                 isNotBold={false}
                 buttonFunction={() => setSelectedHelp("report illegal content")}
                 text="Report Illegal Content"
                 fontType={theme.fonts.montserratSemibold}
-                textColor={theme.colors.brand.black}
+                textColor={theme.colors.brand.base1}
                 width="100%"
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
-                backgroundColor={theme.colors.brand.highlight}
+                backgroundColor={theme.colors.brand.base8}
                 borderRadius={`${theme.spaceNumber[8]}px`}
                 isBorder={false}
                 isNotBold={false}
                 buttonFunction={() => setSelectedHelp("technical issue")}
                 text="Technical Issue"
                 fontType={theme.fonts.montserratSemibold}
-                textColor={theme.colors.brand.black}
+                textColor={theme.colors.brand.base1}
                 width="100%"
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
-                backgroundColor={theme.colors.brand.highlight}
+                backgroundColor={theme.colors.brand.base8}
                 borderRadius={`${theme.spaceNumber[8]}px`}
                 isBorder={false}
                 isNotBold={false}
                 buttonFunction={() => setSelectedHelp("safety issue")}
                 text="Safety Issue"
                 fontType={theme.fonts.montserratSemibold}
-                textColor={theme.colors.brand.black}
+                textColor={theme.colors.brand.base1}
                 width="100%"
               />
             </Spacer>
@@ -153,14 +153,14 @@ export default function ContactModal({
                   iconName="close-a"
                   IconComponent={Fontisto}
                   size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.black}
+                  color={theme.colors.brand.base1}
                 />
               </View>
               <Spacer position="top" size="xxlarge">
                 <Text
                   style={{ textAlign: "center" }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="arimaMadurai"
                   fontSize="h3">
                   We are here to help.
@@ -177,21 +177,17 @@ export default function ContactModal({
                   {isSendingMessage ? (
                     <View
                       style={{
-                        backgroundColor: theme.colors.brand.highlight,
+                        backgroundColor: theme.colors.brand.base8,
                         width: "100%",
                         borderRadius: theme.spaceNumber[8],
                         paddingTop: theme.spaceNumber[7],
                         paddingBottom: theme.spaceNumber[7],
                       }}>
-                      <Spinner size="small" color={theme.colors.brand.base} />
+                      <Spinner size="small" color={theme.colors.brand.base1} />
                     </View>
                   ) : (
                     <Button
-                      backgroundColor={
-                        selectedHelpValue
-                          ? theme.colors.brand.highlight
-                          : theme.colors.brand.linesFaint
-                      }
+                      backgroundColor={theme.colors.brand.base8}
                       borderRadius={`${theme.spaceNumber[8]}px`}
                       isBorder={false}
                       isNotBold={false}
@@ -199,16 +195,8 @@ export default function ContactModal({
                         handleSendMessage(selectedHelp, selectedHelpValue)
                       }
                       text="Send"
-                      fontType={
-                        selectedHelpValue
-                          ? theme.fonts.montserratBold
-                          : theme.fonts.montserratLight
-                      }
-                      textColor={
-                        selectedHelpValue
-                          ? theme.colors.brand.black
-                          : theme.colors.brand.linesLight
-                      }
+                      fontType={theme.fonts.montserratLight}
+                      textColor={theme.colors.brand.base1}
                       width="100%"
                     />
                   )}
@@ -218,7 +206,7 @@ export default function ContactModal({
                     <Text
                       style={{ textAlign: "center" }}
                       variant="custom"
-                      colorType="base"
+                      colorType="base6"
                       fontType="montserratRegular"
                       fontSize="caption">
                       Message Sent Successfully!

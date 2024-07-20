@@ -17,7 +17,7 @@ export default function BioUpdateModal({ theme, currentUser, onClose }) {
       "all-users",
       currentUser?.id,
       "bio",
-      bio,
+      bio ?? "",
       () => {}
     );
   }
@@ -40,13 +40,13 @@ export default function BioUpdateModal({ theme, currentUser, onClose }) {
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <Text
             style={{ textAlign: "center", width: "90%" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="title">
             Bio
@@ -65,6 +65,7 @@ export default function BioUpdateModal({ theme, currentUser, onClose }) {
             fontType={theme.fonts.montserratBold}
             multiline={true}
             numberOfLines={2}
+            fontColor={theme.colors.brand.base1}
           />
         </Spacer>
       </Spacer>

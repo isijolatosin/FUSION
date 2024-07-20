@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { CheckBox } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { Text } from "../../../components/typography/text.component";
@@ -11,9 +11,11 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
 export default function InstagramUpdateModal({ theme, currentUser, onClose }) {
-  const [instagram, setInstagramLink] = useState(currentUser?.instagram?.link);
+  const [instagram, setInstagramLink] = useState(
+    currentUser?.instagram?.link ?? ""
+  );
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
-    currentUser?.instagram?.visibleOnProfile
+    currentUser?.instagram?.visibleOnProfile ?? false
   );
 
   async function updateInstagramLink(value, visibilityOption) {
@@ -53,17 +55,38 @@ export default function InstagramUpdateModal({ theme, currentUser, onClose }) {
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
-          <Text
-            style={{ textAlign: "center", width: "90%" }}
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="title">
-            Instagram
-          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              width: "90%",
+              justifyContent: "center",
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="instagram"
+              IconComponent={AntDesign}
+              size={30}
+              color={theme.colors.brand.base6}
+            />
+            <View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                  marginLeft: theme.spaceNumber[2],
+                }}
+                variant="custom"
+                colorType="base6"
+                fontType="montserratBold"
+                fontSize="body">
+                Instagram
+              </Text>
+            </View>
+          </View>
         </View>
         <Spacer position="top" size="xxxlarge">
           <InputComponent
@@ -76,6 +99,7 @@ export default function InstagramUpdateModal({ theme, currentUser, onClose }) {
             isBackgroundColor={false}
             fontSize={theme.fontSizes.title}
             fontType={theme.fonts.montserratBold}
+            fontColor={theme.colors.brand.base1}
             multiline={true}
             numberOfLines={2}
           />
@@ -85,20 +109,21 @@ export default function InstagramUpdateModal({ theme, currentUser, onClose }) {
             title="Visible on your profile"
             checked={isVisibleOnProfile}
             onPress={handleCheckboxToggle}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.brandFade}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base6}
             titleProps={{
               style: {
                 fontWeight: "thin",
                 fontFamily: theme.fonts.montserratRegular,
+                color: theme.colors.brand.base6,
               },
             }}
             wrapperStyle={{
               margin: -20,
             }}
             containerStyle={{
-              backgroundColor: theme.colors.brand.basewhite,
-              borderColor: theme.colors.brand.basewhite,
+              backgroundColor: "transparent",
+              borderWidth: 0,
             }}
           />
         </Spacer>

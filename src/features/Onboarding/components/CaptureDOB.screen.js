@@ -30,6 +30,7 @@ import HeaderComponent from "../../../components/general-component/HeaderCompone
 
 export default function CaptureDOB({ navigation }) {
   const { height } = Dimensions.get("window");
+  const [selectedDate, setSelectedDate] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [year, setYear] = useState("");
@@ -40,15 +41,18 @@ export default function CaptureDOB({ navigation }) {
   } = useAppContext();
 
   let dob = {};
-  if (month && day && year) {
+  if (selectedDate) {
     dob = {
-      day: day,
-      month: month,
-      year: year,
+      day: selectedDate.getDate(),
+      month: selectedDate.getMonth() + 1,
+      year: selectedDate.getFullYear(),
     };
   }
 
   function validateAgeRestriction() {
+    const month = selectedDate.getMonth() + 1;
+    const year = selectedDate.getFullYear();
+    const day = selectedDate.getDate();
     if (calculateAge(year, month, day) < 18) return false;
     return true;
   }
@@ -62,15 +66,7 @@ export default function CaptureDOB({ navigation }) {
   };
 
   const handleDateConfirm = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString("en-US", { month: "long" });
-    const year = date.getFullYear();
-
-    setDay(+day);
-    setMonth(months.indexOf(month) + 1);
-    setYear(+year);
-
+    setSelectedDate(new Date(dateString));
     hideDatePicker();
   };
 
@@ -98,7 +94,7 @@ export default function CaptureDOB({ navigation }) {
                 theme={theme}
                 color={theme.colors.brand.base}
                 nextFunction={() => {
-                  if (day && month && year && validateAgeRestriction()) {
+                  if (selectedDate && validateAgeRestriction()) {
                     navigation.navigate("capture-height-screen", { dob });
                   } else {
                     setPageError(true);
@@ -117,7 +113,7 @@ export default function CaptureDOB({ navigation }) {
                 variant="custom"
                 colorType="lines"
                 fontType="arimaMadurai"
-                fontSize="h4"
+                fontSize="h5"
                 lineHeight={theme.lineHeights[25]}
                 width="100%">
                 When is
@@ -164,6 +160,8 @@ export default function CaptureDOB({ navigation }) {
                     mode="date"
                     onConfirm={handleDateConfirm}
                     onCancel={hideDatePicker}
+                    date={selectedDate ? selectedDate : new Date()}
+                    maximumDate={new Date()}
                   />
                 </>
               ) : (
@@ -247,7 +245,7 @@ export default function CaptureDOB({ navigation }) {
                 </InputWarraper>
               )}
             </Spacer>
-            {month && year && day && (
+            {selectedDate && (
               <Spacer position="top" size="large">
                 <Text
                   variant="custom"
@@ -255,7 +253,13 @@ export default function CaptureDOB({ navigation }) {
                   fontType="montserratSemibold"
                   lineHeight={theme.lineHeights[0]}
                   fontSize="caption">
-                  {`You selected ${months[month - 1]} ${day} ${year}`}
+                  {`You selected ${String(selectedDate.getMonth() + 1).padStart(
+                    2,
+                    "0"
+                  )} ${String(selectedDate.getDate()).padStart(
+                    2,
+                    "0"
+                  )} ${selectedDate.getFullYear()}`}
                 </Text>
               </Spacer>
             )}

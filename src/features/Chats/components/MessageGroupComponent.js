@@ -74,13 +74,14 @@ export default function MessageGroupComponent({
           key={idx}
           currentUser={currentUser?.phonenumber === item?.senderphonenumber}>
           <MessageBubble
+            isImage={detectImageUrl(item?.message)}
             currentUser={currentUser?.phonenumber === item?.senderphonenumber}>
             {detectPhoneNumber(item?.message) ? (
               <Pressable onPress={() => handleCallPress(item?.message)}>
                 <Text
                   variant="custom"
                   colorType={
-                    detectPhoneNumber(item?.message) ? "brandFade" : "black"
+                    detectPhoneNumber(item?.message) ? "teal" : "base1"
                   }
                   fontType="montserratSemibold"
                   fontSize="body">
@@ -91,9 +92,9 @@ export default function MessageGroupComponent({
               <Pressable onPress={() => handleUrlPress(item?.message)}>
                 <Text
                   variant="custom"
-                  colorType={detectUrl(item?.message) ? "brandFade" : "black"}
+                  colorType={detectUrl(item?.message) ? "teal" : "base1"}
                   fontType="montserratSemibold"
-                  fontSize="body">
+                  fontSize="caption">
                   {item?.message}
                 </Text>
               </Pressable>
@@ -112,7 +113,14 @@ export default function MessageGroupComponent({
                     width: "100%",
                     height: "100%",
                     resizeMode: "cover",
-                    borderRadius: theme.spaceNumber[4],
+                    borderBottomRightRadius:
+                      currentUser?.phonenumber !== item?.senderphonenumber
+                        ? theme.spaceNumber[4]
+                        : 0,
+                    borderBottomLeftRadius:
+                      currentUser?.phonenumber === item?.senderphonenumber
+                        ? theme.spaceNumber[4]
+                        : 0,
                   }}
                   source={{
                     uri: item?.message,
@@ -147,8 +155,8 @@ export default function MessageGroupComponent({
               <View>
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratSemibold"
+                  colorType="base1"
+                  fontType="montserratRegular"
                   fontSize="body">
                   {item?.message}
                 </Text>

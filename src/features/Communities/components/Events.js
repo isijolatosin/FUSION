@@ -302,8 +302,7 @@ const Events = ({ theme, currentUser, scrollViewCommunityRef }) => {
         onClose={() => setShowEventForm(false)}
         theme={theme}
         width={width}
-        paddingBottom={theme.spaceNumberBy50[2]}
-        isTransparent={true}>
+        paddingBottom={theme.spaceNumberBy50[2]}>
         <EventForm
           currentUser={currentUser}
           setReload={setReload}

@@ -12,28 +12,19 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
-import OnboardingErrorComponent from "./OnboardingErrorComponent";
+// import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureJobTitle({ navigation }) {
   const [jobtitleName, setJobtitle] = useState("");
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(false);
-  const [pageError, setPageError] = useState(false);
+  // const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
   const route = useRoute();
-  const {
-    dob,
-    _height,
-    religious,
-    nationality,
-    sexualOrientation,
-    preference,
-
-    whatThreeWordsDescribeYou,
-    workplace,
-  } = route.params || {};
+  const { dob, _height, sexualOrientation, preference, gymGoals, workplace } =
+    route.params || {};
 
   let jobtitle = {
     job: jobtitleName,
@@ -67,21 +58,15 @@ export default function CaptureJobTitle({ navigation }) {
                 theme={theme}
                 color={theme.colors.brand.base}
                 nextFunction={() => {
-                  if (jobtitleName) {
-                    navigation.navigate("capture-share-interest-screen", {
-                      dob,
-                      _height,
-                      religious,
-                      sexualOrientation,
-                      preference,
-                      nationality,
-                      whatThreeWordsDescribeYou,
-                      workplace,
-                      jobtitle,
-                    });
-                  } else {
-                    setPageError(true);
-                  }
+                  navigation.navigate("capture-fitness-club-screen", {
+                    dob,
+                    _height,
+                    sexualOrientation,
+                    preference,
+                    gymGoals,
+                    workplace,
+                    jobtitle,
+                  });
                 }}
               />
             )}
@@ -93,7 +78,7 @@ export default function CaptureJobTitle({ navigation }) {
                 variant="custom"
                 colorType="lines"
                 fontType="arimaMadurai"
-                fontSize="h4"
+                fontSize="h5"
                 lineHeight={theme.lineHeights[25]}
                 width="100%">
                 Share your plot twist.
@@ -154,7 +139,7 @@ export default function CaptureJobTitle({ navigation }) {
                 }}
               />
             </Spacer>
-            <OnboardingErrorComponent
+            {/* <OnboardingErrorComponent
               pageError={pageError}
               text="Please provide your job title"
               size="body"
@@ -165,7 +150,7 @@ export default function CaptureJobTitle({ navigation }) {
                 fontSize: theme.spaceNumber[7],
                 marginTop: theme.spaceNumberBy10[2],
               }}
-            />
+            /> */}
           </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>
       </Pressable>

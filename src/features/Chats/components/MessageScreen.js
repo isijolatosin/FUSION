@@ -441,7 +441,7 @@ export default function MessageScreen({ navigation }) {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={theme.spaceNumberBy10[2]}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base1}
             />
             <View
               style={{
@@ -459,32 +459,19 @@ export default function MessageScreen({ navigation }) {
               <Text
                 style={{ marginLeft: theme.spaceNumber[3] }}
                 variant="custom"
-                colorType="black"
-                fontType="montserratBold"
+                colorType="base6"
+                fontType="montserratRegular"
                 fontSize="title">
                 {otherUserDataObject?.firstname}{" "}
               </Text>
             </View>
           </View>
-          {/* {recordingActive && (
-            <View
-              style={{
-                width: theme.spaceNumberBy50[4],
-                height: theme.spaceNumberBy10[4],
-              }}>
-              <LottieView
-                source={require("../../../../assets/animations/recording.json")}
-                autoPlay
-                loop
-              />
-            </View>
-          )} */}
           <IconComponent
             iconFunction={() => setOpenDotActionModal(true)}
             iconName="dots-vertical"
             IconComponent={MaterialCommunityIcons}
             size={30}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base6}
           />
         </NavigationBar>
       </HorizontalPaddingSpace>
@@ -519,12 +506,12 @@ export default function MessageScreen({ navigation }) {
           setRecording={setRecording}
           sendMessage={sendMessage}
           setOpenImageUploadModal={setOpenImageUploadModal}
-          // stopRecording={stopRecording}
-          // startRecording={startRecording}
         />
       </KeyboardAvoidingView>
       {showImageModal && (
-        <PopupModal height={height} backgroundColor="rgba(255, 255, 255, 0.9)">
+        <PopupModal
+          height={height}
+          backgroundColor={theme.colors.brand.baseTint}>
           <View
             style={{
               width: "100%",
@@ -544,11 +531,7 @@ export default function MessageScreen({ navigation }) {
           <CloseButton
             spaceBottom={theme.space[9]}
             style={{
-              elevation: 5,
-              shadowColor: theme.colors.brand.black,
-              shadowOpacity: 0.2,
-              shadowRadius: "10px",
-              backgroundColor: theme.colors.brand.basewhite,
+              backgroundColor: theme.colors.brand.base8,
               position: "absolute",
               marginLeft: theme.spaceNumberBy10[1],
             }}>
@@ -557,7 +540,7 @@ export default function MessageScreen({ navigation }) {
               iconName="close-a"
               IconComponent={Fontisto}
               size={theme.spaceNumberBy10[1]}
-              color={theme.colors.brand.black}
+              color={theme.colors.brand.base1}
             />
           </CloseButton>
         </PopupModal>
@@ -566,8 +549,7 @@ export default function MessageScreen({ navigation }) {
         isVisible={openImageUploadModal}
         onClose={() => setOpenImageUploadModal(false)}
         theme={theme}
-        width={width}
-        isTransparent={true}>
+        width={width}>
         <GeneralPopupModal
           height={height}
           theme={theme}
@@ -586,8 +568,7 @@ export default function MessageScreen({ navigation }) {
         isVisible={openDotActionModal}
         onClose={() => setOpenDotActionModal(false)}
         theme={theme}
-        width={width}
-        isTransparent={true}>
+        width={width}>
         <MessageDotsPopupModal
           height={height}
           theme={theme}

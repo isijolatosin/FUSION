@@ -36,7 +36,7 @@ export default function IndustryUpdateModal({
   function handleUpdateIndustryList(int) {
     if (!int) return;
     if (industries?.includes(int)) {
-      const popedIndustriesArray = industries.filter((item) => item !== int);
+      const popedIndustriesArray = industries?.filter((item) => item !== int);
 
       setIndustries(popedIndustriesArray);
     } else {
@@ -61,14 +61,14 @@ export default function IndustryUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme?.spaceNumberBy10[2]}
-          color={theme?.colors.brand.brandFade}
+          color={theme?.colors.brand.base1}
           horizontalLeftSpace={`-${theme?.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
-          fontType="montserratBold"
+          colorType="base1"
+          fontType="montserratRegular"
           fontSize="title">
           Industry Preference
         </Text>
@@ -97,8 +97,8 @@ export default function IndustryUpdateModal({
                     height: "100%",
                     marginRight: theme.spaceNumber[0],
                     backgroundColor: industries?.includes(industry)
-                      ? theme?.colors.brand.base
-                      : theme?.colors.brand.highlight,
+                      ? theme?.colors.brand.base6
+                      : theme?.colors.brand.base8,
                   }}
                 />
                 <View
@@ -107,8 +107,8 @@ export default function IndustryUpdateModal({
                     flexDirection: "row",
                     flexWrap: "wrap",
                     backgroundColor: industries?.includes(industry)
-                      ? theme?.colors.brand.base
-                      : theme?.colors.brand.highlight,
+                      ? theme?.colors.brand.base6
+                      : theme?.colors.brand.base8,
                     paddingVertical: theme?.spaceNumber[3],
                     borderTopEndRadius: theme?.spaceNumberBy10[9],
                     borderBottomEndRadius: theme?.spaceNumberBy10[9],
@@ -116,9 +116,7 @@ export default function IndustryUpdateModal({
                   }}>
                   <Text
                     style={{
-                      color: industries?.includes(industry)
-                        ? theme?.colors.brand.basewhite
-                        : theme?.colors.brand.black,
+                      color: theme?.colors.brand.base1,
                     }}
                     variant="custom"
                     colorType="black"

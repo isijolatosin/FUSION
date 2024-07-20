@@ -6,9 +6,9 @@ const DropdownSelectionContainer = styled.View`
 
 const DropdownSelectionWrapper = styled.View`
   background-color: ${(props) =>
-    props.isSelectionDisplayInput
-      ? props.theme.colors.brand.base
-      : props.theme.colors.brand.highlight};
+    props?.backgroundColor
+      ? props?.backgroundColor
+      : props.theme.colors.brand.base1};
   align-items: center;
   border-top-right-radius: ${(props) => props.theme.space[4]};
   border-top-left-radius: ${(props) => props.theme.space[4]};
@@ -30,7 +30,7 @@ const DropdownSelectionText = styled.Text`
 `;
 
 const DropdowSelectionLists = styled.View`
-  background-color: ${(props) => props.theme.colors.brand.highlight};
+  background-color: ${(props) => props.theme.colors.brand.black2};
   align-items: center;
 `;
 
@@ -49,11 +49,11 @@ const DropdowSelectionItemWrapper = styled.Pressable`
 const DropdowSelectionItem = styled.Text`
   text-align: center;
   font-family: ${(props) => props.theme.fonts.montserratRegular};
-  font-size: ${(props) => props.theme.fontSizes.title};
+  font-size: ${(props) => props.theme.fontSizes.body};
   color: ${(props) =>
     props.isSelectionDisplayInput
-      ? props.theme.colors.brand.basewhite
-      : props.theme.colors.brand.lines};
+      ? props.theme.colors.brand.base1
+      : props.theme.colors.brand.base6};
 `;
 export {
   DropdownSelectionContainer,

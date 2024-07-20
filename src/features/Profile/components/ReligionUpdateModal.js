@@ -30,7 +30,7 @@ export default function ReligionUpdateModal({
         "all-users",
         currentUser?.id,
         "interestedreligiousbeliefs",
-        religious,
+        religious ?? "",
         () => {}
       );
     } else {
@@ -38,7 +38,7 @@ export default function ReligionUpdateModal({
         "all-users",
         currentUser?.id,
         "religious",
-        religious,
+        religious ?? "",
         () => {}
       );
     }
@@ -61,13 +61,13 @@ export default function ReligionUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           {interestedreligiousbeliefs

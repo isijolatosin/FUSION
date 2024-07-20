@@ -15,8 +15,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Fontisto, FontAwesome, Ionicons } from "@expo/vector-icons";
-import { useFocusEffect } from "@react-navigation/native";
+import {
+  Fontisto,
+  FontAwesome,
+  MaterialCommunityIcons,
+  FontAwesome5,
+  Foundation,
+} from "@expo/vector-icons";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
 import { useAppContext } from "../../../context/ThemeContext";
@@ -49,9 +55,13 @@ import { Text } from "../../../components/typography/text.component";
 import ProfilePausedCardComponent from "../../../components/general-component/ProfilePausedCardComponent";
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import Loading from "../../../components/general-component/Loading";
-import hasMatchingElements from "../../../utilities/hasMatchElements";
 import Avatar from "../../../components/general-component/Avatar";
 import firebase, { database } from "../../../../config";
+import hasCombimneMatchElements from "../../../utilities/hasCombimneMatchElements";
+import Placeholder from "../../../components/general-component/Placeholder";
+import GymtypesComponent from "../../../components/general-component/GymtypesComponent";
+import { getLocationByAddress } from "../../../utilities/getUserLocation";
+import { formatCountryName } from "../../../utilities/formatCountryName";
 
 const Index = ({ navigation }) => {
   const { width, height } = Dimensions.get("window");
@@ -62,12 +72,19 @@ const Index = ({ navigation }) => {
   const [likedUser, setLikedUser] = useState([]);
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoadCard, setLoadCard] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const [doubleTapWarning, setDoubleTapWarning] = useState(false);
   const [delayEndOfSwipeCard, setDelayEndOfSwipeCard] = useState(true);
   const scrollViewRef = useRef(null);
+  const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
+  const [isGymPreferenceOpen, setIsGymPreferenceOpen] = useState(true);
+  const [gymLocationErrorMsg, setGymLocationErrorMsg] = useState("");
+
+  const route = useRoute();
+  const { phonenumber } = route?.params || {};
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -107,20 +124,27 @@ const Index = ({ navigation }) => {
     );
   }
 
-  const fetchUsersData = async (phonenumber) => {
+  const fetchUsersData = async (_phonenumber) => {
     storeData("last-screen-visit", "swipe");
-    if (phonenumber) {
+
+    if (_phonenumber) {
       const newData = await getAllData("all-users");
       const currentUserData = newData.find(
-        (data) => data.phonenumber === phonenumber
+        (data) => data.phonenumber === _phonenumber
       );
       setCurrentUser(currentUserData);
+      if (currentUserData?.gymPreference?.length > 0) {
+        setGymSelectedTypes(currentUserData?.gymPreference);
+      } else {
+        setGymSelectedTypes([]);
+      }
 
       if (!currentUserData?.deviceinformation)
         deviceDetect(currentUserData?.id);
 
+      // other users
       const returningData = newData.filter((data) => {
-        if (data.phonenumber !== phonenumber) {
+        if (data.phonenumber !== _phonenumber) {
           if (currentUserData?.interest === "both") {
             return data;
           }
@@ -176,6 +200,7 @@ const Index = ({ navigation }) => {
           }
         }
       );
+
       const fiterDataByReliousBeliefsPreference =
         fiterDataByHeightPreference.filter((preference) => {
           if (!currentUserData?.interestedreligiousbeliefs) return preference;
@@ -191,6 +216,7 @@ const Index = ({ navigation }) => {
       // ########################################################################
       // check for distance preference
       const filteredDistancePreferenceData = [];
+      // This uses user's address
       const currentUserLocation = {
         longitude: currentUserData?.longitude,
         latitude: currentUserData?.latitude,
@@ -210,13 +236,70 @@ const Index = ({ navigation }) => {
       }
 
       // ########################################################################
+      // check for gym distance preference
+      const filteredGymDistancePreferenceData = [];
+      if (currentUserData?.gymMembership?.address) {
+        const result = await getLocationByAddress(
+          currentUserData?.gymMembership?.address
+        );
+        // This uses user' gym address
+        const currentUserGymLocation = {
+          longitude: result?.longitude,
+          latitude: result?.latitude,
+        };
+        if (result?.status) {
+          // set error msg
+          setGymLocationErrorMsg(result?.status);
+        } else {
+          if (currentUserData?.distancePreference?.suggest) {
+            filteredGymDistancePreferenceData.push(
+              ...filterUsersWithinDistanceRange(
+                currentUserGymLocation,
+                filteredDistancePreferenceData,
+                currentUserData?.distancePreference?.value
+              )
+            );
+          } else {
+            filteredGymDistancePreferenceData.push(
+              ...filteredDistancePreferenceData
+            );
+          }
+        }
+      } else {
+        filteredGymDistancePreferenceData.push(
+          ...filteredDistancePreferenceData
+        );
+      }
+
+      // ########################################################################
+      // check for gym house preference
+      const filteredGymHousePreferenceData = [];
+      if (currentUserData?.gymPreference?.length > 0) {
+        filteredGymDistancePreferenceData?.filter((data) => {
+          if (data?.gymMembership?.name) {
+            if (
+              currentUserData?.gymPreference?.includes(
+                data?.gymMembership?.name
+              )
+            ) {
+              filteredGymHousePreferenceData.push(data);
+            }
+          }
+        });
+      } else {
+        filteredGymHousePreferenceData.push(
+          ...filteredGymDistancePreferenceData
+        );
+      }
+
+      // ########################################################################
       // check for age preference
       const fromAgeValue = currentUserData?.agePreference?.fromAgeValue;
       const toAgeValue = currentUserData?.agePreference?.toAgeValue;
       const filteredAgePreferenceData = [];
 
       if (currentUserData?.agePreference?.suggest) {
-        const filterAgePreferenceData = filteredDistancePreferenceData.filter(
+        const filterAgePreferenceData = filteredGymHousePreferenceData.filter(
           (data) => {
             const currentUserAge = calculateAge(
               data?.dob?.year,
@@ -235,7 +318,7 @@ const Index = ({ navigation }) => {
 
         filteredAgePreferenceData.push(...filterAgePreferenceData);
       } else {
-        filteredAgePreferenceData.push(...filteredDistancePreferenceData);
+        filteredAgePreferenceData.push(...filteredGymHousePreferenceData);
       }
 
       // ########################################################################
@@ -298,7 +381,11 @@ const Index = ({ navigation }) => {
       }
 
       setAllUsers(filteredOffLikedProfilesStep4);
-      setLoading(false);
+      const dataId = setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+
+      return () => clearTimeout(dataId);
     }
   };
 
@@ -315,7 +402,7 @@ const Index = ({ navigation }) => {
 
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
     setPhone(phoneValueFromPhoneMemory);
-    fetchUsersData(phoneValueFromPhoneMemory);
+    fetchUsersData(phoneValueFromPhoneMemory ?? phonenumber);
   };
 
   // Memoize the functionCall function
@@ -410,6 +497,7 @@ const Index = ({ navigation }) => {
   function handleYouLikedClose() {
     setIsYouLikedVisible(false);
     setDelayEndOfSwipeCard(true);
+    setIsRetrigger(true);
   }
   function handleFilterClose() {
     setIsVisible(false);
@@ -507,256 +595,532 @@ const Index = ({ navigation }) => {
     );
   }
 
+  if (isLoadCard) {
+    setTimeout(function () {
+      setLoadCard(false);
+    }, 3000);
+  }
+
+  function handleSelectedGym(gym) {
+    if (gymSelectedTypes?.includes(gym)) {
+      const poppedArray = gymSelectedTypes.filter((item) => item !== gym);
+
+      setGymSelectedTypes([...poppedArray]);
+    } else {
+      const loggedArray = [...gymSelectedTypes, gym];
+      setGymSelectedTypes([...loggedArray]);
+    }
+
+    const gymTimer2 = setTimeout(async () => {
+      await addToArrayField(
+        "all-users",
+        currentUser?.id,
+        "gymPreference",
+        gym,
+        () => {}
+      );
+    }, 1000);
+
+    return () => clearTimeout(gymTimer2);
+  }
+
   return (
-    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
-      <HorizontalPaddingSpace
-        style={{ position: "relative" }}
-        space={theme.space[2]}>
-        <Spacer position="top" size="large">
-          <Spacer position="bottom" size="medium">
-            <NavigationBar>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                {currentUser?.role ===
-                  Constants.expoConfig.extra.eas.adminKey && (
-                  <View style={{ marginRight: theme.spaceNumber[5] }}>
-                    <BrandAvatarO theme={theme} />
-                  </View>
-                )}
-                <View>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="arimaMadurai"
-                    fontSize="title"
-                    transform={Platform.OS === "ios" ? "capitalize" : ""}
-                    width="100%">
-                    {currentUsertoSwipe?.firstname},{" "}
-                    {calculateAge(
-                      currentUsertoSwipe?.dob?.year,
-                      currentUsertoSwipe?.dob?.month,
-                      currentUsertoSwipe?.dob?.day
+    <SafeArea
+      style={{
+        backgroundColor: theme.colors.brand.base,
+        position: "relative",
+      }}>
+      {isLoadCard ? (
+        <Placeholder theme={theme} width={width} height={height} />
+      ) : (
+        <>
+          <HorizontalPaddingSpace
+            style={{ position: "relative" }}
+            space={theme.space[2]}>
+            <Spacer position="top" size="large">
+              <Spacer position="bottom" size="small">
+                <NavigationBar height={theme.spaceNumberBy10[2]}>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    {currentUser?.role ===
+                      Constants.expoConfig.extra.eas.adminKey && (
+                      <View style={{ marginRight: theme.spaceNumber[5] }}>
+                        <BrandAvatarO theme={theme} />
+                      </View>
                     )}
-                  </Text>
-                </View>
+                    {isGymPreferenceOpen && (
+                      <View>
+                        <Text
+                          variant="custom"
+                          colorType="base6"
+                          fontType="montserratRegular"
+                          fontSize="title">
+                          Hi, {currentUser?.firstname}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  {!isGymPreferenceOpen && (
+                    <>
+                      {hasCombimneMatchElements(
+                        currentUsertoSwipe,
+                        currentUser,
+                        2
+                      )?.isSimilarGymGoal ||
+                      hasCombimneMatchElements(
+                        currentUsertoSwipe,
+                        currentUser,
+                        2
+                      )?.isSimilarInterest ? (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderTopLeftRadius: -theme.spaceNumber[5],
+                            backgroundColor: theme.colors.brand.black,
+                            marginLeft: theme.spaceNumber[3],
+                            paddingRight: theme.spaceNumber[6],
+                            paddingLeft: theme.spaceNumber[5],
+                            paddingVertical: theme.spaceNumber[1],
+                            flexDirection: "row",
+                            alignItems: "center",
+                            borderColor: theme.colors.brand.linesLighter,
+                            borderRadius: theme.spaceNumberBy10[2],
+                          }}>
+                          <View style={{ marginRight: -theme.spaceNumber[3] }}>
+                            <Avatar
+                              data={currentUser?.mediaArray[0]}
+                              theme={theme}
+                              dimensionIndex={1}
+                              func={() => {}}
+                              isSmallIcon={false}
+                            />
+                          </View>
+                          <View
+                            style={{
+                              borderWidth: "2.5px",
+                              borderRadius: theme.spaceNumberBy10[5],
+                              borderColor: theme.colors.brand.black,
+                            }}>
+                            <Avatar
+                              data={currentUsertoSwipe?.mediaArray[0]}
+                              theme={theme}
+                              dimensionIndex={1}
+                              func={() => {}}
+                              isSmallIcon={false}
+                            />
+                          </View>
+                          <View
+                            style={{
+                              paddingLeft: theme.spaceNumber[2],
+                              flex: 1,
+                            }}>
+                            <Text
+                              variant="custom"
+                              colorType="basewhite"
+                              fontType="montserratRegular"
+                              fontSize="xcaption">
+                              {hasCombimneMatchElements(
+                                currentUsertoSwipe,
+                                currentUser,
+                                2
+                              )?.isSimilarInterest
+                                ? `You and ${currentUsertoSwipe?.firstname} have similar interests`
+                                : `You and ${currentUsertoSwipe?.firstname} have similar gym goals`}
+                            </Text>
+                          </View>
+                        </View>
+                      ) : (
+                        <View>
+                          <Text
+                            variant="custom"
+                            colorType="base6"
+                            fontType="arimaMadurai"
+                            fontSize="caption"
+                            transform={
+                              Platform.OS === "ios" ? "capitalize" : ""
+                            }
+                            width="100%">
+                            {`Does ${currentUsertoSwipe?.firstname} match your gym style?`}
+                          </Text>
+                        </View>
+                      )}
+                    </>
+                  )}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                    }}>
+                    <Pressable
+                      style={{
+                        transform: [{ rotateX: "180deg" }],
+                        marginLeft: theme.spaceNumber[7],
+                      }}>
+                      <IconComponent
+                        iconFunction={() => {
+                          if (index > 0) {
+                            setIndex(index - 1);
+                            storeData("swipe-index", index - 1);
+                            scrollToTop();
+                          }
+                        }}
+                        iconName="undo-variant"
+                        IconComponent={MaterialCommunityIcons}
+                        size={25}
+                        color={
+                          index <= 0
+                            ? theme.colors.brand.base8
+                            : theme.colors.brand.base1
+                        }
+                      />
+                    </Pressable>
+                    <Pressable
+                      style={{
+                        marginLeft: theme.spaceNumber[7],
+                        marginRight: theme.spaceNumber[1],
+                      }}>
+                      <IconComponent
+                        iconFunction={handleFilterOpen}
+                        iconName="sliders"
+                        IconComponent={FontAwesome}
+                        size={25}
+                        color={theme.colors.brand.base1}
+                      />
+                    </Pressable>
+                  </View>
+                </NavigationBar>
+              </Spacer>
+            </Spacer>
+          </HorizontalPaddingSpace>
+          <Pressable
+            onPress={() => setIsGymPreferenceOpen(!isGymPreferenceOpen)}
+            style={{
+              width: "100%",
+              backgroundColor: isGymPreferenceOpen
+                ? theme.colors.brand.black2
+                : theme.colors.brand.black1,
+              paddingVertical: theme.spaceNumber[3],
+              borderBottomWidth: 0.5,
+              borderBottomColor: theme.colors.brand.base,
+            }}>
+            <Text
+              style={{ textAlign: "center" }}
+              variant="custom"
+              colorType="blue"
+              fontType="montserratRegular"
+              fontSize="caption">
+              {isGymPreferenceOpen
+                ? "Close preference"
+                : "Adjust gym preference"}
+            </Text>
+          </Pressable>
+
+          {isGymPreferenceOpen ? (
+            <View>
+              <GymtypesComponent
+                handleSelectedGym={handleSelectedGym}
+                gymSelectedTypes={gymSelectedTypes}
+                userCountry={formatCountryName(currentUser?.country)}
+                width={width}
+                currentUser={currentUser}
+                setIsRetrigger={setIsRetrigger}
+              />
+            </View>
+          ) : (
+            <HorizontalPaddingSpace
+              style={{ position: "relative" }}
+              space={theme.space[2]}>
+              <View
+                style={{
+                  height: "80%",
+                  backgroundColor: theme.colors.brand.basewhite,
+                  marginVertical: theme.spaceNumber[1],
+                  borderRadius: theme.spaceNumberBy50[0],
+                }}>
+                <IndividualUserProfileComponent
+                  fetchUsersData={fetchUsersData}
+                  phone={phone}
+                  data={currentUsertoSwipe}
+                  theme={theme}
+                  scrollViewRef={scrollViewRef}
+                />
               </View>
-              {hasMatchingElements(
-                currentUsertoSwipe?.interestsArray,
-                currentUser?.interestsArray,
-                4
-              ) && (
+              <HorizontalPaddingSpace
+                space={theme.space[1]}
+                style={{
+                  position: "absolute",
+                  left: theme.spaceNumber[5],
+                  bottom: -theme.spaceNumberBy10[2],
+                  alignItems: "start",
+                }}>
                 <View
                   style={{
-                    flex: 1,
-                    borderTopLeftRadius: -theme.spaceNumber[5],
-                    backgroundColor: theme.colors.brand.black,
-                    marginLeft: theme.spaceNumber[3],
-                    paddingRight: theme.spaceNumber[6],
-                    paddingLeft: theme.spaceNumber[5],
+                    paddingHorizontal: theme.spaceNumber[3],
                     paddingVertical: theme.spaceNumber[1],
-                    flexDirection: "row",
-                    alignItems: "center",
-                    borderColor: theme.colors.brand.linesLighter,
-                    borderRadius: theme.spaceNumberBy10[2],
+                    borderRadius: theme.spaceNumber[1],
+                    marginBottom: theme.spaceNumber[2],
                   }}>
-                  <View style={{ marginRight: -theme.spaceNumber[3] }}>
-                    <Avatar
-                      data={currentUser?.mediaArray[0]}
-                      theme={theme}
-                      dimensionIndex={1}
-                      func={() => {}}
-                      isSmallIcon={false}
-                    />
-                  </View>
                   <View
                     style={{
-                      borderWidth: "2.5px",
-                      borderRadius: theme.spaceNumberBy10[5],
-                      borderColor: theme.colors.brand.black,
-                    }}>
-                    <Avatar
-                      data={currentUsertoSwipe?.mediaArray[0]}
-                      theme={theme}
-                      dimensionIndex={1}
-                      func={() => {}}
-                      isSmallIcon={false}
-                    />
-                  </View>
-                  <View
-                    style={{
-                      paddingLeft: theme.spaceNumber[2],
-                      flex: 1,
+                      borderBottomWidth: 0.2,
+                      borderBottomColor: theme.colors.brand.basewhitelighter,
                     }}>
                     <Text
                       variant="custom"
                       colorType="basewhite"
-                      fontType="montserratRegular"
-                      fontSize="xcaption">
-                      {`${currentUser?.firstname} & ${currentUsertoSwipe?.firstname}, let's spark a conversation...`}
+                      fontType="arimaMadurai"
+                      fontSize="title"
+                      transform={Platform.OS === "ios" ? "capitalize" : ""}
+                      width="100%">
+                      {currentUsertoSwipe?.firstname},{" "}
+                      {calculateAge(
+                        currentUsertoSwipe?.dob?.year,
+                        currentUsertoSwipe?.dob?.month,
+                        currentUsertoSwipe?.dob?.day
+                      )}
                     </Text>
                   </View>
+                  <View
+                    style={{ flexDirection: "row", gap: theme.spaceNumber[3] }}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        paddingVertical: theme.spaceNumber[2],
+                        borderBottomWidth: 0.2,
+                        borderBottomColor: theme.colors.brand.basewhitelighter,
+                      }}>
+                      <IconComponent
+                        iconFunction={() => {}}
+                        iconName="human-male-height"
+                        IconComponent={MaterialCommunityIcons}
+                        size={12}
+                        color={theme.colors.brand.base1}
+                      />
+                      <View>
+                        <Text
+                          style={{
+                            marginLeft: theme.spaceNumber[1],
+                          }}
+                          variant="custom"
+                          colorType="basewhite"
+                          fontType="montserratBold"
+                          fontSize="xcaption">
+                          {currentUsertoSwipe?.height}
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        paddingVertical: theme.spaceNumber[2],
+                        borderBottomWidth: 0.2,
+                        borderBottomColor: theme.colors.brand.basewhitelighter,
+                      }}>
+                      <IconComponent
+                        iconFunction={() => {}}
+                        iconName="dumbbell"
+                        IconComponent={FontAwesome5}
+                        size={12}
+                        color={theme.colors.brand.base1}
+                      />
+                      <View>
+                        <Text
+                          style={{
+                            marginLeft: theme.spaceNumber[1],
+                          }}
+                          variant="custom"
+                          colorType="basewhite"
+                          fontType="montserratBold"
+                          fontSize="xcaption">
+                          {currentUsertoSwipe?.lifestyleHabits?.gym}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View
+                    style={{ flexDirection: "row", gap: theme.spaceNumber[3] }}>
+                    {currentUsertoSwipe?.gymMembership?.name && (
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          paddingVertical: theme.spaceNumber[2],
+                          borderBottomWidth: 0.2,
+                          borderBottomColor:
+                            theme.colors.brand.basewhitelighter,
+                        }}>
+                        <IconComponent
+                          iconFunction={() => {}}
+                          iconName="home"
+                          IconComponent={Foundation}
+                          size={12}
+                          color={theme.colors.brand.base1}
+                        />
+                        <View
+                          style={{
+                            alignItems: "start",
+                            marginLeft: theme.spaceNumber[2],
+                          }}>
+                          <Text
+                            variant="custom"
+                            colorType="basewhite"
+                            fontType="montserratBold"
+                            fontSize="xcaption">
+                            {currentUsertoSwipe?.gymMembership?.name}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+                    {currentUsertoSwipe?.gymMembership?.address && (
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          paddingVertical: theme.spaceNumber[2],
+                          borderBottomWidth: 0.2,
+                          borderBottomColor:
+                            theme.colors.brand.basewhitelighter,
+                        }}>
+                        <IconComponent
+                          iconFunction={() => {}}
+                          iconName="map-pin"
+                          IconComponent={FontAwesome5}
+                          size={12}
+                          color={theme.colors.brand.error}
+                        />
+                        <View
+                          style={{
+                            alignItems: "start",
+                            marginLeft: theme.spaceNumber[2],
+                          }}>
+                          <Text
+                            variant="custom"
+                            colorType="basewhite"
+                            fontType="montserratBold"
+                            fontSize="xcaption">
+                            {currentUsertoSwipe?.gymMembership?.address}
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+                  </View>
                 </View>
-              )}
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}>
-                {/* <Pressable
-                  style={{
-                    transform: [{ rotateX: "180deg" }],
-                  }}>
-                  <IconComponent
-                    iconFunction={() => {
-                      index > 0 && setIndex(index - 1);
+                <View style={{ flexDirection: "row", position: "relative" }}>
+                  {doubleTapWarning && (
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: -theme.spaceNumber[10],
+                        left: -theme.spaceNumberBy10[1],
+                        width: "fit-content",
+                      }}>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          backgroundColor: theme.colors.brand.basewhite,
+                          paddingHorizontal: theme.spaceNumber[6],
+                          paddingVertical: theme.spaceNumber[1],
+                        }}
+                        variant="custom"
+                        colorType="base"
+                        fontType="montserratRegular"
+                        fontSize="xcaption">
+                        double tap to like profile
+                      </Text>
+                    </View>
+                  )}
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (currentSwipeIndexIsLessThanAllUsersLength) {
+                        storeData("swipe-index", index + 1);
+                        setLoadCard(true);
+                        setIndex(index + 1);
+                      }
                       scrollToTop();
                     }}
-                    iconName="undo-variant"
-                    IconComponent={MaterialCommunityIcons}
-                    size={25}
-                    color={
-                      index > 0
-                        ? theme.colors.brand.brandFade
-                        : theme.colors.brand.highlight
-                    }
-                  />
-                </Pressable> */}
-                <Pressable
-                  style={{
-                    marginLeft: theme.spaceNumber[7],
-                    marginRight: theme.spaceNumber[1],
-                  }}>
-                  <IconComponent
-                    iconFunction={handleFilterOpen}
-                    iconName="sliders"
-                    IconComponent={FontAwesome}
-                    size={25}
-                    color={
-                      index > 0
-                        ? theme.colors.brand.brandFade
-                        : theme.colors.brand.brandFade
-                    }
-                  />
-                </Pressable>
-              </View>
-            </NavigationBar>
-          </Spacer>
-        </Spacer>
-        <View
-          style={{
-            height: { height },
-            backgroundColor: theme.colors.brand.basewhite,
-            marginBottom: theme.spaceNumberBy50[2],
-            borderRadius: theme.spaceNumberBy50[0],
-            shadowColor: theme.colors.brand.linesLight,
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.8,
-            shadowRadius: 10,
-          }}>
-          <IndividualUserProfileComponent
-            fetchUsersData={fetchUsersData}
-            phone={phone}
-            data={currentUsertoSwipe}
-            theme={theme}
-            scrollViewRef={scrollViewRef}
-          />
-        </View>
-        <HorizontalPaddingSpace
-          space={theme.space[1]}
-          style={{
-            position: "absolute",
-            width: theme.spaceNumberBy50[0],
-            left: theme.spaceNumberBy10[1],
-            bottom: theme.spaceNumberBy50[0] + theme.spaceNumberBy10[3],
-            alignItems: "center",
-            backgroundColor: theme.colors.brand.basewhitelighter,
-            borderRadius: theme.spaceNumberBy50[0],
-            paddingVertical: theme.spaceNumber[2],
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              if (currentSwipeIndexIsLessThanAllUsersLength) {
-                storeData("swipe-index", index + 1);
-                setIndex(index + 1);
-              }
-              scrollToTop();
-            }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: theme.colors.brand.basewhite,
-              width: theme.spaceNumberBy10[3],
-              height: theme.spaceNumberBy10[3],
-              borderRadius: theme.spaceNumberBy50[0],
-              shadowColor: theme.colors.brand.linesLight,
-              shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              marginBottom: theme.spaceNumberBy10[2],
-            }}>
-            <IconComponent
-              iconFunction={() => {
-                if (currentSwipeIndexIsLessThanAllUsersLength) {
-                  storeData("swipe-index", index + 1);
-                  setIndex(index + 1);
-                }
-                scrollToTop();
-              }}
-              iconName="close-a"
-              IconComponent={Fontisto}
-              size={theme.spaceNumber[7]}
-              color={theme.colors.brand.base}
-            />
-          </TouchableOpacity>
-          {doubleTapWarning && (
-            <Text
-              style={{ textAlign: "center" }}
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="xcaption">
-              double tap
-            </Text>
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: theme.colors.brand.basewhite,
+                      width: theme.spaceNumberBy10[3],
+                      height: theme.spaceNumberBy10[3],
+                      borderRadius: theme.spaceNumberBy50[0],
+                      marginRight: theme.spaceNumber[6],
+                    }}>
+                    <IconComponent
+                      iconFunction={() => {
+                        if (currentSwipeIndexIsLessThanAllUsersLength) {
+                          storeData("swipe-index", index + 1);
+                          setIndex(index + 1);
+                          setLoadCard(true);
+                        }
+                        scrollToTop();
+                      }}
+                      iconName="close-a"
+                      IconComponent={Fontisto}
+                      size={theme.spaceNumber[7]}
+                      color={theme.colors.brand.base}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleYouLikedAUser}
+                    style={{
+                      position: "relative",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: theme.colors.brand.basewhite,
+                      width: theme.spaceNumberBy10[3],
+                      height: theme.spaceNumberBy10[3],
+                      borderRadius: theme.spaceNumberBy50[0],
+                    }}>
+                    <IconComponent
+                      iconFunction={handleYouLikedAUser}
+                      iconName="weight-lifter"
+                      IconComponent={MaterialCommunityIcons}
+                      size={theme.spaceNumber[10]}
+                      color={theme.colors.brand.base}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </HorizontalPaddingSpace>
+              <FilterComponent
+                currentUser={currentUser}
+                isVisible={isVisible}
+                onClose={handleFilterClose}
+                setIsRetrigger={setIsRetrigger}
+                theme={theme}
+              />
+              <YouLikedComponent
+                theme={theme}
+                isVisible={isYouLikedVisible}
+                onClose={handleYouLikedClose}
+                likedUser={likedUser}
+              />
+            </HorizontalPaddingSpace>
           )}
-          <TouchableOpacity
-            onPress={handleYouLikedAUser}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: theme.colors.brand.basewhite,
-              width: theme.spaceNumberBy10[3],
-              height: theme.spaceNumberBy10[3],
-              borderRadius: theme.spaceNumberBy50[0],
-              shadowColor: theme.colors.brand.linesLight,
-              shadowOffset: { width: 0, height: 0 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              marginTop: theme.spaceNumberBy10[2],
-            }}>
-            <IconComponent
-              iconFunction={handleYouLikedAUser}
-              iconName="heart"
-              IconComponent={Ionicons}
-              size={theme.spaceNumber[13]}
-              color={theme.colors.brand.base}
-            />
-          </TouchableOpacity>
-        </HorizontalPaddingSpace>
-        <FilterComponent
-          currentUser={currentUser}
-          isVisible={isVisible}
-          onClose={handleFilterClose}
-          setIsRetrigger={setIsRetrigger}
-          theme={theme}
-        />
-        <YouLikedComponent
-          theme={theme}
-          isVisible={isYouLikedVisible}
-          onClose={handleYouLikedClose}
-          likedUser={likedUser}
-        />
-      </HorizontalPaddingSpace>
+
+          {gymLocationErrorMsg ? (
+            <View
+              style={{
+                position: "absolute",
+                bottom: 0,
+                backgroundColor: theme.colors.brand.error,
+                width: width,
+                paddingVertical: theme.spaceNumber[2],
+              }}>
+              <Text
+                style={{ textAlign: "center" }}
+                variant="custom"
+                colorType="basewhite"
+                fontType="montserratBold"
+                fontSize="xcaption">
+                {gymLocationErrorMsg}
+              </Text>
+            </View>
+          ) : (
+            <></>
+          )}
+        </>
+      )}
     </SafeArea>
   );
 };

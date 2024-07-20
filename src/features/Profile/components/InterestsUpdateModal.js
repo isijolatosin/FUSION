@@ -18,14 +18,15 @@ export default function InterestsUpdateModal({
   onClose,
 }) {
   const [initialInterest, setInitialInterest] = useState(interestValue);
-  const userInterestsArray = currentUser?.interestsArray;
-  const currentInterestIndex = userInterestsArray.findIndex(
+  const userInterestsArray = currentUser?.interestsArray ?? [];
+  const currentInterestIndex = userInterestsArray?.findIndex(
     (el) => el === interestValue
   );
 
   async function updateInterests(value) {
-    if (!value) return;
-    userInterestsArray.splice(currentInterestIndex, 1, value);
+    if (!value || !userInterestsArray?.length) return;
+
+    userInterestsArray?.splice(currentInterestIndex, 1, value);
 
     await updateUserValueField(
       "all-users",
@@ -57,13 +58,13 @@ export default function InterestsUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme?.spaceNumberBy10[2]}
-          color={theme?.colors.brand.brandFade}
+          color={theme?.colors.brand.base1}
           horizontalLeftSpace={`-${theme?.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           {initialInterest}
@@ -87,8 +88,8 @@ export default function InterestsUpdateModal({
                   flexDirection: "row",
                   backgroundColor:
                     initialInterest === interest.value
-                      ? theme?.colors.brand.base
-                      : theme?.colors.brand.highlight,
+                      ? theme?.colors.brand.base6
+                      : theme?.colors.brand.base8,
                   paddingRight: theme?.spaceNumber[6],
                   paddingLeft: theme?.spaceNumber[3],
                   paddingVertical: theme?.spaceNumber[3],
@@ -99,19 +100,12 @@ export default function InterestsUpdateModal({
                   iconName={interest.iconName}
                   IconComponent={interest.family}
                   size={14}
-                  color={
-                    initialInterest === interest.value
-                      ? theme.colors.brand.highlight
-                      : theme.colors.brand.base
-                  }
+                  color={theme.colors.brand.base6}
                 />
                 <View style={{ marginLeft: theme.spaceNumber[1] }}>
                   <Text
                     style={{
-                      color:
-                        initialInterest === interest.value
-                          ? theme?.colors.brand.basewhite
-                          : theme?.colors.brand.black,
+                      color: theme.colors.brand.base1,
                     }}
                     variant="custom"
                     colorType="black"

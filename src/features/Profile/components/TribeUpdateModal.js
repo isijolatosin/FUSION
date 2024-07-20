@@ -63,13 +63,13 @@ export default function TribeUpdateModal({
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <Text
             style={{ textAlign: "center", width: "90%" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="title">
             {myTribePreference ? "Tribe Preference" : "Tribe"}
@@ -86,6 +86,7 @@ export default function TribeUpdateModal({
             isBackgroundColor={false}
             fontSize={theme.fontSizes.h5}
             fontType={theme.fonts.montserratBold}
+            fontColor={theme.colors.brand.base1}
             multiline={true}
             numberOfLines={2}
           />

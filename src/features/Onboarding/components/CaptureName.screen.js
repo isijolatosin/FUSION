@@ -61,7 +61,7 @@ export default function CaptureName({ navigation }) {
               variant="custom"
               colorType="linesLight"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
               What's your

@@ -395,8 +395,7 @@ const PrivacyPreference = ({
         isVisible={showStrictlyNecessaryPermissionModal}
         onClose={() => setShowStrictlyNecessaryPermissionModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <StrictlyNecessaryPermissionModal
           currentUser={currentUser}
           theme={theme}
@@ -411,8 +410,7 @@ const PrivacyPreference = ({
         isVisible={showStoreAndAccessInformationModal}
         onClose={() => setShowStoreAndAccessInformationModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <StoreAndAccessInformationModal
           currentUser={currentUser}
           theme={theme}
@@ -428,8 +426,7 @@ const PrivacyPreference = ({
         isVisible={showCustomizedMarketingSolutionModal}
         onClose={() => setShowCustomizedMarketingSolutionModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <CustomizedMarketingSolutuonModal
           currentUser={currentUser}
           theme={theme}

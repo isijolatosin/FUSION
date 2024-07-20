@@ -391,14 +391,14 @@ const ChatsScreen = () => {
         text={nomatchmessage}
         buttonText="Keep liking"
         headingTitle="Chats"
-        cardFunction={() => navigation.navigate("home")}
+        cardFunction={() => navigation.navigate("swipe")}
         ImageComponent={() => <></>}
       />
     );
   }
 
   return (
-    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.base }}>
       <HeaderComponent
         title="Chats"
         theme={theme}
@@ -408,7 +408,6 @@ const ChatsScreen = () => {
       <Spacer
         style={{
           paddingBottom: theme.spaceNumberBy10[16],
-          backgroundColor: theme.colors.brand.basewhite,
           flex: 1,
         }}
         position="top"
@@ -418,8 +417,8 @@ const ChatsScreen = () => {
             <HorizontalPaddingSpace space={theme.space[2]}>
               <Text
                 variant="custom"
-                colorType="black"
-                fontType="montserratBold"
+                colorType="base1"
+                fontType="montserratRegular"
                 fontSize="body"
                 transform="capitalize">
                 New Matches
@@ -459,7 +458,7 @@ const ChatsScreen = () => {
                         <View>
                           <Text
                             variant="custom"
-                            colorType="black"
+                            colorType="base6"
                             fontType="montserratSemibold"
                             fontSize="button">
                             {otherUser?.match?.firstname}
@@ -481,14 +480,14 @@ const ChatsScreen = () => {
               <HorizontalPaddingSpace space={theme.space[2]}>
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
+                  colorType="base1"
+                  fontType="montserratRegular"
                   fontSize="body"
                   transform="capitalize">
-                  Matches
+                  Buddies
                   <Text
                     variant="custom"
-                    colorType="black"
+                    colorType="base6"
                     fontType="montserratRegular"
                     fontSize="caption"
                     transform="capitalize">
@@ -569,14 +568,14 @@ const ChatsScreen = () => {
               <HorizontalPaddingSpace space={theme.space[2]}>
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
+                  colorType="base1"
+                  fontType="montserratRegular"
                   fontSize="body"
                   transform="capitalize">
                   Communities
                   <Text
                     variant="custom"
-                    colorType="black"
+                    colorType="base6"
                     fontType="montserratRegular"
                     fontSize="caption"
                     transform="capitalize">
@@ -653,7 +652,6 @@ const ChatsScreen = () => {
             <Spacer
               style={{
                 paddingBottom: theme.spaceNumberBy10[16],
-                backgroundColor: theme.colors.brand.basewhite,
                 flex: 1,
               }}
               position="top"
@@ -669,8 +667,7 @@ const ChatsScreen = () => {
         isVisible={newMessageInput}
         onClose={() => setNewMessageInput(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <HorizontalPaddingSpace
           space={theme.space[7]}
           style={{
@@ -688,26 +685,19 @@ const ChatsScreen = () => {
               iconName="close-a"
               IconComponent={Fontisto}
               size={15}
-              color={theme.colors.brand.base}
+              color={theme.colors.brand.base1}
             />
           </View>
           <Spacer position="bottom" size="xxxxlarge">
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base1"
               fontType="montserratRegular"
               fontSize="caption">
               {firstmessagehype}
             </Text>
           </Spacer>
-          <View
-            style={{
-              elevation: 5,
-              shadowColor: theme.colors.brand.lines,
-              shadowOpacity: 0.3,
-              shadowRadius: "10px",
-              backgroundColor: theme.colors.brand.basewhite,
-            }}>
+          <View>
             <InputComponent
               includeIcon={false}
               keyboardType="default"
@@ -718,20 +708,20 @@ const ChatsScreen = () => {
               placeholder="Begin the adventure..."
               fontSize={theme.fontSizes.body}
               fontType={theme.fonts.montserratLight}
-              backgroundColor="basewhite"
+              fontColor={theme.colors.brand.base1}
+              backgroundColor="base8"
               isBackgroundColor={true}
             />
           </View>
           <Spacer position="top" size="large" style={{ alignItems: "center" }}>
             <Button
-              backgroundColor={theme.colors.brand.base}
+              backgroundColor={theme.colors.brand.base8}
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={handleStartMessaging}
-              text="Send your first impression"
+              text="Send"
               textColor={theme.colors.brand.basewhite}
-              width="80%"
             />
           </Spacer>
           <Spacer

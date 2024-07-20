@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import * as Updates from "expo-updates"; // reload entire app
+// import * as Updates from "expo-updates"; // reload entire app
 
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
 import { Text } from "../../../components/typography/text.component";
@@ -18,7 +18,7 @@ export default function PreferenceUpdateModal({
   onClose,
 }) {
   const [datingPreference, setDatingPreference] = useState(
-    currentUser?.preference
+    currentUser?.preference ?? ""
   );
   async function updatePreference() {
     await updateUserValueField(
@@ -29,11 +29,11 @@ export default function PreferenceUpdateModal({
       () => {}
     );
 
-    const reloadAppId = setTimeout(async () => {
-      await Updates.reloadAsync();
-    }, 1000);
-
-    return () => clearTimeout(reloadAppId);
+    //     const reloadAppId = setTimeout(async () => {
+    //       await Updates.reloadAsync();
+    //     }, 1000);
+    //
+    //     return () => clearTimeout(reloadAppId);
   }
 
   return (
@@ -53,14 +53,14 @@ export default function PreferenceUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
-          fontType="montserratBold"
+          colorType="base1"
+          fontType="montserratRegular"
           fontSize="title">
           Preference
         </Text>
@@ -71,8 +71,8 @@ export default function PreferenceUpdateModal({
             <Text
               style={{ textAlign: "center" }}
               variant="custom"
-              colorType="black"
-              fontType="montserratBold"
+              colorType="base6"
+              fontType="montserratRegular"
               fontSize="button">
               {appreloadmessage}
             </Text>
@@ -84,95 +84,75 @@ export default function PreferenceUpdateModal({
               <Button
                 backgroundColor={
                   datingPreference === "Friendship"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    ? theme.colors.brand.base6
+                    : theme.colors.brand.base8
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
                 buttonFunction={() => setDatingPreference("Friendship")}
                 text="Friendship"
-                textColor={
-                  datingPreference === "Friendship"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
+                textColor={theme.colors.brand.base1}
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
                 backgroundColor={
                   datingPreference === "Life Partner"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    ? theme.colors.brand.base6
+                    : theme.colors.brand.base8
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
                 buttonFunction={() => setDatingPreference("Life Partner")}
                 text="Life Partner"
-                textColor={
-                  datingPreference === "Life Partner"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
+                textColor={theme.colors.brand.base1}
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
                 backgroundColor={
                   datingPreference === "Casual Dating"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    ? theme.colors.brand.base6
+                    : theme.colors.brand.base8
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
                 buttonFunction={() => setDatingPreference("Casual Dating")}
                 text="Casual Dating"
-                textColor={
-                  datingPreference === "Casual Dating"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
+                textColor={theme.colors.brand.base1}
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
                 backgroundColor={
                   datingPreference === "Don't know yet"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    ? theme.colors.brand.base6
+                    : theme.colors.brand.base8
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
                 buttonFunction={() => setDatingPreference("Don't know yet")}
                 text="Don't know yet"
-                textColor={
-                  datingPreference === "Don't know yet"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
+                textColor={theme.colors.brand.base1}
               />
             </Spacer>
             <Spacer position="top" size="small">
               <Button
                 backgroundColor={
                   datingPreference === "Prefer Not to Say"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    ? theme.colors.brand.base6
+                    : theme.colors.brand.base8
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
                 buttonFunction={() => setDatingPreference("Prefer Not to Say")}
                 text="Prefer Not to Say"
-                textColor={
-                  datingPreference === "Prefer Not to Say"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
+                textColor={theme.colors.brand.base1}
               />
             </Spacer>
           </ScrollView>

@@ -30,7 +30,7 @@ export default function GymUpdateModal({
       "all-users",
       currentUser?.id,
       "lifestyleHabits",
-      updatedValue,
+      updatedValue ?? "",
       () => {}
     );
   }
@@ -52,13 +52,13 @@ export default function GymUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           Gym
@@ -70,76 +70,60 @@ export default function GymUpdateModal({
             <Button
               backgroundColor={
                 gymPreference === "Active"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGymPreference("Active")}
               text="Active"
-              textColor={
-                gymPreference === "Active"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 gymPreference === "Not my thing"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGymPreference("Not my thing")}
               text="Not my thing"
-              textColor={
-                gymPreference === "Not my thing"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 gymPreference === "Seasonal"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGymPreference("Seasonal")}
               text="Seasonal"
-              textColor={
-                gymPreference === "Seasonal"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 gymPreference === "Sometimes"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGymPreference("Sometimes")}
               text="Sometimes"
-              textColor={
-                gymPreference === "Sometimes"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
         </Spacer>

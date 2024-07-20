@@ -1,5 +1,5 @@
 import React from "react";
-import HTML from "react-native-render-html";
+import RenderHTML from "react-native-render-html";
 import { useWindowDimensions } from "react-native";
 import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,6 +15,7 @@ import { Text } from "../../../components/typography/text.component";
 
 const CommunityGuidelines = ({ theme, setModalOpen }) => {
   const { height, width } = useWindowDimensions();
+
   return (
     <SafeArea style={{ width: width, height: height }}>
       <HeaderComponent
@@ -22,6 +23,7 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
         textWidth="90%"
         hideLogo={true}
         theme={theme}
+        color={theme.colors.brand.base}
         LeftComp={() => (
           <View
             style={{
@@ -34,7 +36,7 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
               iconName="chevron-back"
               IconComponent={Ionicons}
               size={theme.spaceNumberBy10[2]}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base}
               horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
             />
           </View>
@@ -46,7 +48,7 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
           <HorizontalPaddingSpace space={theme.space[2]}>
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base"
               fontType="arimaMadurai"
               fontSize="h3">
               Wiingr Member
@@ -54,7 +56,7 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
             <Text
               style={{ marginTop: -theme.spaceNumberBy10[1] }}
               variant="custom"
-              colorType="black"
+              colorType="base"
               fontType="arimaMadurai"
               fontSize="h3">
               Principles, Expectations
@@ -62,7 +64,7 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
             <Text
               style={{ marginTop: -theme.spaceNumberBy10[1] }}
               variant="custom"
-              colorType="black"
+              colorType="base"
               fontType="arimaMadurai"
               fontSize="h3">
               & Reporting
@@ -71,7 +73,10 @@ const CommunityGuidelines = ({ theme, setModalOpen }) => {
         </Spacer>
         <Spacer position="top" size="large">
           <HorizontalPaddingSpace space={theme.space[2]}>
-            <HTML source={{ html: communityguidelinetext }} />
+            <RenderHTML
+              contentWidth={width}
+              source={{ html: communityguidelinetext }}
+            />
           </HorizontalPaddingSpace>
         </Spacer>
       </ScrollView>

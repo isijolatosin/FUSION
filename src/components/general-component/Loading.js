@@ -8,7 +8,7 @@ export default function Loading({ theme, isMessage }) {
   return (
     <SafeArea
       style={{
-        backgroundColor: theme.colors.brand.basewhite,
+        backgroundColor: theme.colors.brand.base,
         justifyContent: "center",
       }}>
       <View
@@ -16,12 +16,13 @@ export default function Loading({ theme, isMessage }) {
           flex: 1,
           width: theme.spaceNumberBy50[2],
           alignSelf: "center",
+          opacity: isMessage ? 1 : 0.1,
         }}>
         <LottieView
           source={
             isMessage
               ? require("../../../assets/animations/message.json")
-              : require("../../../assets/animations/loading.json")
+              : require("../../../assets/animations/gym-trans.json")
           }
           autoPlay
           loop

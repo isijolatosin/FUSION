@@ -64,10 +64,10 @@ export default function CaptureGenderInterest({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
-              What is
+              What is your preferred
             </Text>
             <Text
               variant="custom"
@@ -76,7 +76,7 @@ export default function CaptureGenderInterest({ navigation }) {
               fontSize="h4"
               lineHeight={theme.lineHeights[25]}
               width="100%">
-              your spec?
+              Gym buddy?
             </Text>
           </Spacer>
           <Spacer position="top" size="xxxxlarge">
@@ -84,16 +84,16 @@ export default function CaptureGenderInterest({ navigation }) {
               backgroundColor={
                 genderInterest === "woman"
                   ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  : theme.colors.brand.base3
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGenderInterest("woman")}
-              text="Women"
+              text="Woman"
               textColor={
                 genderInterest === "woman"
-                  ? theme.colors.brand.basewhite
+                  ? theme.colors.brand.base1
                   : theme.colors.brand.black
               }
             />
@@ -103,16 +103,16 @@ export default function CaptureGenderInterest({ navigation }) {
               backgroundColor={
                 genderInterest === "man"
                   ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  : theme.colors.brand.base3
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGenderInterest("man")}
-              text="Men"
+              text="Man"
               textColor={
                 genderInterest === "man"
-                  ? theme.colors.brand.basewhite
+                  ? theme.colors.brand.base1
                   : theme.colors.brand.black
               }
             />
@@ -122,7 +122,7 @@ export default function CaptureGenderInterest({ navigation }) {
               backgroundColor={
                 genderInterest === "both"
                   ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  : theme.colors.brand.base3
               }
               isBorder={false}
               isNotBold={true}
@@ -131,7 +131,7 @@ export default function CaptureGenderInterest({ navigation }) {
               text="Both"
               textColor={
                 genderInterest === "both"
-                  ? theme.colors.brand.basewhite
+                  ? theme.colors.brand.base1
                   : theme.colors.brand.black
               }
             />

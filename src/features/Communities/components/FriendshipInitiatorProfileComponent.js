@@ -184,7 +184,7 @@ export default function FriendshipInitiatorProfileComponent({
       animationIn="slideInRight"
       animationOut="slideOutRight"
       style={{
-        backgroundColor: theme.colors.brand.basewhite,
+        backgroundColor: theme.colors.brand.base,
         margin: 0,
         position: "relative",
         alignItems: "flex-end",
@@ -315,7 +315,7 @@ export default function FriendshipInitiatorProfileComponent({
                     size="small"
                     style={{
                       borderWidth: 1,
-                      borderColor: theme.colors.brand.brandFadeLighter,
+                      borderColor: theme.colors.brand.base6,
                       borderRadius: theme.spaceNumber[2],
                       borderStyle: "dashed",
                       padding: theme.spaceNumber[3],
@@ -331,15 +331,17 @@ export default function FriendshipInitiatorProfileComponent({
                   </Spacer>
                 </Fragment>
               )}
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  My Basics
-                </Text>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="black"
+                    fontType="montserratBold"
+                    fontSize="title"
+                    width="100%">
+                    My Basics
+                  </Text>
+                </Spacer>
               </Spacer>
               <View
                 style={{
@@ -356,21 +358,21 @@ export default function FriendshipInitiatorProfileComponent({
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 8, left: 8 }}>
+                  <View style={{ position: "absolute", top: 9, left: 8 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName={iconNamePerGender}
                       IconComponent={MaterialCommunityIcons}
                       size={15}
-                      color={theme.colors.brand.base}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     transform="capitalize"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.gender}
@@ -379,7 +381,7 @@ export default function FriendshipInitiatorProfileComponent({
                 {data?.[0]?.friendRequestFrom?.zodiac && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
@@ -387,7 +389,7 @@ export default function FriendshipInitiatorProfileComponent({
                     <View
                       style={{
                         position: "absolute",
-                        top: 10,
+                        top: 9,
                         left: 9,
                       }}>
                       <IconComponent
@@ -401,9 +403,9 @@ export default function FriendshipInitiatorProfileComponent({
                     <Text
                       style={{ marginLeft: theme.spaceNumber[5] }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {zodiacSign}
                     </Text>
@@ -411,7 +413,7 @@ export default function FriendshipInitiatorProfileComponent({
                 )}
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -419,7 +421,7 @@ export default function FriendshipInitiatorProfileComponent({
                   <View
                     style={{
                       position: "absolute",
-                      top: 10,
+                      top: 11,
                       left: 9,
                       transform: [{ rotateZ: "145deg" }],
                     }}>
@@ -427,42 +429,42 @@ export default function FriendshipInitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="magnet"
                       IconComponent={Entypo}
-                      size={12}
-                      color={theme.colors.brand.base}
+                      size={10}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.sexualOrientation}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 9, left: 9 }}>
+                  <View style={{ position: "absolute", top: 10, left: 9 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName="flag"
                       IconComponent={Fontisto}
-                      size={12}
-                      color={theme.colors.brand.base}
+                      size={11}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.nationality}
                   </Text>
@@ -470,26 +472,26 @@ export default function FriendshipInitiatorProfileComponent({
                 {data?.[0]?.friendRequestFrom?.tribe && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
                     }}>
-                    <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                    <View style={{ position: "absolute", top: 10, left: 9 }}>
                       <IconComponent
                         iconFunction={() => {}}
                         iconName="praying-hands"
                         IconComponent={FontAwesome5}
                         size={10}
-                        color={theme.colors.brand.base}
+                        color={theme.colors.brand.base1}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: 10 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {data?.[0]?.friendRequestFrom?.tribe}
                     </Text>
@@ -497,26 +499,26 @@ export default function FriendshipInitiatorProfileComponent({
                 )}
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                  <View style={{ position: "absolute", top: 12, left: 10 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName="praying-hands"
                       IconComponent={FontAwesome5}
-                      size={10}
-                      color={theme.colors.brand.base}
+                      size={8}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.religious}
                   </Text>
@@ -524,26 +526,31 @@ export default function FriendshipInitiatorProfileComponent({
                 {data?.[0]?.friendRequestFrom?.jobtitle?.visibleOnProfile && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
                     }}>
-                    <View style={{ position: "absolute", top: 9, left: 9 }}>
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: theme.spaceNumber[5],
+                        left: 9,
+                      }}>
                       <IconComponent
                         iconFunction={() => {}}
                         iconName="work"
                         IconComponent={MaterialIcons}
-                        size={12}
-                        color={theme.colors.brand.base}
+                        size={10}
+                        color={theme.colors.brand.base1}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: 10 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {data?.[0]?.friendRequestFrom?.jobtitle?.job}
                     </Text>
@@ -552,26 +559,26 @@ export default function FriendshipInitiatorProfileComponent({
                 {data?.[0]?.friendRequestFrom?.workplace?.visibleOnProfile && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
                     }}>
-                    <View style={{ position: "absolute", top: 9, left: 9 }}>
+                    <View style={{ position: "absolute", top: 11, left: 9 }}>
                       <IconComponent
                         iconFunction={() => {}}
                         iconName="work"
                         IconComponent={MaterialIcons}
-                        size={12}
-                        color={theme.colors.brand.base}
+                        size={10}
+                        color={theme.colors.brand.base1}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: 10 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {data?.[0]?.friendRequestFrom?.workplace?.work}
                     </Text>
@@ -579,26 +586,26 @@ export default function FriendshipInitiatorProfileComponent({
                 )}
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 9, left: 9 }}>
+                  <View style={{ position: "absolute", top: 10, left: 9 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName="human-male-height"
                       IconComponent={MaterialCommunityIcons}
-                      size={12}
-                      color={theme.colors.brand.base}
+                      size={10}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.height
                       ?.replace("feet", "'")
@@ -607,7 +614,7 @@ export default function FriendshipInitiatorProfileComponent({
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -622,23 +629,23 @@ export default function FriendshipInitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="dumbbell"
                       IconComponent={FontAwesome5}
-                      size={10}
-                      color={theme.colors.brand.base}
+                      size={8}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.lifestyleHabits?.gym}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -648,16 +655,16 @@ export default function FriendshipInitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="search"
                       IconComponent={Feather}
-                      size={15}
-                      color={theme.colors.brand.base}
+                      size={12}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 15 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.preference}
                   </Text>
@@ -665,10 +672,10 @@ export default function FriendshipInitiatorProfileComponent({
               </View>
               {data?.[0]?.friendRequestFrom?.locationVisibility && (
                 <Fragment>
-                  <Spacer position="top" size="medium">
+                  <Spacer position="top" size="large">
                     <Text
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratBold"
                       fontSize="title"
                       width="100%">
@@ -691,7 +698,7 @@ export default function FriendshipInitiatorProfileComponent({
                     <Text
                       style={{ marginLeft: 3 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base6"
                       fontType="montserratBold"
                       fontSize="button">
                       {data?.[0]?.friendRequestFrom?.location}
@@ -717,15 +724,17 @@ export default function FriendshipInitiatorProfileComponent({
                 />
               </Spacer>
 
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  My Interests
-                </Text>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="title"
+                    width="100%">
+                    My Interests
+                  </Text>
+                </Spacer>
               </Spacer>
               <View
                 style={{
@@ -749,7 +758,7 @@ export default function FriendshipInitiatorProfileComponent({
                         style={{
                           flexDirection: "row",
                           alignItems: "center",
-                          backgroundColor: theme.colors.brand.highlight,
+                          backgroundColor: theme.colors.brand.black,
                           paddingVertical: theme.spaceNumber[3],
                           paddingRight: theme.spaceNumber[7],
                           paddingLeft: theme.spaceNumber[4],
@@ -759,16 +768,16 @@ export default function FriendshipInitiatorProfileComponent({
                           iconFunction={() => {}}
                           iconName={interestMapObject?.iconName}
                           IconComponent={interestMapObject?.family}
-                          size={14}
+                          size={11}
                           color={theme.colors.brand.base}
                         />
                         <View style={{ marginLeft: theme.spaceNumber[1] }}>
                           <Text
                             key={idx}
                             variant="custom"
-                            colorType="black"
+                            colorType="base1"
                             fontType="montserratRegular"
-                            fontSize="button"
+                            fontSize="caption"
                             width="100%">
                             {word}
                           </Text>
@@ -778,15 +787,17 @@ export default function FriendshipInitiatorProfileComponent({
                   }
                 )}
               </View>
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  Vices
-                </Text>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="title"
+                    width="100%">
+                    Vices
+                  </Text>
+                </Spacer>
               </Spacer>
               <View
                 style={{
@@ -798,7 +809,7 @@ export default function FriendshipInitiatorProfileComponent({
                 }}>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -813,23 +824,23 @@ export default function FriendshipInitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="cannabis"
                       IconComponent={FontAwesome5}
-                      size={17}
-                      color={theme.colors.brand.base}
+                      size={10}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.lifestyleHabits?.cannabis}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -839,23 +850,23 @@ export default function FriendshipInitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="glass-wine"
                       IconComponent={MaterialCommunityIcons}
-                      size={15}
-                      color={theme.colors.brand.base}
+                      size={12}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.lifestyleHabits?.drink}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -866,15 +877,15 @@ export default function FriendshipInitiatorProfileComponent({
                       iconName="cigar"
                       IconComponent={MaterialCommunityIcons}
                       size={15}
-                      color={theme.colors.brand.base}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 15 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.friendRequestFrom?.lifestyleHabits?.smoke}
                   </Text>
@@ -911,7 +922,7 @@ export default function FriendshipInitiatorProfileComponent({
                 </Spacer>
               )}
 
-              <Spacer position="top" size="medium">
+              {/* <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
                   colorType="black"
@@ -988,7 +999,7 @@ export default function FriendshipInitiatorProfileComponent({
                     }
                   </Text>
                 </View>
-              </View>
+              </View> */}
               {data?.[0]?.friendRequestFrom?.mediaArray?.[4] && (
                 <Spacer position="top" size="xxsmall">
                   <Image
@@ -1026,10 +1037,8 @@ export default function FriendshipInitiatorProfileComponent({
                 alignItems: "center",
                 justifyContent: "space-evenly",
                 paddingBottom: theme.spaceNumberBy10[2],
-                paddingTop: theme.spaceNumber[3],
-                backgroundColor: theme.colors.brand.highlight,
-                borderTopLeftRadius: theme.spaceNumberBy10[3],
-                borderTopRightRadius: theme.spaceNumberBy10[3],
+                paddingTop: theme.spaceNumber[5],
+                backgroundColor: theme.colors.brand.black,
               }}>
               {data?.[0]?.friendRequestFrom?.facebook?.visibleOnProfile && (
                 <HorizontalPaddingSpace space={theme.space[4]}>
@@ -1043,7 +1052,7 @@ export default function FriendshipInitiatorProfileComponent({
                       iconName="facebook"
                       IconComponent={Entypo}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1060,7 +1069,7 @@ export default function FriendshipInitiatorProfileComponent({
                       iconName="instagram"
                       IconComponent={AntDesign}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1077,7 +1086,7 @@ export default function FriendshipInitiatorProfileComponent({
                       iconName="snapchat"
                       IconComponent={Fontisto}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1094,7 +1103,7 @@ export default function FriendshipInitiatorProfileComponent({
                       iconName="tiktok"
                       IconComponent={FontAwesome5}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1111,7 +1120,7 @@ export default function FriendshipInitiatorProfileComponent({
                       iconName="playlist-music"
                       IconComponent={MaterialCommunityIcons}
                       size={theme.spaceNumberBy10[2]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1130,10 +1139,10 @@ export default function FriendshipInitiatorProfileComponent({
             <Spacer position="top" size="large">
               <Text
                 variant="custom"
-                colorType="lines"
+                colorType="base1"
                 fontType="arimaMadurai"
                 fontSize="h5">
-                It's a match
+                Voila !
               </Text>
             </Spacer>
             <View
@@ -1151,7 +1160,7 @@ export default function FriendshipInitiatorProfileComponent({
                   marginRight: -theme.spaceNumberBy10[3],
                 }}
                 source={{
-                  uri: `${otherUserData?.photo}`,
+                  uri: `${currentUserData?.photo}`,
                 }}
               />
               <Image
@@ -1160,18 +1169,18 @@ export default function FriendshipInitiatorProfileComponent({
                   width: theme.spaceNumberBy50[4],
                   resizeMode: "cover",
                   borderRadius: theme.spaceNumberBy50[3],
-                  borderWidth: theme.spaceNumber[4],
-                  borderColor: theme.colors.brand.basewhite,
+                  borderWidth: theme.spaceNumber[1],
+                  borderColor: theme.colors.brand.black,
                 }}
                 source={{
-                  uri: `${currentUserData?.photo}`,
+                  uri: `${otherUserData?.photo}`,
                 }}
               />
             </View>
             <View
               style={{
                 width: "70%",
-                marginVertical: theme.spaceNumberBy10[1],
+                marginVertical: theme.spaceNumberBy10[3],
               }}>
               <Text
                 style={{
@@ -1181,8 +1190,7 @@ export default function FriendshipInitiatorProfileComponent({
                 colorType="black"
                 fontType="montserratRegular"
                 fontSize="caption">
-                {` It's time to embark on the adventure. Let's ask ${otherUserData?.name} about
-              something interesting or you can just start with "Hello"`}
+                {` It's time to embark on the adventure. Let's ask ${otherUserData?.name} about something interesting or you can just start with "Hello"`}
               </Text>
             </View>
             <View

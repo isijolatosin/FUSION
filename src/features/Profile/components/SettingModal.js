@@ -310,7 +310,7 @@ export default function SettingModal({
             }}>
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base6"
               fontType="montserratBold"
               fontSize="caption">
               {title}
@@ -328,7 +328,7 @@ export default function SettingModal({
               iconName="chevron-right"
               IconComponent={Octicons}
               size={theme.spaceNumberBy10[1]}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base6}
             />
           </TouchableOpacity>
         </Spacer>
@@ -387,7 +387,7 @@ export default function SettingModal({
                 iconName="chevron-back"
                 IconComponent={Ionicons}
                 size={theme.spaceNumberBy10[2]}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base1}
                 horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
               />
             </View>
@@ -406,7 +406,7 @@ export default function SettingModal({
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base6"
                 fontType="montserratBold"
                 fontSize="body">
                 Account Settings
@@ -428,8 +428,8 @@ export default function SettingModal({
               <View>
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
+                  colorType="base1"
+                  fontType="montserratRegular"
                   fontSize="caption">
                   Phone Number
                 </Text>
@@ -437,7 +437,7 @@ export default function SettingModal({
               <View>
                 <Text
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
                   fontSize="caption">
                   {currentUser?.phonenumber}
@@ -457,8 +457,8 @@ export default function SettingModal({
                 <View style={{ marginRight: theme.spaceNumber[2] }}>
                   <Text
                     variant="custom"
-                    colorType="black"
-                    fontType="montserratBold"
+                    colorType="base1"
+                    fontType="montserratRegular"
                     fontSize="caption">
                     Email Address
                   </Text>
@@ -468,14 +468,14 @@ export default function SettingModal({
                   iconName="edit"
                   IconComponent={AntDesign}
                   size={15}
-                  color={theme.colors.brand.brandFade}
+                  color={theme.colors.brand.base1}
                 />
               </Pressable>
               <View>
                 <Text
                   style={{ textTransform: "lowercase" }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
                   fontSize="caption">
                   {currentUser?.email}
@@ -494,7 +494,7 @@ export default function SettingModal({
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base6"
                 fontType="montserratBold"
                 fontSize="body">
                 Notification Settings
@@ -517,8 +517,8 @@ export default function SettingModal({
               <View>
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
+                  colorType="base1"
+                  fontType="montserratRegular"
                   fontSize="caption">
                   In-App Notification
                 </Text>
@@ -530,7 +530,7 @@ export default function SettingModal({
                 }}
                 thumbColor={
                   currentUser?.inAppNotification
-                    ? theme.colors.brand.highlight
+                    ? theme.colors.brand.base1
                     : theme.colors.brand.lines
                 }
                 onValueChange={async (val) => {
@@ -557,7 +557,7 @@ export default function SettingModal({
             <Spacer position="top" size="xxlarge">
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base6"
                 fontType="montserratBold"
                 fontSize="body">
                 Profile Settings
@@ -579,8 +579,8 @@ export default function SettingModal({
                 <View>
                   <Text
                     variant="custom"
-                    colorType="black"
-                    fontType="montserratBold"
+                    colorType="base1"
+                    fontType="montserratRegular"
                     fontSize="caption">
                     Pause Account
                   </Text>
@@ -592,7 +592,7 @@ export default function SettingModal({
                   }}
                   thumbColor={
                     currentUser?.pause
-                      ? theme.colors.brand.highlight
+                      ? theme.colors.brand.base1
                       : theme.colors.brand.lines
                   }
                   onValueChange={async (val) => {
@@ -635,8 +635,8 @@ export default function SettingModal({
                 <View>
                   <Text
                     variant="custom"
-                    colorType="black"
-                    fontType="montserratBold"
+                    colorType="base1"
+                    fontType="montserratRegular"
                     fontSize="caption">
                     Deactivate Account
                   </Text>
@@ -648,7 +648,7 @@ export default function SettingModal({
                   }}
                   thumbColor={
                     currentUser?.deactivate
-                      ? theme.colors.brand.highlight
+                      ? theme.colors.brand.base1
                       : theme.colors.brand.lines
                   }
                   onValueChange={async (val) => {
@@ -691,8 +691,8 @@ export default function SettingModal({
                 <View>
                   <Text
                     variant="custom"
-                    colorType="black"
-                    fontType="montserratBold"
+                    colorType="base1"
+                    fontType="montserratRegular"
                     fontSize="caption">
                     Delete Account
                   </Text>
@@ -714,7 +714,7 @@ export default function SettingModal({
                   }}>
                   <Text
                     variant="custom"
-                    colorType="basewhite"
+                    colorType="error"
                     fontType="montserratBold"
                     fontSize="caption">
                     Delete
@@ -743,8 +743,8 @@ export default function SettingModal({
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
-                colorType="black"
-                fontType="montserratBold"
+                colorType="base6"
+                fontType="montserratRegular"
                 fontSize="body">
                 Help Center
               </Text>
@@ -767,8 +767,8 @@ export default function SettingModal({
                 <View style={{ flex: 0.8 }}>
                   <Text
                     variant="custom"
-                    colorType="black"
-                    fontType="montserratBold"
+                    colorType="base1"
+                    fontType="montserratRegular"
                     fontSize="caption">
                     Contact Us
                   </Text>
@@ -789,7 +789,7 @@ export default function SettingModal({
                     iconName="chevron-right"
                     IconComponent={Octicons}
                     size={theme.spaceNumberBy10[1]}
-                    color={theme.colors.brand.brandFade}
+                    color={theme.colors.brand.base6}
                   />
                 </TouchableOpacity>
               </View>
@@ -815,8 +815,8 @@ export default function SettingModal({
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
-                colorType="black"
-                fontType="montserratBold"
+                colorType="base6"
+                fontType="montserratRegular"
                 fontSize="body">
                 Legal
               </Text>
@@ -862,7 +862,7 @@ export default function SettingModal({
             <Spacer position="top" size="xxxlarge">
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base6"
                 fontType="montserratBold"
                 fontSize="body">
                 Community
@@ -890,12 +890,12 @@ export default function SettingModal({
             <Text
               style={{
                 textAlign: "center",
-                backgroundColor: theme.colors.brand.highlight,
+                backgroundColor: theme.colors.brand.base8,
                 paddingVertical: theme.spaceNumberBy10[1],
               }}
               variant="custom"
-              colorType="black"
-              fontType="montserratBold"
+              colorType="base1"
+              fontType="montserratRegular"
               fontSize="body">
               Log Out
             </Text>
@@ -940,8 +940,7 @@ export default function SettingModal({
         isVisible={showPauseModal}
         onClose={() => setShowPauseModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Pause Account"
@@ -972,8 +971,7 @@ export default function SettingModal({
         isVisible={showDeactivateModal}
         onClose={() => setShowDeactivateModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Deactivate Account"
@@ -1004,8 +1002,7 @@ export default function SettingModal({
         isVisible={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Delete Account"
@@ -1029,8 +1026,8 @@ export default function SettingModal({
           setModalOpen({ type: "", open: false });
         }}
         theme={theme}
-        width={width}
-        isTransparent={false}>
+        backgroundColor={theme.colors.brand.base1}
+        width={width}>
         <Fragment>{dynamicComponent(currentUser)}</Fragment>
       </AnimatedModal>
     </AnimatedModal>

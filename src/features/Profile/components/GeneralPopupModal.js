@@ -22,7 +22,7 @@ export default function GeneralPopupModal({
         onPress={() => {
           functionCallTop();
         }}
-        backgroundColor={theme.colors.brand.highlight}
+        backgroundColor={theme.colors.brand.base8}
         width="100%"
         paddingTop={theme.spaceNumber[7]}
         paddingBottom={theme.spaceNumber[7]}
@@ -34,8 +34,8 @@ export default function GeneralPopupModal({
         <Text
           style={{ textAlign: "center" }}
           variant="custom"
-          colorType="black"
-          fontType="montserratSemibold"
+          colorType="base1"
+          fontType="montserratRegular"
           fontSize="body">
           {textTop}
         </Text>
@@ -44,7 +44,7 @@ export default function GeneralPopupModal({
         onPress={() => {
           functionCallBottom();
         }}
-        backgroundColor={theme.colors.brand.highlight}
+        backgroundColor={theme.colors.brand.base8}
         width="100%"
         paddingTop={theme.spaceNumber[7]}
         paddingBottom={theme.spaceNumber[7]}
@@ -56,8 +56,8 @@ export default function GeneralPopupModal({
         <Text
           style={{ textAlign: "center" }}
           variant="custom"
-          colorType="black"
-          fontType="montserratSemibold"
+          colorType="base1"
+          fontType="montserratRegular"
           fontSize="body">
           {textBottom}
         </Text>
@@ -65,7 +65,7 @@ export default function GeneralPopupModal({
       {textCancel && (
         <ButtonAction
           onPress={() => setOpenImageUploadModal(false)}
-          backgroundColor={theme.colors.brand.highlight}
+          backgroundColor={theme.colors.brand.base8}
           width="100%"
           paddingTop={theme.spaceNumber[7]}
           paddingBottom={theme.spaceNumber[7]}
@@ -76,8 +76,8 @@ export default function GeneralPopupModal({
             onPress={() => setOpenImageUploadModal(false)}
             style={{ textAlign: "center" }}
             variant="custom"
-            colorType="black"
-            fontType="montserratSemibold"
+            colorType="base1"
+            fontType="montserratRegular"
             fontSize="body">
             {textCancel}
           </Text>

@@ -31,7 +31,7 @@ export default function CustomUseCardWithCTA({
   return (
     <SafeArea
       style={{
-        backgroundColor: theme.colors.brand.basewhite,
+        backgroundColor: theme.colors.brand.base,
         justifyContent: "center",
       }}>
       <HeaderComponent
@@ -53,7 +53,7 @@ export default function CustomUseCardWithCTA({
           <Text
             style={{ textAlign: "center" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratRegular"
             fontSize="caption">
             {text}
@@ -64,7 +64,7 @@ export default function CustomUseCardWithCTA({
             style={{ alignItems: "center" }}
             space={theme.space[2]}>
             <Button
-              backgroundColor={theme.colors.brand.base}
+              backgroundColor={theme.colors.brand.base7}
               isBorder={true}
               borderColor={theme.colors.brand.base}
               buttonFunction={cardFunction}
@@ -78,9 +78,9 @@ export default function CustomUseCardWithCTA({
           <HorizontalPaddingSpace
             style={{ alignItems: "center" }}
             space={theme.space[2]}>
-            {showSecondButton && (
+            {buttonSecondText && (
               <Button
-                backgroundColor={theme.colors.brand.basewhite}
+                backgroundColor={theme.colors.brand.base8}
                 isBorder={true}
                 borderColor={theme.colors.brand.base}
                 buttonFunction={() => {
@@ -88,7 +88,7 @@ export default function CustomUseCardWithCTA({
                   storeData("swipe-index", 0);
                 }}
                 text={buttonSecondText}
-                textColor={theme.colors.brand.base}
+                textColor={theme.colors.brand.basewhite}
                 width="80%"
               />
             )}

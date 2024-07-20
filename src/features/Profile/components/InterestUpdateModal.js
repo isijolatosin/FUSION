@@ -15,7 +15,9 @@ export default function InterestUpdateModal({
   currentUser,
   onClose,
 }) {
-  const [genderInterest, setGenderInterest] = useState(currentUser?.interest);
+  const [genderInterest, setGenderInterest] = useState(
+    currentUser?.interest ?? ""
+  );
 
   async function updateHeight() {
     await updateUserValueField(
@@ -44,13 +46,13 @@ export default function InterestUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           Interest In
@@ -62,57 +64,45 @@ export default function InterestUpdateModal({
             <Button
               backgroundColor={
                 genderInterest === "woman"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGenderInterest("woman")}
               text="Women"
-              textColor={
-                genderInterest === "woman"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 genderInterest === "man"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGenderInterest("man")}
               text="Men"
-              textColor={
-                genderInterest === "man"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 genderInterest === "both"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setGenderInterest("both")}
               text="Both"
-              textColor={
-                genderInterest === "both"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
         </Spacer>

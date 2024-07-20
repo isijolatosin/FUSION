@@ -2,8 +2,8 @@
   "expo": {
     "name": "wiingr",
     "slug": "wiingr-app",
-    "description": "Wiingr app is a social application for african community",
-    "version": "1.0.9",
+    "description": "Wiingr app is an application for Health and Wellness community",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -15,17 +15,17 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.tosin.wiingrapp",
-      "buildNumber": "1.0.9",
+      "buildNumber": "1.0.0",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Wiingr requires access to your camera to enable photo and video capture for creating and sharing content.",
-        "NSLocationWhenInUseUsageDescription": "By allowing us to access your location, we can better match you with individuals who are nearby and share similar interests.",
-        "NSPhotoLibraryUsageDescription": "To personalize your experience, wiingr requires access to your photo library to enable photo uploads and sharing with friends.."
+        "NSLocationWhenInUseUsageDescription": "By allowing us to access your location, we can better match you with individuals who are nearby and share similar interests and fitness goal.",
+        "NSPhotoLibraryUsageDescription": "To personalize your experience, wiingr requires access to your photo library to enable photo uploads and sharing with friends and fitness partners.."
       }
     },
     "android": {
       "package": "com.tosin.wiingrapp",
-      "versionCode": 10,
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fff"

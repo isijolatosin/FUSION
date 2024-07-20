@@ -28,7 +28,7 @@ export default function HeightUpdateModal({
         "all-users",
         currentUser?.id,
         "interestedheight",
-        _height,
+        _height ?? "",
         () => {}
       );
     } else
@@ -36,7 +36,7 @@ export default function HeightUpdateModal({
         "all-users",
         currentUser?.id,
         "height",
-        _height,
+        _height ?? "",
         () => {}
       );
   }
@@ -58,13 +58,13 @@ export default function HeightUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.basewhite}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           {interestedheight ? "Height Preference" : "Height"}

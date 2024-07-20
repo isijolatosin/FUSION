@@ -12,26 +12,19 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
-import OnboardingErrorComponent from "./OnboardingErrorComponent";
+// import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureWorkPlace({ navigation }) {
   const [workplaceName, setWorkplace] = useState("");
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(false);
-  const [pageError, setPageError] = useState(false);
+  // const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
   const route = useRoute();
-  const {
-    dob,
-    _height,
-    religious,
-    sexualOrientation,
-    preference,
-    nationality,
-    whatThreeWordsDescribeYou,
-  } = route.params || {};
+  const { dob, _height, sexualOrientation, preference, gymGoals } =
+    route.params || {};
 
   let workplace = {
     work: workplaceName,
@@ -65,20 +58,14 @@ export default function CaptureWorkPlace({ navigation }) {
                 theme={theme}
                 color={theme.colors.brand.base}
                 nextFunction={() => {
-                  if (workplaceName) {
-                    navigation.navigate("capture-job-title-screen", {
-                      dob,
-                      _height,
-                      religious,
-                      sexualOrientation,
-                      preference,
-                      nationality,
-                      whatThreeWordsDescribeYou,
-                      workplace,
-                    });
-                  } else {
-                    setPageError(true);
-                  }
+                  navigation.navigate("capture-job-title-screen", {
+                    dob,
+                    _height,
+                    sexualOrientation,
+                    preference,
+                    gymGoals,
+                    workplace,
+                  });
                 }}
               />
             )}
@@ -90,7 +77,7 @@ export default function CaptureWorkPlace({ navigation }) {
                 variant="custom"
                 colorType="lines"
                 fontType="arimaMadurai"
-                fontSize="h4"
+                fontSize="h5"
                 lineHeight={theme.lineHeights[25]}
                 width="100%">
                 What do you do
@@ -149,7 +136,7 @@ export default function CaptureWorkPlace({ navigation }) {
                 }}
               />
             </Spacer>
-            <OnboardingErrorComponent
+            {/* <OnboardingErrorComponent
               pageError={pageError}
               text="Please provide your work place"
               size="body"
@@ -160,7 +147,7 @@ export default function CaptureWorkPlace({ navigation }) {
                 fontSize: theme.spaceNumber[7],
                 marginTop: theme.spaceNumberBy10[2],
               }}
-            />
+            /> */}
           </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>
       </Pressable>

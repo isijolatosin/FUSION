@@ -23,4 +23,18 @@ const getUserLocation = async () => {
   return { latitude, longitude };
 };
 
-export { getUserLocation, requestLocationPermission };
+const getLocationByAddress = async (address) => {
+  try {
+    // Geocode address
+    let geocode = await Location.geocodeAsync(address);
+    if (geocode.length > 0) {
+      return geocode[0];
+    } else {
+      return { status: "Failed to retrieve gym location! Check gym address" };
+    }
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export { getUserLocation, requestLocationPermission, getLocationByAddress };

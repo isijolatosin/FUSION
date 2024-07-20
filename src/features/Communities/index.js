@@ -40,10 +40,9 @@ function ScreenWrapper({
   // const screeenList = ["people", "communities", "events"]; // PHASE TWO PROJECT
 
   return (
-    <SafeArea
-      style={{ backgroundColor: theme.colors.brand.basewhite, flex: 1 }}>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.base, flex: 1 }}>
       <HeaderComponent
-        title="Friendship Hub"
+        title="Wiingr"
         theme={theme}
         LeftComp={() => <></>}
         RightComp={() => <></>}
@@ -55,7 +54,7 @@ function ScreenWrapper({
           <Text
             style={{ textAlign: "center" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratRegular"
             fontSize="caption">
             {compatibleText}
@@ -278,7 +277,7 @@ export default function Index() {
         setCurrentScreen={setCurrentScreen}
         theme={theme}
         width={width}>
-        <View style={{ paddingBottom: theme.spaceNumberBy10[12] - 8 }}>
+        <View style={{ paddingBottom: theme.spaceNumberBy10[13] }}>
           {currentScreen === "people" &&
             (communitiesData.length === 0 ? (
               <HorizontalPaddingSpace space={theme.space[5]}>
@@ -288,7 +287,7 @@ export default function Index() {
                       textAlign: "center",
                     }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
                     fontSize="caption">
                     {nofriendshipdata}
@@ -298,7 +297,8 @@ export default function Index() {
             ) : (
               <ScrollView
                 ref={scrollViewPeopleRef}
-                showsVerticalScrollIndicator={false}>
+                showsVerticalScrollIndicator={false}
+                style={{ marginTop: theme.spaceNumber[2] }}>
                 {communitiesData?.map((signleUserWithSimilarInterest, idx) => (
                   <People
                     key={idx}

@@ -48,7 +48,7 @@ export default function MessageDotsPopupModal({
             paddingBottom: theme.spaceNumberBy10[1],
           }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratRegular"
           fontSize="body">
           {text}
@@ -63,8 +63,7 @@ export default function MessageDotsPopupModal({
         isVisible={showUnmatchCard}
         onClose={() => setShowUnmatchCard(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <ActionNotificationModal
           title="Are you sure?"
           buttonText="Unmatch"
@@ -85,8 +84,7 @@ export default function MessageDotsPopupModal({
         isVisible={showBlockModal}
         onClose={() => setShowBlockModal(false)}
         theme={theme}
-        width="100%"
-        isTransparent={true}>
+        width="100%">
         <SafeArea
           style={{
             width: "100%",
@@ -98,7 +96,7 @@ export default function MessageDotsPopupModal({
             <Text
               style={{ textAlign: "center" }}
               variant="custom"
-              colorType="black"
+              colorType="base1"
               fontType="arimaMadurai"
               fontSize="h4">
               Block this person
@@ -109,7 +107,7 @@ export default function MessageDotsPopupModal({
               flex: 1,
               width: "100%",
               position: "relative",
-              backgroundColor: theme.colors.brand.highlight,
+              backgroundColor: theme.colors.brand.base8,
               paddingTop: theme.spaceNumberBy10[2],
               paddingBottom: theme.spaceNumberBy10[10],
             }}
@@ -127,7 +125,7 @@ export default function MessageDotsPopupModal({
                   paddingBottom: theme.spaceNumberBy10[1],
                 }}
                 variant="custom"
-                colorType="black"
+                colorType="base5"
                 fontType="montserratRegular"
                 fontSize="body">
                 Your reason for blocking this user would remain anonymous. This
@@ -137,7 +135,7 @@ export default function MessageDotsPopupModal({
             <BlockOptionComponent text="Fake Profile" />
             <BlockOptionComponent text="Underage" />
             <BlockOptionComponent text="Out of Wiingr behaviour" />
-            <BlockOptionComponent text="No longer interested" />
+            <BlockOptionComponent text="No longer my style" />
             <BlockOptionComponent text="Scam" />
             <TouchableOpacity
               onPress={() => {
@@ -158,7 +156,7 @@ export default function MessageDotsPopupModal({
                   paddingBottom: theme.spaceNumberBy10[1],
                 }}
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="montserratRegular"
                 fontSize="body">
                 Rude or Offensive behaviour
@@ -195,7 +193,7 @@ export default function MessageDotsPopupModal({
       space={horizontalSpace ? horizontalSpace : theme.space[5]}>
       <ButtonAction
         onPress={() => setShowUnmatchCard(true)}
-        backgroundColor={theme.colors.brand.highlight}
+        backgroundColor={theme.colors.brand.base8}
         width="100%"
         paddingTop={theme.spaceNumber[7]}
         paddingBottom={theme.spaceNumber[7]}
@@ -207,7 +205,7 @@ export default function MessageDotsPopupModal({
         <Text
           style={{ textAlign: "center" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratSemibold"
           fontSize="body">
           {textTop}
@@ -215,7 +213,7 @@ export default function MessageDotsPopupModal({
       </ButtonAction>
       <ButtonAction
         onPress={() => setShowBlockModal(true)}
-        backgroundColor={theme.colors.brand.highlight}
+        backgroundColor={theme.colors.brand.base8}
         width="100%"
         paddingTop={theme.spaceNumber[7]}
         paddingBottom={theme.spaceNumber[7]}
@@ -230,7 +228,7 @@ export default function MessageDotsPopupModal({
           }}
           style={{ textAlign: "center" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratSemibold"
           fontSize="body">
           {textBottom}
@@ -239,7 +237,7 @@ export default function MessageDotsPopupModal({
       {textCancel && (
         <ButtonAction
           onPress={() => setOpenImageUploadModal(false)}
-          backgroundColor={theme.colors.brand.highlight}
+          backgroundColor={theme.colors.brand.base8}
           width="100%"
           paddingTop={theme.spaceNumber[7]}
           paddingBottom={theme.spaceNumber[7]}
@@ -250,7 +248,7 @@ export default function MessageDotsPopupModal({
             onPress={() => setOpenImageUploadModal(false)}
             style={{ textAlign: "center" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratSemibold"
             fontSize="body">
             {textCancel}

@@ -13,6 +13,7 @@ const HeaderComponent = ({
   font,
   isBorder,
   topSpace,
+  color,
 }) => {
   return (
     <Spacer
@@ -34,7 +35,7 @@ const HeaderComponent = ({
         <Text
           style={{ textAlign: "center", width: textWidth ? textWidth : "100%" }}
           variant="custom"
-          colorType="black"
+          colorType={color ? color : "base1"}
           fontType={font ? font : "arimaMadurai"}
           lineHeight={theme.lineHeights[25]}
           fontSize={size ? size : "h5"}>

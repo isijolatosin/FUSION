@@ -6,12 +6,12 @@ export default function AnimatedModal({
   children,
   isAlignItems,
   paddingBottom,
+  backgroundColor,
   isPaddingTop,
   isVisible,
   onClose,
   theme,
   width,
-  isTransparent,
 }) {
   return (
     <Modal
@@ -20,9 +20,9 @@ export default function AnimatedModal({
       animationOut="slideOutRight"
       onBackdropPress={onClose}
       style={{
-        backgroundColor: isTransparent
-          ? theme.colors.brand.basewhitelight
-          : theme.colors.brand.basewhite,
+        backgroundColor: backgroundColor
+          ? backgroundColor
+          : theme.colors.brand.base,
         margin: 0,
         paddingTop: isPaddingTop ? (Platform.OS === "ios" ? 150 : 100) : 0,
         position: "relative",

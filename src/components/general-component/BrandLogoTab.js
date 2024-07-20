@@ -10,9 +10,9 @@ export default function BrandLogoTab({ theme, width, height, focused }) {
         borderRadius: theme.spaceNumberBy10[2],
         width: width,
         height: height,
-        backgroundColor: focused
-          ? theme.colors.brand.base
-          : theme.colors.brand.basewhite,
+        borderWidth: focused ? 1 : 0,
+        borderColor: focused ? theme.colors.brand.lines : "",
+        backgroundColor: focused && theme.colors.brand.base8,
       }}>
       <Image
         source={require("../../../assets/wiingr.png")}
@@ -21,7 +21,7 @@ export default function BrandLogoTab({ theme, width, height, focused }) {
           width: focused ? theme.spaceNumber[15] : width,
           height: focused ? theme.spaceNumber[15] : height,
 
-          tintColor: focused && theme.colors.brand.basewhite,
+          // tintColor: !focused && theme.colors.brand.basewhite,
         }}
       />
     </View>

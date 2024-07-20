@@ -21,7 +21,7 @@ export default function YouLikedComponent({
       animationOut="slideOutRight"
       onBackdropPress={onClose}
       style={{
-        backgroundColor: theme.colors.brand.highlight,
+        backgroundColor: theme.colors.brand.base,
         margin: 0,
         paddingBottom: theme.spaceNumberBy10[0],
       }}>
@@ -31,9 +31,10 @@ export default function YouLikedComponent({
         <Spacer position="bottom" size="large">
           <Text
             variant="custom"
-            colorType="black"
-            fontType="montserratSemibold">
-            You liked {likedUser?.name} ❤️
+            colorType="base5"
+            fontType="montserratRegular"
+            fontSize="body">
+            We have sent your request to {likedUser?.name}
           </Text>
         </Spacer>
         <Image
@@ -51,7 +52,7 @@ export default function YouLikedComponent({
           style={{ position: "absolute", bottom: -theme.spaceNumberBy50[1] }}>
           <Text
             variant="custom"
-            colorType="lines"
+            colorType="base6"
             fontType="montserratRegular"
             fontSize="caption">
             Click screen to exit

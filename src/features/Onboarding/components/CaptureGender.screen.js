@@ -64,7 +64,7 @@ export default function CaptureGender({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
               How do
@@ -84,7 +84,7 @@ export default function CaptureGender({ navigation }) {
               backgroundColor={
                 gender === "woman"
                   ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  : theme.colors.brand.base3
               }
               isNotBold={true}
               isBorder={false}
@@ -93,7 +93,7 @@ export default function CaptureGender({ navigation }) {
               text="Woman"
               textColor={
                 gender === "woman"
-                  ? theme.colors.brand.basewhite
+                  ? theme.colors.brand.base1
                   : theme.colors.brand.black
               }
             />
@@ -103,7 +103,7 @@ export default function CaptureGender({ navigation }) {
               backgroundColor={
                 gender === "man"
                   ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  : theme.colors.brand.base3
               }
               isNotBold={true}
               isBorder={false}
@@ -112,7 +112,7 @@ export default function CaptureGender({ navigation }) {
               text="Man"
               textColor={
                 gender === "man"
-                  ? theme.colors.brand.basewhite
+                  ? theme.colors.brand.base1
                   : theme.colors.brand.black
               }
             />
@@ -122,7 +122,7 @@ export default function CaptureGender({ navigation }) {
               backgroundColor={
                 gender === "non-binary"
                   ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  : theme.colors.brand.base3
               }
               isNotBold={true}
               isBorder={false}

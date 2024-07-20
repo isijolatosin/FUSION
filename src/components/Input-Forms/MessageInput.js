@@ -1,5 +1,5 @@
 import React from "react";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import IconComponent from "../icon-components/IconComponent";
 import {
@@ -8,30 +8,25 @@ import {
   TextInputMessageWrapper,
   TextMessageWrap,
 } from "./input.styles";
-// import { TouchableWithoutFeedback, View } from "react-native";
 
 export default function MessageInput({
   value,
   theme,
   setInput,
-  // recording,
   sendMessage,
-  // setRecording,
   setOpenImageUploadModal,
-  // startRecording,
-  // stopRecording,
 }) {
   return (
     <TextInputMessageWrapper
       height={theme.spaceNumberBy10[6]}
-      backgroundColor={theme.colors.brand.highlight}
+      backgroundColor={theme.colors.brand.base8}
       paddingLeft={`${theme.spaceNumberBy10[0]}px`}
       paddingRight={`${theme.spaceNumberBy10[0]}px`}
       paddingTop={`${theme.spaceNumber[3]}px`}
       paddingBottom={`${theme.spaceNumberBy10[1]}px`}
       isBorderColor={false}>
       <TextMessageWrap
-        backgroundColor={theme.colors.brand.basewhite}
+        backgroundColor={theme.colors.brand.base7}
         borderRadius={`${theme.spaceNumberBy10[1]}px`}
         paddingLeft={`${theme.spaceNumberBy10[1]}px`}
         paddingRight={`${theme.spaceNumberBy10[0]}px`}
@@ -50,15 +45,16 @@ export default function MessageInput({
           placeholderTextColor={theme.colors.brand.lines}
           fontType={theme.fonts.montserratRegular}
           fontSize={theme.fontSizes.body}
-          fontColor={theme.colors.brand.black}
+          fontColor={theme.colors.brand.base1}
         />
         <IconComponent
           iconFunction={sendMessage}
-          iconName="send"
-          IconComponent={MaterialIcons}
-          size={25}
+          iconName="send-circle"
+          IconComponent={MaterialCommunityIcons}
+          size={30}
           theme={theme}
           horizontalLeftSpace={theme.space[1]}
+          color={theme.colors.brand.base5}
         />
       </TextMessageWrap>
 
@@ -71,18 +67,8 @@ export default function MessageInput({
           theme={theme}
           horizontalLeftSpace={theme.space[2]}
           horizontalRightSpace={theme.space[2]}
+          color={theme.colors.brand.base5}
         />
-        {/* <TouchableWithoutFeedback
-          onPressIn={startRecording}
-          onPressOut={stopRecording}>
-          <View
-            style={{
-              marginLeft: theme.spaceNumber[5],
-              marginRight: theme.spaceNumber[7],
-            }}>
-            <FontAwesome name="microphone" size={20} />
-          </View>
-        </TouchableWithoutFeedback> */}
       </TextInputMessageIcon>
     </TextInputMessageWrapper>
   );

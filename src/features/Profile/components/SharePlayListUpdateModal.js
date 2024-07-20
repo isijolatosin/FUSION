@@ -15,9 +15,11 @@ export default function SharePlayListUpdateModal({
   currentUser,
   onClose,
 }) {
-  const [playlist, setPlaylistLink] = useState(currentUser?.playlist?.link);
+  const [playlist, setPlaylistLink] = useState(
+    currentUser?.playlist?.link ?? ""
+  );
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
-    currentUser?.playlist?.visibleOnProfile
+    currentUser?.playlist?.visibleOnProfile ?? false
   );
 
   async function updatePlaylistLink(value, visibilityOption) {
@@ -57,7 +59,7 @@ export default function SharePlayListUpdateModal({
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <View
@@ -72,15 +74,15 @@ export default function SharePlayListUpdateModal({
               iconName="playlist-music"
               IconComponent={MaterialCommunityIcons}
               size={40}
-              color={theme.colors.brand.brandTone}
+              color={theme.colors.brand.base6}
             />
             <View>
               <Text
                 style={{ marginLeft: theme.spaceNumber[4] }}
                 variant="custom"
-                colorType="black"
+                colorType="base6"
                 fontType="montserratBold"
-                fontSize="title">
+                fontSize="body">
                 Playlist Link
               </Text>
             </View>
@@ -97,6 +99,7 @@ export default function SharePlayListUpdateModal({
             isBackgroundColor={false}
             fontSize={theme.fontSizes.title}
             fontType={theme.fonts.montserratBold}
+            fontColor={theme.colors.brand.base1}
             multiline={true}
             numberOfLines={2}
           />
@@ -106,20 +109,21 @@ export default function SharePlayListUpdateModal({
             title="Visible on your profile"
             checked={isVisibleOnProfile}
             onPress={handleCheckboxToggle}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.brandFade}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base6}
             titleProps={{
               style: {
                 fontWeight: "thin",
                 fontFamily: theme.fonts.montserratRegular,
+                color: theme.colors.brand.base6,
               },
             }}
             wrapperStyle={{
               margin: -20,
             }}
             containerStyle={{
-              backgroundColor: theme.colors.brand.basewhite,
-              borderColor: theme.colors.brand.basewhite,
+              backgroundColor: "transparent",
+              borderWidth: 0,
             }}
           />
         </Spacer>

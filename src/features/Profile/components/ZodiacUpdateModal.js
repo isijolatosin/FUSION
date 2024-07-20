@@ -19,7 +19,7 @@ export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
       "all-users",
       currentUser?.id,
       "zodiac",
-      isVisibleOnProfile,
+      isVisibleOnProfile ?? false,
       () => {}
     );
   }
@@ -42,13 +42,13 @@ export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <Text
             style={{ textAlign: "center", width: "90%" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="title">
             Zodiac
@@ -59,20 +59,21 @@ export default function ZodiacUpdateModal({ theme, currentUser, onClose }) {
             title="Allow your zodiac visible on your profile"
             checked={isVisibleOnProfile}
             onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.brandFade}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base6}
             titleProps={{
               style: {
                 fontWeight: "thin",
                 fontFamily: theme.fonts.montserratRegular,
+                color: theme.colors.brand.base6,
               },
             }}
             wrapperStyle={{
               margin: -20,
             }}
             containerStyle={{
-              backgroundColor: theme.colors.brand.basewhite,
-              borderColor: theme.colors.brand.basewhite,
+              backgroundColor: "transparent",
+              borderWidth: 0,
             }}
           />
         </Spacer>

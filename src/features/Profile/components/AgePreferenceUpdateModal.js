@@ -63,13 +63,13 @@ export default function AgePreferenceUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           Age Range
@@ -87,7 +87,7 @@ export default function AgePreferenceUpdateModal({
             <View>
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="montserratBold"
                 fontSize="button">
                 Age Range
@@ -110,10 +110,10 @@ export default function AgePreferenceUpdateModal({
               step={1}
               styleSize="small"
               barHeight={4}
-              fromKnobColor={theme.colors.brand.base}
-              toKnobColor={theme.colors.brand.base}
-              inRangeBarColor={theme.colors.brand.base}
-              outOfRangeBarColor={theme.colors.brand.highlight}
+              fromKnobColor={theme.colors.brand.base1}
+              toKnobColor={theme.colors.brand.base1}
+              inRangeBarColor={theme.colors.brand.bas6}
+              outOfRangeBarColor={theme.colors.brand.black}
               showRangeLabels={false}
               showValueLabels={false}
               fromValueOnChange={(value) => {
@@ -142,9 +142,9 @@ export default function AgePreferenceUpdateModal({
             <View>
               <Text
                 variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button">
+                colorType="base1"
+                fontType="montserratLight"
+                fontSize="caption">
                 Only suggest people within this age
               </Text>
             </View>

@@ -18,12 +18,12 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
       "all-users",
       currentUser?.id,
       "gender",
-      selectedInterest,
+      selectedInterest ?? "",
       () => {}
     );
   }
 
-  const genderRray = [
+  const genderArray = [
     {
       key: "man",
       value: "man",
@@ -56,20 +56,20 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <Text
             style={{ textAlign: "center", width: "90%" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="title">
             Gender
           </Text>
         </View>
       </Spacer>
-      {genderRray.map((interest, idx) => (
+      {genderArray.map((interest, idx) => (
         <Spacer
           key={idx}
           style={{
@@ -87,7 +87,7 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
               }}
               style={{ textTransform: "capitalize" }}
               variant="loading"
-              colorType="black"
+              colorType="base1"
               fontType="montserratLight"
               fontSize="body">
               {interest.value}
@@ -99,8 +99,8 @@ export default function GenderUpdateModal({ theme, currentUser, onClose }) {
               setSelectedInterest(interest.key);
               setIndex(idx);
             }}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.linesLight}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base8}
             size={35}
             containerStyle={{
               padding: 0,

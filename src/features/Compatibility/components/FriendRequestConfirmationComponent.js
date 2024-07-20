@@ -21,7 +21,7 @@ export default function FriendRequestConfirmationComponent({
       animationOut="slideOutRight"
       onBackdropPress={onClose}
       style={{
-        backgroundColor: theme.colors.brand.highlight,
+        backgroundColor: theme.colors.brand.base,
         margin: 0,
         paddingBottom: theme.spaceNumberBy10[0],
       }}>
@@ -39,12 +39,14 @@ export default function FriendRequestConfirmationComponent({
           <Spacer position="bottom" size="large">
             <Text
               variant="custom"
-              colorType="lines"
+              colorType="base1"
+              fontSize="button"
               fontType="montserratSemibold">
-              Friend request sent to{" "}
+              Request sent to{" "}
               <Text
                 variant="custom"
-                colorType="base"
+                colorType="base1"
+                fontSize="button"
                 fontType="montserratSemibold">
                 {selectedFriend?.name}
               </Text>

@@ -29,7 +29,7 @@ export default function PhotoComponentPhotoScreen({
         width: dimension + "%",
         height: theme.spaceNumberBy10[9],
         borderRadius: 5,
-        backgroundColor: theme.colors.brand.highlight,
+        backgroundColor: theme.colors.brand.base3,
         alignItems: "center",
         justifyContent: "center",
       }}>
@@ -48,7 +48,7 @@ export default function PhotoComponentPhotoScreen({
           iconName="plus"
           IconComponent={AntDesign}
           size={12}
-          color={theme.colors.brand.orange}
+          color={theme.colors.brand.base6}
         />
       )}
     </Pressable>

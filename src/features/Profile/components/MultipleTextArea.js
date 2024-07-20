@@ -9,7 +9,7 @@ export default function MultipleTextArea({ setValue, theme, value }) {
         autoFocus={true}
         backgroundColor="transparent"
         centralize={false}
-        fontColor={theme.colors.brand.black}
+        fontColor={theme.colors.brand.base1}
         fontSize={theme.fontSizes.body}
         fontType={theme.fonts.montserratRegular}
         isBorderBottomInput={false}

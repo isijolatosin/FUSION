@@ -37,7 +37,7 @@ export default function CapturePhotos({ navigation }) {
         firstname,
         gender,
         interest,
-        lastname, // this is optional and may not be capture. Handle when pushing to DB
+        lastname,
         latitude,
         longitude,
         location,
@@ -49,13 +49,12 @@ export default function CapturePhotos({ navigation }) {
   const {
     dob,
     _height,
-    religious,
     sexualOrientation,
     preference,
-    nationality,
-    whatThreeWordsDescribeYou,
+    gymGoals,
     workplace,
     jobtitle,
+    fitnessClub,
     interestsArray,
     lifestyleHabits,
   } = route.params || {};
@@ -100,23 +99,22 @@ export default function CapturePhotos({ navigation }) {
         email,
         firstname,
         gender,
-        height: _height,
+        height: _height ? _height : "",
         interest,
         interestsArray,
-        jobtitle,
+        jobtitle: jobtitle,
         lastname: lastname ? lastname : "",
         latitude,
         location,
         lifestyleHabits,
         longitude,
         mediaArray,
-        nationality,
         phonenumber,
         preference,
-        religious,
         sexualOrientation,
-        whatThreeWordsDescribeYou,
-        workplace,
+        gymGoals,
+        gymMembership: fitnessClub,
+        workplace: workplace,
         enableAllMarketingTool: false,
         googlefirebaseAccessGrant: true,
         phoneDataStorageAndRetrievalGrant: true,
@@ -170,7 +168,7 @@ export default function CapturePhotos({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
               Let's spice

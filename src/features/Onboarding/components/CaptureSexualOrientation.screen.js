@@ -25,7 +25,7 @@ export default function CaptureSexualOrientation({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious } = route.params || {};
+  const { dob, _height } = route.params || {};
 
   return (
     <SafeArea>
@@ -54,7 +54,6 @@ export default function CaptureSexualOrientation({ navigation }) {
                   navigation.navigate("capture-looking-for-screen", {
                     dob,
                     _height,
-                    religious,
                     sexualOrientation,
                   });
                 } else {
@@ -74,7 +73,7 @@ export default function CaptureSexualOrientation({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
               We would love to know
@@ -110,6 +109,7 @@ export default function CaptureSexualOrientation({ navigation }) {
               setFunction={setSexualOrientation}
               theme={theme}
               isForHeightComponent={false}
+              isWhiteBackground={true}
             />
           </Spacer>
         </HorizontalPaddingSpace>

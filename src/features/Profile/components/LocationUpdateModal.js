@@ -51,42 +51,42 @@ export default function LocationUpdateModal({
       "all-users",
       currentUser?.id,
       "latitude",
-      latitude,
+      latitude ?? "",
       () => {}
     );
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "longitude",
-      longitude,
+      longitude ?? "",
       () => {}
     );
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "location",
-      location,
+      location ?? "",
       () => {}
     );
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "country",
-      country,
+      country ?? "",
       () => {}
     );
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "address",
-      address,
+      address ?? "",
       () => {}
     );
     await updateUserValueField(
       "all-users",
       currentUser?.id,
       "locationVisibility",
-      isVisibleOnProfile,
+      isVisibleOnProfile ?? false,
       () => {}
     );
 
@@ -136,13 +136,13 @@ export default function LocationUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           Location
@@ -163,7 +163,7 @@ export default function LocationUpdateModal({
         <HorizontalPaddingSpace space={theme.space[2]}>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base6"
             fontType="arimaMadurai"
             fontSize="h3"
             width="100%">
@@ -172,7 +172,7 @@ export default function LocationUpdateModal({
           <View style={{ marginTop: -theme.spaceNumber[5] }}>
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base6"
               fontType="arimaMadurai"
               fontSize="h3"
               width="100%">
@@ -182,7 +182,7 @@ export default function LocationUpdateModal({
           <Spacer position="top" size="medium">
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base1"
               fontType="montserratSemibold"
               fontSize="caption"
               width="100%">
@@ -202,20 +202,21 @@ export default function LocationUpdateModal({
               title="Visible on your profile"
               checked={isVisibleOnProfile}
               onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
-              checkedColor={theme.colors.brand.base}
-              uncheckedColor={theme.colors.brand.brandFade}
+              checkedColor={theme.colors.brand.base6}
+              uncheckedColor={theme.colors.brand.base6}
               titleProps={{
                 style: {
                   fontWeight: "thin",
                   fontFamily: theme.fonts.montserratRegular,
+                  color: theme.colors.brand.base6,
                 },
               }}
               wrapperStyle={{
                 margin: -20,
               }}
               containerStyle={{
-                backgroundColor: theme.colors.brand.basewhite,
-                borderColor: theme.colors.brand.basewhite,
+                backgroundColor: "transparent",
+                borderWidth: 0,
               }}
             />
           </Spacer>
@@ -227,13 +228,13 @@ export default function LocationUpdateModal({
               <Spinner size="large" color={theme.colors.brand.base} />
             ) : (
               <Button
-                fontType={theme.fonts.montserratBold}
-                backgroundColor={theme.colors.brand.base}
+                fontType={theme.fonts.montserraRegular}
+                backgroundColor={theme.colors.brand.base8}
                 buttonFunction={() => {
                   handleLocationCapture();
                 }}
                 text="Reset Location"
-                textColor={theme.colors.brand.basewhite}
+                textColor={theme.colors.brand.base1}
                 width="80%"
               />
             )}

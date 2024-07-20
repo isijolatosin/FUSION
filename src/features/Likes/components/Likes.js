@@ -34,7 +34,7 @@ const LikesScreen = () => {
   const [yourLikesData, setYourLikesData] = useState([]);
   const [friendRequestData, setFriendRequestData] = useState([]);
 
-  const [currentScreen, setCurrentScreen] = React.useState("match likes");
+  const [currentScreen, setCurrentScreen] = React.useState("gym matches");
   const [currentUser, setCurrentUser] = useState([]);
 
   const [initiatorProfileData, setInitiatorProfileData] = useState([]);
@@ -126,15 +126,16 @@ const LikesScreen = () => {
   }
 
   return (
-    <SafeArea style={{ backgroundColor: theme.colors.brand.basewhite }}>
+    <SafeArea style={{ backgroundColor: theme.colors.brand.base }}>
       <HeaderComponent
-        title="Your Likes"
+        title="Fitness Interests"
         theme={theme}
         LeftComp={() => <></>}
         RightComp={() => <></>}
       />
       <TopNavigationTab
-        arrayList={["match likes", "community likes"]}
+        arrayList={["gym matches"]}
+        // arrayList={["gym matches", "community likes"]}
         currentScreen={currentScreen}
         horizontalSpace={theme.space[5]}
         setFunction={setCurrentScreen}
@@ -143,7 +144,7 @@ const LikesScreen = () => {
       />
       <HorizontalPaddingSpace space={theme.space[0]}>
         <Spacer style={{ alignItems: "center" }} position="top" size="">
-          {yourLikesData.length && currentScreen === "match likes" ? (
+          {yourLikesData.length && currentScreen === "gym matches" ? (
             <Spacer
               position="top"
               size="large"
@@ -170,7 +171,7 @@ const LikesScreen = () => {
               ))}
             </Spacer>
           ) : (
-            currentScreen === "match likes" && (
+            currentScreen === "gym matches" && (
               <View style={{ width: "100%" }}>
                 <HorizontalPaddingSpace space={theme.space[5]}>
                   <Spacer position="top" size="xxxxlarge">
@@ -199,7 +200,7 @@ const LikesScreen = () => {
                         textAlign: "center",
                       }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
                       fontSize="caption">
                       {nolikesyetmessage}

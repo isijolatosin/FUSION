@@ -11,9 +11,11 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
 export default function WorkUpdateModal({ theme, currentUser, onClose }) {
-  const [workplace, setWorkplace] = useState(currentUser?.workplace?.work);
+  const [workplace, setWorkplace] = useState(
+    currentUser?.workplace?.work ?? ""
+  );
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
-    currentUser?.workplace?.visibleOnProfile
+    currentUser?.workplace?.visibleOnProfile ?? false
   );
 
   async function updateWorkPlace() {
@@ -49,13 +51,13 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <Text
             style={{ textAlign: "center", width: "90%" }}
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="title">
             Work
@@ -72,6 +74,7 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
             isBackgroundColor={false}
             fontSize={theme.fontSizes.h5}
             fontType={theme.fonts.montserratBold}
+            fontColor={theme.colors.brand.base1}
           />
         </Spacer>
         <Spacer position="top" size="xxxxlarge">
@@ -79,20 +82,21 @@ export default function WorkUpdateModal({ theme, currentUser, onClose }) {
             title="Visible on your profile"
             checked={isVisibleOnProfile}
             onPress={() => setIsVisibleOnProfile(!isVisibleOnProfile)}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.brandFade}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base6}
             titleProps={{
               style: {
                 fontWeight: "thin",
                 fontFamily: theme.fonts.montserratRegular,
+                color: theme.colors.brand.base6,
               },
             }}
             wrapperStyle={{
               margin: -20,
             }}
             containerStyle={{
-              backgroundColor: theme.colors.brand.basewhite,
-              borderColor: theme.colors.brand.basewhite,
+              backgroundColor: "transparent",
+              borderWidth: 0,
             }}
           />
         </Spacer>

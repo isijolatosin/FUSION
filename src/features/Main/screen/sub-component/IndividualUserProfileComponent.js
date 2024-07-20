@@ -149,7 +149,7 @@ export default function IndividualUserProfileComponent({
             }}>
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
+                backgroundColor: theme.colors.brand.base3,
                 paddingVertical: theme.spaceNumber[3],
                 paddingHorizontal: theme.spaceNumber[7],
                 borderRadius: theme.spaceNumberBy10[4],
@@ -177,7 +177,7 @@ export default function IndividualUserProfileComponent({
             {data?.zodiac && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.base3,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -209,7 +209,7 @@ export default function IndividualUserProfileComponent({
             )}
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
+                backgroundColor: theme.colors.brand.base3,
                 paddingVertical: theme.spaceNumber[3],
                 paddingHorizontal: theme.spaceNumber[7],
                 borderRadius: theme.spaceNumberBy10[4],
@@ -242,7 +242,7 @@ export default function IndividualUserProfileComponent({
             {data?.nationality && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.base3,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -270,7 +270,7 @@ export default function IndividualUserProfileComponent({
             {data?.tribe && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.base3,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -295,36 +295,38 @@ export default function IndividualUserProfileComponent({
                 </Text>
               </View>
             )}
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View style={{ position: "absolute", top: 10.5, left: 10 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="praying-hands"
-                  IconComponent={FontAwesome5}
-                  size={10}
-                  color={theme.colors.brand.base}
-                />
+            {data?.religious && (
+              <View
+                style={{
+                  backgroundColor: theme.colors.brand.base3,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                  <IconComponent
+                    iconFunction={() => {}}
+                    iconName="praying-hands"
+                    IconComponent={FontAwesome5}
+                    size={10}
+                    color={theme.colors.brand.base}
+                  />
+                </View>
+                <Text
+                  style={{ marginLeft: 10 }}
+                  variant="custom"
+                  colorType="black"
+                  fontType="montserratRegular"
+                  fontSize="button"
+                  width="100%">
+                  {data?.religious}
+                </Text>
               </View>
-              <Text
-                style={{ marginLeft: 10 }}
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.religious}
-              </Text>
-            </View>
+            )}
             {data?.jobtitle?.visibleOnProfile && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.base3,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -352,7 +354,7 @@ export default function IndividualUserProfileComponent({
             {data?.workplace?.visibleOnProfile && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.base3,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -379,64 +381,7 @@ export default function IndividualUserProfileComponent({
             )}
             <View
               style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View style={{ position: "absolute", top: 9, left: 9 }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="human-male-height"
-                  IconComponent={MaterialCommunityIcons}
-                  size={12}
-                  color={theme.colors.brand.base}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 10 }}
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.height?.replace("feet", "'")?.replace("inch", '"')}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
-                paddingVertical: theme.spaceNumber[3],
-                paddingHorizontal: theme.spaceNumber[7],
-                borderRadius: theme.spaceNumberBy10[4],
-              }}>
-              <View
-                style={{
-                  position: "absolute",
-                  top: theme.spaceNumber[5],
-                  left: 8,
-                }}>
-                <IconComponent
-                  iconFunction={() => {}}
-                  iconName="dumbbell"
-                  IconComponent={FontAwesome5}
-                  size={10}
-                  color={theme.colors.brand.base}
-                />
-              </View>
-              <Text
-                style={{ marginLeft: 8 }}
-                variant="custom"
-                colorType="black"
-                fontType="montserratRegular"
-                fontSize="button"
-                width="100%">
-                {data?.lifestyleHabits?.gym}
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: theme.colors.brand.highlight,
+                backgroundColor: theme.colors.brand.base3,
                 paddingVertical: theme.spaceNumber[3],
                 paddingHorizontal: theme.spaceNumber[7],
                 borderRadius: theme.spaceNumberBy10[4],
@@ -544,7 +489,7 @@ export default function IndividualUserProfileComponent({
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.base3,
                   paddingVertical: theme.spaceNumber[3],
                   paddingRight: theme.spaceNumber[7],
                   paddingLeft: theme.spaceNumber[4],
@@ -593,7 +538,7 @@ export default function IndividualUserProfileComponent({
           }}>
           <View
             style={{
-              backgroundColor: theme.colors.brand.highlight,
+              backgroundColor: theme.colors.brand.base3,
               paddingVertical: theme.spaceNumber[3],
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
@@ -624,7 +569,7 @@ export default function IndividualUserProfileComponent({
           </View>
           <View
             style={{
-              backgroundColor: theme.colors.brand.highlight,
+              backgroundColor: theme.colors.brand.base3,
               paddingVertical: theme.spaceNumber[3],
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
@@ -650,7 +595,7 @@ export default function IndividualUserProfileComponent({
           </View>
           <View
             style={{
-              backgroundColor: theme.colors.brand.highlight,
+              backgroundColor: theme.colors.brand.base3,
               paddingVertical: theme.spaceNumber[3],
               paddingHorizontal: theme.spaceNumber[7],
               borderRadius: theme.spaceNumberBy10[4],
@@ -687,7 +632,7 @@ export default function IndividualUserProfileComponent({
                   : imageHeight,
               resizeMode: "cover",
               borderTopRightRadius: 5,
-              borderTopLeftRadius: theme.spaceNumberBy10[10],
+              borderTopLeftRadius: theme.spaceNumberBy10[4],
             }}
             source={{
               uri: `${data?.mediaArray?.[2]}`,
@@ -706,7 +651,7 @@ export default function IndividualUserProfileComponent({
                   : imageHeight,
               resizeMode: "cover",
               borderBottomLeftRadius: 5,
-              borderBottomRightRadius: theme.spaceNumberBy10[10],
+              borderBottomRightRadius: theme.spaceNumberBy10[4],
             }}
             source={{
               uri: `${data?.mediaArray?.[3]}`,
@@ -714,77 +659,6 @@ export default function IndividualUserProfileComponent({
           />
         </Spacer>
       )}
-      <HorizontalPaddingSpace space={theme.space[2]}>
-        <Spacer position="top" size="medium">
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="title"
-            width="100%">
-            Me in Three Words
-          </Text>
-        </Spacer>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-            gap: theme.spaceNumber[3],
-            marginVertical: 5,
-          }}>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              transform="capitalize"
-              width="100%">
-              {data?.whatThreeWordsDescribeYou?.firstword}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              transform="capitalize"
-              width="100%">
-              {data?.whatThreeWordsDescribeYou?.secondword}
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: theme.colors.brand.highlight,
-              paddingVertical: theme.spaceNumber[3],
-              paddingHorizontal: theme.spaceNumber[7],
-              borderRadius: theme.spaceNumberBy10[4],
-            }}>
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratRegular"
-              fontSize="button"
-              transform="capitalize"
-              width="100%">
-              {data?.whatThreeWordsDescribeYou?.thirdword}
-            </Text>
-          </View>
-        </View>
-      </HorizontalPaddingSpace>
       {data?.mediaArray?.[4] && (
         <Spacer position="top" size="medium">
           <Image
@@ -796,7 +670,7 @@ export default function IndividualUserProfileComponent({
                   : imageHeight,
               resizeMode: "cover",
               borderTopRightRadius: 5,
-              borderTopLeftRadius: theme.spaceNumberBy10[10],
+              borderTopLeftRadius: theme.spaceNumberBy10[4],
             }}
             source={{
               uri: `${data?.mediaArray?.[4]}`,
@@ -815,7 +689,7 @@ export default function IndividualUserProfileComponent({
                   : imageHeight,
               resizeMode: "cover",
               borderBottomLeftRadius: 5,
-              borderBottomRightRadius: theme.spaceNumberBy10[10],
+              borderBottomRightRadius: theme.spaceNumberBy10[4],
             }}
             source={{
               uri: `${data?.mediaArray?.[5]}`,

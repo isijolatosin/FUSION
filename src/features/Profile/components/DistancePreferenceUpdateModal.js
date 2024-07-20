@@ -58,13 +58,13 @@ export default function DistancePreferenceUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           Maximum Distance
@@ -82,7 +82,7 @@ export default function DistancePreferenceUpdateModal({
             <View>
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="montserratBold"
                 fontSize="button">
                 Maximum Distance
@@ -91,7 +91,7 @@ export default function DistancePreferenceUpdateModal({
             <View>
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="montserratLight"
                 fontSize="button">
                 {displayDistanceText}
@@ -105,9 +105,9 @@ export default function DistancePreferenceUpdateModal({
               maximumValue={100}
               step={1}
               value={currentUser?.distancePreference?.value ?? distanceValue}
-              minimumTrackTintColor={theme.colors.brand.base}
-              maximumTrackTintColor={theme.colors.brand.highlight}
-              thumbTintColor={theme.colors.brand.base}
+              minimumTrackTintColor={theme.colors.brand.base6}
+              maximumTrackTintColor={theme.colors.brand.black}
+              thumbTintColor={theme.colors.brand.base1}
               onValueChange={setDistanceValue}
               onSlidingStart={() => setSuggestDistanceWithRange(false)}
             />
@@ -116,9 +116,9 @@ export default function DistancePreferenceUpdateModal({
             <View>
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="montserratRegular"
-                fontSize="button">
+                fontSize="caption">
                 Only suggest people within this range
               </Text>
             </View>

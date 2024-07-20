@@ -33,13 +33,12 @@ export default function CaptureLifestyleHabits({ navigation }) {
   const {
     dob,
     _height,
-    religious,
     sexualOrientation,
     preference,
-    nationality,
-    whatThreeWordsDescribeYou,
+    gymGoals,
     workplace,
     jobtitle,
+    fitnessClub,
     interestsArray,
   } = route.params || {};
 
@@ -83,13 +82,12 @@ export default function CaptureLifestyleHabits({ navigation }) {
                   navigation.navigate("capture-photos-screen", {
                     dob,
                     _height,
-                    religious,
                     sexualOrientation,
                     preference,
-                    nationality,
-                    whatThreeWordsDescribeYou,
+                    gymGoals,
                     workplace,
                     jobtitle,
+                    fitnessClub,
                     interestsArray,
                     lifestyleHabits,
                   });
@@ -105,7 +103,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
           <Spacer position="top" size="xxlarge">
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base"
               fontType="arimaMadurai"
               lineHeight={theme.lineHeights[25]}
               fontSize="h4"
@@ -117,7 +115,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
             <Spacer position="bottom" size="small">
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base"
                 fontType="montserratRegular"
                 lineHeight={theme.lineHeights[0]}
                 fontSize="caption"
@@ -131,7 +129,6 @@ export default function CaptureLifestyleHabits({ navigation }) {
             style={{
               width: "100%",
               height: pageError ? "60%" : "65%",
-              // marginBottom: theme.spaceNumberBy10[5],
             }}>
             <Spacer
               style={{ flexDirection: "row", alignItems: "center" }}
@@ -147,7 +144,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               <Text
                 style={{ paddingLeft: theme.spaceNumber[5] }}
                 variant="custom"
-                colorType="black"
+                colorType="base"
                 fontType="montserratBold"
                 lineHeight={theme.lineHeights[0]}
                 fontSize="body"
@@ -170,7 +167,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       backgroundColor:
                         lifestyleHabits.gym === gym
                           ? theme.colors.brand.base
-                          : theme.colors.brand.highlight,
+                          : theme.colors.brand.base3,
                       paddingHorizontal: theme.spaceNumber[7],
                       paddingVertical: theme.spaceNumber[3],
                       borderRadius: theme.spaceNumberBy10[9],
@@ -179,11 +176,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       style={{
                         color:
                           lifestyleHabits.gym === gym
-                            ? theme.colors.brand.basewhite
-                            : theme.colors.brand.black,
+                            ? theme.colors.brand.base1
+                            : theme.colors.brand.base,
                       }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base"
                       fontType="montserratRegular"
                       lineHeight={theme.lineHeights[0]}
                       fontSize="button">
@@ -207,7 +204,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               <Text
                 style={{ paddingLeft: theme.spaceNumber[5] }}
                 variant="custom"
-                colorType="black"
+                colorType="base"
                 fontType="montserratBold"
                 lineHeight={theme.lineHeights[0]}
                 fontSize="body"
@@ -230,7 +227,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       backgroundColor:
                         lifestyleHabits.smoke === smoke
                           ? theme.colors.brand.base
-                          : theme.colors.brand.highlight,
+                          : theme.colors.brand.base3,
                       paddingHorizontal: theme.spaceNumber[7],
                       paddingVertical: theme.spaceNumber[3],
                       borderRadius: theme.spaceNumberBy10[9],
@@ -239,11 +236,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       style={{
                         color:
                           lifestyleHabits.smoke === smoke
-                            ? theme.colors.brand.basewhite
-                            : theme.colors.brand.black,
+                            ? theme.colors.brand.base1
+                            : theme.colors.brand.base,
                       }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base"
                       fontType="montserratRegular"
                       lineHeight={theme.lineHeights[0]}
                       fontSize="button">
@@ -267,7 +264,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               <Text
                 style={{ paddingLeft: theme.spaceNumber[5] }}
                 variant="custom"
-                colorType="black"
+                colorType="base"
                 fontType="montserratBold"
                 lineHeight={theme.lineHeights[0]}
                 fontSize="body"
@@ -290,7 +287,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       backgroundColor:
                         lifestyleHabits.cannabis === cannabis
                           ? theme.colors.brand.base
-                          : theme.colors.brand.highlight,
+                          : theme.colors.brand.base3,
                       paddingHorizontal: theme.spaceNumber[7],
                       paddingVertical: theme.spaceNumber[3],
                       borderRadius: theme.spaceNumberBy10[9],
@@ -299,11 +296,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       style={{
                         color:
                           lifestyleHabits.cannabis === cannabis
-                            ? theme.colors.brand.basewhite
-                            : theme.colors.brand.black,
+                            ? theme.colors.brand.base1
+                            : theme.colors.brand.base,
                       }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base"
                       fontType="montserratRegular"
                       lineHeight={theme.lineHeights[0]}
                       fontSize="button">
@@ -327,7 +324,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
               <Text
                 style={{ paddingLeft: theme.spaceNumber[5] }}
                 variant="custom"
-                colorType="black"
+                colorType="base"
                 fontType="montserratBold"
                 lineHeight={theme.lineHeights[0]}
                 fontSize="body"
@@ -350,7 +347,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       backgroundColor:
                         lifestyleHabits.drink === drink
                           ? theme.colors.brand.base
-                          : theme.colors.brand.highlight,
+                          : theme.colors.brand.base3,
                       paddingHorizontal: theme.spaceNumber[7],
                       paddingVertical: theme.spaceNumber[3],
                       borderRadius: theme.spaceNumberBy10[9],
@@ -359,11 +356,11 @@ export default function CaptureLifestyleHabits({ navigation }) {
                       style={{
                         color:
                           lifestyleHabits.drink === drink
-                            ? theme.colors.brand.basewhite
-                            : theme.colors.brand.black,
+                            ? theme.colors.brand.base1
+                            : theme.colors.brand.base,
                       }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base"
                       fontType="montserratRegular"
                       lineHeight={theme.lineHeights[0]}
                       fontSize="button">

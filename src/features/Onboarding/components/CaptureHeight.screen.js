@@ -50,14 +50,10 @@ export default function CaptureHeight({ navigation }) {
               theme={theme}
               color={theme.colors.brand.base}
               nextFunction={() => {
-                if (_height) {
-                  navigation.navigate("capture-religious-screen", {
-                    dob,
-                    _height,
-                  });
-                } else {
-                  setPageError(true);
-                }
+                navigation.navigate("capture-sexual-orientation-screen", {
+                  dob,
+                  _height,
+                });
               }}
             />
           )}
@@ -72,7 +68,7 @@ export default function CaptureHeight({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
               Height is just a number!
@@ -86,19 +82,16 @@ export default function CaptureHeight({ navigation }) {
               width="100%">
               How tall are you?
             </Text>
+            <Text
+              variant="custom"
+              colorType="lines"
+              fontType="arimaMadurai"
+              fontSize="button"
+              lineHeight={theme.lineHeights[5]}
+              width="100%">
+              (Optional)
+            </Text>
           </Spacer>
-          <OnboardingErrorComponent
-            pageError={pageError}
-            text="Please provide your interest"
-            size="body"
-            classes={{
-              textAlign: "left",
-              color: theme.colors.brand.error,
-              fontFamily: theme.fonts.montserratSemibold,
-              fontSize: theme.spaceNumber[7],
-              marginTop: theme.spaceNumber[2],
-            }}
-          />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection
               data={heightList}
@@ -108,6 +101,7 @@ export default function CaptureHeight({ navigation }) {
               setFunction={setHeight}
               theme={theme}
               isForHeightComponent={true}
+              isWhiteBackground={true}
             />
           </Spacer>
         </HorizontalPaddingSpace>

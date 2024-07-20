@@ -149,11 +149,11 @@ export default function CreateAccount({ navigation }) {
           formattedPhonenumber
         );
         if (isVerifyUser) {
-          navigation.navigate("main");
+          navigation.navigate("main", { phonenumber: phonenumber });
         } else {
           navigation.navigate("capture-name-screen", {
-            email,
-            phonenumber: formattedPhonenumber,
+            email: email ? email : "",
+            phonenumber: formattedPhonenumber ? formattedPhonenumber : "",
           });
         }
       }, 5000);
@@ -177,7 +177,7 @@ export default function CreateAccount({ navigation }) {
 
       if (error.message?.includes("already-in-use")) {
         errorMsg =
-          "Email Already in use: Please provide your email for registration";
+          "Email Already in use: Please provide a new email for registration";
         setFormValidate({
           ...formValidate,
           email: false,
@@ -463,10 +463,10 @@ export default function CreateAccount({ navigation }) {
               style={{
                 flex: 0.35,
                 width: width,
-                marginBottom: theme.spaceNumberBy10[4],
+                marginBottom: theme.spaceNumberBy10[10],
               }}>
               <LottieView
-                source={require("../../../../assets/animations/create.json")}
+                source={require("../../../../assets/animations/gym.json")}
                 autoPlay
                 loop
               />

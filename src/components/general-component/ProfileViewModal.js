@@ -53,7 +53,7 @@ export default function ProfileViewModal({
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[3]}
-            color={theme.colors.brand.base}
+            color={theme.colors.brand.base1}
           />
         </Pressable>
         <View style={{ flex: 0.9 }}>
@@ -104,7 +104,7 @@ export default function ProfileViewModal({
               <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratBold"
                   fontSize="title"
                   width="100%">
@@ -116,7 +116,7 @@ export default function ProfileViewModal({
                 size="small"
                 style={{
                   borderWidth: 1,
-                  borderColor: theme.colors.brand.brandFadeLighter,
+                  borderColor: theme.colors.brand.base6,
                   borderRadius: theme.spaceNumber[2],
                   borderStyle: "dashed",
                   padding: theme.spaceNumber[3],
@@ -132,15 +132,17 @@ export default function ProfileViewModal({
               </Spacer>
             </Fragment>
           )}
-          <Spacer position="top" size="medium">
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="title"
-              width="100%">
-              My Basics
-            </Text>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="medium">
+              <Text
+                variant="custom"
+                colorType="base1"
+                fontType="montserratRegular"
+                fontSize="title"
+                width="100%">
+                My Basics
+              </Text>
+            </Spacer>
           </Spacer>
           <View
             style={{
@@ -153,26 +155,26 @@ export default function ProfileViewModal({
             {otherUser?.gender && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
-                <View style={{ position: "absolute", top: 8, left: 8 }}>
+                <View style={{ position: "absolute", top: 9, left: 8 }}>
                   <IconComponent
                     iconFunction={() => {}}
                     iconName={iconNamePerGender}
                     IconComponent={MaterialCommunityIcons}
-                    size={15}
-                    color={theme.colors.brand.base}
+                    size={12}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.gender}
                 </Text>
@@ -182,7 +184,7 @@ export default function ProfileViewModal({
             {otherUser?.zodiac && zodiacSign && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -190,23 +192,23 @@ export default function ProfileViewModal({
                 <View
                   style={{
                     position: "absolute",
-                    top: theme.spaceNumber[4],
+                    top: 9,
                     left: 9,
                   }}>
                   <IconComponent
                     iconFunction={() => {}}
                     iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
                     IconComponent={MaterialCommunityIcons}
-                    size={15}
-                    color={theme.colors.brand.base}
+                    size={12}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: theme.spaceNumber[5] }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {zodiacSign}
                 </Text>
@@ -215,7 +217,7 @@ export default function ProfileViewModal({
             {otherUser?.sexualOrientation && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -223,7 +225,7 @@ export default function ProfileViewModal({
                 <View
                   style={{
                     position: "absolute",
-                    top: 10,
+                    top: 11,
                     left: 9,
                     transform: [{ rotateZ: "145deg" }],
                   }}>
@@ -231,16 +233,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="magnet"
                     IconComponent={Entypo}
-                    size={12}
-                    color={theme.colors.brand.base}
+                    size={10}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.sexualOrientation}
                 </Text>
@@ -249,26 +251,26 @@ export default function ProfileViewModal({
             {otherUser?.nationality && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
-                <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <View style={{ position: "absolute", top: 10, left: 9 }}>
                   <IconComponent
                     iconFunction={() => {}}
                     iconName="flag"
                     IconComponent={Fontisto}
-                    size={12}
-                    color={theme.colors.brand.base}
+                    size={11}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.nationality}
                 </Text>
@@ -277,26 +279,26 @@ export default function ProfileViewModal({
             {otherUser?.tribe && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
-                <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <View style={{ position: "absolute", top: 10, left: 9 }}>
                   <IconComponent
                     iconFunction={() => {}}
                     iconName="origin"
                     IconComponent={Fontisto}
-                    size={12}
-                    color={theme.colors.brand.base}
+                    size={11}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.tribe}
                 </Text>
@@ -305,26 +307,26 @@ export default function ProfileViewModal({
             {otherUser?.religious && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
-                <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                <View style={{ position: "absolute", top: 12, left: 10 }}>
                   <IconComponent
                     iconFunction={() => {}}
                     iconName="praying-hands"
                     IconComponent={FontAwesome5}
-                    size={10}
-                    color={theme.colors.brand.base}
+                    size={8}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.religious}
                 </Text>
@@ -333,7 +335,7 @@ export default function ProfileViewModal({
             {otherUser?.jobtitle?.visibleOnProfile && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -348,16 +350,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="work"
                     IconComponent={MaterialIcons}
-                    size={12}
-                    color={theme.colors.brand.base}
+                    size={10}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.jobtitle?.job}
                 </Text>
@@ -366,7 +368,7 @@ export default function ProfileViewModal({
             {otherUser?.workplace?.visibleOnProfile && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -376,16 +378,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="home-work"
                     IconComponent={MaterialIcons}
-                    size={12}
-                    color={theme.colors.brand.base}
+                    size={10}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.workplace?.work}
                 </Text>
@@ -394,26 +396,26 @@ export default function ProfileViewModal({
             {otherUser?.height && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
                 }}>
-                <View style={{ position: "absolute", top: 9, left: 9 }}>
+                <View style={{ position: "absolute", top: 10, left: 9 }}>
                   <IconComponent
                     iconFunction={() => {}}
                     iconName="human-male-height"
                     IconComponent={MaterialCommunityIcons}
-                    size={12}
-                    color={theme.colors.brand.base}
+                    size={10}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.height
                     ?.replace("feet", "'")
@@ -424,7 +426,7 @@ export default function ProfileViewModal({
             {otherUser?.lifestyleHabits?.gym && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -439,16 +441,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="dumbbell"
                     IconComponent={FontAwesome5}
-                    size={10}
-                    color={theme.colors.brand.base}
+                    size={8}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.lifestyleHabits?.gym}
                 </Text>
@@ -457,7 +459,7 @@ export default function ProfileViewModal({
             {otherUser?.preference && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -467,16 +469,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="search"
                     IconComponent={Feather}
-                    size={15}
-                    color={theme.colors.brand.base}
+                    size={12}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 15 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.preference}
                 </Text>
@@ -485,14 +487,14 @@ export default function ProfileViewModal({
           </View>
           {otherUser?.locationVisibility && (
             <Fragment>
-              <Spacer position="top" size="medium">
+              <Spacer position="top" size="large">
                 <Text
                   variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
+                  colorType="base1"
+                  fontType="montserratRegular"
                   fontSize="title"
                   width="100%">
-                  My Location
+                  Location
                 </Text>
               </Spacer>
               <View
@@ -506,14 +508,14 @@ export default function ProfileViewModal({
                   iconName="location-pin"
                   IconComponent={Entypo}
                   size={15}
-                  color={theme.colors.brand.base}
+                  color={theme.colors.brand.base1}
                 />
                 <Text
                   style={{ marginLeft: 3 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base6"
                   fontType="montserratBold"
-                  fontSize="button">
+                  fontSize="caption">
                   {otherUser?.location}
                 </Text>
               </View>
@@ -522,15 +524,17 @@ export default function ProfileViewModal({
         </HorizontalPaddingSpace>
         <HorizontalPaddingSpace space={theme.space[2]}>
           <Spacer position="bottom" size="medium">
-            <Spacer position="top" size="medium">
-              <Text
-                variant="custom"
-                colorType="black"
-                fontType="montserratBold"
-                fontSize="title"
-                width="100%">
-                My Interests
-              </Text>
+            <Spacer position="top" size="large">
+              <Spacer position="bottom" size="medium">
+                <Text
+                  variant="custom"
+                  colorType="base1"
+                  fontType="montserratRegular"
+                  fontSize="title"
+                  width="100%">
+                  My Interests
+                </Text>
+              </Spacer>
             </Spacer>
             {otherUser?.interestsArray?.length && (
               <View
@@ -554,7 +558,7 @@ export default function ProfileViewModal({
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        backgroundColor: theme.colors.brand.highlight,
+                        backgroundColor: theme.colors.brand.black,
                         paddingVertical: theme.spaceNumber[3],
                         paddingRight: theme.spaceNumber[7],
                         paddingLeft: theme.spaceNumber[4],
@@ -564,16 +568,16 @@ export default function ProfileViewModal({
                         iconFunction={() => {}}
                         iconName={interestMapObject?.iconName}
                         IconComponent={interestMapObject?.family}
-                        size={14}
-                        color={theme.colors.brand.base}
+                        size={11}
+                        color={theme.colors.brand.base1}
                       />
                       <View style={{ marginLeft: theme.spaceNumber[1] }}>
                         <Text
                           key={idx}
                           variant="custom"
-                          colorType="black"
+                          colorType="base1"
                           fontType="montserratRegular"
-                          fontSize="button"
+                          fontSize="caption"
                           width="100%">
                           {word}
                         </Text>
@@ -584,15 +588,17 @@ export default function ProfileViewModal({
               </View>
             )}
           </Spacer>
-          <Spacer position="top" size="medium">
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="title"
-              width="100%">
-              My Vices
-            </Text>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="medium">
+              <Text
+                variant="custom"
+                colorType="base1"
+                fontType="montserratRegular"
+                fontSize="title"
+                width="100%">
+                My Vices
+              </Text>
+            </Spacer>
           </Spacer>
           <View
             style={{
@@ -605,7 +611,7 @@ export default function ProfileViewModal({
             {otherUser?.lifestyleHabits?.cannabis && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -620,16 +626,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="cannabis"
                     IconComponent={FontAwesome5}
-                    size={13}
-                    color={theme.colors.brand.base}
+                    size={10}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 10 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.lifestyleHabits?.cannabis}
                 </Text>
@@ -638,7 +644,7 @@ export default function ProfileViewModal({
             {otherUser?.lifestyleHabits?.drink && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -648,16 +654,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="glass-wine"
                     IconComponent={MaterialCommunityIcons}
-                    size={15}
-                    color={theme.colors.brand.base}
+                    size={12}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 8 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.lifestyleHabits?.drink}
                 </Text>
@@ -666,7 +672,7 @@ export default function ProfileViewModal({
             {otherUser?.lifestyleHabits?.smoke && (
               <View
                 style={{
-                  backgroundColor: theme.colors.brand.highlight,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   paddingHorizontal: theme.spaceNumber[7],
                   borderRadius: theme.spaceNumberBy10[4],
@@ -676,16 +682,16 @@ export default function ProfileViewModal({
                     iconFunction={() => {}}
                     iconName="cigar"
                     IconComponent={MaterialCommunityIcons}
-                    size={15}
-                    color={theme.colors.brand.base}
+                    size={12}
+                    color={theme.colors.brand.base1}
                   />
                 </View>
                 <Text
                   style={{ marginLeft: 15 }}
                   variant="custom"
-                  colorType="black"
+                  colorType="base1"
                   fontType="montserratRegular"
-                  fontSize="button"
+                  fontSize="caption"
                   width="100%">
                   {otherUser?.lifestyleHabits?.smoke}
                 </Text>
@@ -693,85 +699,14 @@ export default function ProfileViewModal({
             )}
           </View>
         </HorizontalPaddingSpace>
-        <HorizontalPaddingSpace space={theme.space[2]}>
-          <Spacer position="top" size="medium">
-            <Text
-              variant="custom"
-              colorType="black"
-              fontType="montserratBold"
-              fontSize="title"
-              width="100%">
-              Me in Three Words
-            </Text>
-          </Spacer>
-          {otherUser?.whatThreeWordsDescribeYou &&
-            Object.keys(otherUser?.whatThreeWordsDescribeYou)?.length && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                  gap: theme.spaceNumber[3],
-                  marginVertical: 5,
-                }}>
-                <View
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
-                    {otherUser?.whatThreeWordsDescribeYou?.firstword}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
-                    {otherUser?.whatThreeWordsDescribeYou?.secondword}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    width="100%">
-                    {otherUser?.whatThreeWordsDescribeYou?.thirdword}
-                  </Text>
-                </View>
-              </View>
-            )}
-        </HorizontalPaddingSpace>
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-evenly",
-            paddingBottom: theme.spaceNumberBy10[2],
+            paddingBottom: theme.spaceNumberBy10[3],
             paddingTop: theme.spaceNumber[3],
-            backgroundColor: theme.colors.brand.highlight,
+            backgroundColor: theme.colors.brand.black,
           }}>
           {otherUser?.facebook?.visibleOnProfile && (
             <HorizontalPaddingSpace space={theme.space[4]}>
@@ -781,7 +716,7 @@ export default function ProfileViewModal({
                   iconName="facebook"
                   IconComponent={Entypo}
                   size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.base}
+                  color={theme.colors.brand.base1}
                 />
               </Pressable>
             </HorizontalPaddingSpace>
@@ -796,7 +731,7 @@ export default function ProfileViewModal({
                   iconName="instagram"
                   IconComponent={AntDesign}
                   size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.base}
+                  color={theme.colors.brand.base1}
                 />
               </Pressable>
             </HorizontalPaddingSpace>
@@ -809,7 +744,7 @@ export default function ProfileViewModal({
                   iconName="snapchat"
                   IconComponent={Fontisto}
                   size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.base}
+                  color={theme.colors.brand.base1}
                 />
               </Pressable>
             </HorizontalPaddingSpace>
@@ -822,7 +757,7 @@ export default function ProfileViewModal({
                   iconName="tiktok"
                   IconComponent={FontAwesome5}
                   size={theme.spaceNumberBy10[1]}
-                  color={theme.colors.brand.base}
+                  color={theme.colors.brand.base1}
                 />
               </Pressable>
             </HorizontalPaddingSpace>
@@ -835,7 +770,7 @@ export default function ProfileViewModal({
                   iconName="playlist-music"
                   IconComponent={MaterialCommunityIcons}
                   size={theme.spaceNumberBy10[2]}
-                  color={theme.colors.brand.base}
+                  color={theme.colors.brand.base1}
                 />
               </Pressable>
             </HorizontalPaddingSpace>

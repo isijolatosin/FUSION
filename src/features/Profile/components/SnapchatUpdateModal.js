@@ -11,9 +11,11 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
 export default function SnapchatUpdateModal({ theme, currentUser, onClose }) {
-  const [snapchat, setSnapchatLink] = useState(currentUser?.snapchat?.link);
+  const [snapchat, setSnapchatLink] = useState(
+    currentUser?.snapchat?.link ?? ""
+  );
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
-    currentUser?.facebook?.visibleOnProfile
+    currentUser?.facebook?.visibleOnProfile ?? false
   );
 
   async function updateSnapchatLink(value, visibilityOption) {
@@ -53,7 +55,7 @@ export default function SnapchatUpdateModal({ theme, currentUser, onClose }) {
             iconName="keyboard-arrow-left"
             IconComponent={MaterialIcons}
             size={theme.spaceNumberBy10[2]}
-            color={theme.colors.brand.brandFade}
+            color={theme.colors.brand.base1}
             horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
           />
           <View
@@ -68,15 +70,15 @@ export default function SnapchatUpdateModal({ theme, currentUser, onClose }) {
               iconName="snapchat"
               IconComponent={Fontisto}
               size={30}
-              color={theme.colors.brand.brandTone}
+              color={theme.colors.brand.base6}
             />
             <View>
               <Text
                 style={{ marginLeft: theme.spaceNumber[4] }}
                 variant="custom"
-                colorType="brandTone"
+                colorType="base6"
                 fontType="montserratBold"
-                fontSize="title">
+                fontSize="body">
                 Snapchat
               </Text>
             </View>
@@ -93,6 +95,7 @@ export default function SnapchatUpdateModal({ theme, currentUser, onClose }) {
             isBackgroundColor={false}
             fontSize={theme.fontSizes.title}
             fontType={theme.fonts.montserratBold}
+            fontColor={theme.colors.brand.base1}
             multiline={true}
             numberOfLines={2}
           />
@@ -102,20 +105,21 @@ export default function SnapchatUpdateModal({ theme, currentUser, onClose }) {
             title="Visible on your profile"
             checked={isVisibleOnProfile}
             onPress={handleCheckboxToggle}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.brandFade}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base6}
             titleProps={{
               style: {
                 fontWeight: "thin",
                 fontFamily: theme.fonts.montserratRegular,
+                color: theme.colors.brand.base6,
               },
             }}
             wrapperStyle={{
               margin: -20,
             }}
             containerStyle={{
-              backgroundColor: theme.colors.brand.basewhite,
-              borderColor: theme.colors.brand.basewhite,
+              backgroundColor: "transparent",
+              borderWidth: 0,
             }}
           />
         </Spacer>

@@ -175,16 +175,7 @@ export default function InitiatorProfileComponent({
   );
 
   return (
-    <Modal
-      animationIn="slideInRight"
-      animationOut="slideOutRight"
-      style={{
-        backgroundColor: theme.colors.brand.basewhite,
-        margin: 0,
-        position: "relative",
-        alignItems: "flex-end",
-        paddingBottom: theme.spaceNumberBy10[0],
-      }}>
+    <>
       {data?.length ? (
         <View
           style={{ marginTop: theme.spaceNumberBy50[0], position: "relative" }}>
@@ -197,7 +188,7 @@ export default function InitiatorProfileComponent({
                 iconName="keyboard-arrow-left"
                 IconComponent={MaterialIcons}
                 size={theme.spaceNumberBy10[3]}
-                color={theme.colors.brand.base}
+                color={theme.colors.brand.base1}
               />
             </Pressable>
             <View style={{ flex: 0.9 }}>
@@ -214,9 +205,7 @@ export default function InitiatorProfileComponent({
               />
             </View>
           </View>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ marginBottom: theme.spaceNumberBy10[5] + 3 }}>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <HorizontalPaddingSpace space={theme.space[2]}>
               <View style={{ position: "relative" }}>
                 <Image
@@ -243,12 +232,13 @@ export default function InitiatorProfileComponent({
                     <Text
                       style={{
                         position: "absolute",
-                        left:
-                          theme.spaceNumberBy50[5] + theme.spaceNumberBy10[1],
-                        bottom: theme.spaceNumberBy10[6],
+                        right: -theme.spaceNumberBy50[4],
+                        bottom: theme.spaceNumberBy10[5],
+                        backgroundColor: theme.colors.brand.base1,
+                        paddingHorizontal: 10,
                       }}
                       variant="custom"
-                      colorType="basewhite"
+                      colorType="base"
                       fontType="montserratRegular"
                       fontSize="caption">
                       double tap
@@ -263,9 +253,9 @@ export default function InitiatorProfileComponent({
                     }}>
                     <IconComponent
                       iconFunction={() => handleLikeInitiatorProfile()}
-                      iconName="heart"
+                      iconName="weight-lifter"
                       IconComponent={MaterialCommunityIcons}
-                      size={35}
+                      size={25}
                       color={theme.colors.brand.base}
                     />
                   </TouchableOpacity>
@@ -277,7 +267,7 @@ export default function InitiatorProfileComponent({
                   <Spacer position="top" size="medium">
                     <Text
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratBold"
                       fontSize="title"
                       width="100%">
@@ -289,7 +279,7 @@ export default function InitiatorProfileComponent({
                     size="small"
                     style={{
                       borderWidth: 1,
-                      borderColor: theme.colors.brand.brandFadeLighter,
+                      borderColor: theme.colors.brand.base6,
                       borderRadius: theme.spaceNumber[2],
                       borderStyle: "dashed",
                       padding: theme.spaceNumber[3],
@@ -305,15 +295,17 @@ export default function InitiatorProfileComponent({
                   </Spacer>
                 </Fragment>
               )}
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  My Basics
-                </Text>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratBold"
+                    fontSize="title"
+                    width="100%">
+                    My Basics
+                  </Text>
+                </Spacer>
               </Spacer>
               <View
                 style={{
@@ -325,26 +317,26 @@ export default function InitiatorProfileComponent({
                 }}>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 8, left: 8 }}>
+                  <View style={{ position: "absolute", top: 9, left: 8 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName={iconNamePerGender}
                       IconComponent={MaterialCommunityIcons}
-                      size={15}
-                      color={theme.colors.brand.base}
+                      size={12}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     transform="capitalize"
                     width="100%">
                     {data?.[0]?.likedBy?.gender}
@@ -353,7 +345,7 @@ export default function InitiatorProfileComponent({
                 {data?.[0]?.likedBy?.zodiac && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
@@ -361,7 +353,7 @@ export default function InitiatorProfileComponent({
                     <View
                       style={{
                         position: "absolute",
-                        top: 10,
+                        top: 9,
                         left: 9,
                       }}>
                       <IconComponent
@@ -369,15 +361,15 @@ export default function InitiatorProfileComponent({
                         iconName={`zodiac-${zodiacSign?.toLowerCase()}`}
                         IconComponent={MaterialCommunityIcons}
                         size={15}
-                        color={theme.colors.brand.base}
+                        color={theme.colors.brand.base1}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: theme.spaceNumber[5] }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {zodiacSign}
                     </Text>
@@ -385,7 +377,7 @@ export default function InitiatorProfileComponent({
                 )}
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -393,7 +385,7 @@ export default function InitiatorProfileComponent({
                   <View
                     style={{
                       position: "absolute",
-                      top: 10,
+                      top: 11,
                       left: 9,
                       transform: [{ rotateZ: "145deg" }],
                     }}>
@@ -401,42 +393,42 @@ export default function InitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="magnet"
                       IconComponent={Entypo}
-                      size={12}
-                      color={theme.colors.brand.base}
+                      size={10}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.sexualOrientation}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 9, left: 9 }}>
+                  <View style={{ position: "absolute", top: 10, left: 9 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName="flag"
                       IconComponent={Fontisto}
-                      size={12}
-                      color={theme.colors.brand.base}
+                      size={11}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.nationality}
                   </Text>
@@ -444,26 +436,26 @@ export default function InitiatorProfileComponent({
                 {data?.[0]?.likedBy?.tribe && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
                     }}>
-                    <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                    <View style={{ position: "absolute", top: 10, left: 9 }}>
                       <IconComponent
                         iconFunction={() => {}}
                         iconName="praying-hands"
                         IconComponent={FontAwesome5}
                         size={10}
-                        color={theme.colors.brand.base}
+                        color={theme.colors.brand.base1}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: 10 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {data?.[0]?.likedBy?.tribe}
                     </Text>
@@ -471,26 +463,26 @@ export default function InitiatorProfileComponent({
                 )}
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 10.5, left: 10 }}>
+                  <View style={{ position: "absolute", top: 12, left: 10 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName="praying-hands"
                       IconComponent={FontAwesome5}
-                      size={10}
-                      color={theme.colors.brand.base}
+                      size={8}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.religious}
                   </Text>
@@ -498,26 +490,31 @@ export default function InitiatorProfileComponent({
                 {data?.[0]?.likedBy?.jobtitle?.visibleOnProfile && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
                     }}>
-                    <View style={{ position: "absolute", top: 9, left: 9 }}>
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: theme.spaceNumber[5],
+                        left: 9,
+                      }}>
                       <IconComponent
                         iconFunction={() => {}}
                         iconName="work"
                         IconComponent={MaterialIcons}
-                        size={12}
-                        color={theme.colors.brand.base}
+                        size={10}
+                        color={theme.colors.brand.base1}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: 10 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {data?.[0]?.likedBy?.jobtitle?.job}
                     </Text>
@@ -526,26 +523,26 @@ export default function InitiatorProfileComponent({
                 {data?.[0]?.likedBy?.workplace?.visibleOnProfile && (
                   <View
                     style={{
-                      backgroundColor: theme.colors.brand.highlight,
+                      backgroundColor: theme.colors.brand.black,
                       paddingVertical: theme.spaceNumber[3],
                       paddingHorizontal: theme.spaceNumber[7],
                       borderRadius: theme.spaceNumberBy10[4],
                     }}>
-                    <View style={{ position: "absolute", top: 9, left: 9 }}>
+                    <View style={{ position: "absolute", top: 11, left: 9 }}>
                       <IconComponent
                         iconFunction={() => {}}
                         iconName="work"
                         IconComponent={MaterialIcons}
-                        size={12}
+                        size={10}
                         color={theme.colors.brand.base}
                       />
                     </View>
                     <Text
                       style={{ marginLeft: 10 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base1"
                       fontType="montserratRegular"
-                      fontSize="button"
+                      fontSize="caption"
                       width="100%">
                       {data?.[0]?.likedBy?.workplace?.work}
                     </Text>
@@ -553,26 +550,26 @@ export default function InitiatorProfileComponent({
                 )}
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
                   }}>
-                  <View style={{ position: "absolute", top: 9, left: 9 }}>
+                  <View style={{ position: "absolute", top: 10, left: 9 }}>
                     <IconComponent
                       iconFunction={() => {}}
                       iconName="human-male-height"
                       IconComponent={MaterialCommunityIcons}
                       size={12}
-                      color={theme.colors.brand.base}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.height
                       ?.replace("feet", "'")
@@ -581,7 +578,7 @@ export default function InitiatorProfileComponent({
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -596,23 +593,23 @@ export default function InitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="dumbbell"
                       IconComponent={FontAwesome5}
-                      size={10}
-                      color={theme.colors.brand.base}
+                      size={8}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.lifestyleHabits?.gym}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -622,16 +619,16 @@ export default function InitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="search"
                       IconComponent={Feather}
-                      size={15}
-                      color={theme.colors.brand.base}
+                      size={12}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 15 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.preference}
                   </Text>
@@ -639,11 +636,11 @@ export default function InitiatorProfileComponent({
               </View>
               {data?.[0]?.likedBy?.locationVisibility && (
                 <Fragment>
-                  <Spacer position="top" size="medium">
+                  <Spacer position="top" size="large">
                     <Text
                       variant="custom"
-                      colorType="black"
-                      fontType="montserratBold"
+                      colorType="base1"
+                      fontType="montserratRegular"
                       fontSize="title"
                       width="100%">
                       My Location
@@ -665,7 +662,7 @@ export default function InitiatorProfileComponent({
                     <Text
                       style={{ marginLeft: 3 }}
                       variant="custom"
-                      colorType="black"
+                      colorType="base6"
                       fontType="montserratBold"
                       fontSize="button">
                       {data?.[0]?.likedBy?.location}
@@ -691,15 +688,17 @@ export default function InitiatorProfileComponent({
                 />
               </Spacer>
 
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  My Interests
-                </Text>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="title"
+                    width="100%">
+                    My Interests
+                  </Text>
+                </Spacer>
               </Spacer>
               <View
                 style={{
@@ -722,7 +721,7 @@ export default function InitiatorProfileComponent({
                       style={{
                         flexDirection: "row",
                         alignItems: "center",
-                        backgroundColor: theme.colors.brand.highlight,
+                        backgroundColor: theme.colors.brand.black,
                         paddingVertical: theme.spaceNumber[3],
                         paddingRight: theme.spaceNumber[7],
                         paddingLeft: theme.spaceNumber[4],
@@ -732,16 +731,16 @@ export default function InitiatorProfileComponent({
                         iconFunction={() => {}}
                         iconName={interestMapObject?.iconName}
                         IconComponent={interestMapObject?.family}
-                        size={14}
-                        color={theme.colors.brand.base}
+                        size={11}
+                        color={theme.colors.brand.base1}
                       />
                       <View style={{ marginLeft: theme.spaceNumber[1] }}>
                         <Text
                           key={idx}
                           variant="custom"
-                          colorType="black"
+                          colorType="base1"
                           fontType="montserratRegular"
-                          fontSize="button"
+                          fontSize="caption"
                           width="100%">
                           {word}
                         </Text>
@@ -750,15 +749,17 @@ export default function InitiatorProfileComponent({
                   );
                 })}
               </View>
-              <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  Vices
-                </Text>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="title"
+                    width="100%">
+                    Vices
+                  </Text>
+                </Spacer>
               </Spacer>
               <View
                 style={{
@@ -770,7 +771,7 @@ export default function InitiatorProfileComponent({
                 }}>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -785,23 +786,23 @@ export default function InitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="cannabis"
                       IconComponent={FontAwesome5}
-                      size={17}
-                      color={theme.colors.brand.base}
+                      size={10}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 10 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.lifestyleHabits?.cannabis}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -811,23 +812,23 @@ export default function InitiatorProfileComponent({
                       iconFunction={() => {}}
                       iconName="glass-wine"
                       IconComponent={MaterialCommunityIcons}
-                      size={15}
-                      color={theme.colors.brand.base}
+                      size={12}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 8 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.lifestyleHabits?.drink}
                   </Text>
                 </View>
                 <View
                   style={{
-                    backgroundColor: theme.colors.brand.highlight,
+                    backgroundColor: theme.colors.brand.black,
                     paddingVertical: theme.spaceNumber[3],
                     paddingHorizontal: theme.spaceNumber[7],
                     borderRadius: theme.spaceNumberBy10[4],
@@ -838,15 +839,15 @@ export default function InitiatorProfileComponent({
                       iconName="cigar"
                       IconComponent={MaterialCommunityIcons}
                       size={15}
-                      color={theme.colors.brand.base}
+                      color={theme.colors.brand.base1}
                     />
                   </View>
                   <Text
                     style={{ marginLeft: 15 }}
                     variant="custom"
-                    colorType="black"
+                    colorType="base1"
                     fontType="montserratRegular"
-                    fontSize="button"
+                    fontSize="caption"
                     width="100%">
                     {data?.[0]?.likedBy?.lifestyleHabits?.smoke}
                   </Text>
@@ -883,7 +884,7 @@ export default function InitiatorProfileComponent({
                 </Spacer>
               )}
 
-              <Spacer position="top" size="medium">
+              {/* <Spacer position="top" size="medium">
                 <Text
                   variant="custom"
                   colorType="black"
@@ -951,7 +952,7 @@ export default function InitiatorProfileComponent({
                     {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.thirdword}
                   </Text>
                 </View>
-              </View>
+              </View> */}
               {data?.[0]?.likedBy?.mediaArray?.[4] && (
                 <Spacer position="top" size="xxsmall">
                   <Image
@@ -988,11 +989,9 @@ export default function InitiatorProfileComponent({
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-evenly",
-                paddingBottom: theme.spaceNumberBy10[2],
-                paddingTop: theme.spaceNumber[3],
-                backgroundColor: theme.colors.brand.highlight,
-                borderTopLeftRadius: theme.spaceNumberBy10[3],
-                borderTopRightRadius: theme.spaceNumberBy10[3],
+                paddingBottom: theme.spaceNumberBy10[3],
+                paddingTop: theme.spaceNumber[5],
+                backgroundColor: theme.colors.brand.black,
               }}>
               {data?.[0]?.likedBy?.facebook?.visibleOnProfile && (
                 <HorizontalPaddingSpace space={theme.space[4]}>
@@ -1004,7 +1003,7 @@ export default function InitiatorProfileComponent({
                       iconName="facebook"
                       IconComponent={Entypo}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1019,7 +1018,7 @@ export default function InitiatorProfileComponent({
                       iconName="instagram"
                       IconComponent={AntDesign}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1034,7 +1033,7 @@ export default function InitiatorProfileComponent({
                       iconName="snapchat"
                       IconComponent={Fontisto}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1049,7 +1048,7 @@ export default function InitiatorProfileComponent({
                       iconName="tiktok"
                       IconComponent={FontAwesome5}
                       size={theme.spaceNumberBy10[1]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1064,7 +1063,7 @@ export default function InitiatorProfileComponent({
                       iconName="playlist-music"
                       IconComponent={MaterialCommunityIcons}
                       size={theme.spaceNumberBy10[2]}
-                      color={theme.colors.brand.brandFade}
+                      color={theme.colors.brand.base1}
                     />
                   </Pressable>
                 </HorizontalPaddingSpace>
@@ -1077,14 +1076,15 @@ export default function InitiatorProfileComponent({
           style={{
             alignItems: "center",
             justifyContent: "center",
+            width: "100%",
           }}>
           <Spacer position="top" size="large">
             <Text
               variant="custom"
-              colorType="black"
+              colorType="base1"
               fontType="arimaMadurai"
               fontSize="h5">
-              It's a match
+              Voila !
             </Text>
           </Spacer>
           <View
@@ -1102,7 +1102,7 @@ export default function InitiatorProfileComponent({
                 marginRight: -theme.spaceNumberBy10[3],
               }}
               source={{
-                uri: `${otherUserData?.photo}`,
+                uri: `${currentUserData?.photo}`,
               }}
             />
             <Image
@@ -1111,36 +1111,38 @@ export default function InitiatorProfileComponent({
                 width: theme.spaceNumberBy50[4],
                 resizeMode: "cover",
                 borderRadius: theme.spaceNumberBy50[3],
-                borderWidth: theme.spaceNumber[4],
-                borderColor: theme.colors.brand.basewhite,
+                borderWidth: theme.spaceNumber[1],
+                borderColor: theme.colors.brand.black,
               }}
               source={{
-                uri: `${currentUserData?.photo}`,
+                uri: `${otherUserData?.photo}`,
               }}
             />
           </View>
           <View
-            style={{ width: "70%", marginVertical: theme.spaceNumberBy10[1] }}>
+            style={{
+              marginVertical: theme.spaceNumberBy10[3],
+              width: "70%",
+            }}>
             <Text
               style={{
                 textAlign: "center",
               }}
               variant="custom"
-              colorType="black"
+              colorType="base5"
               fontType="montserratRegular"
               fontSize="caption">
-              {` It's time to embark on the adventure. Let's ask ${otherUserData?.name} about
-              something interesting or you can just start with "Hello"`}
+              {` You can message ${otherUserData?.name} about something interesting or you can just start with "Hello"`}
             </Text>
           </View>
           <View
             style={{
               width: "100%",
               alignItems: "center",
-              marginTop: theme.spaceNumberBy10[0],
+              marginTop: theme.spaceNumber[0],
             }}>
             <Button
-              backgroundColor={theme.colors.brand.base}
+              backgroundColor={theme.colors.brand.base8}
               isBorder={false}
               borderColor="transparent"
               buttonFunction={routeToChatScreen}
@@ -1149,7 +1151,6 @@ export default function InitiatorProfileComponent({
               width="80%"
             />
             <Button
-              backgroundColor={theme.colors.brand.lightorange}
               isBorder={false}
               borderColor="transparent"
               buttonFunction={() => {
@@ -1161,7 +1162,7 @@ export default function InitiatorProfileComponent({
                 return () => clearTimeout(likeInitiatorProfileId);
               }}
               text="Not now, will talk later"
-              textColor={theme.colors.brand.base}
+              textColor={theme.colors.brand.base7}
               width="80%"
             />
           </View>
@@ -1171,11 +1172,7 @@ export default function InitiatorProfileComponent({
         <CloseButton
           spaceBottom={theme.space[9]}
           style={{
-            elevation: 5,
-            shadowColor: theme.colors.brand.black,
-            shadowOpacity: 0.5,
-            shadowRadius: "5px",
-            backgroundColor: theme.colors.brand.base,
+            backgroundColor: theme.colors.brand.base8,
             position: "absolute",
             marginLeft: theme.spaceNumberBy10[1],
           }}>
@@ -1190,6 +1187,6 @@ export default function InitiatorProfileComponent({
       ) : (
         <></>
       )}
-    </Modal>
+    </>
   );
 }

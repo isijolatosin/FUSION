@@ -59,9 +59,9 @@ const AvatarWrapper = styled.TouchableOpacity`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.height}px`};
   border-radius: ${(props) => `${props.borderRadius}px`};
-  border: ${(props) => (props.ringBorder ? "10px" : "0px")};
+  border: ${(props) => (props.ringBorder ? "5px" : "0px")};
   border-color: ${(props) =>
-    props.ringBorder ? props.theme.colors.brand.highlight : ""};
+    props.ringBorder ? props.theme.colors.brand.black : ""};
 `;
 
 const IconComponentWraper = styled.TouchableOpacity`

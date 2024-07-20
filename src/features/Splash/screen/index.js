@@ -3,7 +3,7 @@ import { Animated, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
@@ -17,13 +17,12 @@ import CaptureGenderScreen from "../../Onboarding/components/CaptureGender.scree
 import CaptureGenderInterestScreen from "../../Onboarding/components/CaptureGenderInterest.screen";
 import CaptureDOBScreen from "../../Onboarding/components/CaptureDOB.screen";
 import CaptureHeightScreen from "../../Onboarding/components/CaptureHeight.screen";
-import CaptureReligiousScreen from "../../Onboarding/components/CaptureReligious.screen";
-import CaptureNationality from "../../Onboarding/components/CaptureNationality.screen";
 import CaptureLookingForScreen from "../../Onboarding/components/CaptureLookingFor.screen";
-import CaptureSelfDescriptionScreen from "../../Onboarding/components/CaptureSelfDescription.screen";
+import CaptureGymGoalScreen from "../../Onboarding/components/CaptureGymGoal.screen";
 import CaptureWorkPlaceScreen from "../../Onboarding/components/CaptureWorkPlace.screen";
 import CaptureJobTitleScreen from "../../Onboarding/components/CaptureJobTitle.screen";
 import CaptureInterestsScreen from "../../Onboarding/components/CaptureInterests.screen";
+import CaptureFitnessClubScreen from "../../Onboarding/components/CaptureFitnessClub.screen";
 import CaptureLifestyleHabitsScreen from "../../Onboarding/components/CaptureLifestyleHabits.screen";
 import CapturePhotosScreen from "../../Onboarding/components/CapturePhotos.screen";
 import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.screen";
@@ -48,20 +47,11 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = ({ route }) => {
   const TAB_LIST = [
     {
-      component: CommunitiesScreen,
-      Icon: BrandLogoTab,
-      name: "home",
-      size: 25,
-      width: theme.spaceNumberBy10[3],
-      height: theme.spaceNumberBy10[3],
-      isBaseComponent: true,
-    },
-    {
       component: MainScreen,
-      Icon: Ionicons,
+      Icon: FontAwesome5,
       name: "swipe",
-      iconName: "heart-outline",
-      size: 25,
+      iconName: "running",
+      size: 20,
       isBaseComponent: false,
     },
     {
@@ -77,14 +67,6 @@ const TabNavigator = ({ route }) => {
       Icon: Ionicons,
       name: "chat",
       iconName: "chatbubble-outline",
-      size: 20,
-      isBaseComponent: false,
-    },
-    {
-      component: CompatibilityScreen,
-      Icon: Ionicons,
-      name: "similar-interest",
-      iconName: "people-outline",
       size: 25,
       isBaseComponent: false,
     },
@@ -93,7 +75,7 @@ const TabNavigator = ({ route }) => {
       Icon: Ionicons,
       name: "profile",
       iconName: "person-outline",
-      size: 20,
+      size: 25,
       isBaseComponent: false,
     },
   ];
@@ -108,13 +90,13 @@ const TabNavigator = ({ route }) => {
           paddingLeft: theme.spaceNumber[0],
           paddingTop: theme.spaceNumberBy10[0],
           paddingBottom: theme.spaceNumberBy10[0],
-          backgroundColor: theme.colors.brand.basewhite,
+          backgroundColor: theme.colors.brand.base,
         },
         headerShown: false,
         gestureEnabled: false,
         tabBarLabel: "",
-        // tabBarActiveTintColor: theme.colors.brand.base,
-        tabBarInactiveTintColor: theme.colors.brand.lines,
+        tabBarActiveTintColor: theme.colors.brand.base1,
+        // tabBarInactiveTintColor: theme.colors.brand.black,
       })}>
       {TAB_LIST.map((list, index) => (
         <Tab.Screen
@@ -123,7 +105,7 @@ const TabNavigator = ({ route }) => {
           component={list.component}
           options={{
             cardStyle: {
-              backgroundColor: `${theme.colors.brand.basewhite}`,
+              // backgroundColor: `${theme.colors.brand.basewhite}`,
             },
             tabBarIcon: ({ color, focused }) =>
               list.isBaseComponent ? (
@@ -144,16 +126,16 @@ const TabNavigator = ({ route }) => {
                   style={{
                     width: theme.spaceNumberBy10[3],
                     height: theme.spaceNumberBy10[3],
-                    backgroundColor: focused
-                      ? theme.colors.brand.base
-                      : theme.colors.brand.basewhite,
+                    borderWidth: focused ? 1 : 0,
+                    borderColor: focused ? theme.colors.brand.lines : "",
                     borderRadius: theme.spaceNumberBy10[2],
+                    backgroundColor: focused && theme.colors.brand.base8,
                     justifyContent: "center",
                     alignItems: "center",
                   }}>
                   <list.Icon
                     name={list.iconName}
-                    color={focused ? theme.colors.brand.basewhite : color}
+                    color={focused ? color : theme.colors.brand.base1}
                     size={list.size}
                   />
                 </View>
@@ -263,7 +245,7 @@ export default function index() {
           name="onBoard"
           component={OnboardingScreen}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -273,7 +255,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -283,7 +265,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -293,7 +275,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -303,7 +285,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -313,7 +295,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -333,7 +315,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -343,7 +325,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -353,7 +335,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -363,17 +345,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          }}
-        />
-        <Stack.Screen
-          name="capture-religious-screen"
-          component={CaptureReligiousScreen}
-          screenOptions={{
-            headerShown: false,
-          }}
-          options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -383,7 +355,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -393,27 +365,17 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
-          name="capture-nationality-screen"
-          component={CaptureNationality}
+          name="capture-gym-goal-screen"
+          component={CaptureGymGoalScreen}
           screenOptions={{
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          }}
-        />
-        <Stack.Screen
-          name="capture-self-description-screen"
-          component={CaptureSelfDescriptionScreen}
-          screenOptions={{
-            headerShown: false,
-          }}
-          options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -423,7 +385,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -433,7 +395,17 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
+          }}
+        />
+        <Stack.Screen
+          name="capture-fitness-club-screen"
+          component={CaptureFitnessClubScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+          options={{
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -443,7 +415,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -453,7 +425,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
         <Stack.Screen
@@ -463,19 +435,9 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base1}` },
           }}
         />
-        {/* <Stack.Screen
-          name="capture-facial-verification-screen"
-          component={CaptureFacialVerificationScreen}
-          screenOptions={{
-            headerShown: false,
-          }}
-          options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
-          }}
-        /> */}
         <Stack.Screen
           name="your-profile-is-set"
           component={YourProfileIsSet}
@@ -494,7 +456,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base}` },
             gestureEnabled: true,
             gestureDirection: "horizontal",
             gestureResponseDistance: {
@@ -509,7 +471,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base}` },
           }}
         />
         <Stack.Screen
@@ -519,7 +481,7 @@ export default function index() {
             headerShown: false,
           }}
           options={{
-            cardStyle: { backgroundColor: `${theme.colors.brand.basewhite}` },
+            cardStyle: { backgroundColor: `${theme.colors.brand.base}` },
           }}
         />
       </Stack.Navigator>

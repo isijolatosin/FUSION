@@ -16,13 +16,15 @@ export const mapImage =
   "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703740615/fusion/global-communication-background-business-network-design_2_j3fnht.png";
 
 export const splashOboardingSummaryText =
-  "Your journey of meaningful connections starts here. Meet like-minded individuals, and build relationships that matter!";
+  "A community where fitness meets friendship. Find your future gym buddy and make every workout count!";
 export const oboardingSummaryText =
   "By creating an account or signing in, you agree to our Terms of Service. Learn how we process your data in our Privacy Policy.";
 export const nameCaptureInstruction =
   "Your last name would not be displaced on your profile and no changes can be made to your names.";
 export const locationCaptureInstruction =
-  "To enhance your experience and help you find the perfect connection, we recommend enabling access to your location settings. By allowing us to access your location, we can better match you with individuals who are nearby and share similar interests.";
+  "To enhance your fitness journey and help you find the perfect gym buddy, we recommend enabling access to your location settings. By allowing us to access your location, we can better match you with nearby individuals who share your fitness goals.";
+// export const locationCaptureInstruction =
+//   "To enhance your experience and help you find the perfect connection, we recommend enabling access to your location settings. By allowing us to access your location, we can better match you with individuals who are nearby and share similar interests.";
 export const locationCaptureInstruction2 =
   "You can easily turn on your location settings at this stage. Rest assured, you have full control, and you can disable it at any time if you prefer.";
 export const phonenumberCaptionInstruction =
@@ -845,7 +847,7 @@ export const COMMUNITY_SUBSCRIPTION = {
 export const dailyendofswipescreenmessage =
   "All potential matches based on your preferences have been viewed, yet fresh individuals continue to join daily.";
 export const nomatchmessage =
-  "Currently, there are no connections that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and exciting connections may be just around the corner. Your proactive spirit makes the dating experience worthwhile. Happy connecting!";
+  "Currently, there are no gym buddies that meet your preferences. Don't worry, though – your proactive approach in initiating conversations is commendable! Keep engaging with new profiles, and the perfect workout partner may be just around the corner. Your proactive spirit makes the fitness journey worthwhile.. Happy connecting!";
 export const nochatlistsinformation =
   "Welcome to the chats! It looks like you haven't started any chats yet. No worries—your next meaningful connection might just be a click away! Take a moment to explore profiles, click and start a conversation. Your chat list will be buzzing with exciting connections in no time. Happy swiping and happy connecting!";
 export const firstmessagehype =
@@ -861,7 +863,7 @@ export const deleteaccounttext =
 export const deleteaccountconfirmationtext =
   "We're saddened to see you leave. Deleting your profile means it's permanently removed from Wiingr, and your information won't be accessible on the app anymore. If you require assistance or have any concerns, please don't hesitate to contact us.";
 export const nolikesyetmessage =
-  "Looks like you haven't received any likes yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
+  "Looks like you haven't received any gym match yet. Don't worry, the right mate is just a click away! Keep exploring and making meaningful connections.";
 export const nofriendrequestmessage =
   "Looks like you haven't received any friend request yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const compatibleText =
@@ -1000,6 +1002,7 @@ export const countryCodes = [
   "+257",
   "+855",
   "+237",
+  "+234",
   "+1",
   "+238",
   "+1-345",
@@ -1328,6 +1331,193 @@ export const emailAcceptableExtensions = [
   "za",
   "zm",
   "zw",
+];
+export const gymTypesByCountry = {
+  worldwide: [
+    "Gold's Gym",
+    "Anytime Fitness",
+    "Snap Fitness",
+    "F45 Training",
+    "Orangetheory Fitness",
+    "CrossFit Boxes",
+    "YMCA",
+    "World Gym",
+    "SportsArt Fitness",
+    "Les Mills",
+  ],
+  unitedstates: [
+    "24 Hour Fitness",
+    "Planet Fitness",
+    "LA Fitness",
+    "Equinox",
+    "Crunch Fitness",
+    "Lifetime Fitness",
+    "In-Shape Health Clubs",
+    "Barry's Bootcamp",
+  ],
+  unitedkingdom: [
+    "Virgin Active",
+    "PureGym",
+    "Fitness First",
+    "David Lloyd Clubs",
+    "SoulCycle",
+    "Barry's Bootcamp",
+  ],
+  canada: [
+    "GoodLife Fitness",
+    "24 Hour Fitness",
+    "Planet Fitness",
+    "Equinox",
+    "LA Fitness",
+  ],
+  australia: [
+    "Virgin Active",
+    "Fitness First",
+    "Jetts Fitness",
+    "F45 Training",
+    "Snap Fitness",
+  ],
+  southafrica: ["Virgin Active"],
+  italy: ["Virgin Active"],
+  singapore: ["Virgin Active"],
+  thailand: ["Virgin Active"],
+  denmark: ["PureGym"],
+  switzerland: ["PureGym"],
+  france: ["Club Med Gym"],
+  newzealand: ["Jetts Fitness"],
+  asia: ["Fitness First", "Virgin Active", "Jetts Fitness", "Pure Fitness"],
+  europe: [
+    "David Lloyd Clubs",
+    "Holmes Place",
+    "Kieser Training",
+    "Virgin Active",
+  ],
+  innerheightisrael: ["Holmes Place"],
+  middleeast: ["Barry's Bootcamp"],
+};
+export const middleEasternCountries = [
+  "Bahrain",
+  "Cyprus",
+  "Egypt",
+  "Iran",
+  "Iraq",
+  "Israel",
+  "Jordan",
+  "Kuwait",
+  "Lebanon",
+  "Oman",
+  "Palestine",
+  "Qatar",
+  "Saudi Arabia",
+  "Syria",
+  "Turkey",
+  "United Arab Emirates",
+  "Yemen",
+];
+
+export const europeanCountries = [
+  "Albania",
+  "Andorra",
+  "Armenia",
+  "Austria",
+  "Azerbaijan",
+  "Belarus",
+  "Belgium",
+  "Bosnia and Herzegovina",
+  "Bulgaria",
+  "Croatia",
+  "Cyprus",
+  "Czech Republic",
+  "Denmark",
+  "Estonia",
+  "Finland",
+  "France",
+  "Georgia",
+  "Germany",
+  "Greece",
+  "Hungary",
+  "Iceland",
+  "Ireland",
+  "Italy",
+  "Kazakhstan",
+  "Kosovo",
+  "Latvia",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Malta",
+  "Moldova",
+  "Monaco",
+  "Montenegro",
+  "Netherlands",
+  "North Macedonia",
+  "Norway",
+  "Poland",
+  "Portugal",
+  "Romania",
+  "Russia",
+  "San Marino",
+  "Serbia",
+  "Slovakia",
+  "Slovenia",
+  "Spain",
+  "Sweden",
+  "Switzerland",
+  "Turkey",
+  "Ukraine",
+  "Vatican City",
+];
+
+export const asianCountries = [
+  "Afghanistan",
+  "Armenia",
+  "Azerbaijan",
+  "Bahrain",
+  "Bangladesh",
+  "Bhutan",
+  "Brunei",
+  "Cambodia",
+  "China",
+  "Cyprus",
+  "Georgia",
+  "India",
+  "Indonesia",
+  "Iran",
+  "Iraq",
+  "Israel",
+  "Japan",
+  "Jordan",
+  "Kazakhstan",
+  "Kuwait",
+  "Kyrgyzstan",
+  "Laos",
+  "Lebanon",
+  "Malaysia",
+  "Maldives",
+  "Mongolia",
+  "Myanmar (Burma)",
+  "Nepal",
+  "North Korea",
+  "Oman",
+  "Pakistan",
+  "Palestine",
+  "Philippines",
+  "Qatar",
+  "Saudi Arabia",
+  "Singapore",
+  "South Korea",
+  "Sri Lanka",
+  "Syria",
+  "Taiwan",
+  "Tajikistan",
+  "Thailand",
+  "Timor-Leste (East Timor)",
+  "Turkey",
+  "Turkmenistan",
+  "United Arab Emirates",
+  "Uzbekistan",
+  "Vietnam",
+  "Yemen",
 ];
 
 export const months = [

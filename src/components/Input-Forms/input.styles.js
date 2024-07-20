@@ -129,12 +129,18 @@ const MessageBubbleWrap = styled.View`
 
 const MessageBubble = styled.View`
   position: relative;
-  background-color: ${(props) => props.theme.colors.brand.highlight};
+  background-color: ${(props) =>
+    props.currentUser
+      ? props.theme.colors.brand.black1
+      : props.theme.colors.brand.black2};
   max-width: 85%;
-  padding-left: ${(props) => `${props.theme.spaceNumber[7]}px`};
-  padding-right: ${(props) => `${props.theme.spaceNumber[7]}px`};
+  padding-left: ${(props) =>
+    props.isImage ? "0px" : `${props.theme.spaceNumber[7]}px`};
+  padding-right: ${(props) =>
+    props.isImage ? "0px" : `${props.theme.spaceNumber[7]}px`};
   padding-top: ${(props) => `${props.theme.spaceNumber[9]}px`};
-  padding-bottom: ${(props) => `${props.theme.spaceNumber[4]}px`};
+  padding-bottom: ${(props) =>
+    props.isImage ? "0px" : `${props.theme.spaceNumber[4]}px`};
   border-radius: ${(props) => `${props.theme.spaceNumber[4]}px`};
   ${(props) =>
     props.currentUser

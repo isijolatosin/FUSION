@@ -181,14 +181,14 @@ export default function ProfileScreen() {
           <HorizontalPaddingSpace
             style={{
               marginTop: theme.spaceNumberBy10[2],
-              backgroundColor: theme.colors.brand.linesFaint,
+              backgroundColor: theme.colors.brand.black,
               paddingVertical: theme.spaceNumber[3],
             }}
             space={theme.space[2]}>
             <View>
               <Text
                 variant="custom"
-                colorType="linesLight"
+                colorType="base6"
                 fontType="montserratSemibold"
                 fontSize="button">
                 {title}
@@ -228,7 +228,7 @@ export default function ProfileScreen() {
                           : ""
                       }
                       size={val === "playlist" ? 35 : 25}
-                      color={theme.colors.brand.brandTone}
+                      color={theme.colors.brand.base6}
                     />
                   )}
                   <View
@@ -243,7 +243,7 @@ export default function ProfileScreen() {
                     }}>
                     <Text
                       variant="custom"
-                      colorType="black"
+                      colorType="base6"
                       fontType="montserratSemibold"
                       fontSize="button">
                       {val}
@@ -259,7 +259,7 @@ export default function ProfileScreen() {
                     iconName="keyboard-arrow-right"
                     IconComponent={MaterialIcons}
                     size={20}
-                    color={theme.colors.brand.brandTone}
+                    color={theme.colors.brand.base6}
                   />
                 </View>
               </Pressable>
@@ -923,7 +923,7 @@ export default function ProfileScreen() {
   return (
     <SafeArea
       style={{
-        backgroundColor: theme.colors.brand.basewhite,
+        backgroundColor: theme.colors.brand.base,
       }}>
       <Spacer position="bottom" size="xxlarge">
         <HeaderComponent
@@ -943,7 +943,7 @@ export default function ProfileScreen() {
               iconName="settings-sharp"
               IconComponent={Ionicons}
               size={25}
-              color={theme.colors.brand.brandTone}
+              color={theme.colors.brand.base1}
             />
           )}
           size="h5"
@@ -959,13 +959,14 @@ export default function ProfileScreen() {
           }}>
           <View
             style={{
-              backgroundColor: theme.colors.brand.linesFaint,
+              backgroundColor: theme.colors.brand.black,
               paddingVertical: theme.spaceNumber[3],
+              marginBottom: theme.spaceNumber[5],
             }}>
             <HorizontalPaddingSpace space={theme.space[2]}>
               <Text
                 variant="custom"
-                colorType="linesLight"
+                colorType="base6"
                 fontType="montserratSemibold"
                 fontSize="button">
                 Uploaded Photos
@@ -1025,7 +1026,7 @@ export default function ProfileScreen() {
             style={{
               paddingBottom: theme.spaceNumber[3],
               marginBottom: theme.spaceNumber[3],
-              backgroundColor: theme.colors.brand.linesFaint,
+              backgroundColor: theme.colors.brand.black,
             }}
             position="top"
             size="xxlarge">
@@ -1040,7 +1041,7 @@ export default function ProfileScreen() {
                 <Text
                   style={{ marginRight: 5 }}
                   variant="custom"
-                  colorType="linesLight"
+                  colorType="base6"
                   fontType="montserratSemibold"
                   fontSize="button">
                   About Me
@@ -1051,7 +1052,7 @@ export default function ProfileScreen() {
                 iconName="edit"
                 IconComponent={AntDesign}
                 size={15}
-                color={theme.colors.brand.brandFade}
+                color={theme.colors.brand.base6}
               />
             </HorizontalPaddingSpace>
           </Spacer>
@@ -1193,12 +1194,12 @@ export default function ProfileScreen() {
               space={theme.space[2]}
               style={{
                 marginBottom: theme.spaceNumberBy10[0],
-                backgroundColor: theme.colors.brand.linesFaint,
+                backgroundColor: theme.colors.brand.black,
                 paddingVertical: theme.spaceNumber[3],
               }}>
               <Text
                 variant="custom"
-                colorType="linesLight"
+                colorType="base6"
                 fontType="montserratSemibold"
                 fontSize="button">
                 Member Preference
@@ -1259,12 +1260,12 @@ export default function ProfileScreen() {
               space={theme.space[2]}
               style={{
                 marginBottom: theme.spaceNumberBy10[0],
-                backgroundColor: theme.colors.brand.linesFaint,
+                backgroundColor: theme.colors.brand.black,
                 paddingVertical: theme.spaceNumber[3],
               }}>
               <Text
                 variant="custom"
-                colorType="linesLight"
+                colorType="base6"
                 fontType="montserratSemibold"
                 fontSize="button">
                 Subscription Preference
@@ -1382,8 +1383,7 @@ export default function ProfileScreen() {
         isVisible={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
         theme={theme}
-        width={width}
-        isTransparent={true}>
+        width={width}>
         <GeneralPopupModal
           height={height}
           theme={theme}
@@ -1400,8 +1400,7 @@ export default function ProfileScreen() {
         isVisible={openImageUploadModal}
         onClose={() => setOpenImageUploadModal(false)}
         theme={theme}
-        width={width}
-        isTransparent={true}>
+        width={width}>
         <GeneralPopupModal
           height={height}
           theme={theme}
@@ -1426,8 +1425,7 @@ export default function ProfileScreen() {
           setOpenUpdateModal({ type: "", isOpen: false });
         }}
         theme={theme}
-        width={width}
-        isTransparent={false}>
+        width={width}>
         <UpdateModal height={height} theme={theme}>
           {sortRender()}
         </UpdateModal>

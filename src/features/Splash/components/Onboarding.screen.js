@@ -85,12 +85,13 @@ export default function Onboarding({ navigation }) {
         <OnboardingWrapper>
           <View
             style={{
-              flex: 0.5,
+              flex: 0.3,
               width: width,
               alignSelf: "center",
+              marginBottom: theme.spaceNumber[5],
             }}>
             <LottieView
-              source={require("../../../../assets/animations/create.json")}
+              source={require("../../../../assets/animations/gym.json")}
               autoPlay
               loop
             />

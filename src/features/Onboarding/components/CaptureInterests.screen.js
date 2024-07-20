@@ -26,13 +26,12 @@ export default function CaptureInterests({ navigation }) {
   const {
     dob,
     _height,
-    religious,
     sexualOrientation,
     preference,
-    nationality,
-    whatThreeWordsDescribeYou,
+    gymGoals,
     workplace,
     jobtitle,
+    fitnessClub,
   } = route.params || {};
 
   function handleInterest(int) {
@@ -71,13 +70,12 @@ export default function CaptureInterests({ navigation }) {
                   navigation.navigate("capture-lifestly-habits-screen", {
                     dob,
                     _height,
-                    religious,
                     sexualOrientation,
                     preference,
-                    nationality,
-                    whatThreeWordsDescribeYou,
+                    gymGoals,
                     workplace,
                     jobtitle,
+                    fitnessClub,
                     interestsArray,
                   });
                 } else {
@@ -108,14 +106,14 @@ export default function CaptureInterests({ navigation }) {
               position="top"
               size="xsmall"
               style={{
-                backgroundColor: theme.colors.brand.black,
+                backgroundColor: theme.colors.brand.base,
                 paddingVertical: theme.spaceNumber[1],
                 paddingHorizontal: theme.spaceNumber[3],
                 borderRadius: theme.spaceNumber[1],
               }}>
               <Text
                 variant="custom"
-                colorType="basewhite"
+                colorType="base1"
                 fontType="montserratBold"
                 lineHeight={theme.lineHeights[0]}
                 fontSize="caption"
@@ -138,7 +136,7 @@ export default function CaptureInterests({ navigation }) {
                       flexDirection: "row",
                       backgroundColor: interestsArray.includes(interest.value)
                         ? theme.colors.brand.base
-                        : theme.colors.brand.highlight,
+                        : theme.colors.brand.base3,
                       paddingHorizontal: theme.spaceNumber[7],
                       paddingVertical: theme.spaceNumber[3],
                       borderRadius: theme.spaceNumberBy10[9],
@@ -150,7 +148,7 @@ export default function CaptureInterests({ navigation }) {
                       size={14}
                       color={
                         interestsArray.includes(interest.value)
-                          ? theme.colors.brand.highlight
+                          ? theme.colors.brand.base1
                           : theme.colors.brand.base
                       }
                     />
@@ -159,8 +157,8 @@ export default function CaptureInterests({ navigation }) {
                         style={{
                           marginLeft: theme.spaceNumber[1],
                           color: interestsArray.includes(interest.value)
-                            ? theme.colors.brand.basewhite
-                            : theme.colors.brand.black,
+                            ? theme.colors.brand.base1
+                            : theme.colors.brand.base,
                         }}
                         variant="custom"
                         colorType="black"
@@ -180,6 +178,7 @@ export default function CaptureInterests({ navigation }) {
             text="Please share your interests. Only 6 interests required"
             bottomSpace={true}
             size="body"
+            theme={theme}
             classes={{
               textAlign: "left",
               color: theme.colors.brand.error,

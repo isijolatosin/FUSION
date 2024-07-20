@@ -28,7 +28,7 @@ const ActionNotificationModal = ({
         <Text
           style={{ textAlign: "center" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="arimaMadurai"
           fontSize="h4">
           {title}
@@ -40,13 +40,9 @@ const ActionNotificationModal = ({
           paddingTop: theme.spaceNumberBy10[6],
           paddingHorizontal: theme.spaceNumber[5],
           paddingVertical: theme.spaceNumberBy10[2],
-          backgroundColor: theme.colors.brand.highlight,
+          backgroundColor: theme.colors.brand.base8,
           borderRadius: theme.spaceNumber[2],
           alignItems: "center",
-          elevation: 5,
-          shadowColor: theme.colors.brand.lines,
-          shadowOpacity: 0.3,
-          shadowRadius: "10px",
           position: "relative",
         }}>
         <Text
@@ -55,7 +51,7 @@ const ActionNotificationModal = ({
             textAlign: "center",
           }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratRegular"
           fontSize="caption">
           {message}
@@ -67,8 +63,8 @@ const ActionNotificationModal = ({
               <Text
                 style={{ textAlign: "center" }}
                 variant="custom"
-                colorType="base"
-                fontType="montserratBold"
+                colorType="base1"
+                fontType="montserratRegular"
                 fontSize="caption">
                 {confirmationText}
               </Text>

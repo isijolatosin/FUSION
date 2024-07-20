@@ -39,8 +39,8 @@ const TopNavigationTab = ({
               borderBottomWidth: theme.spaceNumber[0],
               borderBottomColor:
                 item === currentScreen
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.basewhite,
+                  ? theme.colors.brand.base1
+                  : theme.colors.brand.base,
               paddingBottom: theme.spaceNumber[3],
             }}>
             <Text
@@ -49,8 +49,8 @@ const TopNavigationTab = ({
                 textAlign: "center",
                 color:
                   item === currentScreen
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.lines,
+                    ? theme.colors.brand.base1
+                    : theme.colors.brand.base7,
               }}
               variant="custom"
               colorType="black"

@@ -28,7 +28,7 @@ export default function CannabisUpdateModal({
         "all-users",
         currentUser?.id,
         myCannabisPreference,
-        preference,
+        preference ?? "",
         () => {}
       );
     } else {
@@ -43,7 +43,7 @@ export default function CannabisUpdateModal({
         "all-users",
         currentUser?.id,
         "lifestyleHabits",
-        updatedValue,
+        updatedValue ?? "",
         () => {}
       );
     }
@@ -66,13 +66,13 @@ export default function CannabisUpdateModal({
           iconName="keyboard-arrow-left"
           IconComponent={MaterialIcons}
           size={theme.spaceNumberBy10[2]}
-          color={theme.colors.brand.brandFade}
+          color={theme.colors.brand.base1}
           horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
         />
         <Text
           style={{ textAlign: "center", width: "90%" }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           {myCannabisPreference ? "Cannabis Preference" : "Cannabis"}
@@ -84,95 +84,75 @@ export default function CannabisUpdateModal({
             <Button
               backgroundColor={
                 preference === "Not my thing"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setPreference("Not my thing")}
               text="Not my thing"
-              textColor={
-                preference === "Not my thing"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 preference === "Socially"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setPreference("Socially")}
               text="Socially"
-              textColor={
-                preference === "Socially"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 preference === "Frequently"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setPreference("Frequently")}
               text="Frequently"
-              textColor={
-                preference === "Frequently"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 preference === "Sometimes"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setPreference("Sometimes")}
               text="Sometimes"
-              textColor={
-                preference === "Sometimes"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
           <Spacer position="top" size="small">
             <Button
               backgroundColor={
                 preference === "Open to all"
-                  ? theme.colors.brand.base
-                  : theme.colors.brand.highlight
+                  ? theme.colors.brand.base6
+                  : theme.colors.brand.base8
               }
               isBorder={false}
               isNotBold={true}
               borderColor="transparent"
               buttonFunction={() => setPreference("Open to all")}
               text="Open to all"
-              textColor={
-                preference === "Open to all"
-                  ? theme.colors.brand.basewhite
-                  : theme.colors.brand.black
-              }
+              textColor={theme.colors.brand.base1}
             />
           </Spacer>
         </Spacer>

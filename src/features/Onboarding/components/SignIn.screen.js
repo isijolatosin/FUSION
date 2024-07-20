@@ -143,9 +143,12 @@ export default function SignIn({ navigation }) {
           formattedPhonenumber
         );
         if (isVerifyUser) {
-          navigation.navigate("main");
+          navigation.navigate("main", { phonenumber: phonenumber });
         } else {
-          navigation.navigate("capture-name-screen");
+          navigation.navigate("capture-name-screen", {
+            email,
+            phonenumber: formattedPhonenumber,
+          });
         }
       }, 5000);
 
@@ -177,6 +180,19 @@ export default function SignIn({ navigation }) {
       setProgress(0);
     }
   }
+
+  const resetPassword = (email) => {
+    auth.sendPasswordResetEmail(email).then(() => {
+      try {
+        setLogMessage({
+          message: "Password reset email sent!",
+          code: "success",
+        });
+      } catch (error) {
+        console.log(`error message - ${error.message}`);
+      }
+    });
+  };
 
   return (
     <SafeArea>
@@ -390,15 +406,51 @@ export default function SignIn({ navigation }) {
                   </Text>
                 </TouchableOpacity>
               </Spacer>
+              <Spacer position="top" size="medium">
+                <TouchableOpacity
+                  onPress={() => {
+                    if (!email) {
+                      return setLogMessage({
+                        message: "Please provide your email address",
+                        code: "error",
+                      });
+                    }
+
+                    setPassword(null);
+                    setEmail(null);
+                    setLogMessage({
+                      message: "",
+                      code: "",
+                    });
+                    setFormValidate({
+                      code: true,
+                      phonenumber: true,
+                      email: true,
+                      password: true,
+                    });
+                    resetPassword(email);
+                  }}>
+                  <Text
+                    style={{ textAlign: "center" }}
+                    variant="custom"
+                    colorType="linesLight"
+                    fontType="montserratSemibold"
+                    lineHeight={theme.lineHeights[0]}
+                    fontSize="caption">
+                    Forget Password
+                  </Text>
+                </TouchableOpacity>
+              </Spacer>
             </HorizontalPaddingSpace>
             <View
               style={{
                 flex: 0.5,
                 width: width,
                 alignSelf: "center",
+                marginBottom: theme.spaceNumberBy10[10],
               }}>
               <LottieView
-                source={require("../../../../assets/animations/create.json")}
+                source={require("../../../../assets/animations/gym.json")}
                 autoPlay
                 loop
               />

@@ -48,7 +48,7 @@ function RangeCompoent({
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="button">
             {text}
@@ -57,7 +57,7 @@ function RangeCompoent({
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratLight"
             fontSize="button">
             {displayValue}
@@ -75,9 +75,9 @@ function RangeCompoent({
             maximumValue={200}
             step={1}
             value={selectedValue}
-            minimumTrackTintColor={theme.colors.brand.base}
-            maximumTrackTintColor={theme.colors.brand.highlight}
-            thumbTintColor={theme.colors.brand.base}
+            minimumTrackTintColor={theme.colors.brand.base6}
+            maximumTrackTintColor={theme.colors.brand.black}
+            thumbTintColor={theme.colors.brand.base1}
             onValueChange={handleValueChange}
             onSlidingStart={() => setSuggest(false)}
           />
@@ -109,9 +109,9 @@ function RangeCompoent({
         <View>
           <Text
             variant="custom"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button">
+            colorType="base1"
+            fontType="montserratLight"
+            fontSize="caption">
             {description}
           </Text>
         </View>
@@ -121,7 +121,7 @@ function RangeCompoent({
             true: theme.colors.brand.base,
           }}
           thumbColor={
-            suggest ? theme.colors.brand.highlight : theme.colors.brand.lines
+            suggest ? theme.colors.brand.base1 : theme.colors.brand.lines
           }
           onValueChange={(val) => {
             setSuggest(val);
@@ -166,7 +166,7 @@ function DoubleRangeCompoent({
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="button">
             {text}
@@ -175,7 +175,7 @@ function DoubleRangeCompoent({
         <View>
           <Text
             variant="loading"
-            colorType="black"
+            colorType="base1"
             fontType="montserratLight"
             fontSize="button">
             {displayValue}
@@ -193,10 +193,10 @@ function DoubleRangeCompoent({
             step={1}
             styleSize="small"
             barHeight={4}
-            fromKnobColor={theme.colors.brand.base}
-            toKnobColor={theme.colors.brand.base}
-            inRangeBarColor={theme.colors.brand.base}
-            outOfRangeBarColor={theme.colors.brand.highlight}
+            fromKnobColor={theme.colors.brand.base1}
+            toKnobColor={theme.colors.brand.base1}
+            inRangeBarColor={theme.colors.brand.base6}
+            outOfRangeBarColor={theme.colors.brand.black}
             showRangeLabels={false}
             showValueLabels={false}
             fromValueOnChange={(value) => {
@@ -226,9 +226,9 @@ function DoubleRangeCompoent({
         <View>
           <Text
             variant="custom"
-            colorType="black"
-            fontType="montserratRegular"
-            fontSize="button">
+            colorType="base1"
+            fontType="montserratLight"
+            fontSize="caption">
             {description}
           </Text>
         </View>
@@ -238,7 +238,7 @@ function DoubleRangeCompoent({
             true: theme.colors.brand.base,
           }}
           thumbColor={
-            suggest ? theme.colors.brand.highlight : theme.colors.brand.lines
+            suggest ? theme.colors.brand.base1 : theme.colors.brand.lines
           }
           onValueChange={(val) => {
             setSuggest(val);
@@ -302,10 +302,10 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base1"
             fontType="montserratBold"
             fontSize="button">
-            I'm interested in
+            Gym partner interested
           </Text>
         </View>
       </Spacer>
@@ -324,7 +324,7 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
               onPress={() => handleInterestToggle(idx, interest.key)}
               style={{ textTransform: "capitalize" }}
               variant="loading"
-              colorType="black"
+              colorType="base1"
               fontType="montserratLight"
               fontSize="button">
               {interest.value}
@@ -333,8 +333,8 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
           <CheckBox
             checked={selectedInterest === interest.key || clickedIndex === idx}
             onPress={() => handleInterestToggle(idx, interest.key)}
-            checkedColor={theme.colors.brand.base}
-            uncheckedColor={theme.colors.brand.linesLight}
+            checkedColor={theme.colors.brand.basewhite}
+            uncheckedColor={theme.colors.brand.black}
             size={25}
             containerStyle={{
               padding: 0,
@@ -386,7 +386,7 @@ function SubscriberPreferencesComponent({
             <View>
               <Text
                 variant="custom"
-                colorType="black"
+                colorType="base1"
                 fontType="montserratBold"
                 fontSize="button"
                 transform="capitalize">
@@ -395,7 +395,7 @@ function SubscriberPreferencesComponent({
               <Text
                 variant="custom"
                 colorType="brandFadeLighter"
-                fontType="montserratRegular"
+                fontType="montserratLight"
                 fontSize="button"
                 transform="capitalize">
                 {preference?.value}
@@ -524,8 +524,7 @@ export default function FilterComponent({
         onClose();
       }}
       theme={theme}
-      width={width}
-      isTransparent={true}>
+      width={width}>
       <View style={{ marginTop: theme.spaceNumberBy50[0] }}>
         <HeaderComponent
           title="Preference Settings"
@@ -539,7 +538,7 @@ export default function FilterComponent({
               iconName="keyboard-arrow-left"
               IconComponent={MaterialIcons}
               size={35}
-              color={theme.colors.brand.brandFade}
+              color={theme.colors.brand.base1}
             />
           )}
           RightComp={() => {}}
@@ -551,7 +550,7 @@ export default function FilterComponent({
           <View>
             <View
               style={{
-                backgroundColor: theme.colors.brand.linesFaint,
+                backgroundColor: theme.colors.brand.black,
                 paddingVertical: theme.spaceNumber[3],
                 marginBottom: theme.spaceNumber[5],
               }}>
@@ -559,7 +558,7 @@ export default function FilterComponent({
                 <View>
                   <Text
                     variant="custom"
-                    colorType="linesLight"
+                    colorType="lines"
                     fontType="montserratSemibold"
                     fontSize="button">
                     Member Preferences
@@ -610,7 +609,7 @@ export default function FilterComponent({
                 position="top"
                 size="xsmall"
                 style={{
-                  backgroundColor: theme.colors.brand.linesFaint,
+                  backgroundColor: theme.colors.brand.black,
                   paddingVertical: theme.spaceNumber[3],
                   marginBottom: theme.spaceNumber[5],
                 }}>
@@ -618,7 +617,7 @@ export default function FilterComponent({
                   <View>
                     <Text
                       variant="custom"
-                      colorType="linesLight"
+                      colorType="lines"
                       fontType="montserratSemibold"
                       fontSize="button">
                       Subscriber Preferences
@@ -640,8 +639,7 @@ export default function FilterComponent({
             setOpenUpdateModal({ type: "", isOpen: false });
           }}
           theme={theme}
-          width={width}
-          isTransparent={false}>
+          width={width}>
           <UpdateModal height={height} theme={theme}>
             {sortRender()}
           </UpdateModal>

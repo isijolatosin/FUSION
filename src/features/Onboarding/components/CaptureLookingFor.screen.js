@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
-import { Dimensions, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -15,7 +15,6 @@ import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureLookingFor({ navigation }) {
-  const { height } = Dimensions.get("window");
   const [preference, setPreference] = useState("");
   const [pageError, setPageError] = useState(false);
   const {
@@ -23,7 +22,7 @@ export default function CaptureLookingFor({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const { dob, _height, religious, sexualOrientation } = route.params || {};
+  const { dob, _height, sexualOrientation } = route.params || {};
 
   return (
     <SafeArea>
@@ -49,10 +48,9 @@ export default function CaptureLookingFor({ navigation }) {
               color={theme.colors.brand.base}
               nextFunction={() => {
                 if (preference) {
-                  navigation.navigate("capture-nationality-screen", {
+                  navigation.navigate("capture-gym-goal-screen", {
                     dob,
                     _height,
-                    religious,
                     sexualOrientation,
                     preference,
                   });
@@ -69,7 +67,7 @@ export default function CaptureLookingFor({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="h4"
+              fontSize="h5"
               lineHeight={theme.lineHeights[25]}
               width="100%">
               What are you
@@ -92,16 +90,16 @@ export default function CaptureLookingFor({ navigation }) {
                 backgroundColor={
                   preference === "Friendship"
                     ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    : theme.colors.brand.base3
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
                 buttonFunction={() => setPreference("Friendship")}
-                text="Friendship/Networking"
+                text="Networking / Friendship"
                 textColor={
                   preference === "Friendship"
-                    ? theme.colors.brand.basewhite
+                    ? theme.colors.brand.base1
                     : theme.colors.brand.black
                 }
               />
@@ -109,56 +107,18 @@ export default function CaptureLookingFor({ navigation }) {
             <Spacer position="top" size="small">
               <Button
                 backgroundColor={
-                  preference === "Life Partner"
+                  preference === "Workout Partner"
                     ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    : theme.colors.brand.base3
                 }
                 isBorder={false}
                 isNotBold={true}
                 borderColor="transparent"
-                buttonFunction={() => setPreference("Life Partner")}
-                text="Life Partner"
+                buttonFunction={() => setPreference("Workout Partner")}
+                text="Workout Partner"
                 textColor={
-                  preference === "Life Partner"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
-              />
-            </Spacer>
-            <Spacer position="top" size="small">
-              <Button
-                backgroundColor={
-                  preference === "Casual Dating"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
-                }
-                isBorder={false}
-                isNotBold={true}
-                borderColor="transparent"
-                buttonFunction={() => setPreference("Casual Dating")}
-                text="Casual Dating"
-                textColor={
-                  preference === "Casual Dating"
-                    ? theme.colors.brand.basewhite
-                    : theme.colors.brand.black
-                }
-              />
-            </Spacer>
-            <Spacer position="top" size="small">
-              <Button
-                backgroundColor={
-                  preference === "Don't know yet"
-                    ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
-                }
-                isBorder={false}
-                isNotBold={true}
-                borderColor="transparent"
-                buttonFunction={() => setPreference("Don't know yet")}
-                text="Don't know yet"
-                textColor={
-                  preference === "Don't know yet"
-                    ? theme.colors.brand.basewhite
+                  preference === "Workout Partner"
+                    ? theme.colors.brand.base1
                     : theme.colors.brand.black
                 }
               />
@@ -168,7 +128,7 @@ export default function CaptureLookingFor({ navigation }) {
                 backgroundColor={
                   preference === "Prefer Not to Say"
                     ? theme.colors.brand.base
-                    : theme.colors.brand.highlight
+                    : theme.colors.brand.base3
                 }
                 isBorder={false}
                 isNotBold={true}
@@ -177,7 +137,7 @@ export default function CaptureLookingFor({ navigation }) {
                 text="Prefer Not to Say"
                 textColor={
                   preference === "Prefer Not to Say"
-                    ? theme.colors.brand.basewhite
+                    ? theme.colors.brand.base1
                     : theme.colors.brand.black
                 }
               />

@@ -19,6 +19,7 @@ export default function DropdownSelection({
   setFunction,
   theme,
   isForHeightComponent,
+  isWhiteBackground,
 }) {
   let inputText = "Choose an option";
   // let inputText = isForHeightComponent ? data[0] : "";
@@ -36,7 +37,10 @@ export default function DropdownSelection({
 
   return (
     <DropdownSelectionContainer>
-      <DropdownSelectionWrapper isOpen={isOpen} isSelectionDisplayInput={true}>
+      <DropdownSelectionWrapper
+        isOpen={isOpen}
+        isSelectionDisplayInput={true}
+        backgroundColor={theme.colors.brand.black1}>
         <DropdowSelectionItemWrapper
           isBorderBottom={false}
           onPress={() => setOpen(!isOpen)}>
@@ -47,16 +51,16 @@ export default function DropdownSelection({
             }}>
             <DropdowSelectionItem
               style={{
-                color: theme.colors.brand.highlight,
+                color: theme.colors.brand.base,
                 alignItems: "center",
               }}
               isSelectionDisplayInput={true}>
               <TypoText
                 variant="custom"
-                colorType="basewhite"
-                fontType="montserratSemibold"
+                colorType={isWhiteBackground ? "base" : "base1"}
+                fontType="montserratRegular"
                 lineHeight={theme.lineHeights[5]}
-                fontSize="title">
+                fontSize="body">
                 {isForHeightComponent
                   ? formatHeightText(inputText).feet
                   : inputText}
@@ -66,7 +70,9 @@ export default function DropdownSelection({
               <Text
                 style={{
                   paddingHorizontal: 5,
-                  color: theme.colors.brand.highlight,
+                  color: isWhiteBackground
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.base1,
                 }}>
                 ft
               </Text>
@@ -75,14 +81,20 @@ export default function DropdownSelection({
           {isForHeightComponent && formatHeightText(inputText).inch && (
             <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
               <DropdowSelectionItem
-                style={{ color: theme.colors.brand.highlight }}
+                style={{
+                  color: isWhiteBackground
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.base1,
+                }}
                 isSelectionDisplayInput={true}>
                 {formatHeightText(inputText).inch}
               </DropdowSelectionItem>
               <Text
                 style={{
                   paddingHorizontal: 5,
-                  color: theme.colors.brand.highlight,
+                  color: isWhiteBackground
+                    ? theme.colors.brand.base
+                    : theme.colors.brand.base1,
                 }}>
                 in
               </Text>
@@ -96,10 +108,11 @@ export default function DropdownSelection({
             showsVerticalScrollIndicator={false}
             style={{ height: 350 }}>
             <DropdowSelectionLists>
-              {data.map((datum, idx) => (
+              {data?.map((datum, idx) => (
                 <DropdowSelectionItemWrapper
                   key={idx}
                   isBorderBottom={true}
+                  backgroundColor={theme.colors.brand.base3}
                   onPress={() => {
                     setOpen(false);
                     setFunction(datum);
@@ -112,7 +125,13 @@ export default function DropdownSelection({
                         : datum}
                     </DropdowSelectionItem>
                     {isForHeightComponent && (
-                      <Text style={{ paddingHorizontal: 5 }}>ft</Text>
+                      <Text
+                        style={{
+                          paddingHorizontal: 5,
+                          color: theme.colors.brand.base6,
+                        }}>
+                        ft
+                      </Text>
                     )}
                   </View>
                   {isForHeightComponent && formatHeightText(datum).inch && (
@@ -121,7 +140,13 @@ export default function DropdownSelection({
                       <DropdowSelectionItem>
                         {formatHeightText(datum).inch}
                       </DropdowSelectionItem>
-                      <Text style={{ paddingHorizontal: 5 }}>in</Text>
+                      <Text
+                        style={{
+                          paddingHorizontal: 5,
+                          color: theme.colors.brand.base6,
+                        }}>
+                        in
+                      </Text>
                     </View>
                   )}
                 </DropdowSelectionItemWrapper>

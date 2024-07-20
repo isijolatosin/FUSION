@@ -35,7 +35,7 @@ const TextAndIconComponent = ({
         <View style={{ flex: 1 }}>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="base6"
             fontType="montserratBold"
             fontSize="button">
             {title}
@@ -43,7 +43,7 @@ const TextAndIconComponent = ({
           <View>
             <Text
               variant="custom"
-              colorType="brandFadeLighter"
+              colorType="base7"
               fontType={font ? font : "montserratRegular"}
               fontSize={size ? size : "caption"}>
               {value}
@@ -93,7 +93,7 @@ const TextAndIconComponent = ({
               iconName="keyboard-arrow-right"
               IconComponent={MaterialIcons}
               size={20}
-              color={theme.colors.brand.brandTone}
+              color={theme.colors.brand.base6}
             />
           )}
         </View>

@@ -48,9 +48,9 @@ export default function index({ theme }) {
           variant="custom"
           colorType="black"
           fontType="arimaMadurai"
-          lineHeight={theme.lineHeights[16]}
+          lineHeight={theme.lineHeights[17]}
           fontSize="h5">
-          An African community
+          Your GYM community
         </Text>
         <Text
           style={{
@@ -61,7 +61,7 @@ export default function index({ theme }) {
           colorType="black"
           fontType="arimaMadurai"
           lineHeight={theme.lineHeights[22]}
-          fontSize="h5">
+          fontSize="title">
           specially made for you.
         </Text>
       </HorizontalPaddingSpace>

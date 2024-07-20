@@ -12,7 +12,7 @@ export default function TextAreaComponent({
   return (
     <View
       style={{
-        backgroundColor: theme.colors.brand.highlight,
+        backgroundColor: theme.colors.brand.base8,
         borderRadius: theme.spaceNumber[2],
       }}>
       <View
@@ -25,8 +25,8 @@ export default function TextAreaComponent({
         <Text
           style={{ textTransform: "capitalize" }}
           variant="custom"
-          colorType="black"
-          fontType="montserratSemibold"
+          colorType="base1"
+          fontType="montserratRegular"
           fontSize="body">
           {text}
         </Text>
