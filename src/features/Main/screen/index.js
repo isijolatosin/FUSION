@@ -21,6 +21,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
   Foundation,
+  EvilIcons,
 } from "@expo/vector-icons";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 
@@ -74,6 +75,7 @@ const Index = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoadCard, setLoadCard] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showMore, setShowMore] = useState(false);
   const [isYouLikedVisible, setIsYouLikedVisible] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const [doubleTapWarning, setDoubleTapWarning] = useState(false);
@@ -503,6 +505,7 @@ const Index = ({ navigation }) => {
     setIsVisible(false);
   }
   function handleFilterOpen() {
+    if (isGymPreferenceOpen) return;
     setIsVisible(true);
   }
 
@@ -715,9 +718,9 @@ const Index = ({ navigation }) => {
                             }}>
                             <Text
                               variant="custom"
-                              colorType="basewhite"
+                              colorType="base1"
                               fontType="montserratRegular"
-                              fontSize="xcaption">
+                              fontSize="caption">
                               {hasCombimneMatchElements(
                                 currentUsertoSwipe,
                                 currentUser,
@@ -757,6 +760,8 @@ const Index = ({ navigation }) => {
                       }}>
                       <IconComponent
                         iconFunction={() => {
+                          if (isGymPreferenceOpen) return;
+
                           if (index > 0) {
                             setIndex(index - 1);
                             storeData("swipe-index", index - 1);
@@ -767,7 +772,7 @@ const Index = ({ navigation }) => {
                         IconComponent={MaterialCommunityIcons}
                         size={25}
                         color={
-                          index <= 0
+                          index <= 0 || isGymPreferenceOpen
                             ? theme.colors.brand.base8
                             : theme.colors.brand.base1
                         }
@@ -783,7 +788,11 @@ const Index = ({ navigation }) => {
                         iconName="sliders"
                         IconComponent={FontAwesome}
                         size={25}
-                        color={theme.colors.brand.base1}
+                        color={
+                          isGymPreferenceOpen
+                            ? theme.colors.brand.base8
+                            : theme.colors.brand.base1
+                        }
                       />
                     </Pressable>
                   </View>
@@ -843,7 +852,7 @@ const Index = ({ navigation }) => {
               <View
                 style={{
                   height: "80%",
-                  backgroundColor: theme.colors.brand.basewhite,
+                  backgroundColor: theme.colors.brand.base1,
                   marginVertical: theme.spaceNumber[1],
                   borderRadius: theme.spaceNumberBy50[0],
                 }}>
@@ -855,13 +864,13 @@ const Index = ({ navigation }) => {
                   scrollViewRef={scrollViewRef}
                 />
               </View>
-              <HorizontalPaddingSpace
-                space={theme.space[1]}
+              <View
                 style={{
                   position: "absolute",
-                  left: theme.spaceNumber[5],
                   bottom: -theme.spaceNumberBy10[2],
-                  alignItems: "start",
+                  paddingHorizontal: theme.spaceNumber[5],
+                  backgroundColor: theme.colors.brand.baseTint2,
+                  width: width,
                 }}>
                 <View
                   style={{
@@ -872,32 +881,62 @@ const Index = ({ navigation }) => {
                   }}>
                   <View
                     style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
                       borderBottomWidth: 0.2,
                       borderBottomColor: theme.colors.brand.basewhitelighter,
                     }}>
-                    <Text
-                      variant="custom"
-                      colorType="basewhite"
-                      fontType="arimaMadurai"
-                      fontSize="title"
-                      transform={Platform.OS === "ios" ? "capitalize" : ""}
-                      width="100%">
-                      {currentUsertoSwipe?.firstname},{" "}
-                      {calculateAge(
-                        currentUsertoSwipe?.dob?.year,
-                        currentUsertoSwipe?.dob?.month,
-                        currentUsertoSwipe?.dob?.day
-                      )}
-                    </Text>
+                    <View>
+                      <Text
+                        variant="custom"
+                        colorType="base1"
+                        fontType="arimaMadurai"
+                        fontSize="h5"
+                        transform={Platform.OS === "ios" ? "capitalize" : ""}
+                        width="100%">
+                        {currentUsertoSwipe?.firstname},{" "}
+                        {calculateAge(
+                          currentUsertoSwipe?.dob?.year,
+                          currentUsertoSwipe?.dob?.month,
+                          currentUsertoSwipe?.dob?.day
+                        )}
+                      </Text>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => setShowMore(!showMore)}
+                      style={{
+                        marginVertical: theme.spaceNumber[5],
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}>
+                      <View>
+                        <Text
+                          variant="custom"
+                          colorType="base6"
+                          fontType="montserratRegular"
+                          fontSize="caption">
+                          {showMore ? "Less" : "More"}
+                        </Text>
+                      </View>
+                      <IconComponent
+                        iconFunction={() => setShowMore(!showMore)}
+                        iconName={showMore ? "arrow-up" : "arrow-down"}
+                        IconComponent={EvilIcons}
+                        size={theme.spaceNumberBy10[1]}
+                        color={theme.colors.brand.base6}
+                      />
+                    </TouchableOpacity>
                   </View>
                   <View
-                    style={{ flexDirection: "row", gap: theme.spaceNumber[3] }}>
+                    style={{
+                      flexDirection: "row",
+                      gap: theme.spaceNumber[3],
+                      marginTop: theme.spaceNumber[1],
+                    }}>
                     <View
                       style={{
                         flexDirection: "row",
-                        paddingVertical: theme.spaceNumber[2],
-                        borderBottomWidth: 0.2,
-                        borderBottomColor: theme.colors.brand.basewhitelighter,
+                        paddingVertical: theme.spaceNumber[0],
                       }}>
                       <IconComponent
                         iconFunction={() => {}}
@@ -912,9 +951,9 @@ const Index = ({ navigation }) => {
                             marginLeft: theme.spaceNumber[1],
                           }}
                           variant="custom"
-                          colorType="basewhite"
-                          fontType="montserratBold"
-                          fontSize="xcaption">
+                          colorType="base1"
+                          fontType="montserratRegular"
+                          fontSize="caption">
                           {currentUsertoSwipe?.height}
                         </Text>
                       </View>
@@ -922,9 +961,7 @@ const Index = ({ navigation }) => {
                     <View
                       style={{
                         flexDirection: "row",
-                        paddingVertical: theme.spaceNumber[2],
-                        borderBottomWidth: 0.2,
-                        borderBottomColor: theme.colors.brand.basewhitelighter,
+                        paddingVertical: theme.spaceNumber[0],
                       }}>
                       <IconComponent
                         iconFunction={() => {}}
@@ -939,24 +976,20 @@ const Index = ({ navigation }) => {
                             marginLeft: theme.spaceNumber[1],
                           }}
                           variant="custom"
-                          colorType="basewhite"
-                          fontType="montserratBold"
-                          fontSize="xcaption">
+                          colorType="base1"
+                          fontType="montserratRegular"
+                          fontSize="caption">
                           {currentUsertoSwipe?.lifestyleHabits?.gym}
                         </Text>
                       </View>
                     </View>
                   </View>
-                  <View
-                    style={{ flexDirection: "row", gap: theme.spaceNumber[3] }}>
+                  <View>
                     {currentUsertoSwipe?.gymMembership?.name && (
                       <View
                         style={{
                           flexDirection: "row",
-                          paddingVertical: theme.spaceNumber[2],
-                          borderBottomWidth: 0.2,
-                          borderBottomColor:
-                            theme.colors.brand.basewhitelighter,
+                          paddingVertical: theme.spaceNumber[0],
                         }}>
                         <IconComponent
                           iconFunction={() => {}}
@@ -972,9 +1005,9 @@ const Index = ({ navigation }) => {
                           }}>
                           <Text
                             variant="custom"
-                            colorType="basewhite"
-                            fontType="montserratBold"
-                            fontSize="xcaption">
+                            colorType="base1"
+                            fontType="montserratRegular"
+                            fontSize="caption">
                             {currentUsertoSwipe?.gymMembership?.name}
                           </Text>
                         </View>
@@ -984,10 +1017,7 @@ const Index = ({ navigation }) => {
                       <View
                         style={{
                           flexDirection: "row",
-                          paddingVertical: theme.spaceNumber[2],
-                          borderBottomWidth: 0.2,
-                          borderBottomColor:
-                            theme.colors.brand.basewhitelighter,
+                          paddingVertical: theme.spaceNumber[0],
                         }}>
                         <IconComponent
                           iconFunction={() => {}}
@@ -1003,17 +1033,61 @@ const Index = ({ navigation }) => {
                           }}>
                           <Text
                             variant="custom"
-                            colorType="basewhite"
-                            fontType="montserratBold"
-                            fontSize="xcaption">
+                            colorType="base1"
+                            fontType="montserratRegular"
+                            fontSize="caption">
                             {currentUsertoSwipe?.gymMembership?.address}
                           </Text>
                         </View>
                       </View>
                     )}
                   </View>
+                  {showMore ? (
+                    <Spacer position="top" size="xxlarge">
+                      <View
+                        style={{
+                          borderBottomColor:
+                            theme.colors.brand.basewhitelighter,
+                          borderBottomWidth: 0.2,
+                          paddingBottom: theme.spaceNumber[2],
+                        }}>
+                        <Text
+                          variant="custom"
+                          colorType="base1"
+                          fontType="montserratBold"
+                          fontSize="body">
+                          Fitness Goals
+                        </Text>
+                      </View>
+                      {currentUsertoSwipe?.gymGoals?.length &&
+                        currentUsertoSwipe?.gymGoals.map((goal, idx) => (
+                          <View
+                            key={idx}
+                            style={{
+                              flexDirection: "row",
+                              paddingVertical: theme.spaceNumber[2],
+                              width: "65%",
+                            }}>
+                            <Text
+                              variant="custom"
+                              colorType="base1"
+                              fontType="montserratRegular"
+                              fontSize="caption">
+                              {goal}
+                            </Text>
+                          </View>
+                        ))}
+                    </Spacer>
+                  ) : (
+                    <></>
+                  )}
                 </View>
-                <View style={{ flexDirection: "row", position: "relative" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    position: "relative",
+                    marginTop: theme.spaceNumber[1],
+                  }}>
                   {doubleTapWarning && (
                     <View
                       style={{
@@ -1025,14 +1099,14 @@ const Index = ({ navigation }) => {
                       <Text
                         style={{
                           textAlign: "center",
-                          backgroundColor: theme.colors.brand.basewhite,
+                          backgroundColor: theme.colors.brand.base1,
                           paddingHorizontal: theme.spaceNumber[6],
                           paddingVertical: theme.spaceNumber[1],
                         }}
                         variant="custom"
                         colorType="base"
                         fontType="montserratRegular"
-                        fontSize="xcaption">
+                        fontSize="caption">
                         double tap to like profile
                       </Text>
                     </View>
@@ -1050,7 +1124,7 @@ const Index = ({ navigation }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      backgroundColor: theme.colors.brand.basewhite,
+                      backgroundColor: theme.colors.brand.base1,
                       width: theme.spaceNumberBy10[3],
                       height: theme.spaceNumberBy10[3],
                       borderRadius: theme.spaceNumberBy50[0],
@@ -1078,7 +1152,7 @@ const Index = ({ navigation }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      backgroundColor: theme.colors.brand.basewhite,
+                      backgroundColor: theme.colors.brand.base1,
                       width: theme.spaceNumberBy10[3],
                       height: theme.spaceNumberBy10[3],
                       borderRadius: theme.spaceNumberBy50[0],
@@ -1092,7 +1166,7 @@ const Index = ({ navigation }) => {
                     />
                   </TouchableOpacity>
                 </View>
-              </HorizontalPaddingSpace>
+              </View>
               <FilterComponent
                 currentUser={currentUser}
                 isVisible={isVisible}
@@ -1121,9 +1195,9 @@ const Index = ({ navigation }) => {
               <Text
                 style={{ textAlign: "center" }}
                 variant="custom"
-                colorType="basewhite"
+                colorType="base1"
                 fontType="montserratBold"
-                fontSize="xcaption">
+                fontSize="caption">
                 {gymLocationErrorMsg}
               </Text>
             </View>

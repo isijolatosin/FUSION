@@ -20,7 +20,7 @@ const GymCard = ({ gym, theme, gymSelectedTypes, handleSelectedGym }) => {
         variant="custom"
         colorType={gymSelectedTypes?.includes(gym) ? "base4" : "base6"}
         fontType="montserratRegular"
-        fontSize="xcaption">
+        fontSize="caption">
         {gym}
       </Text>
     </Pressable>

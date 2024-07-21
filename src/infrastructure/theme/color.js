@@ -12,6 +12,7 @@ export const colors = {
     base1: "#f8f9fa",
     base: "#212529",
     baseTint: "rgba(33, 37, 41, 0.5)",
+    baseTint2: "rgba(33, 37, 41, 0.95)",
     basewhite: "#FFFDFD",
     highlight: "#FCEDEF",
     black: "#0A0A0A",

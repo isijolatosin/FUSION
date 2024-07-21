@@ -84,7 +84,7 @@ export default function IndividualUserProfileComponent({
           <Image
             style={{
               width: "100%",
-              height: imageHeight + 310,
+              height: imageHeight + 70,
               resizeMode: "cover",
               borderRadius: 5,
             }}
@@ -703,7 +703,7 @@ export default function IndividualUserProfileComponent({
           alignItems: "center",
           justifyContent: "space-between",
           alignSelf: "flex-end",
-          paddingBottom: theme.spaceNumberBy10[1],
+          paddingBottom: theme.spaceNumberBy10[2],
           paddingTop: theme.spaceNumber[3],
           marginRight: theme.spaceNumber[3],
         }}>

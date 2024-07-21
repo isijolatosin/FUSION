@@ -59,7 +59,7 @@ const GymtypesComponent = ({
             <View
               style={{
                 backgroundColor: theme.colors.brand.baseTint,
-                padding: theme.spaceNumber[5],
+                padding: theme.spaceNumber[3],
                 borderRadius: theme.spaceNumber[2],
               }}>
               <View
@@ -75,7 +75,7 @@ const GymtypesComponent = ({
                       variant="custom"
                       colorType="base6"
                       fontType="montserratBold"
-                      fontSize="xcaption">
+                      fontSize="caption">
                       Fitness Club Address:{" "}
                     </Text>
                   </View>
@@ -84,7 +84,7 @@ const GymtypesComponent = ({
                       variant="custom"
                       colorType="base6"
                       fontType="montserratRegular"
-                      fontSize="xcaption">
+                      fontSize="caption">
                       {currentUser?.gymMembership?.address}
                     </Text>
                   </View>
@@ -101,7 +101,7 @@ const GymtypesComponent = ({
                     variant="custom"
                     colorType="teal"
                     fontType="montserratRegular"
-                    fontSize="xcaption">
+                    fontSize="caption">
                     Change
                   </Text>
                 </Pressable>
@@ -148,9 +148,8 @@ const GymtypesComponent = ({
                 marginTop: theme.spaceNumber[3],
                 borderTopWidth: 0.5,
                 borderTopColor: theme.colors.brand.base,
-                paddingTop: theme.spaceNumber[3],
                 backgroundColor: theme.colors.brand.baseTint,
-                padding: theme.spaceNumber[5],
+                padding: theme.spaceNumber[3],
                 borderRadius: theme.spaceNumber[2],
               }}>
               <View>
@@ -159,7 +158,7 @@ const GymtypesComponent = ({
                   colorType="base6"
                   fontType="montserratBold"
                   fontSize="caption">
-                  Fitness Club preference(s):{" "}
+                  Fitness Club preferences:{" "}
                 </Text>
               </View>
               <View
@@ -167,7 +166,7 @@ const GymtypesComponent = ({
                   flexDirection: "row",
                   flexWrap: "wrap",
                   gap: theme.spaceNumber[3],
-                  marginTop: theme.spaceNumber[3],
+                  marginTop: theme.spaceNumber[0],
                 }}>
                 {gymSelectedTypes?.length > 0 ? (
                   gymSelectedTypes?.map((type, index) => (
@@ -184,7 +183,7 @@ const GymtypesComponent = ({
                         variant="custom"
                         colorType="base6"
                         fontType="montserratRegular"
-                        fontSize="xcaption">
+                        fontSize="caption">
                         {type}
                       </Text>
                     </View>
@@ -213,7 +212,7 @@ const GymtypesComponent = ({
         <View
           style={{
             backgroundColor: theme.colors.brand.black1,
-            padding: theme.spaceNumber[5],
+            paddingHorizontal: theme.spaceNumber[3],
             borderRadius: theme.spaceNumber[2],
           }}>
           <View
@@ -231,7 +230,7 @@ const GymtypesComponent = ({
                 variant="custom"
                 colorType="base6"
                 fontType="montserratBold"
-                fontSize="button">
+                fontSize="caption">
                 Select Fitness Club Preference
               </Text>
             </View>
