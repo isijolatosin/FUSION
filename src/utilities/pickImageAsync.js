@@ -6,7 +6,7 @@ import axios from "axios";
 const compressImage = async (uri) => {
   const manipResult = await ImageManipulator.manipulateAsync(
     uri,
-    [{ resize: { width: 800 } }], // Adjust the width as needed
+    [{ resize: { width: 400 } }], // Adjust the width as needed
     { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
   );
   return manipResult.uri;
@@ -119,5 +119,50 @@ export const pickImageFromCamera = async (noAllowEditingForPhotoMessage) => {
     return returnUrl;
   } else {
     alert("You did not capture any image.");
+  }
+};
+
+export const pickVideoAsync = async (noAllowEditing) => {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+    allowsEditing: noAllowEditing ? false : true,
+    quality: 1,
+  });
+
+  if (!result.canceled) {
+    return result?.assets?.[0]?.uri;
+  }
+};
+
+export const uploadVideoToCloudinary = async (videoUrl) => {
+  if (!videoUrl) {
+    console.error("No video selected for upload");
+    return;
+  }
+
+  try {
+    const formData = new FormData();
+    formData.append("file", {
+      uri: videoUrl,
+      type: "video/mp4", // Ensure the correct MIME type
+      name: "video.mp4", // You can set the name to any desired value
+    });
+    formData.append("upload_preset", "fusion_pgas5byx");
+
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/dhdccvkyt/video/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    if (response.data.secure_url) {
+      return response.data.secure_url; // Use secure_url to get the HTTPS URL
+    }
+  } catch (error) {
+    console.error("Error uploading video to Cloudinary:", error);
   }
 };

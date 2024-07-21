@@ -1,4 +1,5 @@
 import React, { useRef, useState, Fragment } from "react";
+import { Video } from "expo-av";
 import {
   Image,
   Modal,
@@ -300,10 +301,48 @@ export default function InitiatorProfileComponent({
                   <Text
                     variant="custom"
                     colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="title"
+                    width="100%">
+                    Fitness Goals
+                  </Text>
+                </Spacer>
+              </Spacer>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  gap: theme.spaceNumber[3],
+                }}>
+                {data?.[0]?.likedBy?.gymGoals?.map((goal, idx) => (
+                  <View
+                    key={idx}
+                    style={{
+                      backgroundColor: theme.colors.brand.black,
+                      paddingVertical: theme.spaceNumber[3],
+                      paddingHorizontal: theme.spaceNumber[7],
+                      borderRadius: theme.spaceNumberBy10[4],
+                    }}>
+                    <Text
+                      variant="custom"
+                      colorType="base1"
+                      fontType="montserratRegular"
+                      fontSize="caption"
+                      width="100%">
+                      {goal}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
                     fontType="montserratBold"
                     fontSize="title"
                     width="100%">
-                    My Basics
+                    Basics
                   </Text>
                 </Spacer>
               </Spacer>
@@ -643,7 +682,7 @@ export default function InitiatorProfileComponent({
                       fontType="montserratRegular"
                       fontSize="title"
                       width="100%">
-                      My Location
+                      Location
                     </Text>
                   </Spacer>
                   <View
@@ -671,6 +710,31 @@ export default function InitiatorProfileComponent({
                 </Fragment>
               )}
 
+              {data?.[0]?.likedBy?.videoArray?.[0] ? (
+                <Spacer
+                  style={{ position: "relative" }}
+                  position="top"
+                  size="large">
+                  <Video
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.videoArray?.[0]}`,
+                    }}
+                    useNativeControls
+                    resizeMode="contain"
+                    isLooping
+                    shouldPlay
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                  />
+                </Spacer>
+              ) : (
+                <></>
+              )}
+
               <Spacer
                 style={{ position: "relative" }}
                 position="top"
@@ -696,7 +760,7 @@ export default function InitiatorProfileComponent({
                     fontType="montserratRegular"
                     fontSize="title"
                     width="100%">
-                    My Interests
+                    Interests
                   </Text>
                 </Spacer>
               </Spacer>
@@ -853,6 +917,30 @@ export default function InitiatorProfileComponent({
                   </Text>
                 </View>
               </View>
+              {data?.[0]?.likedBy?.videoArray?.[1] ? (
+                <Spacer
+                  style={{ position: "relative" }}
+                  position="top"
+                  size="large">
+                  <Video
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.videoArray?.[1]}`,
+                    }}
+                    useNativeControls
+                    resizeMode="contain"
+                    isLooping
+                    shouldPlay
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                  />
+                </Spacer>
+              ) : (
+                <></>
+              )}
               {data?.[0]?.likedBy?.mediaArray?.[2] && (
                 <Spacer position="top" size="xxsmall">
                   <Image
@@ -883,76 +971,30 @@ export default function InitiatorProfileComponent({
                   />
                 </Spacer>
               )}
-
-              {/* <Spacer position="top" size="medium">
-                <Text
-                  variant="custom"
-                  colorType="black"
-                  fontType="montserratBold"
-                  fontSize="title"
-                  width="100%">
-                  Me in Three Words
-                </Text>
-              </Spacer>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: "100%",
-                  gap: theme.spaceNumber[3],
-                  marginVertical: 5,
-                }}>
-                <View
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    transform="capitalize"
-                    width="100%">
-                    {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.firstword}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    transform="capitalize"
-                    width="100%">
-                    {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.secondword}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: theme.colors.brand.highlight,
-                    paddingVertical: theme.spaceNumber[3],
-                    paddingHorizontal: theme.spaceNumber[7],
-                    borderRadius: theme.spaceNumberBy10[4],
-                  }}>
-                  <Text
-                    variant="custom"
-                    colorType="black"
-                    fontType="montserratRegular"
-                    fontSize="button"
-                    transform="capitalize"
-                    width="100%">
-                    {data?.[0]?.likedBy?.whatThreeWordsDescribeYou?.thirdword}
-                  </Text>
-                </View>
-              </View> */}
+              {data?.[0]?.likedBy?.videoArray?.[2] ? (
+                <Spacer
+                  style={{ position: "relative" }}
+                  position="top"
+                  size="large">
+                  <Video
+                    source={{
+                      uri: `${data?.[0]?.likedBy?.videoArray?.[2]}`,
+                    }}
+                    useNativeControls
+                    resizeMode="contain"
+                    isLooping
+                    shouldPlay
+                    style={{
+                      width: "100%",
+                      height: imageHeight,
+                      resizeMode: "cover",
+                      borderRadius: theme.spaceNumberBy10[3],
+                    }}
+                  />
+                </Spacer>
+              ) : (
+                <></>
+              )}
               {data?.[0]?.likedBy?.mediaArray?.[4] && (
                 <Spacer position="top" size="xxsmall">
                   <Image

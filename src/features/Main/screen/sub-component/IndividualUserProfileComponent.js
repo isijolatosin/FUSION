@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useRef, useState } from "react";
+import { Video } from "expo-av";
 import {
   Image,
   RefreshControl,
@@ -86,7 +87,6 @@ export default function IndividualUserProfileComponent({
               width: "100%",
               height: imageHeight + 70,
               resizeMode: "cover",
-              borderRadius: 5,
             }}
             source={{
               uri: `${data?.mediaArray?.[0]}`,
@@ -136,7 +136,7 @@ export default function IndividualUserProfileComponent({
               fontType="montserratBold"
               fontSize="title"
               width="100%">
-              My Basics
+              Basics
             </Text>
           </Spacer>
           <View
@@ -415,7 +415,7 @@ export default function IndividualUserProfileComponent({
                   fontType="montserratBold"
                   fontSize="title"
                   width="100%">
-                  My Location
+                  Location
                 </Text>
               </Spacer>
               <View
@@ -444,6 +444,27 @@ export default function IndividualUserProfileComponent({
           )}
         </HorizontalPaddingSpace>
       </View>
+      {data?.videoArray?.[0] && (
+        <Spacer style={{ position: "relative" }} position="top" size="large">
+          <Video
+            source={{
+              uri: `${data?.videoArray?.[0]}`,
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            shouldPlay
+            style={{
+              width: "100%",
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
+              resizeMode: "cover",
+            }}
+          />
+        </Spacer>
+      )}
       <Spacer style={{ position: "relative" }} position="top" size="large">
         <Image
           style={{
@@ -453,7 +474,6 @@ export default function IndividualUserProfileComponent({
                 ? imageHeight + 310
                 : imageHeight,
             resizeMode: "cover",
-            borderRadius: 5,
           }}
           source={{
             uri: `${data?.mediaArray?.[1]}`,
@@ -468,7 +488,7 @@ export default function IndividualUserProfileComponent({
             fontType="montserratBold"
             fontSize="title"
             width="100%">
-            My Interests
+            Interests
           </Text>
         </Spacer>
         <View
@@ -640,6 +660,27 @@ export default function IndividualUserProfileComponent({
           />
         </Spacer>
       )}
+      {data?.videoArray?.[1] && (
+        <View>
+          <Video
+            source={{
+              uri: `${data?.videoArray?.[1]}`,
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            shouldPlay
+            style={{
+              width: "100%",
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
+              resizeMode: "cover",
+            }}
+          />
+        </View>
+      )}
       {data?.mediaArray?.[3] && (
         <Spacer position="top" size="">
           <Image
@@ -677,6 +718,27 @@ export default function IndividualUserProfileComponent({
             }}
           />
         </Spacer>
+      )}
+      {data?.videoArray?.[2] && (
+        <View>
+          <Video
+            source={{
+              uri: `${data?.videoArray?.[2]}`,
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            shouldPlay
+            style={{
+              width: "100%",
+              height:
+                Platform.OS === "ios" && Platform.isPad
+                  ? imageHeight + 310
+                  : imageHeight,
+              resizeMode: "cover",
+            }}
+          />
+        </View>
       )}
       {data?.mediaArray?.[5] && (
         <Spacer position="top" size="">

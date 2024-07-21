@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Pressable, ScrollView, View } from "react-native";
+import {
+  Dimensions,
+  Pressable,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   Ionicons,
   AntDesign,
@@ -18,13 +24,18 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { useAppContext } from "../../../context/ThemeContext";
 import IconComponent from "../../../components/icon-components/IconComponent";
-import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
+import {
+  addToArrayField,
+  getAllData,
+  removeItemFromArray,
+} from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import PhotoComponent from "../../Onboarding/components/sub-component/PhotoComponent";
 import GeneralPopupModal from "./GeneralPopupModal";
 import {
   handleDeleteImageAsync,
   handlePickImageAsync,
+  handlePickVideoAsync,
   handleReplaceImageAsync,
 } from "../../../utilities/handleUploadImage";
 import SettingModal from "./SettingModal";
@@ -62,6 +73,8 @@ import IndustryUpdateModal from "./IndustryUpdateModal";
 import TextAndIconComponent from "./TextAndIconComponent";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
+import GymCard from "../../../components/general-component/GymCard";
+import { getGymTypeByCountryData } from "../../../utilities/getGymTypeByCountryData";
 
 export default function ProfileScreen() {
   const {
@@ -73,6 +86,8 @@ export default function ProfileScreen() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSettingModal, setSettingModal] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
+  const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
+  const [fitnessPreference, setFitnessPreference] = useState([]);
   const [openUpdateModal, setOpenUpdateModal] = useState({
     type: "",
     isOpen: false,
@@ -102,7 +117,9 @@ export default function ProfileScreen() {
     const currentUserData = newData.find(
       (data) => data.phonenumber === phoneValueFromPhoneMemory
     );
+    setFitnessPreference(getGymTypeByCountryData(currentUserData?.country));
     setCurrentUser(currentUserData);
+    setGymSelectedTypes(currentUserData?.gymPreference);
   }
 
   useFocusEffect(
@@ -920,6 +937,38 @@ export default function ProfileScreen() {
     }
   }
 
+  async function handleSelectedGym(gym) {
+    //remove selected
+    if (gymSelectedTypes?.includes(gym)) {
+      const poppedArray = gymSelectedTypes.filter((item) => item !== gym);
+
+      setGymSelectedTypes([...poppedArray]);
+
+      await removeItemFromArray(
+        "all-users",
+        currentUser?.id,
+        "gymPreference",
+        gym,
+        () => {}
+      );
+
+      setIsTrigger(true);
+    } else {
+      const loggedArray = [...gymSelectedTypes, gym];
+      setGymSelectedTypes([...loggedArray]);
+
+      await addToArrayField(
+        "all-users",
+        currentUser?.id,
+        "gymPreference",
+        gym,
+        () => {}
+      );
+
+      setIsTrigger(true);
+    }
+  }
+
   return (
     <SafeArea
       style={{
@@ -963,14 +1012,41 @@ export default function ProfileScreen() {
               paddingVertical: theme.spaceNumber[3],
               marginBottom: theme.spaceNumber[5],
             }}>
-            <HorizontalPaddingSpace space={theme.space[2]}>
-              <Text
-                variant="custom"
-                colorType="base6"
-                fontType="montserratSemibold"
-                fontSize="button">
-                Uploaded Photos
-              </Text>
+            <HorizontalPaddingSpace
+              space={theme.space[2]}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}>
+              <View>
+                <Text
+                  variant="custom"
+                  colorType="base6"
+                  fontType="montserratSemibold"
+                  fontSize="button">
+                  Photos
+                </Text>
+              </View>
+              {!currentUser?.videoArray ||
+              currentUser?.videoArray?.length < 3 ? (
+                <TouchableOpacity
+                  onPress={() =>
+                    handlePickVideoAsync(false, setIsTrigger, currentUser?.id)
+                  }>
+                  <Text
+                    variant="custom"
+                    colorType="teal"
+                    fontType="montserratSemibold"
+                    fontSize="xcaption">
+                    {currentUser?.videoArray?.length &&
+                      `${currentUser?.videoArray?.length} - `}{" "}
+                    Add Video
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <></>
+              )}
             </HorizontalPaddingSpace>
           </View>
           <View>
@@ -980,6 +1056,21 @@ export default function ProfileScreen() {
                 contentContainerStyle={{
                   gap: theme.spaceNumberBy10[0],
                 }}>
+                {currentUser?.videoArray?.map((media, idx) => (
+                  <PhotoComponent
+                    key={idx}
+                    isUpdatingPhoto={true}
+                    photoUrl={media}
+                    showDeleteIcon={true}
+                    index={0}
+                    setOpenDeleteModal={setOpenDeleteModal}
+                    setDeleteImageItem={setDeleteImageItem}
+                    deleteImageItem={deleteImageItem}
+                    setOpenImageUploadModal={setOpenImageUploadModal}
+                    width={width}
+                    borderRadius={theme.spaceNumberBy10[1]}
+                  />
+                ))}
                 {currentUser?.mediaArray?.map((media, idx) => (
                   <PhotoComponent
                     key={idx}
@@ -1014,6 +1105,41 @@ export default function ProfileScreen() {
                       />
                     ))}
               </ScrollView>
+            </HorizontalPaddingSpace>
+          </View>
+          <View style={{ marginTop: theme.spaceNumberBy10[0] }}>
+            <View
+              style={{
+                backgroundColor: theme.colors.brand.black,
+                paddingVertical: theme.spaceNumber[3],
+                marginBottom: theme.spaceNumber[5],
+              }}>
+              <HorizontalPaddingSpace space={theme.space[2]}>
+                <Text
+                  variant="custom"
+                  colorType="base6"
+                  fontType="montserratSemibold"
+                  fontSize="button">
+                  Fitness Preference
+                </Text>
+              </HorizontalPaddingSpace>
+            </View>
+            <HorizontalPaddingSpace
+              space={theme.space[2]}
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: theme.spaceNumber[1],
+              }}>
+              {fitnessPreference?.map((preference, idx) => (
+                <GymCard
+                  key={idx}
+                  gym={preference}
+                  theme={theme}
+                  gymSelectedTypes={gymSelectedTypes}
+                  handleSelectedGym={handleSelectedGym}
+                />
+              ))}
             </HorizontalPaddingSpace>
           </View>
           <AboutMeListComponent
@@ -1389,8 +1515,8 @@ export default function ProfileScreen() {
           theme={theme}
           functionCallTop={handleReplaceImageAsyncInModal}
           functionCallBottom={handleDeleteImageAsyncInModal}
-          textTop="Replace Photo"
-          textBottom="Delete Photo"
+          textTop="Replace Media"
+          textBottom="Delete Media"
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenDeleteModal}
           setIsTrigger={setIsTrigger}
@@ -1406,8 +1532,8 @@ export default function ProfileScreen() {
           theme={theme}
           functionCallTop={handlePickImageAsyncInModal}
           functionCallBottom={handleCaptureImageAsyncInModal}
-          textTop="Upload Photo"
-          textBottom="Take Photo"
+          textTop="Upload Media"
+          textBottom="Take Media"
           textCancel="Cancel"
           setOpenImageUploadModal={setOpenImageUploadModal}
         />

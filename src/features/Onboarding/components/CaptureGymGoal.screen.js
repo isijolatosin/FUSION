@@ -107,7 +107,7 @@ export default function CaptureGymGoalScreen({ navigation }) {
               lineHeight={theme.lineHeights[0]}
               fontSize="caption"
               width="100%">
-              How about you tell others three of your goals.
+              How about you tell others of your fitness goals.
             </Text>
           </Spacer>
           <ScrollView

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Pressable, Image } from "react-native";
+import { Video } from "expo-av";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { useAppContext } from "../../../../context/ThemeContext";
 import { handlePickImageAsync } from "../../../../utilities/handleUploadImage";
 import Spinner from "../../../../components/general-component/Spinner";
+import { isImageOrVideo } from "../../../../utilities/getMediaFileType";
 
 export default function PhotoComponent({
   isUpdatingPhoto,
@@ -52,16 +54,38 @@ export default function PhotoComponent({
       }}>
       {photoUrl ? (
         <>
-          <Image
-            source={{
-              uri: `${photoUrl}`,
-            }}
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: borderRadius ? borderRadius : 5,
-            }}
-          />
+          {isImageOrVideo(photoUrl) === "image" ? (
+            <Image
+              source={{
+                uri: `${photoUrl}`,
+              }}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: borderRadius ? borderRadius : 5,
+              }}
+            />
+          ) : (
+            <></>
+          )}
+          {isImageOrVideo(photoUrl) === "video" ? (
+            <Video
+              source={{
+                uri: `${photoUrl}`,
+              }}
+              useNativeControls
+              resizeMode="contain"
+              isLooping
+              shouldPlay
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: borderRadius ? borderRadius : 5,
+              }}
+            />
+          ) : (
+            <></>
+          )}
           {showDeleteIcon ? (
             <Pressable
               style={{

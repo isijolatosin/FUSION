@@ -1606,3 +1606,23 @@ export const gymGoalsObject = {
     "Compete in a Fitness Challenge or Event",
   ],
 };
+export const imageExtensions = [
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "bmp",
+  "tiff",
+  "svg",
+  "webp",
+];
+export const videoExtensions = [
+  "mp4",
+  "mov",
+  "avi",
+  "mkv",
+  "webm",
+  "flv",
+  "wmv",
+  "mpeg",
+];

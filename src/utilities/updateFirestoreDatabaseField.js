@@ -58,6 +58,20 @@ const addToArrayField = async (
     console.error(`Error updating ${arrayFieldName} field: `, error);
   }
 };
+const emptyArrayField = async (collectionName, documentId, arrayFieldName) => {
+  try {
+    const docRef = database.collection(collectionName).doc(documentId);
+
+    // Update the array field using arrayUnion
+    await docRef.update({
+      [arrayFieldName]: [],
+    });
+
+    console.log(`${arrayFieldName} field array emptied successfully!`);
+  } catch (error) {
+    console.error(`Error updating ${arrayFieldName} field: `, error);
+  }
+};
 
 // Function to remove a particular item from the array in Firestore
 const removeItemFromArray = async (
@@ -111,6 +125,7 @@ export {
   updateUserValueField,
   getAllData,
   addToArrayField,
+  emptyArrayField,
   removeItemFromArray,
   removeDocumentFromCollections,
 };

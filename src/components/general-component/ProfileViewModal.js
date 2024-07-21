@@ -1,4 +1,5 @@
 import { Image, Pressable, ScrollView, View } from "react-native";
+import { Video } from "expo-av";
 import React, { Fragment } from "react";
 import {
   MaterialCommunityIcons,
@@ -76,6 +77,35 @@ export default function ProfileViewModal({
           contentContainerStyle={{
             paddingLeft: theme.spaceNumberBy10[0],
           }}>
+          {otherUser?.videoArray?.length ? (
+            otherUser?.videoArray.map((vid, idx) => (
+              <View
+                key={idx}
+                style={{
+                  position: "relative",
+                  borderRadius: theme.spaceNumberBy10[1],
+                  marginRight: theme.spaceNumberBy10[0],
+                }}>
+                <Video
+                  source={{
+                    uri: `${vid}`,
+                  }}
+                  useNativeControls
+                  resizeMode="contain"
+                  isLooping
+                  shouldPlay
+                  style={{
+                    height: width,
+                    width: width - 50,
+                    resizeMode: "cover",
+                    borderRadius: theme.spaceNumberBy10[1],
+                  }}
+                />
+              </View>
+            ))
+          ) : (
+            <></>
+          )}
           {otherUser?.mediaArray.map((img, idx) => (
             <View
               key={idx}
@@ -140,7 +170,45 @@ export default function ProfileViewModal({
                 fontType="montserratRegular"
                 fontSize="title"
                 width="100%">
-                My Basics
+                Fitness Goals
+              </Text>
+            </Spacer>
+          </Spacer>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: theme.spaceNumber[3],
+            }}>
+            {otherUser?.gymGoals?.map((goal, idx) => (
+              <View
+                key={idx}
+                style={{
+                  backgroundColor: theme.colors.brand.black,
+                  paddingVertical: theme.spaceNumber[3],
+                  paddingHorizontal: theme.spaceNumber[7],
+                  borderRadius: theme.spaceNumberBy10[4],
+                }}>
+                <Text
+                  variant="custom"
+                  colorType="base1"
+                  fontType="montserratRegular"
+                  fontSize="caption"
+                  width="100%">
+                  {goal}
+                </Text>
+              </View>
+            ))}
+          </View>
+          <Spacer position="top" size="large">
+            <Spacer position="bottom" size="medium">
+              <Text
+                variant="custom"
+                colorType="base1"
+                fontType="montserratRegular"
+                fontSize="title"
+                width="100%">
+                Basics
               </Text>
             </Spacer>
           </Spacer>
@@ -148,7 +216,7 @@ export default function ProfileViewModal({
             style={{
               flexDirection: "row",
               width: "100%",
-              gap: 8,
+              gap: theme.spaceNumber[3],
               marginVertical: 5,
               flexWrap: "wrap",
             }}>
@@ -532,7 +600,7 @@ export default function ProfileViewModal({
                   fontType="montserratRegular"
                   fontSize="title"
                   width="100%">
-                  My Interests
+                  Interests
                 </Text>
               </Spacer>
             </Spacer>
@@ -596,7 +664,7 @@ export default function ProfileViewModal({
                 fontType="montserratRegular"
                 fontSize="title"
                 width="100%">
-                My Vices
+                Vices
               </Text>
             </Spacer>
           </Spacer>

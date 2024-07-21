@@ -36,7 +36,9 @@ import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import FilterComponent from "./sub-component/FilterComponent";
 import {
   addToArrayField,
+  emptyArrayField,
   getAllData,
+  removeItemFromArray,
   updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
 import YouLikedComponent from "./sub-component/YouLikedComponent";
@@ -62,7 +64,6 @@ import hasCombimneMatchElements from "../../../utilities/hasCombimneMatchElement
 import Placeholder from "../../../components/general-component/Placeholder";
 import GymtypesComponent from "../../../components/general-component/GymtypesComponent";
 import { getLocationByAddress } from "../../../utilities/getUserLocation";
-import { formatCountryName } from "../../../utilities/formatCountryName";
 
 const Index = ({ navigation }) => {
   const { width, height } = Dimensions.get("window");
@@ -601,20 +602,29 @@ const Index = ({ navigation }) => {
   if (isLoadCard) {
     setTimeout(function () {
       setLoadCard(false);
-    }, 3000);
+    }, 1000);
   }
 
-  function handleSelectedGym(gym) {
+  async function handleSelectedGym(gym) {
+    //remove selected
     if (gymSelectedTypes?.includes(gym)) {
       const poppedArray = gymSelectedTypes.filter((item) => item !== gym);
 
       setGymSelectedTypes([...poppedArray]);
+
+      await removeItemFromArray(
+        "all-users",
+        currentUser?.id,
+        "gymPreference",
+        gym,
+        () => {}
+      );
+
+      setIsRetrigger(true);
     } else {
       const loggedArray = [...gymSelectedTypes, gym];
       setGymSelectedTypes([...loggedArray]);
-    }
 
-    const gymTimer2 = setTimeout(async () => {
       await addToArrayField(
         "all-users",
         currentUser?.id,
@@ -622,9 +632,18 @@ const Index = ({ navigation }) => {
         gym,
         () => {}
       );
+
+      setIsRetrigger(true);
+    }
+  }
+
+  function handleClearGympreference() {
+    const clearTimer2 = setTimeout(async () => {
+      await emptyArrayField("all-users", currentUser?.id, "gymPreference");
     }, 1000);
 
-    return () => clearTimeout(gymTimer2);
+    setIsRetrigger(true);
+    return () => clearTimeout(clearTimer2);
   }
 
   return (
@@ -720,7 +739,7 @@ const Index = ({ navigation }) => {
                               variant="custom"
                               colorType="base1"
                               fontType="montserratRegular"
-                              fontSize="caption">
+                              fontSize="xcaption">
                               {hasCombimneMatchElements(
                                 currentUsertoSwipe,
                                 currentUser,
@@ -828,8 +847,8 @@ const Index = ({ navigation }) => {
               <View>
                 <GymtypesComponent
                   handleSelectedGym={handleSelectedGym}
+                  handleClearGympreference={handleClearGympreference}
                   gymSelectedTypes={gymSelectedTypes}
-                  userCountry={formatCountryName(currentUser?.country)}
                   width={width}
                   currentUser={currentUser}
                   setIsRetrigger={setIsRetrigger}
@@ -1067,14 +1086,26 @@ const Index = ({ navigation }) => {
                               flexDirection: "row",
                               paddingVertical: theme.spaceNumber[2],
                               width: "65%",
+                              alignItems: "center",
                             }}>
-                            <Text
-                              variant="custom"
-                              colorType="base1"
-                              fontType="montserratRegular"
-                              fontSize="caption">
-                              {goal}
-                            </Text>
+                            <View
+                              style={{
+                                marginRight: theme.spaceNumber[3],
+                                width: theme.spaceNumber[1],
+                                height: theme.spaceNumber[1],
+                                backgroundColor: theme.colors.brand.base6,
+                                borderRadius: theme.spaceNumberBy10[2],
+                              }}
+                            />
+                            <View>
+                              <Text
+                                variant="custom"
+                                colorType="base1"
+                                fontType="montserratRegular"
+                                fontSize="caption">
+                                {goal}
+                              </Text>
+                            </View>
                           </View>
                         ))}
                     </Spacer>

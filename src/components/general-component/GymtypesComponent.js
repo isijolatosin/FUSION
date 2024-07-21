@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { KeyboardAvoidingView, Pressable, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Pressable,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import GymCard from "./GymCard";
 import { gymTypesByCountry } from "../../constants";
 import { useAppContext } from "../../context/ThemeContext";
@@ -11,12 +16,12 @@ import IconComponent from "../icon-components/IconComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import InputComponent from "../Input-Forms/InputComponent";
 import { updateUserValueField } from "../../utilities/updateFirestoreDatabaseField";
+import { getGymTypeByCountryData } from "../../utilities/getGymTypeByCountryData";
 
 const GymtypesComponent = ({
   handleSelectedGym,
+  handleClearGympreference,
   gymSelectedTypes,
-  userCountry,
-  width,
   currentUser,
   setIsRetrigger,
 }) => {
@@ -234,6 +239,15 @@ const GymtypesComponent = ({
                 Select Fitness Club Preference
               </Text>
             </View>
+            <TouchableOpacity onPress={() => handleClearGympreference()}>
+              <Text
+                variant="custom"
+                colorType="teal"
+                fontType="montserratRegular"
+                fontSize="caption">
+                Clear
+              </Text>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -241,20 +255,17 @@ const GymtypesComponent = ({
               gap: theme.spaceNumber[1],
               flexWrap: "wrap",
             }}>
-            {[
-              ...gymTypesByCountry?.[
-                userCountry === "nigeria" ? "worldwide" : userCountry
-              ],
-              ...gymTypesByCountry?.["worldwide"],
-            ]?.map((gym, idx) => (
-              <GymCard
-                key={idx}
-                gym={gym}
-                theme={theme}
-                gymSelectedTypes={gymSelectedTypes}
-                handleSelectedGym={handleSelectedGym}
-              />
-            ))}
+            {[...getGymTypeByCountryData(currentUser?.country)]?.map(
+              (gym, idx) => (
+                <GymCard
+                  key={idx}
+                  gym={gym}
+                  theme={theme}
+                  gymSelectedTypes={gymSelectedTypes}
+                  handleSelectedGym={handleSelectedGym}
+                />
+              )
+            )}
           </View>
         </View>
       </HorizontalPaddingSpace>

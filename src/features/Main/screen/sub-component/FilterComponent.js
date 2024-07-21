@@ -333,8 +333,8 @@ function InterestFilterComponent({ theme, currentUser, setIsRetrigger }) {
           <CheckBox
             checked={selectedInterest === interest.key || clickedIndex === idx}
             onPress={() => handleInterestToggle(idx, interest.key)}
-            checkedColor={theme.colors.brand.basewhite}
-            uncheckedColor={theme.colors.brand.black}
+            checkedColor={theme.colors.brand.base6}
+            uncheckedColor={theme.colors.brand.base6}
             size={25}
             containerStyle={{
               padding: 0,
@@ -386,7 +386,7 @@ function SubscriberPreferencesComponent({
             <View>
               <Text
                 variant="custom"
-                colorType="base1"
+                colorType="base6"
                 fontType="montserratBold"
                 fontSize="button"
                 transform="capitalize">
@@ -394,9 +394,9 @@ function SubscriberPreferencesComponent({
               </Text>
               <Text
                 variant="custom"
-                colorType="brandFadeLighter"
-                fontType="montserratLight"
-                fontSize="button"
+                colorType="base7"
+                fontType="montserratRegular"
+                fontSize="caption"
                 transform="capitalize">
                 {preference?.value}
               </Text>
@@ -410,7 +410,7 @@ function SubscriberPreferencesComponent({
                 iconName="keyboard-arrow-right"
                 IconComponent={MaterialIcons}
                 size={20}
-                color={theme.colors.brand.brandTone}
+                color={theme.colors.brand.base6}
               />
             </View>
           </Pressable>
