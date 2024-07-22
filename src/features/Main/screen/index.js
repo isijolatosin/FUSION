@@ -68,6 +68,7 @@ import hasCombimneMatchElements from "../../../utilities/hasCombimneMatchElement
 import Placeholder from "../../../components/general-component/Placeholder";
 import GymtypesComponent from "../../../components/general-component/GymtypesComponent";
 import { getLocationByAddress } from "../../../utilities/getUserLocation";
+import { onloadVideoPlayer } from "../../../utilities/unloadVideoPlayer";
 
 const Index = ({ navigation }) => {
   const videoRef = useRef(null);
