@@ -23,7 +23,11 @@ import {
   Foundation,
   EvilIcons,
 } from "@expo/vector-icons";
-import { useFocusEffect, useRoute } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useIsFocused,
+  useRoute,
+} from "@react-navigation/native";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
 import { useAppContext } from "../../../context/ThemeContext";
@@ -66,6 +70,8 @@ import GymtypesComponent from "../../../components/general-component/GymtypesCom
 import { getLocationByAddress } from "../../../utilities/getUserLocation";
 
 const Index = ({ navigation }) => {
+  const videoRef = useRef(null);
+  const isFocused = useIsFocused();
   const { width, height } = Dimensions.get("window");
   const lastTap = useRef(0);
   const [allUsers, setAllUsers] = useState([]);
@@ -426,8 +432,10 @@ const Index = ({ navigation }) => {
       setIsRetrigger(false);
     }, 2000);
 
+    onloadVideoPlayer(videoRef, isFocused);
+
     return () => clearTimeout(resetFilterTrigger);
-  }, [isRetrigger, memoizedFetchData]);
+  }, [isRetrigger, memoizedFetchData, isFocused]);
 
   let currentUsertoSwipe = {};
   let currentSwipeIndexIsLessThanAllUsersLength = true;
@@ -881,6 +889,7 @@ const Index = ({ navigation }) => {
                   data={currentUsertoSwipe}
                   theme={theme}
                   scrollViewRef={scrollViewRef}
+                  videoRef={videoRef}
                 />
               </View>
               <View

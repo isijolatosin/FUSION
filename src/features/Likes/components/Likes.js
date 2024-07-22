@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Image, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -26,8 +26,11 @@ import ProfilePausedCardComponent from "../../../components/general-component/Pr
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import IllustrationContainer from "../../../components/general-component/IllustrationContainer";
+import { onloadVideoPlayer } from "../../../utilities/unloadVideoPlayer";
 
 const LikesScreen = () => {
+  const videoRef = useRef(null);
+  const isFocused = useIsFocused();
   const {
     state: { theme },
   } = useAppContext();
@@ -100,8 +103,10 @@ const LikesScreen = () => {
       setIsRetrigger(false);
     }, 1000);
 
+    onloadVideoPlayer(videoRef, isFocused);
+
     return () => clearTimeout(resetLikeTrigger);
-  }, [isRetrigger, memoizedFetchData]);
+  }, [isRetrigger, memoizedFetchData, isFocused]);
 
   if (currentUser?.deactivate) {
     return (
@@ -287,6 +292,7 @@ const LikesScreen = () => {
         theme={theme}
         width="100%">
         <InitiatorProfileComponent
+          videoRef={videoRef}
           data={initiatorProfileData}
           theme={theme}
           bothUserData={likedUserAndCurrentUserData}
@@ -303,6 +309,7 @@ const LikesScreen = () => {
         theme={theme}
         width="100%">
         <FriendshipInitiatorProfileComponent
+          videoRef={videoRef}
           data={friendRequestProfileData}
           theme={theme}
           bothUserData={friendshipToAndFromData}

@@ -37,6 +37,7 @@ import { getZodiacSign } from "../../../utilities/generateZodiac";
 import { handleUrlPress } from "../../../utilities/detectTextType";
 import getInterestMapObject from "../../../utilities/getInterestMapObject";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
+import VideoPlayer from "../../../components/general-component/VideoPlayer";
 
 export default function InitiatorProfileComponent({
   data,
@@ -47,6 +48,7 @@ export default function InitiatorProfileComponent({
   setInitiatorProfileData,
   currentUser,
   setIsRetrigger,
+  videoRef,
 }) {
   const navigation = useNavigation();
   const imageHeight = 450;
@@ -715,14 +717,11 @@ export default function InitiatorProfileComponent({
                   style={{ position: "relative" }}
                   position="top"
                   size="large">
-                  <Video
-                    source={{
-                      uri: `${data?.[0]?.likedBy?.videoArray?.[0]}`,
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    shouldPlay
+                  <VideoPlayer
+                    videoRef={videoRef}
+                    url={data?.[0]?.likedBy?.videoArray?.[0]}
+                    shouldPlay={false}
+                    isLooping={true}
                     style={{
                       width: "100%",
                       height: imageHeight,
@@ -922,14 +921,11 @@ export default function InitiatorProfileComponent({
                   style={{ position: "relative" }}
                   position="top"
                   size="large">
-                  <Video
-                    source={{
-                      uri: `${data?.[0]?.likedBy?.videoArray?.[1]}`,
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    shouldPlay
+                  <VideoPlayer
+                    videoRef={videoRef}
+                    url={data?.[0]?.likedBy?.videoArray?.[1]}
+                    shouldPlay={false}
+                    isLooping={true}
                     style={{
                       width: "100%",
                       height: imageHeight,
@@ -976,14 +972,11 @@ export default function InitiatorProfileComponent({
                   style={{ position: "relative" }}
                   position="top"
                   size="large">
-                  <Video
-                    source={{
-                      uri: `${data?.[0]?.likedBy?.videoArray?.[2]}`,
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    shouldPlay
+                  <VideoPlayer
+                    videoRef={videoRef}
+                    url={data?.[0]?.likedBy?.videoArray?.[2]}
+                    shouldPlay={false}
+                    isLooping={true}
                     style={{
                       width: "100%",
                       height: imageHeight,

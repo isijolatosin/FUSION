@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   Pressable,
@@ -15,6 +15,7 @@ import {
   MaterialCommunityIcons,
   Fontisto,
 } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -75,8 +76,11 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import GymCard from "../../../components/general-component/GymCard";
 import { getGymTypeByCountryData } from "../../../utilities/getGymTypeByCountryData";
+import { onloadVideoPlayer } from "../../../utilities/unloadVideoPlayer";
 
 export default function ProfileScreen() {
+  const videoRef = useRef(null);
+  const isFocused = useIsFocused();
   const {
     state: { theme },
   } = useAppContext();
@@ -138,8 +142,10 @@ export default function ProfileScreen() {
       setIsTrigger(false);
     }, 2000);
 
+    onloadVideoPlayer(videoRef, isFocused);
+
     return () => clearTimeout(resetTrigger);
-  }, [isTrigger]);
+  }, [isTrigger, isFocused]);
 
   async function handleReplaceImageAsyncInModal() {
     handleReplaceImageAsync(currentUser, deleteImageItem, setIsTrigger);
@@ -1058,6 +1064,7 @@ export default function ProfileScreen() {
                 }}>
                 {currentUser?.videoArray?.map((media, idx) => (
                   <PhotoComponent
+                    videoRef={videoRef}
                     key={idx}
                     isUpdatingPhoto={true}
                     photoUrl={media}
@@ -1562,6 +1569,7 @@ export default function ProfileScreen() {
         theme={theme}
         width={width}>
         <ProfileViewModal
+          videoRef={videoRef}
           otherUser={currentUser}
           theme={theme}
           setShowProfile={setShowProfile}

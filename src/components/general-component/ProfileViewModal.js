@@ -20,12 +20,14 @@ import { getZodiacSign } from "../../utilities/generateZodiac";
 import { handleUrlPress } from "../../utilities/detectTextType";
 import getInterestMapObject from "../../utilities/getInterestMapObject";
 import HeaderComponent from "./HeaderComponent";
+import VideoPlayer from "./VideoPlayer";
 
 export default function ProfileViewModal({
   otherUser,
   theme,
   setShowProfile,
   width,
+  videoRef,
 }) {
   let iconNamePerGender = "";
   if (otherUser?.gender === "woman") {
@@ -86,14 +88,11 @@ export default function ProfileViewModal({
                   borderRadius: theme.spaceNumberBy10[1],
                   marginRight: theme.spaceNumberBy10[0],
                 }}>
-                <Video
-                  source={{
-                    uri: `${vid}`,
-                  }}
-                  useNativeControls
-                  resizeMode="contain"
-                  isLooping
-                  shouldPlay
+                <VideoPlayer
+                  videoRef={videoRef}
+                  url={vid}
+                  shouldPlay={false}
+                  isLooping={false}
                   style={{
                     height: width,
                     width: width - 50,

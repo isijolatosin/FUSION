@@ -25,6 +25,7 @@ import { getZodiacSign } from "../../../../utilities/generateZodiac";
 import { handleUrlPress } from "../../../../utilities/detectTextType";
 import getInterestMapObject from "../../../../utilities/getInterestMapObject";
 import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
+import VideoPlayer from "../../../../components/general-component/VideoPlayer";
 
 export default function IndividualUserProfileComponent({
   fetchUsersData,
@@ -32,6 +33,7 @@ export default function IndividualUserProfileComponent({
   data,
   theme,
   scrollViewRef,
+  videoRef,
 }) {
   const imageHeight = 400;
   const [refreshing, setRefreshing] = useState(false);
@@ -446,14 +448,11 @@ export default function IndividualUserProfileComponent({
       </View>
       {data?.videoArray?.[0] && (
         <Spacer style={{ position: "relative" }} position="top" size="large">
-          <Video
-            source={{
-              uri: `${data?.videoArray?.[0]}`,
-            }}
-            useNativeControls
-            resizeMode="contain"
-            isLooping
-            shouldPlay
+          <VideoPlayer
+            videoRef={videoRef}
+            url={data?.videoArray?.[0]}
+            shouldPlay={false}
+            isLooping={true}
             style={{
               width: "100%",
               height:
@@ -662,14 +661,11 @@ export default function IndividualUserProfileComponent({
       )}
       {data?.videoArray?.[1] && (
         <View>
-          <Video
-            source={{
-              uri: `${data?.videoArray?.[1]}`,
-            }}
-            useNativeControls
-            resizeMode="contain"
-            isLooping
-            shouldPlay
+          <VideoPlayer
+            videoRef={videoRef}
+            url={data?.videoArray?.[1]}
+            shouldPlay={false}
+            isLooping={true}
             style={{
               width: "100%",
               height:
@@ -721,14 +717,11 @@ export default function IndividualUserProfileComponent({
       )}
       {data?.videoArray?.[2] && (
         <View>
-          <Video
-            source={{
-              uri: `${data?.videoArray?.[2]}`,
-            }}
-            useNativeControls
-            resizeMode="contain"
-            isLooping
-            shouldPlay
+          <VideoPlayer
+            videoRef={videoRef}
+            url={data?.videoArray?.[2]}
+            shouldPlay={false}
+            isLooping={true}
             style={{
               width: "100%",
               height:

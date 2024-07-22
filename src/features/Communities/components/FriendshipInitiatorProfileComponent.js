@@ -45,6 +45,7 @@ export default function FriendshipInitiatorProfileComponent({
   setInitiatorProfileData,
   currentUser,
   setIsRetrigger,
+  videoRef,
 }) {
   const navigation = useNavigation();
   const imageHeight = 450;
@@ -750,14 +751,11 @@ export default function FriendshipInitiatorProfileComponent({
                   style={{ position: "relative" }}
                   position="top"
                   size="large">
-                  <Video
-                    source={{
-                      uri: `${data?.[0]?.friendRequestFrom?.videoArray?.[0]}`,
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    shouldPlay
+                  <VideoPlayer
+                    videoRef={videoRef}
+                    url={data?.[0]?.friendRequestFrom?.videoArray?.[0]}
+                    shouldPlay={false}
+                    isLooping={true}
                     style={{
                       width: "100%",
                       height: imageHeight,
@@ -959,14 +957,11 @@ export default function FriendshipInitiatorProfileComponent({
                   style={{ position: "relative" }}
                   position="top"
                   size="large">
-                  <Video
-                    source={{
-                      uri: `${data?.[0]?.friendRequestFrom?.videoArray?.[1]}`,
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    shouldPlay
+                  <VideoPlayer
+                    videoRef={videoRef}
+                    url={data?.[0]?.friendRequestFrom?.videoArray?.[1]}
+                    shouldPlay={false}
+                    isLooping={true}
                     style={{
                       width: "100%",
                       height: imageHeight,
@@ -1013,14 +1008,11 @@ export default function FriendshipInitiatorProfileComponent({
                   style={{ position: "relative" }}
                   position="top"
                   size="large">
-                  <Video
-                    source={{
-                      uri: `${data?.[0]?.friendRequestFrom?.videoArray?.[2]}`,
-                    }}
-                    useNativeControls
-                    resizeMode="contain"
-                    isLooping
-                    shouldPlay
+                  <VideoPlayer
+                    videoRef={videoRef}
+                    url={data?.[0]?.friendRequestFrom?.videoArray?.[2]}
+                    shouldPlay={false}
+                    isLooping={true}
                     style={{
                       width: "100%",
                       height: imageHeight,
