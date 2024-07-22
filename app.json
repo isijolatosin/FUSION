@@ -3,7 +3,7 @@
     "name": "wiingr",
     "slug": "wiingr-app",
     "description": "Wiingr app is an application for Health and Wellness community",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -15,7 +15,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.tosin.wiingrapp",
-      "buildNumber": "1.1.3",
+      "buildNumber": "1.1.4",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Wiingr requires access to your camera to enable photo and video capture for creating and sharing content.",
@@ -25,7 +25,7 @@
     },
     "android": {
       "package": "com.tosin.wiingrapp",
-      "versionCode": 14,
+      "versionCode": 15,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fff"
