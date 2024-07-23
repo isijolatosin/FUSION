@@ -1026,48 +1026,47 @@ const Index = ({ navigation }) => {
                       </View>
                     </View>
                   </View>
-                  {currentUsertoSwipe?.gymMembership?.name && (
-                    <View
-                      style={{
-                        paddingVertical: theme.spaceNumber[0],
-                      }}>
-                      <View
-                        style={{
-                          alignItems: "start",
-                          borderBottomWidth: 0.5,
-                          borderBottomColor: theme.colors.brand.base8,
-                          paddingBottom: theme.spaceNumber[1],
-                          marginTop: theme.spaceNumber[5],
-                          marginBottom: theme.spaceNumber[0],
-                          width: "70%",
-                        }}>
-                        <Text
-                          variant="custom"
-                          colorType="base1"
-                          fontType="montserratBold"
-                          fontSize="caption">
-                          Fitness club:
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          alignItems: "start",
-                        }}>
-                        <Text
-                          variant="custom"
-                          colorType="base3"
-                          fontType="montserratRegular"
-                          fontSize="caption">
-                          {currentUsertoSwipe?.gymMembership?.name},{" "}
-                          {currentUsertoSwipe?.gymMembership?.address
-                            ? city
-                            : ""}
-                        </Text>
-                      </View>
-                    </View>
-                  )}
                   {showMore ? (
-                    <Spacer position="top" size="xxlarge">
+                    <Spacer position="top" size="large">
+                      {currentUsertoSwipe?.gymMembership?.name && (
+                        <View
+                          style={{
+                            paddingBottom: theme.spaceNumberBy10[1],
+                          }}>
+                          <View
+                            style={{
+                              alignItems: "start",
+                              borderBottomWidth: 0.5,
+                              borderBottomColor: theme.colors.brand.base8,
+                              paddingBottom: theme.spaceNumber[1],
+                              marginBottom: theme.spaceNumber[0],
+                              width: "70%",
+                            }}>
+                            <Text
+                              variant="custom"
+                              colorType="base1"
+                              fontType="montserratBold"
+                              fontSize="caption">
+                              Fitness club:
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              alignItems: "start",
+                            }}>
+                            <Text
+                              variant="custom"
+                              colorType="base3"
+                              fontType="montserratRegular"
+                              fontSize="caption">
+                              {currentUsertoSwipe?.gymMembership?.name},{" "}
+                              {currentUsertoSwipe?.gymMembership?.address
+                                ? city
+                                : ""}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
                       <View
                         style={{
                           borderBottomColor:
@@ -1122,7 +1121,8 @@ const Index = ({ navigation }) => {
                   style={{
                     flexDirection: "row",
                     position: "relative",
-                    marginTop: theme.spaceNumber[1],
+                    marginTop: theme.spaceNumber[5],
+                    marginLeft: theme.spaceNumber[3],
                   }}>
                   {doubleTapWarning && (
                     <View
@@ -1164,7 +1164,7 @@ const Index = ({ navigation }) => {
                       width: theme.spaceNumberBy10[3],
                       height: theme.spaceNumberBy10[3],
                       borderRadius: theme.spaceNumberBy50[0],
-                      marginRight: theme.spaceNumber[6],
+                      marginRight: theme.spaceNumberBy10[2],
                     }}>
                     <IconComponent
                       iconFunction={() => {
