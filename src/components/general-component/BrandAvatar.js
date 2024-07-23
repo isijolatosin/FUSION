@@ -1,7 +1,8 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import { Text } from "../typography/text.component";
 import { useAppContext } from "../../context/ThemeContext";
+import ImageViewer from "./ImageViewer";
 
 export default function BrandAvatar({ noFlex, width, isLike }) {
   const {
@@ -10,13 +11,14 @@ export default function BrandAvatar({ noFlex, width, isLike }) {
   return (
     <View style={noFlex ? {} : { flex: 1 }}>
       <View style={{ width: width, position: "relative" }}>
-        <Image
-          source={require("../../../assets/wiingr.png")}
+        <ImageViewer
+          url={require("../../../assets/wiingr.png")}
           style={{
             width: "100%",
             height: theme.spaceNumberBy10[7],
             resizeMode: "contain",
           }}
+          isLocalUrl={true}
         />
         <View
           style={{

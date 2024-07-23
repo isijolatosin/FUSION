@@ -7,6 +7,7 @@ import { Text } from "../../../../components/typography/text.component";
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import IconComponent from "../../../../components/icon-components/IconComponent";
 import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
+import ImageViewer from "../../../../components/general-component/ImageViewer";
 
 export default function YouLikedComponent({
   theme,
@@ -37,16 +38,14 @@ export default function YouLikedComponent({
             We have sent your request to {likedUser?.name}
           </Text>
         </Spacer>
-        <Image
+        <ImageViewer
           style={{
             width: "100%",
             height: 350,
             resizeMode: "cover",
             borderRadius: theme.spaceNumberBy10[3],
           }}
-          source={{
-            uri: `${likedUser?.photo}`,
-          }}
+          url={likedUser?.photo}
         />
         <TouchableOpacity
           style={{ position: "absolute", bottom: -theme.spaceNumberBy50[1] }}>

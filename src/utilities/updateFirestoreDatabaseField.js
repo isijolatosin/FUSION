@@ -54,8 +54,10 @@ const addToArrayField = async (
     });
 
     console.log(`${arrayFieldName} field updated successfully!`);
+    return { status: "ok" };
   } catch (error) {
     console.error(`Error updating ${arrayFieldName} field: `, error);
+    return { status: "failed" };
   }
 };
 const emptyArrayField = async (collectionName, documentId, arrayFieldName) => {

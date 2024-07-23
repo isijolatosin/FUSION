@@ -1,5 +1,4 @@
-import { Image, Pressable, ScrollView, View } from "react-native";
-import { Video } from "expo-av";
+import { Pressable, ScrollView, View } from "react-native";
 import React, { Fragment } from "react";
 import {
   MaterialCommunityIcons,
@@ -21,6 +20,7 @@ import { handleUrlPress } from "../../utilities/detectTextType";
 import getInterestMapObject from "../../utilities/getInterestMapObject";
 import HeaderComponent from "./HeaderComponent";
 import VideoPlayer from "./VideoPlayer";
+import ImageViewer from "./ImageViewer";
 
 export default function ProfileViewModal({
   otherUser,
@@ -92,7 +92,7 @@ export default function ProfileViewModal({
                   videoRef={videoRef}
                   url={vid}
                   shouldPlay={false}
-                  isLooping={false}
+                  isLooping={true}
                   style={{
                     height: width,
                     width: width - 50,
@@ -113,15 +113,13 @@ export default function ProfileViewModal({
                 borderRadius: theme.spaceNumberBy10[1],
                 marginRight: theme.spaceNumberBy10[0],
               }}>
-              <Image
+              <ImageViewer
+                url={img}
                 style={{
                   height: width,
                   width: width - 50,
                   resizeMode: "cover",
                   borderRadius: theme.spaceNumberBy10[1],
-                }}
-                source={{
-                  uri: `${img}`,
                 }}
               />
             </View>

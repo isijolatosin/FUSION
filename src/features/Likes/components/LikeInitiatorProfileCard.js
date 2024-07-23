@@ -32,16 +32,14 @@ export default function LikeInitiatorProfileCard({
         backgroundColor: theme.colors.brand.basewhite,
         borderRadius: theme.spaceNumberBy10[1],
       }}>
-      <Image
+      <ImageViewer
         style={{
           width: "100%",
           height: "100%",
           resizeMode: "cover",
           borderRadius: theme.spaceNumberBy10[1],
         }}
-        source={{
-          uri: `${data?.likedBy?.mediaArray?.[0]}`,
-        }}
+        url={data?.likedBy?.mediaArray?.[0]}
       />
       <LinearGradient
         colors={["transparent", theme.colors.brand.basewhite]}

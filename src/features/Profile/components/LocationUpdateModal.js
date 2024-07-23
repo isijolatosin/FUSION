@@ -15,12 +15,12 @@ import {
 } from "../../../constants";
 import Button from "../../../components/utility/button.component";
 import {
+  getAddress,
   getUserLocation,
   requestLocationPermission,
 } from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
 import OnboardingErrorComponent from "../../Onboarding/components/OnboardingErrorComponent";
-import getAddress from "../../../utilities/getAddress";
 
 export default function LocationUpdateModal({
   theme,

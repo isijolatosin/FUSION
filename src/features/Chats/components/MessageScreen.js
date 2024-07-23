@@ -1,11 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  View,
-} from "react-native";
+import React, { useRef, useState } from "react";
+import { Dimensions, KeyboardAvoidingView, Platform, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 // import { Audio } from "expo-av";
 import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
@@ -40,6 +34,7 @@ import { handlePickImageAsync } from "../../../utilities/handleUploadImage";
 import MessageDotsPopupModal from "./MessageDotsPopupModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 // import { uploadAudioToCloudinary } from "../../../utilities/pickImageAsync";
 
 export default function MessageScreen({ navigation }) {
@@ -517,14 +512,12 @@ export default function MessageScreen({ navigation }) {
               width: "100%",
               height: "65%",
             }}>
-            <Image
+            <ImageViewer
+              url={selectedImage}
               style={{
                 width: "100%",
                 height: "100%",
                 resizeMode: "contain",
-              }}
-              source={{
-                uri: selectedImage,
               }}
             />
           </View>

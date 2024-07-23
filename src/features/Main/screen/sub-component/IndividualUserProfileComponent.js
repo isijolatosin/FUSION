@@ -26,6 +26,7 @@ import { handleUrlPress } from "../../../../utilities/detectTextType";
 import getInterestMapObject from "../../../../utilities/getInterestMapObject";
 import { HorizontalPaddingSpace } from "../../../../components/utility/space-area.component";
 import VideoPlayer from "../../../../components/general-component/VideoPlayer";
+import ImageViewer from "../../../../components/general-component/ImageViewer";
 
 export default function IndividualUserProfileComponent({
   fetchUsersData,
@@ -84,15 +85,13 @@ export default function IndividualUserProfileComponent({
           style={{
             position: "relative",
           }}>
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height: imageHeight + 70,
               resizeMode: "cover",
             }}
-            source={{
-              uri: `${data?.mediaArray?.[0]}`,
-            }}
+            url={data?.mediaArray?.[0]}
           />
         </View>
         {data?.bio && (
@@ -465,7 +464,7 @@ export default function IndividualUserProfileComponent({
         </Spacer>
       )}
       <Spacer style={{ position: "relative" }} position="top" size="large">
-        <Image
+        <ImageViewer
           style={{
             width: "100%",
             height:
@@ -474,9 +473,7 @@ export default function IndividualUserProfileComponent({
                 : imageHeight,
             resizeMode: "cover",
           }}
-          source={{
-            uri: `${data?.mediaArray?.[1]}`,
-          }}
+          url={data?.mediaArray?.[1]}
         />
       </Spacer>
       <HorizontalPaddingSpace space={theme.space[2]}>
@@ -642,7 +639,7 @@ export default function IndividualUserProfileComponent({
       </HorizontalPaddingSpace>
       {data?.mediaArray?.[2] && (
         <Spacer position="top" size="medium">
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height:
@@ -653,9 +650,7 @@ export default function IndividualUserProfileComponent({
               borderTopRightRadius: 5,
               borderTopLeftRadius: theme.spaceNumberBy10[4],
             }}
-            source={{
-              uri: `${data?.mediaArray?.[2]}`,
-            }}
+            url={data?.mediaArray?.[2]}
           />
         </Spacer>
       )}
@@ -679,7 +674,7 @@ export default function IndividualUserProfileComponent({
       )}
       {data?.mediaArray?.[3] && (
         <Spacer position="top" size="">
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height:
@@ -690,15 +685,13 @@ export default function IndividualUserProfileComponent({
               borderBottomLeftRadius: 5,
               borderBottomRightRadius: theme.spaceNumberBy10[4],
             }}
-            source={{
-              uri: `${data?.mediaArray?.[3]}`,
-            }}
+            url={data?.mediaArray?.[3]}
           />
         </Spacer>
       )}
       {data?.mediaArray?.[4] && (
         <Spacer position="top" size="medium">
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height:
@@ -709,9 +702,7 @@ export default function IndividualUserProfileComponent({
               borderTopRightRadius: 5,
               borderTopLeftRadius: theme.spaceNumberBy10[4],
             }}
-            source={{
-              uri: `${data?.mediaArray?.[4]}`,
-            }}
+            url={data?.mediaArray?.[4]}
           />
         </Spacer>
       )}
@@ -735,7 +726,7 @@ export default function IndividualUserProfileComponent({
       )}
       {data?.mediaArray?.[5] && (
         <Spacer position="top" size="">
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height:
@@ -746,9 +737,7 @@ export default function IndividualUserProfileComponent({
               borderBottomLeftRadius: 5,
               borderBottomRightRadius: theme.spaceNumberBy10[4],
             }}
-            source={{
-              uri: `${data?.mediaArray?.[5]}`,
-            }}
+            url={data?.mediaArray?.[5]}
           />
         </Spacer>
       )}

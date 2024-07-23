@@ -86,11 +86,11 @@ export const uploadImageToCloudinary = async (imagePath) => {
 //   }
 // };
 
-export const pickImageAsync = async (noAllowEditingForPhotoMessage) => {
+export const pickImageAsync = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: noAllowEditingForPhotoMessage ? false : true,
-    aspect: [4, 3],
+    allowsEditing: false,
+    aspect: [4, 8],
     quality: 1,
     base64: true,
     exif: true,
@@ -105,10 +105,10 @@ export const pickImageAsync = async (noAllowEditingForPhotoMessage) => {
   }
 };
 
-export const pickImageFromCamera = async (noAllowEditingForPhotoMessage) => {
+export const pickImageFromCamera = async () => {
   let result = await ImagePicker.launchCameraAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: noAllowEditingForPhotoMessage ? false : true,
+    allowsEditing: false,
     aspect: [4, 3],
     quality: 1,
   });

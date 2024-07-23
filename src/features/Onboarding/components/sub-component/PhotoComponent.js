@@ -8,6 +8,7 @@ import { handlePickImageAsync } from "../../../../utilities/handleUploadImage";
 import Spinner from "../../../../components/general-component/Spinner";
 import { isImageOrVideo } from "../../../../utilities/getMediaFileType";
 import VideoPlayer from "../../../../components/general-component/VideoPlayer";
+import ImageViewer from "../../../../components/general-component/ImageViewer";
 
 export default function PhotoComponent({
   isUpdatingPhoto,
@@ -56,10 +57,8 @@ export default function PhotoComponent({
       {photoUrl ? (
         <>
           {isImageOrVideo(photoUrl) === "image" ? (
-            <Image
-              source={{
-                uri: `${photoUrl}`,
-              }}
+            <ImageViewer
+              url={photoUrl}
               style={{
                 width: "100%",
                 height: "100%",
@@ -88,7 +87,10 @@ export default function PhotoComponent({
             <Pressable
               style={{
                 position: "absolute",
-                top: theme.spaceNumber[5],
+                top:
+                  isImageOrVideo(photoUrl) === "video"
+                    ? theme.spaceNumberBy10[5]
+                    : theme.spaceNumber[5],
                 right: theme.spaceNumber[5],
                 backgroundColor: theme.colors.brand.basewhite,
                 borderRadius: borderRadius
@@ -105,7 +107,7 @@ export default function PhotoComponent({
                 }}
                 iconName="close"
                 IconComponent={AntDesign}
-                size={15}
+                size={isImageOrVideo(photoUrl) === "video" ? 25 : 15}
                 color={theme.colors.brand.base}
               />
             </Pressable>

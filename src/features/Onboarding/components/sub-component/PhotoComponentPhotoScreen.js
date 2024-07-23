@@ -34,10 +34,8 @@ export default function PhotoComponentPhotoScreen({
         justifyContent: "center",
       }}>
       {photoUrl ? (
-        <Image
-          source={{
-            uri: `${photoUrl}`,
-          }}
+        <ImageViewer
+          url={photoUrl}
           style={{ width: "100%", height: "100%", borderRadius: 5 }}
         />
       ) : isLoadingImage ? (

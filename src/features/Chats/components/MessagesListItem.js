@@ -19,9 +19,9 @@ export default function MessagesListItem({
 }) {
   let message = lastSenderMessage;
   if (detectImageUrl(lastSenderMessage)) {
-    message = "Shared an image with you";
+    message = "Image";
   } else if (detectUrl(lastSenderMessage)) {
-    message = "shared a link with you";
+    message = "Link";
   } else shortenText(lastSenderMessage, 40);
 
   let messageColor = "lines";
@@ -29,7 +29,7 @@ export default function MessagesListItem({
     messageColor = "base1";
   }
   if (detectImageUrl(lastSenderMessage) || detectUrl(lastSenderMessage)) {
-    messageColor = "blue";
+    messageColor = "teal";
   }
   return (
     <HorizontalPaddingSpace space={theme.space[2]}>

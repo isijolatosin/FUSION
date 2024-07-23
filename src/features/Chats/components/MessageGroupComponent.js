@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable, Image, TouchableOpacity } from "react-native";
+import { View, Pressable, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import {
@@ -17,6 +17,7 @@ import {
 import { Text } from "../../../components/typography/text.component";
 import { getTime } from "../../../utilities/formatTimestamp";
 import IconComponent from "../../../components/icon-components/IconComponent";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 export default function MessageGroupComponent({
   theme,
@@ -108,7 +109,8 @@ export default function MessageGroupComponent({
                   width: theme.spaceNumberBy10[12],
                   height: theme.spaceNumberBy10[12],
                 }}>
-                <Image
+                <ImageViewer
+                  url={item?.message}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -121,9 +123,6 @@ export default function MessageGroupComponent({
                       currentUser?.phonenumber === item?.senderphonenumber
                         ? theme.spaceNumber[4]
                         : 0,
-                  }}
-                  source={{
-                    uri: item?.message,
                   }}
                 />
               </TouchableOpacity>

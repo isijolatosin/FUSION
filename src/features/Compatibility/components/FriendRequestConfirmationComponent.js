@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import { Entypo } from "@expo/vector-icons";
 
@@ -7,6 +7,7 @@ import { HorizontalPaddingSpace } from "../../../components/utility/space-area.c
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import IconComponent from "../../../components/icon-components/IconComponent";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 export default function FriendRequestConfirmationComponent({
   theme,
@@ -53,16 +54,14 @@ export default function FriendRequestConfirmationComponent({
             </Text>
           </Spacer>
         </Spacer>
-        <Image
+        <ImageViewer
           style={{
             width: "100%",
             height: 350,
             resizeMode: "cover",
             borderRadius: theme.spaceNumberBy10[3],
           }}
-          source={{
-            uri: `${selectedFriend?.photo}`,
-          }}
+          url={selectedFriend?.photo}
         />
         <TouchableOpacity
           style={{ position: "absolute", bottom: -theme.spaceNumberBy50[1] }}>

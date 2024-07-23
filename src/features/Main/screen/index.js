@@ -23,11 +23,7 @@ import {
   Foundation,
   EvilIcons,
 } from "@expo/vector-icons";
-import {
-  useFocusEffect,
-  useIsFocused,
-  useRoute,
-} from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import IndividualUserProfileComponent from "./sub-component/IndividualUserProfileComponent";
 import { useAppContext } from "../../../context/ThemeContext";
@@ -67,12 +63,14 @@ import firebase, { database } from "../../../../config";
 import hasCombimneMatchElements from "../../../utilities/hasCombimneMatchElements";
 import Placeholder from "../../../components/general-component/Placeholder";
 import GymtypesComponent from "../../../components/general-component/GymtypesComponent";
-import { getLocationByAddress } from "../../../utilities/getUserLocation";
-import { onloadVideoPlayer } from "../../../utilities/unloadVideoPlayer";
+import {
+  getCityFromAddress,
+  getLocationByAddress,
+} from "../../../utilities/getUserLocation";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 const Index = ({ navigation }) => {
   const videoRef = useRef(null);
-  const isFocused = useIsFocused();
   const { width, height } = Dimensions.get("window");
   const lastTap = useRef(0);
   const [allUsers, setAllUsers] = useState([]);
@@ -90,8 +88,9 @@ const Index = ({ navigation }) => {
   const [delayEndOfSwipeCard, setDelayEndOfSwipeCard] = useState(true);
   const scrollViewRef = useRef(null);
   const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
-  const [isGymPreferenceOpen, setIsGymPreferenceOpen] = useState(true);
+  const [isGymPreferenceOpen, setIsGymPreferenceOpen] = useState(false);
   const [gymLocationErrorMsg, setGymLocationErrorMsg] = useState("");
+  const [city, setCity] = useState("");
 
   const route = useRoute();
   const { phonenumber } = route?.params || {};
@@ -433,10 +432,8 @@ const Index = ({ navigation }) => {
       setIsRetrigger(false);
     }, 2000);
 
-    onloadVideoPlayer(videoRef, isFocused);
-
     return () => clearTimeout(resetFilterTrigger);
-  }, [isRetrigger, memoizedFetchData, isFocused]);
+  }, [isRetrigger, memoizedFetchData]);
 
   let currentUsertoSwipe = {};
   let currentSwipeIndexIsLessThanAllUsersLength = true;
@@ -504,6 +501,7 @@ const Index = ({ navigation }) => {
 
     // Update the lastTap reference
     lastTap.current = now;
+    setCity("");
   }
 
   function handleYouLikedClose() {
@@ -562,13 +560,14 @@ const Index = ({ navigation }) => {
         }}
         headingTitle="No Matches"
         ImageComponent={() => (
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height: "100%",
               resizeMode: "cover",
             }}
-            source={require("../../../../assets/illustration-1.png")}
+            url={require("../../../../assets/illustration-1.png")}
+            isLocalUrl={true}
           />
         )}
         setIndex={() => {}}
@@ -591,13 +590,14 @@ const Index = ({ navigation }) => {
         }}
         headingTitle="No Matches"
         ImageComponent={() => (
-          <Image
+          <ImageViewer
             style={{
               width: "100%",
               height: "100%",
               resizeMode: "cover",
             }}
-            source={require("../../../../assets/illustration-1.png")}
+            url={require("../../../../assets/illustration-1.png")}
+            isLocalUrl={true}
           />
         )}
         setIndex={setIndex}
@@ -653,6 +653,16 @@ const Index = ({ navigation }) => {
 
     setIsRetrigger(true);
     return () => clearTimeout(clearTimer2);
+  }
+
+  if (currentUsertoSwipe?.gymMembership?.address && !city) {
+    (async () => {
+      const _address = await getCityFromAddress(
+        currentUsertoSwipe?.gymMembership?.address
+      );
+
+      setCity(`${_address?.city}. ${_address?.region}`);
+    })();
   }
 
   return (
@@ -865,7 +875,7 @@ const Index = ({ navigation }) => {
               </View>
               <HorizontalPaddingSpace
                 space={theme.space[2]}
-                style={{ flex: 1 }}>
+                style={{ flex: 0.8 }}>
                 <Placeholder
                   isSliblingComp={true}
                   theme={theme}
@@ -911,6 +921,7 @@ const Index = ({ navigation }) => {
                   <View
                     style={{
                       flexDirection: "row",
+                      alignItems: "flex-start",
                       justifyContent: "space-between",
                       borderBottomWidth: 0.2,
                       borderBottomColor: theme.colors.brand.basewhitelighter,
@@ -920,7 +931,7 @@ const Index = ({ navigation }) => {
                         variant="custom"
                         colorType="base1"
                         fontType="arimaMadurai"
-                        fontSize="h5"
+                        fontSize="title"
                         transform={Platform.OS === "ios" ? "capitalize" : ""}
                         width="100%">
                         {currentUsertoSwipe?.firstname},{" "}
@@ -934,7 +945,7 @@ const Index = ({ navigation }) => {
                     <TouchableOpacity
                       onPress={() => setShowMore(!showMore)}
                       style={{
-                        marginVertical: theme.spaceNumber[5],
+                        paddingTop: theme.spaceNumber[0],
                         flexDirection: "row",
                         alignItems: "center",
                       }}>
@@ -965,6 +976,7 @@ const Index = ({ navigation }) => {
                     <View
                       style={{
                         flexDirection: "row",
+                        alignItems: "center",
                         paddingVertical: theme.spaceNumber[0],
                       }}>
                       <IconComponent
@@ -980,7 +992,7 @@ const Index = ({ navigation }) => {
                             marginLeft: theme.spaceNumber[1],
                           }}
                           variant="custom"
-                          colorType="base1"
+                          colorType="base4"
                           fontType="montserratRegular"
                           fontSize="caption">
                           {currentUsertoSwipe?.height}
@@ -990,6 +1002,7 @@ const Index = ({ navigation }) => {
                     <View
                       style={{
                         flexDirection: "row",
+                        alignItems: "center",
                         paddingVertical: theme.spaceNumber[0],
                       }}>
                       <IconComponent
@@ -1005,7 +1018,7 @@ const Index = ({ navigation }) => {
                             marginLeft: theme.spaceNumber[1],
                           }}
                           variant="custom"
-                          colorType="base1"
+                          colorType="base3"
                           fontType="montserratRegular"
                           fontSize="caption">
                           {currentUsertoSwipe?.lifestyleHabits?.gym}
@@ -1013,64 +1026,46 @@ const Index = ({ navigation }) => {
                       </View>
                     </View>
                   </View>
-                  <View>
-                    {currentUsertoSwipe?.gymMembership?.name && (
+                  {currentUsertoSwipe?.gymMembership?.name && (
+                    <View
+                      style={{
+                        paddingVertical: theme.spaceNumber[0],
+                      }}>
                       <View
                         style={{
-                          flexDirection: "row",
-                          paddingVertical: theme.spaceNumber[0],
+                          alignItems: "start",
+                          borderBottomWidth: 0.5,
+                          borderBottomColor: theme.colors.brand.base8,
+                          paddingBottom: theme.spaceNumber[1],
+                          marginTop: theme.spaceNumber[5],
+                          marginBottom: theme.spaceNumber[0],
+                          width: "70%",
                         }}>
-                        <IconComponent
-                          iconFunction={() => {}}
-                          iconName="home"
-                          IconComponent={Foundation}
-                          size={12}
-                          color={theme.colors.brand.base1}
-                        />
-                        <View
-                          style={{
-                            alignItems: "start",
-                            marginLeft: theme.spaceNumber[2],
-                          }}>
-                          <Text
-                            variant="custom"
-                            colorType="base1"
-                            fontType="montserratRegular"
-                            fontSize="caption">
-                            {currentUsertoSwipe?.gymMembership?.name}
-                          </Text>
-                        </View>
+                        <Text
+                          variant="custom"
+                          colorType="base1"
+                          fontType="montserratBold"
+                          fontSize="caption">
+                          Fitness club:
+                        </Text>
                       </View>
-                    )}
-                    {currentUsertoSwipe?.gymMembership?.address && (
                       <View
                         style={{
-                          flexDirection: "row",
-                          paddingVertical: theme.spaceNumber[0],
+                          alignItems: "start",
                         }}>
-                        <IconComponent
-                          iconFunction={() => {}}
-                          iconName="map-pin"
-                          IconComponent={FontAwesome5}
-                          size={12}
-                          color={theme.colors.brand.error}
-                        />
-                        <View
-                          style={{
-                            alignItems: "start",
-                            marginLeft: theme.spaceNumber[2],
-                          }}>
-                          <Text
-                            variant="custom"
-                            colorType="base1"
-                            fontType="montserratRegular"
-                            fontSize="caption">
-                            {currentUsertoSwipe?.gymMembership?.address}
-                          </Text>
-                        </View>
+                        <Text
+                          variant="custom"
+                          colorType="base3"
+                          fontType="montserratRegular"
+                          fontSize="caption">
+                          {currentUsertoSwipe?.gymMembership?.name},{" "}
+                          {currentUsertoSwipe?.gymMembership?.address
+                            ? city
+                            : ""}
+                        </Text>
                       </View>
-                    )}
-                  </View>
+                    </View>
+                  )}
                   {showMore ? (
                     <Spacer position="top" size="xxlarge">
                       <View
@@ -1110,7 +1105,7 @@ const Index = ({ navigation }) => {
                             <View>
                               <Text
                                 variant="custom"
-                                colorType="base1"
+                                colorType="base3"
                                 fontType="montserratRegular"
                                 fontSize="caption">
                                 {goal}
@@ -1177,6 +1172,7 @@ const Index = ({ navigation }) => {
                           storeData("swipe-index", index + 1);
                           setIndex(index + 1);
                           setLoadCard(true);
+                          setCity("");
                         }
                         scrollToTop();
                       }}
@@ -1214,6 +1210,8 @@ const Index = ({ navigation }) => {
                 onClose={handleFilterClose}
                 setIsRetrigger={setIsRetrigger}
                 theme={theme}
+                storeData={storeData}
+                setIndex={setIndex}
               />
               <YouLikedComponent
                 theme={theme}

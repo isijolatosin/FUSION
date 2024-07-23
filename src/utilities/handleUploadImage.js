@@ -24,8 +24,8 @@ async function handlePickImageAsync(
   useLoadingImage(true);
 
   const returnUrl = isToCapture
-    ? await pickImageFromCamera(noAllowEditingForPhotoMessage)
-    : await pickImageAsync(noAllowEditingForPhotoMessage);
+    ? await pickImageFromCamera()
+    : await pickImageAsync();
 
   if (!returnUrl) return;
 
@@ -161,17 +161,34 @@ async function handleDeleteImageAsync(
 async function handlePickVideoAsync(
   noAllowEditing,
   setIsTrigger,
-  currentUserId
+  currentUserId,
+  setisVideoUploading
 ) {
-  const returnUrl = await pickVideoAsync(noAllowEditing);
+  try {
+    const returnUrl = await pickVideoAsync(noAllowEditing);
 
-  if (!returnUrl) return;
+    if (!returnUrl) return;
 
-  const returnPhotoUrl = await uploadVideoToCloudinary(returnUrl);
+    if (returnUrl) setisVideoUploading(true);
 
-  setIsTrigger(true);
-  currentUserId &&
-    addToArrayField("all-users", currentUserId, "videoArray", returnPhotoUrl);
+    const returnPhotoUrl = await uploadVideoToCloudinary(returnUrl);
+
+    if (currentUserId) {
+      const result = await addToArrayField(
+        "all-users",
+        currentUserId,
+        "videoArray",
+        returnPhotoUrl
+      );
+
+      if (result?.status === "ok") {
+        setisVideoUploading(false);
+        setIsTrigger(true);
+      }
+    }
+  } catch (error) {
+    console.log("Error uploading video:", error);
+  }
 }
 
 export {

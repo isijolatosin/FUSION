@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Image, View } from "react-native";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -26,11 +26,10 @@ import ProfilePausedCardComponent from "../../../components/general-component/Pr
 import ProfileDeactivateCardComponent from "../../../components/general-component/ProfileDeactivateCardComponent";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import IllustrationContainer from "../../../components/general-component/IllustrationContainer";
-import { onloadVideoPlayer } from "../../../utilities/unloadVideoPlayer";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 const LikesScreen = () => {
   const videoRef = useRef(null);
-  const isFocused = useIsFocused();
   const {
     state: { theme },
   } = useAppContext();
@@ -103,10 +102,8 @@ const LikesScreen = () => {
       setIsRetrigger(false);
     }, 1000);
 
-    onloadVideoPlayer(videoRef, isFocused);
-
     return () => clearTimeout(resetLikeTrigger);
-  }, [isRetrigger, memoizedFetchData, isFocused]);
+  }, [isRetrigger, memoizedFetchData]);
 
   if (currentUser?.deactivate) {
     return (
@@ -182,17 +179,18 @@ const LikesScreen = () => {
                   <Spacer position="top" size="xxxxlarge">
                     <IllustrationContainer
                       ImageComponent={() => (
-                        <Image
+                        <ImageViewer
                           style={{
                             width: "100%",
                             height: "100%",
                             resizeMode: "cover",
                           }}
-                          source={
+                          url={
                             currentUser?.gender === "woman"
                               ? require("../../../../assets/illustration-woman.png")
                               : require("../../../../assets/illustration-man.png")
                           }
+                          isLocalUrl={true}
                         />
                       )}
                       spaceSize=""
@@ -251,17 +249,18 @@ const LikesScreen = () => {
                   <Spacer position="top" size="xxxxlarge">
                     <IllustrationContainer
                       ImageComponent={() => (
-                        <Image
+                        <ImageViewer
                           style={{
                             width: "100%",
                             height: "100%",
                             resizeMode: "cover",
                           }}
-                          source={
+                          url={
                             currentUser?.gender === "woman"
                               ? require("../../../../assets/illustration-woman.png")
                               : require("../../../../assets/illustration-man.png")
                           }
+                          isLocalUrl={true}
                         />
                       )}
                       spaceSize=""

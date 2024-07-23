@@ -15,7 +15,6 @@ import {
   MaterialCommunityIcons,
   Fontisto,
 } from "@expo/vector-icons";
-import { useIsFocused } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -76,11 +75,9 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import GymCard from "../../../components/general-component/GymCard";
 import { getGymTypeByCountryData } from "../../../utilities/getGymTypeByCountryData";
-import { onloadVideoPlayer } from "../../../utilities/unloadVideoPlayer";
 
 export default function ProfileScreen() {
   const videoRef = useRef(null);
-  const isFocused = useIsFocused();
   const {
     state: { theme },
   } = useAppContext();
@@ -89,6 +86,7 @@ export default function ProfileScreen() {
   const [showProfile, setShowProfile] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSettingModal, setSettingModal] = useState(false);
+  const [isVideoUploading, setisVideoUploading] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
   const [fitnessPreference, setFitnessPreference] = useState([]);
@@ -142,10 +140,8 @@ export default function ProfileScreen() {
       setIsTrigger(false);
     }, 2000);
 
-    onloadVideoPlayer(videoRef, isFocused);
-
     return () => clearTimeout(resetTrigger);
-  }, [isTrigger, isFocused]);
+  }, [isTrigger]);
 
   async function handleReplaceImageAsyncInModal() {
     handleReplaceImageAsync(currentUser, deleteImageItem, setIsTrigger);
@@ -990,6 +986,7 @@ export default function ProfileScreen() {
               theme={theme}
               dimensionIndex={2}
               func={() => setShowProfile(true)}
+              isSmallIcon={true}
             />
           )}
           RightComp={() => (
@@ -1034,11 +1031,29 @@ export default function ProfileScreen() {
                   Photos
                 </Text>
               </View>
+              {isVideoUploading ? (
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="teal"
+                    fontType="montserratSemibold"
+                    fontSize="xcaption">
+                    Uploading video...
+                  </Text>
+                </View>
+              ) : (
+                <></>
+              )}
               {!currentUser?.videoArray ||
               currentUser?.videoArray?.length < 3 ? (
                 <TouchableOpacity
                   onPress={() =>
-                    handlePickVideoAsync(false, setIsTrigger, currentUser?.id)
+                    handlePickVideoAsync(
+                      false,
+                      setIsTrigger,
+                      currentUser?.id,
+                      setisVideoUploading
+                    )
                   }>
                   <Text
                     variant="custom"

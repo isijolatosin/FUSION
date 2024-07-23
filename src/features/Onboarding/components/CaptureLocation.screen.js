@@ -15,9 +15,12 @@ import {
   mapImage,
 } from "../../../constants";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
-import { requestLocationPermission } from "../../../utilities/getUserLocation";
+import {
+  getAddress,
+  requestLocationPermission,
+} from "../../../utilities/getUserLocation";
 import Spinner from "../../../components/general-component/Spinner";
-import getAddress from "../../../utilities/getAddress";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 export default function CaptureLocation({ navigation }) {
   const {
@@ -109,10 +112,10 @@ export default function CaptureLocation({ navigation }) {
                 height: theme.spaceNumberBy50[4],
                 width: width,
               }}>
-              <Image
+              <ImageViewer
                 width={width}
                 height={theme.spaceNumberBy50[4]}
-                source={{ uri: mapImage }}
+                url={mapImage}
               />
             </View>
           )}

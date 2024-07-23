@@ -101,14 +101,15 @@ export default function CommunitiesComponent({
         borderRadius: theme.spaceNumberBy10[1],
       }}>
       <View>
-        <Image
-          source={image}
+        <ImageViewer
+          url={image}
           style={{
             width: "100%",
             height: "100%",
             borderRadius: theme.spaceNumberBy10[1],
             objectFit: "cover",
           }}
+          isLocalUrl={true}
         />
       </View>
       <View

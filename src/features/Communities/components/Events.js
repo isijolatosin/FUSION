@@ -7,7 +7,6 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
-import { Image } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { sortByTimestamp } from "../../../utilities/sortByKey";
 import truncateSentence from "../../../utilities/truncateSentence";
@@ -15,6 +14,7 @@ import { noeventmessage } from "../../../constants";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import EventForm from "./EventForm";
 import { getNumberofWords } from "../../../utilities/getNumberofWords";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 const Events = ({ theme, currentUser, scrollViewCommunityRef }) => {
   const { width } = Dimensions.get("window");
@@ -141,10 +141,8 @@ const Events = ({ theme, currentUser, scrollViewCommunityRef }) => {
               backgroundColor: theme.colors.brand.basewhite,
             }}>
             {_event?.image ? (
-              <Image
-                source={{
-                  uri: `${_event?.image}`,
-                }}
+              <ImageViewer
+                url={_event?.image}
                 style={{
                   width: "100%",
                   height: theme.spaceNumberBy50[2],

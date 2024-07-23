@@ -106,7 +106,7 @@ const GymtypesComponent = ({
                     variant="custom"
                     colorType="teal"
                     fontType="montserratRegular"
-                    fontSize="caption">
+                    fontSize="xcaption">
                     Change
                   </Text>
                 </Pressable>
@@ -244,7 +244,7 @@ const GymtypesComponent = ({
                 variant="custom"
                 colorType="teal"
                 fontType="montserratRegular"
-                fontSize="caption">
+                fontSize="xcaption">
                 Clear
               </Text>
             </TouchableOpacity>

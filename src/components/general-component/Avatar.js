@@ -1,9 +1,10 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import { AvatarWrapper } from "../../features/Main/screen/main.style";
 import IconComponent from "../icon-components/IconComponent";
+import ImageViewer from "./ImageViewer";
 
 export default function Avatar({
   ringBorder,
@@ -21,10 +22,8 @@ export default function Avatar({
       borderRadius={theme.spaceNumberBy50[1]}
       ringBorder={ringBorder}>
       {data ? (
-        <Image
-          source={{
-            uri: `${data}`,
-          }}
+        <ImageViewer
+          url={data}
           style={{
             width: Platform.OS === "ios" ? "100%" : 10,
             height: Platform.OS === "ios" ? "100%" : 10,
@@ -45,7 +44,7 @@ export default function Avatar({
             iconFunction={() => {}}
             iconName="user"
             IconComponent={AntDesign}
-            size={isSmallIcon ? 30 : 60}
+            size={isSmallIcon ? 20 : 60}
             color={theme.colors.brand.base6}
           />
         </View>

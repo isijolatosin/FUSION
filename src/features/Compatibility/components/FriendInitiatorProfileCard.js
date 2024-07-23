@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Image, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Text } from "../../../components/typography/text.component";
 import calculateAge from "../../../utilities/calculateAge";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 export default function FriendInitiatorProfileCard({
   data,
@@ -32,16 +33,14 @@ export default function FriendInitiatorProfileCard({
         backgroundColor: theme.colors.brand.basewhite,
         borderRadius: theme.spaceNumberBy10[1],
       }}>
-      <Image
+      <ImageViewer
         style={{
           width: "100%",
           height: "100%",
           resizeMode: "cover",
           borderRadius: theme.spaceNumberBy10[1],
         }}
-        source={{
-          uri: `${data?.friendRequestFrom?.mediaArray?.[0]}`,
-        }}
+        url={data?.friendRequestFrom?.mediaArray?.[0]}
       />
       <LinearGradient
         colors={["transparent", theme.colors.brand.highlight]}

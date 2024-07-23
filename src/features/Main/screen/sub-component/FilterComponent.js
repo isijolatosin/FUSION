@@ -28,12 +28,16 @@ function RangeCompoent({
   setSuggest,
   triggerDistanceFilter,
   setIsRetrigger,
+  setIndex,
+  storeData,
 }) {
+  const [displayValue, setDisplayValue] = useState(
+    selectedValue ? selectedValue : 0
+  );
   const handleValueChange = (newValue) => {
     setSelectedValue(newValue);
+    setDisplayValue(newValue);
   };
-
-  const displayValue = `${selectedValue ? selectedValue : 0}km`;
 
   return (
     <View
@@ -60,7 +64,7 @@ function RangeCompoent({
             colorType="base1"
             fontType="montserratLight"
             fontSize="button">
-            {displayValue}
+            {displayValue} km
           </Text>
         </View>
       </RangeCompoentSection>
@@ -118,13 +122,16 @@ function RangeCompoent({
         <Switch
           trackColor={{
             false: theme.colors.brand.linesLight,
-            true: theme.colors.brand.base,
+            true: theme.colors.brand.linesLighter,
           }}
           thumbColor={
             suggest ? theme.colors.brand.base1 : theme.colors.brand.lines
           }
           onValueChange={(val) => {
             setSuggest(val);
+            storeData("swipe-index", 0);
+            setIndex(0);
+
             triggerDistanceFilter(val);
             setIsRetrigger(true);
           }}
@@ -148,6 +155,8 @@ function DoubleRangeCompoent({
   triggerAgeFilter,
   setIsRetrigger,
   currentUser,
+  storeData,
+  setIndex,
 }) {
   const displayValue = `${
     fromAgeValue ?? currentUser?.agePreference?.fromAgeValue
@@ -235,13 +244,15 @@ function DoubleRangeCompoent({
         <Switch
           trackColor={{
             false: theme.colors.brand.linesLight,
-            true: theme.colors.brand.base,
+            true: theme.colors.brand.linesLighter,
           }}
           thumbColor={
             suggest ? theme.colors.brand.base1 : theme.colors.brand.lines
           }
           onValueChange={(val) => {
             setSuggest(val);
+            setIndex(0);
+            storeData("swipe-index", 0);
             triggerAgeFilter(val);
             setIsRetrigger(true);
           }}
@@ -426,6 +437,8 @@ export default function FilterComponent({
   onClose,
   setIsRetrigger,
   theme,
+  storeData,
+  setIndex,
 }) {
   const { width, height } = Dimensions.get("window");
   const [distanceValue, setDistanceValue] = useState(0);
@@ -464,7 +477,8 @@ export default function FilterComponent({
   async function triggerDistanceFilter(booleanOption) {
     const value = {
       value: distanceValue,
-      suggest: booleanOption ?? suggestDistanceWithRange,
+      suggest:
+        distanceValue === 0 ? false : booleanOption ?? suggestDistanceWithRange,
     };
     await updateUserValueField(
       "all-users",
@@ -582,6 +596,8 @@ export default function FilterComponent({
               setSuggest={setSuggestDistanceWithRange}
               triggerDistanceFilter={triggerDistanceFilter}
               setIsRetrigger={setIsRetrigger}
+              storeData={storeData}
+              setIndex={setIndex}
             />
             <DoubleRangeCompoent
               theme={theme}
@@ -596,6 +612,8 @@ export default function FilterComponent({
               triggerAgeFilter={triggerAgeFilter}
               setIsRetrigger={setIsRetrigger}
               currentUser={currentUser}
+              storeData={storeData}
+              setIndex={setIndex}
             />
             <Spacer position="top" size="small">
               <InterestFilterComponent
