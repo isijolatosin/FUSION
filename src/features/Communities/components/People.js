@@ -17,7 +17,6 @@ import { Image } from "react-native-elements";
 
 export default function CommunitiesComponent({
   data,
-  width,
   theme,
   setSelectedFriend,
   setRequestVisible,
@@ -110,6 +109,7 @@ export default function CommunitiesComponent({
             objectFit: "cover",
           }}
           isLocalUrl={true}
+          isGrayscale={data?.grayScale}
         />
       </View>
       <View

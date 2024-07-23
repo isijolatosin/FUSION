@@ -3,6 +3,7 @@ import {
   Dimensions,
   Pressable,
   ScrollView,
+  Switch,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -28,6 +29,7 @@ import {
   addToArrayField,
   getAllData,
   removeItemFromArray,
+  updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import PhotoComponent from "../../Onboarding/components/sub-component/PhotoComponent";
@@ -83,6 +85,7 @@ export default function ProfileScreen() {
   } = useAppContext();
   const { height } = Dimensions.get("window");
   const [isTrigger, setIsTrigger] = useState(false);
+  const [isGrayscale, setIsGrayscale] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openSettingModal, setSettingModal] = useState(false);
@@ -122,6 +125,9 @@ export default function ProfileScreen() {
     setFitnessPreference(getGymTypeByCountryData(currentUserData?.country));
     setCurrentUser(currentUserData);
     setGymSelectedTypes(currentUserData?.gymPreference);
+    setIsGrayscale(
+      currentUserData?.grayScale ? currentUserData?.grayScale : false
+    );
   }
 
   useFocusEffect(
@@ -976,7 +982,7 @@ export default function ProfileScreen() {
       style={{
         backgroundColor: theme.colors.brand.base,
       }}>
-      <Spacer position="bottom" size="xxlarge">
+      <Spacer position="bottom" size="xxsmall">
         <HeaderComponent
           title={currentUser?.firstname && currentUser?.firstname}
           theme={theme}
@@ -1021,15 +1027,46 @@ export default function ProfileScreen() {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
+                borderBottomWidth: 0.5,
               }}>
-              <View>
-                <Text
-                  variant="custom"
-                  colorType="base6"
-                  fontType="montserratSemibold"
-                  fontSize="button">
-                  Photos
-                </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: theme.spaceNumber[3],
+                }}>
+                <Switch
+                  trackColor={{
+                    false: theme.colors.brand.linesLight,
+                    true: theme.colors.brand.linesLighter,
+                  }}
+                  thumbColor={
+                    isGrayscale
+                      ? theme.colors.brand.base1
+                      : theme.colors.brand.lines
+                  }
+                  onValueChange={async (val) => {
+                    setIsGrayscale(val);
+
+                    await updateUserValueField(
+                      "all-users",
+                      currentUser?.id,
+                      "grayScale",
+                      val,
+                      setIsTrigger
+                    );
+                  }}
+                  value={isGrayscale}
+                />
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="base6"
+                    fontType="montserratSemibold"
+                    fontSize="caption">
+                    Grayscale
+                  </Text>
+                </View>
               </View>
               {isVideoUploading ? (
                 <View>
@@ -1106,6 +1143,7 @@ export default function ProfileScreen() {
                     setOpenImageUploadModal={setOpenImageUploadModal}
                     width={width}
                     borderRadius={theme.spaceNumberBy10[1]}
+                    isGrayscale={currentUser?.grayScale}
                   />
                 ))}
                 {currentUser?.mediaArray?.length < 6 &&

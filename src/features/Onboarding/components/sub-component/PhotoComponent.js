@@ -22,6 +22,7 @@ export default function PhotoComponent({
   width,
   borderRadius,
   videoRef,
+  isGrayscale,
 }) {
   const {
     state: { theme },
@@ -64,6 +65,7 @@ export default function PhotoComponent({
                 height: "100%",
                 borderRadius: borderRadius ? borderRadius : 5,
               }}
+              isGrayscale={isGrayscale}
             />
           ) : (
             <></>

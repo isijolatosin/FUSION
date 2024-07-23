@@ -121,6 +121,7 @@ export default function ProfileViewModal({
                   resizeMode: "cover",
                   borderRadius: theme.spaceNumberBy10[1],
                 }}
+                isGrayscale={otherUser?.grayScale}
               />
             </View>
           ))}

@@ -86,6 +86,7 @@ export default function IndividualUserProfileComponent({
             position: "relative",
           }}>
           <ImageViewer
+            isGrayscale={data?.grayScale}
             style={{
               width: "100%",
               height: imageHeight + 70,
@@ -465,6 +466,7 @@ export default function IndividualUserProfileComponent({
       )}
       <Spacer style={{ position: "relative" }} position="top" size="large">
         <ImageViewer
+          isGrayscale={data?.grayScale}
           style={{
             width: "100%",
             height:
@@ -640,6 +642,7 @@ export default function IndividualUserProfileComponent({
       {data?.mediaArray?.[2] && (
         <Spacer position="top" size="medium">
           <ImageViewer
+            isGrayscale={data?.grayScale}
             style={{
               width: "100%",
               height:
@@ -675,6 +678,7 @@ export default function IndividualUserProfileComponent({
       {data?.mediaArray?.[3] && (
         <Spacer position="top" size="">
           <ImageViewer
+            isGrayscale={data?.grayScale}
             style={{
               width: "100%",
               height:
@@ -692,6 +696,7 @@ export default function IndividualUserProfileComponent({
       {data?.mediaArray?.[4] && (
         <Spacer position="top" size="medium">
           <ImageViewer
+            isGrayscale={data?.grayScale}
             style={{
               width: "100%",
               height:
@@ -727,6 +732,7 @@ export default function IndividualUserProfileComponent({
       {data?.mediaArray?.[5] && (
         <Spacer position="top" size="">
           <ImageViewer
+            isGrayscale={data?.grayScale}
             style={{
               width: "100%",
               height:
