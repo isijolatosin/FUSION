@@ -863,7 +863,7 @@ export const deleteaccounttext =
 export const deleteaccountconfirmationtext =
   "We're saddened to see you leave. Deleting your profile means it's permanently removed from Wiingr, and your information won't be accessible on the app anymore. If you require assistance or have any concerns, please don't hesitate to contact us.";
 export const nolikesyetmessage =
-  "Looks like you haven't received any gym match yet. Don't worry, the right mate is just a click away! Keep exploring and making meaningful connections.";
+  "Looks like you haven't received any fitness interest yet. Don't worry, the right mate is just a click away! Keep exploring and making meaningful connections.";
 export const nofriendrequestmessage =
   "Looks like you haven't received any friend request yet. Don't worry, the right connections are just a click away! Keep exploring and making meaningful connections.";
 export const compatibleText =

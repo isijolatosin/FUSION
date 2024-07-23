@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "react-native";
 
-const ImageViewer = ({ url, style, width, height, isLocalUrl }) => {
+const ImageViewer = ({ url, style, isLocalUrl }) => {
   return (
     <Image
       source={
@@ -12,8 +12,6 @@ const ImageViewer = ({ url, style, width, height, isLocalUrl }) => {
             }
       }
       style={style}
-      width={width}
-      height={height}
     />
   );
 };

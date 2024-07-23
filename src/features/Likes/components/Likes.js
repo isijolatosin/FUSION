@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -36,7 +36,7 @@ const LikesScreen = () => {
   const [yourLikesData, setYourLikesData] = useState([]);
   const [friendRequestData, setFriendRequestData] = useState([]);
 
-  const [currentScreen, setCurrentScreen] = React.useState("gym matches");
+  const [currentScreen, setCurrentScreen] = React.useState("interests");
   const [currentUser, setCurrentUser] = useState([]);
 
   const [initiatorProfileData, setInitiatorProfileData] = useState([]);
@@ -136,8 +136,8 @@ const LikesScreen = () => {
         RightComp={() => <></>}
       />
       <TopNavigationTab
-        arrayList={["gym matches"]}
-        // arrayList={["gym matches", "community likes"]}
+        arrayList={["interests"]}
+        // arrayList={["interests", "community likes"]}
         currentScreen={currentScreen}
         horizontalSpace={theme.space[5]}
         setFunction={setCurrentScreen}
@@ -146,7 +146,7 @@ const LikesScreen = () => {
       />
       <HorizontalPaddingSpace space={theme.space[0]}>
         <Spacer style={{ alignItems: "center" }} position="top" size="">
-          {yourLikesData.length && currentScreen === "gym matches" ? (
+          {yourLikesData.length && currentScreen === "interests" ? (
             <Spacer
               position="top"
               size="large"
@@ -173,7 +173,7 @@ const LikesScreen = () => {
               ))}
             </Spacer>
           ) : (
-            currentScreen === "gym matches" && (
+            currentScreen === "interests" && (
               <View style={{ width: "100%" }}>
                 <HorizontalPaddingSpace space={theme.space[5]}>
                   <Spacer position="top" size="xxxxlarge">
@@ -291,7 +291,6 @@ const LikesScreen = () => {
         theme={theme}
         width="100%">
         <InitiatorProfileComponent
-          videoRef={videoRef}
           data={initiatorProfileData}
           theme={theme}
           bothUserData={likedUserAndCurrentUserData}
@@ -300,6 +299,7 @@ const LikesScreen = () => {
           setInitiatorProfileData={setInitiatorProfileData}
           currentUser={currentUser}
           setIsRetrigger={setIsRetrigger}
+          videoRef={videoRef}
         />
       </AnimatedModal>
       <AnimatedModal
@@ -308,7 +308,6 @@ const LikesScreen = () => {
         theme={theme}
         width="100%">
         <FriendshipInitiatorProfileComponent
-          videoRef={videoRef}
           data={friendRequestProfileData}
           theme={theme}
           bothUserData={friendshipToAndFromData}
@@ -317,6 +316,7 @@ const LikesScreen = () => {
           setInitiatorProfileData={setFriendRequestData}
           currentUser={currentUser}
           setIsRetrigger={setIsRetrigger}
+          videoRef={videoRef}
         />
       </AnimatedModal>
     </SafeArea>

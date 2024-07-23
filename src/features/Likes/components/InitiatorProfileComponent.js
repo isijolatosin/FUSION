@@ -30,6 +30,7 @@ import getInterestMapObject from "../../../utilities/getInterestMapObject";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import VideoPlayer from "../../../components/general-component/VideoPlayer";
 import ImageViewer from "../../../components/general-component/ImageViewer";
+import { generateCity } from "../../../utilities/generateCity";
 
 export default function InitiatorProfileComponent({
   data,
@@ -46,6 +47,7 @@ export default function InitiatorProfileComponent({
   const imageHeight = 450;
   const lastTap = useRef(0);
   const [doubleTapWarning, setDoubleTapWarnings] = useState(false);
+  const [city, setCity] = useState("");
 
   let iconNamePerGender = "";
   if (data?.[0]?.likedBy?.gender === "woman") {
@@ -169,6 +171,10 @@ export default function InitiatorProfileComponent({
     +data?.[0]?.likedBy?.dob?.month
   );
 
+  if (data?.[0]?.likedBy?.gymMembership?.address && !city) {
+    generateCity(setCity, data?.[0]?.likedBy?.gymMembership?.address);
+  }
+
   return (
     <>
       {data?.length ? (
@@ -254,6 +260,37 @@ export default function InitiatorProfileComponent({
                   </TouchableOpacity>
                 </View>
               </View>
+              <Spacer
+                position="top"
+                size="medium"
+                style={{
+                  gap: theme.spaceNumber[1],
+                  marginBottom: theme.spaceNumber[5],
+                  borderBottomWidth: 0.5,
+                  borderBottomColor: theme.colors.brand.base8,
+                  paddingBottom: theme.spaceNumber[2],
+                }}>
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="base6"
+                    fontType="montserratRegular"
+                    fontSize="caption"
+                    width="100%">
+                    Fitness Club:{" "}
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="caption"
+                    width="100%">
+                    {data?.[0]?.likedBy?.gymMembership?.name}, {city}
+                  </Text>
+                </View>
+              </Spacer>
 
               {data?.[0]?.likedBy?.bio && (
                 <Fragment>

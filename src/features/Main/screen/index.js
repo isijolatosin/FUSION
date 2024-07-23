@@ -68,6 +68,7 @@ import {
   getLocationByAddress,
 } from "../../../utilities/getUserLocation";
 import ImageViewer from "../../../components/general-component/ImageViewer";
+import { generateCity } from "../../../utilities/generateCity";
 
 const Index = ({ navigation }) => {
   const videoRef = useRef(null);
@@ -656,13 +657,7 @@ const Index = ({ navigation }) => {
   }
 
   if (currentUsertoSwipe?.gymMembership?.address && !city) {
-    (async () => {
-      const _address = await getCityFromAddress(
-        currentUsertoSwipe?.gymMembership?.address
-      );
-
-      setCity(`${_address?.city}. ${_address?.region}`);
-    })();
+    generateCity(setCity, currentUsertoSwipe?.gymMembership?.address);
   }
 
   return (
@@ -1175,6 +1170,7 @@ const Index = ({ navigation }) => {
                           setCity("");
                         }
                         scrollToTop();
+                        setDoubleTapWarning(false);
                       }}
                       iconName="close-a"
                       IconComponent={Fontisto}

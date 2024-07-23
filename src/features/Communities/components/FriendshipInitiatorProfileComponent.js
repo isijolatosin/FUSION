@@ -248,13 +248,13 @@ export default function FriendshipInitiatorProfileComponent({
             <HorizontalPaddingSpace space={theme.space[2]}>
               <View style={{ position: "relative" }}>
                 <ImageViewer
+                  uri={data?.[0]?.friendRequestFrom?.mediaArray?.[0]}
                   style={{
                     width: "100%",
                     height: imageHeight,
                     resizeMode: "cover",
                     borderRadius: theme.spaceNumberBy10[3],
                   }}
-                  uri={data?.[0]?.friendRequestFrom?.mediaArray?.[0]}
                 />
                 <View
                   style={{
@@ -971,26 +971,26 @@ export default function FriendshipInitiatorProfileComponent({
               {data?.[0]?.friendRequestFrom?.mediaArray?.[2] && (
                 <Spacer position="top" size="xxsmall">
                   <ImageViewer
+                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[2]}
                     style={{
                       width: "100%",
                       height: imageHeight,
                       resizeMode: "cover",
                       borderRadius: theme.spaceNumberBy10[3],
                     }}
-                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[2]}
                   />
                 </Spacer>
               )}
               {data?.[0]?.friendRequestFrom?.mediaArray?.[3] && (
                 <Spacer position="top" size="xxsmall">
                   <ImageViewer
+                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[3]}
                     style={{
                       width: "100%",
                       height: imageHeight,
                       resizeMode: "cover",
                       borderRadius: theme.spaceNumberBy10[3],
                     }}
-                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[3]}
                   />
                 </Spacer>
               )}
@@ -1018,26 +1018,26 @@ export default function FriendshipInitiatorProfileComponent({
               {data?.[0]?.friendRequestFrom?.mediaArray?.[4] && (
                 <Spacer position="top" size="xxsmall">
                   <ImageViewer
+                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[4]}
                     style={{
                       width: "100%",
                       height: imageHeight,
                       resizeMode: "cover",
                       borderRadius: theme.spaceNumberBy10[3],
                     }}
-                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[4]}
                   />
                 </Spacer>
               )}
               {data?.[0]?.friendRequestFrom?.mediaArray?.[5] && (
                 <Spacer position="top" size="xxsmall">
                   <ImageViewer
+                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[5]}
                     style={{
                       width: "100%",
                       height: imageHeight,
                       resizeMode: "cover",
                       borderRadius: theme.spaceNumberBy10[3],
                     }}
-                    url={data?.[0]?.friendRequestFrom?.mediaArray?.[5]}
                   />
                 </Spacer>
               )}
@@ -1163,6 +1163,7 @@ export default function FriendshipInitiatorProfileComponent({
                 marginTop: theme.spaceNumberBy10[3],
               }}>
               <ImageViewer
+                url={currentUserData?.photo}
                 style={{
                   height: theme.spaceNumberBy50[1],
                   width: theme.spaceNumberBy50[1],
@@ -1170,9 +1171,9 @@ export default function FriendshipInitiatorProfileComponent({
                   borderRadius: theme.spaceNumberBy50[1],
                   marginRight: -theme.spaceNumberBy10[3],
                 }}
-                url={currentUserData?.photo}
               />
               <ImageViewer
+                url={otherUserData?.photo}
                 style={{
                   height: theme.spaceNumberBy50[4],
                   width: theme.spaceNumberBy50[4],
@@ -1181,7 +1182,6 @@ export default function FriendshipInitiatorProfileComponent({
                   borderWidth: theme.spaceNumber[1],
                   borderColor: theme.colors.brand.black,
                 }}
-                url={otherUserData?.photo}
               />
             </View>
             <View

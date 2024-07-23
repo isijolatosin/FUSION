@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Text } from "../../../components/typography/text.component";
 import calculateAge from "../../../utilities/calculateAge";
+import ImageViewer from "../../../components/general-component/ImageViewer";
 
 export default function LikeInitiatorProfileCard({
   data,
