@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import {
   Dimensions,
   Pressable,
@@ -982,6 +983,7 @@ export default function ProfileScreen() {
       style={{
         backgroundColor: theme.colors.brand.base,
       }}>
+      <StatusBar style="light" />
       <Spacer position="bottom" size="xxsmall">
         <HeaderComponent
           title={currentUser?.firstname && currentUser?.firstname}

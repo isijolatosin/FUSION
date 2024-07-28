@@ -3,7 +3,12 @@ import { Animated, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { FontAwesome5, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 
 import Splash from "../components/Splash";
 import Onboarding from "../components/Onboarding.screen";
@@ -28,6 +33,7 @@ import CapturePhotosScreen from "../../Onboarding/components/CapturePhotos.scree
 import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.screen";
 import MainScreen from "../../Main/screen";
 import ProfileScreen from "../../Profile/screen";
+import MealPlanScreen from "../../mealPlan/screen";
 import LikesScreen from "../../Likes/screen";
 import ChatsScreen from "../../Chats/screen";
 import CaptureSexualOrientation from "../../Onboarding/components/CaptureSexualOrientation.screen";
@@ -36,10 +42,7 @@ import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
 import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
 import MessageScreen from "../../Chats/components/MessageScreen";
 import SupportScreen from "../../Support";
-import CompatibilityScreen from "../../Compatibility";
-import CommunitiesScreen from "../../Communities";
 import SignIn from "../../Onboarding/components/SignIn.screen";
-import BrandLogoTab from "../../../components/general-component/BrandLogoTab";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,6 +56,15 @@ const TabNavigator = ({ route }) => {
       iconName: "running",
       size: 20,
       isBaseComponent: false,
+    },
+    {
+      component: MealPlanScreen,
+      Icon: MaterialCommunityIcons,
+      name: "meal-plan",
+      iconName: "food-outline",
+      size: 25,
+      isBaseComponent: false,
+      isMealComponent: true,
     },
     {
       component: LikesScreen,
@@ -75,7 +87,7 @@ const TabNavigator = ({ route }) => {
       Icon: Ionicons,
       name: "profile",
       iconName: "person-outline",
-      size: 25,
+      size: 23,
       isBaseComponent: false,
     },
   ];
@@ -127,7 +139,11 @@ const TabNavigator = ({ route }) => {
                     width: theme.spaceNumberBy10[3],
                     height: theme.spaceNumberBy10[3],
                     borderWidth: focused ? 1 : 0,
-                    borderColor: focused ? theme.colors.brand.lines : "",
+                    borderColor: focused
+                      ? list.isMealComponent
+                        ? theme.colors.brand.teal
+                        : theme.colors.brand.lines
+                      : "",
                     borderRadius: theme.spaceNumberBy10[2],
                     backgroundColor: focused && theme.colors.brand.base8,
                     justifyContent: "center",
@@ -236,7 +252,8 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={lastScreenVisited ? "main" : "splash"}
+        initialRouteName="capture-name-screen"
+        // initialRouteName={lastScreenVisited ? "main" : "splash"}
         screenOptions={{
           headerShown: false,
         }}>

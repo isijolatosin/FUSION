@@ -14,6 +14,7 @@ const HeaderComponent = ({
   isBorder,
   topSpace,
   color,
+  transform,
 }) => {
   return (
     <Spacer
@@ -38,6 +39,7 @@ const HeaderComponent = ({
           colorType={color ? color : "base1"}
           fontType={font ? font : "arimaMadurai"}
           lineHeight={theme.lineHeights[25]}
+          transform={transform}
           fontSize={size ? size : "h5"}>
           {title}
         </Text>

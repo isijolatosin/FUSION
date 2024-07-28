@@ -1626,3 +1626,1014 @@ export const videoExtensions = [
   "wmv",
   "mpeg",
 ];
+export const gymNutritionPlans = {
+  "Weight Loss": {
+    "nutrition plan":
+      "Caloric deficit diet with a balanced intake of macronutrients. Focus on whole foods: vegetables, fruits, lean proteins, whole grains, and healthy fats. Avoid sugary drinks and processed foods.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of granola.",
+        imageurl:
+          "https://foolproofliving.com/wp-content/uploads/2017/12/Greek-Yogurt-Parfait-with-fruit-600x600.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens, avocado, and a light vinaigrette.",
+        imageurl:
+          "https://www.lecremedelacrumb.com/wp-content/uploads/2019/11/chicken-avocado-salad-4sm-1.jpg",
+        imageurl:
+          "https://www.lecremedelacrumb.com/wp-content/uploads/2019/11/chicken-avocado-salad-4sm-1-500x375.jpg",
+      },
+      dinner: {
+        meal: "Baked salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+        imageurl:
+          "https://www.idealyou.us/wp-content/uploads/2021/09/salmon-with-quinoa-and-broccoli.jpg",
+      },
+      snacks: {
+        meal: "Apple slices with almond butter, carrot sticks with hummus.",
+        imageurl:
+          "https://www.asaucykitchen.com/wp-content/uploads/2023/09/apple-hummus_-2-720x540.jpg",
+      },
+    },
+  },
+  "Muscle Gain": {
+    "nutrition plan":
+      "Caloric surplus with a focus on protein intake (1.2-2.2g of protein per kg of body weight). Include complex carbohydrates and healthy fats.",
+    "diet plan": {
+      breakfast: {
+        meal: "Oatmeal with protein powder and banana slices",
+        imageurl:
+          "https://fitfoodiefinds.com/wp-content/uploads/2016/04/square-2-550x550.jpg",
+      },
+      lunch: {
+        meal: "Turkey sandwich on whole grain bread with a side of sweet potato fries.",
+        imageurl:
+          "https://recipes.net/wp-content/uploads/2023/07/turkey-burger-with-sweet-potato-wedges_1a87c1ed9120ee4865378a6491e12c0b.jpeg",
+      },
+      dinner: {
+        meal: "Beef stir-fry with brown rice and mixed vegetables",
+        imageurl:
+          "https://www.australianbeef.com.au/contentassets/546774b17d4241908702633a1b039660/beef-stir-fry-jess-s---775x775.jpg",
+      },
+      snacks: {
+        meal: "Protein shake, cottage cheese with pineapple",
+        imageurl:
+          "https://ohsnapmacros.com/wp-content/uploads/2024/07/cottagecheesesmoothie.jpg",
+      },
+    },
+  },
+  "Improved Endurance": {
+    "nutrition plan":
+      "High-carb diet to fuel long workouts. Moderate protein and low to moderate fat intake.",
+    "diet plan": {
+      breakfast: {
+        meal: "Whole grain toast with peanut butter and a banana",
+        imageurl:
+          "https://www.eatingwell.com/thmb/QSE5Ziv3ymIIyZ7zlGUCW7rFStQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/peanut-butter-banana-cinnamon-toast-hero-261628-4000x4000-61c4ca842bcd4a648c2fa8f6e6931c0e.jpg",
+      },
+      lunch: {
+        meal: "Quinoa salad with chickpeas, mixed vegetables, and a lemon-tahini dressing",
+        imageurl:
+          "https://images.squarespace-cdn.com/content/v1/564e178de4b0db900e8e9e1c/1589207815763-E75T27OHY4ZWBVO8QA93/Chickpea+and+quinoa+salad.jpg",
+      },
+      dinner: {
+        meal: "Pasta with marinara sauce and lean ground turkey",
+        imageurl:
+          "https://feastingnotfasting.com/wp-content/uploads/2023/02/Homemade-Turkey-Spaghetti-Recipe-6.jpg",
+      },
+      snacks: {
+        meal: "Trail mix, fruit smoothie",
+        imageurl:
+          "https://i0.wp.com/farm1.staticflickr.com/408/20096591666_20835d2d91_c.jpg?resize=800%2C800&ssl=1",
+      },
+    },
+  },
+  "Increased Flexibility": {
+    "nutrition plan":
+      "Balanced diet rich in anti-inflammatory foods. Ensure adequate hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, pineapple, chia seeds, and coconut water",
+        imageurl:
+          "https://www.allrecipes.com/thmb/hz53zAXQyut_kjRuoBgn3cUQHvk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Frozen-Pineapple-and-Spinach-Smoothie-Yoly-4x3-1-2000-cd8254a0329d4b799e7ee903d315e253.jpg",
+      },
+      lunch: {
+        meal: "Lentil soup with a side of mixed greens",
+        imageurl:
+          "https://www.kathysvegankitchen.com/wp-content/uploads/2023/01/creamy-lentil-soup-1.jpg",
+      },
+      dinner: {
+        meal: "Grilled tofu with stir-fried vegetables and brown rice",
+        imageurl:
+          "https://www.nutritiondynamixrd.com/_cms/resources/blogPics/tofu-stir-fry.png",
+      },
+      snacks: {
+        meal: "Mixed nuts, fresh berries.",
+        imageurl:
+          "https://www.garnishandglaze.com/wp-content/uploads/2017/01/nuts-about-berries-smoothie-bowl-6-500x500.jpg",
+      },
+    },
+  },
+  "Enhanced Strength": {
+    "nutrition plan":
+      "Similar to muscle gain: high protein, moderate carbs, and healthy fats.",
+    "diet plan": {
+      breakfast: {
+        meal: "Eggs scrambled with spinach and tomatoes, whole grain toast.",
+        imageurl: "https://i.redd.it/pm9dtedd33l91.jpg",
+      },
+      lunch: {
+        meal: "Chicken breast with a side of quinoa and roasted vegetables.",
+        imageurl:
+          "https://i.pinimg.com/736x/1d/01/9b/1d019b450086f690aa369a409a0c3180.jpg",
+      },
+      dinner: {
+        meal: "Baked cod with a sweet potato and green beans.",
+        imageurl:
+          "https://panamei.com/wp-content/uploads/2018/08/Oven-Roasted-Cod-with-Green-Beans-and-Potatoes.jpg",
+      },
+      snacks: {
+        meal: "Greek yogurt with honey, protein bars.",
+        imageurl: "https://i.redd.it/7k0zjwane7g21.jpg",
+      },
+    },
+  },
+  "Better Cardiovascular Health": {
+    "nutrition plan":
+      "Diet low in saturated fats and cholesterol. High in fiber, fruits, vegetables, and lean proteins.",
+    "diet plan": {
+      breakfast: {
+        meal: "Oatmeal with fresh berries and a touch of honey.",
+        imageurl:
+          "https://simply-delicious-food.com/wp-content/uploads/2015/05/Creamy-oats-breakfast-bowls-3.jpg",
+      },
+      lunch: {
+        meal: "Grilled salmon salad with mixed greens and a citrus vinaigrette.",
+        imageurl:
+          "https://images.squarespace-cdn.com/content/v1/5e948bb0b1883c2de09c05a5/1595864948347-CH93A471UZ3JJDTRZ67Z/2020-07-20+06.33.34+1+%281%29.jpg",
+      },
+      dinner: {
+        meal: "Chicken stir-fry with a variety of vegetables and brown rice.",
+        imageurl:
+          "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/stirfrychicken_5795-31c3a18.jpg?quality=90&resize=440,400",
+      },
+      snacks: {
+        meal: "Apple slices, raw almonds.",
+        imageurl:
+          "https://img.freepik.com/free-photo/apples-with-cinnamon-sticks-pile-dates-almonds-top-view-wooden-board-wooden_176474-5552.jpg",
+      },
+    },
+  },
+  "Improved Balance and Coordination": {
+    "nutrition plan":
+      "Balanced diet rich in vitamins and minerals. Focus on hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with kale, mango, flax seeds, and almond milk.",
+        imageurl:
+          "https://thenaturalnurturer.com/wp-content/uploads/2022/01/mango-kale-smoothie-3-of-4.jpg",
+      },
+      lunch: {
+        meal: "Tuna salad with whole grain crackers and a side of cucumber slices.",
+        imageurl:
+          "https://abeautifulmess.com/wp-content/uploads/2021/08/deli-style-tuna-salad.jpg",
+      },
+      dinner: {
+        meal: "Lean pork chop with roasted Brussels sprouts and quinoa.",
+        imageurl:
+          "https://www.bhg.com/thmb/Jxlgvc5Y2rVkpjuJl_WIN5XQexo=/1280x0/filters:no_upscale():strip_icc()/RU326674-228c30c43cfd47b899f9c9efacd9b90b.jpg",
+      },
+      snacks: {
+        meal: "Celery sticks with peanut butter, dried apricots.",
+        imageurl:
+          "https://www.peanutbutter.com/wp-content/uploads/2019/04/SKIPPY_Recipe_Thumbnail_PB_Log_Rollers-with-Rasins.jpg",
+      },
+    },
+  },
+  "Increased Energy Levels": {
+    "nutrition plan":
+      "High in complex carbs and moderate protein. Include iron-rich foods and stay hydrated.",
+    "diet plan": {
+      breakfast: {
+        meal: "Whole grain cereal with milk and a banana.",
+        imageurl:
+          "https://nourishingmeals.com/sites/default/files/styles/fullscreen_banner/public/media/BANANA-FLAX%20CEREAL-1.jpg?h=ff580eb8&itok=6RHvSe3K",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach, hummus, and a side of carrot sticks.",
+        imageurl:
+          "https://bluesbestlife.com/wp-content/uploads/2021/01/hummus-wrap-1200-x-800-3-2.jpg",
+      },
+      dinner: {
+        meal: "Grilled chicken with a side of brown rice and steamed broccoli.",
+        imageurl:
+          "https://athletesnutrition.com.au/cdn/shop/products/GrilledChickenBreast_BrownRice_VegWEB.png?v=1673324469",
+      },
+      snacks: {
+        meal: "Orange slices, trail mix.",
+        imageurl:
+          "https://www.stonegableblog.com/wp-content/uploads/2023/10/DRIED-ORANGES-hero-2.jpg",
+      },
+    },
+  },
+  "Stress Reduction": {
+    "nutrition plan":
+      "Foods high in omega-3 fatty acids, magnesium, and antioxidants.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with blueberries and walnuts.",
+        imageurl:
+          "https://images.eatthismuch.com/img/412891_kay9x102_862d01d3-ce25-4bc0-9b86-bdb667e587d0.png",
+      },
+      lunch: {
+        meal: "Spinach salad with grilled shrimp, avocado, and a light vinaigrette.",
+        imageurl:
+          "https://www.saltandlavender.com/wp-content/uploads/2016/02/spinachshrimpsalad1.jpg",
+      },
+      dinner: {
+        meal: "Salmon with quinoa and a side of steamed asparagus.",
+        imageurl:
+          "https://i0.wp.com/chefjulieyoon.com/wp-content/uploads/2015/01/SalmonQuinoaAsparagus-38-2.jpg?resize=1024%2C1024&ssl=1",
+      },
+      snacks: {
+        meal: "Dark chocolate, herbal tea.",
+        imageurl:
+          "https://5.imimg.com/data5/SELLER/Default/2023/1/JF/WI/WG/2623595/chocolate-tea-500x500.jpg",
+      },
+    },
+  },
+  "Better Sleep Quality": {
+    "nutrition plan": "Foods rich in tryptophan, magnesium, and melatonin.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with banana, almond butter, and spinach.",
+        imageurl:
+          "https://detoxinista.com/wp-content/uploads/2015/06/smoothie-smoothie.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken with sweet potato and a side of steamed broccoli.",
+        imageurl:
+          "https://mqtnutrition.co/wp-content/uploads/2023/07/F5DCADAE-A0DB-4D31-8504-0EAD27146AFF-scaled.jpeg",
+      },
+      dinner: {
+        meal: "Brown rice with turkey and mixed vegetables.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Turkey-and-Vegetable-Stir-Fry-with-Brown-Rice-53761.jpg",
+      },
+      snacks: {
+        meal: "Cherries, warm milk with honey.",
+        imageurl:
+          "https://www.foodandwine.com/thmb/iIcjQLWXLoPh1vvACSgMmMktiyo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/201306-xl-honey-and-thyme-custards-2000-1d1a796523394ec08a89cbc4484cf332.jpg",
+      },
+    },
+  },
+  "Run a Marathon": {
+    "nutrition plan":
+      "High-carb diet to fuel long runs. Include moderate protein and healthy fats. Hydration is key.",
+    "diet plan": {
+      breakfast: {
+        meal: "Whole grain toast with peanut butter and a banana.",
+        imageurl:
+          "https://www.eatingwell.com/thmb/QSE5Ziv3ymIIyZ7zlGUCW7rFStQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/peanut-butter-banana-cinnamon-toast-hero-261628-4000x4000-61c4ca842bcd4a648c2fa8f6e6931c0e.jpg",
+      },
+      lunch: {
+        meal: "Quinoa salad with chickpeas, mixed vegetables, and a lemon-tahini dressing.",
+        imageurl:
+          "https://images.squarespace-cdn.com/content/v1/564e178de4b0db900e8e9e1c/1589207815763-E75T27OHY4ZWBVO8QA93/Chickpea+and+quinoa+salad.jpg",
+      },
+      dinner: {
+        meal: "Pasta with marinara sauce and lean ground turkey.",
+        imageurl:
+          "https://feastingnotfasting.com/wp-content/uploads/2023/02/Homemade-Turkey-Spaghetti-Recipe-6.jpg",
+      },
+      snacks: {
+        meal: "Trail mix, fruit smoothie.",
+        imageurl:
+          "https://i0.wp.com/farm1.staticflickr.com/408/20096591666_20835d2d91_c.jpg?resize=800%2C800&ssl=1",
+      },
+    },
+  },
+  "Complete a Triathlon": {
+    "nutrition plan":
+      "Balanced diet with a focus on carbs and protein. Hydration is key.",
+    "diet plan": {
+      breakfast: {
+        meal: "Oatmeal with berries and a protein shake.",
+        imageurl:
+          "https://www.eatingbirdfood.com/wp-content/uploads/2021/04/protein-overnight-oats-overhead.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken sandwich with a side of sweet potato fries.",
+        imageurl:
+          "https://somethingaboutsandwiches.com/wp-content/uploads/2021/04/grilled-chicken-sandwich.jpg",
+      },
+      dinner: {
+        meal: "Fish tacos with a side of brown rice and black beans.",
+        imageurl:
+          "https://media-cdn.tripadvisor.com/media/photo-s/08/98/fa/97/mahi-fish-tacos-with.jpg",
+      },
+      snacks: {
+        meal: "Almonds, yogurt with fruit.",
+        imageurl:
+          "https://www.ambarinutrition.com/cdn/shop/articles/20230919180123-greek-20yogurt-20parfait.png?v=1695149698",
+      },
+    },
+  },
+  "Increase Sprint Speed": {
+    "nutrition plan": "High protein and carbs for muscle recovery and energy.",
+    "diet plan": {
+      breakfast: {
+        meal: "Eggs with whole grain toast and avocado.",
+        imageurl:
+          "https://www.skinnytaste.com/wp-content/uploads/2015/01/Avocado-Toast-with-Egg-8.jpg",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      dinner: {
+        meal: "Steak with a side of quinoa and roasted vegetables.",
+        imageurl:
+          "https://mealpractice.b-cdn.net/70445873234055168/grilled-steak-with-roasted-vegetables-and-quinoa-MQ4d7sKhEe.webp",
+      },
+      snacks: {
+        meal: "Protein bars, banana.",
+        imageurl:
+          "https://busybuthealthy.com/wp-content/uploads/2010/10/banana-nut-protein-bars_2-Copy.jpg",
+      },
+    },
+  },
+  "Improve Athletic Performance in a Specific Sport": {
+    "nutrition plan":
+      "Tailored to the sport; generally high in carbs and protein.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, protein powder, and almond milk.",
+        imageurl:
+          "https://iliveforgreens.com/wp-content/uploads/2022/07/Spinach-Raspberry-Smoothie-2-1024x683.jpg",
+      },
+      lunch: {
+        meal: "Chicken salad with mixed greens, avocado, and a light vinaigrette.",
+        imageurl:
+          "https://www.lecremedelacrumb.com/wp-content/uploads/2019/11/chicken-avocado-salad-4sm-1.jpg",
+      },
+      dinner: {
+        meal: "Grilled fish with a side of sweet potato and steamed broccoli.",
+        imageurl:
+          "https://images.eatsmarter.com/sites/default/files/styles/max_size/public/fish-fillet-with-sweet-potatoes-and-broccoli-631254.jpg",
+      },
+      snacks: {
+        meal: "Cottage cheese with pineapple, nuts.",
+        imageurl:
+          "https://dairyfarmersofcanada.ca/sites/default/files/image_file_browser/conso_recipe/ginger-granola-pineapple-cottage-cheese.jpg",
+      },
+    },
+  },
+  "Lift a Specific Amount of Weight": {
+    "nutrition plan":
+      "High protein for muscle growth and repair. Include complex carbs for energy.",
+    "diet plan": {
+      breakfast: {
+        meal: "Omelet with veggies and whole grain toast.",
+        imageurl:
+          "https://media.healthyfood.com/wp-content/uploads/2016/09/Quick-vege-omelette.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken with brown rice and mixed vegetables.",
+        imageurl:
+          "https://recipes.net/wp-content/uploads/2023/07/grilled-chicken-veggies-over-rice_8f639fed8b390ad6b4dcfd8965c043a8.jpeg",
+      },
+      dinner: {
+        meal: "Beef stir-fry with quinoa and broccoli.",
+        imageurl:
+          "https://res.cloudinary.com/hellochef/image/upload/c_fit/q_auto/dpr_auto/p2rosda8eyti84hdx93u?_a=E",
+      },
+      snacks: {
+        meal: "Protein shake, Greek yogurt.",
+        imageurl:
+          "https://www.sweetashoney.co/wp-content/uploads/Greek-Yogurt-Protein-Shake-4.jpg",
+      },
+    },
+  },
+  "Master a New Skill (e.g., handstand, pull-ups)": {
+    "nutrition plan": "Balanced diet with a focus on protein and healthy fats.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, mango, chia seeds, and coconut water.",
+        imageurl:
+          "https://www.eatingbirdfood.com/wp-content/uploads/2024/01/green-smoothie-hero.jpg",
+      },
+      lunch: {
+        meal: "Quinoa salad with chickpeas and a lemon-tahini dressing.",
+        imageurl:
+          "https://images.squarespace-cdn.com/content/v1/564e178de4b0db900e8e9e1c/1589207815763-E75T27OHY4ZWBVO8QA93/Chickpea+and+quinoa+salad.jpg",
+      },
+      dinner: {
+        meal: "Grilled tofu with stir-fried vegetables and brown rice.",
+        imageurl:
+          "https://img.taste.com.au/iP_dDv6X/taste/2020/10/grilled-tofu-with-rice-greens-chilli-sesame-dressing-119241-1.jpg",
+      },
+      snacks: { meal: "Mixed nuts, fresh berries." },
+      imageurl:
+        "https://i2.wp.com/eatwiserd.com/wp-content/uploads/2020/03/Screen-Shot-2020-02-01-at-7.22.53-PM.png?resize=1400%2C788&ssl=1",
+    },
+  },
+  "Achieve a Defined Physique": {
+    "nutrition plan": "High protein, moderate carbs, and low fat.",
+    "diet plan": {
+      breakfast: {
+        meal: "Egg whites with spinach and whole grain toast.",
+        imageurl:
+          "https://i0.wp.com/smittenkitchen.com/wp-content/uploads//2013/04/spinach-and-smashed-egg-toast.jpg?fit=1200%2C800&ssl=1",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Cottage cheese, protein shake.",
+        imageurl:
+          "https://www.sweetashoney.co/wp-content/uploads/Cottage-Cheese-Protein-Shake-3.jpg",
+      },
+    },
+  },
+  "Build Visible Abs": {
+    "nutrition plan": "Caloric deficit, high protein, low carbs.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, protein powder, and almond milk.",
+        imageurl:
+          "https://www.garnishwithlemon.com/wp-content/uploads/2019/08/Easy-Banana-Spinach-Protein-Smoothie-2019-2-of-3.jpg",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      dinner: {
+        meal: "Grilled fish with a side of steamed vegetables.",
+        imageurl:
+          "https://notsoseriouseats.com/wp-content/uploads/2017/05/DSC01485-1024x681.jpg",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Improve Posture": {
+    "nutrition plan": "Balanced diet rich in calcium and vitamin D.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of granola.",
+        imageurl:
+          "https://foolproofliving.com/wp-content/uploads/2017/12/Greek-Yogurt-Parfait-with-fruit-600x600.jpg",
+      },
+      lunch: {
+        meal: "Salmon salad with mixed greens and a citrus vinaigrette.",
+      },
+      dinner: {
+        meal: "Chicken stir-fry with a variety of vegetables and brown rice.",
+      },
+      snacks: { meal: "Cottage cheese, mixed nuts." },
+    },
+  },
+  "Enhance Overall Appearance": {
+    "nutrition plan": "Balanced diet rich in vitamins and minerals.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with kale, mango, flax seeds, and almond milk.",
+      },
+      Lunch: {
+        meal: "Tuna salad with whole grain crackers and a side of cucumber slices.",
+      },
+      dinner: {
+        meal: "Lean pork chop with roasted Brussels sprouts and quinoa.",
+      },
+      snacks: { meal: "Celery sticks with peanut butter, dried apricots." },
+    },
+  },
+  "Lower Blood Pressure": {
+    "nutrition plan": "Low sodium, high potassium, and magnesium-rich foods.",
+    "diet plan": {
+      breakfast: { meal: "Oatmeal with bananas and a sprinkle of flax seeds." },
+      lunch: {
+        meal: {
+          meal: "Salmon salad with mixed greens and a light vinaigrette.",
+        },
+      },
+      dinner: {
+        meal: "Grilled chicken with quinoa and steamed broccoli.",
+        imageurl:
+          "https://img.freepik.com/premium-photo/grilled-chicken-with-broccoli-quinoa_165536-2640.jpg",
+      },
+      snacks: { meal: "Apple slices, raw almonds." },
+    },
+  },
+  "Reduce Cholesterol Levels": {
+    "nutrition plan":
+      "High fiber, low saturated fats, and include healthy fats like omega-3.",
+    "diet plan": {
+      breakfast: {
+        meal: "Whole grain toast with avocado and a side of berries.",
+        imageurl:
+          "https://www.nutritiouseats.com/wp-content/uploads/2018/10/Avocado-Goat-Cheese-Toast-with-Berries-20181005-4.jpg",
+      },
+      lunch: { meal: "Lentil soup with a side of mixed greens." },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed vegetables.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/04/Featured-Image-1-4.png",
+      },
+      snacks: { meal: "Carrot sticks with hummus, walnuts." },
+    },
+  },
+  "Manage Diabetes": {
+    "nutrition plan":
+      "Low sugar, high fiber, and balanced intake of carbs and proteins.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of chia seeds.",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: { meal: "Brown rice with turkey and mixed vegetables." },
+      snacks: { meal: "Apple slices with almond butter, mixed nuts." },
+    },
+  },
+  "Alleviate Chronic Pain": {
+    "nutrition plan": "Anti-inflammatory foods, high in omega-3 fatty acids.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and flax seeds.",
+        imageurl:
+          "https://fitfoodiefinds.com/wp-content/uploads/2014/06/smoothiesq-300x300.jpg",
+      },
+      lunch: {
+        meal: "Salmon salad with mixed greens and a citrus vinaigrette.",
+      },
+      dinner: {
+        meal: "Grilled chicken with quinoa and steamed broccoli.",
+        imageurl:
+          "https://img.freepik.com/premium-photo/grilled-chicken-with-broccoli-quinoa_165536-2640.jpg",
+      },
+      snacks: {
+        meal: "Dark chocolate, herbal tea.",
+        imageurl:
+          "https://5.imimg.com/data5/SELLER/Default/2023/1/JF/WI/WG/2623595/chocolate-tea-500x500.jpg",
+      },
+    },
+  },
+  "Improve Mobility in Joints": {
+    "nutrition plan":
+      "Anti-inflammatory foods, high in omega-3 fatty acids, and collagen-rich foods.",
+    "diet plan": {
+      breakfast: { meal: "Smoothie with spinach, pineapple, and chia seeds." },
+      lunch: { meal: "Lentil soup with a side of mixed greens." },
+      dinner: {
+        meal: "Grilled salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://melodiceats.com/wp-content/uploads/2023/12/matthuesart_Grilled_Salmon_with_Quinoa_and_Steamed_Broccoli_c690c998-0991-468a-aadc-aa6b48f297ec.png",
+      },
+      snacks: { meal: "Mixed nuts, fresh berries." },
+    },
+  },
+  "Develop a Regular Exercise Routine": {
+    "nutrition plan": "Balanced diet with all macronutrients and hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Oatmeal with berries and a touch of honey.",
+        imageurl:
+          "https://wholefoodsoulfoodkitchen.com/wp-content/uploads/2023/03/honey-oatmeal-recipe-1.jpg",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      Dinner: {
+        meal: "Grilled chicken with a side of brown rice and steamed vegetables.",
+      },
+      snacks: {
+        meal: "Orange slices, trail mix.",
+        imageurl:
+          "https://www.stonegableblog.com/wp-content/uploads/2023/10/DRIED-ORANGES-hero-2.jpg",
+      },
+    },
+  },
+  "Increase Daily Physical Activity": {
+    "nutrition plan": "Balanced diet with high protein and moderate carbs.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Achieve a Specific Body Fat Percentage": {
+    "nutrition plan": "Caloric deficit with high protein and low carbs.",
+    "diet plan": {
+      breakfast: {
+        meal: "Egg whites with spinach and whole grain toast.",
+        imageurl:
+          "https://i0.wp.com/smittenkitchen.com/wp-content/uploads//2013/04/spinach-and-smashed-egg-toast.jpg?fit=1200%2C800&ssl=1",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      dinner: {
+        meal: "Grilled fish with a side of steamed vegetables.",
+        imageurl:
+          "https://notsoseriouseats.com/wp-content/uploads/2017/05/DSC01485-1024x681.jpg",
+      },
+      snacks: {
+        meal: "Cottage cheese, protein shake.",
+        imageurl:
+          "https://www.sweetashoney.co/wp-content/uploads/Cottage-Cheese-Protein-Shake-3.jpg",
+      },
+    },
+  },
+  "Build Long-Term Healthy Habits": {
+    "nutrition plan": "Balanced diet with all macronutrients and hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of granola.",
+        imageurl:
+          "https://foolproofliving.com/wp-content/uploads/2017/12/Greek-Yogurt-Parfait-with-fruit-600x600.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Apple slices with almond butter, carrot sticks with hummus.",
+        imageurl:
+          "https://www.asaucykitchen.com/wp-content/uploads/2023/09/apple-hummus_-2-720x540.jpg",
+      },
+    },
+  },
+  "Rehabilitate an Injury": {
+    "nutrition plan":
+      "High protein for muscle repair, anti-inflammatory foods.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and flax seeds.",
+        imageurl:
+          "https://fitfoodiefinds.com/wp-content/uploads/2014/06/smoothiesq-300x300.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken with quinoa and steamed broccoli.",
+        imageurl:
+          "https://img.freepik.com/premium-photo/grilled-chicken-with-broccoli-quinoa_165536-2640.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of mixed vegetables.",
+        imageurl:
+          "https://media.30seconds.com/tip/lg/Salmon-With-Succotash-Recipe-24153-7fad9c79ad-1622091405.jpg",
+      },
+      snacks: {
+        meal: "Greek yogurt, mixed nuts.",
+        imageurl:
+          "https://l450v.alamy.com/450v/2fkb90p/glass-bowl-with-greek-yogurt-and-mixed-nuts-healthy-sports-vegetarian-protein-rich-diet-homemade-granola-breakfast-with-milk-honey-almond-cashew-2fkb90p.jpg",
+      },
+    },
+  },
+  "Boost Self-Confidence": {
+    "nutrition plan": "Balanced diet with a focus on foods that boost mood.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed vegetables.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/04/Featured-Image-1-4.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Improve Mental Clarity and Focus": {
+    "nutrition plan":
+      "Balanced diet with foods rich in omega-3 and antioxidants.",
+    "diet plan": {
+      breakfast: {
+        meal: "Oatmeal with berries and a touch of honey.",
+        imageurl:
+          "https://wholefoodsoulfoodkitchen.com/wp-content/uploads/2023/03/honey-oatmeal-recipe-1.jpg",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      dinner: {
+        meal: "Grilled salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://melodiceats.com/wp-content/uploads/2023/12/matthuesart_Grilled_Salmon_with_Quinoa_and_Steamed_Broccoli_c690c998-0991-468a-aadc-aa6b48f297ec.png",
+      },
+      snacks: {
+        meal: "Dark chocolate, herbal tea.",
+        imageurl:
+          "https://5.imimg.com/data5/SELLER/Default/2023/1/JF/WI/WG/2623595/chocolate-tea-500x500.jpg",
+      },
+    },
+  },
+  "Enhance Mood": {
+    "nutrition plan":
+      "Balanced diet with foods rich in omega-3 and antioxidants.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed vegetables.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/04/Featured-Image-1-4.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Build Discipline and Consistency": {
+    "nutrition plan": "Balanced diet with all macronutrients and hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of granola.",
+        imageurl:
+          "https://foolproofliving.com/wp-content/uploads/2017/12/Greek-Yogurt-Parfait-with-fruit-600x600.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Apple slices with almond butter, carrot sticks with hummus.",
+        imageurl:
+          "https://www.asaucykitchen.com/wp-content/uploads/2023/09/apple-hummus_-2-720x540.jpg",
+      },
+    },
+  },
+  "Develop a Positive Body Image": {
+    "nutrition plan": "Balanced diet with a focus on foods that boost mood.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed vegetables.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/04/Featured-Image-1-4.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Meet New People": {
+    "nutrition plan": "Balanced diet with all macronutrients and hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of granola.",
+        imageurl:
+          "https://foolproofliving.com/wp-content/uploads/2017/12/Greek-Yogurt-Parfait-with-fruit-600x600.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Apple slices with almond butter, carrot sticks with hummus.",
+        imageurl:
+          "https://www.asaucykitchen.com/wp-content/uploads/2023/09/apple-hummus_-2-720x540.jpg",
+      },
+    },
+  },
+  "Find a Workout Buddy": {
+    "nutrition plan": "Balanced diet with high protein and moderate carbs.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Join a Fitness Community or Group": {
+    "nutrition plan": "Balanced diet with all macronutrients and hydration.",
+    "diet plan": {
+      breakfast: {
+        meal: "Greek yogurt with berries and a sprinkle of granola.",
+        imageurl:
+          "https://foolproofliving.com/wp-content/uploads/2017/12/Greek-Yogurt-Parfait-with-fruit-600x600.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked salmon with quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Apple slices with almond butter, carrot sticks with hummus.",
+        imageurl:
+          "https://www.asaucykitchen.com/wp-content/uploads/2023/09/apple-hummus_-2-720x540.jpg",
+      },
+    },
+  },
+  "Participate in Group Fitness Classes": {
+    "nutrition plan": "Balanced diet with high protein and moderate carbs.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+  "Prepare for a Bodybuilding Competition": {
+    "nutrition plan": "High protein, moderate carbs, and low fat.",
+    "diet plan": {
+      breakfast: {
+        meal: "Egg whites with spinach and whole grain toast.",
+        imageurl:
+          "https://i0.wp.com/smittenkitchen.com/wp-content/uploads//2013/04/spinach-and-smashed-egg-toast.jpg?fit=1200%2C800&ssl=1",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      dinner: {
+        meal: "Grilled fish with a side of steamed vegetables.",
+        imageurl:
+          "https://notsoseriouseats.com/wp-content/uploads/2017/05/DSC01485-1024x681.jpg",
+      },
+      snacks: {
+        meal: "Cottage cheese, protein shake.",
+        imageurl:
+          "https://www.sweetashoney.co/wp-content/uploads/Cottage-Cheese-Protein-Shake-3.jpg",
+      },
+    },
+  },
+  "Enter a Powerlifting Meet": {
+    "nutrition plan": "High protein and carbs for muscle recovery and energy.",
+    "diet plan": {
+      breakfast: {
+        meal: "Eggs with whole grain toast and avocado.",
+        imageurl:
+          "https://www.skinnytaste.com/wp-content/uploads/2015/01/Avocado-Toast-with-Egg-8.jpg",
+      },
+      lunch: {
+        meal: "Turkey wrap with spinach and hummus.",
+        imageurl:
+          "https://mysanfranciscokitchen.com/wp-content/uploads/2013/02/spinach-wrap-r.jpg",
+      },
+      dinner: {
+        meal: "Steak with a side of quinoa and roasted vegetables.",
+        imageurl:
+          "https://mealpractice.b-cdn.net/70445873234055168/grilled-steak-with-roasted-vegetables-and-quinoa-MQ4d7sKhEe.webp",
+      },
+      snacks: {
+        meal: "Protein bars, banana.",
+        imageurl:
+          "https://busybuthealthy.com/wp-content/uploads/2010/10/banana-nut-protein-bars_2-Copy.jpg",
+      },
+    },
+  },
+  "Compete in a Fitness Challenge or Event": {
+    "nutrition plan": "Balanced diet with high protein and moderate carbs.",
+    "diet plan": {
+      breakfast: {
+        meal: "Smoothie with spinach, berries, and almond milk.",
+        imageurl:
+          "https://shaneandsimple.com/wp-content/uploads/2021/02/DELICIOUS-Spinach-Berry-SMOOTHIE-The-perfect-way-to-start-the-day-antioxidants-EASY-creamy-smoothie-glutenfree-greensmoothie-vegan-dairyfree-healthy-shaneandsimple-2.jpg",
+      },
+      lunch: {
+        meal: "Grilled chicken salad with mixed greens and a light vinaigrette.",
+        imageurl:
+          "https://longevitycareclinic.com/wp-content/uploads/2023/12/Grilled-Chicken-Salad-with-Mixed-Greens-and-Balsamic-Vinaigrette-plated-on-a-table-68929.jpg",
+      },
+      dinner: {
+        meal: "Baked fish with a side of quinoa and steamed broccoli.",
+        imageurl:
+          "https://tealnotes.com/wp-content/uploads/2023/05/Baked-Salmon-with-Quinoa-and-Broccoli.png",
+      },
+      snacks: {
+        meal: "Greek yogurt, almonds.",
+        imageurl:
+          "https://www.almonds.com/sites/default/files/2020-07/abc_BreakfastPairing_A_re01.jpg",
+      },
+    },
+  },
+};

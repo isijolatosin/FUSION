@@ -224,7 +224,7 @@ const GymtypesComponent = ({
             style={{
               paddingTop: theme.spaceNumber[3],
               borderBottomWidth: 0.3,
-              borderBottomColor: theme.colors.brand.base8,
+              borderBottomColor: theme.colors.brand.base7,
               paddingBottom: theme.spaceNumber[2],
               marginBottom: theme.spaceNumber[5],
               flexDirection: "row",

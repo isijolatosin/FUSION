@@ -5,22 +5,16 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
 import Constants from "expo-constants";
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, Pressable, TouchableOpacity, View } from "react-native";
 import {
   Fontisto,
   FontAwesome,
   MaterialCommunityIcons,
   FontAwesome5,
-  Foundation,
   EvilIcons,
 } from "@expo/vector-icons";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
@@ -63,10 +57,7 @@ import firebase, { database } from "../../../../config";
 import hasCombimneMatchElements from "../../../utilities/hasCombimneMatchElements";
 import Placeholder from "../../../components/general-component/Placeholder";
 import GymtypesComponent from "../../../components/general-component/GymtypesComponent";
-import {
-  getCityFromAddress,
-  getLocationByAddress,
-} from "../../../utilities/getUserLocation";
+import { getLocationByAddress } from "../../../utilities/getUserLocation";
 import ImageViewer from "../../../components/general-component/ImageViewer";
 import { generateCity } from "../../../utilities/generateCity";
 
@@ -666,6 +657,7 @@ const Index = ({ navigation }) => {
         backgroundColor: theme.colors.brand.base,
         position: "relative",
       }}>
+      <StatusBar style="light" />
       {isLoadCard ? (
         <Placeholder theme={theme} width={width} height={height} />
       ) : (
@@ -841,8 +833,6 @@ const Index = ({ navigation }) => {
                 ? theme.colors.brand.black2
                 : theme.colors.brand.black1,
               paddingVertical: theme.spaceNumber[3],
-              borderBottomWidth: 0.5,
-              borderBottomColor: theme.colors.brand.base,
             }}>
             <Text
               style={{ textAlign: "center" }}
@@ -919,7 +909,7 @@ const Index = ({ navigation }) => {
                       alignItems: "flex-start",
                       justifyContent: "space-between",
                       borderBottomWidth: 0.2,
-                      borderBottomColor: theme.colors.brand.basewhitelighter,
+                      borderBottomColor: theme.colors.brand.base7,
                     }}>
                     <View>
                       <Text
@@ -1032,7 +1022,7 @@ const Index = ({ navigation }) => {
                             style={{
                               alignItems: "start",
                               borderBottomWidth: 0.5,
-                              borderBottomColor: theme.colors.brand.base8,
+                              borderBottomColor: theme.colors.brand.base7,
                               paddingBottom: theme.spaceNumber[1],
                               marginBottom: theme.spaceNumber[0],
                               width: "70%",
@@ -1064,8 +1054,7 @@ const Index = ({ navigation }) => {
                       )}
                       <View
                         style={{
-                          borderBottomColor:
-                            theme.colors.brand.basewhitelighter,
+                          borderBottomColor: theme.colors.brand.base7,
                           borderBottomWidth: 0.2,
                           paddingBottom: theme.spaceNumber[2],
                         }}>
