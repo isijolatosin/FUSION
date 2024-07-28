@@ -58,10 +58,10 @@ const Index = () => {
   }
 
   const currentHour = getCurrentHour(new Date());
-  let greeting = `It's Morning ${currentUser?.firstname}`;
+  let greeting = `It's Dawn ${currentUser?.firstname}`;
   let mealName = "Breakfast";
   if (currentHour >= 12) {
-    greeting = `It's Noon ${currentUser?.firstname}`;
+    greeting = `It's Daytime ${currentUser?.firstname}`;
     mealName = "Lunch";
   }
   if (currentHour >= 17) {
@@ -117,7 +117,7 @@ const Index = () => {
                 <HeaderComponent
                   title={greeting}
                   theme={theme}
-                  size="h4"
+                  size="h5"
                   transform="capitalize"
                   LeftComp={() => <></>}
                   RightComp={() => <></>}
