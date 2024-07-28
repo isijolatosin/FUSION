@@ -31,4 +31,9 @@ function getDate(timestamp) {
   return formattedDate;
 }
 
-export { getTime, getDate };
+const getCurrentHour = () => {
+  const date = new Date();
+  return date.getHours();
+};
+
+export { getTime, getDate, getCurrentHour };

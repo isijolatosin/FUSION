@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import { ScrollView, Pressable, View, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -399,6 +400,7 @@ const ChatsScreen = () => {
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.base }}>
+      <StatusBar style="light" />
       <HeaderComponent
         title="Chats"
         theme={theme}

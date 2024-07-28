@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
@@ -129,6 +130,7 @@ const LikesScreen = () => {
 
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.base }}>
+      <StatusBar style="light" />
       <HeaderComponent
         title="Fitness Interests"
         theme={theme}

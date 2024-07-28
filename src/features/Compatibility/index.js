@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import { Dimensions, ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import Constants from "expo-constants";
@@ -297,6 +298,7 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar style="light" />
       <ScreenWrapper theme={theme} width={width}>
         <Spacer
           position="top"

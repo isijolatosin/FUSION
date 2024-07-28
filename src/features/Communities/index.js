@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { useFocusEffect } from "@react-navigation/native";
 import Constants from "expo-constants";
 
@@ -272,6 +273,7 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar style="light" />
       <ScreenWrapper
         currentScreen={currentScreen}
         setCurrentScreen={setCurrentScreen}
