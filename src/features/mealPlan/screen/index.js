@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   ImageBackground,
@@ -20,6 +20,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { getCurrentHour } from "../../../utilities/formatTimestamp";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CompatibleContainer = styled(ImageBackground)`
   flex: 0.65;
@@ -34,24 +35,31 @@ const Index = () => {
   const [isLoadCard, setIsLoadCard] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
-    (async () => {
-      const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
+  async function fetchData() {
+    const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
-      const newData = await getAllData("all-users");
-      const currentUserData = newData.find(
-        (data) => data.phonenumber === phoneValueFromPhoneMemory
-      );
-      setCurrentUser(currentUserData);
+    const newData = await getAllData("all-users");
+    const currentUserData = newData.find(
+      (data) => data.phonenumber === phoneValueFromPhoneMemory
+    );
+    setCurrentUser(currentUserData);
 
-      const mealID = setTimeout(() => {
-        setIsLoadCard(false);
-      }, 2000);
+    const mealID = setTimeout(() => {
+      setIsLoadCard(false);
+    }, 2000);
 
-      storeData("last-screen-visit", "meal-plan");
-      return () => clearTimeout(mealID);
-    })();
-  }, []);
+    storeData("last-screen-visit", "meal-plan");
+    return () => clearTimeout(mealID);
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
 
   if (isLoadCard) {
     return <Loading theme={theme} width={width} />;

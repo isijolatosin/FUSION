@@ -34,6 +34,7 @@ import YourProfileIsSet from "../../Onboarding/components/YourProfileIsSet.scree
 import MainScreen from "../../Main/screen";
 import ProfileScreen from "../../Profile/screen";
 import MealPlanScreen from "../../mealPlan/screen";
+import ExerciseScreen from "../../ExerciseOptions/screen";
 import LikesScreen from "../../Likes/screen";
 import ChatsScreen from "../../Chats/screen";
 import CaptureSexualOrientation from "../../Onboarding/components/CaptureSexualOrientation.screen";
@@ -65,6 +66,14 @@ const TabNavigator = ({ route }) => {
       size: 25,
       isBaseComponent: false,
       isMealComponent: true,
+    },
+    {
+      component: ExerciseScreen,
+      Icon: MaterialCommunityIcons,
+      name: "exercise",
+      iconName: "weight-lifter",
+      size: 25,
+      isBaseComponent: false,
     },
     {
       component: LikesScreen,
