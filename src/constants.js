@@ -2637,3 +2637,541 @@ export const gymNutritionPlans = {
     },
   },
 };
+export const muscleOptions = [
+  "abductors",
+  "abs",
+  "biceps",
+  "calves",
+  "cardiovascular system",
+  "delts",
+  "forearms",
+  "glutes",
+  "hamstrings",
+  "lats",
+  "levator scapulae",
+  "pectorals",
+  "quads",
+  "serratus anterior",
+  "spine",
+  "traps",
+  "triceps",
+  "upper back",
+];
+export const musclesExercisesByBodyParts = {
+  abductors: {
+    bodyParts: ["upper legs"],
+    "Lateral Leg Raises": {
+      name: "Lateral Leg Raises",
+      image: [
+        "https://d2culxnxbccemt.cloudfront.net/bowl/content/uploads/2022/10/05100329/lateral-3.gif",
+        "https://s-media-cache-ak0.pinimg.com/originals/9e/79/d3/9e79d3b65ef5048ab5a683cf26eeaf4d.gif",
+      ],
+    },
+    "Cable Hip Abduction": {
+      name: "Cable Hip Abduction",
+      image: [
+        "https://newlife.com.cy/wp-content/uploads/2019/12/08791301-Cable-hip-abduction-version-2_Hips_360.gif",
+        "https://burnfit.io/wp-content/uploads/2023/11/CABLE_HIP_ABD.gif",
+      ],
+    },
+    "Side Lunges": {
+      name: "Side Lunges",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/05/Side-Lunge-Stretch.gif",
+        "https://newlife.com.cy/wp-content/uploads/2019/11/14101301-Barbell-Lateral-Lunge_Hips_360-1.gif",
+      ],
+    },
+    "Standing Adduction": {
+      name: "Standing Adduction",
+      image: [
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/11/side-leg-swings.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/05/Cable-Hips-Adduction.gif",
+      ],
+    },
+    "Sumo Squats": {
+      name: "Sumo Squats",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/dumbbell-sumo-squat.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2021/10/dumbbell-sumo-squat.gif",
+      ],
+    },
+    "Side Lying Leg Lifts": {
+      name: "Side Lying Leg Lifts",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2022/02/Band-Side-Lying-Leg-Lift.gif",
+      ],
+    },
+    exerciseTypes: [
+      "Cable Hip Abduction",
+      "Side Lunges",
+      "Standing Adduction",
+      "Sumo Squats",
+      "Side Lying Leg Lifts",
+      "Lateral Leg Raises",
+    ],
+  },
+  abs: {
+    bodyParts: ["waist"],
+    Crunches: {
+      name: "Crunches",
+      image: [
+        "https://gifdb.com/images/high/tuck-crunches-jase-stuart-exercise-f6w2evz2yx0144my.gif",
+        "https://gifdb.com/images/high/sports-man-jase-stuart-crunches-exercise-lk374yrvj0ws3m1y.gif",
+      ],
+    },
+    Planks: {
+      name: "Planks",
+      image: [
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/01/plank.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Weighted-Front-Plank.gif",
+      ],
+    },
+    "Russian Twists": {
+      name: "Russian Twists",
+      image1:
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Russian-Twist.gif",
+    },
+    exerciseTypes: ["Crunches", "Planks", "Russian Twists"],
+  },
+  biceps: {
+    bodyParts: ["upper arms"],
+    "Bicep Curls": {
+      name: "Bicep Curls",
+      image: [
+        "https://i.pinimg.com/originals/7d/3c/de/7d3cdeed84c1c19ad372d5b25beffd08.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/seated-biceps-curl.gif",
+      ],
+    },
+    "Hammer Curls": {
+      name: "Hammer Curls",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Hammer-Curl.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/04/dumbbell-hammer-curl.gif",
+      ],
+    },
+    "Concentration Curls": {
+      name: "Concentration Curls",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Concentration-Curl.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/01/barbell-concentration-curls.gif",
+      ],
+    },
+    exerciseTypes: ["Bicep Curls", "Hammer Curls", "Concentration Curls"],
+  },
+  calves: {
+    bodyParts: ["lower legs"],
+    "Calf Raises": {
+      name: "Calf Raises",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Calf-Raise.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/01/standing-calf-raise.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2021/06/single-leg-standing-calf-raise.gif",
+      ],
+    },
+    "Seated Calf Raises": {
+      name: "Seated Calf Raises",
+      image: [
+        "https://fitnessvolt.com/wp-content/uploads/2023/09/seated-calf-raise.gif",
+        "https://newlife.com.cy/wp-content/uploads/2019/11/26661301-Lever-Seated-Calf-Raise-plate-loaded-VERSION-2_Calves_360.gif",
+      ],
+    },
+    "Jump Rope": {
+      name: "Jump Rope",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Jump-Rope.gif",
+        "https://burnfit.io/wp-content/uploads/2023/11/JUMP_ROPE.gif",
+      ],
+    },
+    exerciseTypes: ["Calf Raises", "Seated Calf Raises", "Jump Rope"],
+  },
+  "cardiovascular system": {
+    bodyParts: ["cardio"],
+    Running: {
+      name: "Running",
+      image: [
+        "https://burnfit.io/wp-content/uploads/2023/11/TREADMIL.gif",
+        "https://i.pinimg.com/originals/16/c1/09/16c109db5ac3caf001e7d56f9bbaae4e.gif",
+      ],
+    },
+    Cycling: {
+      name: "Cycling",
+      image: [
+        "https://i.pinimg.com/originals/f1/55/97/f1559725611bf96c448c76629a9bc890.gif",
+        "https://i.pinimg.com/originals/9c/5b/16/9c5b161a5d82ca159febba71e9cca091.gif",
+      ],
+    },
+    Swimming: {
+      name: "Swimming",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/05/Swimming.gif",
+        "https://www.arenaswim.com/media/immagini/630_z_CRAWL_Lat_Paddle.gif",
+      ],
+    },
+    exerciseTypes: ["Running", "Cycling", "Swimming"],
+  },
+  delts: {
+    bodyParts: ["shoulders"],
+    "Shoulder Press": {
+      name: "Shoulder Press",
+      image: [
+        "https://media.tenor.com/vFJSvh8AvhAAAAAM/a1.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2023/09/Standing-Dumbbell-Overhead-Press.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif",
+      ],
+    },
+    "Lateral Raises": {
+      name: "Lateral Raises",
+      image: [
+        "https://cdn.shopify.com/s/files/1/0449/8453/3153/files/Dumbbell_Lateral_Raises_muscle_worked_600x600.gif?v=1698802254",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Seated-Dumbbell-Lateral-Raise.gif",
+        "https://media.tenor.com/UsgJLQd7LLwAAAAM/good-morning.gif",
+      ],
+    },
+    "Front Raises": {
+      name: "Front Raises",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Alternating-Dumbbell-Front-Raise.gif",
+        "https://newlife.com.cy/wp-content/uploads/2019/11/22331301-Dumbbell-Front-Raise-female_Shoulders_360-4.gif",
+      ],
+    },
+    exerciseTypes: ["Shoulder Press", "Lateral Raises", "Front Raises"],
+  },
+  forearms: {
+    bodyParts: ["lower arms"],
+    "Wrist Curls": {
+      name: "Wrist Curls",
+      image: [
+        "https://i.pinimg.com/originals/15/ac/77/15ac77a4a3da197a0336e9bff38491b2.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Behind-The-Back-Barbell-Wrist-Curl.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2023/07/dumbbell-wrist-curl.gif",
+      ],
+    },
+    "Reverse Wrist Curls": {
+      name: "Reverse Wrist Curls",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2022/06/Barbell-Reverse-Wrist-Curl-Over-a-Bench.gif",
+        "https://burnfit.io/wp-content/uploads/2023/11/REV_DB_WRIST_CURL.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Reverse-Wrist-Curl.gif",
+      ],
+    },
+    "Farmer's Walk": {
+      name: "Farmer's Walk",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2022/02/Farmers-walk_Cardio.gif",
+      ],
+    },
+    exerciseTypes: ["Wrist Curls", "Reverse Wrist Curls", "Farmer's Walk"],
+  },
+  glutes: {
+    bodyParts: ["upper legs"],
+    "Glute Bridges": {
+      name: "Glute Bridges",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Glute-Bridge-.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/01/Dumbbell-Glute-Bridge.gif",
+        "https://newlife.com.cy/wp-content/uploads/2019/11/07291301-Single-Leg-Hip-Bridge-straight-leg_hips_360.gif",
+      ],
+    },
+    Squats: {
+      name: "Squats",
+      image: [
+        "https://www.kettlebellkings.com/cdn/shop/articles/Front_Squats.gif?v=1694617488",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/05/Bodyweight-Squat.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2021/06/bodyweight-squat-2.gif",
+      ],
+    },
+    Deadlifts: {
+      name: "Deadlifts",
+      image: [
+        "https://www.kettlebellkings.com/cdn/shop/articles/barbell-deadlift-movement.gif?v=1692228918",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Deadlift.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2023/01/deadlift-back-view.gif",
+        "https://newlife.com.cy/wp-content/uploads/2018/12/22141301-Barbell-Deadlift-female_Hips_720.gif",
+      ],
+    },
+    exerciseTypes: ["Glute Bridges", "Squats", "Deadlifts"],
+  },
+  hamstrings: {
+    bodyParts: ["upper legs"],
+    "Leg Curls": {
+      name: "Leg Curls",
+      image: [
+        "https://media.tenor.com/ZElx6PviDq0AAAAM/gym.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/04/Lying-Dumbbell-Leg-Curl.gif",
+        "https://i.pinimg.com/originals/db/36/38/db3638759c5a5145d1ed9738a0644e9b.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/09/Lever-Kneeling-Leg-Curl-.gif",
+      ],
+    },
+    "Romanian Deadlifts": {
+      name: "Romanian Deadlifts",
+      image: [
+        "https://cdn.shopify.com/s/files/1/0449/8453/3153/files/barbell-deadlift_600x600.gif?v=1690860568",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Romanian-Deadlift.gif",
+      ],
+    },
+    "Glute-Ham Raises": {
+      name: "Glute-Ham Raises",
+      image: [
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/04/glute-ham-raise-muscles.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/01/glute-bridge.gif",
+      ],
+    },
+    exerciseTypes: ["Leg Curls", "Romanian Deadlifts", "Glute-Ham Raises"],
+  },
+  lats: {
+    bodyParts: ["back"],
+    "Pull-Ups": {
+      name: "Pull-Ups",
+      image: [
+        "https://newlife.com.cy/wp-content/uploads/2019/08/18661301-Wide-Grip-Pull-Up-on-Dip-Cage_Back_720.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2023/05/band-assisted-pull-up.gif",
+      ],
+    },
+    "Lat Pulldowns": {
+      name: "Lat Pulldowns",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/wide-grip-lat-pulldown.gif",
+      ],
+    },
+    "Bent Over Rows": {
+      name: "Bent Over Rows",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Bent-Over-Row.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/10/Dumbbell-Bent-Over-Reverse-Row.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Incline-Reverse-Grip-Dumbbell-Row.gif",
+      ],
+    },
+    exerciseTypes: ["Pull-Ups", "Lat Pulldowns", "Bent Over Rows"],
+  },
+  "levator scapulae": {
+    bodyParts: ["neck"],
+    Shrugs: {
+      name: "Shrugs",
+      image: [
+        "https://cdn.shopify.com/s/files/1/0547/0486/5477/files/dumbbell-shrug_480x480.gif?v=1701426774",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/barbell-shrug-muscles.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2023/03/Behind-The-Back-Barbell-Shrug-Reverse-Barbell-Shrug.gif",
+      ],
+    },
+    "Neck Stretches": {
+      name: "Neck Stretches",
+      image: [
+        "https://i.pinimg.com/originals/72/63/92/726392b158efa5436bd1c94a6551143b.gif",
+        "https://i.pinimg.com/originals/93/f6/c9/93f6c95f531b72720c3226c9767bbe6b.gif",
+        "https://i.pinimg.com/originals/17/90/5d/17905dc2fda2f75d7099e41f12695541.gif",
+      ],
+    },
+    "Lateral Neck Flexion": {
+      name: "Lateral Neck Flexion",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2022/02/Lying-Weighted-Lateral-Neck-Flexion.gif",
+        "https://i.pinimg.com/originals/89/26/a7/8926a7a5a9a148016ae027715f7690df.gif",
+      ],
+    },
+    exerciseTypes: ["Shrugs", "Neck Stretches", "Lateral Neck Flexion"],
+  },
+  pectorals: {
+    bodyParts: ["chest"],
+    "Bench Press": {
+      name: "Bench Press",
+      image: [
+        "https://i.pinimg.com/originals/bc/d2/05/bcd205cf9e64811981d715deebaa41da.gif",
+        "https://newlife.com.cy/wp-content/uploads/2019/11/16241301-Dumbbell-Reverse-Bench-Press_Chest_360.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Press.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Incline-Dumbbell-Press.gif",
+      ],
+    },
+    "Push-Ups": {
+      name: "Push-Ups",
+      image: [
+        "https://i.pinimg.com/originals/00/2f/9a/002f9a315be7db7b0f0a79ca81e1f5d5.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/01/Kneeling-Push-up.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Knee-Push-Up.gif",
+        "https://cdn-cccio.nitrocdn.com/sQAAylIpwgMYZgBLSXcMgCkUIbfIzHvb/assets/images/optimized/rev-3d9de4c/www.aleanlife.com/wp-content/uploads/2023/09/02591301-Close-Grip-Push-up_Upper-Arms_360.gif",
+      ],
+    },
+    "Chest Flyes": {
+      name: "Chest Flyes",
+      image: [
+        "https://newlife.com.cy/wp-content/uploads/2019/11/03081301-Dumbbell-Fly_Chest-FIX_360.gif",
+        "https://i.pinimg.com/originals/1b/d3/4f/1bd34f913d89df896ba857018a66b4f8.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/05/Middle-fly.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/05/High-Chest-Fly-With-Resistance-Band.gif",
+      ],
+    },
+    exerciseTypes: ["Bench Press", "Push-Ups", "Chest Flyes"],
+  },
+  quads: {
+    bodyParts: ["upper legs"],
+    Squats: {
+      name: "Squats",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/dumbbell-sumo-squat.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2021/10/dumbbell-sumo-squat.gif",
+      ],
+    },
+    "Leg Press": {
+      name: "Leg Press",
+      image: [
+        "https://i.pinimg.com/originals/28/71/f1/2871f10fe6278aa6e97e134a07faad57.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2015/11/Leg-Press.gif",
+        "https://burnfit.io/wp-content/uploads/2023/11/HZ_SL_LEG_PRESS.gif",
+      ],
+    },
+    Lunges: {
+      name: "Lunges",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2023/09/power-lunge.gif",
+        "https://media.tenor.com/sZ7VwZ6jrbcAAAAM/gym.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2023/10/Static-Lunge.gif",
+        "https://newlife.com.cy/wp-content/uploads/2019/11/00541301-Barbell-Lunge_Thighs_360.gif",
+      ],
+    },
+    exerciseTypes: ["Squats", "Leg Press", "Lunges"],
+  },
+  "serratus anterior": {
+    bodyParts: ["waist"],
+    "Push-Ups": {
+      name: "Push-Ups",
+      image: [
+        "https://i.pinimg.com/originals/00/2f/9a/002f9a315be7db7b0f0a79ca81e1f5d5.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/01/Kneeling-Push-up.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Knee-Push-Up.gif",
+        "https://cdn-cccio.nitrocdn.com/sQAAylIpwgMYZgBLSXcMgCkUIbfIzHvb/assets/images/optimized/rev-3d9de4c/www.aleanlife.com/wp-content/uploads/2023/09/02591301-Close-Grip-Push-up_Upper-Arms_360.gif",
+      ],
+    },
+    "Plank to Downward Dog": {
+      name: "Plank to Downward Dog",
+      image: [
+        "https://newlife.com.cy/wp-content/uploads/2019/11/28971301-Front-Plank-with-Arm-and-Leg-Lift-push-up-position-female_360.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/07/Bird-Dog.gif",
+      ],
+    },
+    "Scapular Push-Ups": {
+      name: "Scapular Push-Ups",
+      image: [
+        "https://cdn-cccio.nitrocdn.com/sQAAylIpwgMYZgBLSXcMgCkUIbfIzHvb/assets/images/optimized/rev-3d9de4c/www.aleanlife.com/wp-content/uploads/2023/08/scapular-push-up.gif",
+        "https://i.pinimg.com/originals/23/b5/01/23b50198aff15ba63f69f8f47de2554e.gif",
+      ],
+    },
+    exerciseTypes: ["Push-Ups", "Plank to Downward Dog", "Scapular Push-Ups"],
+  },
+  spine: {
+    bodyParts: ["back"],
+    "Superman Exercise": {
+      name: "Superman Exercise",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Superman-exercise.gif",
+        "https://homeworkouts.org/wp-content/uploads/anim-dumbbell-supermans.gif",
+      ],
+    },
+    "Back Extensions": {
+      name: "Back Extensions",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/seated-back-extension.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Weighted-Back-Extension.gif",
+        "https://i.pinimg.com/originals/f7/62/a5/f762a5c1c9d0d818c482e2829a1f9db1.gif",
+        "https://bodybuilding-wizard.com/wp-content/uploads/2018/10/smith-machine-back-extension-hyperextension-exercise.gif",
+      ],
+    },
+    "Cat-Cow Stretch": {
+      name: "Cat-Cow Stretch",
+      image: [
+        "https://homeworkouts.org/wp-content/uploads/anim-cat-cow-pose.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/cat-cow.gif",
+      ],
+    },
+    exerciseTypes: ["Superman Exercise", "Back Extensions", "Cat-Cow Stretch"],
+  },
+  traps: {
+    bodyParts: ["upper back", "neck"],
+    Shrugs: {
+      name: "Shrugs",
+      image1:
+        "https://cdn.shopify.com/s/files/1/0547/0486/5477/files/dumbbell-shrug_480x480.gif?v=1701426774",
+      image2:
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/08/barbell-shrug-muscles.gif",
+      image3:
+        "https://fitnessprogramer.com/wp-content/uploads/2023/03/Behind-The-Back-Barbell-Shrug-Reverse-Barbell-Shrug.gif",
+    },
+    "Upright Rows": {
+      name: "Upright Rows",
+      image: [
+        "https://miro.medium.com/v2/resize:fit:864/1*b65d0PhFVK-JQsCqXG2K9g.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/Dumbbell-Upright-Row.gif",
+        "https://i.pinimg.com/originals/50/6c/04/506c04a76f8d102d6dde87f3a0d6c6e5.gif",
+      ],
+    },
+    "Face Pulls": {
+      name: "Face Pulls",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Face-Pull.gif",
+        "https://i.pinimg.com/originals/c5/3b/8c/c53b8c84f1b8f044d05da7462016c417.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2023/10/towel-face-pull.gif",
+      ],
+    },
+    exerciseTypes: ["Shrugs", "Upright Rows", "Face Pulls"],
+  },
+  triceps: {
+    bodyParts: ["upper arms"],
+    "Tricep Dips": {
+      name: "Tricep Dips",
+      image: [
+        "https://i.pinimg.com/originals/8e/2d/5c/8e2d5c31cc48e8a61a69ca7b078cc505.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2021/08/tricep-dips.gif",
+      ],
+    },
+    "Tricep Pushdowns": {
+      name: "Tricep Pushdowns",
+      image: [
+        "https://i.pinimg.com/originals/cd/07/7e/cd077ebb5a33aedd405f082c1494189a.gif",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6fJDpp_sohfdgcgwnEPguSIaxxu_PrQ6SHVaCrQVExfst_77LTSMR8Zju4LpqXD_pWK0&usqp=CAU",
+        "https://i.pinimg.com/originals/c5/a7/9b/c5a79b42a3ac734bfffd4c83d0dcd184.gif",
+      ],
+    },
+    "Skull Crushers": {
+      name: "Skull Crushers",
+      image: [
+        "https://media.tenor.com/ToAHkKHVQP4AAAAM/on-lying-triceps-al%C4%B1n-press.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Dumbbell-Skull-Crusher.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/02/Band-Skull-Crusher.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2022/02/Bodyweight-Skull-Crushers.gif",
+        "https://www.inspireusafoundation.org/wp-content/uploads/2022/03/cable-tricep-overhead-extensions.gif",
+      ],
+    },
+    exerciseTypes: ["Tricep Dips", "Tricep Pushdowns", "Skull Crushers"],
+  },
+  "upper back": {
+    bodyParts: ["upper back"],
+    "Reverse Flyes": {
+      name: "Reverse Flyes",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Reverse-Fly.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/bent-over-reverse-cable-fly.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Bent-Over-Lateral-Raise.gif",
+        "https://ccuuubmtdurkmbeufybi.supabase.co/storage/v1/object/public/animations/0359.gif",
+        "https://burnfit.io/wp-content/uploads/2023/11/CABLE_REV_FLY.gif",
+        "https://burnfit.io/wp-content/uploads/2023/11/STD_CABLE_FLY.gif",
+      ],
+    },
+    "Bent Over Rows": {
+      name: "Bent Over Rows",
+      image: [
+        "https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Bent-Over-Row.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Incline-Reverse-Grip-Dumbbell-Row.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/10/Dumbbell-Bent-Over-Reverse-Row.gif",
+      ],
+    },
+    "T-Bar Rows": {
+      name: "T-Bar Rows",
+      image: [
+        "https://i.pinimg.com/originals/a2/cf/5d/a2cf5d462de2446fd77c2237fe21f35e.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/04/t-bar-rows.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/06/Incline-Barbell-Row.gif",
+        "https://fitnessprogramer.com/wp-content/uploads/2021/05/bent-over-form.gif",
+      ],
+    },
+    exerciseTypes: ["Reverse Flyes", "Bent Over Rows", "T-Bar Rows"],
+  },
+};

@@ -526,7 +526,7 @@ export default function SettingModal({
               <Switch
                 trackColor={{
                   false: theme.colors.brand.linesLight,
-                  true: theme.colors.brand.base,
+                  true: theme.colors.brand.linesLighter,
                 }}
                 thumbColor={
                   currentUser?.inAppNotification
@@ -588,7 +588,7 @@ export default function SettingModal({
                 <Switch
                   trackColor={{
                     false: theme.colors.brand.linesLight,
-                    true: theme.colors.brand.base,
+                    true: theme.colors.brand.linesLighter,
                   }}
                   thumbColor={
                     currentUser?.pause
@@ -644,7 +644,7 @@ export default function SettingModal({
                 <Switch
                   trackColor={{
                     false: theme.colors.brand.linesLight,
-                    true: theme.colors.brand.base,
+                    true: theme.colors.brand.linesLighter,
                   }}
                   thumbColor={
                     currentUser?.deactivate
