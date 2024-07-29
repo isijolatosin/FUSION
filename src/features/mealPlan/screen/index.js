@@ -76,6 +76,10 @@ const Index = () => {
     greeting = `It's Dusk ${currentUser?.firstname}`;
     mealName = "Dinner";
   }
+  if (currentHour >= 1 && currentHour <= 5) {
+    greeting = `Good Night ${currentUser?.firstname}`;
+    mealName = "Dinner";
+  }
 
   return (
     <View
