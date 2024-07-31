@@ -35,7 +35,6 @@ import MainScreen from "../../Main/screen";
 import ProfileScreen from "../../Profile/screen";
 import MealPlanScreen from "../../mealPlan/screen";
 import ExerciseScreen from "../../ExerciseOptions/screen";
-import LikesScreen from "../../Likes/screen";
 import ChatsScreen from "../../Chats/screen";
 import CaptureSexualOrientation from "../../Onboarding/components/CaptureSexualOrientation.screen";
 import { theme } from "../../../infrastructure/theme";
@@ -73,14 +72,6 @@ const TabNavigator = ({ route }) => {
       name: "exercise",
       iconName: "weight-lifter",
       size: 25,
-      isBaseComponent: false,
-    },
-    {
-      component: LikesScreen,
-      Icon: SimpleLineIcons,
-      name: "likes",
-      iconName: "like",
-      size: 20,
       isBaseComponent: false,
     },
     {

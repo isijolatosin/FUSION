@@ -2112,23 +2112,39 @@ export const gymNutritionPlans = {
     "diet plan": {
       breakfast: {
         meal: "Smoothie with kale, mango, flax seeds, and almond milk.",
+        imageurl:
+          "https://thenaturalnurturer.com/wp-content/uploads/2022/01/mango-kale-smoothie-3-of-4.jpg",
       },
       Lunch: {
         meal: "Tuna salad with whole grain crackers and a side of cucumber slices.",
+        imageurl:
+          "https://abeautifulmess.com/wp-content/uploads/2021/08/deli-style-tuna-salad.jpg",
       },
       dinner: {
         meal: "Lean pork chop with roasted Brussels sprouts and quinoa.",
+        imageurl:
+          "https://www.bhg.com/thmb/Jxlgvc5Y2rVkpjuJl_WIN5XQexo=/1280x0/filters:no_upscale():strip_icc()/RU326674-228c30c43cfd47b899f9c9efacd9b90b.jpg",
       },
-      snacks: { meal: "Celery sticks with peanut butter, dried apricots." },
+      snacks: {
+        meal: "Celery sticks with peanut butter, dried apricots.",
+        imageurl:
+          "https://www.peanutbutter.com/wp-content/uploads/2019/04/SKIPPY_Recipe_Thumbnail_PB_Log_Rollers-with-Rasins.jpg",
+      },
     },
   },
   "Lower Blood Pressure": {
     "nutrition plan": "Low sodium, high potassium, and magnesium-rich foods.",
     "diet plan": {
-      breakfast: { meal: "Oatmeal with bananas and a sprinkle of flax seeds." },
+      breakfast: {
+        meal: "Oatmeal with bananas and a sprinkle of flax seeds.",
+        imageurl:
+          "https://abiteofjoy.com/wp-content/uploads/2023/06/Featured-The-Ultimate-Guide-To-Weight-Loss-Breakfast-With-Oatmeal-Chia-And-Flax-Seeds-3.png",
+      },
       lunch: {
         meal: {
           meal: "Salmon salad with mixed greens and a light vinaigrette.",
+          imageurl:
+            "https://spicysouthernkitchen.com/wp-content/uploads/salmon-salad-1-419x270.jpg",
         },
       },
       dinner: {

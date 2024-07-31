@@ -19,7 +19,7 @@ const GymCard = ({ gym, theme, gymSelectedTypes, handleSelectedGym }) => {
       <Text
         variant="custom"
         colorType={gymSelectedTypes?.includes(gym) ? "base4" : "base6"}
-        fontType="montserratRegular"
+        fontType="montserratSemibold"
         fontSize="caption">
         {gym}
       </Text>

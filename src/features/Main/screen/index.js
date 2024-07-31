@@ -16,6 +16,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
   EvilIcons,
+  Ionicons,
 } from "@expo/vector-icons";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 
@@ -603,7 +604,7 @@ const Index = ({ navigation }) => {
   if (isLoadCard) {
     setTimeout(function () {
       setLoadCard(false);
-    }, 1000);
+    }, 800);
   }
 
   async function handleSelectedGym(gym) {
@@ -891,7 +892,7 @@ const Index = ({ navigation }) => {
               <View
                 style={{
                   position: "absolute",
-                  bottom: -theme.spaceNumberBy10[2],
+                  bottom: -theme.spaceNumberBy10[1],
                   paddingHorizontal: theme.spaceNumber[5],
                   backgroundColor: theme.colors.brand.baseTint2,
                   width: width,
@@ -1144,6 +1145,7 @@ const Index = ({ navigation }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
+                      position: "relative",
                       backgroundColor: theme.colors.brand.base1,
                       width: theme.spaceNumberBy10[3],
                       height: theme.spaceNumberBy10[3],
@@ -1166,6 +1168,20 @@ const Index = ({ navigation }) => {
                       size={theme.spaceNumber[7]}
                       color={theme.colors.brand.base}
                     />
+                    <View
+                      style={{
+                        position: "absolute",
+                        bottom: -theme.spaceNumber[5],
+                      }}>
+                      <Text
+                        style={{ textAlign: "center" }}
+                        variant="custom"
+                        colorType="teal"
+                        fontType="montserratBold"
+                        fontSize="xcaption">
+                        Skip
+                      </Text>
+                    </View>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={handleYouLikedAUser}
@@ -1181,11 +1197,25 @@ const Index = ({ navigation }) => {
                     }}>
                     <IconComponent
                       iconFunction={handleYouLikedAUser}
-                      iconName="weight-lifter"
-                      IconComponent={MaterialCommunityIcons}
-                      size={theme.spaceNumber[10]}
+                      iconName="checkmark"
+                      IconComponent={Ionicons}
+                      size={theme.spaceNumber[15]}
                       color={theme.colors.brand.base}
                     />
+                    <View
+                      style={{
+                        position: "absolute",
+                        bottom: -theme.spaceNumber[11],
+                      }}>
+                      <Text
+                        style={{ textAlign: "center" }}
+                        variant="custom"
+                        colorType="teal"
+                        fontType="montserratBold"
+                        fontSize="xcaption">
+                        Connect
+                      </Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
               </View>

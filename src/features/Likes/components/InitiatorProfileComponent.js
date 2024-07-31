@@ -108,7 +108,7 @@ export default function InitiatorProfileComponent({
     } else {
       setDoubleTapWarnings(true);
     }
-
+    setIsRetrigger(true);
     // Update the lastTap reference
     lastTap.current = now;
   }

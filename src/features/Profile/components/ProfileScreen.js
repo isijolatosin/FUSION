@@ -78,6 +78,7 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import GymCard from "../../../components/general-component/GymCard";
 import { getGymTypeByCountryData } from "../../../utilities/getGymTypeByCountryData";
+import { gymGoalsKey, gymGoalsObject } from "../../../constants";
 
 export default function ProfileScreen() {
   const videoRef = useRef(null);
@@ -86,6 +87,7 @@ export default function ProfileScreen() {
   } = useAppContext();
   const { height } = Dimensions.get("window");
   const [isTrigger, setIsTrigger] = useState(false);
+  const [isGoalModal, setIsGoalModal] = useState(false);
   const [isGrayscale, setIsGrayscale] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -94,6 +96,7 @@ export default function ProfileScreen() {
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
   const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
   const [fitnessPreference, setFitnessPreference] = useState([]);
+  const [gymGoalsArray, setGymGoals] = useState([]);
   const [openUpdateModal, setOpenUpdateModal] = useState({
     type: "",
     isOpen: false,
@@ -125,6 +128,7 @@ export default function ProfileScreen() {
     );
     setFitnessPreference(getGymTypeByCountryData(currentUserData?.country));
     setCurrentUser(currentUserData);
+    setGymGoals(currentUserData?.gymGoals);
     setGymSelectedTypes(currentUserData?.gymPreference);
     setIsGrayscale(
       currentUserData?.grayScale ? currentUserData?.grayScale : false
@@ -978,6 +982,15 @@ export default function ProfileScreen() {
     }
   }
 
+  function handleSelectGoals(val) {
+    if (gymGoalsArray?.includes(val)) {
+      const filtered = gymGoalsArray?.filter((itm) => itm !== val);
+      setGymGoals(filtered);
+    } else {
+      setGymGoals([...gymGoalsArray, val]);
+    }
+  }
+
   return (
     <SafeArea
       style={{
@@ -1175,6 +1188,8 @@ export default function ProfileScreen() {
                 backgroundColor: theme.colors.brand.black,
                 paddingVertical: theme.spaceNumber[3],
                 marginBottom: theme.spaceNumber[5],
+                flexDirection: "row",
+                justifyContent: "space-between",
               }}>
               <HorizontalPaddingSpace space={theme.space[2]}>
                 <Text
@@ -1185,6 +1200,17 @@ export default function ProfileScreen() {
                   Fitness Preference
                 </Text>
               </HorizontalPaddingSpace>
+              <TouchableOpacity
+                onPress={() => setIsGoalModal(true)}
+                style={{ marginRight: theme.spaceNumber[5] }}>
+                <Text
+                  variant="custom"
+                  colorType="teal"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  Change Goals
+                </Text>
+              </TouchableOpacity>
             </View>
             <HorizontalPaddingSpace
               space={theme.space[2]}
@@ -1630,6 +1656,106 @@ export default function ProfileScreen() {
           setShowProfile={setShowProfile}
           width={width}
         />
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={isGoalModal}
+        onClose={() => setIsGoalModal(false)}
+        theme={theme}
+        width={width}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            width: width,
+            marginTop: theme.spaceNumberBy10[5],
+            width: "100%",
+            height: "70%",
+          }}>
+          <HeaderComponent
+            title="Fitness Goals"
+            textWidth="94%"
+            hideLogo={true}
+            theme={theme}
+            LeftComp={() => (
+              <View
+                style={{
+                  marginLeft: theme.spaceNumber[2],
+                }}>
+                <IconComponent
+                  iconFunction={() => {
+                    setIsGoalModal(false);
+                    updateUserValueField(
+                      "all-users",
+                      currentUser?.id,
+                      "gymGoals",
+                      gymGoalsArray,
+                      setIsTrigger
+                    );
+                  }}
+                  iconName="chevron-back"
+                  IconComponent={Ionicons}
+                  size={theme.spaceNumberBy10[2]}
+                  color={theme.colors.brand.base1}
+                  horizontalLeftSpace={`-${theme.spaceNumberBy10[0]}px`}
+                />
+              </View>
+            )}
+            RightComp={() => <></>}
+          />
+          <Spacer position="top" size="large">
+            {gymGoalsKey.map((key) => (
+              <View
+                key={key}
+                style={{
+                  marginBottom: theme.spaceNumberBy10[3],
+                }}>
+                <Text
+                  style={{
+                    backgroundColor: theme.colors.brand.black1,
+                    paddingHorizontal: theme.spaceNumber[10],
+                  }}
+                  variant="custom"
+                  colorType="base1"
+                  fontType="montserratBold"
+                  lineHeight={theme.lineHeights[10]}
+                  fontSize="body"
+                  transform="capitalize"
+                  width="100%">
+                  {key}
+                </Text>
+                {gymGoalsObject?.[key].map((goal, idx) => (
+                  <TouchableOpacity
+                    onPress={() => handleSelectGoals(goal)}
+                    key={idx}
+                    style={{
+                      paddingHorizontal: theme.spaceNumber[17],
+                      paddingVertical: theme.spaceNumber[0],
+                      marginTop: theme.spaceNumber[1],
+                      backgroundColor: gymGoalsArray?.includes(goal)
+                        ? theme.colors.brand.base6
+                        : "transparent",
+                    }}>
+                    <Text
+                      variant="custom"
+                      colorType={
+                        gymGoalsArray?.includes(goal) ? "base" : "base5"
+                      }
+                      fontType={
+                        gymGoalsArray?.includes(goal)
+                          ? "montserratBold"
+                          : "montserratLight"
+                      }
+                      lineHeight={theme.lineHeights[10]}
+                      fontSize="caption"
+                      transform="capitalize"
+                      width="100%">
+                      {goal}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            ))}
+          </Spacer>
+        </ScrollView>
       </AnimatedModal>
     </SafeArea>
   );

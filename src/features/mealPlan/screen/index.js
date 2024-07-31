@@ -22,7 +22,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { getCurrentHour } from "../../../utilities/formatTimestamp";
 import { useFocusEffect } from "@react-navigation/native";
 
-const CompatibleContainer = styled(ImageBackground)`
+const GradientContainer = styled(ImageBackground)`
   flex: 0.65;
   position: relative;
 `;
@@ -67,18 +67,19 @@ const Index = () => {
 
   const currentHour = getCurrentHour(new Date());
   let greeting = `It's Dawn ${currentUser?.firstname}`;
-  let mealName = "Breakfast";
+  let mealName = "breakfast";
+
   if (currentHour >= 12) {
     greeting = `It's Daytime ${currentUser?.firstname}`;
-    mealName = "Lunch";
+    mealName = "lunch";
   }
   if (currentHour >= 17) {
     greeting = `It's Dusk ${currentUser?.firstname}`;
-    mealName = "Dinner";
+    mealName = "dinner";
   }
   if (currentHour >= 1 && currentHour <= 5) {
     greeting = `Good Night ${currentUser?.firstname}`;
-    mealName = "Dinner";
+    mealName = "dinner";
   }
 
   return (
@@ -90,7 +91,7 @@ const Index = () => {
       }}>
       <ScrollView showsVerticalScrollIndicator={false} horizontal pagingEnabled>
         <View style={{ flexDirection: "row" }}>
-          {currentUser?.gymGoals?.map((goal, idx) => (
+          {currentUser?.gymGoals?.slice(0, 3)?.map((goal, idx) => (
             <View
               key={idx}
               style={{
@@ -98,11 +99,9 @@ const Index = () => {
                 height: height,
                 position: "relative",
               }}>
-              <CompatibleContainer
+              <GradientContainer
                 source={{
-                  uri:
-                    `${gymNutritionPlans?.[goal]?.["diet plan"]?.breakfast?.imageurl}` ??
-                    "https://meatified.com/wp-content/uploads/2018/06/Cherry-Lavender-Milk-3-WM.png",
+                  uri: `${gymNutritionPlans?.[goal]?.["diet plan"]?.[mealName]?.imageurl}`,
                 }}>
                 <LinearGradient
                   colors={[
@@ -120,7 +119,7 @@ const Index = () => {
                     opacity: 1,
                   }}
                 />
-              </CompatibleContainer>
+              </GradientContainer>
               <View
                 style={{
                   top: -(theme.spaceNumberBy50[0] + theme.spaceNumberBy50[0]),
@@ -230,7 +229,7 @@ const Index = () => {
                       fontType="montserratRegular"
                       fontSize="caption">
                       {
-                        gymNutritionPlans?.[goal]?.["diet plan"]?.breakfast
+                        gymNutritionPlans?.[goal]?.["diet plan"]?.[mealName]
                           ?.meal
                       }
                     </Text>
@@ -272,7 +271,6 @@ const Index = () => {
           ))}
         </View>
       </ScrollView>
-
       <StatusBar style="light" />
     </View>
   );

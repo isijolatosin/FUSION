@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, Pressable, View, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -37,6 +37,8 @@ import ProfileDeactivateCardComponent from "../../../components/general-componen
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import IconComponent from "../../../components/icon-components/IconComponent";
+import InitiatorProfileComponent from "../../Likes/components/InitiatorProfileComponent";
+import GymInterests from "./GymInterests";
 
 // SETTING UP NOTIFICATION
 Notifications.setNotificationHandler({
@@ -85,6 +87,7 @@ async function registerForPushNotificationsAsync() {
 }
 
 const ChatsScreen = () => {
+  const videoRef = useRef(null);
   const route = useRoute();
   const navigation = useNavigation();
   const {
@@ -98,7 +101,13 @@ const ChatsScreen = () => {
     useState(0);
   const [showCard, setShowCard] = useState(false);
   const [newMessageInput, setNewMessageInput] = useState(false);
+  const [showLikeInitiatorProfile, setShowLikeInitiatorProfile] =
+    useState(false);
+  const [likedUserAndCurrentUserData, setLikedUserAndCurrentUserData] =
+    useState([]);
+  const [initiatorProfileData, setInitiatorProfileData] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState({});
+  const [yourLikesData, setYourLikesData] = useState([]);
   const [isRefreshChatScreen, setIsRefreshChatScreen] = useState(false);
   const [otherUsers, setOtherUsers] = useState([]); // match ID is included in each object in array
   const [otherFriendshipUsers, setOtherFriendshipUsers] = useState([]); // match ID is included in each object in array
@@ -130,8 +139,14 @@ const ChatsScreen = () => {
       const currentUserData = newData.find(
         (data) => data.phonenumber === phoneValueFromPhoneMemory
       );
-
       setCurrentUser(currentUserData);
+
+      // likeInitiators data
+      const likesData = await getAllData("all-likes");
+      const likeInitiators = likesData.filter(
+        (like) => like?.profileLikedNumber === phoneValueFromPhoneMemory
+      );
+      setYourLikesData(likeInitiators);
 
       registerForPushNotificationsAsync()
         .then((token) => {
@@ -386,7 +401,12 @@ const ChatsScreen = () => {
 
   // #############################################################################
   // show no matches and friend requests information
-  if (showCard && !otherFriendshipUsers.length && !otherUsers.length) {
+  if (
+    showCard &&
+    !yourLikesData?.length &&
+    !otherFriendshipUsers.length &&
+    !otherUsers.length
+  ) {
     return (
       <CustomUseCardWithCTA
         text={nomatchmessage}
@@ -401,6 +421,49 @@ const ChatsScreen = () => {
   return (
     <SafeArea style={{ backgroundColor: theme.colors.brand.base }}>
       <StatusBar style="light" />
+      {yourLikesData.length ? (
+        <HorizontalPaddingSpace
+          space={theme.space[2]}
+          style={{
+            marginTop: theme.spaceNumber[5],
+            borderBottomWidth: 0.5,
+            borderBottomColor: theme.colors.brand.black2,
+          }}>
+          <View>
+            <Text
+              variant="custom"
+              colorType="teal"
+              fontType="montserratRegular"
+              fontSize="caption"
+              transform="capitalize">
+              Interests
+            </Text>
+          </View>
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                gap: theme.spaceNumber[5],
+                paddingVertical: theme.spaceNumber[5],
+              }}>
+              {yourLikesData.map((item, idx) => (
+                <GymInterests
+                  key={idx}
+                  data={item}
+                  theme={theme}
+                  width={theme.spaceNumberBy10[3]}
+                  height={theme.spaceNumberBy10[3]}
+                  setInitiatorProfileData={setInitiatorProfileData}
+                  setShowLikeInitiatorProfile={setShowLikeInitiatorProfile}
+                />
+              ))}
+            </View>
+          </ScrollView>
+        </HorizontalPaddingSpace>
+      ) : (
+        <></>
+      )}
       <HeaderComponent
         title="Chats"
         theme={theme}
@@ -419,7 +482,7 @@ const ChatsScreen = () => {
             <HorizontalPaddingSpace space={theme.space[2]}>
               <Text
                 variant="custom"
-                colorType="base1"
+                colorType="base5"
                 fontType="montserratRegular"
                 fontSize="body"
                 transform="capitalize">
@@ -482,7 +545,7 @@ const ChatsScreen = () => {
               <HorizontalPaddingSpace space={theme.space[2]}>
                 <Text
                   variant="custom"
-                  colorType="base1"
+                  colorType="base5"
                   fontType="montserratRegular"
                   fontSize="body"
                   transform="capitalize">
@@ -744,6 +807,23 @@ const ChatsScreen = () => {
             </TouchableOpacity>
           </Spacer>
         </HorizontalPaddingSpace>
+      </AnimatedModal>
+      <AnimatedModal
+        isVisible={showLikeInitiatorProfile}
+        onClose={() => setShowLikeInitiatorProfile(false)}
+        theme={theme}
+        width="100%">
+        <InitiatorProfileComponent
+          data={initiatorProfileData}
+          theme={theme}
+          bothUserData={likedUserAndCurrentUserData}
+          setBothUserData={setLikedUserAndCurrentUserData}
+          setShowInitiatorProfile={setShowLikeInitiatorProfile}
+          setInitiatorProfileData={setInitiatorProfileData}
+          currentUser={currentUser}
+          setIsRetrigger={setIsRefreshChatScreen}
+          videoRef={videoRef}
+        />
       </AnimatedModal>
     </SafeArea>
   );

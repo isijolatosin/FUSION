@@ -260,7 +260,7 @@ const Index = () => {
               variant="custom"
               colorType={selectedExerciseType === type ? "base1" : "base"}
               fontType="montserratBold"
-              fontSize="xcaption"
+              fontSize="caption"
               transform="capitalize">
               {type}
             </Text>
