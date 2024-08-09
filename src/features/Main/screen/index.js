@@ -1147,8 +1147,8 @@ const Index = ({ navigation }) => {
                       justifyContent: "center",
                       position: "relative",
                       backgroundColor: theme.colors.brand.base1,
-                      width: theme.spaceNumberBy10[3],
-                      height: theme.spaceNumberBy10[3],
+                      width: theme.spaceNumberBy10[4],
+                      height: theme.spaceNumberBy10[4],
                       borderRadius: theme.spaceNumberBy50[0],
                       marginRight: theme.spaceNumberBy10[2],
                     }}>
@@ -1191,8 +1191,8 @@ const Index = ({ navigation }) => {
                       alignItems: "center",
                       justifyContent: "center",
                       backgroundColor: theme.colors.brand.base1,
-                      width: theme.spaceNumberBy10[3],
-                      height: theme.spaceNumberBy10[3],
+                      width: theme.spaceNumberBy10[4],
+                      height: theme.spaceNumberBy10[4],
                       borderRadius: theme.spaceNumberBy50[0],
                     }}>
                     <IconComponent
@@ -1205,7 +1205,7 @@ const Index = ({ navigation }) => {
                     <View
                       style={{
                         position: "absolute",
-                        bottom: -theme.spaceNumber[11],
+                        bottom: -theme.spaceNumber[5],
                       }}>
                       <Text
                         style={{ textAlign: "center" }}
