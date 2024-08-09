@@ -9,7 +9,6 @@ import {
 import { useAppContext } from "../../../context/ThemeContext";
 import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import { gymNutritionPlans } from "../../../constants";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { Text } from "../../../components/typography/text.component";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
@@ -21,6 +20,7 @@ import { StatusBar } from "expo-status-bar";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { getCurrentHour } from "../../../utilities/formatTimestamp";
 import { useFocusEffect } from "@react-navigation/native";
+import { getWeekOfMonth } from "../../../utilities/getWeekOfMonth";
 
 const GradientContainer = styled(ImageBackground)`
   flex: 0.65;
@@ -34,15 +34,18 @@ const Index = () => {
   } = useAppContext();
   const [isLoadCard, setIsLoadCard] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
+  const [dietPlansArray, setDietPlans] = useState({});
 
   async function fetchData() {
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     const newData = await getAllData("all-users");
+    const dietPlans = await getAllData("diet plans");
     const currentUserData = newData.find(
       (data) => data.phonenumber === phoneValueFromPhoneMemory
     );
     setCurrentUser(currentUserData);
+    setDietPlans({ ...dietPlans[0] });
 
     const mealID = setTimeout(() => {
       setIsLoadCard(false);
@@ -101,7 +104,13 @@ const Index = () => {
               }}>
               <GradientContainer
                 source={{
-                  uri: `${gymNutritionPlans?.[goal]?.["diet plan"]?.[mealName]?.imageurl}`,
+                  uri:
+                    `${
+                      dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
+                        getWeekOfMonth() - 1
+                      ]?.imageurl
+                    }` ||
+                    "https://merokinmel.com/storage/placeholder/placeholder-web.png",
                 }}>
                 <LinearGradient
                   colors={[
@@ -176,7 +185,7 @@ const Index = () => {
                       colorType="base6"
                       fontType="montserratRegular"
                       fontSize="caption">
-                      {gymNutritionPlans?.[goal]?.["nutrition plan"]}
+                      {dietPlansArray?.[goal]?.["nutrition plan"]}
                     </Text>
                   </View>
                 </Spacer>
@@ -229,8 +238,9 @@ const Index = () => {
                       fontType="montserratRegular"
                       fontSize="caption">
                       {
-                        gymNutritionPlans?.[goal]?.["diet plan"]?.[mealName]
-                          ?.meal
+                        dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
+                          getWeekOfMonth() - 1
+                        ]?.meal
                       }
                     </Text>
                   </View>

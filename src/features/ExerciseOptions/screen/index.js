@@ -12,7 +12,6 @@ import {
   updateUserValueField,
 } from "../../../utilities/updateFirestoreDatabaseField";
 import { retrieveData } from "../../../utilities/retrieveDataFromPhoneMemory";
-import { muscleOptions, musclesExercisesByBodyParts } from "../../../constants";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import { Text } from "../../../components/typography/text.component";
 import Loading from "../../../components/general-component/Loading";
@@ -35,21 +34,29 @@ const Index = () => {
   const [showExercisePlan, setShowExercisePlan] = useState(false);
   const [isRetrigger, setIsRetrigger] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [muscleOptions, setMuscleOptions] = useState([]);
+  const [muscleExerciseBodyPart, setMuscleExerciseBodyPart] = useState({});
 
   async function fetchData() {
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     const newData = await getAllData("all-users");
+    const _muscleOptions = await getAllData("muscle options");
+    const _muscleExerciseBodyPart = await getAllData(
+      "muscle-exercise-body-part"
+    );
     const currentUserData = newData.find(
       (data) => data.phonenumber === phoneValueFromPhoneMemory
     );
     setCurrentUser(currentUserData);
+    setMuscleOptions(_muscleOptions?.[0]?.["list"]);
+    setMuscleExerciseBodyPart({ ..._muscleExerciseBodyPart[0] });
 
     if (currentUserData?.dailyMuscleWorkout) {
       setSelectedMuscleType(currentUserData?.dailyMuscleWorkout);
       setShowExercisePlan(true);
       setSelectedExerciseType(
-        musclesExercisesByBodyParts?.[currentUserData?.dailyMuscleWorkout]
+        _muscleExerciseBodyPart[0]?.[currentUserData?.dailyMuscleWorkout]
           ?.exerciseTypes?.[0]
       );
     }
@@ -215,7 +222,7 @@ const Index = () => {
           showsHorizontalScrollIndicator={false}
           pagingEnabled
           style={{ height: "100%", width: "100%" }}>
-          {musclesExercisesByBodyParts[currentUser?.dailyMuscleWorkout]?.[
+          {muscleExerciseBodyPart[currentUser?.dailyMuscleWorkout]?.[
             selectedExerciseType
           ]?.image?.map((img, idx) => (
             <View key={idx}>
@@ -241,7 +248,7 @@ const Index = () => {
           flexWrap: "wrap",
           gap: theme.spaceNumber[4],
         }}>
-        {musclesExercisesByBodyParts?.[
+        {muscleExerciseBodyPart?.[
           currentUser?.dailyMuscleWorkout
         ]?.exerciseTypes?.map((type, idx) => (
           <TouchableOpacity
@@ -310,7 +317,7 @@ const Index = () => {
                 muscle group:
               </Text>
             </View>
-            {musclesExercisesByBodyParts[
+            {muscleExerciseBodyPart[
               currentUser?.dailyMuscleWorkout
             ]?.bodyParts?.map((bodyPart, idx) => (
               <View key={idx}>
