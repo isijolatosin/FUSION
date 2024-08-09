@@ -69,20 +69,53 @@ const Index = () => {
   }
 
   const currentHour = getCurrentHour(new Date());
-  let greeting = `It's Dawn ${currentUser?.firstname}`;
-  let mealName = "breakfast";
+  let greeting = `It's Night Time ${currentUser?.firstname}`;
+  let mealName = "";
 
-  if (currentHour >= 12) {
+  const breakfastFrom = currentUser?.breakfastTime?.from
+    ? currentUser?.breakfastTime?.from
+    : 12;
+  const breakfastTo = currentUser?.breakfastTime?.to
+    ? currentUser?.breakfastTime?.to
+    : 17;
+
+  const lunchFrom = currentUser?.lunchTime?.from
+    ? currentUser?.lunchTime?.from
+    : 12;
+  const lunchTo = currentUser?.lunchTime?.to ? currentUser?.lunchTime?.to : 17;
+
+  const dinnerFrom = currentUser?.dinnerTime?.from
+    ? currentUser?.dinnerTime?.from
+    : 17;
+  const dinnerTo = currentUser?.dinnerTime?.to
+    ? currentUser?.dinnerTime?.to
+    : 20;
+
+  const snackFrom = currentUser?.snackTime?.from
+    ? currentUser?.snackTime?.from
+    : 20;
+  const snackTo = currentUser?.snackTime?.to ? currentUser?.snackTime?.to : 24;
+
+  if (currentHour >= breakfastFrom && currentHour < breakfastTo) {
+    greeting = `It's Dawn ${currentUser?.firstname}`;
+    mealName = "breakfast";
+  }
+
+  if (currentHour >= lunchFrom && currentHour < lunchTo) {
     greeting = `It's Daytime ${currentUser?.firstname}`;
     mealName = "lunch";
   }
-  if (currentHour >= 17) {
+  if (currentHour >= lunchFrom && currentHour < lunchTo) {
+    greeting = `It's Daytime ${currentUser?.firstname}`;
+    mealName = "lunch";
+  }
+  if (currentHour >= dinnerFrom && currentHour < dinnerTo) {
     greeting = `It's Dusk ${currentUser?.firstname}`;
     mealName = "dinner";
   }
-  if (currentHour >= 1 && currentHour <= 5) {
+  if (currentHour >= snackFrom && currentHour < snackTo) {
     greeting = `Good Night ${currentUser?.firstname}`;
-    mealName = "dinner";
+    mealName = "snacks";
   }
 
   return (
@@ -92,123 +125,95 @@ const Index = () => {
         position: "relative",
         height: height,
       }}>
-      <ScrollView showsVerticalScrollIndicator={false} horizontal pagingEnabled>
-        <View style={{ flexDirection: "row" }}>
-          {currentUser?.gymGoals?.slice(0, 3)?.map((goal, idx) => (
-            <View
-              key={idx}
-              style={{
-                width: width,
-                height: height,
-                position: "relative",
-              }}>
-              <GradientContainer
-                source={{
-                  uri:
-                    `${
-                      dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
-                        getWeekOfMonth() - 1
-                      ]?.imageurl
-                    }` ||
-                    "https://merokinmel.com/storage/placeholder/placeholder-web.png",
-                }}>
-                <LinearGradient
-                  colors={[
-                    theme.colors.brand.base,
-                    "transparent",
-                    theme.colors.brand.base,
-                  ]}
-                  style={{
-                    height: "100%",
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    opacity: 1,
-                  }}
-                />
-              </GradientContainer>
+      {mealName ? (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          horizontal
+          pagingEnabled>
+          <View style={{ flexDirection: "row" }}>
+            {currentUser?.gymGoals?.map((goal, idx) => (
               <View
+                key={idx}
                 style={{
-                  top: -(theme.spaceNumberBy50[0] + theme.spaceNumberBy50[0]),
                   width: width,
+                  height: height,
+                  position: "relative",
                 }}>
-                <HeaderComponent
-                  title={greeting}
-                  theme={theme}
-                  size="h5"
-                  transform="capitalize"
-                  LeftComp={() => <></>}
-                  RightComp={() => <></>}
-                />
-                <View style={{ marginTop: -theme.spaceNumber[4] }}>
-                  <Text
-                    style={{ textAlign: "center" }}
-                    variant="custom"
-                    colorType="teal"
-                    fontType="montserratBold"
-                    fontSize="caption">
-                    {`Your ${mealName} meal option ${idx + 1}`}
-                  </Text>
-                </View>
-              </View>
-              <HorizontalPaddingSpace
-                space={theme.space[4]}
-                style={{
-                  backgroundColor: theme.colors.brand.base1,
-                  flex: 0.35,
-                  top: -(theme.spaceNumberBy50[0] + theme.spaceNumberBy10[2]),
-                  borderTopRightRadius: theme.spaceNumberBy10[2],
-                  borderTopLeftRadius: theme.spaceNumberBy10[2],
-                  paddingVertical: theme.spaceNumberBy10[0],
-                }}>
-                <Spacer position="top" size="large">
-                  <View
+                <GradientContainer
+                  source={{
+                    uri:
+                      `${
+                        dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
+                          getWeekOfMonth() - 1
+                        ]?.imageurl
+                      }` ||
+                      "https://merokinmel.com/storage/placeholder/placeholder-web.png",
+                  }}>
+                  <LinearGradient
+                    colors={[
+                      theme.colors.brand.base,
+                      "transparent",
+                      theme.colors.brand.base,
+                    ]}
                     style={{
-                      borderBottomWidth: 0.5,
-                      borderBottomColor: theme.colors.brand.base4,
-                      paddingBottom: theme.spaceNumber[2],
-                      marginBottom: theme.spaceNumber[2],
-                    }}>
+                      height: "100%",
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                      opacity: 1,
+                    }}
+                  />
+                </GradientContainer>
+                <View
+                  style={{
+                    top: -(theme.spaceNumberBy50[0] + theme.spaceNumberBy50[0]),
+                    width: width,
+                  }}>
+                  <HeaderComponent
+                    title={greeting}
+                    theme={theme}
+                    size="h5"
+                    transform="capitalize"
+                    LeftComp={() => <></>}
+                    RightComp={() => <></>}
+                  />
+                  <View style={{ marginTop: -theme.spaceNumber[4] }}>
                     <Text
+                      style={{ textAlign: "center" }}
                       variant="custom"
-                      colorType="base"
+                      colorType="teal"
                       fontType="montserratBold"
-                      fontSize="body">
-                      Nutrition Plan
-                    </Text>
-                  </View>
-                  <View>
-                    <Text
-                      variant="custom"
-                      colorType="base6"
-                      fontType="montserratRegular"
                       fontSize="caption">
-                      {dietPlansArray?.[goal]?.["nutrition plan"]}
+                      {`Your ${mealName} meal option ${idx + 1}`}
                     </Text>
                   </View>
-                </Spacer>
-                <Spacer position="top" size="medium">
-                  <View
-                    style={{
-                      borderBottomWidth: 0.5,
-                      borderBottomColor: theme.colors.brand.base4,
-                      borderTopWidth: 0.5,
-                      borderTopColor: theme.colors.brand.base4,
-                      paddingVertical: theme.spaceNumber[0],
-                      marginBottom: theme.spaceNumber[2],
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}>
-                    <View>
+                </View>
+                <HorizontalPaddingSpace
+                  space={theme.space[4]}
+                  style={{
+                    backgroundColor: theme.colors.brand.base1,
+                    flex: 0.35,
+                    top: -(theme.spaceNumberBy50[0] + theme.spaceNumberBy10[2]),
+                    borderTopRightRadius: theme.spaceNumberBy10[2],
+                    borderTopLeftRadius: theme.spaceNumberBy10[2],
+                    paddingVertical: theme.spaceNumberBy10[0],
+                  }}>
+                  <Spacer position="top" size="large">
+                    <View
+                      style={{
+                        borderBottomWidth: 0.5,
+                        borderBottomColor: theme.colors.brand.base4,
+                        paddingBottom: theme.spaceNumber[2],
+                        marginBottom: theme.spaceNumber[2],
+                      }}>
                       <Text
                         variant="custom"
                         colorType="base"
                         fontType="montserratBold"
                         fontSize="body">
-                        Meal
+                        Nutrition Plan
                       </Text>
                     </View>
                     <View>
@@ -216,71 +221,122 @@ const Index = () => {
                         variant="custom"
                         colorType="base6"
                         fontType="montserratRegular"
-                        fontSize="xcaption">
-                        Goal: {goal}
+                        fontSize="caption">
+                        {dietPlansArray?.[goal]?.["nutrition plan"]}
                       </Text>
                     </View>
-                  </View>
-                  <View style={{ flexDirection: "row", alignItems: "start" }}>
+                  </Spacer>
+                  <Spacer position="top" size="medium">
                     <View
                       style={{
-                        marginRight: theme.spaceNumber[3],
-                        width: theme.spaceNumber[1],
-                        height: theme.spaceNumber[1],
-                        backgroundColor: theme.colors.brand.base6,
-                        marginTop: theme.spaceNumber[2],
-                        borderRadius: theme.spaceNumberBy10[2],
-                      }}
-                    />
-                    <Text
-                      variant="custom"
-                      colorType="base6"
-                      fontType="montserratRegular"
-                      fontSize="caption">
-                      {
-                        dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
-                          getWeekOfMonth() - 1
-                        ]?.meal
-                      }
-                    </Text>
-                  </View>
-                </Spacer>
-                {idx === 0 ? (
-                  <View
-                    style={{
-                      position: "absolute",
-                      bottom: theme.spaceNumber[5],
-                      left: theme.spaceNumber[10],
-                    }}>
-                    <View>
+                        borderBottomWidth: 0.5,
+                        borderBottomColor: theme.colors.brand.base4,
+                        borderTopWidth: 0.5,
+                        borderTopColor: theme.colors.brand.base4,
+                        paddingVertical: theme.spaceNumber[0],
+                        marginBottom: theme.spaceNumber[2],
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}>
+                      <View>
+                        <Text
+                          variant="custom"
+                          colorType="base"
+                          fontType="montserratBold"
+                          fontSize="body">
+                          Meal
+                        </Text>
+                      </View>
+                      <View>
+                        <Text
+                          variant="custom"
+                          colorType="base6"
+                          fontType="montserratRegular"
+                          fontSize="xcaption">
+                          Goal: {goal}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={{ flexDirection: "row", alignItems: "start" }}>
+                      <View
+                        style={{
+                          marginRight: theme.spaceNumber[3],
+                          width: theme.spaceNumber[1],
+                          height: theme.spaceNumber[1],
+                          backgroundColor: theme.colors.brand.base6,
+                          marginTop: theme.spaceNumber[2],
+                          borderRadius: theme.spaceNumberBy10[2],
+                        }}
+                      />
                       <Text
-                        style={{ textAlign: "left" }}
                         variant="custom"
                         colorType="base6"
                         fontType="montserratRegular"
-                        fontSize="xcaption">
-                        Option is based on fitness goals.
+                        fontSize="caption">
+                        {
+                          dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
+                            getWeekOfMonth() - 1
+                          ]?.meal
+                        }
                       </Text>
                     </View>
-                    <View>
-                      <Text
-                        style={{ textAlign: "left" }}
-                        variant="custom"
-                        colorType="base"
-                        fontType="montserratBold"
-                        fontSize="xcaption">
-                        Swipe left to see morre options
-                      </Text>
+                  </Spacer>
+                  {idx === 0 ? (
+                    <View
+                      style={{
+                        position: "absolute",
+                        bottom: theme.spaceNumber[5],
+                        left: theme.spaceNumber[10],
+                      }}>
+                      <View>
+                        <Text
+                          style={{ textAlign: "left" }}
+                          variant="custom"
+                          colorType="base6"
+                          fontType="montserratRegular"
+                          fontSize="xcaption">
+                          Options are based on your fitness goals.
+                        </Text>
+                      </View>
+                      <View>
+                        <Text
+                          style={{ textAlign: "left" }}
+                          variant="custom"
+                          colorType="base"
+                          fontType="montserratBold"
+                          fontSize="xcaption">
+                          Swipe left to see more options
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                ) : (
-                  <></>
-                )}
-              </HorizontalPaddingSpace>
-            </View>
-          ))}
+                  ) : (
+                    <></>
+                  )}
+                </HorizontalPaddingSpace>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      ) : (
+        <View
+          style={{
+            width: width,
+            height: height,
+            justifyContent: "center",
+            marginTop: -theme.spaceNumberBy10[5],
+          }}>
+          <HeaderComponent
+            title={greeting}
+            theme={theme}
+            size="h5"
+            transform="capitalize"
+            LeftComp={() => <></>}
+            RightComp={() => <></>}
+          />
         </View>
-      </ScrollView>
+      )}
+
       <StatusBar style="light" />
     </View>
   );

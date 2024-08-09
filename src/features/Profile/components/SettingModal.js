@@ -369,7 +369,10 @@ export default function SettingModal({
       theme={theme}
       width={width}>
       <Spacer
-        style={{ paddingTop: theme.spaceNumber[0] }}
+        style={{
+          paddingTop: theme.spaceNumber[0],
+          backgroundColor: theme.colors.brand.base,
+        }}
         position="top"
         size="xxxxlarge">
         <HeaderComponent

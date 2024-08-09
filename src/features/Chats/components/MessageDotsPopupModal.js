@@ -39,6 +39,7 @@ export default function MessageDotsPopupModal({
           width: "100%",
           borderBottomWidth: 1,
           borderBottomColor: theme.colors.brand.linesLight,
+          backgroundColor: theme.colors.brand.base,
         }}>
         <Text
           style={{
@@ -91,6 +92,7 @@ export default function MessageDotsPopupModal({
             justifyContent: "flex-start",
             display: "flex",
             marginTop: theme.spaceNumberBy50[1],
+            backgroundColor: theme.colors.brand.base,
           }}>
           <Spacer position="bottom" size="medium">
             <Text

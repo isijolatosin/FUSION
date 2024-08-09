@@ -105,7 +105,8 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
   };
 
   return (
-    <SafeArea style={{ width: "100%" }}>
+    <SafeArea
+      style={{ width: "100%", backgroundColor: theme.colors.brand.base }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <HorizontalPaddingSpace space={theme.space[2]}>

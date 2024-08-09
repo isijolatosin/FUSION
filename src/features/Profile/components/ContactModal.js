@@ -61,7 +61,9 @@ export default function ContactModal({
       onClose={onCloseContactModal}
       theme={theme}>
       {!selectedHelp ? (
-        <HorizontalPaddingSpace style={{ width: width }} space={theme.space[7]}>
+        <HorizontalPaddingSpace
+          style={{ width: width, backgroundColor: theme.colors.brand.base }}
+          space={theme.space[7]}>
           <View>
             <View style={{ position: "absolute", right: 0 }}>
               <IconComponent

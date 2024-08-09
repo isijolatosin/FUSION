@@ -738,6 +738,7 @@ const ChatsScreen = () => {
           style={{
             width: "100%",
             position: "relative",
+            backgroundColor: theme.colors.brand.base,
           }}>
           <View
             style={{
