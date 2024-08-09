@@ -46,7 +46,12 @@ export default function ProfileViewModal({
   );
 
   return (
-    <View style={{ marginTop: theme.spaceNumberBy50[0], position: "relative" }}>
+    <View
+      style={{
+        marginTop: theme.spaceNumberBy50[0],
+        position: "relative",
+        backgroundColor: theme.colors.brand.base,
+      }}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Pressable
           onPress={() => setShowProfile(false)}

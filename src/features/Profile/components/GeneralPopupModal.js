@@ -16,7 +16,7 @@ export default function GeneralPopupModal({
 }) {
   return (
     <HorizontalPaddingSpace
-      style={{ width: "100%" }}
+      style={{ width: "100%", backgroundColor: theme.colors.brand.base }}
       space={horizontalSpace ? horizontalSpace : theme.space[5]}>
       <ButtonAction
         onPress={() => {

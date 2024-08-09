@@ -22,7 +22,7 @@ const ActionNotificationModal = ({
 }) => {
   return (
     <HorizontalPaddingSpace
-      style={{ width: "100%" }}
+      style={{ width: "100%", backgroundColor: theme.colors.brand.base }}
       space={horizontalSpace ?? theme.space[0]}>
       <Spacer position="bottom" size="medium">
         <Text

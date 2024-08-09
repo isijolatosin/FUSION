@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   Dimensions,
+  Platform,
   Pressable,
   ScrollView,
   Switch,
@@ -19,6 +20,7 @@ import {
 } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect } from "@react-navigation/native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -94,14 +96,37 @@ export default function ProfileScreen() {
   const [openSettingModal, setSettingModal] = useState(false);
   const [isVideoUploading, setisVideoUploading] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
+  const [isShowMealTimeSetting, setIsShowMealTimeSetting] = useState(false);
+  const [timePickerFromVisibility, setTimePickerFromVisibility] =
+    useState(false);
+  const [timePickerToVisibility, setTimePickerToVisibility] = useState(false);
   const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
   const [fitnessPreference, setFitnessPreference] = useState([]);
   const [gymGoalsArray, setGymGoals] = useState([]);
+  const [selectedMealType, setSelectedMealType] = useState("breakfast");
+  const [deleteImageItem, setDeleteImageItem] = useState("");
   const [openUpdateModal, setOpenUpdateModal] = useState({
     type: "",
     isOpen: false,
   });
-  const [deleteImageItem, setDeleteImageItem] = useState("");
+  const [mealTimeSetting, setMealTimeSetting] = useState({
+    breakfast: {
+      from: 0,
+      to: 0,
+    },
+    lunch: {
+      from: 0,
+      to: 0,
+    },
+    dinner: {
+      from: 0,
+      to: 0,
+    },
+    snacks: {
+      from: 0,
+      to: 0,
+    },
+  });
 
   const { width } = Dimensions.get("window");
   const [currentUser, setCurrentUser] = useState([]);
@@ -133,6 +158,24 @@ export default function ProfileScreen() {
     setIsGrayscale(
       currentUserData?.grayScale ? currentUserData?.grayScale : false
     );
+    setMealTimeSetting({
+      breakfast: {
+        from: currentUserData?.breakfastTime?.from ?? 0,
+        to: currentUserData?.breakfastTime?.to ?? 0,
+      },
+      lunch: {
+        from: currentUserData?.lunchTime?.from ?? 0,
+        to: currentUserData?.lunchTime?.to ?? 0,
+      },
+      dinner: {
+        from: currentUserData?.dinnerTime?.from ?? 0,
+        to: currentUserData?.dinnerTime?.to ?? 0,
+      },
+      snacks: {
+        from: currentUserData?.snacksTime?.from ?? 0,
+        to: currentUserData?.snacksTime?.to ?? 0,
+      },
+    });
   }
 
   useFocusEffect(
@@ -991,6 +1034,126 @@ export default function ProfileScreen() {
     }
   }
 
+  async function handleTimeSelection(meal, timeType, val) {
+    const date = new Date(val);
+    const hour = date.getHours();
+    setMealTimeSetting((prevState) => ({
+      ...prevState,
+      [meal]: {
+        ...prevState[meal],
+        [timeType]: hour,
+      },
+    }));
+
+    if (meal === "breakfast") {
+      let value = {
+        from: 0,
+        to: 0,
+      };
+
+      if (timeType === "from") {
+        value = {
+          from: hour,
+          to: mealTimeSetting.breakfast.to,
+        };
+      }
+      if (timeType === "to") {
+        value = {
+          from: mealTimeSetting.breakfast.from,
+          to: hour,
+        };
+      }
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "breakfastTime",
+        value,
+        setIsTrigger
+      );
+    }
+    if (meal === "lunch") {
+      let value = {
+        from: 0,
+        to: 0,
+      };
+
+      if (timeType === "from") {
+        value = {
+          from: hour,
+          to: mealTimeSetting.lunch.to,
+        };
+      }
+      if (timeType === "to") {
+        value = {
+          from: mealTimeSetting.lunch.from,
+          to: hour,
+        };
+      }
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "lunchTime",
+        value,
+        setIsTrigger
+      );
+    }
+    if (meal === "dinner") {
+      let value = {
+        from: 0,
+        to: 0,
+      };
+
+      if (timeType === "from") {
+        value = {
+          from: hour,
+          to: mealTimeSetting.dinner.to,
+        };
+      }
+      if (timeType === "to") {
+        value = {
+          from: mealTimeSetting.dinner.from,
+          to: hour,
+        };
+      }
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "dinnerTime",
+        value,
+        setIsTrigger
+      );
+    }
+    if (meal === "snacks") {
+      let value = {
+        from: 0,
+        to: 0,
+      };
+
+      if (timeType === "from") {
+        value = {
+          from: hour,
+          to: mealTimeSetting.snacks.to,
+        };
+      }
+      if (timeType === "to") {
+        value = {
+          from: mealTimeSetting.snacks.from,
+          to: hour,
+        };
+      }
+      await updateUserValueField(
+        "all-users",
+        currentUser?.id,
+        "snacksTime",
+        value,
+        setIsTrigger
+      );
+    }
+
+    setTimePickerFromVisibility(false);
+    setTimePickerToVisibility(false);
+  }
+
   return (
     <SafeArea
       style={{
@@ -1078,8 +1241,8 @@ export default function ProfileScreen() {
                     variant="custom"
                     colorType="base6"
                     fontType="montserratSemibold"
-                    fontSize="caption">
-                    Grayscale
+                    fontSize="xcaption">
+                    Photo Gray Scale
                   </Text>
                 </View>
               </View>
@@ -1182,27 +1345,27 @@ export default function ProfileScreen() {
               </ScrollView>
             </HorizontalPaddingSpace>
           </View>
-          <View style={{ marginTop: theme.spaceNumberBy10[0] }}>
-            <View
+          <View>
+            <HorizontalPaddingSpace
+              space={theme.space[2]}
               style={{
-                backgroundColor: theme.colors.brand.black,
-                paddingVertical: theme.spaceNumber[3],
-                marginBottom: theme.spaceNumber[5],
                 flexDirection: "row",
+                alignItems: "center",
                 justifyContent: "space-between",
+                marginTop: theme.spaceNumber[5],
+                paddingVertical: theme.spaceNumberBy10[0],
+                backgroundColor: theme.colors.brand.base8,
               }}>
-              <HorizontalPaddingSpace space={theme.space[2]}>
+              <TouchableOpacity onPress={() => setIsShowMealTimeSetting(true)}>
                 <Text
                   variant="custom"
-                  colorType="base6"
-                  fontType="montserratSemibold"
-                  fontSize="button">
-                  Fitness Preference
+                  colorType="teal"
+                  fontType="montserratRegular"
+                  fontSize="caption">
+                  Set Your Meals Time
                 </Text>
-              </HorizontalPaddingSpace>
-              <TouchableOpacity
-                onPress={() => setIsGoalModal(true)}
-                style={{ marginRight: theme.spaceNumber[5] }}>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setIsGoalModal(true)}>
                 <Text
                   variant="custom"
                   colorType="teal"
@@ -1211,7 +1374,27 @@ export default function ProfileScreen() {
                   Change Goals
                 </Text>
               </TouchableOpacity>
-            </View>
+            </HorizontalPaddingSpace>
+            <HorizontalPaddingSpace
+              space={theme.space[2]}
+              style={{
+                backgroundColor: theme.colors.brand.black,
+                paddingVertical: theme.spaceNumber[3],
+                marginBottom: theme.spaceNumber[5],
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}>
+              <View>
+                <Text
+                  variant="custom"
+                  colorType="base6"
+                  fontType="montserratSemibold"
+                  fontSize="button">
+                  Fitness Club Preference
+                </Text>
+              </View>
+            </HorizontalPaddingSpace>
+
             <HorizontalPaddingSpace
               space={theme.space[2]}
               style={{
@@ -1658,6 +1841,178 @@ export default function ProfileScreen() {
         />
       </AnimatedModal>
       <AnimatedModal
+        animationin="slideInUp"
+        animationout="slideOutDown"
+        isVisible={isShowMealTimeSetting}
+        onClose={() => setIsShowMealTimeSetting(false)}
+        theme={theme}
+        width={width}
+        backdropOpacity={0.1}
+        animationInTiming={500}
+        animationOutTiming={1000}
+        isJustifyContent="flex-end">
+        <View
+          style={{
+            height: "35%",
+            backgroundColor: theme.colors.brand.base8,
+            borderTopStartRadius: theme.spaceNumberBy10[2],
+            borderTopEndRadius: theme.spaceNumberBy10[2],
+            width: width,
+          }}>
+          <HeaderComponent
+            title="Meal Time Settings"
+            textWidth="100%"
+            hideLogo={true}
+            size="title"
+            theme={theme}
+            borderColor={theme.colors.brand.black1}
+            isBorder={true}
+            LeftComp={() => <></>}
+            RightComp={() => <></>}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderBottomWidth: 0.5,
+              borderBlockColor: theme.colors.brand.black1,
+              height: theme.spaceNumberBy10[2],
+              width: width,
+            }}>
+            {["breakfast", "lunch", "dinner", "snacks"].map((type) => (
+              <TouchableOpacity
+                key={type}
+                onPress={() => setSelectedMealType(type)}
+                style={{
+                  height: "100%",
+                  width: width / 4,
+                  paddingHorizontal: theme.spaceNumber[5],
+                  justifyContent: "center",
+                  backgroundColor:
+                    selectedMealType === type
+                      ? theme.colors.brand.black2
+                      : "transparent",
+                }}>
+                <Text
+                  style={{
+                    textAlign: "left",
+                  }}
+                  variant="custom"
+                  colorType={selectedMealType === type ? "base1" : "base6"}
+                  fontType="montserratBold"
+                  fontSize="caption"
+                  transform="capitalize">
+                  {type}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <HorizontalPaddingSpace
+            space={theme.space[3]}
+            style={{
+              marginTop: theme.spaceNumber[5],
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}>
+            {["breakfast", "lunch", "dinner", "snacks"].map((type) => (
+              <View key={type} style={{ width: width / 4 }}>
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratBold"
+                    fontSize="xcaption"
+                    transform="capitalize">
+                    From: {mealTimeSetting?.[type]?.from}:00
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratBold"
+                    fontSize="xcaption"
+                    transform="capitalize">
+                    To: {mealTimeSetting?.[type]?.to}:00
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </HorizontalPaddingSpace>
+          <HorizontalPaddingSpace
+            space={theme.space[4]}
+            style={{ width: width }}>
+            {Platform.OS === "ios" ? (
+              <View
+                style={{
+                  flexDirection: "row",
+                  gap: theme.spaceNumber[10],
+                  width: "100%",
+                }}>
+                <TouchableOpacity
+                  onPress={() => setTimePickerFromVisibility(true)}
+                  style={{
+                    marginTop: theme.spaceNumberBy10[4],
+                    borderWidth: 0.5,
+                    paddingVertical: theme.spaceNumber[1],
+                    paddingHorizontal: theme.spaceNumber[5],
+                    borderColor: theme.colors.brand.base6,
+                    borderRadius: theme.spaceNumber[10],
+                  }}>
+                  <Text
+                    style={{ textAlign: "center" }}
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="caption">
+                    Set from time
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setTimePickerToVisibility(true)}
+                  style={{
+                    marginTop: theme.spaceNumberBy10[4],
+                    borderWidth: 0.5,
+                    paddingVertical: theme.spaceNumber[1],
+                    paddingHorizontal: theme.spaceNumber[5],
+                    borderColor: theme.colors.brand.base6,
+                    borderRadius: theme.spaceNumber[10],
+                  }}>
+                  <Text
+                    style={{ textAlign: "center" }}
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="caption">
+                    Set to time
+                  </Text>
+                </TouchableOpacity>
+                <DateTimePickerModal
+                  isVisible={timePickerFromVisibility}
+                  mode="time"
+                  onConfirm={(val) =>
+                    handleTimeSelection(selectedMealType, "from", val)
+                  }
+                  onCancel={() => setTimePickerFromVisibility(false)}
+                />
+                <DateTimePickerModal
+                  isVisible={timePickerToVisibility}
+                  mode="time"
+                  onConfirm={(val) =>
+                    handleTimeSelection(selectedMealType, "to", val)
+                  }
+                  onCancel={() => setTimePickerToVisibility(false)}
+                />
+                {/* </View> */}
+              </View>
+            ) : (
+              <></>
+            )}
+          </HorizontalPaddingSpace>
+        </View>
+      </AnimatedModal>
+      <AnimatedModal
         isVisible={isGoalModal}
         onClose={() => setIsGoalModal(false)}
         theme={theme}
@@ -1667,6 +2022,7 @@ export default function ProfileScreen() {
           style={{
             width: width,
             marginTop: theme.spaceNumberBy10[5],
+            backgroundColor: theme.colors.brand.base,
             width: "100%",
             height: "70%",
           }}>

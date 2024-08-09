@@ -22,6 +22,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import ImageViewer from "../../../components/general-component/ImageViewer";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { Fontisto } from "@expo/vector-icons";
+import { getCurrentHour } from "../../../utilities/formatTimestamp";
+import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 const Index = () => {
   const { width, height } = Dimensions.get("window");
@@ -106,6 +108,28 @@ const Index = () => {
     setShowExercisePlan(true);
   }
 
+  const currentHour = getCurrentHour(new Date());
+  if (currentHour > 23 || currentHour < 5) {
+    return (
+      <View
+        style={{
+          backgroundColor: theme.colors.brand.base,
+          width: width,
+          height: height,
+          justifyContent: "center",
+          marginTop: -theme.spaceNumberBy10[5],
+        }}>
+        <HeaderComponent
+          title={`It's Night Time ${currentUser?.firstname}`}
+          theme={theme}
+          size="h5"
+          transform="capitalize"
+          LeftComp={() => <></>}
+          RightComp={() => <></>}
+        />
+      </View>
+    );
+  }
   if (!showExercisePlan) {
     return (
       <View

@@ -539,7 +539,11 @@ export default function FilterComponent({
       }}
       theme={theme}
       width={width}>
-      <View style={{ marginTop: theme.spaceNumberBy50[0] }}>
+      <View
+        style={{
+          marginTop: theme.spaceNumberBy50[0],
+          backgroundColor: theme.colors.brand.base,
+        }}>
         <HeaderComponent
           title="Preference Settings"
           textWidth="90%"

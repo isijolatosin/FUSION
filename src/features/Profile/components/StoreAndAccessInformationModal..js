@@ -26,7 +26,8 @@ const StoreAndAccessInformationModal = ({
   setIsTrigger,
 }) => {
   return (
-    <SafeArea style={{ width: "100%" }}>
+    <SafeArea
+      style={{ width: "100%", backgroundColor: theme.colors.brand.base }}>
       <HeaderComponent
         title={title}
         hideLogo={true}

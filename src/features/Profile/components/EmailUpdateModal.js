@@ -28,6 +28,7 @@ export default function EmailUpdateModal({ theme, currentUser, onClose }) {
     <HorizontalPaddingSpace
       style={{
         marginTop: -theme.spaceNumberBy50[10] + theme.spaceNumberBy10[5],
+        backgroundColor: theme.colors.brand.base,
       }}
       space={theme.space[4]}>
       <Spacer position="bottom" size="medium">

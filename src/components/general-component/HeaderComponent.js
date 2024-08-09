@@ -15,6 +15,7 @@ const HeaderComponent = ({
   topSpace,
   color,
   transform,
+  borderColor,
 }) => {
   return (
     <Spacer
@@ -27,7 +28,9 @@ const HeaderComponent = ({
         justifyContent: "space-between",
         width: "100%",
         paddingHorizontal: theme.spaceNumber[2],
-        borderBottomColor: theme.colors.brand.linesLighter,
+        borderBottomColor: borderColor
+          ? borderColor
+          : theme.colors.brand.linesLighter,
         borderBottomWidth: isBorder ? 0.5 : 0,
         paddingBottom: isBorder ? theme.spaceNumber[2] : 0,
       }}>
