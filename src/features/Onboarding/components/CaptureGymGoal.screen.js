@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { HorizontalPaddingSpace } from "../../../components/utility/space-area.component";
@@ -12,16 +12,39 @@ import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
-import { gymGoalsKey, gymGoalsObject } from "../../../constants";
 import { ScrollView } from "react-native-gesture-handler";
+import { getAllData } from "../../../utilities/updateFirestoreDatabaseField";
 
 export default function CaptureGymGoalScreen({ navigation }) {
   const { width } = Dimensions.get("window");
   const [gymGoalsArray, setGymGoals] = useState([]);
   const [pageError, setPageError] = useState(false);
+  const [gymGoalsKey, setGymGoalsKey] = useState([]);
+  const [gymGoalsObject, setGymGoalsObject] = useState({});
   const {
     state: { theme },
   } = useAppContext();
+
+  async function fetchGymGoalsData() {
+    const gymGoalKeys = await getAllData("gym-goal-keys");
+    const gymGoalObject = await getAllData("gym-goals");
+
+    setGymGoalsKey(gymGoalKeys?.[0]?.["list"]);
+    setGymGoalsObject(gymGoalObject[0]);
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchGymGoalsData();
+      return () => {
+        // Cleanup function if needed
+      };
+    }, [])
+  );
+
+  useEffect(() => {
+    fetchGymGoalsData();
+  }, []);
 
   const route = useRoute();
   const { dob, _height, sexualOrientation, preference } = route.params || {};
@@ -139,7 +162,7 @@ export default function CaptureGymGoalScreen({ navigation }) {
                     width="100%">
                     {key}
                   </Text>
-                  {gymGoalsObject?.[key].map((goal, idx) => (
+                  {gymGoalsObject?.[key]?.map((goal, idx) => (
                     <TouchableOpacity
                       onPress={() => handleSelectGoals(goal)}
                       key={idx}

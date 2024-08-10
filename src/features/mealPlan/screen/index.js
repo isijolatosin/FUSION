@@ -69,15 +69,15 @@ const Index = () => {
   }
 
   const currentHour = getCurrentHour(new Date());
-  let greeting = `It's Night Time ${currentUser?.firstname}`;
-  let mealName = "";
+  let greeting = `It's Snack Time ${currentUser?.firstname}`;
+  let mealName = "snacks";
 
   const breakfastFrom = currentUser?.breakfastTime?.from
     ? currentUser?.breakfastTime?.from
-    : 12;
+    : 5;
   const breakfastTo = currentUser?.breakfastTime?.to
     ? currentUser?.breakfastTime?.to
-    : 17;
+    : 12;
 
   const lunchFrom = currentUser?.lunchTime?.from
     ? currentUser?.lunchTime?.from
@@ -91,19 +91,9 @@ const Index = () => {
     ? currentUser?.dinnerTime?.to
     : 20;
 
-  const snackFrom = currentUser?.snackTime?.from
-    ? currentUser?.snackTime?.from
-    : 20;
-  const snackTo = currentUser?.snackTime?.to ? currentUser?.snackTime?.to : 24;
-
   if (currentHour >= breakfastFrom && currentHour < breakfastTo) {
     greeting = `It's Dawn ${currentUser?.firstname}`;
     mealName = "breakfast";
-  }
-
-  if (currentHour >= lunchFrom && currentHour < lunchTo) {
-    greeting = `It's Daytime ${currentUser?.firstname}`;
-    mealName = "lunch";
   }
   if (currentHour >= lunchFrom && currentHour < lunchTo) {
     greeting = `It's Daytime ${currentUser?.firstname}`;
@@ -112,10 +102,6 @@ const Index = () => {
   if (currentHour >= dinnerFrom && currentHour < dinnerTo) {
     greeting = `It's Dusk ${currentUser?.firstname}`;
     mealName = "dinner";
-  }
-  if (currentHour >= snackFrom && currentHour < snackTo) {
-    greeting = `Good Night ${currentUser?.firstname}`;
-    mealName = "snacks";
   }
 
   return (

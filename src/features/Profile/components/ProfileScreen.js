@@ -80,7 +80,6 @@ import { storeData } from "../../../utilities/storeDataInPhoneMemory";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 import GymCard from "../../../components/general-component/GymCard";
 import { getGymTypeByCountryData } from "../../../utilities/getGymTypeByCountryData";
-import { gymGoalsKey, gymGoalsObject } from "../../../constants";
 
 export default function ProfileScreen() {
   const videoRef = useRef(null);
@@ -103,6 +102,8 @@ export default function ProfileScreen() {
   const [gymSelectedTypes, setGymSelectedTypes] = useState([]);
   const [fitnessPreference, setFitnessPreference] = useState([]);
   const [gymGoalsArray, setGymGoals] = useState([]);
+  const [gymGoalsKey, setGymGoalsKey] = useState([]);
+  const [gymGoalsObject, setGymGoalsObject] = useState({});
   const [selectedMealType, setSelectedMealType] = useState("breakfast");
   const [deleteImageItem, setDeleteImageItem] = useState("");
   const [openUpdateModal, setOpenUpdateModal] = useState({
@@ -119,10 +120,6 @@ export default function ProfileScreen() {
       to: 0,
     },
     dinner: {
-      from: 0,
-      to: 0,
-    },
-    snacks: {
       from: 0,
       to: 0,
     },
@@ -147,6 +144,8 @@ export default function ProfileScreen() {
     const phoneValueFromPhoneMemory = await retrieveData("phonenumber");
 
     const newData = await getAllData("all-users");
+    const gymGoalKeys = await getAllData("gym-goal-keys");
+    const gymGoalObject = await getAllData("gym-goals");
 
     const currentUserData = newData.find(
       (data) => data.phonenumber === phoneValueFromPhoneMemory
@@ -158,6 +157,8 @@ export default function ProfileScreen() {
     setIsGrayscale(
       currentUserData?.grayScale ? currentUserData?.grayScale : false
     );
+    setGymGoalsKey(gymGoalKeys?.[0]?.["list"]);
+    setGymGoalsObject(gymGoalObject[0]);
     setMealTimeSetting({
       breakfast: {
         from: currentUserData?.breakfastTime?.from ?? 0,
@@ -170,10 +171,6 @@ export default function ProfileScreen() {
       dinner: {
         from: currentUserData?.dinnerTime?.from ?? 0,
         to: currentUserData?.dinnerTime?.to ?? 0,
-      },
-      snacks: {
-        from: currentUserData?.snacksTime?.from ?? 0,
-        to: currentUserData?.snacksTime?.to ?? 0,
       },
     });
   }
@@ -1123,32 +1120,6 @@ export default function ProfileScreen() {
         setIsTrigger
       );
     }
-    if (meal === "snacks") {
-      let value = {
-        from: 0,
-        to: 0,
-      };
-
-      if (timeType === "from") {
-        value = {
-          from: hour,
-          to: mealTimeSetting.snacks.to,
-        };
-      }
-      if (timeType === "to") {
-        value = {
-          from: mealTimeSetting.snacks.from,
-          to: hour,
-        };
-      }
-      await updateUserValueField(
-        "all-users",
-        currentUser?.id,
-        "snacksTime",
-        value,
-        setIsTrigger
-      );
-    }
 
     setTimePickerFromVisibility(false);
     setTimePickerToVisibility(false);
@@ -1880,13 +1851,13 @@ export default function ProfileScreen() {
               height: theme.spaceNumberBy10[2],
               width: width,
             }}>
-            {["breakfast", "lunch", "dinner", "snacks"].map((type) => (
+            {["breakfast", "lunch", "dinner"].map((type) => (
               <TouchableOpacity
                 key={type}
                 onPress={() => setSelectedMealType(type)}
                 style={{
                   height: "100%",
-                  width: width / 4,
+                  width: width / 3,
                   paddingHorizontal: theme.spaceNumber[5],
                   justifyContent: "center",
                   backgroundColor:
@@ -1915,14 +1886,14 @@ export default function ProfileScreen() {
               flexDirection: "row",
               justifyContent: "space-between",
             }}>
-            {["breakfast", "lunch", "dinner", "snacks"].map((type) => (
-              <View key={type} style={{ width: width / 4 }}>
+            {["breakfast", "lunch", "dinner"].map((type) => (
+              <View key={type} style={{ width: width / 3 }}>
                 <View>
                   <Text
                     variant="custom"
-                    colorType="base1"
-                    fontType="montserratBold"
-                    fontSize="xcaption"
+                    colorType="base4"
+                    fontType="montserratRegular"
+                    fontSize="caption"
                     transform="capitalize">
                     From: {mealTimeSetting?.[type]?.from}:00
                   </Text>
@@ -1930,9 +1901,9 @@ export default function ProfileScreen() {
                 <View>
                   <Text
                     variant="custom"
-                    colorType="base1"
-                    fontType="montserratBold"
-                    fontSize="xcaption"
+                    colorType="base4"
+                    fontType="montserratRegular"
+                    fontSize="caption"
                     transform="capitalize">
                     To: {mealTimeSetting?.[type]?.to}:00
                   </Text>
@@ -2078,7 +2049,7 @@ export default function ProfileScreen() {
                   width="100%">
                   {key}
                 </Text>
-                {gymGoalsObject?.[key].map((goal, idx) => (
+                {gymGoalsObject?.[key]?.map((goal, idx) => (
                   <TouchableOpacity
                     onPress={() => handleSelectGoals(goal)}
                     key={idx}
