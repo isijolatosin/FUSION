@@ -1324,10 +1324,17 @@ export default function ProfileScreen() {
                 alignItems: "center",
                 justifyContent: "space-between",
                 marginTop: theme.spaceNumber[5],
-                paddingVertical: theme.spaceNumberBy10[0],
-                backgroundColor: theme.colors.brand.base8,
+                backgroundColor: theme.colors.brand.black2,
+                height: theme.spaceNumberBy10[2],
+                width: width,
               }}>
-              <TouchableOpacity onPress={() => setIsShowMealTimeSetting(true)}>
+              <TouchableOpacity
+                onPress={() => setIsShowMealTimeSetting(true)}
+                style={{
+                  height: "100%",
+                  justifyContent: "center",
+                  width: "50%",
+                }}>
                 <Text
                   variant="custom"
                   colorType="teal"
@@ -1336,8 +1343,15 @@ export default function ProfileScreen() {
                   Set Your Meals Time
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setIsGoalModal(true)}>
+              <TouchableOpacity
+                onPress={() => setIsGoalModal(true)}
+                style={{
+                  height: "100%",
+                  justifyContent: "center",
+                  width: "50%",
+                }}>
                 <Text
+                  style={{ textAlign: "right" }}
                   variant="custom"
                   colorType="teal"
                   fontType="montserratRegular"

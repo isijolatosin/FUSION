@@ -29,6 +29,7 @@ export const colors = {
     basewhitelighter: "rgba(255,253,253, 0.8)",
     error: "#C40C0C",
     teal: "#0d9488",
+    tealLight: "rgba(13, 148, 136, 0.2)",
     blue: "#214ED3",
   },
 };

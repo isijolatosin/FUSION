@@ -50,21 +50,11 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = ({ route }) => {
   const TAB_LIST = [
     {
-      component: MainScreen,
-      Icon: FontAwesome5,
-      name: "swipe",
-      iconName: "running",
-      size: 20,
-      isBaseComponent: false,
-    },
-    {
       component: MealPlanScreen,
       Icon: MaterialCommunityIcons,
       name: "meal-plan",
       iconName: "food-outline",
       size: 25,
-      isBaseComponent: false,
-      isMealComponent: true,
     },
     {
       component: ExerciseScreen,
@@ -72,15 +62,6 @@ const TabNavigator = ({ route }) => {
       name: "exercise",
       iconName: "weight-lifter",
       size: 25,
-      isBaseComponent: false,
-    },
-    {
-      component: ChatsScreen,
-      Icon: Ionicons,
-      name: "chat",
-      iconName: "chatbubble-outline",
-      size: 25,
-      isBaseComponent: false,
     },
     {
       component: ProfileScreen,
@@ -88,7 +69,20 @@ const TabNavigator = ({ route }) => {
       name: "profile",
       iconName: "person-outline",
       size: 23,
-      isBaseComponent: false,
+    },
+    {
+      component: ChatsScreen,
+      Icon: Ionicons,
+      name: "chat",
+      iconName: "chatbubble-outline",
+      size: 25,
+    },
+    {
+      component: MainScreen,
+      Icon: FontAwesome5,
+      name: "swipe",
+      iconName: "running",
+      size: 20,
     },
   ];
   return (
@@ -119,43 +113,27 @@ const TabNavigator = ({ route }) => {
             cardStyle: {
               // backgroundColor: `${theme.colors.brand.basewhite}`,
             },
-            tabBarIcon: ({ color, focused }) =>
-              list.isBaseComponent ? (
-                <View
-                  style={{
-                    width: theme.spaceNumberBy50[0],
-                    alignItems: "center",
-                  }}>
-                  <list.Icon
-                    theme={theme}
-                    width={list.width}
-                    height={list.height}
-                    focused={focused}
-                  />
-                </View>
-              ) : (
-                <View
-                  style={{
-                    width: theme.spaceNumberBy10[3],
-                    height: theme.spaceNumberBy10[3],
-                    borderWidth: focused ? 1 : 0,
-                    borderColor: focused
-                      ? list.isMealComponent
-                        ? theme.colors.brand.teal
-                        : theme.colors.brand.lines
-                      : "",
-                    borderRadius: theme.spaceNumberBy10[2],
-                    backgroundColor: focused && theme.colors.brand.base8,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}>
-                  <list.Icon
-                    name={list.iconName}
-                    color={focused ? color : theme.colors.brand.base1}
-                    size={list.size}
-                  />
-                </View>
-              ),
+            tabBarIcon: (
+              { focused } // there is color props option here
+            ) => (
+              <View
+                style={{
+                  width: theme.spaceNumberBy10[4],
+                  height: theme.spaceNumberBy10[4],
+                  borderRadius: theme.spaceNumberBy10[2],
+                  backgroundColor: focused && theme.colors.brand.tealLight,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}>
+                <list.Icon
+                  name={list.iconName}
+                  color={
+                    focused ? theme.colors.brand.teal : theme.colors.brand.base1
+                  }
+                  size={list.size}
+                />
+              </View>
+            ),
             gestureEnabled: false,
           }}
         />
