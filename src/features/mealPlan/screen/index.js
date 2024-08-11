@@ -193,39 +193,11 @@ const Index = () => {
                       paddingLeft: theme.spaceNumber[0],
                       paddingBottom: theme.spaceNumberBy10[3],
                     }}>
-                    <Spacer position="top" size="large">
-                      <View
-                        style={{
-                          borderBottomWidth: 0.5,
-                          borderBottomColor: theme.colors.brand.base4,
-                          paddingBottom: theme.spaceNumber[2],
-                          marginBottom: theme.spaceNumber[2],
-                        }}>
-                        <Text
-                          variant="custom"
-                          colorType="base"
-                          fontType="montserratBold"
-                          fontSize="body">
-                          Nutrition Plan
-                        </Text>
-                      </View>
-                      <View>
-                        <Text
-                          variant="custom"
-                          colorType="base6"
-                          fontType="montserratRegular"
-                          fontSize="caption">
-                          {dietPlansArray?.[goal]?.["nutrition plan"]}
-                        </Text>
-                      </View>
-                    </Spacer>
                     <Spacer position="top" size="medium">
                       <View
                         style={{
                           borderBottomWidth: 0.5,
                           borderBottomColor: theme.colors.brand.base4,
-                          borderTopWidth: 0.5,
-                          borderTopColor: theme.colors.brand.base4,
                           paddingVertical: theme.spaceNumber[0],
                           marginBottom: theme.spaceNumber[2],
                           flexDirection: "row",
@@ -275,6 +247,39 @@ const Index = () => {
                           }
                         </Text>
                       </View>
+                      {dietPlansArray?.[goal]?.["diet plan"]?.[mealName]?.[
+                        getWeekOfMonth() - 1
+                      ]?.description ? (
+                        <Spacer position="top" size="large">
+                          <Spacer position="bottom" size="xsmall">
+                            <Text
+                              variant="custom"
+                              colorType="base6"
+                              fontType="montserratBold"
+                              fontSize="caption">
+                              Description:
+                            </Text>
+                          </Spacer>
+                          <View
+                            style={{
+                              width: "100%",
+                            }}>
+                            <Text
+                              variant="custom"
+                              colorType="base6"
+                              fontType="montserratRegular"
+                              fontSize="caption">
+                              {
+                                dietPlansArray?.[goal]?.["diet plan"]?.[
+                                  mealName
+                                ]?.[getWeekOfMonth() - 1]?.description
+                              }
+                            </Text>
+                          </View>
+                        </Spacer>
+                      ) : (
+                        <></>
+                      )}
                     </Spacer>
                   </ScrollView>
                   {idx === 0 ? (
@@ -286,6 +291,32 @@ const Index = () => {
                         backgroundColor: theme.colors.brand.base1,
                         width: "100%",
                       }}>
+                      <Spacer position="bottom" size="large">
+                        <View
+                          style={{
+                            borderBottomWidth: 0.5,
+                            borderBottomColor: theme.colors.brand.base4,
+                            paddingBottom: theme.spaceNumber[2],
+                            marginBottom: theme.spaceNumber[2],
+                          }}>
+                          <Text
+                            variant="custom"
+                            colorType="base"
+                            fontType="montserratBold"
+                            fontSize="caption">
+                            Nutrition Plan
+                          </Text>
+                        </View>
+                        <View>
+                          <Text
+                            variant="custom"
+                            colorType="base6"
+                            fontType="montserratRegular"
+                            fontSize="xcaption">
+                            {dietPlansArray?.[goal]?.["nutrition plan"]}
+                          </Text>
+                        </View>
+                      </Spacer>
                       <View>
                         <Text
                           style={{ textAlign: "left" }}
