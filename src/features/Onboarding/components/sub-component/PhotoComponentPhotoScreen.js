@@ -6,6 +6,7 @@ import IconComponent from "../../../../components/icon-components/IconComponent"
 import { useAppContext } from "../../../../context/ThemeContext";
 import { handlePickImageAsyncPhotoScreen } from "../../../../utilities/handleUploadImage";
 import Spinner from "../../../../components/general-component/Spinner";
+import ImageViewer from "../../../../components/general-component/ImageViewer";
 
 export default function PhotoComponentPhotoScreen({
   photoUrl,
