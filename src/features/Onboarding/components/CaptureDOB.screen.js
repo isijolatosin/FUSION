@@ -127,6 +127,15 @@ export default function CaptureDOB({ navigation }) {
                 width="100%">
                 your birthday?
               </Text>
+              <Text
+                variant="custom"
+                colorType="brandTone"
+                fontType="arimaMadurai"
+                fontSize="caption"
+                lineHeight={theme.lineHeights[5]}
+                width="100%">
+                (Required *)
+              </Text>
             </Spacer>
             <Spacer position="top" size="xlarge">
               {Platform.OS === "ios" ? (

@@ -99,6 +99,15 @@ export default function CaptureWorkPlace({ navigation }) {
                 width="100%">
                 Please, state your institution name if you are a student.
               </Text>
+              <Text
+                variant="custom"
+                colorType="lines"
+                fontType="arimaMadurai"
+                fontSize="caption"
+                lineHeight={theme.lineHeights[5]}
+                width="100%">
+                (Optional)
+              </Text>
             </Spacer>
             <Spacer position="top" size="xxxlarge">
               <InputComponent

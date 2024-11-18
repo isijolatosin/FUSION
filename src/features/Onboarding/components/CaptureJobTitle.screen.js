@@ -97,10 +97,19 @@ export default function CaptureJobTitle({ navigation }) {
                 colorType="lines"
                 fontType="arimaMadurai"
                 fontSize="caption"
-                lineHeight={theme.lineHeights[0]}
+                lineHeight={theme.lineHeights[3]}
                 width="100%">
                 Please, state that you are a student if you previously provided
                 your institution name.
+              </Text>
+              <Text
+                variant="custom"
+                colorType="lines"
+                fontType="arimaMadurai"
+                fontSize="caption"
+                lineHeight={theme.lineHeights[5]}
+                width="100%">
+                (Optional)
               </Text>
             </Spacer>
             <Spacer position="top" size="xxxlarge">

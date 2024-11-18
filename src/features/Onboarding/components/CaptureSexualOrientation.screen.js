@@ -19,7 +19,6 @@ export default function CaptureSexualOrientation({ navigation }) {
   const [isOpen, setOpen] = useState(false);
   const { height } = Dimensions.get("window");
   const [sexualOrientation, setSexualOrientation] = useState("");
-  const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
@@ -50,15 +49,11 @@ export default function CaptureSexualOrientation({ navigation }) {
               theme={theme}
               color={theme.colors.brand.base}
               nextFunction={() => {
-                if (sexualOrientation) {
-                  navigation.navigate("capture-looking-for-screen", {
-                    dob,
-                    _height,
-                    sexualOrientation,
-                  });
-                } else {
-                  setPageError(true);
-                }
+                navigation.navigate("capture-looking-for-screen", {
+                  dob,
+                  _height,
+                  sexualOrientation,
+                });
               }}
             />
           )}
@@ -87,19 +82,16 @@ export default function CaptureSexualOrientation({ navigation }) {
               width="100%">
               your sexual orientation?
             </Text>
+            <Text
+              variant="custom"
+              colorType="lines"
+              fontType="arimaMadurai"
+              fontSize="caption"
+              lineHeight={theme.lineHeights[5]}
+              width="100%">
+              (Optional)
+            </Text>
           </Spacer>
-          <OnboardingErrorComponent
-            pageError={pageError}
-            text="Please provide your sexual orientation"
-            size="body"
-            classes={{
-              textAlign: "left",
-              color: theme.colors.brand.error,
-              fontFamily: theme.fonts.montserratSemibold,
-              fontSize: theme.spaceNumber[7],
-              marginTop: theme.spaceNumber[2],
-            }}
-          />
           <Spacer position="top" size="xxxlarge">
             <DropdownSelection
               data={sexualOrientationList}

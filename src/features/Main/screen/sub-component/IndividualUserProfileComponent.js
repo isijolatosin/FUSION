@@ -535,16 +535,20 @@ export default function IndividualUserProfileComponent({
             );
           })}
         </View>
-        <Spacer position="top" size="medium">
-          <Text
-            variant="custom"
-            colorType="black"
-            fontType="montserratBold"
-            fontSize="title"
-            width="100%">
-            Vices
-          </Text>
-        </Spacer>
+        {data?.lifestyleHabits?.cannabis &&
+          data?.lifestyleHabits?.drink &&
+          data?.lifestyleHabits?.smoke && (
+            <Spacer position="top" size="medium">
+              <Text
+                variant="custom"
+                colorType="black"
+                fontType="montserratBold"
+                fontSize="title"
+                width="100%">
+                Vices
+              </Text>
+            </Spacer>
+          )}
         <View
           style={{
             flexDirection: "row",

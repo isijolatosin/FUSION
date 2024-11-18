@@ -75,6 +75,15 @@ export default function CaptureName({ navigation }) {
               width="100%">
               name?
             </Text>
+            <Text
+              variant="custom"
+              colorType="brandTone"
+              fontType="arimaMadurai"
+              fontSize="caption"
+              lineHeight={theme.lineHeights[5]}
+              width="100%">
+              (Required *)
+            </Text>
           </Spacer>
           <Spacer position="top" size="large">
             <InputComponent

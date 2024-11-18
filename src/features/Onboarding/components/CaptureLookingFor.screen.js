@@ -81,6 +81,15 @@ export default function CaptureLookingFor({ navigation }) {
               width="100%">
               currently hoping for?
             </Text>
+            <Text
+              variant="custom"
+              colorType="brandTone"
+              fontType="arimaMadurai"
+              fontSize="caption"
+              lineHeight={theme.lineHeights[5]}
+              width="100%">
+              (Required *)
+            </Text>
           </Spacer>
           <ScrollView
             showsVerticalScrollIndicator={false}

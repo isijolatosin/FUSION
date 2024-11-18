@@ -23,16 +23,8 @@ export default function CaptureInterests({ navigation }) {
     state: { theme },
   } = useAppContext();
   const route = useRoute();
-  const {
-    dob,
-    _height,
-    sexualOrientation,
-    preference,
-    gymGoals,
-    workplace,
-    jobtitle,
-    fitnessClub,
-  } = route.params || {};
+  const { dob, _height, sexualOrientation, preference, gymGoals, fitnessClub } =
+    route.params || {};
 
   function handleInterest(int) {
     if (interestsArray.includes(int)) {
@@ -40,6 +32,8 @@ export default function CaptureInterests({ navigation }) {
 
       setInterests(popedInterestsArray);
     } else {
+      if (interestsArray.length === 6) return;
+
       setInterests([...interestsArray, int]);
     }
   }
@@ -67,14 +61,12 @@ export default function CaptureInterests({ navigation }) {
               color={theme.colors.brand.base}
               nextFunction={() => {
                 if (interestsArray.length > 5 && interestsArray.length <= 6) {
-                  navigation.navigate("capture-lifestly-habits-screen", {
+                  navigation.navigate("capture-photos-screen", {
                     dob,
                     _height,
                     sexualOrientation,
                     preference,
                     gymGoals,
-                    workplace,
-                    jobtitle,
                     fitnessClub,
                     interestsArray,
                   });
@@ -99,7 +91,16 @@ export default function CaptureInterests({ navigation }) {
                 lineHeight={theme.lineHeights[25]}
                 fontSize="h4"
                 width="100%">
-                Share Your Interest
+                Share Your Interest{" "}
+                <Text
+                  variant="custom"
+                  colorType="brandTone"
+                  fontType="arimaMadurai"
+                  fontSize="caption"
+                  lineHeight={theme.lineHeights[5]}
+                  width="100%">
+                  (Required *)
+                </Text>
               </Text>
             </Spacer>
             <Spacer

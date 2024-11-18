@@ -146,7 +146,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="base"
                 fontType="montserratBold"
-                lineHeight={theme.lineHeights[0]}
+                lineHeight={theme.lineHeights[2]}
                 fontSize="body"
                 width="95%">
                 How frequently do you hit the gym ?
@@ -206,7 +206,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="base"
                 fontType="montserratBold"
-                lineHeight={theme.lineHeights[0]}
+                lineHeight={theme.lineHeights[2]}
                 fontSize="body"
                 width="95%">
                 How often do you smoke?
@@ -266,7 +266,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="base"
                 fontType="montserratBold"
-                lineHeight={theme.lineHeights[0]}
+                lineHeight={theme.lineHeights[2]}
                 fontSize="body"
                 width="95%">
                 How often do you engage in 420-friendly activities ? (Marijuana)
@@ -326,7 +326,7 @@ export default function CaptureLifestyleHabits({ navigation }) {
                 variant="custom"
                 colorType="base"
                 fontType="montserratBold"
-                lineHeight={theme.lineHeights[0]}
+                lineHeight={theme.lineHeights[2]}
                 fontSize="body"
                 width="95%">
                 How often do you drink?

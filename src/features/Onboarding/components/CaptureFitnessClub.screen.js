@@ -31,15 +31,8 @@ export default function CaptureFitnessClub({ navigation }) {
   } = useAppContext();
 
   const route = useRoute();
-  const {
-    dob,
-    _height,
-    sexualOrientation,
-    preference,
-    gymGoals,
-    workplace,
-    jobtitle,
-  } = route.params || {};
+  const { dob, _height, sexualOrientation, preference, gymGoals } =
+    route.params || {};
   return (
     <SafeArea>
       <HorizontalPaddingSpace space={theme.space[2]}>
@@ -83,8 +76,6 @@ export default function CaptureFitnessClub({ navigation }) {
                     sexualOrientation,
                     preference,
                     gymGoals,
-                    workplace,
-                    jobtitle,
                     fitnessClub,
                   });
                 } else {
@@ -116,7 +107,16 @@ export default function CaptureFitnessClub({ navigation }) {
               fontSize="h4"
               lineHeight={theme.lineHeights[25]}
               width="100%">
-              work out?
+              work out?{" "}
+              <Text
+                variant="custom"
+                colorType="brandTone"
+                fontType="arimaMadurai"
+                fontSize="caption"
+                lineHeight={theme.lineHeights[5]}
+                width="100%">
+                (Required *)
+              </Text>
             </Text>
           </Spacer>
           <OnboardingErrorComponent

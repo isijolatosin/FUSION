@@ -841,18 +841,22 @@ export default function InitiatorProfileComponent({
                   );
                 })}
               </View>
-              <Spacer position="top" size="large">
-                <Spacer position="bottom" size="medium">
-                  <Text
-                    variant="custom"
-                    colorType="base1"
-                    fontType="montserratRegular"
-                    fontSize="title"
-                    width="100%">
-                    Vices
-                  </Text>
-                </Spacer>
-              </Spacer>
+              {data?.[0]?.likedBy?.lifestyleHabits?.cannabis &&
+                data?.[0]?.likedBy?.lifestyleHabits?.drink &&
+                data?.[0]?.likedBy?.lifestyleHabits?.smoke && (
+                  <Spacer position="top" size="large">
+                    <Spacer position="bottom" size="medium">
+                      <Text
+                        variant="custom"
+                        colorType="base1"
+                        fontType="montserratRegular"
+                        fontSize="title"
+                        width="100%">
+                        Vices
+                      </Text>
+                    </Spacer>
+                  </Spacer>
+                )}
               <View
                 style={{
                   flexDirection: "row",

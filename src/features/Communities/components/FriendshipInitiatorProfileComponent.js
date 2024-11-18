@@ -843,18 +843,22 @@ export default function FriendshipInitiatorProfileComponent({
                   }
                 )}
               </View>
-              <Spacer position="top" size="large">
-                <Spacer position="bottom" size="medium">
-                  <Text
-                    variant="custom"
-                    colorType="base1"
-                    fontType="montserratRegular"
-                    fontSize="title"
-                    width="100%">
-                    Vices
-                  </Text>
-                </Spacer>
-              </Spacer>
+              {data?.[0]?.friendRequestFrom?.lifestyleHabits?.cannabis &&
+                data?.[0]?.friendRequestFrom?.lifestyleHabits?.drink &&
+                data?.[0]?.friendRequestFrom?.lifestyleHabits?.smoke && (
+                  <Spacer position="top" size="large">
+                    <Spacer position="bottom" size="medium">
+                      <Text
+                        variant="custom"
+                        colorType="base1"
+                        fontType="montserratRegular"
+                        fontSize="title"
+                        width="100%">
+                        Vices
+                      </Text>
+                    </Spacer>
+                  </Spacer>
+                )}
               <View
                 style={{
                   flexDirection: "row",

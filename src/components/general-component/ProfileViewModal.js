@@ -659,18 +659,22 @@ export default function ProfileViewModal({
               </View>
             )}
           </Spacer>
-          <Spacer position="top" size="large">
-            <Spacer position="bottom" size="medium">
-              <Text
-                variant="custom"
-                colorType="base1"
-                fontType="montserratRegular"
-                fontSize="title"
-                width="100%">
-                Vices
-              </Text>
-            </Spacer>
-          </Spacer>
+          {otherUser?.lifestyleHabits?.cannabis &&
+            otherUser?.lifestyleHabits?.drink &&
+            otherUser?.lifestyleHabits?.smoke && (
+              <Spacer position="top" size="large">
+                <Spacer position="bottom" size="medium">
+                  <Text
+                    variant="custom"
+                    colorType="base1"
+                    fontType="montserratRegular"
+                    fontSize="title"
+                    width="100%">
+                    Vices
+                  </Text>
+                </Spacer>
+              </Spacer>
+            )}
           <View
             style={{
               flexDirection: "row",

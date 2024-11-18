@@ -49,11 +49,9 @@ export default function CapturePhotos({ navigation }) {
   const {
     dob,
     _height,
-    sexualOrientation,
+    sexualOrientation: _sexualOrientation,
     preference,
     gymGoals,
-    workplace,
-    jobtitle,
     fitnessClub,
     interestsArray,
     lifestyleHabits,
@@ -102,19 +100,16 @@ export default function CapturePhotos({ navigation }) {
         height: _height ? _height : "",
         interest,
         interestsArray,
-        jobtitle: jobtitle,
         lastname: lastname ? lastname : "",
         latitude,
         location,
-        lifestyleHabits,
         longitude,
         mediaArray,
         phonenumber,
         preference,
-        sexualOrientation,
+        sexualOrientation: _sexualOrientation ? _sexualOrientation : "",
         gymGoals,
         gymMembership: fitnessClub,
-        workplace: workplace,
         enableAllMarketingTool: false,
         googlefirebaseAccessGrant: true,
         phoneDataStorageAndRetrievalGrant: true,
@@ -180,7 +175,16 @@ export default function CapturePhotos({ navigation }) {
               fontSize="h4"
               lineHeight={theme.lineHeights[25]}
               width="100%">
-              things up!
+              things up!{" "}
+              <Text
+                variant="custom"
+                colorType="brandTone"
+                fontType="arimaMadurai"
+                fontSize="caption"
+                lineHeight={theme.lineHeights[5]}
+                width="100%">
+                (Required *)
+              </Text>
             </Text>
           </Spacer>
           <Spacer position="top" size="xsmall">
@@ -188,7 +192,7 @@ export default function CapturePhotos({ navigation }) {
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              lineHeight={theme.lineHeights[0]}
+              lineHeight={theme.lineHeights[3]}
               fontSize="caption"
               width="95%">
               {addPhotosInstruction}

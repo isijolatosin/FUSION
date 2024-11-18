@@ -86,7 +86,7 @@ export default function CaptureHeight({ navigation }) {
               variant="custom"
               colorType="lines"
               fontType="arimaMadurai"
-              fontSize="button"
+              fontSize="caption"
               lineHeight={theme.lineHeights[5]}
               width="100%">
               (Optional)

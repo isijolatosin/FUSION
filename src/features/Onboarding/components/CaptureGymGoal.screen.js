@@ -88,7 +88,7 @@ export default function CaptureGymGoalScreen({ navigation }) {
               color={theme.colors.brand.base}
               nextFunction={() => {
                 if (checkInput) {
-                  navigation.navigate("capture-work-place-screen", {
+                  navigation.navigate("capture-fitness-club-screen", {
                     dob,
                     _height,
                     sexualOrientation,
@@ -121,13 +121,22 @@ export default function CaptureGymGoalScreen({ navigation }) {
               fontSize="h4"
               lineHeight={theme.lineHeights[25]}
               width="100%">
-              your gym goals.
+              your gym goals.{" "}
+              <Text
+                variant="custom"
+                colorType="brandTone"
+                fontType="arimaMadurai"
+                fontSize="caption"
+                lineHeight={theme.lineHeights[5]}
+                width="100%">
+                (Required *)
+              </Text>
             </Text>
             <Text
               variant="custom"
               colorType="black"
               fontType="arimaMadurai"
-              lineHeight={theme.lineHeights[0]}
+              lineHeight={theme.lineHeights[3]}
               fontSize="caption"
               width="100%">
               How about you tell others of your fitness goals.
