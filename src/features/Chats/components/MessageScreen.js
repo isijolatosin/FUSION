@@ -561,6 +561,7 @@ export default function MessageScreen({ navigation }) {
         isVisible={openDotActionModal}
         onClose={() => setOpenDotActionModal(false)}
         theme={theme}
+        isJustifyContent="center"
         width={width}>
         <MessageDotsPopupModal
           height={height}

@@ -732,6 +732,7 @@ const ChatsScreen = () => {
         isVisible={newMessageInput}
         onClose={() => setNewMessageInput(false)}
         theme={theme}
+        isJustifyContent="center"
         width="100%">
         <HorizontalPaddingSpace
           space={theme.space[7]}

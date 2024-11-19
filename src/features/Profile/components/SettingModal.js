@@ -943,6 +943,7 @@ export default function SettingModal({
         isVisible={showPauseModal}
         onClose={() => setShowPauseModal(false)}
         theme={theme}
+        isJustifyContent="center"
         width="100%">
         <ActionNotificationModal
           title="Are you sure?"
@@ -974,6 +975,7 @@ export default function SettingModal({
         isVisible={showDeactivateModal}
         onClose={() => setShowDeactivateModal(false)}
         theme={theme}
+        isJustifyContent="center"
         width="100%">
         <ActionNotificationModal
           title="Are you sure?"
@@ -1005,6 +1007,7 @@ export default function SettingModal({
         isVisible={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         theme={theme}
+        isJustifyContent="center"
         width="100%">
         <ActionNotificationModal
           title="Are you sure?"
