@@ -59,6 +59,7 @@ export default function ContactModal({
     <AnimatedModal
       isVisible={openContactModal}
       onClose={onCloseContactModal}
+      isJustifyContent="center"
       theme={theme}>
       {!selectedHelp ? (
         <HorizontalPaddingSpace

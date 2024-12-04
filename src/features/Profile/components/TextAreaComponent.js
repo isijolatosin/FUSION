@@ -8,6 +8,7 @@ export default function TextAreaComponent({
   theme,
   selectedHelpValue,
   setValue,
+  placeholder,
 }) {
   return (
     <View
@@ -35,6 +36,7 @@ export default function TextAreaComponent({
         setValue={setValue}
         theme={theme}
         value={selectedHelpValue}
+        placeholder={placeholder}
       />
     </View>
   );

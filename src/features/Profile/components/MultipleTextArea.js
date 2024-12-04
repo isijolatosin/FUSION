@@ -2,7 +2,12 @@ import { View, Text } from "react-native";
 import React from "react";
 import { TextInput } from "../../../components/Input-Forms/input.styles";
 
-export default function MultipleTextArea({ setValue, theme, value }) {
+export default function MultipleTextArea({
+  setValue,
+  theme,
+  value,
+  placeholder,
+}) {
   return (
     <View style={{ padding: theme.spaceNumberBy10[1] }}>
       <TextInput
@@ -18,7 +23,7 @@ export default function MultipleTextArea({ setValue, theme, value }) {
         multiline
         numberOfLines={4}
         onChangeText={(text) => setValue(text)}
-        placeholder="Message..."
+        placeholder={placeholder ? placeholder : "Message..."}
         placeholderTextColor={theme.colors.brand.lines}
         theme={theme}
         value={value}

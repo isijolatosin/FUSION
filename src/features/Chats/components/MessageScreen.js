@@ -542,6 +542,7 @@ export default function MessageScreen({ navigation }) {
         isVisible={openImageUploadModal}
         onClose={() => setOpenImageUploadModal(false)}
         theme={theme}
+        isJustifyContent="center"
         width={width}>
         <GeneralPopupModal
           height={height}
@@ -565,6 +566,7 @@ export default function MessageScreen({ navigation }) {
         width={width}>
         <MessageDotsPopupModal
           height={height}
+          width={width}
           theme={theme}
           functionCallTop={() =>
             handleUnmatch(
@@ -576,9 +578,11 @@ export default function MessageScreen({ navigation }) {
           otherUserMatchId={otherUserDataObject?.id}
           otherUserMatchPhonenumber={otherUserDataObject?.phonenumber}
           setTriggerRefresh={() => {}}
-          textTop="Unmatch"
-          textBottom="Block"
-          textCancel="Cancel"
+          topText="Unmatch"
+          bottomText="Block"
+          cancelText="Cancel"
+          reportText="Report"
+          currentUser={currentUser}
           setOpenImageUploadModal={setOpenDotActionModal}
           horizontalSpace={`${theme.spaceNumberBy10[3]}px`}
         />

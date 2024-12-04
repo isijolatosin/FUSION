@@ -42,6 +42,8 @@ export const lifestlyHabitsInstruction =
   "Are they compatible with you? Let’s find out.";
 export const addPhotosInstruction =
   "Your features make you stand out. Add at least 3 of your images and stand out.";
+export const reportMessage =
+  "Thank you for your feedback! Your complaint has been logged successfully. Our team will review it and take appropriate action shortly.";
 export const heightList = [
   "4 feet",
   "4 feet 1 inch",
@@ -917,7 +919,7 @@ export const personalizemarkingserviceinfo =
 export const noeventmessage =
   "Currently, there are no events to display. You can help our community grow by sharing any events happening in your community with other users.";
 export const communityguidelinetext = `<p>
-We're committed to reshaping the landscape of friendship and dating, offering a space where individuals can authentically connect with others who share their values of kindness and respect, fostering meaningful relationships within a supportive community.</p>
+We're redefining fitness networking by creating a space where individuals can authentically connect with gym-goers who share their goals and values. Our platform fosters meaningful partnerships, offering personalized support to help users achieve their fitness aspirations while building a strong, motivating community.</p>
 
 <p>Here are the guiding principles behind our mission:</p>
 <br>
