@@ -19,7 +19,7 @@ export default function SmokeUpdateModal({
   const [preference, setPreference] = useState(
     mySmokingPreference
       ? currentUser.preferredSmoking ?? "Open to all"
-      : currentUser?.lifestyleHabits.smoke
+      : currentUser?.lifestyleHabits?.smoke
   );
 
   async function updateSmoke(value) {
@@ -33,10 +33,10 @@ export default function SmokeUpdateModal({
       );
     } else {
       const updatedValue = {
-        cannabis: currentUser?.lifestyleHabits.cannabis,
-        drink: currentUser?.lifestyleHabits.drink,
-        gym: currentUser?.lifestyleHabits.gym,
-        smoke: preference ?? currentUser?.lifestyleHabits.smoke,
+        cannabis: currentUser?.lifestyleHabits?.cannabis,
+        drink: currentUser?.lifestyleHabits?.drink,
+        gym: currentUser?.lifestyleHabits?.gym,
+        smoke: preference ?? currentUser?.lifestyleHabits?.smoke,
       };
 
       await updateUserValueField(

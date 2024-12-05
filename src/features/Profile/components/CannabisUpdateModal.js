@@ -19,7 +19,7 @@ export default function CannabisUpdateModal({
   const [preference, setPreference] = useState(
     myCannabisPreference
       ? currentUser.preferredCannabis ?? "Open to all"
-      : currentUser?.lifestyleHabits.cannabis
+      : currentUser?.lifestyleHabits?.cannabis ?? ""
   );
 
   async function updateCannabis() {
@@ -27,17 +27,22 @@ export default function CannabisUpdateModal({
       await updateUserValueField(
         "all-users",
         currentUser?.id,
-        myCannabisPreference,
+        myCannabisPreference ?? "preferredCannabis",
         preference ?? "",
         () => {}
       );
     } else {
-      const updatedValue = {
-        cannabis: preference ?? currentUser?.lifestyleHabits.cannabis,
-        drink: currentUser?.lifestyleHabits.drink,
-        gym: currentUser?.lifestyleHabits.gym,
-        smoke: currentUser?.lifestyleHabits.smoke,
-      };
+      let updatedValue = {};
+
+      if (currentUser?.lifestyleHabits) {
+        updatedValue = {
+          cannabis:
+            preference ?? (currentUser?.lifestyleHabits?.cannabis || ""),
+          drink: currentUser?.lifestyleHabits?.drink || "",
+          gym: currentUser?.lifestyleHabits?.gym || "",
+          smoke: currentUser?.lifestyleHabits?.smoke || "",
+        };
+      }
 
       await updateUserValueField(
         "all-users",

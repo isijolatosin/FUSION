@@ -11,9 +11,9 @@ import IconComponent from "../../../components/icon-components/IconComponent";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 
 export default function JobUpdateModal({ theme, currentUser, onClose }) {
-  const [jobtitle, setJobtitle] = useState(currentUser?.jobtitle?.job);
+  const [jobtitle, setJobtitle] = useState(currentUser?.jobtitle?.job ?? "");
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(
-    currentUser?.jobtitle?.visibleOnProfile
+    currentUser?.jobtitle?.visibleOnProfile ?? false
   );
 
   async function updatejobtitle() {

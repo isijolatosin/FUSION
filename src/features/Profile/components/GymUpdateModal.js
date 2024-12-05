@@ -16,15 +16,19 @@ export default function GymUpdateModal({
   onClose,
 }) {
   const [gymPreference, setGymPreference] = useState(
-    currentUser?.lifestyleHabits.gym
+    currentUser?.lifestyleHabits?.gym ? currentUser?.lifestyleHabits?.gym : ""
   );
   async function updateGym() {
-    const updatedValue = {
-      cannabis: currentUser?.lifestyleHabits.cannabis,
-      drink: currentUser?.lifestyleHabits.drink,
-      gym: gymPreference ?? currentUser?.lifestyleHabits.gym,
-      smoke: currentUser?.lifestyleHabits.smoke,
-    };
+    let updatedValue = {};
+
+    if (currentUser?.lifestyleHabits) {
+      updatedValue = {
+        cannabis: currentUser?.lifestyleHabits?.cannabis || "",
+        drink: currentUser?.lifestyleHabits?.drink || "",
+        gym: gymPreference ?? (currentUser?.lifestyleHabits?.gym || ""),
+        smoke: currentUser.lifestyleHabits?.smoke || "",
+      };
+    }
 
     await updateUserValueField(
       "all-users",
