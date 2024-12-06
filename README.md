@@ -29,6 +29,9 @@ For major changes like new package installation, change of app name, changes in 
 
 - npx expo-doctor: To run diagnosis on app
 - eas update / eas update --branch < branch name >: To create update to expo dashboard
-- eas update:configure: To configure eas.json file in app
+- eas update:configure: To configure expo update in app.json and package.json files
 - eas build: To create build to expo dashboard
+- eas build:configure: To configure eas build in eas.json file
 - eas submit -p ios/android --latest: To submit latest app build to app store and play store
+
+- npx expo install --fix command will fix al dependencies to match expo version
