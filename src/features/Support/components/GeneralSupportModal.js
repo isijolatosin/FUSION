@@ -73,7 +73,7 @@ export default function GeneralSupportModal({
             textTransform: "capitalize",
           }}
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratBold"
           fontSize="title">
           {data?.topic}
@@ -86,7 +86,7 @@ export default function GeneralSupportModal({
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="lines"
             fontType="montserratBold"
             fontSize="body">
             Name:{" "}
@@ -94,7 +94,7 @@ export default function GeneralSupportModal({
         </View>
         <Text
           variant="custom"
-          colorType="lines"
+          colorType="base1"
           fontType="montserratRegular"
           fontSize="body">
           {data?.lastname}, {data?.firstname}
@@ -107,7 +107,7 @@ export default function GeneralSupportModal({
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="lines"
             fontType="montserratBold"
             fontSize="body">
             Email:{" "}
@@ -115,7 +115,7 @@ export default function GeneralSupportModal({
         </View>
         <Text
           variant="custom"
-          colorType="lines"
+          colorType="base1"
           fontType="montserratRegular"
           fontSize="body">
           {data?.email}
@@ -128,7 +128,7 @@ export default function GeneralSupportModal({
         <View>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="lines"
             fontType="montserratBold"
             fontSize="body">
             Sent:{" "}
@@ -136,7 +136,7 @@ export default function GeneralSupportModal({
         </View>
         <Text
           variant="custom"
-          colorType="lines"
+          colorType="base1"
           fontType="montserratLight"
           fontSize="body"
           width="100%">
@@ -153,7 +153,7 @@ export default function GeneralSupportModal({
           }}>
           <Text
             variant="custom"
-            colorType="black"
+            colorType="lines"
             fontType="montserratBold"
             fontSize="body">
             Message
@@ -161,9 +161,9 @@ export default function GeneralSupportModal({
         </View>
         <Text
           variant="custom"
-          colorType="black"
+          colorType="base1"
           fontType="montserratRegular"
-          fontSize="body">
+          fontSize="caption">
           {data?.message}
         </Text>
       </Spacer>
@@ -174,7 +174,9 @@ export default function GeneralSupportModal({
             backgroundColor: theme.colors.brand.base,
             width: "35%",
             paddingVertical: theme.spaceNumber[3],
-            borderRadius: theme.spaceNumber[1],
+            borderRadius: theme.spaceNumberBy10[5],
+            borderBlockColor: theme.colors.brand.base8,
+            borderWidth: 1,
           }}>
           <Text
             style={{ textAlign: "center" }}
