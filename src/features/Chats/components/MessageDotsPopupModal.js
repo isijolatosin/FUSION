@@ -98,13 +98,16 @@ export default function MessageDotsPopupModal({
     database
       .collection("reports")
       .add({
+        name: currentUser.firstname,
         image: image,
+        offenderid: otherUserMatchId,
+        offenderphonenumber: otherUserMatchPhonenumber,
         reportid: generateUniqueId(`${hashReportId}_`),
         reporterid: generateUniqueId(`user${currentUser?.phonenumber}_`),
         reporteremail: currentUser?.email,
         reporterphonenumber: currentUser?.phonenumber,
         reason: selectedHelpValue,
-        status: "pending review",
+        status: "submitted for review",
         title: selectedReportCategory,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
