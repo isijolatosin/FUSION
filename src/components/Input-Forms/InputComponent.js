@@ -29,6 +29,7 @@ export default function InputComponent({
   multiline,
   numberOfLines,
   secureTextEntry,
+  keyboardAppearance,
 }) {
   const [switchIcon, setSwitchIcon] = useState(false);
   const {
@@ -50,6 +51,7 @@ export default function InputComponent({
         onChangeText={(text) => setValue(text)}
         value={value}
         keyboardType={keyboardType}
+        keyboardAppearance={keyboardAppearance ? keyboardAppearance : "light"}
         theme={theme}
         includeIcon={includeIcon}
         placeholder={placeholder ? placeholder : ""}

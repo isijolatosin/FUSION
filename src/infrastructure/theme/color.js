@@ -18,6 +18,7 @@ export const colors = {
     black: "#0A0A0A",
     black1: "rgba(0,0,0,0.2)",
     black2: "rgba(0,0,0,0.4)",
+    black3: "rgba(0,0,0,0.98)",
     brandFade: "rgba(111, 6, 6, 0.50)",
     brandFadeLighter: "rgba(111, 6, 6, 0.30)",
     brandTone: "rgba(111, 6, 6, 0.60)",

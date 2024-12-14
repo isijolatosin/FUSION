@@ -161,7 +161,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
           <View style={{ position: "relative" }}>
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="text-pad"
               setValue={(text) => setTitle(text.toLowerCase())}
               value={title}
               width="100%"
@@ -189,7 +189,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
           <View style={{ position: "relative" }}>
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="text-pad"
               setValue={(text) => setEventLocation(text.toLowerCase())}
               value={eventLocation}
               width="100%"
@@ -217,7 +217,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
           <View style={{ position: "relative" }}>
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="text-pad"
               setValue={(text) => setTime(text.toLowerCase())}
               value={time}
               width="100%"
@@ -245,7 +245,7 @@ const EventForm = ({ currentUser, setReload, theme, setShowEventForm }) => {
           <View style={{ position: "relative" }}>
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="text-pad"
               setValue={(text) => setDescription(text.toLowerCase())}
               value={description}
               width="100%"

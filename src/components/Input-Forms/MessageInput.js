@@ -36,7 +36,7 @@ export default function MessageInput({
           multiline={true}
           numberOfLines={4}
           enablesReturnKeyAutomatically={true}
-          keyboardAppearance="light"
+          keyboardAppearance="dark"
           onChangeText={(text) => setInput(text)}
           value={value}
           keyboardType="default"

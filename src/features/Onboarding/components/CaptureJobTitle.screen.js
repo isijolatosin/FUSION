@@ -12,13 +12,11 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
-// import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureJobTitle({ navigation }) {
   const [jobtitleName, setJobtitle] = useState("");
   const [isVisibleOnProfile, setIsVisibleOnProfile] = useState(false);
-  // const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
   } = useAppContext();
@@ -115,7 +113,7 @@ export default function CaptureJobTitle({ navigation }) {
             <Spacer position="top" size="xxxlarge">
               <InputComponent
                 includeIcon={false}
-                keyboardTyp="text-pad"
+                keyboardType="text-pad"
                 setValue={(text) => setJobtitle(text.toLowerCase())}
                 value={jobtitleName}
                 width="100%"
@@ -148,18 +146,6 @@ export default function CaptureJobTitle({ navigation }) {
                 }}
               />
             </Spacer>
-            {/* <OnboardingErrorComponent
-              pageError={pageError}
-              text="Please provide your job title"
-              size="body"
-              classes={{
-                textAlign: "left",
-                color: theme.colors.brand.error,
-                fontFamily: theme.fonts.montserratSemibold,
-                fontSize: theme.spaceNumber[7],
-                marginTop: theme.spaceNumberBy10[2],
-              }}
-            /> */}
           </HorizontalPaddingSpace>
         </HorizontalPaddingSpace>
       </Pressable>

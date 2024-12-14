@@ -246,7 +246,7 @@ export default function SignIn({ navigation }) {
                     inputMode="numeric"
                     autoFocus={true}
                     includeIcon={false}
-                    keyboardTyp="numeric"
+                    keyboardType="numeric"
                     setValue={setCode}
                     value={code}
                     width="100%"
@@ -269,7 +269,7 @@ export default function SignIn({ navigation }) {
                     autoCapitalize="none"
                     inputMode="numeric"
                     includeIcon={false}
-                    keyboardTyp="numeric"
+                    keyboardType="numeric"
                     setValue={setPhonenumber}
                     value={phonenumber}
                     width="100%"
@@ -293,7 +293,7 @@ export default function SignIn({ navigation }) {
                   autoCapitalize="none"
                   includeIcon={false}
                   inputMode="email"
-                  keyboardTyp="email-address"
+                  keyboardType="email-address"
                   setValue={setEmail}
                   value={email}
                   width="100%"
@@ -315,7 +315,7 @@ export default function SignIn({ navigation }) {
                 size="xxsmall"
                 style={{ position: "relative" }}>
                 <InputComponent
-                  keyboardTyp="text-pad"
+                  keyboardType="text-pad"
                   setValue={setPassword}
                   value={password}
                   width="100%"

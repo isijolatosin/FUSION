@@ -30,7 +30,7 @@ export default function index({ theme }) {
           variant="custom"
           colorType="black"
           fontType="arimaMadurai"
-          lineHeight={theme.lineHeights[5]}
+          lineHeight={theme.lineHeights[10]}
           fontSize="body">
           Here is
         </Text>

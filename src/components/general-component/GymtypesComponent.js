@@ -6,12 +6,10 @@ import {
   View,
 } from "react-native";
 import GymCard from "./GymCard";
-import { gymTypesByCountry } from "../../constants";
 import { useAppContext } from "../../context/ThemeContext";
 import { Text } from "../typography/text.component";
 import { Spacer } from "../spacer/spacer.component";
 import { HorizontalPaddingSpace } from "../utility/space-area.component";
-import Placeholder from "./Placeholder";
 import IconComponent from "../icon-components/IconComponent";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import InputComponent from "../Input-Forms/InputComponent";
@@ -132,6 +130,7 @@ const GymtypesComponent = ({
                     fontColor={theme.colors.brand.base1}
                     backgroundColor="transparent"
                     isBackgroundColor={false}
+                    keyboardAppearance="dark"
                   />
                   <Pressable
                     style={{ position: "absolute", right: 0, top: "30%" }}>

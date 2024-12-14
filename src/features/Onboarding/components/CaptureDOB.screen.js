@@ -18,11 +18,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import InputComponent from "../../../components/Input-Forms/InputComponent";
 import { useAppContext } from "../../../context/ThemeContext";
 import { InputWarraper } from "./onboarding.styles";
-import {
-  agerestrictionmessage,
-  dobInstruction,
-  months,
-} from "../../../constants";
+import { agerestrictionmessage, dobInstruction } from "../../../constants";
 import NextNavigation from "../../../components/Next-navigation";
 import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import calculateAge from "../../../utilities/calculateAge";

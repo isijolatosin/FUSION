@@ -20,6 +20,7 @@ export default function MultipleTextArea({
         isBorderBottomInput={false}
         includeIcon={false}
         keyboardType="default"
+        keyboardAppearance="dark"
         multiline
         numberOfLines={4}
         onChangeText={(text) => setValue(text)}

@@ -29,7 +29,39 @@ const TextInputWrapper = styled.View`
       : props.theme.colors.brand.lines};
 `;
 
+const NumberInputWrapper = styled.View`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${(props) =>
+    props.backgroundColor
+      ? props.backgroundColor
+      : props.theme.colors.brand.highlight};
+  border-radius: ${(props) => (props.borderRadius ? props.theme.space[3] : 0)};
+  border-width: ${(props) => (props.allBorder ? props.theme.space[0] : 0)};
+  padding: ${(props) => props.theme.space[1]};
+  width: ${(props) => (props.width ? props.width : "100%")};
+  height: ${(props) => (props.height ? props.height : "100%")};
+  border-color: ${(props) =>
+    props.borderColor ? props.borderColor : props.theme.colors.brand.lines};
+`;
+
 const TextInput = styled.TextInput.attrs((props) => ({
+  fontSize: props.placeholderFontSize
+    ? props.placeholderFontSize
+    : props.theme.fontSizes.body,
+}))`
+  font-size: ${(props) =>
+    props.fontSize ? props.fontSize : props.theme.fontSizes.body};
+  font-family: ${(props) =>
+    props.fontType ? props.fontType : props.theme.fonts.montserratSemibold};
+  width: 100%;
+  ${(props) => props.centralize && `text-align: center`};
+  ${(props) => props.fontColor && `color: ${props.fontColor}`};
+`;
+
+const NumericInput = styled.TextInput.attrs((props) => ({
   fontSize: props.placeholderFontSize
     ? props.placeholderFontSize
     : props.theme.fontSizes.body,
@@ -164,6 +196,8 @@ export {
   TextInputWrapper,
   CodeInputWrapper,
   TextInput,
+  NumericInput,
+  NumberInputWrapper,
   HiddenCodeTextInput,
   PlusText,
   OTPInputContainer,

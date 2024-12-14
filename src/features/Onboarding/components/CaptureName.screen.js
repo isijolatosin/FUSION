@@ -88,7 +88,7 @@ export default function CaptureName({ navigation }) {
           <Spacer position="top" size="large">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="text-pad"
               setValue={(text) => setFirstname(text.toLowerCase())}
               value={firstname}
               width="100%"
@@ -102,7 +102,7 @@ export default function CaptureName({ navigation }) {
           <Spacer position="top" size="large">
             <InputComponent
               includeIcon={false}
-              keyboardTyp="text-pad"
+              keyboardType="text-pad"
               setValue={(text) => setLastname(text.toLowerCase())}
               value={lastname}
               width="100%"

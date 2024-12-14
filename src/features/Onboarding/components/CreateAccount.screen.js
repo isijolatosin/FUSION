@@ -259,7 +259,7 @@ export default function CreateAccount({ navigation }) {
                       inputMode="numeric"
                       autoFocus={true}
                       includeIcon={false}
-                      keyboardTyp="numeric"
+                      keyboardType="numeric"
                       setValue={setCode}
                       maxlength={7}
                       value={code}
@@ -282,7 +282,7 @@ export default function CreateAccount({ navigation }) {
                       autoCapitalize="none"
                       inputMode="numeric"
                       includeIcon={false}
-                      keyboardTyp="numeric"
+                      keyboardType="numeric"
                       setValue={setPhonenumber}
                       value={phonenumber}
                       maxlength={10}
@@ -306,7 +306,7 @@ export default function CreateAccount({ navigation }) {
                     autoCapitalize="none"
                     inputMode="email"
                     includeIcon={false}
-                    keyboardTyp="email-address"
+                    keyboardType="email-address"
                     setValue={setEmail}
                     value={email}
                     width="100%"
@@ -328,7 +328,7 @@ export default function CreateAccount({ navigation }) {
                   size="xsmall"
                   style={{ position: "relative" }}>
                   <InputComponent
-                    keyboardTyp="text-pad"
+                    keyboardType="text-pad"
                     setValue={setPassword}
                     value={password}
                     width="100%"
@@ -357,7 +357,7 @@ export default function CreateAccount({ navigation }) {
                 </Spacer>
                 <View style={{ position: "relative" }}>
                   <InputComponent
-                    keyboardTyp="text-pad"
+                    keyboardType="text-pad"
                     setValue={setPassword2}
                     value={password2}
                     width="100%"
