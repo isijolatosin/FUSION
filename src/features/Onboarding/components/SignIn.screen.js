@@ -315,7 +315,7 @@ export default function SignIn({ navigation }) {
                 size="xxsmall"
                 style={{ position: "relative" }}>
                 <InputComponent
-                  keyboardType="text-pad"
+                  keyboardType="visible-password"
                   setValue={setPassword}
                   value={password}
                   width="100%"

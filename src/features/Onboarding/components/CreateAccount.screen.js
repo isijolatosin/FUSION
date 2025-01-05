@@ -328,7 +328,7 @@ export default function CreateAccount({ navigation }) {
                   size="xsmall"
                   style={{ position: "relative" }}>
                   <InputComponent
-                    keyboardType="text-pad"
+                    keyboardType="visible-password"
                     setValue={setPassword}
                     value={password}
                     width="100%"
@@ -357,7 +357,7 @@ export default function CreateAccount({ navigation }) {
                 </Spacer>
                 <View style={{ position: "relative" }}>
                   <InputComponent
-                    keyboardType="text-pad"
+                    keyboardType="visible-password"
                     setValue={setPassword2}
                     value={password2}
                     width="100%"

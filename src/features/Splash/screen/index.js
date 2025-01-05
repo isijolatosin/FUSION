@@ -82,7 +82,7 @@ const TabNavigator = ({ route }) => {
       Icon: FontAwesome5,
       name: "swipe",
       iconName: "running",
-      size: 20,
+      size: 25,
     },
   ];
   return (
@@ -111,7 +111,7 @@ const TabNavigator = ({ route }) => {
           component={list.component}
           options={{
             cardStyle: {
-              // backgroundColor: `${theme.colors.brand.basewhite}`,
+              backgroundColor: `${theme.colors.brand.error}`,
             },
             tabBarIcon: (
               { focused } // there is color props option here
@@ -121,14 +121,24 @@ const TabNavigator = ({ route }) => {
                   width: theme.spaceNumberBy10[4],
                   height: theme.spaceNumberBy10[4],
                   borderRadius: theme.spaceNumberBy10[2],
-                  backgroundColor: focused && theme.colors.brand.tealLight,
+                  backgroundColor:
+                    focused &&
+                    (list.name === "swipe"
+                      ? "rgba(111, 6, 6, 0.3)"
+                      : theme.colors.brand.tealLight),
                   justifyContent: "center",
                   alignItems: "center",
                 }}>
                 <list.Icon
                   name={list.iconName}
                   color={
-                    focused ? theme.colors.brand.teal : theme.colors.brand.base1
+                    focused
+                      ? list.name === "swipe"
+                        ? "#6F0606"
+                        : theme.colors.brand.teal
+                      : list.name === "swipe"
+                      ? "#6F0606"
+                      : theme.colors.brand.base1
                   }
                   size={list.size}
                 />
@@ -215,7 +225,7 @@ export default function index() {
 
   useEffect(() => {
     (async function getLastScreenVisit() {
-      lastScreenFromMemory = await retrieveData("last-screen-visit");
+      const lastScreenFromMemory = await retrieveData("last-screen-visit");
       setLastScreenVisited(lastScreenFromMemory);
     })();
 
@@ -230,7 +240,8 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={lastScreenVisited ? "main" : "splash"}
+        initialRouteName="splash"
+        // initialRouteName={lastScreenVisited ? "main" : "splash"}
         screenOptions={{
           headerShown: false,
         }}>
