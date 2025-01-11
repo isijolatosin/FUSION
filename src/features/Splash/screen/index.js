@@ -240,8 +240,7 @@ export default function index() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="splash"
-        // initialRouteName={lastScreenVisited ? "main" : "splash"}
+        initialRouteName={lastScreenVisited ? "main" : "splash"}
         screenOptions={{
           headerShown: false,
         }}>
