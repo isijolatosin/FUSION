@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LottieView from "lottie-react-native";
-import { Dimensions, View, Image } from "react-native";
+import { Dimensions, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { SafeArea } from "../../../components/utility/safe-area.component";

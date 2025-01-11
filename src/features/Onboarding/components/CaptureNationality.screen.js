@@ -106,7 +106,7 @@ export default function CaptureNationality({ navigation }) {
             <Spacer position="top" size="large">
               <InputComponent
                 includeIcon={false}
-                keyboardType="text-pad"
+                keyboardType="name-phone-pad"
                 setValue={(text) => {
                   setNationality(text.toLowerCase());
                 }}

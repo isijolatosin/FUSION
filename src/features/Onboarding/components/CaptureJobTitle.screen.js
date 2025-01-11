@@ -113,7 +113,7 @@ export default function CaptureJobTitle({ navigation }) {
             <Spacer position="top" size="xxxlarge">
               <InputComponent
                 includeIcon={false}
-                keyboardType="text-pad"
+                keyboardType="name-phone-pad"
                 setValue={(text) => setJobtitle(text.toLowerCase())}
                 value={jobtitleName}
                 width="100%"

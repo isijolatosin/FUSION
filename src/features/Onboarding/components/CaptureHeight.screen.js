@@ -12,14 +12,12 @@ import { Text } from "../../../components/typography/text.component";
 import NextNavigation from "../../../components/Next-navigation";
 import DropdownSelection from "./sub-component/DropdownSelection";
 import { heightList } from "../../../constants";
-import OnboardingErrorComponent from "./OnboardingErrorComponent";
 import HeaderComponent from "../../../components/general-component/HeaderComponent";
 
 export default function CaptureHeight({ navigation }) {
   const [isOpen, setOpen] = useState(false);
   const { height } = Dimensions.get("window");
   const [_height, setHeight] = useState("");
-  const [pageError, setPageError] = useState(false);
   const {
     state: { theme },
   } = useAppContext();

@@ -96,7 +96,6 @@ const Index = ({ navigation }) => {
 
   const {
     state: { theme },
-    dispatch,
   } = useAppContext();
 
   async function deviceDetect(userId) {
