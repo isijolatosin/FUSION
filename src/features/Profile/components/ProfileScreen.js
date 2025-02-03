@@ -88,6 +88,7 @@ export default function ProfileScreen() {
   } = useAppContext();
   const { height } = Dimensions.get("window");
   const [isTrigger, setIsTrigger] = useState(false);
+  const [isLoadingImage, useLoadingImage] = useState(false);
   const [isGoalModal, setIsGoalModal] = useState(false);
   const [isGrayscale, setIsGrayscale] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -1272,6 +1273,8 @@ export default function ProfileScreen() {
                     photoUrl={media}
                     showDeleteIcon={true}
                     index={0}
+                    isLoadingImage={isLoadingImage}
+                    useLoadingImage={useLoadingImage}
                     setOpenDeleteModal={setOpenDeleteModal}
                     setDeleteImageItem={setDeleteImageItem}
                     deleteImageItem={deleteImageItem}
@@ -1287,6 +1290,8 @@ export default function ProfileScreen() {
                     photoUrl={media}
                     showDeleteIcon={true}
                     index={0}
+                    isLoadingImage={isLoadingImage}
+                    useLoadingImage={useLoadingImage}
                     setOpenDeleteModal={setOpenDeleteModal}
                     setDeleteImageItem={setDeleteImageItem}
                     deleteImageItem={deleteImageItem}
@@ -1306,6 +1311,8 @@ export default function ProfileScreen() {
                         photoUrl=""
                         showDeleteIcon={true}
                         index={0}
+                        isLoadingImage={isLoadingImage}
+                        useLoadingImage={useLoadingImage}
                         setOpenDeleteModal={setOpenDeleteModal}
                         setDeleteImageItem={setDeleteImageItem}
                         deleteImageItem={deleteImageItem}
@@ -1767,14 +1774,19 @@ export default function ProfileScreen() {
       </View>
       <AnimatedModal
         isVisible={openDeleteModal}
-        onClose={() => setOpenDeleteModal(false)}
+        onClose={() => {
+          useLoadingImage();
+          setOpenDeleteModal(false);
+        }}
         theme={theme}
+        isJustifyContent="center"
         width={width}>
         <GeneralPopupModal
           height={height}
           theme={theme}
           functionCallTop={handleReplaceImageAsyncInModal}
           functionCallBottom={handleDeleteImageAsyncInModal}
+          useLoadingImage={useLoadingImage}
           textTop="Replace Media"
           textBottom="Delete Media"
           textCancel="Cancel"
@@ -1784,7 +1796,10 @@ export default function ProfileScreen() {
       </AnimatedModal>
       <AnimatedModal
         isVisible={openImageUploadModal}
-        onClose={() => setOpenImageUploadModal(false)}
+        onClose={() => {
+          useLoadingImage();
+          setOpenImageUploadModal(false);
+        }}
         theme={theme}
         isJustifyContent="center"
         width={width}>
@@ -1793,6 +1808,7 @@ export default function ProfileScreen() {
           theme={theme}
           functionCallTop={handlePickImageAsyncInModal}
           functionCallBottom={handleCaptureImageAsyncInModal}
+          useLoadingImage={useLoadingImage}
           textTop="Upload Media"
           textBottom="Take Media"
           textCancel="Cancel"

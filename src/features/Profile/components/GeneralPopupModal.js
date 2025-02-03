@@ -12,6 +12,7 @@ export default function GeneralPopupModal({
   textBottom,
   textCancel,
   setOpenImageUploadModal,
+  useLoadingImage,
   horizontalSpace,
 }) {
   return (
@@ -73,7 +74,10 @@ export default function GeneralPopupModal({
           borderBottomLeftRadius={theme.spaceNumber[2]}
           borderBottomRightRadius={theme.spaceNumber[2]}>
           <Text
-            onPress={() => setOpenImageUploadModal(false)}
+            onPress={() => {
+              useLoadingImage(false);
+              setOpenImageUploadModal(false);
+            }}
             style={{ textAlign: "center" }}
             variant="custom"
             colorType="base1"

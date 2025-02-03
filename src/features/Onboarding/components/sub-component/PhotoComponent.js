@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, Image } from "react-native";
+import { Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import IconComponent from "../../../../components/icon-components/IconComponent";
@@ -19,6 +19,8 @@ export default function PhotoComponent({
   setDeleteImageItem,
   deleteImageItem,
   setOpenImageUploadModal,
+  isLoadingImage,
+  useLoadingImage,
   width,
   borderRadius,
   videoRef,
@@ -27,7 +29,6 @@ export default function PhotoComponent({
   const {
     state: { theme },
   } = useAppContext();
-  const [isLoadingImage, useLoadingImage] = useState(false);
 
   async function handlePickImageAsyncOnBoarding() {
     await handlePickImageAsync(useLoadingImage);
