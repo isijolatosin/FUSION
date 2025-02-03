@@ -3,13 +3,52 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
 
+// const compressImage = async (uri) => {
+//   const manipResult = await ImageManipulator.manipulateAsync(
+//     uri,
+//     [{ resize: { width: 400 } }], // Adjust the width as needed
+//     { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+//   );
+//   return manipResult.uri;
+// };
+
 const compressImage = async (uri) => {
-  const manipResult = await ImageManipulator.manipulateAsync(
+  if (!uri) {
+    throw new Error("Image URI is required.");
+  }
+
+  const MAX_SIZE = 80 * 1024; // 80KB in bytes
+  let quality = 1.0; // Start with max quality
+  let compressedUri = uri;
+  let fileSize = Infinity;
+
+  // Resize image to max 400px width (keeping aspect ratio)
+  const resized = await ImageManipulator.manipulateAsync(
     uri,
-    [{ resize: { width: 400 } }], // Adjust the width as needed
-    { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+    [{ resize: { width: 400 } }],
+    { compress: quality, format: ImageManipulator.SaveFormat.JPEG }
   );
-  return manipResult.uri;
+  compressedUri = resized.uri;
+
+  // Get initial file size
+  const fileInfo = await FileSystem.getInfoAsync(compressedUri);
+  fileSize = fileInfo.exists ? fileInfo.size ?? Infinity : Infinity;
+
+  // Gradually reduce quality if file is too large
+  while (fileSize > MAX_SIZE && quality > 0.1) {
+    quality -= 0.1; // Reduce quality step by step
+    const result = await ImageManipulator.manipulateAsync(
+      uri,
+      [{ resize: { width: 400 } }],
+      { compress: quality, format: ImageManipulator.SaveFormat.JPEG }
+    );
+    compressedUri = result.uri;
+
+    const newFileInfo = await FileSystem.getInfoAsync(compressedUri);
+    fileSize = newFileInfo.exists ? newFileInfo.size ?? Infinity : Infinity;
+  }
+
+  return compressedUri;
 };
 
 export const uploadImageToCloudinary = async (imagePath) => {

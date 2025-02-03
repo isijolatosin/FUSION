@@ -672,7 +672,7 @@ export default function ProfileScreen() {
             mySmokingPreference="preferredSmoking"
           />
         );
-      case "dating intentions":
+      case "connection intentions":
         return (
           <PreferenceUpdateModal
             theme={theme}
@@ -1246,8 +1246,9 @@ export default function ProfileScreen() {
                     colorType="teal"
                     fontType="montserratSemibold"
                     fontSize="xcaption">
-                    {currentUser?.videoArray?.length &&
-                      `${currentUser?.videoArray?.length} - `}{" "}
+                    {currentUser?.videoArray?.length > 0
+                      ? `${currentUser?.videoArray?.length} - `
+                      : ""}{" "}
                     Add Video
                   </Text>
                 </TouchableOpacity>
@@ -1669,9 +1670,12 @@ export default function ProfileScreen() {
             />
             <AboutMeListComponent
               pressFunction={() =>
-                setOpenUpdateModal({ type: "dating intentions", isOpen: true })
+                setOpenUpdateModal({
+                  type: "connection intentions",
+                  isOpen: true,
+                })
               }
-              title="Dating Intentions"
+              title="Connection intentions"
               value={currentUser?.preference}
             />
             <AboutMeListComponent
@@ -1782,6 +1786,7 @@ export default function ProfileScreen() {
         isVisible={openImageUploadModal}
         onClose={() => setOpenImageUploadModal(false)}
         theme={theme}
+        isJustifyContent="center"
         width={width}>
         <GeneralPopupModal
           height={height}

@@ -27,6 +27,7 @@ export default function CustomUseCardWithCTA({
   const {
     state: { theme },
   } = useAppContext();
+  const hasChildren = React.Children.count(ImageComponent) > 0;
 
   return (
     <SafeArea
@@ -41,11 +42,13 @@ export default function CustomUseCardWithCTA({
         RightComp={() => <></>}
       />
       <View style={{ flex: 1, marginTop: theme.spaceNumberBy10[5] }}>
-        <IllustrationContainer
-          ImageComponent={ImageComponent}
-          spaceSize={spaceSize}
-          theme={theme}
-        />
+        {hasChildren && (
+          <IllustrationContainer
+            ImageComponent={ImageComponent}
+            spaceSize={spaceSize}
+            theme={theme}
+          />
+        )}
 
         <HorizontalPaddingSpace
           style={{ alignItems: "center", gap: theme.spaceNumberBy10[3] }}

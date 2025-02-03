@@ -25,7 +25,7 @@ export default function SharePlayListUpdateModal({
   async function updatePlaylistLink(value, visibilityOption) {
     setPlaylistLink(value.toLowerCase());
 
-    updatedValue = {
+    const updatedValue = {
       visibleOnProfile: visibilityOption ?? isVisibleOnProfile ?? false,
       link: value.toLowerCase() ?? playlist,
     };

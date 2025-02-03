@@ -21,7 +21,7 @@ export default function FacebookUpdateModal({ theme, currentUser, onClose }) {
   async function updateFacebookLink(value, visibilityOption) {
     setFacebookLink(value.toLowerCase());
 
-    updatedValue = {
+    const updatedValue = {
       visibleOnProfile: visibilityOption ?? isVisibleOnProfile ?? false,
       link: value.toLowerCase() ?? facebook,
     };

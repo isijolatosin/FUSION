@@ -19,7 +19,7 @@ export default function TikTokUpdateModal({ theme, currentUser, onClose }) {
   async function updateTiktokLink(value, visibilityOption) {
     setTiktokLink(value.toLowerCase());
 
-    updatedValue = {
+    const updatedValue = {
       visibleOnProfile: visibilityOption ?? isVisibleOnProfile ?? false,
       link: value.toLowerCase() ?? tiktok,
     };

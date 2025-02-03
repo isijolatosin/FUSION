@@ -148,13 +148,9 @@ const Index = ({ navigation }) => {
         if (data.phonenumber !== _phonenumber) {
           if (currentUserData?.interest === "both") {
             return data;
-          }
-
-          if (data.gender === currentUserData?.interest) {
+          } else if (data.gender === currentUserData?.interest) {
             return data;
-          }
-
-          // return data;
+          } else return data; // some users may not choose their interest
         }
       });
 

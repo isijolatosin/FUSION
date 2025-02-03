@@ -70,7 +70,9 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
+      alert(
+        "‼️ Please enable notifications for Wiingr in your device settings."
+      );
       return;
     }
     token = (
@@ -80,7 +82,7 @@ async function registerForPushNotificationsAsync() {
     ).data;
     // console.log("token", token);
   } else {
-    alert("Must use physical device for Push Notifications");
+    alert("‼️ Wiingr requires a physical device to use Push Notifications.");
   }
 
   return token;

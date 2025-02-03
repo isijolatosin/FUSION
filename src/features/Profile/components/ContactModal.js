@@ -53,7 +53,7 @@ export default function ContactModal({
       setSendingMessage(false);
     }, 2000);
 
-    return () => clearImmediate(contactTimeoutId);
+    return () => clearTimeout(contactTimeoutId);
   }
   return (
     <AnimatedModal

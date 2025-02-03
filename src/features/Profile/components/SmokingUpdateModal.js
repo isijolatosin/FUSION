@@ -22,7 +22,7 @@ export default function SmokeUpdateModal({
       : currentUser?.lifestyleHabits?.smoke
   );
 
-  async function updateSmoke(value) {
+  async function updateSmoke() {
     if (mySmokingPreference) {
       await updateUserValueField(
         "all-users",
