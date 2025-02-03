@@ -124,7 +124,7 @@ const TabNavigator = ({ route }) => {
                   backgroundColor:
                     focused &&
                     (list.name === "swipe"
-                      ? "rgba(111, 6, 6, 0.3)"
+                      ? "rgba(13, 148, 136, 0.2)"
                       : theme.colors.brand.tealLight),
                   justifyContent: "center",
                   alignItems: "center",
@@ -134,10 +134,10 @@ const TabNavigator = ({ route }) => {
                   color={
                     focused
                       ? list.name === "swipe"
-                        ? "#6F0606"
+                        ? "#0d9488"
                         : theme.colors.brand.teal
                       : list.name === "swipe"
-                      ? "#6F0606"
+                      ? "#0d9488"
                       : theme.colors.brand.base1
                   }
                   size={list.size}
