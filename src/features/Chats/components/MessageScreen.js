@@ -150,6 +150,17 @@ export default function MessageScreen({ navigation }) {
     });
   };
 
+  function handleReplyConfig(config) {
+    const { isFocus, item} = config
+    setIsFocus(isFocus);
+    setReplyConfig(item)
+  }
+
+  function closeReply() {
+    setIsFocus(false);
+    setReplyConfig({})
+  }
+
   const sendMessage = async () => {
     if (!input?.length) return;
 
@@ -194,8 +205,7 @@ export default function MessageScreen({ navigation }) {
         .catch((error) => console.log("Error " + error.message));
 
       setInput("");
-
-      setIsFocus(false)
+      closeReply()
     }
   };
   const sendPhotoMessage = (photo) => {
@@ -358,17 +368,6 @@ export default function MessageScreen({ navigation }) {
       () => {}
     );
     navigation.navigate("chat", { refresh: true });
-  }
-
-  function handleReplyConfig(config) {
-    const { isFocus, item} = config
-    setIsFocus(isFocus);
-    setReplyConfig(item)
-  }
-
-  function closeReply() {
-    setIsFocus(false);
-    setReplyConfig({})
   }
 
   //   async function startRecording() {
