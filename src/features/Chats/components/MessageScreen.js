@@ -513,7 +513,7 @@ export default function MessageScreen({ navigation }) {
       ) : (
         <Loading theme={theme} isMessage={true} />
       )}
-      {isFocus && <HorizontalPaddingSpace space={theme.space[3]} style={{
+      {isFocus && replyConfig?.message && <HorizontalPaddingSpace space={theme.space[3]} style={{
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
