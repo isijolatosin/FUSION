@@ -27,6 +27,8 @@ For major changes like new package installation, change of app name, changes in 
 
 ## COMMANDS
 
+- eas credentials: to update Distribution Certificate and Provisioning Profile
+
 - npx expo-doctor: To run diagnosis on app
 - eas update / eas update --branch < branch name >: To create update to expo dashboard
 - eas update:configure: To configure expo update in app.json and package.json files

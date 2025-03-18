@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Dimensions, KeyboardAvoidingView, Platform, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 // import { Audio } from "expo-av";
-import { Ionicons, MaterialCommunityIcons, Fontisto } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons, Fontisto, AntDesign } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
 import {
@@ -35,6 +35,7 @@ import MessageDotsPopupModal from "./MessageDotsPopupModal";
 import AnimatedModal from "../../../components/general-component/AnimatedModal";
 import ProfileViewModal from "../../../components/general-component/ProfileViewModal";
 import ImageViewer from "../../../components/general-component/ImageViewer";
+import truncateSentence from "../../../utilities/truncateSentence";
 // import { uploadAudioToCloudinary } from "../../../utilities/pickImageAsync";
 
 export default function MessageScreen({ navigation }) {
@@ -58,6 +59,8 @@ export default function MessageScreen({ navigation }) {
   // const [sound, setSound] = useState();
   // const [recordingActive, setRecordingActive] = useState(false);
   // const [permissionResponse, requestPermission] = Audio.usePermissions();
+  const [replyConfig, setReplyConfig] = useState({});
+  const [isFocus, setIsFocus] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
@@ -161,12 +164,7 @@ export default function MessageScreen({ navigation }) {
         textTransform = input?.toLowerCase();
       }
 
-      //pushing message to firebase db...
-      database
-        .collection(flag ? "friendship-matches" : "matches")
-        .doc(matchId)
-        .collection("messages")
-        .add({
+      let sendObject = {
           firstname: currentUser?.firstname,
           matchId: matchId,
           message: textTransform,
@@ -174,7 +172,18 @@ export default function MessageScreen({ navigation }) {
           recieverphonenumber: otherUserDataObject?.phonenumber,
           senderphonenumber: currentUser?.phonenumber,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        })
+        }
+
+      if (Object.keys(replyConfig).length) {
+        sendObject.replyingTo = replyConfig
+      }
+
+      //pushing message to firebase db...
+      database
+        .collection(flag ? "friendship-matches" : "matches")
+        .doc(matchId)
+        .collection("messages")
+        .add(sendObject)
         .then(() => {
           // call in-app notification function
           if (otherUserDataObject?.inAppNotification) {
@@ -185,6 +194,8 @@ export default function MessageScreen({ navigation }) {
         .catch((error) => console.log("Error " + error.message));
 
       setInput("");
+
+      setIsFocus(false)
     }
   };
   const sendPhotoMessage = (photo) => {
@@ -349,6 +360,17 @@ export default function MessageScreen({ navigation }) {
     navigation.navigate("chat", { refresh: true });
   }
 
+  function handleReplyConfig(config) {
+    const { isFocus, item} = config
+    setIsFocus(isFocus);
+    setReplyConfig(item)
+  }
+
+  function closeReply() {
+    setIsFocus(false);
+    setReplyConfig({})
+  }
+
   //   async function startRecording() {
   //     try {
   //       if (permissionResponse.status !== "granted") {
@@ -480,6 +502,7 @@ export default function MessageScreen({ navigation }) {
               key={idx}
               theme={theme}
               dateTitle={key}
+              handleReplyConfig={handleReplyConfig}
               data={messagesForMessagesScreen?.[key]}
               currentUser={currentUser}
               setSelectedImage={setSelectedImage}
@@ -491,12 +514,50 @@ export default function MessageScreen({ navigation }) {
       ) : (
         <Loading theme={theme} isMessage={true} />
       )}
+      {isFocus && <HorizontalPaddingSpace space={theme.space[3]} style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingVertical: theme.spaceNumber[4],
+        backgroundColor: theme.colors.brand.base8,
+        borderLeftWidth: theme.spaceNumber[1],
+        borderLeftColor: theme.colors.brand.base5,
+        }}>
+        <View>
+          <View>
+            <Text variant="custom"
+              colorType="base1"
+              fontType="montserratSemibold"
+              fontSize="caption" style={{textTransform: "capitalize"}}>
+                {replyConfig.name}
+            </Text>
+          </View>
+          <View>
+            <Text variant="custom"
+              colorType="base1"
+              fontType="montserratSemibold"
+              fontSize="caption">
+                {truncateSentence(replyConfig.message, 7)}
+            </Text>
+          </View>
+        </View>
+        <IconComponent
+          iconFunction={closeReply}
+          iconName="closecircle"
+          IconComponent={AntDesign}
+          size={20}
+          theme={theme}
+          horizontalRightSpace={theme.space[1]}
+          color={theme.colors.brand.base5}
+        />
+      </HorizontalPaddingSpace>}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <MessageInput
           value={input}
           theme={theme}
           setInput={setInput}
+          isFocus={isFocus}
           recording={recording}
           setRecording={setRecording}
           sendMessage={sendMessage}

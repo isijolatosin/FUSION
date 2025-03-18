@@ -154,7 +154,7 @@ const MessageContainer = styled.ScrollView`
   padding-right: ${(props) => `${props.theme.spaceNumberBy10[0]}px`};
 `;
 
-const MessageBubbleWrap = styled.View`
+const MessageBubbleWrap = styled.Pressable`
   width: 100%;
   align-items: ${(props) => (props.currentUser ? "flex-end" : "flex-start")};
 `;

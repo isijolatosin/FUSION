@@ -24,6 +24,7 @@ export default function MessageGroupComponent({
   dateTitle,
   data,
   currentUser,
+  handleReplyConfig,
   setSelectedImage,
   setShowImageModal,
   // playAudio,
@@ -73,10 +74,39 @@ export default function MessageGroupComponent({
       {data?.map((item, idx) => (
         <MessageBubbleWrap
           key={idx}
+          onLongPress={() =>  handleReplyConfig({
+            isFocus: true,
+            item: {
+              name: item.firstname,
+              id: item.id,
+              message: item.message,
+              timestamp: item.timestamp
+            }
+          })}
           currentUser={currentUser?.phonenumber === item?.senderphonenumber}>
           <MessageBubble
             isImage={detectImageUrl(item?.message)}
             currentUser={currentUser?.phonenumber === item?.senderphonenumber}>
+              {item?.replyingTo?.message && (
+                <View style={{backgroundColor: theme.colors.brand.base, borderRadius: theme.spaceNumber[2], padding: theme.spaceNumber[2], borderLeftWidth: theme.spaceNumber[2], borderLeftColor: theme.colors.brand.base5, marginBottom: theme.spaceNumber[5]}}>
+                  <View style={{marginBottom: theme.spaceNumber[4]}}>
+                    <Text variant="custom"
+                      colorType="base1"
+                      fontType="montserratSemibold"
+                      fontSize="xcaption">
+                        {item.replyingTo.name}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text variant="custom"
+                      colorType="base1"
+                      fontType="montserratSemibold"
+                      fontSize="caption">
+                        {item.replyingTo.message}
+                    </Text>
+                  </View>
+                </View>
+              )}
             {detectPhoneNumber(item?.message) ? (
               <Pressable onPress={() => handleCallPress(item?.message)}>
                 <Text

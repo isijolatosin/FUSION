@@ -12,6 +12,7 @@ import {
 export default function MessageInput({
   value,
   theme,
+  isFocus,
   setInput,
   sendMessage,
   setOpenImageUploadModal,
@@ -33,6 +34,7 @@ export default function MessageInput({
         paddingTop={`${theme.spaceNumber[2]}px`}
         paddingBottom={`${theme.spaceNumber[2]}px`}>
         <TextInputMessage
+          autoFocus={isFocus}
           multiline={true}
           numberOfLines={4}
           enablesReturnKeyAutomatically={true}
