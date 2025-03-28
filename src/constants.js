@@ -15,6 +15,9 @@ import {
 export const mapImage =
   "https://res.cloudinary.com/dhdccvkyt/image/upload/v1703740615/fusion/global-communication-background-business-network-design_2_j3fnht.png";
 
+export const filterCaution =
+  "The app uses your gym location to find potential workout buddies nearby. Adjusting the distance filter helps you connect with those closest to you.";
+
 export const splashOboardingSummaryText =
   "A community where fitness meets friendship. Find your future gym buddy and make every workout count!";
 export const oboardingSummaryText =

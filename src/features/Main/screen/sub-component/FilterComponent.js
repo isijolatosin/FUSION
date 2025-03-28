@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Dimensions, Pressable, ScrollView, Switch, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import RangeSlider from "react-native-range-slider-expo";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { CheckBox } from "react-native-elements";
 
 import { Text } from "../../../../components/typography/text.component";
@@ -16,11 +16,14 @@ import UpdateModal from "../../../Profile/components/UpdateModal";
 import ReligionUpdateModal from "../../../Profile/components/ReligionUpdateModal";
 import HeightUpdateModal from "../../../Profile/components/HeightUpdateModal";
 import HeaderComponent from "../../../../components/general-component/HeaderComponent";
+import { filterCaution } from "../../../../constants";
 
 function RangeCompoent({
   theme,
   text,
+  width,
   description,
+  filterCaution,
   selectedValue,
   setSelectedValue,
   initialValue,
@@ -68,6 +71,44 @@ function RangeCompoent({
           </Text>
         </View>
       </RangeCompoentSection>
+      {!suggest && (
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: theme.spaceNumber[2],
+            paddingVertical: theme.spaceNumber[3],
+          }}>
+          <View
+            style={{
+              marginRight: theme.spaceNumber[2],
+            }}>
+            <IconComponent
+              iconFunction={() => {}}
+              iconName="warning-outline"
+              IconComponent={Ionicons}
+              size={20}
+              color={theme.colors.brand.teal}
+            />
+          </View>
+          <View
+            style={{
+              width: width - theme.spaceNumberBy10[6],
+            }}>
+            <Text
+              style={{
+                textAlign: "left",
+                lineHeight: theme.spaceNumber[6],
+              }}
+              variant="custom"
+              colorType="teal"
+              fontType="montserratRegular"
+              fontSize="xcaption">
+              {filterCaution}
+            </Text>
+          </View>
+        </View>
+      )}
       <View
         style={{
           paddingRight: theme.spaceNumberBy10[4] + theme.spaceNumber[1],
@@ -586,7 +627,9 @@ export default function FilterComponent({
             </View>
             <RangeCompoent
               theme={theme}
+              width={width}
               text="Maximum Distance"
+              filterCaution={filterCaution}
               description="Only suggest people within this range"
               type="distance"
               selectedValue={

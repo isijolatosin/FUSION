@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Switch, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 
 import { Text } from "../../../components/typography/text.component";
@@ -8,9 +8,11 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { updateUserValueField } from "../../../utilities/updateFirestoreDatabaseField";
 import IconComponent from "../../../components/icon-components/IconComponent";
 import { RangeCompoentSection } from "../../Main/screen/main.style";
+import { filterCaution } from "../../../constants";
 
 export default function DistancePreferenceUpdateModal({
   theme,
+  width,
   height,
   currentUser,
   onClose,
@@ -98,6 +100,41 @@ export default function DistancePreferenceUpdateModal({
               </Text>
             </View>
           </RangeCompoentSection>
+          {!suggestDistanceWithRange && (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: theme.spaceNumber[2],
+                paddingVertical: theme.spaceNumber[3],
+              }}>
+              <View
+                style={{
+                  marginRight: theme.spaceNumber[2],
+                }}>
+                <IconComponent
+                  iconFunction={() => {}}
+                  iconName="warning-outline"
+                  IconComponent={Ionicons}
+                  size={20}
+                  color={theme.colors.brand.teal}
+                />
+              </View>
+              <View style={{ width: width - theme.spaceNumberBy10[6] }}>
+                <Text
+                  style={{
+                    textAlign: "left",
+                    lineHeight: theme.spaceNumber[6],
+                  }}
+                  variant="custom"
+                  colorType="teal"
+                  fontType="montserratRegular"
+                  fontSize="xcaption">
+                  {filterCaution}
+                </Text>
+              </View>
+            </View>
+          )}
           <RangeCompoentSection>
             <Slider
               style={{ width: "100%", margin: 0 }}

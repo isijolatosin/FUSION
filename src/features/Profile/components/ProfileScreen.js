@@ -849,6 +849,7 @@ export default function ProfileScreen() {
       case "distance":
         return (
           <DistancePreferenceUpdateModal
+            width={width}
             theme={theme}
             height={height}
             currentUser={currentUser}
