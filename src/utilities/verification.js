@@ -1,5 +1,8 @@
 import firebase from "firebase/compat/app";
 
+import verifyUserInDatabaseBeforeSignin from "./verifyUserInDatabaseBeforeSignIn";
+import { storeData } from "./storeDataInPhoneMemory";
+
 export const sendVerification = (
   phonenumber,
   recaptchaVerifier,
@@ -40,8 +43,17 @@ export const confirmVerificationCode = (
   firebase
     .auth()
     .signInWithCredential(credential)
-    .then((_res) => {
-      navigation.navigate(`${destination}`, { phonenumber });
+    .then(async (_res) => {
+      // Check for an existing profile only once the user is signed in,
+      // so the Firestore rules can require sign-in to read profiles.
+      const isExistingUser = await verifyUserInDatabaseBeforeSignin(phonenumber);
+
+      if (isExistingUser) {
+        storeData("phonenumber", phonenumber);
+        navigation.navigate("main", { phonenumber });
+      } else {
+        navigation.navigate(`${destination}`, { phonenumber });
+      }
     })
     .catch((error) => {
       setVerificationErrorMessage(error.message);
