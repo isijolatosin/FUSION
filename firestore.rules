@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// Firestore rules for the Wiingr relaunch.
+// NOT deployed yet: the live database is locked (deny all) while the app is
+// off the App Store. Publish these from the Firebase console (Firestore > Rules)
+// or with `firebase deploy --only firestore:rules` when the app goes live again.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // Users sign in with phone auth, so the token carries their phone number.
+    // User documents are created with .add() (random IDs) and store the same
+    // number in `phonenumber`, which is how ownership is checked.
+    function ownsUserDoc() {
+      return signedIn()
+        && request.auth.token.phone_number != null
+        && resource.data.phonenumber == request.auth.token.phone_number;
+    }
+
+    // `role` (e.g. "ADMIN") is only ever set by hand in the Firebase console,
+    // which bypasses these rules. The app can never set or change it.
+    function touchesProtectedFields() {
+      return request.resource.data.diff(resource.data)
+        .affectedKeys().hasAny(['role', 'phonenumber']);
+    }
+
+    match /all-users/{userId} {
+      allow read: if signedIn();
+
+      // New profile: must be your own phone number, and no role allowed.
+      allow create: if signedIn()
+        && request.resource.data.phonenumber == request.auth.token.phone_number
+        && !('role' in request.resource.data);
+
+      // Updates: nobody can change role or phonenumber from the app.
+      // (Other signed-in users can still update shared fields such as likes,
+      // because the app writes to other users' documents today.)
+      allow update: if signedIn() && !touchesProtectedFields();
+
+      // Only the owner can delete their profile.
+      allow delete: if ownsUserDoc();
+    }
+
+    // Everything else (chats, likes, matches, communities, events, support,
+    // reports, meal plans, exercise data): signed-in users only.
+    match /{collection}/{docId=**} {
+      allow read, write: if signedIn() && collection != 'all-users';
+    }
+  }
+}
