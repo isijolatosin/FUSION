@@ -12,37 +12,60 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Users sign in with phone auth, so the token carries their phone number.
-    // User documents are created with .add() (random IDs) and store the same
-    // number in `phonenumber`, which is how ownership is checked.
-    function ownsUserDoc() {
-      return signedIn()
-        && request.auth.token.phone_number != null
-        && resource.data.phonenumber == request.auth.token.phone_number;
+    function tokenPhone() {
+      return request.auth.token.get('phone_number', null);
+    }
+
+    function tokenEmail() {
+      return request.auth.token.get('email', null);
+    }
+
+    // User documents are created with .add() (random IDs), so ownership is
+    // checked by matching the signed-in phone number (phone sign-in) or email
+    // (email/password sign-in) against the profile.
+    function isOwner(data) {
+      return signedIn() && (
+        (tokenPhone() != null && data.get('phonenumber', null) == tokenPhone()) ||
+        (tokenEmail() != null && data.get('email', null) == tokenEmail())
+      );
+    }
+
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
     }
 
     // `role` (e.g. "ADMIN") is only ever set by hand in the Firebase console,
-    // which bypasses these rules. The app can never set or change it.
+    // which bypasses these rules. Nobody can set or change it from the app.
     function touchesProtectedFields() {
-      return request.resource.data.diff(resource.data)
-        .affectedKeys().hasAny(['role', 'phonenumber']);
+      return changedKeys().hasAny(['role', 'phonenumber']);
+    }
+
+    // The only fields the app writes on OTHER people's profiles
+    // (likes, blocks and in-app notifications).
+    function onlySharedFields() {
+      return changedKeys().hasOnly([
+        'likedMeList',
+        'listOfAllLikedNumbers',
+        'blockedMeList',
+        'inAppNotification'
+      ]);
     }
 
     match /all-users/{userId} {
       allow read: if signedIn();
 
-      // New profile: must be your own phone number, and no role allowed.
-      allow create: if signedIn()
-        && request.resource.data.phonenumber == request.auth.token.phone_number
+      // New profile: must be your own phone number or email, and no role.
+      allow create: if isOwner(request.resource.data)
         && !('role' in request.resource.data);
 
-      // Updates: nobody can change role or phonenumber from the app.
-      // (Other signed-in users can still update shared fields such as likes,
-      // because the app writes to other users' documents today.)
-      allow update: if signedIn() && !touchesProtectedFields();
+      // Your own profile: edit anything except role and phone number.
+      // Someone else's profile: only the shared like/block/notification fields.
+      allow update: if signedIn()
+        && !touchesProtectedFields()
+        && (isOwner(resource.data) || onlySharedFields());
 
       // Only the owner can delete their profile.
-      allow delete: if ownsUserDoc();
+      allow delete: if isOwner(resource.data);
     }
 
     // Everything else (chats, likes, matches, communities, events, support,
