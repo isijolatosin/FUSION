@@ -1,39 +1,85 @@
-<!-- TODO BEFORE DEPLOYMENT -->
+# Wiingr — Find Your Gym Buddy
 
-- change the version number before deployment
-- change icon logo inside of app.json file - line 7
-- change splash logo inside of app.json file - line 10
-- Ensure to fill the Privacy representative in Firebase and recreate a new DB - https://console.firebase.google.com/u/3/project/your-fusion/settings/privacy
+**Wiingr** is a health and wellness community app for iOS and Android that matches people with nearby workout partners who share their fitness goals, lifestyle and interests — with chat, communities, meal plans and exercise options built in.
 
-- Librarys to consider
+Built solo with **React Native** and **Expo**, backed by **Firebase**, and released on the **Apple App Store**.
 
-1. react-native-onboarding-swiper
+<!-- Screenshots: add 3–4 phone screenshots (onboarding, matches, chat, meal plan) and replace the line below -->
+<!-- <p><img src="docs/screens/onboarding.png" width="220"/> <img src="docs/screens/matches.png" width="220"/> <img src="docs/screens/chat.png" width="220"/></p> -->
 
--APP VERSION MANAGEMENT: Setting versionCode(android) or buildNumber(iOS), you can automate inside of eas.json by setting the appVersionSource to remote in "cli" and remove the versionCode(android) and buildNumber(ios) from app.json since it will no longer be needed. And if you prefer manual update, set the appVersionSource in eas.json to local and add the versionCode(android) and buildNumber(iOS) to app.json. After, run eas build --profile production --platform ios( or android)
+---
 
-To change your version code any time, run eas build:version:set and follow through
+## Features
 
-## OVER THE AIR UPDATE
+- **Gym-buddy matching** — matches based on gym location and distance, fitness goals, interests (pick up to 6) and lifestyle habits, with a compatibility view.
+- **Location-aware discovery** — adjustable distance filter to find workout partners closest to you (Expo Location, with clear permission prompts).
+- **Chat** — one-to-one messaging with matches, plus likes and friend requests.
+- **Communities & events** — interest-based communities and community events.
+- **Meal plans & exercise options** — nutrition and workout guidance alongside the social features.
+- **Onboarding & verification** — phone sign-up with OTP verification, guided profile setup and photo uploads.
+- **Account controls** — pause, deactivate or delete your profile; privacy preferences; in-app support and reporting.
+- **Over-the-air updates** — cosmetic changes and fixes ship instantly with Expo Updates; native changes go through EAS Build.
 
-- expo publish: To update live app with cosmetic changes, new functionalities, bug fixes.
+## Tech stack
 
-## REBUILD THE BINARIES
+| Area | Tools |
+|---|---|
+| App | React Native 0.72, Expo SDK 49, React 18 |
+| Navigation | React Navigation (native stack, stack, bottom tabs) |
+| UI | styled-components, React Native Paper, React Native Elements, Lottie animations, Expo Google Fonts, theme context |
+| Backend | Firebase Auth, Firestore, App Check (`@react-native-firebase`) |
+| Device features | Expo Camera, Image Picker, Image Manipulator, Location, Notifications, AV, Mail Composer |
+| Testing & quality | Jest (`jest-expo`), React Native Testing Library, ESLint, Prettier |
+| Build & release | EAS Build, EAS Submit, Expo Updates (OTA) |
 
-For major changes like new package installation, change of app name, changes in ios / android folder, splash screen, icon, owner, scheme. More in expo documentation. Also update the version, buildNumber(ios)/versionCode(android) before running the below command.
+## Project structure
 
-- eas build --platform ios/android
-  after
-- eas submit --platform ios/android
+```
+FUSION/
+├── App.js                 # App entry
+├── config.js              # Firebase initialisation
+├── src/
+│   ├── features/          # Feature modules: Onboarding, Main, Chats, Likes,
+│   │                      # Communities, Compatibility, Profile, mealPlan,
+│   │                      # ExerciseOptions, Support, Splash
+│   ├── components/        # Shared UI components
+│   ├── context/           # App-wide context (theme)
+│   ├── infrastructure/    # Theme: typography, spacing, colours
+│   ├── utilities/         # Helpers
+│   └── constants.js       # Copy, option lists, subscription tiers
+├── __mocks__/             # Jest mocks (AsyncStorage)
+├── app.json / eas.json    # Expo + EAS configuration
+└── jestSetupFile.js
+```
 
-## COMMANDS
+## Run it locally
 
-- eas credentials: to update Distribution Certificate and Provisioning Profile
+**Requirements:** Node (see `.nvmrc`), Yarn, Expo CLI, and Xcode (iOS) or Android Studio (Android).
 
-- npx expo-doctor: To run diagnosis on app
-- eas update / eas update --branch < branch name >: To create update to expo dashboard
-- eas update:configure: To configure expo update in app.json and package.json files
-- eas build: To create build to expo dashboard
-- eas build:configure: To configure eas build in eas.json file
-- eas submit -p ios/android --latest: To submit latest app build to app store and play store
+```bash
+yarn install
+yarn start        # Expo dev server
+yarn ios          # run on iOS simulator
+yarn android      # run on Android emulator
+yarn test         # Jest tests with coverage
+yarn lint         # ESLint
+```
 
-- npx expo install --fix command will fix al dependencies to match expo version
+## Build & release
+
+```bash
+eas build --platform ios        # or android
+eas submit --platform ios       # submit the latest build to the App Store
+eas update --branch production  # over-the-air update for JS-only changes
+```
+
+Bump `version` / `buildNumber` (iOS) or `versionCode` (Android) before a native build. Run `npx expo-doctor` to check the project and `npx expo install --fix` to align dependency versions with the Expo SDK.
+
+## Status
+
+Wiingr was published on the Apple App Store. It is currently not listed while the Apple Developer membership is inactive.
+
+## Author
+
+**Olu Isijola** — Front-end engineer & headless CMS architect (React, TypeScript, Next.js, Contentful). Designed and built Wiingr end to end.
+[GitHub](https://github.com/isijolatosin)
