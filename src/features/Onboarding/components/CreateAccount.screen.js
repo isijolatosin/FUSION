@@ -24,7 +24,7 @@ import {
   validatePhoneCode,
   validatePhoneNumber,
 } from "../../../utilities/validateEmail";
-import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
+import checkPhoneOwnership from "../../../utilities/checkPhoneOwnership";
 import ProgressBar from "../../../components/general-component/ProgressiveBar";
 
 export default function CreateAccount({ navigation }) {
@@ -124,6 +124,30 @@ export default function CreateAccount({ navigation }) {
 
       await auth.createUserWithEmailAndPassword(email, password);
 
+      // Stop anyone registering with a phone number that already belongs to
+      // another account (the app identifies profiles by phone number).
+      const phoneStatus = await checkPhoneOwnership(
+        formattedPhonenumber,
+        auth.currentUser?.email
+      );
+      if (phoneStatus === "taken") {
+        await auth.currentUser?.delete();
+        clearInterval(interval);
+        setLoading(false);
+        setProgress(0);
+        setFormValidate({
+          ...formValidate,
+          code: false,
+          phonenumber: false,
+        });
+        setLogMessage({
+          message:
+            "This phone number is already linked to another account. Sign in with that account, or use a different number.",
+          code: "error",
+        });
+        return;
+      }
+
       const emailPswdId = setTimeout(() => {
         setLoading(false);
         setCode(null);
@@ -145,9 +169,7 @@ export default function CreateAccount({ navigation }) {
       }, 4000);
 
       const emailPswdId2 = setTimeout(async () => {
-        const isVerifyUser = await verifyUserInDatabaseBeforeSignin(
-          formattedPhonenumber
-        );
+        const isVerifyUser = phoneStatus === "owner";
         if (isVerifyUser) {
           navigation.navigate("main", { phonenumber: phonenumber });
         } else {
