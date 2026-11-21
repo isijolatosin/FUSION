@@ -1,17 +1,23 @@
-import { getAllData } from "./updateFirestoreDatabaseField";
+import { database } from "../../config";
 
+// Looks up a profile by phone number.
+// Call this only AFTER the user has signed in: the Firestore rules only let
+// signed-in users read profiles.
 async function verifyUserInDatabaseBeforeSignin(number) {
-  let isVerified = false;
+  if (!number) return false;
 
-  const allUserData = await getAllData("all-users");
+  try {
+    const snapshot = await database
+      .collection("all-users")
+      .where("phonenumber", "==", number)
+      .limit(1)
+      .get();
 
-  allUserData.find((data) => {
-    if (data.phonenumber === number) {
-      isVerified = true;
-    }
-  });
-
-  return isVerified;
+    return !snapshot.empty;
+  } catch (error) {
+    console.log("Error checking user in database:", error);
+    return false;
+  }
 }
 
 export default verifyUserInDatabaseBeforeSignin;
