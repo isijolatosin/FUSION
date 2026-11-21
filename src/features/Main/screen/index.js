@@ -160,7 +160,7 @@ const Index = ({ navigation }) => {
       for (let i = 0; i < returningData.length; i++) {
         if (
           returningData[i]?.country === currentUserData?.country ||
-          Constants.expoConfig.extra.eas.adminKey === currentUserData.role // remove admin see all users later
+          currentUserData?.role === "ADMIN" // remove admin see all users later
         ) {
           filterOffByCountryProfiles.push(returningData[i]);
         }
@@ -665,8 +665,7 @@ const Index = ({ navigation }) => {
               <Spacer position="bottom" size="small">
                 <NavigationBar height={theme.spaceNumberBy10[2]}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    {currentUser?.role ===
-                      Constants.expoConfig.extra.eas.adminKey && (
+                    {currentUser?.role === "ADMIN" && (
                       <View style={{ marginRight: theme.spaceNumber[5] }}>
                         <BrandAvatarO theme={theme} />
                       </View>
