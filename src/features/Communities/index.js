@@ -122,7 +122,7 @@ export default function Index() {
     for (let i = 0; i < otherProfileData.length; i++) {
       if (
         otherProfileData[i]?.country === currentUserData?.country ||
-        Constants.expoConfig.extra.eas.adminKey === currentUserData.role // remove "admin see all users" later
+        currentUserData?.role === "ADMIN" // remove "admin see all users" later
       ) {
         filterOffByCountryProfiles.push(otherProfileData[i]);
       }
