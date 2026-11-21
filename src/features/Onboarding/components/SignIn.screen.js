@@ -26,7 +26,7 @@ import {
 } from "../../../utilities/validateEmail";
 import { Text } from "../../../components/typography/text.component";
 import { storeData } from "../../../utilities/storeDataInPhoneMemory";
-import verifyUserInDatabaseBeforeSignin from "../../../utilities/verifyUserInDatabaseBeforeSignIn";
+import checkPhoneOwnership from "../../../utilities/checkPhoneOwnership";
 import ProgressBar from "../../../components/general-component/ProgressiveBar";
 
 export default function SignIn({ navigation }) {
@@ -111,6 +111,33 @@ export default function SignIn({ navigation }) {
       }, 400);
 
       await auth.signInWithEmailAndPassword(email, password);
+
+      // Only continue if this phone number is new or belongs to this account.
+      // Otherwise anyone could sign in with their own email plus another
+      // person's phone number and open that person's profile.
+      const phoneStatus = await checkPhoneOwnership(
+        formattedPhonenumber,
+        auth.currentUser?.email
+      );
+      if (phoneStatus === "taken") {
+        await auth.signOut();
+        clearInterval(intervl);
+        setLoading(false);
+        setProgress(0);
+        setFormValidate({
+          code: false,
+          phonenumber: false,
+          email: true,
+          password: true,
+        });
+        setLogMessage({
+          message:
+            "This phone number is linked to a different account. Please check your phone number and email.",
+          code: "error",
+        });
+        return;
+      }
+
       storeData("phonenumber", formattedPhonenumber);
 
       const emailPswdId = setTimeout(() => {
@@ -139,9 +166,7 @@ export default function SignIn({ navigation }) {
           code: "",
         });
 
-        const isVerifyUser = await verifyUserInDatabaseBeforeSignin(
-          formattedPhonenumber
-        );
+        const isVerifyUser = phoneStatus === "owner";
         if (isVerifyUser) {
           navigation.navigate("main", { phonenumber: phonenumber });
         } else {
